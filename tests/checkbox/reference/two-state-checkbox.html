@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8" />
+  <title>'div' element with role 'checkbox', two state</title>
+  <link href="checkbox.css" rel="stylesheet">
+  <script src="two-state-checkbox.js" type="text/javascript"></script>
+</head>
+<body>
+  <div role="checkbox"
+       aria-checked="false"
+       tabindex="0">
+    Receive Mail
+  </div>
+  <script type="text/javascript">
+    window.onload = function () {
+      var checkbox = document.querySelector('[role="checkbox"]');
+      var cb = new Checkbox(checkbox);
+      cb.init();
+    };
+  </script>
+</body>

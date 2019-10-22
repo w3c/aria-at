@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Checkbox role, name and state are communicated when navigating to checkbox.</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<script src="/resources/ariaatharness.js">
+<script>
+
+  openTestPage("reference/two-state-checkbox.html");
+
+  presentATTest({
+    mode: ["reading", "interaction"],
+    action: "navigation",
+    assertion: [
+      "The role 'group' is announced",
+      "The name 'Sandwich Condiments' is announced",
+      "The state of the checkbox (not checked) is communicated"
+    ],
+    onPartialFailure: (failedInstruction) => { return `
+       <div>
+         <input type="checkbox" id="role-${failedInstruction}" name="role-${failedInstruction}" value="Role was not announced.">
+         <label for="role-${failedInstruction}">Role was not announced.</label>
+       </div>
+       <div>
+         <input type="checkbox" id="name-${failedInstruction}" name="name-${failedInstruction}" value="Name was not announced.">
+         <label for="name-${failedInstruction}">Name was not announced.</label>
+       </div>
+       <div>
+         <input type="checkbox" id="state-${failedInstruction}" name="state-${failedInstruction}" value="State was not announced.">
+         <label for="state-${failedInstruction}">State was not communicated.</label>
+       </div>
+`}
+  });
+
+  /* Mark checkboxes checked */
+  executeScriptInTestPage(function () {
+    const checkbox = document.querySelector('[role="checkboxes"]');
+    checkbox.setAttribute('aria-checked', 'true');
+  });
+
+  presentATTest({
+    mode: ["reading", "interaction"],
+    action: "navigation"
+    assertion: [
+      "The role 'checkbox' is announced",
+      "The name 'Receive Mail' is announced",
+      "The state of the checkbox (checked) is communicated"
+    ],
+    onPartialFailure: (failedInstruction) => { return `
+       <div>
+         <input type="checkbox" id="role-${failedInstruction}" name="role-${failedInstruction}" value="Role was not announced.">
+         <label for="role-${failedInstruction}">Role was not announced.</label>
+       </div>
+       <div>
+         <input type="checkbox" id="name-${failedInstruction}" name="name-${failedInstruction}" value="Name was not announced.">
+         <label for="name-${failedInstruction}">Name was not announced.</label>
+       </div>
+       <div>
+         <input type="checkbox" id="state-${failedInstruction}" name="state-${failedInstruction}" value="State was not announced.">
+         <label for="state-${failedInstruction}">State was not communicated.</label>
+       </div>
+`}
+  });
+
+
+  /* TODO: should we set the checkbox to a mixed state and preform the same test? */
+
+</script>

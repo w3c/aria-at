@@ -12,17 +12,24 @@
 
   presentATTest({
     mode: ["reading", "interaction"],
-    action: "operate checkbox",
+    task: "operate checkbox",
     assertion: [
       "The change in the state of the checkbox (from not checked to checked) is communicated"
     ],
   });
 
+
+  /* Make sure the checkbox is marked as checked for the next task */
+  executeScriptInTestPage(function () {
+    const checkbox = document.querySelector('[role="checkboxes"]');
+    checkbox.setAttribute('aria-checked', 'true');
+  });
+
   presentATTest({
     mode: ["reading", "interaction"],
-    action: "operate checkbox",
+    task: "operate checkbox",
     assertion: [
-      "The change in the state of the checkbox (from checked to not check) is communicated"
+      "The change in the state of the checkbox (from checked to not checked) is communicated"
     ],
   });
 

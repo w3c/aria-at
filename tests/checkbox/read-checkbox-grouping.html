@@ -13,7 +13,7 @@
 
   presentATTest({
     mode: ["reading", "interaction"],
-    action: "navigation",
+    task: "navigate through boundaries of checkbox group",
     assertion: [
       "The role 'group' is announced",
       "The group's name 'Sandwich Condiments' is announced",
@@ -29,9 +29,14 @@
          <label for="name-${failedInstruction}">Name was not announced.</label>
        </div>
        <div>
-         <input type="checkbox" id="boundaries-${failedInstruction}" name="state-${boundariesInstruction}" value="Boundaries were not announced.">
-         <label for="state-${failedInstruction}">Boundaries were not communicated.</label>
+         <input type="checkbox" id="boundaries-${failedInstruction}" name="state-${boundariesInstruction}" value="Initial boundary was not communicated.">
+         <label for="state-${failedInstruction}">Initial boundaries was not communicated.</label>
        </div>
+       <div>
+         <input type="checkbox" id="boundaries-${failedInstruction}" name="state-${boundariesInstruction}" value="End boundary was not communicated.">
+         <label for="state-${failedInstruction}">End boundary was not communicated.</label>
+       </div>
+
 `}
     });
 </script>

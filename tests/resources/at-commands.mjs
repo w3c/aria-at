@@ -1,6 +1,6 @@
 
 const KNOWN_ATS = {
-  jaws: true
+  jaws: 'JAWS'
 }
 
 /* Add new commands here */
@@ -68,14 +68,16 @@ const MODE_INSTRUCTIONS = {
 };
 
 // TODO: handle errors
-export function getATCommands(mode, task, at) {
+export function getATCommands(mode, task, assistiveTech) {
+  const at = assistiveTech.toLowerCase();
   if (AT_COMMAND_MAP[task] && AT_COMMAND_MAP[task][mode] && AT_COMMAND_MAP[task][mode][at]) {
     return AT_COMMAND_MAP[task][mode][at];
   }
   return [];
 }
 
-export function getModeInstructions(mode, at) {
+export function getModeInstructions(mode, assistiveTech) {
+  const at = assistiveTech.toLowerCase();
   if (MODE_INSTRUCTIONS[mode] && MODE_INSTRUCTIONS[mode][at]) {
     return MODE_INSTRUCTIONS[mode][at];
   }

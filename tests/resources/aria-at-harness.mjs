@@ -1,7 +1,7 @@
 import {isKnownAT, getATCommands, getModeInstructions} from './at-commands.mjs';
 
-const DEFAULT_AT = 'jaws';
-const DEFAULT_RESULTS = ['Success', 'Complete Failure', 'Partial Failure'];
+const DEFAULT_AT = 'JAWS';
+const DEFAULT_RESULTS = ['All Pass', 'All Fail', 'Some Fail'];
 
 const TEST_HTML_OUTLINE = `
 <section id='errors' style='display:none'><h2>Test cannot be performed due to loading error(s).</h2></section>
@@ -43,7 +43,7 @@ export function presentATTest(test) {
   if (window.location.hash) {
     let requestedAT = window.location.hash.slice(1);
     if (isKnownAT(requestedAT)) {
-      at = requestedAT;
+      at = isKnownAT(requestedAT);
     }
     else {
       showUserError(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${DEFAULT_AT}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
@@ -54,8 +54,8 @@ export function presentATTest(test) {
   instructionsEl.innerHTML = `
 <h2>Test Instructions</h2>
 <ol>
-  <li>${modeInstructions}.</li>
-  <li>Then, ${userInstructions} using each of the following ${at} controls:</li>
+  <li><em>${modeInstructions}</em></li>
+  <li>Then, <em>${userInstructions}</em> using each of the following <emp>${at}<emp> controls:</li>
   <ul id='at_controls' aria-label='AT controls'>
   </ul>
 </ol>
@@ -67,20 +67,20 @@ export function presentATTest(test) {
 
   for (let command of commands) {
     let el = document.createElement('li');
-    el.innerText = command;
+    el.innerHTML = `<em>${command}</em>`;
     document.getElementById('at_controls').append(el);
   }
 
   for (let assertion of assertions) {
     let el = document.createElement('li');
-    el.innerText = assertion;
+    el.innerHTML = `<em>${assertion}</em>`;
     document.getElementById('assertions').append(el);
   }
 
   handleResult = (result) => function () {
     let testResultsList = [];
 
-    if ( result === 'Success') {
+    if ( result === 'All Pass') {
       let cmds = commands.join(", ");
       for (let assertion of assertions) {
 	testResultsList.push({
@@ -91,7 +91,7 @@ export function presentATTest(test) {
       }
       displayResults(testResultsList, 'pass');
     }
-    if (result === 'Complete Failure') {
+    if (result === 'All Fail') {
       let cmds = commands.join(", ");
       for (let assertion of assertions) {
 	testResultsList.push({
@@ -102,7 +102,7 @@ export function presentATTest(test) {
       }
       displayResults(testResultsList, 'fail');
     }
-    if (result === 'Partial Failure') {
+    if (result === 'Some Fail') {
       displayStructuredFailure(assertions, commands);
     }
   };
@@ -150,15 +150,17 @@ function displayResults(testResults, status) {
   submitEl.innerHTML = structuredResults;
 }
 
-// TODO: save state when changing between buttons
 function displayStructuredFailure(assertions, commands) {
+  // TODO: save state when changing between buttons
+  // This should operate like a tab
+
   let structuredResults = `<h4>To record a partial failure, mark commands as failing and supply failing utterance</h4><p>PARTIAL FAILURE: ${document.title}</p>`;
 
   structuredResults += '<table>';
 
   let i = 0;
   for (let assertion of assertions) {
-    structuredResults += `<tr><td colspan="2"><b>Failures for assertion:</b> ${assertion}</td></tr>`;
+    structuredResults += `<tr><td colspan="2">Failures for assertion: ${assertion}</td></tr>`;
     for (let cmd of commands) {
     structuredResults += `
 <tr>
@@ -181,7 +183,7 @@ function displayStructuredFailure(assertions, commands) {
   submitEl.innerHTML = structuredResults;
 
 
-  // TODO: onclick handler that "submits" results
+  // TODO: onclick handler that "submits" results to call "reportResults"
   let testResults = [];
 
 }
@@ -194,7 +196,7 @@ function showUserError(msg) {
   errorsEl.append(errorMsgEl);
 }
 
-function dump_test_results(testResults, status) {
+function reportResults(testResults, status) {
   var results_element = document.createElement("script");
   results_element.type = "text/json";
   results_element.id = "__ariaatharness__results__";

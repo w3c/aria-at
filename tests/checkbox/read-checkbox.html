@@ -5,15 +5,16 @@
 <link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
-<script src="/resources/ariaatharness.js">
-<script>
+<script type="module">
+  import { openTestPage, presentATTest, executeScriptInTestPage } from "../resources/aria-at-harness.mjs";
 
   openTestPage("reference/two-state-checkbox.html");
 
   presentATTest({
     mode: ["reading", "interaction"],
-    task: "navigate to the first checkbox",
-    assertion: [
+    task: "navigate to checkbox",
+    specific_user_instruction: "navigate to the first checkbox",
+    assertions: [
       "The role 'checkbox' is announced",
       "The name 'Lettuce' is announced",
       "The state of the checkbox (not checked) is communicated"
@@ -42,8 +43,9 @@
 
   presentATTest({
     mode: ["reading", "interaction"],
-    task: "navigate to the first checkbox"
-    assertion: [
+    task: "navigate to checkbox",
+    specific_user_instruction: "navigate to the first checkbox",
+    assertions: [
       "The role 'checkbox' is announced",
       "The name 'Lettuce' is announced",
       "The state of the checkbox (checked) is communicated"

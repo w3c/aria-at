@@ -6,15 +6,16 @@
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 <link rel="help" href="https://w3c.github.io/aria/#group">
-<script src="/resources/ariaatharness.js">
-<script>
+<script type="module">
+  import { openTestPage, presentATTest } from "../resources/aria-at-harness.mjs";
 
   openTestPage("reference/two-state-checkbox.html");
 
   presentATTest({
     mode: ["reading", "interaction"],
-    task: "navigate through boundaries of checkbox group",
-    assertion: [
+    task: "navigate to checkbox group",
+    specific_user_instruction: "navigate through boundaries of checkbox group",
+    assertions: [
       "The role 'group' is announced",
       "The group's name 'Sandwich Condiments' is announced",
       "The boundaries of the group (before the first checkbox and after the last checkbox) are communicated"

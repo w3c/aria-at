@@ -6,18 +6,18 @@
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 <script type="module">
-  import { openTestPage, presentATTest } from "../resources/aria-at-harness.mjs";
+  import { verifyATBehavoir, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  openTestPage("reference/two-state-checkbox.html");
-
-  presentATTest({
+  verifyATBehavoir({
     mode: ["reading", "interaction"],
     task: "operate checkbox",
     specific_user_instruction: "check and uncheck the first checkbox",
     assertions: [
-      "The change in the state of the checkbox (from not checked to checked) is communicated when checking the checkbox",
-      "The change in the state of the checkbox (from checked to not checked) is communicated when unchecking the checkbox"
+      "The change in the state of the checkbox is communicated when the box is unchecked.",
+      "The change in the state of the checkbox is communicated when the box is checked."
     ],
   });
+
+  displayTestPageAndInstructions("reference/two-state-checkbox.html");
 
 </script>

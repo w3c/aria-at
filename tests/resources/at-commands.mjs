@@ -14,7 +14,7 @@ const AT_COMMAND_MAP = {
         "X quick key",
         "Tab/Shift+Tab",
         "Up/Down",
-        "Left/Right (Smart Nav On)]"
+        "Left/Right (Smart Nav On)"
       ]
     },
     interaction: {

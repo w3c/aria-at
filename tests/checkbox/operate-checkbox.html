@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>State change is announced when operating a checkbox.</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<script src="/resources/ariaatharness.js">
+<script>
+
+  openTestPage("reference/two-state-checkbox.html");
+
+  presentATTest({
+    mode: ["reading", "interaction"],
+    task: "operate the first checkbox",
+    assertion: [
+      "The change in the state of the checkbox (from not checked to checked) is communicated"
+    ],
+  });
+
+
+  /* Make sure the checkbox is marked as checked for the next task */
+  executeScriptInTestPage(function () {
+    const checkboxes = document.querySelectorAll('[role="checkboxes"]');
+    checkboxes[0].setAttribute('aria-checked', 'true');
+  });
+
+  presentATTest({
+    mode: ["reading", "interaction"],
+    task: "operate the first checkbox",
+    assertion: [
+      "The change in the state of the checkbox (from checked to not checked) is communicated"
+    ],
+  });
+
+</script>

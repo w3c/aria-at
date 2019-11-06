@@ -28,8 +28,9 @@ const PAGE_STYLES = `
 `;
 
 const allBehaviors = [];
+const allBehaviorResults = [];
 let currentTestedBehavior = 0;
-let allBehaviorResults = [];
+let testPageWindow;
 
 let at = DEFAULT_AT;
 if (window.location.hash) {
@@ -42,8 +43,24 @@ if (window.location.hash) {
   }
 }
 
-export function executeScriptInTestPage(page) {
-  console.log(`TODO: execute script in page.`);
+export function executeScriptInTestPage() {
+  let func = allBehaviors[currentTestedBehavior].setupTestPage;
+  if (func) {
+    if (testPageWindow.document.readyState !== 'complete') {
+      window.setTimeout(() => {
+	executeScriptInTestPage();
+      }, 100);
+      return;
+    }
+
+    // TODO: replace this with postMessage. This is simply to show the concept in the example tests so far.
+    let stringFunction = func.toString();
+    let body = stringFunction.substring(stringFunction.indexOf("{") + 1, stringFunction.lastIndexOf("}"));
+
+    let script = document.createElement('script');
+    script.innerHTML = body;
+    testPageWindow.document.body.append(script);
+  }
 }
 
 export function verifyATBehavoir(behavior) {
@@ -52,15 +69,15 @@ export function verifyATBehavoir(behavior) {
   allBehaviors.push(behavior);
 }
 
-export function displayTestPageAndInstructions() {
-  console.log(`TODO: open test page`);
-
+export function displayTestPageAndInstructions(testPage) {
   if (document.readyState !== 'complete') {
     window.setTimeout(() => {
-      displayTestPageAndInstructions();
-    }, 200);
+      displayTestPageAndInstructions(testPage);
+    }, 100);
     return;
   }
+
+  testPageWindow = window.open(testPage, '_blank', 'toolbar=0,location=0,menubar=0');
 
   var style = document.createElement('style');
   style.innerHTML = PAGE_STYLES;
@@ -72,6 +89,9 @@ export function displayTestPageAndInstructions() {
 }
 
 function displayInstructionsForBehaviorTest(behaviorId) {
+  // First, execute necesary set up script in test page
+  executeScriptInTestPage();
+
   const totalBehaviors = allBehaviors.length;
   const behavior = allBehaviors[behaviorId];
   document.body.innerHTML = (TEST_HTML_OUTLINE);
@@ -322,6 +342,8 @@ function endTest() {
 
   document.body.innerHTML = resulthtml;
   document.querySelector('#overallstatus').innerHTML = status;
+
+  testPageWindow.close();
 }
 
 

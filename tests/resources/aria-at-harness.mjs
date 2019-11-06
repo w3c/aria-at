@@ -104,7 +104,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
-<h1>Testing behavior ${behaviorId+1} of ${totalBehaviors}</h1>
+<h1 id="behavior-header" tabindex="0">Testing behavior ${behaviorId+1} of ${totalBehaviors}</h1>
 <h2>Instructions</h2>
 <ol>
   <li><em>${modeInstructions}</em></li>
@@ -188,6 +188,8 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   el.value = behaviorId;
   el.addEventListener('click', submitResult);
   recordEl.append(el);
+
+  document.querySelector('#behavior-header').focus();
 }
 
 

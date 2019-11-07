@@ -14,7 +14,7 @@ const PAGE_STYLES = `
     margin-bottom: 1em;
   }
 
-  table, td {
+  table, td, th {
     border: 1px solid black;
   }
 
@@ -169,19 +169,30 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   let recordResults = `<h2>Record Results</h2><p>${document.title}</p>`;
 
   for (let c = 0; c < commands.length; c++) {
+    recordResults += `<h3 id="cmd-${c}">Results for command: '${commands[c]}'</h3>`;
+    recordResults += `
+<p>
+    <label for="speechoutput-${c}">Speech output after command:</label>
+    <input type="text" id="speechoutput-${c}">
+</p>
+`;
+
     recordResults += `<table id="cmd-${c}" class="record-results">
 <tr>
-  <td>Results for command: ${commands[c]}</td>
-  <td>
-    <input type="checkbox" id="allpass-${c}" class="allpass" name="allpass">
-    <label for="allpass-${c}">All Pass</label>
-  </td>
-  <td>
-    <input type="checkbox" id="allfail-${c}" class="allfail" name="allfail">
-    <label for="allfaill-${c}">All Fail</label>
-  </td>
-  <td>Last Utterance</td>
-  <td>Other Details</td>
+  <th></th>
+  <th>
+      <input type="radio" id="allcorrect-${c}" class="allcorrect" name="allresults-${c}">
+      <label for="allcorrect-${c}">All Correct Output</label>
+  </th>
+  <th>
+      <input type="radio" id="allincomplete-${c}" class="allincomplete" name="allresults-${c}">
+      <label for="allincomplete-${c}">All Incomplete Output</label>
+  </th>
+  <th>
+      <input type="radio" id="allincorrect-${c}" class="allincorrect" name="allresults-${c}">
+      <label for="allincorrect-${c}">All Incorrect Output</label>
+  </th>
+  <th>Other Details</th>
 </tr>
 `;
 
@@ -190,15 +201,16 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 <tr>
   <td>${assertions[a]}</td>
   <td>
-    <input type="checkbox" id="pass-${c}-${a}" class="pass" name="pass-${c}-${a}">
-    <label for="pass-${c}-${a}">Pass</label>
+      <input type="radio" id="correct-${c}-${a}" class="correct" name="result-${c}-${a}">
+      <label for="correct-${c}-${a}">Correct Output</label>
   </td>
   <td>
-    <input type="checkbox" id="fail-${c}-${a}" class="fail" name="fail-${c}-${a}">
-    <label for="fail-${c}-${a}">Fail</label>
+      <input type="radio" id="incomplete-${c}-${a}" class="incomplete" name="result-${c}-${a}">
+      <label for="incomplete-${c}-${a}">Incomplete Output</label>
   </td>
   <td>
-    <input type="text" id="utterance-${c}-${a}">
+      <input type="radio" id="incorrect-${c}-${a}" class="incorrect" name="result-${c}-${a}">
+      <label for="incorrect-${c}-${a}">Incorrect Output</label>
   </td>
   <td>
     <input type="text" id="info-${c}-${a}">
@@ -206,16 +218,18 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 </tr>
 `;
     }
+
+    recordResults += '</table>';
   }
 
-  recordResults += '</table>';
+  console.log(recordResults);
 
   let recordEl = document.getElementById('record-results');
   recordEl.innerHTML = recordResults;
 
-  let checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  for (let checkbox of checkboxes) {
-    checkbox.onclick = handleCheck;
+  let radios = document.querySelectorAll('input[type="radio"]');
+  for (let radio of radios) {
+    radio.onclick = handleRadioClick;
   }
 
   // Submit button
@@ -229,64 +243,38 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 }
 
 
-function handleCheck(event) {
-  let checked = event.target.checked;
-  let checkboxId = event.target.id;
-  let cmdId = Number(checkboxId.split('-')[1]);
+function handleRadioClick(event) {
+  let radioId = event.target.id;
+  let cmdId = Number(radioId.split('-')[1]);
 
-  if (checked && checkboxId.indexOf('allpass') === 0) {
-    let passCheckboxes = document.querySelectorAll(`#cmd-${cmdId} .pass`);
-    for (let checkbox of passCheckboxes) {
-      checkbox.checked = true;
-    }
-    let failCheckboxes = document.querySelectorAll(`#cmd-${cmdId} .fail`);
-    for (let checkbox of failCheckboxes) {
-      checkbox.checked = false;
-    }
-    let allfailCheckbox = document.querySelector(`#cmd-${cmdId} #allfail-${cmdId}`);
-    allfailCheckbox.checked = false;
-  }
+  if (radioId.indexOf('all') === 0) {
+    let markedAllAs = radioId.split('-')[0].substring(3);
 
-  else if (checked && checkboxId.indexOf('allfail') === 0) {
-    let passCheckboxes = document.querySelectorAll(`#cmd-${cmdId} .pass`);
-    for (let checkbox of passCheckboxes) {
-      checkbox.checked = false;
-    }
-    let failCheckboxes = document.querySelectorAll(`#cmd-${cmdId} .fail`);
-    for (let checkbox of failCheckboxes) {
-      checkbox.checked = true;
-    }
-    let allpassCheckbox = document.querySelector(`#cmd-${cmdId} #allpass-${cmdId}`);
-    allpassCheckbox.checked = false;
-  }
+    for (let resultType of ['correct', 'incomplete', 'incorrect']) {
+      let radios = document.querySelectorAll(`#cmd-${cmdId} .${resultType}`);
+      let checked = markedAllAs === resultType ? true : false;
 
-  else if (checked && checkboxId.indexOf('pass') === 0) {
-    let allfailCheckbox = document.querySelector(`#cmd-${cmdId} #allfail-${cmdId}`);
-    allfailCheckbox.checked = false;
-
-    let assertionId = Number(checkboxId.split('-')[2]);
-    let passCheckbox = document.querySelector(`#cmd-${cmdId} #fail-${cmdId}-${assertionId}`);
-    passCheckbox.checked = false;
-
-    let passCheckboxes = document.querySelectorAll(`#cmd-${cmdId} .pass:checked`);
-    if (passCheckboxes.length === allBehaviors[currentTestedBehavior].assertions.length) {
-      let allpassCheckbox = document.querySelector(`#cmd-${cmdId} #allpass-${cmdId}`);
-      allpassCheckbox.checked = true;
+      for (let radio of radios) {
+	radio.checked = checked;
+      }
     }
   }
 
-  else if (checked && checkboxId.indexOf('fail') === 0) {
-    let allpassCheckbox = document.querySelector(`#cmd-${cmdId} #allpass-${cmdId}`);
-    allpassCheckbox.checked = false;
+  else {
+    let markedAs = radioId.split('-')[0];
+    let allRadioIsMarkedAs = document.querySelector(`#cmd-${cmdId} .all${markedAs}:checked`);
 
-    let assertionId = Number(checkboxId.split('-')[2]);
-    let passCheckbox = document.querySelector(`#cmd-${cmdId} #pass-${cmdId}-${assertionId}`);
-    passCheckbox.checked = false;
+    if (!allRadioIsMarkedAs) {
+      let headerRadios = document.querySelectorAll(`#cmd-${cmdId} th input[type="radio"]`);
+      for (let radio of headerRadios) {
+	radio.checked = false;
+      }
 
-    let failCheckboxes = document.querySelectorAll(`#cmd-${cmdId} .fail:checked`);
-    if (failCheckboxes.length === allBehaviors[currentTestedBehavior].assertions.length) {
-      let allfailCheckbox = document.querySelector(`#cmd-${cmdId} #allfail-${cmdId}`);
-      allfailCheckbox.checked = true;
+      let markedRadiosOfType = document.querySelectorAll(`#cmd-${cmdId} .${markedAs}:checked`);
+      if (markedRadiosOfType.length === allBehaviors[currentTestedBehavior].assertions.length) {
+	let allradio = document.querySelector(`#cmd-${cmdId} #all${markedAs}-${cmdId}`);
+	allradio.checked = true;
+      }
     }
   }
 }
@@ -294,48 +282,64 @@ function handleCheck(event) {
 function submitResult(event) {
   let assertionResults = [];
   for (let a = 0; a < allBehaviors[currentTestedBehavior].assertions.length; a++) {
-    assertionResults.push({pass: [], fail: []});
+    assertionResults.push({correct: [], incorrect: [], incomplete: []});
   }
 
   for (let c = 0; c <= allBehaviors[currentTestedBehavior].commands.length; c++) {
-    let failures = document.querySelectorAll(`#cmd-${c} .fail:checked`);
+    let failures = document.querySelectorAll(`#cmd-${c} .incorrect:checked`);
     for (let failure of failures) {
       let assertionId = Number(failure.id.split('-')[2]);
-      assertionResults[assertionId].fail.push({
+      assertionResults[assertionId].incorrect.push({
 	cmd: allBehaviors[currentTestedBehavior].commands[c],
-	lastUtterance: document.querySelector(`#cmd-${c} #utterance-${c}-${assertionId}`).value,
 	otherInfo: document.querySelector(`#cmd-${c} #info-${c}-${assertionId}`).value
       });
     }
 
-    let successes = document.querySelectorAll(`#cmd-${c} .pass:checked`);
+    let successes = document.querySelectorAll(`#cmd-${c} .correct:checked`);
     for (let success of successes) {
       let assertionId = Number(success.id.split('-')[2]);
-      assertionResults[assertionId].pass.push({
+      assertionResults[assertionId].correct.push({
 	cmd: allBehaviors[currentTestedBehavior].commands[c],
-	lastUtterance: document.querySelector(`#cmd-${c} #utterance-${c}-${assertionId}`).value,
+	otherInfo: document.querySelector(`#cmd-${c} #info-${c}-${assertionId}`).value
+      });
+    }
+
+    let incompletes = document.querySelectorAll(`#cmd-${c} .incomplete:checked`);
+    for (let incomplete of incompletes) {
+      let assertionId = Number(incomplete.id.split('-')[2]);
+      assertionResults[assertionId].incomplete.push({
+	cmd: allBehaviors[currentTestedBehavior].commands[c],
 	otherInfo: document.querySelector(`#cmd-${c} #info-${c}-${assertionId}`).value
       });
     }
   }
 
   let behaviorResults = [];
-  let behaviorPassed = 'PASS';
+  let overallBehaviorResult = 'PASS';
   for (let a = 0; a < assertionResults.length; a++) {
     let assertionResult = assertionResults[a];
     let assertionName = allBehaviors[currentTestedBehavior].assertions[a];
-    let status = assertionResult.fail.length === 0 ? 'PASS' : 'FAIL';
+
+    // The status is fail if anything fails, or incomplete if nothing fails but somethings are incomplete
+    let status = assertionResult.incomplete.length === 0 ? 'PASS' : 'INCOMPLETE';
+    status = assertionResult.incorrect.length === 0 ? status : 'FAIL';
+
     behaviorResults.push({
       name: assertionName,
       status: status,
       details: assertionResult
     });
 
-    behaviorPassed = status === 'FAIL' ? 'FAIL' : 'PASS';
+    if (status === 'FAIL') {
+      overallBehaviorResult = 'FAIL';
+    }
+    else if (status === 'INCOMPLETE' && overallBehaviorResult === 'PASS') {
+      overallBehaviorResult = 'INCOMPLETE';
+    }
   }
 
   allBehaviorResults.push({
-    status: behaviorPassed,
+    status: overallBehaviorResult,
     assertionResults: behaviorResults,
     task: allBehaviors[currentTestedBehavior].specific_user_instruction
   });
@@ -355,22 +359,32 @@ function endTest() {
 
   let status = 'PASS';
   for (let result of allBehaviorResults) {
-    status = result.status === 'FAIL' ? 'FAIL' : 'PASS';
+
+    if (result.status === 'FAIL') {
+      status = 'FAIL';
+    }
+    else if (result.status === 'INCOMPLETE' && status === 'PASS') {
+      status = 'INCOMPLETE';
+    }
 
     resulthtml += `<p>After user task "${result.task}", the following behavior was observed:<p>`;
     resulthtml += `<table>`;
     for (let assertionResult of result.assertionResults) {
       resulthtml += `<tr><td>${assertionResult.status}</td><td>${assertionResult.name}</td>`
 
-      let failingCmds = assertionResult.details.fail.map((f) => f.cmd);
-      let passingCmds = assertionResult.details.pass.map((p) => p.cmd);
+      let failingCmds = assertionResult.details.incorrect.map((f) => f.cmd);
+      let passingCmds = assertionResult.details.correct.map((p) => p.cmd);
+      let incompleteCmds = assertionResult.details.incomplete.map((p) => p.cmd);
 
       resulthtml += '<td><ul>'
-      if (failingCmds.length) {
-	resulthtml += `<li>Failed for commands: ${failingCmds.join(', ')}.</li>`;
-      }
       if (passingCmds.length) {
 	resulthtml += `<li>Passed for commands: ${passingCmds.join(', ')}.</li>`;
+      }
+      if (failingCmds.length) {
+	resulthtml += `<li>Incorrect information supplied after commands: ${failingCmds.join(', ')}.</li>`;
+      }
+      if (incompleteCmds.length) {
+	resulthtml += `<li>Incomplete or no information supplied for commands: ${incompleteCmds.join(', ')}.</li>`;
       }
       resulthtml += '</ul></td>'
       resulthtml += '</tr>'

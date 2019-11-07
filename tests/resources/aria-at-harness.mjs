@@ -30,6 +30,7 @@ const PAGE_STYLES = `
 const allBehaviors = [];
 const allBehaviorResults = [];
 let currentTestedBehavior = 0;
+let testPageUri;
 let testPageWindow;
 
 let at = DEFAULT_AT;
@@ -43,9 +44,33 @@ if (window.location.hash) {
   }
 }
 
-export function executeScriptInTestPage() {
-  let func = allBehaviors[currentTestedBehavior].setupTestPage;
-  if (func) {
+function openTestPagePopup() {
+  testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
+
+  document.getElementById('open-test-page').disabled = true;
+
+  // If the window is closed, re-enable open popup button
+  testPageWindow.onunload = function(event) {
+    window.setTimeout(() => {
+      if (testPageWindow.closed) {
+	testPageWindow = undefined;
+	document.getElementById('open-test-page').disabled = false;
+      }
+    }, 100);
+
+  };
+
+  executeScriptInTestPage();
+}
+
+function putTestPageWindowIntoCorrectState() {
+  // testPageWindow.location.reload(); // TODO: Address the race condition this causes with script execution.
+  executeScriptInTestPage();
+}
+
+function executeScriptInTestPage() {
+  let setupTestPage = allBehaviors[currentTestedBehavior].setupTestPage;
+  if (setupTestPage) {
     if (testPageWindow.document.readyState !== 'complete') {
       window.setTimeout(() => {
 	executeScriptInTestPage();
@@ -53,8 +78,8 @@ export function executeScriptInTestPage() {
       return;
     }
 
-    // TODO: replace this with postMessage. This is simply to show the concept in the example tests so far.
-    let stringFunction = func.toString();
+    // TODO: is there a better way to handle this.
+    let stringFunction = setupTestPage.toString();
     let body = stringFunction.substring(stringFunction.indexOf("{") + 1, stringFunction.lastIndexOf("}"));
 
     let script = document.createElement('script');
@@ -70,14 +95,14 @@ export function verifyATBehavoir(behavior) {
 }
 
 export function displayTestPageAndInstructions(testPage) {
+  testPageUri = testPage;
+
   if (document.readyState !== 'complete') {
     window.setTimeout(() => {
       displayTestPageAndInstructions(testPage);
     }, 100);
     return;
   }
-
-  testPageWindow = window.open(testPage, '_blank', 'toolbar=0,location=0,menubar=0');
 
   var style = document.createElement('style');
   style.innerHTML = PAGE_STYLES;
@@ -89,8 +114,10 @@ export function displayTestPageAndInstructions(testPage) {
 }
 
 function displayInstructionsForBehaviorTest(behaviorId) {
-  // First, execute necesary set up script in test page
-  executeScriptInTestPage();
+  // First, execute necesary set up script in test page if the test page is open from a previous behavior test
+  if (testPageWindow) {
+    putTestPageWindowIntoCorrectState();
+  }
 
   const totalBehaviors = allBehaviors.length;
   const behavior = allBehaviors[behaviorId];
@@ -129,6 +156,15 @@ function displayInstructionsForBehaviorTest(behaviorId) {
     el.innerHTML = `<em>${assertion}</em>`;
     document.getElementById('assertions').append(el);
   }
+
+  let openButton = document.createElement('button');
+  openButton.id = 'open-test-page'
+  openButton.innerText = "Open Test Page";
+  openButton.addEventListener('click', openTestPagePopup);
+  if (testPageWindow) {
+    openButton.disabled = true;
+  }
+  document.getElementById('instructions').append(openButton);
 
   let recordResults = `<h2>Record Results</h2><p>${document.title}</p>`;
 

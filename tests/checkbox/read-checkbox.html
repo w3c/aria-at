@@ -21,9 +21,8 @@
 
   verifyATBehavoir({
     // Mark the first checkbox as checked before the next test
-    setupTestPage: function setupTestPage() {
-      console.log("executing setupTestPage");
-      const checkboxes = document.querySelectorAll('[role="checkbox"]');
+    setupTestPage: function setupTestPage(testPageDocument) {
+      const checkboxes = testPageDocument.querySelectorAll('[role="checkbox"]');
       checkboxes[0].setAttribute('aria-checked', 'true');
     },
     mode: ["reading", "interaction"],

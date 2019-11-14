@@ -78,13 +78,7 @@ function executeScriptInTestPage() {
       return;
     }
 
-    // TODO: is there a better way to handle this.
-    let stringFunction = setupTestPage.toString();
-    let body = stringFunction.substring(stringFunction.indexOf("{") + 1, stringFunction.lastIndexOf("}"));
-
-    let script = document.createElement('script');
-    script.innerHTML = body;
-    testPageWindow.document.body.append(script);
+    setupTestPage(testPageWindow.document);
   }
 }
 

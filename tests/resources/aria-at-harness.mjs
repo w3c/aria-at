@@ -349,7 +349,7 @@ function submitResult(event) {
 }
 
 function endTest() {
-  let resulthtml = `<h1>Results for test: ${document.title}</h1><h2 id=overallstatus></h2>`;
+  let resulthtml = `<h1>${document.title}</h1><h2 id=overallstatus></h2>`;
 
   let status = 'PASS';
   for (let result of allBehaviorResults) {
@@ -387,7 +387,7 @@ function endTest() {
   }
 
   document.body.innerHTML = resulthtml;
-  document.querySelector('#overallstatus').innerHTML = status;
+  document.querySelector('#overallstatus').innerHTML = `Test result: ${status}`;
 
   testPageWindow.close();
 }

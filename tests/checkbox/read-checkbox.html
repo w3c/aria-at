@@ -1,67 +1,40 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Checkbox role, name and state are communicated when navigating to checkbox.</title>
+<title>Checkbox role, name and state are communicated when navigating to a checkbox.</title>
 <link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
 <link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
-<script src="/resources/ariaatharness.js">
-<script>
+<script type="module">
+  import { verifyATBehavoir, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  openTestPage("reference/two-state-checkbox.html");
-
-  presentATTest({
+  verifyATBehavoir({
     mode: ["reading", "interaction"],
-    task: "navigate to the first checkbox",
-    assertion: [
-      "The role 'checkbox' is announced",
-      "The name 'Lettuce' is announced",
-      "The state of the checkbox (not checked) is communicated"
-    ],
-    onPartialFailure: (failedInstruction) => { return `
-       <div>
-         <input type="checkbox" id="role-${failedInstruction}" name="role-${failedInstruction}" value="Role was not announced.">
-         <label for="role-${failedInstruction}">Role was not announced.</label>
-       </div>
-       <div>
-         <input type="checkbox" id="name-${failedInstruction}" name="name-${failedInstruction}" value="Name was not announced.">
-         <label for="name-${failedInstruction}">Name was not announced.</label>
-       </div>
-       <div>
-         <input type="checkbox" id="state-${failedInstruction}" name="state-${failedInstruction}" value="State was not announced.">
-         <label for="state-${failedInstruction}">State was not communicated.</label>
-       </div>
-`}
+    task: "navigate to checkbox",
+    specific_user_instruction: "navigate to the first checkbox",
+    assertions: [
+      "The role 'checkbox' is spoken",
+      "The name 'Lettuce' is spoken",
+      "The state of the checkbox (not checked) is conveyed"
+    ]
   });
 
-  /* Mark checkboxes checked */
-  executeScriptInTestPage(function () {
-    const checkboxes = document.querySelectorAll('[role="checkboxes"]');
-    checkboxes[0].setAttribute('aria-checked', 'true');
-  });
-
-  presentATTest({
+  verifyATBehavoir({
+    // Mark the first checkbox as checked before the next test
+    setupTestPage: function setupTestPage(testPageDocument) {
+      const checkboxes = testPageDocument.querySelectorAll('[role="checkbox"]');
+      checkboxes[0].setAttribute('aria-checked', 'true');
+    },
     mode: ["reading", "interaction"],
-    task: "navigate to the first checkbox"
-    assertion: [
-      "The role 'checkbox' is announced",
-      "The name 'Lettuce' is announced",
-      "The state of the checkbox (checked) is communicated"
-    ],
-    onPartialFailure: (failedInstruction) => { return `
-       <div>
-         <input type="checkbox" id="role-${failedInstruction}" name="role-${failedInstruction}" value="Role was not announced.">
-         <label for="role-${failedInstruction}">Role was not announced.</label>
-       </div>
-       <div>
-         <input type="checkbox" id="name-${failedInstruction}" name="name-${failedInstruction}" value="Name was not announced.">
-         <label for="name-${failedInstruction}">Name was not announced.</label>
-       </div>
-       <div>
-         <input type="checkbox" id="state-${failedInstruction}" name="state-${failedInstruction}" value="State was not announced.">
-         <label for="state-${failedInstruction}">State was not communicated.</label>
-       </div>
-`}
+    task: "navigate to checkbox",
+    specific_user_instruction: "navigate to the first checkbox (which is now checked)",
+    assertions: [
+      "The role 'checkbox' is spoken",
+      "The name 'Lettuce' is spoken",
+      "The state of the checkbox (checked) is conveyed"
+    ]
   });
+
+  displayTestPageAndInstructions("reference/two-state-checkbox.html");
 
 </script>

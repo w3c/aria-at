@@ -6,37 +6,20 @@
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 <link rel="help" href="https://w3c.github.io/aria/#group">
-<script src="/resources/ariaatharness.js">
-<script>
+<script type="module">
+  import { verifyATBehavoir, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  openTestPage("reference/two-state-checkbox.html");
-
-  presentATTest({
+  verifyATBehavoir({
     mode: ["reading", "interaction"],
-    task: "navigate through boundaries of checkbox group",
-    assertion: [
-      "The role 'group' is announced",
-      "The group's name 'Sandwich Condiments' is announced",
-      "The boundaries of the group (before the first checkbox and after the last checkbox) are communicated"
-    ],
-    onPartialFailure: (failedInstruction) => { return `
-       <div>
-         <input type="checkbox" id="role-${failedInstruction}" name="role-${failedInstruction}" value="Role was not announced.">
-         <label for="role-${failedInstruction}">Role was not announced.</label>
-       </div>
-       <div>
-         <input type="checkbox" id="name-${failedInstruction}" name="name-${failedInstruction}" value="Name was not announced.">
-         <label for="name-${failedInstruction}">Name was not announced.</label>
-       </div>
-       <div>
-         <input type="checkbox" id="boundaries-${failedInstruction}" name="state-${boundariesInstruction}" value="Initial boundary was not communicated.">
-         <label for="state-${failedInstruction}">Initial boundaries was not communicated.</label>
-       </div>
-       <div>
-         <input type="checkbox" id="boundaries-${failedInstruction}" name="state-${boundariesInstruction}" value="End boundary was not communicated.">
-         <label for="state-${failedInstruction}">End boundary was not communicated.</label>
-       </div>
+    task: "navigate to checkbox group",
+    specific_user_instruction: "navigate through boundaries of checkbox group",
+    assertions: [
+      "The role 'group' is spoken",
+      "The group's name 'Sandwich Condiments' is spoken",
+      "The boundaries of the group (before the first checkbox and after the last checkbox) are conveyed"
+    ]
+  });
 
-`}
-    });
+  displayTestPageAndInstructions("reference/two-state-checkbox.html");
+
 </script>

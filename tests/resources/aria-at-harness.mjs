@@ -166,7 +166,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
     recordResults += `<h3 id="cmd-${c}">Results for command: '${commands[c]}'</h3>`;
     recordResults += `
 <p>
-    <label for="speechoutput-${c}">Speech output after command:</label>
+    <label for="speechoutput-${c}">Relevant speech output after command (required):</label>
     <input type="text" id="speechoutput-${c}">
 </p>
 `;

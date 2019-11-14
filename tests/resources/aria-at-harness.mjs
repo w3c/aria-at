@@ -4,9 +4,11 @@ const DEFAULT_AT = 'JAWS';
 const DEFAULT_RESULTS = ['All Pass', 'All Fail', 'Some Fail'];
 
 const TEST_HTML_OUTLINE = `
-<section id='errors' style='display:none'><h2>Test cannot be performed due to loading error(s).</h2></section>
-<section id='instructions'></section>
-<section id='record-results'></section>
+<main>
+  <section id='errors' style='display:none'><h2>Test cannot be performed due to loading error(s).</h2></section>
+  <section id='instructions'></section>
+  <section id='record-results'></section>
+</main>
 `;
 const PAGE_STYLES = `
   table {
@@ -98,6 +100,9 @@ export function displayTestPageAndInstructions(testPage) {
     return;
   }
 
+  // Set language
+  document.querySelector('html').setAttribute('lang', 'en');
+
   var style = document.createElement('style');
   style.innerHTML = PAGE_STYLES;
   document.head.appendChild(style);
@@ -129,9 +134,10 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 <h2>Instructions</h2>
 <ol>
   <li><em>${modeInstructions}</em></li>
-  <li>Then, <em>${userInstructions}</em> using each of the following <emp>${at}<emp> controls:</li>
-  <ul id='at_controls' aria-label='AT controls'>
-  </ul>
+  <li>Then, <em>${userInstructions}</em> using each of the following <emp>${at}<emp> controls:
+    <ul id='at_controls' aria-label='AT controls'>
+    </ul>
+  </li>
 </ol>
 <h2>Success Criteria</h2>
 <p>For this test to pass, the following assertions must be met for every possible command:</p>
@@ -163,7 +169,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   let recordResults = `<h2>Record Results</h2><p>${document.title}</p>`;
 
   for (let c = 0; c < commands.length; c++) {
-    recordResults += `<h3 id="cmd-${c}">Results for command: '${commands[c]}'</h3>`;
+    recordResults += `<h3 id="header-cmd-${c}">Results for command: '${commands[c]}'</h3>`;
     recordResults += `
 <p>
     <label for="speechoutput-${c}">Relevant speech output after command (required):</label>
@@ -173,7 +179,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 
     recordResults += `<table id="cmd-${c}" class="record-results">
 <tr>
-  <th></th>
+  <th>Assertion</th>
   <th>
       <input type="radio" id="allcorrect-${c}" class="allcorrect" name="allresults-${c}">
       <label for="allcorrect-${c}">All Correct Output</label>
@@ -186,7 +192,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
       <input type="radio" id="allincorrect-${c}" class="allincorrect" name="allresults-${c}">
       <label for="allincorrect-${c}">All Incorrect Output</label>
   </th>
-  <th>Other Details</th>
+  <th id="testernotes-${c}">Tester Notes</th>
 </tr>
 `;
 
@@ -207,7 +213,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
       <label for="incorrect-${c}-${a}">Incorrect Output</label>
   </td>
   <td>
-    <input type="text" id="info-${c}-${a}">
+    <input aria-labelledBy="testernotes-${c}" type="text" id="info-${c}-${a}">
   </td>
 </tr>
 `;
@@ -215,8 +221,6 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 
     recordResults += '</table>';
   }
-
-  console.log(recordResults);
 
   let recordEl = document.getElementById('record-results');
   recordEl.innerHTML = recordResults;

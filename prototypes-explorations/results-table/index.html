@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Test harness mini prototypes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./styles.css">
+    <script defer src="./script.js"></script>
+  </head>
+
+  <body>
+    <h1>Test harness mini prototypes</h1>
+
+    <h2>Alternative structure for result table</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th scope="col" class="!font-weight-normal">Assertions</th>
+          <th id="correct_output" scope="col">Correct output</th>
+          <th id="incomplete_output" scope="col">Incomplete output</th>
+          <th id="incorrect_output" scope="col">Incorrect output</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <th id="checkbox_role_spoken" scope="row">The role 'checkbox' is spoken</th>
+          <td><input type="radio" name="checkbox_role_spoken" value="correct" aria-labelledby="checkbox_role_spoken with correct_output"></td>
+          <td><input type="radio" name="checkbox_role_spoken" value="incomplete" aria-labelledby="checkbox_role_spoken with incomplete_output"></td>
+          <td><input type="radio" name="checkbox_role_spoken" value="incorrect" aria-labelledby="checkbox_role_spoken with incorrect_output"></td>
+        </tr>
+
+        <tr>
+          <th id="name_lettuce_spoken" scope="row">The name 'Lettuce' is spoken</th>
+          <td><input type="radio" name="name_lettuce_spoken" value="correct" aria-labelledby="name_lettuce_spoken with correct_output"></td>
+          <td><input type="radio" name="name_lettuce_spoken" value="incomplete" aria-labelledby="name_lettuce_spoken with incomplete_output"></td>
+          <td><input type="radio" name="name_lettuce_spoken" value="incorrect" aria-labelledby="name_lettuce_spoken with incorrect_output"></td>
+        </tr>
+
+        <tr>
+          <th id="checkbox_state_conveyed" scope="row">The state of the checkbox (not checked) is conveyed</th>
+          <td><input type="radio" name="checkbox_state_conveyed" value="correct" aria-labelledby="checkbox_state_conveyed with correct_output"></td>
+          <td><input type="radio" name="checkbox_state_conveyed" value="incomplete" aria-labelledby="checkbox_state_conveyed with incomplete_output"></td>
+          <td><input type="radio" name="checkbox_state_conveyed" value="incorrect" aria-labelledby="checkbox_state_conveyed with incorrect_output"></td>
+        </tr>
+      </tbody>
+      
+      <tfoot>        
+        <tr>
+          <th scope="row" class="!font-weight-normal">Shortcuts if all results are the same</th>
+          <td><button type="button" class="js-allCorrect">Tick all correct</button></td>
+          <td><button type="button" class="js-allIncomplete">Tick all incomplete</button></td>
+          <td><button type="button" class="js-allIncorrect">Tick all incorrect</button></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <span id="with" class="!visually-hidden" aria-hidden="">with</span>
+  </body>
+</html>

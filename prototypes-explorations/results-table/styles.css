@@ -1,0 +1,38 @@
+.\!visually-hidden:not(:focus):not(:active) {
+  clip: rect(0 0 0 0); 
+  clip-path: inset(100%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap; 
+  width: 1px;
+}
+
+.\!no-bottom-border {
+  border-bottom: none !important;
+}
+
+.\!no-top-border {
+  border-top: none !important;
+}
+
+.\!font-weight-normal {
+  font-weight: normal;
+}
+
+
+html {
+  font-size: 100%;
+}
+
+table {
+  text-align: left;
+  padding: 0.5rem;
+  border-collapse: collapse;
+  border: 3px solid black;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 0.5rem;
+}

@@ -11,27 +11,50 @@ body {
   padding: 0;
 }
 
-a {
-  text-decoration: none;
-  color: #108db8;
-  font-weight: bold;
-}
-
 img {
   max-width: 100%;
 }
 
-nav {
+.header {
   width: 100%;
-  background: #108db8;
-}
-
-nav a {
-  color: white;
-  padding: 1rem;
-  display: inline-block;
+  background: #C1FFC1;
+  padding: .5em;
+  margin: 0;
 }
 
 .content {
   padding: 1rem;
+}
+
+#testfile {
+  display: block;
+  height: 60vh;
+  width: 90vw;
+}
+
+.test-details {
+  font-size: 14px;
+  color: #004d00;
+  padding-left: 1.75em;
+}
+
+.ua {
+  color: #004d00;
+}
+
+.select-test-list {
+  list-style-type: none;
+  margin: 0;
+}
+
+.select-test-item {
+  padding-bottom: 1em;
+}
+
+.select-test-item label {
+  padding-left: .25em;
+}
+
+.configuration-item {
+  padding-bottom: 1em;
 }

@@ -304,6 +304,7 @@ function validateResults() {
 
   let focusEl;
   for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
+
     let fieldset = document.getElementById(`cmd-${c}-summary`);
     let cmdInput = fieldset.querySelector('input[type="text"]');
     if (!cmdInput.value) {
@@ -315,7 +316,16 @@ function validateResults() {
       fieldset.querySelector('.required').classList.remove('highlight-required');
     }
 
-    if (fieldset.querySelector('.allcorrect').checked) {
+    let allSelected = fieldset.querySelector(`input[name="allresults-${c}"]:checked`);
+    if (!allSelected) {
+      focusEl = focusEl || document.getElementById(`allcorrect-${c}`);
+      fieldset.classList.add('highlight-required');
+    }
+
+    if (
+      fieldset.querySelector('.allcorrect').checked
+      || !allSelected
+    ) {
       for (let a = 0; a < allBehaviors[currentTestedBehavior].assertions.length; a++) {
 	document.querySelector(`.assertion-${c}-${a} .required`).classList.remove('highlight-required');
       }

@@ -1,6 +1,8 @@
 
 const KNOWN_ATS = {
-  jaws: 'JAWS'
+  jaws: 'JAWS',
+  nvda: 'NVDA',
+  voiceover: 'VoiceOver'
 }
 
 /* Add new commands here */
@@ -9,50 +11,112 @@ const AT_COMMAND_MAP = {
   "navigate to checkbox": {
     reading: {
       jaws: [
-        "Insert+Tab",
-        "Insert+Up",
-        "X quick key",
-        "Tab/Shift+Tab",
-        "Up/Down",
-        "Left/Right (Smart Nav On)"
+        "X / Shift+X",
+        "Tab / Shift+Tab",
+        "Up / Down",
+        "Left / Right (with Smart Navigation on)",
+        "Control+Insert+X to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox",
+        "Insert+Tab (or CapsLock+Tab) with the cursor already on the checkbox",
+        "Insert+Up (or CapsLock+I) with the cursor already on the checkbox"
+      ],
+      nvda: [
+        "X / Shift+X",
+        "Tab / Shift+Tab",
+        "Up / Down",
+        "Insert+Down (or CapsLock+Down)",
+        "Insert+F7 (or CapsLock+F7) to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox",
+        "Insert+Tab (or CapsLock+Tab) with the cursor already on the checkbox",
+        "Insert+Up (or CapsLock+Up) with the cursor already on the checkbox"
+      ],
+      voiceover: [
       ]
     },
     interaction: {
       jaws: [
-        "Insert+Tab",
-        "Insert+Up",
-        "Tab/Shift+Tab"
+        "Tab / Shift+Tab",
+        "Insert+Tab (or CapsLock+Tab) with the cursor already on the checkbox",
+        "Insert+Up (or CapsLock+I) with the cursor already on the checkbox"
+      ],
+      nvda: [
+        "Tab / Shift+Tab",
+        "Insert+Tab (or CapsLock+Tab) with the cursor already on the checkbox",
+        "Insert+Up (or CapsLock+Up) with the cursor already on the checkbox"
+      ],
+      voiceover: [
+        "Tab / Shift+Tab",
+        "Control+Option+Right / Ctrl+Option+Left",
+        "Control+Option+A",
+        "Control+Option+Command+J / Shift+Control+Option+Command+J",
+        "Control+Option+Command+C / Shift+Control+Option+Command+C",
+        "Control+U to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox"
       ]
     }
   },
   "operate checkbox": {
     reading: {
       jaws: [
-        "enter",
-        "space"
+        "Enter",
+        "Space"
+      ],
+      nvda: [
+        "Enter",
+        "Space"
+      ],
+      voiceover: [
       ]
     },
     interaction: {
       jaws: [
-        "space"
+        "Space"
+      ],
+      nvda: [
+        "Space"
+      ],
+      voiceover: [
+        "Control+Option+Space",
+        "Space"
       ]
     }
   },
   "navigate to checkbox group": {
     reading: {
       jaws: [
-	"Tab/Shift+Tab",
-	"up/down",
-	"Insert+Tab on checkbox",
-	"Insert+Up on checkbox"
+        "Up / Down",
+        "Tab / Shift+Tab",
+        "Control+Insert+X to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox",
+        "Insert+Tab (or CapsLock+Tab) with the cursor already on the checkbox",
+        "Insert+Up (or CapsLock+I) with the cursor already on the checkbox"
+      ],
+      nvda: [
+        "X / Shift+X",
+        "Up / Down",
+        "Tab / Shift+Tab",
+        "Insert+Down (or CapsLock+Down)",
+        "Insert+F7 (or CapsLock+F7) to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox",
+        "Insert+Tab (or CapsLock+Tab) with the cursor already on the checkbox",
+        "Insert+Up (or CapsLock+Up) with the cursor already on the checkbox"
+      ],
+      voiceover: [
       ]
     },
     interaction: {
       jaws: [
-	"Tab/Shift+Tab",
-	"up/down",
-	"Insert+Tab on checkbox",
-	"Insert+Up on checkbox"
+	"Tab / Shift+Tab",
+        "Insert+Tab (or CapsLock+Tab) with the cursor already on the checkbox",
+        "Insert+Up (or CapsLock+I) with the cursor already on the checkbox"
+      ],
+      nvda: [
+        "Tab / Shift+Tab",
+        "Insert+Tab (or CapsLock+Tab) with the cursor already on the checkbox",
+        "Insert+Up (or CapsLock+Up) with the cursor already on the checkbox"
+      ],
+      voiceover: [
+        "Tab / Shift+Tab",
+        "Control+Option+Right / Ctrl+Option+Left",
+        "Control+Option+A",
+        "Control+Option+Command+J / Shift+Control+Option+Command+J",
+        "Control+Option+Command+C / Shift+Control+Option+Command+C",
+        "Control+U to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox"
       ]
     }
   }
@@ -60,10 +124,14 @@ const AT_COMMAND_MAP = {
 
 const MODE_INSTRUCTIONS = {
   reading: {
-    jaws: "Put JAWS into Virtual Cursor Mode using insert-z."
+    jaws: "Put JAWS into Virtual Cursor Mode using Insert-Z.",
+    nvda: "Put NVDA into Browser Mode using Esc",
+    voiceover: ""
   },
   interaction: {
-    jaws: "Put JAWS into Forms Mode by turning Virual Cursor off using insert+z."
+    jaws: "Put JAWS into Forms Mode by turning Virual Cursor off using insert+z.",
+    nvda: "Put NVDA into Focus Mode using NVDA+Space",
+    voiceover: "Turn Quick Nav off by pressing the Left Arrow and Right Arrow keys at the same time."
   }
 };
 

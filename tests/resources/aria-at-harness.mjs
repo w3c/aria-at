@@ -48,11 +48,27 @@ const PAGE_STYLES = `
 
 const allBehaviors = [];
 const allBehaviorResults = [];
+const errors = [];
 let currentTestedBehavior = 0;
 let testPageUri;
 let testPageWindow;
 
 let at = DEFAULT_AT;
+
+let params = (new URL(document.location)).searchParams;
+for (const [key, value] of params) {
+  if (key === 'at') {
+    let requestedAT = value;
+    if (isKnownAT(requestedAT)) {
+      at = isKnownAT(requestedAT);
+    }
+    else {
+      errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${DEFAULT_AT}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
+    }
+  }
+}
+
+
 
 function openTestPagePopup() {
   testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
@@ -96,7 +112,9 @@ export function verifyATBehavoir(behavior) {
   for (let m = 0; m < behavior.mode.length; m++) {
     let newBehavior = Object.assign({}, behavior, { mode: behavior.mode[m] });
     newBehavior.commands = getATCommands(behavior.mode[m], behavior.task, at);
-    allBehaviors.push(newBehavior);
+    if (newBehavior.commands.length) {
+      allBehaviors.push(newBehavior);
+    }
   }
 }
 
@@ -116,18 +134,7 @@ export function displayTestPageAndInstructions(testPage) {
   style.innerHTML = PAGE_STYLES;
   document.head.appendChild(style);
 
-  let params = (new URL(document.location)).searchParams;
-  for (const [key, value] of params) {
-    if (key === 'at') {
-      let requestedAT = value;
-      if (isKnownAT(requestedAT)) {
-        at = isKnownAT(requestedAT);
-      }
-      else {
-        showUserError(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${DEFAULT_AT}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
-      }
-    }
-  }
+  showUserError();
 
   if (allBehaviors.length > 0) {
     displayInstructionsForBehaviorTest(0);
@@ -423,6 +430,7 @@ function submitResult(event) {
     status: overallBehaviorResult,
     assertionResults: behaviorResults,
     task: allBehaviors[currentTestedBehavior].specific_user_instruction,
+    mode: allBehaviors[currentTestedBehavior].mode,
     speechOutputForCommand: cmdOutput
   });
 
@@ -449,7 +457,7 @@ function endTest() {
       status = 'INCOMPLETE';
     }
 
-    resulthtml += `<p>After user task "${result.task}", the following behavior was observed:<p>`;
+    resulthtml += `<p>After user performs task "${result.task}" in ${result.mode} mode, the following behavior was observed:<p>`;
     resulthtml += `<table>`;
     for (let assertionResult of result.assertionResults) {
       resulthtml += `<tr><td>${assertionResult.status}</td><td>${assertionResult.name}</td>`
@@ -485,12 +493,16 @@ function endTest() {
 }
 
 
-function showUserError(msg) {
-  document.getElementById('errors').style.display = "block";
-  let errorListEl = document.querySelector('#errors ul');
-  let errorMsgEl = document.createElement('li');
-  errorMsgEl.innerText = msg;
-  errorListEl.append(errorMsgEl);
+function showUserError() {
+  if (errors.length) {
+    document.getElementById('errors').style.display = "block";
+    let errorListEl = document.querySelector('#errors ul');
+    for (let error of errors) {
+      let errorMsgEl = document.createElement('li');
+      errorMsgEl.innerText = error;
+      errorListEl.append(errorMsgEl);
+    }
+  }
 }
 
 function reportResults(testResults, status) {

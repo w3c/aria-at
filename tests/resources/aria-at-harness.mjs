@@ -27,6 +27,23 @@ const PAGE_STYLES = `
   table.record-results tr:first-child {
     font-weight: bold;
   }
+
+  table .required:not(.highlight-required) {
+    display: none;
+  }
+
+  table .required.highlight-required {
+    color: red;
+  }
+
+  fieldset.highlight-required {
+    border-color: red;
+  }
+
+  fieldset .highlight-required {
+    color: red;
+  }
+
 `;
 
 const allBehaviors = [];
@@ -133,7 +150,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
 <h1 id="behavior-header" tabindex="0">Testing behavior ${behaviorId+1} of ${totalBehaviors}</h1>
-<h2>Instructions</h2>
+<h2>Test instructions</h2>
 <ol>
   <li><em>${modeInstructions}</em></li>
   <li>Then, <em>${userInstructions}</em> using each of the following <emp>${at}<emp> controls:
@@ -141,7 +158,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
     </ul>
   </li>
 </ol>
-<h2>Success Criteria</h2>
+<h3>Success Criteria</h3>
 <p>For this test to pass, the following assertions must be met for every possible command:</p>
 <ul id='assertions'>
 </ul>
@@ -160,7 +177,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   }
 
   let openButton = document.createElement('button');
-  openButton.id = 'open-test-page'
+  openButton.id = 'open-test-page';
   openButton.innerText = "Open Test Page";
   openButton.addEventListener('click', openTestPagePopup);
   if (testPageWindow) {
@@ -175,7 +192,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
     recordResults += `
 <p>
   <fieldset id="cmd-${c}-summary">
-    <label for="speechoutput-${c}">Relevant speech output after command (required):</label>
+    <label for="speechoutput-${c}">Relevant speech output after command <span class="required">(required)</span>:</label>
     <input type="text" id="speechoutput-${c}">
     <div>
       <input type="radio" id="allcorrect-${c}" class="allcorrect" name="allresults-${c}">
@@ -201,14 +218,14 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   <th>
     Incorrect Output
   </th>
-  <th id="testernotes-${c}">Tester Notes</th>
+  <th id="testernotes-${c}">Additional tester notes</th>
 </tr>
 `;
 
     for (let a = 0; a < assertions.length; a++) {
       recordResults += `
 <tr>
-  <td>${assertions[a]}</td>
+  <td class="assertion-${c}-${a}"><div>${assertions[a]}</div><div class="required">(required: select output)</div></td>
   <td>
       <input type="radio" id="correct-${c}-${a}" class="correct" name="result-${c}-${a}">
       <label for="correct-${c}-${a}">Correct Output</label>
@@ -280,7 +297,52 @@ function handleRadioClick(event) {
   }
 }
 
+function validateResults() {
+
+  let focusEl;
+  for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
+    let fieldset = document.getElementById(`cmd-${c}-summary`);
+    let cmdInput = fieldset.querySelector('input[type="text"]');
+    if (!cmdInput.value) {
+      focusEl = focusEl || cmdInput;
+      fieldset.classList.add('highlight-required');
+      fieldset.querySelector('.required').classList.add('highlight-required');
+    } else {
+      fieldset.classList.remove('highlight-required');
+      fieldset.querySelector('.required').classList.remove('highlight-required');
+    }
+
+    if (fieldset.querySelector('.allcorrect').checked) {
+      for (let a = 0; a < allBehaviors[currentTestedBehavior].assertions.length; a++) {
+	document.querySelector(`.assertion-${c}-${a} .required`).classList.remove('highlight-required');
+      }
+      continue;
+    }
+
+    for (let a = 0; a < allBehaviors[currentTestedBehavior].assertions.length; a++) {
+      let selectedRadio = document.querySelector(`input[name="result-${c}-${a}"]:checked`);
+      if (!selectedRadio) {
+	document.querySelector(`.assertion-${c}-${a} .required`).classList.add('highlight-required');
+	focusEl = focusEl || document.getElementById(`correct-${c}-${a}`);
+      }
+      else {
+	document.querySelector(`.assertion-${c}-${a} .required`).classList.remove('highlight-required');
+      }
+    }
+  }
+
+  if (focusEl) {
+    focusEl.focus();
+    return false;
+  }
+  return true;
+}
+
 function submitResult(event) {
+  if (!validateResults()) {
+    return;
+  }
+
   let cmdOutput = {};
   for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
     cmdOutput[allBehaviors[currentTestedBehavior].commands[c]] = document.querySelector(`#speechoutput-${c}`).value;
@@ -404,7 +466,7 @@ function endTest() {
 
   reportResults(allBehaviorResults, status);
 
-  if (typeof testPageWindow !== undefined) {
+  if (typeof testPageWindow !== 'undefined') {
     testPageWindow.close();
   }
 }

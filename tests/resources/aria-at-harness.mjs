@@ -5,7 +5,7 @@ const DEFAULT_RESULTS = ['All Pass', 'All Fail', 'Some Fail'];
 
 const TEST_HTML_OUTLINE = `
 <main>
-  <section id='errors' style='display:none'><h2>Test cannot be performed due to loading error(s).</h2></section>
+  <section id='errors' style='display:none'><h2>Test cannot be performed due to error(s)!</h2><ul></ul><hr></section>
   <section id='instructions'></section>
   <section id='record-results'></section>
 </main>
@@ -36,15 +36,6 @@ let testPageUri;
 let testPageWindow;
 
 let at = DEFAULT_AT;
-if (window.location.hash) {
-  let requestedAT = window.location.hash.slice(1);
-  if (isKnownAT(requestedAT)) {
-    at = isKnownAT(requestedAT);
-  }
-  else {
-    showUserError(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${DEFAULT_AT}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
-  }
-}
 
 function openTestPagePopup() {
   testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
@@ -100,12 +91,24 @@ export function displayTestPageAndInstructions(testPage) {
     return;
   }
 
-  // Set language
   document.querySelector('html').setAttribute('lang', 'en');
-
+  document.body.innerHTML = (TEST_HTML_OUTLINE);
   var style = document.createElement('style');
   style.innerHTML = PAGE_STYLES;
   document.head.appendChild(style);
+
+  let params = (new URL(document.location)).searchParams;
+  for (const [key, value] of params) {
+    if (key === 'at') {
+      let requestedAT = value;
+      if (isKnownAT(requestedAT)) {
+        at = isKnownAT(requestedAT);
+      }
+      else {
+        showUserError(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${DEFAULT_AT}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
+      }
+    }
+  }
 
   if (allBehaviors.length > 0) {
     displayInstructionsForBehaviorTest(0);
@@ -120,7 +123,6 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 
   const totalBehaviors = allBehaviors.length;
   const behavior = allBehaviors[behaviorId];
-  document.body.innerHTML = (TEST_HTML_OUTLINE);
 
   const mode = behavior.mode[0];
   const modeInstructions = getModeInstructions(mode, at);
@@ -172,8 +174,18 @@ function displayInstructionsForBehaviorTest(behaviorId) {
     recordResults += `<h3 id="header-cmd-${c}">Results for command: '${commands[c]}'</h3>`;
     recordResults += `
 <p>
+  <fieldset id="cmd-${c}-summary">
     <label for="speechoutput-${c}">Relevant speech output after command (required):</label>
     <input type="text" id="speechoutput-${c}">
+    <div>
+      <input type="radio" id="allcorrect-${c}" class="allcorrect" name="allresults-${c}">
+      <label for="allcorrect-${c}">All assertions have been meet with this output</label>
+    </div>
+    <div>
+      <input type="radio" id="allincomplete-${c}" class="allincomplete" name="allresults-${c}">
+      <label for="allincomplete-${c}">All assertions have not been met with this output (information is incomplete or incorrect)</label>
+    </div>
+  </fieldset>
 </p>
 `;
 
@@ -181,16 +193,13 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 <tr>
   <th>Assertion</th>
   <th>
-      <input type="radio" id="allcorrect-${c}" class="allcorrect" name="allresults-${c}">
-      <label for="allcorrect-${c}">All Correct Output</label>
+    Correct Output
   </th>
   <th>
-      <input type="radio" id="allincomplete-${c}" class="allincomplete" name="allresults-${c}">
-      <label for="allincomplete-${c}">All Incomplete Output</label>
+    No Output
   </th>
   <th>
-      <input type="radio" id="allincorrect-${c}" class="allincorrect" name="allresults-${c}">
-      <label for="allincorrect-${c}">All Incorrect Output</label>
+    Incorrect Output
   </th>
   <th id="testernotes-${c}">Tester Notes</th>
 </tr>
@@ -205,8 +214,8 @@ function displayInstructionsForBehaviorTest(behaviorId) {
       <label for="correct-${c}-${a}">Correct Output</label>
   </td>
   <td>
-      <input type="radio" id="incomplete-${c}-${a}" class="incomplete" name="result-${c}-${a}">
-      <label for="incomplete-${c}-${a}">Incomplete Output</label>
+      <input type="radio" id="missing-${c}-${a}" class="missing" name="result-${c}-${a}">
+      <label for="missing-${c}-${a}">No Output</label>
   </td>
   <td>
       <input type="radio" id="incorrect-${c}-${a}" class="incorrect" name="result-${c}-${a}">
@@ -245,13 +254,10 @@ function handleRadioClick(event) {
   let radioId = event.target.id;
   let cmdId = Number(radioId.split('-')[1]);
 
-  if (radioId.indexOf('all') === 0) {
-    let markedAllAs = radioId.split('-')[0].substring(3);
-
+  if (radioId.indexOf('allcorrect') === 0) {
     for (let resultType of ['correct', 'incomplete', 'incorrect']) {
       let radios = document.querySelectorAll(`#cmd-${cmdId} .${resultType}`);
-      let checked = markedAllAs === resultType ? true : false;
-
+      let checked = resultType === 'correct' ? true : false;
       for (let radio of radios) {
 	radio.checked = checked;
       }
@@ -260,30 +266,32 @@ function handleRadioClick(event) {
 
   else {
     let markedAs = radioId.split('-')[0];
-    let allRadioIsMarkedAs = document.querySelector(`#cmd-${cmdId} .all${markedAs}:checked`);
-
-    if (!allRadioIsMarkedAs) {
-      let headerRadios = document.querySelectorAll(`#cmd-${cmdId} th input[type="radio"]`);
-      for (let radio of headerRadios) {
-	radio.checked = false;
-      }
-
-      let markedRadiosOfType = document.querySelectorAll(`#cmd-${cmdId} .${markedAs}:checked`);
-      if (markedRadiosOfType.length === allBehaviors[currentTestedBehavior].assertions.length) {
-	let allradio = document.querySelector(`#cmd-${cmdId} #all${markedAs}-${cmdId}`);
+    if (markedAs === 'correct') {
+      let markedCorrect = document.querySelectorAll(`#cmd-${cmdId} .correct:checked`);
+      if (markedCorrect.length === allBehaviors[currentTestedBehavior].assertions.length) {
+	let allradio = document.querySelector(`#cmd-${cmdId}-summary #allcorrect-${cmdId}`);
 	allradio.checked = true;
       }
+    }
+    else {
+      let allradio = document.querySelector(`#cmd-${cmdId}-summary #allincomplete-${cmdId}`);
+      allradio.checked = true;
     }
   }
 }
 
 function submitResult(event) {
+  let cmdOutput = {};
+  for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
+    cmdOutput[allBehaviors[currentTestedBehavior].commands[c]] = document.querySelector(`#speechoutput-${c}`).value;
+  }
+
   let assertionResults = [];
   for (let a = 0; a < allBehaviors[currentTestedBehavior].assertions.length; a++) {
     assertionResults.push({correct: [], incorrect: [], incomplete: []});
   }
 
-  for (let c = 0; c <= allBehaviors[currentTestedBehavior].commands.length; c++) {
+  for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
     let failures = document.querySelectorAll(`#cmd-${c} .incorrect:checked`);
     for (let failure of failures) {
       let assertionId = Number(failure.id.split('-')[2]);
@@ -339,7 +347,8 @@ function submitResult(event) {
   allBehaviorResults.push({
     status: overallBehaviorResult,
     assertionResults: behaviorResults,
-    task: allBehaviors[currentTestedBehavior].specific_user_instruction
+    task: allBehaviors[currentTestedBehavior].specific_user_instruction,
+    speechOutputForCommand: cmdOutput
   });
 
   // Display the next behavior
@@ -393,16 +402,20 @@ function endTest() {
   document.body.innerHTML = resulthtml;
   document.querySelector('#overallstatus').innerHTML = `Test result: ${status}`;
 
-  testPageWindow.close();
+  reportResults(allBehaviorResults, status);
+
+  if (typeof testPageWindow !== undefined) {
+    testPageWindow.close();
+  }
 }
 
 
 function showUserError(msg) {
-  let errorsEl = document.getElementById('errors');
-  errorsEl.style.display = "block";
-  let errorMsgEl = document.createElement('p');
+  document.getElementById('errors').style.display = "block";
+  let errorListEl = document.querySelector('#errors ul');
+  let errorMsgEl = document.createElement('li');
   errorMsgEl.innerText = msg;
-  errorsEl.append(errorMsgEl);
+  errorListEl.append(errorMsgEl);
 }
 
 function reportResults(testResults, status) {
@@ -412,7 +425,7 @@ function reportResults(testResults, status) {
   var data = {
     test: document.title,
     tests: testResults,
-    status: status.status
+    status: status
   };
   results_element.textContent = JSON.stringify(data);
 

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigating to an empty, collapsed, editable combobox in reading mode conveys role, name, and editable property.</title>
+<link rel="author" title="Matt King" href="mailto:a11ythinker@gmail.com">
+<link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#combobox">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<script type="module">
+  import { verifyATBehavoir, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavoir({
+    mode: ["reading", "interaction"],
+    task: "navigate to combobox",
+    specific_user_instruction: "navigate to the combobox",
+    assertions: [
+      "The role 'combobox' is conveyed",
+      "The name 'State' is spoken",
+      "The 'editable' property (accepts text input) of the combobox is conveyed"
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+
+</script>

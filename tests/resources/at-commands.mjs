@@ -1,3 +1,4 @@
+import * as keys from './keys.mjs';
 
 const KNOWN_ATS = {
   jaws: 'JAWS',
@@ -11,112 +12,112 @@ const AT_COMMAND_MAP = {
   "read checkbox": {
     reading: {
       jaws: [
-        ["navigate to the checkbox using", "X / Shift+X"],
-        ["navigate to the checkbox using", "Tab / Shift+Tab"],
-        ["navigate to the checkbox using", "Up / Down"],
-        ["navigate to the checkbox using", "Left / Right (with Smart Navigation on)"],
-        ["navigate to the checkbox using", "Control+Insert+X to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox"],
-        ["when the cursor is on the checkbox, read it using", "Insert+Tab (or CapsLock+Tab)"],
-        ["when the cursor is on the checkbox, read it using", "Insert+Up (or CapsLock+I)"]
+        ["navigate to the checkbox using", keys.X_AND_SHIFT_X],
+        ["navigate to the checkbox using", keys.TAB_AND_SHIFT_TAB],
+        ["navigate to the checkbox using", keys.UP_AND_DOWN],
+        ["navigate to the checkbox using", `${keys.LEFT_AND_RIGHT} (with Smart Navigation on)`],
+        ["navigate to the checkbox using", `${keys.CTRL_INS_X} to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox`],
+        ["when the cursor is on the checkbox, read it using", keys.INS_TAB_OR_CAPS_TAB],
+        ["when the cursor is on the checkbox, read it using", keys.INS_UP_OR_CAPS_I]
       ],
       nvda: [
-        ["navigate to the checkbox using", "X / Shift+X"],
-        ["navigate to the checkbox using", "Tab / Shift+Tab"],
-        ["navigate to the checkbox using", "Up / Down"],
-        ["navigate to the checkbox using", "Insert+Down (or CapsLock+Down)"],
-        ["navigate to the checkbox using", "Insert+F7 (or CapsLock+F7) to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox"],
-        ["when the cursor is on the checkbox, read it using", "Insert+Tab (or CapsLock+Tab)"],
-        ["when the cursor is on the checkbox, read it using", "Insert+Up (or CapsLock+Up)"]
+        ["navigate to the checkbox using", keys.X_AND_SHIFT_X],
+        ["navigate to the checkbox using", keys.TAB_AND_SHIFT_TAB],
+        ["navigate to the checkbox using", keys.UP_AND_DOWN],
+        ["navigate to the checkbox using", keys.INS_DOWN_OR_CAPS_DOWN],
+        ["navigate to the checkbox using", `${keys.INS_F7_OR_CAPS_F7} to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox`],
+        ["when the cursor is on the checkbox, read it using", keys.INS_TAB_OR_CAPS_TAB],
+        ["when the cursor is on the checkbox, read it using", keys.INS_UP_OR_CAPS_UP]
       ],
       voiceover: [
       ]
     },
     interaction: {
       jaws: [
-        ["navigate to the checkbox using", "Tab / Shift+Tab"],
-        ["when the cursor is on the checkbox, read it using", "Insert+Tab (or CapsLock+Tab)"],
-        ["when the cursor is on the checkbox, read it using", "Insert+Up (or CapsLock+I)"]
+        ["navigate to the checkbox using", keys.TAB_AND_SHIFT_TAB],
+        ["when the cursor is on the checkbox, read it using", keys.INS_TAB_OR_CAPS_TAB],
+        ["when the cursor is on the checkbox, read it using", keys.INS_UP_OR_CAPS_I]
       ],
       nvda: [
-        ["navigate to the checkbox using", "Tab / Shift+Tab"],
-        ["when the cursor is on the checkbox, read it using", "Insert+Tab (or CapsLock+Tab)"],
-        ["when the cursor is on the checkbox, read it using", "Insert+Up (or CapsLock+Up)"]
+        ["navigate to the checkbox using", keys.TAB_AND_SHIFT_TAB],
+        ["when the cursor is on the checkbox, read it using", keys.INS_TAB_OR_CAPS_TAB],
+        ["when the cursor is on the checkbox, read it using", keys.INS_UP_OR_CAPS_UP]
       ],
       voiceover: [
-        ["navigate to the checkbox using", "Tab / Shift+Tab"],
-        ["navigate to the checkbox using", "Control+Option+Right / Ctrl+Option+Left"],
-        ["navigate to the checkbox using", "Control+Option+A"],
-        ["navigate to the checkbox using", "Control+Option+Command+J / Shift+Control+Option+Command+J"],
-        ["navigate to the checkbox using", "Control+Option+Command+C / Shift+Control+Option+Command+C"],
-        ["navigate to the checkbox using", "Control+U to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox"]
+        ["navigate to the checkbox using", keys.TAB_AND_SHIFT_TAB],
+        ["navigate to the checkbox using", keys.CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT],
+        ["navigate to the checkbox using", keys.CTRL_OPT_A],
+        ["navigate to the checkbox using", keys.CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J],
+        ["navigate to the checkbox using", keys.CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C],
+        ["navigate to the checkbox using", `${keys.CTRL_U} to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox`]
       ]
     }
   },
   "operate checkbox": {
     reading: {
       jaws: [
-        ["when the cursor is on the checkbox, change the state using", "Enter"],
-        ["when the cursor is on the checkbox, change the state using", "Space"]
+        ["when the cursor is on the checkbox, change the state using", keys.ENTER],
+        ["when the cursor is on the checkbox, change the state using", keys.SPACE]
       ],
       nvda: [
-        ["when the cursor is on the checkbox, change the state using", "Enter"],
-        ["when the cursor is on the checkbox, change the state using", "Space"]
+        ["when the cursor is on the checkbox, change the state using", keys.ENTER],
+        ["when the cursor is on the checkbox, change the state using", keys.SPACE]
       ],
       voiceover: [
       ]
     },
     interaction: {
       jaws: [
-        ["when the cursor is on the checkbox, change the state using", "Space"]
+        ["when the cursor is on the checkbox, change the state using", keys.SPACE]
       ],
       nvda: [
-        ["when the cursor is on the checkbox, change the state using", "Space"]
+        ["when the cursor is on the checkbox, change the state using", keys.SPACE]
       ],
       voiceover: [
-        ["when the cursor is on the checkbox, change the state using", "Control+Option+Space"],
-        ["when the cursor is on the checkbox, change the state using", "Space"]
+        ["when the cursor is on the checkbox, change the state using", keys.CTRL_OPT_SPACE],
+        ["when the cursor is on the checkbox, change the state using", keys.SPACE]
       ]
     }
   },
   "navigate to checkbox group": {
     reading: {
       jaws: [
-        ["navigate through group boundaries using", "Up / Down"],
-        ["navigate through group boundaries using", "Tab / Shift+Tab"],
-        ["navigate through group boundaries using", "Control+Insert+X to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox"],
-        ["when the cursor is on a checkbox, read the group using", "Insert+Tab (or CapsLock+Tab)"],
-        ["when the cursor is on a checkbox, read the group using", "Insert+Up (or CapsLock+I)"]
+        ["navigate through group boundaries using", keys.UP_AND_DOWN],
+        ["navigate through group boundaries using", keys.TAB_AND_SHIFT_TAB],
+        ["navigate through group boundaries using", `${keys.CTRL_INS_X} to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox`],
+        ["when the cursor is on a checkbox, read the group using", keys.INS_TAB_OR_CAPS_TAB],
+        ["when the cursor is on a checkbox, read the group using", keys.INS_UP_OR_CAPS_I]
       ],
       nvda: [
-        ["navigate through group boundaries using", "X / Shift+X"],
-        ["navigate through group boundaries using", "Up / Down"],
-        ["navigate through group boundaries using", "Tab / Shift+Tab"],
-        ["navigate through group boundaries using", "Insert+Down (or CapsLock+Down)"],
-        ["navigate through group boundaries using", "Insert+F7 (or CapsLock+F7) to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox"],
-        ["when the cursor is on a checkbox, read the group using", "Insert+Tab (or CapsLock+Tab)"],
-        ["when the cursor is on a checkbox, read the group using", "Insert+Up (or CapsLock+Up)"]
+        ["navigate through group boundaries using", keys.X_AND_SHIFT_X],
+        ["navigate through group boundaries using", keys.UP_AND_DOWN],
+        ["navigate through group boundaries using", keys.TAB_AND_SHIFT_TAB],
+        ["navigate through group boundaries using", keys.INS_DOWN_OR_CAPS_DOWN],
+        ["navigate through group boundaries using", `${keys.INS_F7_OR_CAPS_F7} to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox`],
+        ["when the cursor is on a checkbox, read the group using", keys.INS_TAB_OR_CAPS_TAB],
+        ["when the cursor is on a checkbox, read the group using", keys.INS_UP_OR_CAPS_UP]
       ],
       voiceover: [
       ]
     },
     interaction: {
       jaws: [
-	["navigate through group boundaries using", "Tab / Shift+Tab"],
-        ["when the cursor is on a checkbox, read the group using", "Insert+Tab (or CapsLock+Tab)"],
-        ["when the cursor is on a checkbox, read the group using", "Insert+Up (or CapsLock+I)"]
+	["navigate through group boundaries using", keys.TAB_AND_SHIFT_TAB],
+        ["when the cursor is on a checkbox, read the group using", keys.INS_TAB_OR_CAPS_TAB],
+        ["when the cursor is on a checkbox, read the group using", keys.INS_UP_OR_CAPS_I]
       ],
       nvda: [
-        ["navigate through group boundaries using", "Tab / Shift+Tab"],
-        ["when the cursor is on a checkbox, read the group using", "Insert+Tab (or CapsLock+Tab)"],
-        ["when the cursor is on a checkbox, read the group using", "Insert+Up (or CapsLock+Up)"]
+        ["navigate through group boundaries using", keys.TAB_AND_SHIFT_TAB],
+        ["when the cursor is on a checkbox, read the group using", keys.INS_TAB_OR_CAPS_TAB],
+        ["when the cursor is on a checkbox, read the group using", keys.INS_UP_OR_CAPS_UP]
       ],
       voiceover: [
-        ["navigate through group boundaries using", "Tab / Shift+Tab"],
-        ["navigate through group boundaries using", "Control+Option+Right / Ctrl+Option+Left"],
-        ["navigate through group boundaries using", "Control+Option+A"],
-        ["navigate through group boundaries using", "Control+Option+Command+J / Shift+Control+Option+Command+J"],
-        ["navigate through group boundaries using", "Control+Option+Command+C / Shift+Control+Option+Command+C"],
-        ["navigate through group boundaries using", "Control+U to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox"]
+        ["navigate through group boundaries using", keys.TAB_AND_SHIFT_TAB],
+        ["navigate through group boundaries using", keys.CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT],
+        ["navigate through group boundaries using", keys.CTRL_OPT_A],
+        ["navigate through group boundaries using", keys.CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J],
+        ["navigate through group boundaries using", keys.CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C],
+        ["navigate through group boundaries using", `${keys.CTRL_U} to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox`]
       ]
     }
   }
@@ -124,14 +125,14 @@ const AT_COMMAND_MAP = {
 
 const MODE_INSTRUCTIONS = {
   reading: {
-    jaws: "Put JAWS into Virtual Cursor Mode using Insert-Z.",
-    nvda: "Put NVDA into Browser Mode using Esc",
+    jaws: `Put JAWS into Virtual Cursor Mode using ${keys.INS_Z}`,
+    nvda: `Put NVDA into Browser Mode using ${keys.ESC}`,
     voiceover: ""
   },
   interaction: {
-    jaws: "Put JAWS into Forms Mode by turning Virual Cursor off using insert+z.",
+    jaws: `Put JAWS into Forms Mode by turning Virual Cursor off using ${keys.INS_Z}`,
     nvda: "Put NVDA into Focus Mode using NVDA+Space",
-    voiceover: "Turn Quick Nav off by pressing the Left Arrow and Right Arrow keys at the same time."
+    voiceover: `Turn Quick Nav off by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
   }
 };
 

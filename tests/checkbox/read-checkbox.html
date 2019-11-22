@@ -7,15 +7,16 @@
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+  import * as keys from "../resources/keys.mjs";
 
   const additionalAssertions = {
     jaws: [{
-      keys: ["Tab / Shift+Tab"],
+      keys: [keys.TAB_AND_SHIFT_TAB],
       mode: 'reading',
       assertion: 'After command, JAWS is in Forms Mode'
     }],
     nvda: [{
-      keys: ["Tab / Shift+Tab"],
+      keys: [keys.TAB_AND_SHIFT_TAB],
       mode: 'reading',
       assertion: 'After command, NVDA is in Focus Mode'
     }]

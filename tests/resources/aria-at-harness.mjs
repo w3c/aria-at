@@ -523,7 +523,7 @@ function endTest() {
       status = 'INCOMPLETE';
     }
 
-    resulthtml += `<p>After user performs task "${result.task}" in ${result.mode} mode, the following behavior was observed:<p>`;
+    resulthtml += `<h3>After user performs task "${result.task}" in ${result.mode} mode, the following behavior was observed:<h3>`;
     resulthtml += `<table>`;
     for (let assertionResult of result.assertionResults) {
       resulthtml += `<tr><td>${assertionResult.status}</td><td>${assertionResult.name}</td>`;

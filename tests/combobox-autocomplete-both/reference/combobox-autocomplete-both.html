@@ -11,6 +11,20 @@
 <body>
   <main>
     <h1>Editable Combobox With Both List and Inline Autocomplete</h1>
+    <details>
+      <summary>About this test case</summary>
+      <p>
+        The below combobox for choosing the name of a US state or territory demonstrates the
+        <a href="../../#combobox">design pattern for combobox.</a>
+        The design pattern describes four types of autocomplete behavior.
+        This example illustrates the autocomplete behavior referred to in the pattern as list with inline completion.
+        If the user types one or more characters in the edit box and the typed characters match the beginning of the name of one or more states or territories,
+        a listbox popup appears containing the matching names, and the first match is automatically selected.
+        In addition, the portion of the selected suggestion that has not been typed by the user, a completion string, appears inline after the input cursor in the textbox.
+        The automatically selected suggestion becomes the value of the textbox when the combobox loses focus unless the user chooses a different suggestion or changes the character string in the textbox.
+        Note that this implementation enables users to input the name of a state or territory, but it does not prevent input of any other arbitrary value.
+      </p>
+    </details>
     <div id="ex1">
       <label for="cb1-input">State</label>
       <div class="combobox combobox-list">
@@ -79,6 +93,154 @@
         </ul>
       </div>
     </div>
+    <details>
+      <summary id="kbd_label">Keyboard Support</summary>
+      <p>
+      The example combobox on this page implements the following keyboard interface.
+        Other variations and options for the keyboard interface are described in the
+        <a href="../../#combobox_kbd_interaction">Keyboard Interaction section of the combobox design pattern.</a>
+      </p>
+      <h3 id="kbd_label_textbox">Textbox</h3>
+      <table aria-labelledby="kbd_label_textbox kbd_label" class="def">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-test-id="textbox-key-down-arrow">
+            <th><kbd>Down Arrow</kbd></th>
+            <td>
+              <ul>
+                <li>If the listbox is displayed and a suggestion is selected, moves visual focus to the next suggested value.</li>
+                <li>If the textbox is empty and the listbox is not displayed, opens the listbox and moves visual focus to the first option.</li>
+                <li>In both cases DOM focus remains on the textbox.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr data-test-id="textbox-key-up-arrow">
+            <th><kbd>Up Arrow</kbd></th>
+            <td>
+              <ul>
+                <li>If the listbox is displayed and a suggestion is selected, moves visual focus to the last suggested value.</li>
+                <li>If the textbox is empty, first opens the listbox if it is not already displayed and then moves visual focus to the last option.</li>
+                <li>In both cases DOM focus remains on the textbox.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr data-test-id="textbox-key-enter">
+            <th><kbd>Enter</kbd></th>
+            <td>
+              <ul>
+                <li>Sets the textbox value to the content of the selected option.</li>
+                <li>Closes the listbox.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr data-test-id="textbox-key-escape">
+            <th><kbd>Escape</kbd></th>
+            <td>
+              <ul>
+                <li>Clears the textbox.</li>
+                <li>If the listbox is displayed, closes it.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr data-test-id="standard-single-line-editing-keys">
+            <th>Standard single line text editing keys</th>
+            <td>
+              <ul>
+                <li>Keys used for cursor movement and text manipulation, such as <kbd>Delete</kbd> and <kbd>Shift + Right Arrow</kbd>.</li>
+                <li>An HTML <code>input</code> with <code>type="text"</code> is used for the textbox so the browser will provide platform-specific editing keys.</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3 id="kbd_label_listbox">Listbox Popup</h3>
+      <p>
+        <strong>NOTE:</strong> When visual focus is in the listbox, DOM focus remains on the textbox and the value of <code>aria-activedescendant</code> on the textbox is set to a value that refers to the listbox option that is visually indicated as focused.
+        Where the following descriptions of keyboard commands mention focus, they are referring to the visual focus indicator.
+        For more information about this focus management technique, see
+        <a href="../../#kbd_focus_activedescendant">Using aria-activedescendant to Manage Focus.</a>
+      </p>
+      <table aria-labelledby="kbd_label_listbox kbd_label" class="def">
+        <thead>
+          <tr>
+            <th>Key</th>
+            <th>Function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-test-id="listbox-key-enter">
+            <th><kbd>Enter</kbd></th>
+            <td>
+              <ul>
+                <li>Sets the textbox value to the content of the focused option in the listbox.</li>
+                <li>Closes the listbox.</li>
+                <li>Sets visual focus on the textbox.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr data-test-id="listbox-key-escape">
+            <th><kbd>Escape</kbd></th>
+            <td>
+              <ul>
+                <li>Clears the textbox.</li>
+                <li>Closes the listbox.</li>
+                <li>Sets visual focus on the textbox.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr data-test-id="listbox-key-down-arrow">
+            <th><kbd>Down Arrow</kbd></th>
+            <td>
+              <ul>
+                <li>Moves visual focus to the next option.</li>
+                <li>If visual focus is on the last option, moves visual focus to the first option.</li>
+                <li>Note: This wrapping behavior is useful when <kbd>Home</kbd> and <kbd>End</kbd> move the editing cursor as described below.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr data-test-id="listbox-key-up-arrow">
+            <th><kbd>Up Arrow</kbd></th>
+            <td>
+              <ul>
+                <li>Moves visual focus to the previous option.</li>
+                <li>If visual focus is on the first option, moves visual focus to the last option.</li>
+                <li>Note: This wrapping behavior is useful when <kbd>Home</kbd> and <kbd>End</kbd> move the editing cursor as described below.</li>
+              </ul>
+            </td>
+          </tr>
+          <tr data-test-id="listbox-key-right-arrow">
+            <th><kbd>Right Arrow</kbd></th>
+            <td>Moves visual focus to the textbox and moves the editing cursor one character to the right.</td>
+          </tr>
+          <tr data-test-id="listbox-key-left-arrow">
+            <th><kbd>Left Arrow</kbd></th>
+            <td>Moves visual focus to the textbox and moves the editing cursor one character to the left.</td>
+          </tr>
+          <tr data-test-id="listbox-key-home">
+            <th><kbd>Home</kbd></th>
+            <td>Moves visual focus to the textbox and places the editing cursor at the beginning of the field.</td>
+          </tr>
+          <tr data-test-id="listbox-key-end">
+            <th><kbd>End</kbd></th>
+            <td>Moves visual focus to the textbox and places the editing cursor at the end of the field.</td>
+          </tr>
+          <tr data-test-id="listbox-characters">
+            <th>Printable Characters</th>
+            <td>
+              <ul>
+                <li>Moves visual focus to the textbox.</li>
+                <li>Types the character in the textbox.</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </details>
   </main>
 </body>
 </html>

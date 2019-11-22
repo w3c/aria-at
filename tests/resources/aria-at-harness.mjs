@@ -1,7 +1,12 @@
-import {isKnownAT, getATCommands, getModeInstructions} from './at-commands.mjs';
+import {isKnownAT, getATCommands, getModeInstructions, getAdditionalAssertions} from './at-commands.mjs';
 
 const DEFAULT_AT = 'JAWS';
-const DEFAULT_RESULTS = ['All Pass', 'All Fail', 'Some Fail'];
+const UNDESIRABLES = [
+  "Assistive technology produced irrelevent and distracting output.",
+  "Cursor jumped to annoying location.",
+  "Assitive technology crashed.",
+  "Browser crashed or froze.",
+];
 
 const TEST_HTML_OUTLINE = `
 <main>
@@ -68,8 +73,6 @@ for (const [key, value] of params) {
   }
 }
 
-
-
 function openTestPagePopup() {
   testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
 
@@ -108,7 +111,7 @@ function executeScriptInTestPage() {
   }
 }
 
-export function verifyATBehavoir(behavior) {
+export function verifyATBehavior(behavior) {
   for (let m = 0; m < behavior.mode.length; m++) {
     let newBehavior = Object.assign({}, behavior, { mode: behavior.mode[m] });
     newBehavior.commands = getATCommands(behavior.mode[m], behavior.task, at);
@@ -154,7 +157,8 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   const modeInstructions = getModeInstructions(mode, at);
   const userInstructions = behavior.specific_user_instruction;
   const commands = behavior.commands;
-  const assertions = behavior.assertions;
+  const assertions = behavior.output_assertions;
+  const additionalBehaviorAssertions = behavior.additional_assertions || [];
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
@@ -163,7 +167,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 <h2>Test instructions</h2>
 <ol>
   <li><em>${modeInstructions}</em></li>
-  <li>Then, <em>${userInstructions}</em> using each of the following <emp>${at}<emp> controls:
+  <li>Then, perform the task "<em>${userInstructions}</em>" using each of the following methods:
     <ul id='at_controls' aria-label='AT controls'>
     </ul>
   </li>
@@ -174,10 +178,26 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 </ul>
 `;
 
+  let currentInstruction = commands[0][0];
+  let instructionEl = document.createElement('li');
+  instructionEl.innerHTML = `${currentInstruction}`;
+  document.getElementById('at_controls').append(instructionEl);
+  let instructionListEl = document.createElement('ul');
+  document.getElementById('at_controls').append(instructionListEl);
+
+
   for (let command of commands) {
+    if (command[0] !== currentInstruction) {
+      currentInstruction = command[0];
+      instructionEl = document.createElement('li');
+      instructionEl.innerHTML = `${currentInstruction}`;
+      document.getElementById('at_controls').append(instructionEl);
+      instructionListEl = document.createElement('ul');
+      document.getElementById('at_controls').append(instructionListEl);
+    }
     let el = document.createElement('li');
-    el.innerHTML = `<em>${command}</em>`;
-    document.getElementById('at_controls').append(el);
+    el.innerHTML = `<em>${command[1]}</em>`;
+    instructionListEl.append(el);
   }
 
   for (let assertion of assertions) {
@@ -198,19 +218,19 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   let recordResults = `<h2>Record Results</h2><p>${document.title}</p>`;
 
   for (let c = 0; c < commands.length; c++) {
-    recordResults += `<h3 id="header-cmd-${c}">Results for command: '${commands[c]}'</h3>`;
+    recordResults += `<h3 id="header-cmd-${c}">After: '${commands[c][0]} ${commands[c][1]}'</h3>`;
     recordResults += `
 <p>
   <fieldset id="cmd-${c}-summary">
     <label for="speechoutput-${c}">Relevant speech output after command <span class="required">(required)</span>:</label>
     <input type="text" id="speechoutput-${c}">
     <div>
-      <input type="radio" id="allcorrect-${c}" class="allcorrect" name="allresults-${c}">
-      <label for="allcorrect-${c}">All assertions have been meet with this output</label>
+      <input type="radio" id="allpass-${c}" class="allpass" name="allresults-${c}">
+      <label for="allpass-${c}">All assertions have been meet after ${commands[c][1]} and there was no additional unexpected or undesirable behaviors.</label>
     </div>
     <div>
-      <input type="radio" id="allincomplete-${c}" class="allincomplete" name="allresults-${c}">
-      <label for="allincomplete-${c}">All assertions have not been met with this output (information is incomplete or incorrect)</label>
+      <input type="radio" id="somefailure-${c}" class="somefailure" name="allresults-${c}">
+      <label for="somefailure-${c}">Some assertions have not been met after ${commands[c][1]} or there as an additional unexpected or undesirable behavior.</label>
     </div>
   </fieldset>
 </p>
@@ -220,43 +240,65 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 <tr>
   <th>Assertion</th>
   <th>
-    Correct Output
+    Success case
   </th>
   <th>
-    No Output
+    Failure cases
   </th>
-  <th>
-    Incorrect Output
-  </th>
-  <th id="testernotes-${c}">Additional tester notes</th>
 </tr>
 `;
 
     for (let a = 0; a < assertions.length; a++) {
       recordResults += `
 <tr>
-  <td class="assertion-${c}-${a}"><div>${assertions[a]}</div><div class="required">(required: select output)</div></td>
+  <td id="assertion-${c}-${a}"><div class="assertion">${assertions[a]}</div><div class="required">(required: mark output)</div></td>
   <td>
-      <input type="radio" id="correct-${c}-${a}" class="correct" name="result-${c}-${a}">
-      <label for="correct-${c}-${a}">Correct Output</label>
+      <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}">
+      <label for="pass-${c}-${a}">Good Output</label>
   </td>
   <td>
       <input type="radio" id="missing-${c}-${a}" class="missing" name="result-${c}-${a}">
       <label for="missing-${c}-${a}">No Output</label>
+      <input type="radio" id="fail-${c}-${a}" class="fail" name="result-${c}-${a}">
+      <label for="fail-${c}-${a}">Incorrect Output</label>
+  </td>
+</tr>
+`;
+    }
+
+    let additionalAssertions = getAdditionalAssertions(additionalBehaviorAssertions, commands[c][1], mode, at);
+    for (let n = 0; n < additionalAssertions.length; n++) {
+      let a = assertions.length + n;
+      recordResults += `
+<tr>
+  <td id="assertion-${c}-${a}"><div class="assertion">${additionalAssertions[n]}</div><div class="required">(required: mark support)</div></td>
+  <td>
+      <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}">
+      <label for="pass-${c}-${a}">Good Support</label>
   </td>
   <td>
-      <input type="radio" id="incorrect-${c}-${a}" class="incorrect" name="result-${c}-${a}">
-      <label for="incorrect-${c}-${a}">Incorrect Output</label>
-  </td>
-  <td>
-    <input aria-labelledBy="testernotes-${c}" type="text" id="info-${c}-${a}">
+      <input type="radio" id="fail-${c}-${a}" class="fail" name="result-${c}-${a}">
+      <label for="fail-${c}-${a}">No Support</label>
   </td>
 </tr>
 `;
     }
 
     recordResults += '</table>';
+
+    recordResults += `
+<div>
+<label for="problem-${c}">Was there additional undesirable behavior?</label>
+<select name="problem-${c}" id="problem-${c}"><option value=""></option>`
+
+    for (let undesirable of UNDESIRABLES) {
+      recordResults += `<option value="${undesirable}">${undesirable}</option>`;
+    }
+
+    recordResults += `</select></div>`;
   }
+
+
 
   let recordEl = document.getElementById('record-results');
   recordEl.innerHTML = recordResults;
@@ -268,7 +310,10 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 
   // Submit button
   let el = document.createElement('button');
-  el.innerText = "Submit";
+  el.innerText = "Move to next behavior test";
+  if (behaviorId === allBehaviors.length - 1) {
+    el.innerText = "Finish test";
+  }
   el.value = behaviorId;
   el.addEventListener('click', submitResult);
   recordEl.append(el);
@@ -281,10 +326,10 @@ function handleRadioClick(event) {
   let radioId = event.target.id;
   let cmdId = Number(radioId.split('-')[1]);
 
-  if (radioId.indexOf('allcorrect') === 0) {
-    for (let resultType of ['correct', 'incomplete', 'incorrect']) {
+  if (radioId.indexOf('allpass') === 0) {
+    for (let resultType of ['pass', 'missing', 'fail']) {
       let radios = document.querySelectorAll(`#cmd-${cmdId} .${resultType}`);
-      let checked = resultType === 'correct' ? true : false;
+      let checked = resultType === 'pass' ? true : false;
       for (let radio of radios) {
 	radio.checked = checked;
       }
@@ -293,15 +338,17 @@ function handleRadioClick(event) {
 
   else {
     let markedAs = radioId.split('-')[0];
-    if (markedAs === 'correct') {
-      let markedCorrect = document.querySelectorAll(`#cmd-${cmdId} .correct:checked`);
-      if (markedCorrect.length === allBehaviors[currentTestedBehavior].assertions.length) {
-	let allradio = document.querySelector(`#cmd-${cmdId}-summary #allcorrect-${cmdId}`);
+    if (markedAs === 'pass') {
+
+      let numAssertions = document.getElementById(`cmd-${cmdId}`).rows.length - 1;
+      let markedPass = document.querySelectorAll(`#cmd-${cmdId} .pass:checked`);
+      if (markedPass.length === numAssertions) {
+	let allradio = document.querySelector(`#cmd-${cmdId}-summary #allpass-${cmdId}`);
 	allradio.checked = true;
       }
     }
     else {
-      let allradio = document.querySelector(`#cmd-${cmdId}-summary #allincomplete-${cmdId}`);
+      let allradio = document.querySelector(`#cmd-${cmdId}-summary #somefailure-${cmdId}`);
       allradio.checked = true;
     }
   }
@@ -325,28 +372,29 @@ function validateResults() {
 
     let allSelected = fieldset.querySelector(`input[name="allresults-${c}"]:checked`);
     if (!allSelected) {
-      focusEl = focusEl || document.getElementById(`allcorrect-${c}`);
+      focusEl = focusEl || document.getElementById(`allpass-${c}`);
       fieldset.classList.add('highlight-required');
     }
 
+    let numAssertions = document.getElementById(`cmd-${c}`).rows.length - 1;
     if (
-      fieldset.querySelector('.allcorrect').checked
+      fieldset.querySelector('.allpass').checked
       || !allSelected
     ) {
-      for (let a = 0; a < allBehaviors[currentTestedBehavior].assertions.length; a++) {
-	document.querySelector(`.assertion-${c}-${a} .required`).classList.remove('highlight-required');
+      for (let a = 0; a < numAssertions; a++) {
+	document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
       }
       continue;
     }
 
-    for (let a = 0; a < allBehaviors[currentTestedBehavior].assertions.length; a++) {
+    for (let a = 0; a < numAssertions; a++) {
       let selectedRadio = document.querySelector(`input[name="result-${c}-${a}"]:checked`);
       if (!selectedRadio) {
-	document.querySelector(`.assertion-${c}-${a} .required`).classList.add('highlight-required');
-	focusEl = focusEl || document.getElementById(`correct-${c}-${a}`);
+	document.querySelector(`#assertion-${c}-${a} .required`).classList.add('highlight-required');
+	focusEl = focusEl || document.getElementById(`pass-${c}-${a}`);
       }
       else {
-	document.querySelector(`.assertion-${c}-${a} .required`).classList.remove('highlight-required');
+	document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
       }
     }
   }
@@ -368,49 +416,66 @@ function submitResult(event) {
     cmdOutput[allBehaviors[currentTestedBehavior].commands[c]] = document.querySelector(`#speechoutput-${c}`).value;
   }
 
-  let assertionResults = [];
-  for (let a = 0; a < allBehaviors[currentTestedBehavior].assertions.length; a++) {
-    assertionResults.push({correct: [], incorrect: [], incomplete: []});
+  let assertionResults = {};
+  let otherUndesirables = [];
+  for (let assertion of allBehaviors[currentTestedBehavior].output_assertions) {
+    assertionResults[assertion] = ({pass: [], fail: [], missing: []});
+  }
+
+  let additionalAssertions = allBehaviors[currentTestedBehavior].additional_assertions[at.toLowerCase()].filter(
+    (assertion) => assertion.mode === allBehaviors[currentTestedBehavior].mode
+  );
+  for (let assertion of additionalAssertions) {
+    assertionResults[assertion.assertion] = ({pass: [], fail: [], missing: []});
   }
 
   for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
-    let failures = document.querySelectorAll(`#cmd-${c} .incorrect:checked`);
+    let failures = document.querySelectorAll(`#cmd-${c} .fail:checked`);
     for (let failure of failures) {
       let assertionId = Number(failure.id.split('-')[2]);
-      assertionResults[assertionId].incorrect.push({
-	cmd: allBehaviors[currentTestedBehavior].commands[c],
-	otherInfo: document.querySelector(`#cmd-${c} #info-${c}-${assertionId}`).value
-      });
+      let assertion = document.querySelector(`#assertion-${c}-${assertionId} .assertion`).innerHTML;
+      assertionResults[assertion].fail.push(
+	allBehaviors[currentTestedBehavior].commands[c]
+      );
     }
 
-    let successes = document.querySelectorAll(`#cmd-${c} .correct:checked`);
+    let successes = document.querySelectorAll(`#cmd-${c} .pass:checked`);
     for (let success of successes) {
       let assertionId = Number(success.id.split('-')[2]);
-      assertionResults[assertionId].correct.push({
-	cmd: allBehaviors[currentTestedBehavior].commands[c],
-	otherInfo: document.querySelector(`#cmd-${c} #info-${c}-${assertionId}`).value
-      });
+      let assertion = document.querySelector(`#assertion-${c}-${assertionId} .assertion`).innerHTML;
+      assertionResults[assertion].pass.push(
+	allBehaviors[currentTestedBehavior].commands[c]
+      );
     }
 
-    let incompletes = document.querySelectorAll(`#cmd-${c} .incomplete:checked`);
-    for (let incomplete of incompletes) {
-      let assertionId = Number(incomplete.id.split('-')[2]);
-      assertionResults[assertionId].incomplete.push({
-	cmd: allBehaviors[currentTestedBehavior].commands[c],
-	otherInfo: document.querySelector(`#cmd-${c} #info-${c}-${assertionId}`).value
-      });
+    let missings = document.querySelectorAll(`#cmd-${c} .missing:checked`);
+    for (let missing of missings) {
+      let assertionId = Number(missing.id.split('-')[2]);
+      let assertion = document.querySelector(`#assertion-${c}-${assertionId} .assertion`).innerHTML;
+      assertionResults[assertion].missing.push(
+	allBehaviors[currentTestedBehavior].commands[c]
+      );
+    }
+
+    let undesirable = document.getElementById(`problem-${c}`).value;
+    if (undesirable) {
+      if (!otherUndesirables[undesirable]) {
+	otherUndesirables[undesirable] = [];
+      }
+      otherUndesirables[undesirable].push(allBehaviors[currentTestedBehavior].commands[c]);
     }
   }
 
+
   let behaviorResults = [];
   let overallBehaviorResult = 'PASS';
-  for (let a = 0; a < assertionResults.length; a++) {
-    let assertionResult = assertionResults[a];
-    let assertionName = allBehaviors[currentTestedBehavior].assertions[a];
+  for (let assertionName in assertionResults) {
+    let assertionResult = assertionResults[assertionName];
 
-    // The status is fail if anything fails, or incomplete if nothing fails but somethings are incomplete
-    let status = assertionResult.incomplete.length === 0 ? 'PASS' : 'INCOMPLETE';
-    status = assertionResult.incorrect.length === 0 ? status : 'FAIL';
+    // The status is fail of anything fails, or incomplete if nothing fails but somethings are incomplete
+    let status = !assertionResult.missings || assertionResult.missings.length === 0 ? 'PASS' : 'INCOMPLETE';
+    status = assertionResult.fail.length === 0 ? status : 'FAIL';
+    status = otherUndesirables.length === 0 ? status : 'FAIL';
 
     behaviorResults.push({
       name: assertionName,
@@ -431,7 +496,8 @@ function submitResult(event) {
     assertionResults: behaviorResults,
     task: allBehaviors[currentTestedBehavior].specific_user_instruction,
     mode: allBehaviors[currentTestedBehavior].mode,
-    speechOutputForCommand: cmdOutput
+    speechOutputForCommand: cmdOutput,
+    undesirables: Object.keys(otherUndesirables).map((undesirable) => ({ undesirable, cmds: otherUndesirables[undesirable]}))
   });
 
   // Display the next behavior
@@ -460,26 +526,35 @@ function endTest() {
     resulthtml += `<p>After user performs task "${result.task}" in ${result.mode} mode, the following behavior was observed:<p>`;
     resulthtml += `<table>`;
     for (let assertionResult of result.assertionResults) {
-      resulthtml += `<tr><td>${assertionResult.status}</td><td>${assertionResult.name}</td>`
+      resulthtml += `<tr><td>${assertionResult.status}</td><td>${assertionResult.name}</td>`;
 
-      let failingCmds = assertionResult.details.incorrect.map((f) => f.cmd);
-      let passingCmds = assertionResult.details.correct.map((p) => p.cmd);
-      let incompleteCmds = assertionResult.details.incomplete.map((p) => p.cmd);
+      let failingCmds = assertionResult.details.fail.map((f) => f[1]);
+      let passingCmds = assertionResult.details.pass.map((p) => p[1]);
+      let missingCmds = assertionResult.details.missing.map((p) => p[1]);
 
-      resulthtml += '<td><ul>'
+      resulthtml += '<td><ul>';
       if (passingCmds.length) {
 	resulthtml += `<li>Passed for commands: ${passingCmds.join(', ')}.</li>`;
       }
       if (failingCmds.length) {
 	resulthtml += `<li>Incorrect information supplied after commands: ${failingCmds.join(', ')}.</li>`;
       }
-      if (incompleteCmds.length) {
-	resulthtml += `<li>Incomplete or no information supplied for commands: ${incompleteCmds.join(', ')}.</li>`;
+      if (missingCmds.length) {
+	resulthtml += `<li>Incomplete or no information supplied for commands: ${missingCmds.join(', ')}.</li>`;
       }
-      resulthtml += '</ul></td>'
-      resulthtml += '</tr>'
+      resulthtml += '</ul></td>';
+      resulthtml += '</tr>';
     }
     resulthtml += `</table>`;
+
+    if (result.undesirables.length > 0) {
+      resulthtml += `<p>The following unwanted behaviors were observed:<p><table>`;
+      for (let undesirable of result.undesirables) {
+	let badCmds = undesirable.cmds.map((c) => c[1]);
+	resulthtml += `<tr><td>${undesirable.undesirable}</td><td>This behavior occured after the following commands: ${badCmds.join(', ')}</td></tr>`;
+      }
+      resulthtml += `</table>`;
+    }
   }
 
   document.body.innerHTML = resulthtml;

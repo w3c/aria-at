@@ -422,9 +422,12 @@ function submitResult(event) {
     assertionResults[assertion] = ({pass: [], fail: [], missing: []});
   }
 
-  let additionalAssertions = allBehaviors[currentTestedBehavior].additional_assertions[at.toLowerCase()].filter(
-    (assertion) => assertion.mode === allBehaviors[currentTestedBehavior].mode
-  );
+  let additional = allBehaviors[currentTestedBehavior].additional_assertions;
+  let additionalAssertions = additional
+      ? additional[at.toLowerCase()].filter(
+	(assertion) => assertion.mode === allBehaviors[currentTestedBehavior].mode
+      )
+      : [];
   for (let assertion of additionalAssertions) {
     assertionResults[assertion.assertion] = ({pass: [], fail: [], missing: []});
   }
@@ -523,7 +526,7 @@ function endTest() {
       status = 'INCOMPLETE';
     }
 
-    resulthtml += `<h3>After user performs task "${result.task}" in ${result.mode} mode, the following behavior was observed:<h3>`;
+    resulthtml += `<h3>After user performs task "${result.task}" in ${result.mode} mode, the following behavior was observed:</h3>`;
     resulthtml += `<table>`;
     for (let assertionResult of result.assertionResults) {
       resulthtml += `<tr><td>${assertionResult.status}</td><td>${assertionResult.name}</td>`;

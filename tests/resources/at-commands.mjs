@@ -165,9 +165,11 @@ export function getAdditionalAssertions(atAdditionalAssertions, key, mode, assis
   const at = assistiveTech.toLowerCase();
 
   let assertions = [];
-  for (let assertion of atAdditionalAssertions[at]) {
-    if (assertion.keys.includes(key) && assertion.mode === mode) {
-      assertions.push(assertion.assertion);
+  if (atAdditionalAssertions[at]) {
+    for (let assertion of atAdditionalAssertions[at]) {
+      if (assertion.keys.includes(key) && assertion.mode === mode) {
+	assertions.push(assertion.assertion);
+      }
     }
   }
   return assertions;

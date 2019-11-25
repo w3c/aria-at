@@ -7,6 +7,23 @@
 <link rel="help" href="https://w3c.github.io/aria/#ARIA-ATTRIBUTE">
 <script type="module">
   import { verifyATBehavoir, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+  import * as keys from "../resources/keys.mjs";
+
+  // This is example of an additional assertion list, for assertions which only apply to some key commands
+  // and some screen readers
+  const additionalAssertions = {
+    jaws: [{
+      keys: [keys.TAB_AND_SHIFT_TAB],
+      mode: 'reading',
+      assertion: 'After command, JAWS is in Forms Mode'
+    }],
+    nvda: [{
+      keys: [keys.TAB_AND_SHIFT_TAB],
+      mode: 'reading',
+      assertion: 'After command, NVDA is in Focus Mode'
+    }]
+  };
+
 
   verifyATBehavoir({
     setupTestPage: function setupTestPage(testPageDocument) {
@@ -15,11 +32,12 @@
     mode: ["reading", "interaction"],
     task: "",
     specific_user_instruction: "",
-    assertions: [
+    output_assertions: [
       "",
-    ]
+    ],
+    additional_assertions: additionalAssertions
   });
 
-  displayTestPageAndInstructions("");
+  displayTestPageAndInstructions("PATH/TO/HTML/EXAMPLE_FILE.html");
 
 </script>

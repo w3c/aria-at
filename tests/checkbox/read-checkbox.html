@@ -7,20 +7,6 @@
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
-  import * as keys from "../resources/keys.mjs";
-
-  const additionalAssertions = {
-    jaws: [{
-      keys: [keys.TAB_AND_SHIFT_TAB],
-      mode: 'reading',
-      assertion: 'After command, JAWS is in Forms Mode'
-    }],
-    nvda: [{
-      keys: [keys.TAB_AND_SHIFT_TAB],
-      mode: 'reading',
-      assertion: 'After command, NVDA is in Focus Mode'
-    }]
-  };
 
   verifyATBehavior({
     mode: ["reading", "interaction"],
@@ -30,8 +16,7 @@
       "The role 'checkbox' is spoken",
       "The name 'Lettuce' is spoken",
       "The state of the checkbox (not checked) is conveyed"
-    ],
-    additional_assertions: additionalAssertions,
+    ]
   });
 
   verifyATBehavior({
@@ -47,8 +32,7 @@
       "The role 'checkbox' is spoken",
       "The name 'Lettuce' is spoken",
       "The state of the checkbox (checked) is conveyed"
-    ],
-    additional_assertions: additionalAssertions
+    ]
   });
 
   displayTestPageAndInstructions("reference/two-state-checkbox.html");

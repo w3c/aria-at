@@ -2,10 +2,12 @@ import {isKnownAT, getATCommands, getModeInstructions, getAdditionalAssertions} 
 
 const DEFAULT_AT = 'JAWS';
 const UNDESIRABLES = [
-  "Assistive technology produced irrelevent and distracting output.",
-  "Cursor jumped to annoying location.",
-  "Assitive technology crashed.",
-  "Browser crashed or froze.",
+  "Output is excessively verbose, e.g., includes redundant and/or irrelevant speech",
+  "Reading cursor position changed in an unexpected manner",
+  "Screen reader became extremely sluggish",
+  "Screen reader crashed",
+  "Browser crashed",
+  "Other"
 ];
 
 const TEST_HTML_OUTLINE = `

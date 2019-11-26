@@ -161,7 +161,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   const userInstructions = behavior.specific_user_instruction;
   const commands = behavior.commands;
   const assertions = behavior.output_assertions;
-  const additionalBehaviorAssertions = behavior.additional_assertions || [];
+  const additionalBehaviorAssertions = behavior.additional_assertions ? behavior.additional_assertions[at.toLowerCase()] || [] : [];
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
@@ -209,7 +209,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
     document.getElementById('assertions').append(el);
   }
 
-  for (let additional of additionalBehaviorAssertions[at.toLowerCase()]) {
+  for (let additional of additionalBehaviorAssertions) {
     let el = document.createElement('li');
     el.innerHTML = `<em>${additional.assertion}</em>`;
     document.getElementById('assertions').append(el);
@@ -275,7 +275,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 `;
     }
 
-    let additionalAssertions = getAdditionalAssertions(additionalBehaviorAssertions, commands[c][1], mode, at);
+    let additionalAssertions = getAdditionalAssertions(additionalBehaviorAssertions, commands[c][1], mode);
     for (let n = 0; n < additionalAssertions.length; n++) {
       let a = assertions.length + n;
       recordResults += `

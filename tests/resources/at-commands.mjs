@@ -9,6 +9,57 @@ const KNOWN_ATS = {
 /* Add new commands here */
 
 const AT_COMMAND_MAP = {
+  "navigate to combobox": {
+    reading: {
+      jaws: [
+        ["", keys.C_AND_SHIFT_C],
+        ["", keys.F_AND_SHIFT_F],
+        ["", keys.UP_AND_DOWN],
+	["", `${keys.LEFT_AND_RIGHT} (with Smart Navigation set to Controls and Tables)`]
+      ]
+    },
+    interaction: {
+      jaws: [
+        ["", keys.TAB_AND_SHIFT_TAB],
+      ]
+    }
+  },
+  "read combobox": {
+    reading: {
+      jaws: [
+        ["", keys.INSERT_TAB],
+        ["", keys.INSERT_UP],
+      ]
+    },
+    interaction: {
+      jaws: [
+        ["", keys.INSERT_TAB],
+        ["", keys.INSERT_UP],
+      ]
+    }
+  },
+  "navigate to combobox with keys that switch modes": {
+    reading: {
+      jaws: [
+        ["", keys.TAB_AND_SHIFT_TAB],
+      ]
+    }
+  },
+  "activate combobox": {
+    reading: {
+      jaws: [
+        ["", keys.ENTER],
+      ]
+    }
+  },
+  "open combobox from input": {
+    interaction: {
+      jaws: [
+        ["", keys.DOWN],
+        ["", keys.UP]
+      ]
+    }
+  },
   "read checkbox": {
     reading: {
       jaws: [

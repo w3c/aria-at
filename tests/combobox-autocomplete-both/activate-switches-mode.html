@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Reading empty, editable combobox conveys role, name, editability, and state.</title>
+<title>Activating editable combobox switches mode from reading to interaction.</title>
 <link rel="author" title="Matt King" href="mailto:a11ythinker@gmail.com">
 <link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#combobox">
 <link rel="help" href="https://w3c.github.io/aria/#combobox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-controls">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 <script type="module">
-  // Applies to: Desktop Screen Readers
+  // Applies to: Screen Readers
 
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+  import * as keys from "../resources/keys.mjs";
 
   verifyATBehavior({
-    mode: ["reading", "interaction"],
-    task: "read the combobox",
-    specific_user_instruction: "When the focus or reading cursor is on the 'state' combobox, read the 'state' combobox",
-    output_assertions: [
-      "The role 'combobox' is conveyed",
-      "The name 'State' is spoken",
-      "Users are informed they can edit text in the combobox",
-      "The collapsed state of the combobox is conveyed."
-    ]
+    mode: ["reading"],
+    task: "activate combobox",
+    specific_user_instruction: "activate the 'state' combobox",
+    additional_assertions: {
+      jaws: [{
+        keys: [keys.ENTER],
+        mode: 'reading',
+        assertion: 'the screen reader switches to mode that allows text input'
+      }],
+    }
   });
+
 
   displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
 

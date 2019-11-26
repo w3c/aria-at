@@ -117,6 +117,7 @@ export function verifyATBehavior(behavior) {
   for (let m = 0; m < behavior.mode.length; m++) {
     let newBehavior = Object.assign({}, behavior, { mode: behavior.mode[m] });
     newBehavior.commands = getATCommands(behavior.mode[m], behavior.task, at);
+    newBehavior.output_assertions = newBehavior.output_assertions ? newBehavior.output_assertions : [];
     if (newBehavior.commands.length) {
       allBehaviors.push(newBehavior);
     }
@@ -205,6 +206,12 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   for (let assertion of assertions) {
     let el = document.createElement('li');
     el.innerHTML = `<em>${assertion}</em>`;
+    document.getElementById('assertions').append(el);
+  }
+
+  for (let additional of additionalBehaviorAssertions[at.toLowerCase()]) {
+    let el = document.createElement('li');
+    el.innerHTML = `<em>${additional.assertion}</em>`;
     document.getElementById('assertions').append(el);
   }
 

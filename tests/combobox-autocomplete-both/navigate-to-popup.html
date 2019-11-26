@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Opening popup from input conveys role, name, properties, and states of the popup and selected option.</title>
+<link rel="author" title="Matt King" href="mailto:a11ythinker@gmail.com">
+<link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#combobox">
+<link rel="help" href="https://w3c.github.io/aria/#combobox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-activedescendant">
+<link rel="help" href="https://w3c.github.io/aria/#listbox">
+<link rel="help" href="https://w3c.github.io/aria/#option">
+<link rel="help" href="https://w3c.github.io/aria/#aria-label">
+<link rel="help" href="https://w3c.github.io/aria/#aria-selected">
+<script type="module">
+  // Applies to: Screen Readers
+
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    setupTestPage: function setupTestPage(testPageDocument) {
+      const combobox = testPageDocument.querySelector('[role="combobox"]');
+      combobox.focus();
+    },
+    mode: ["interaction"],
+    task: "open combobox from input",
+    specific_user_instruction: "Navigate into the popup from the empty combobox",
+    output_assertions: [
+      "The popup role of 'listbox' is conveyed",
+      "The popup name of 'States' is spoken",
+      "The name of the focused option is spoken, e.g., 'Alabama' if first option, 'Wyoming' if last \option",
+      "The position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option"
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+
+</script>

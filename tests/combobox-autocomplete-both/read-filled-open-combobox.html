@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Reading empty, editable combobox conveys role, name, editability, and state.</title>
+<title>Reading empty, editable, open combobox conveys role, name, editability, and state.</title>
 <link rel="author" title="Matt King" href="mailto:a11ythinker@gmail.com">
 <link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#combobox">
 <link rel="help" href="https://w3c.github.io/aria/#combobox">
@@ -12,6 +12,13 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
+    setupTestPage: function setupTestPage(testPageDocument) {
+      const combobox = testPageDocument.querySelector('[role="combobox"]');
+      combobox.focus();
+      combobox.value = 'A';
+      const expandButton = testPageDocument.querySelector('button');
+      expandButton.click();
+    },
     mode: ["reading", "interaction"],
     task: "read the combobox",
     specific_user_instruction: "When the focus or reading cursor is on the 'state' combobox, read the 'state' combobox",
@@ -19,7 +26,8 @@
       "The role 'combobox' is conveyed",
       "The name 'State' is spoken",
       "Users are informed they can edit text in the combobox",
-      "The collapsed state of the combobox is conveyed."
+      "The value 'A' is spoken",
+      "The expanded state of the combobox is conveyed"
     ]
   });
 

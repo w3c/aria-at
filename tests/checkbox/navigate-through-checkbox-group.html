@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Reading checkbox group conveys group role and name.</title>
+<title>Navigating through checkbox group conveys group role, name and boundaries.</title>
 <link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
 <link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
@@ -11,11 +11,12 @@
 
   verifyATBehavior({
     mode: ["reading", "interaction"],
-    task: "read the checkbox group",
-    specific_user_instruction: "when focus or cursor is on a checkbox, read the group",
+    task: "navigate to checkbox group",
+    specific_user_instruction: "navigate through boundaries of checkbox group",
     output_assertions: [
       "The role 'group' is spoken",
-      "The group's name 'Sandwich Condiments' is spoken"
+      "The group's name 'Sandwich Condiments' is spoken",
+      "The boundaries of the group (before the first checkbox and after the last checkbox) are conveyed"
     ]
   });
 

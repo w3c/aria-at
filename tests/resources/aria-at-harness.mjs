@@ -6,8 +6,7 @@ const UNDESIRABLES = [
   "Reading cursor position changed in an unexpected manner",
   "Screen reader became extremely sluggish",
   "Screen reader crashed",
-  "Browser crashed",
-  "Other"
+  "Browser crashed"
 ];
 
 const TEST_HTML_OUTLINE = `
@@ -35,7 +34,11 @@ const PAGE_STYLES = `
     font-weight: bold;
   }
 
-  table .required:not(.highlight-required) {
+  .required:not(.highlight-required) {
+    display: none;
+  }
+
+  .required-other:not(.highlight-required) {
     display: none;
   }
 
@@ -50,7 +53,6 @@ const PAGE_STYLES = `
   fieldset .highlight-required {
     color: red;
   }
-
 `;
 
 const allBehaviors = [];
@@ -160,8 +162,10 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   const modeInstructions = getModeInstructions(mode, at);
   const userInstructions = behavior.specific_user_instruction;
   const commands = behavior.commands;
-  const assertions = behavior.output_assertions;
-  const additionalBehaviorAssertions = behavior.additional_assertions ? behavior.additional_assertions[at.toLowerCase()] || [] : [];
+  const assertions = behavior.output_assertions.map((a) => a[1]);
+
+  const additionalAssertionsList = behavior.additional_assertions ? behavior.additional_assertions[at.toLowerCase()] || [] : [];
+  const additionalBehaviorAssertions = additionalAssertionsList.map((a) => a[1]);
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
@@ -210,10 +214,8 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 
   let recordResults = `<h2>Record Results</h2><p>${document.title}</p>`;
 
-  console.log(commands);
-
   for (let c = 0; c < commands.length; c++) {
-    recordResults += `<h3 id="header-cmd-${c}">After: '${commands[c]}'</h3>`;
+    recordResults += `<section id="cmd-${c}-section"><h3 id="header-cmd-${c}">After: '${commands[c]}'</h3>`;
     recordResults += `
 <p>
   <fieldset id="cmd-${c}-summary">
@@ -282,18 +284,40 @@ function displayInstructionsForBehaviorTest(behaviorId) {
     recordResults += '</table>';
 
     recordResults += `
+  <fieldset id="cmd-${c}-problem">
+Were there additional undesirable behaviors? <span class="required">(required)</span>
 <div>
-<label for="problem-${c}">Was there additional undesirable behavior?</label>
-<select name="problem-${c}" id="problem-${c}"><option value=""></option>`
+  <input type="radio" id="problem-${c}-false" class="pass" name="problem-${c}">
+  <label for="problem-${c}-false">No, there are no additional undesirable behaviors.</label>
+</div>
+<div>
+  <input type="radio" id="problem-${c}-true" class="fail" name="problem-${c}">
+  <label for="problem-${c}-true">Yes, there are additional undesirable behaviors</label>
+</div>
+<br>
+<div>
+  <label for="problem-${c}-select">Select all undesirable behaviors <span class="required">(required: select at least one or mark "No additional undesirable behaviors")</span>:</label>
+</div>
+<div>
+  <select multiple name="problem-${c}-select" id="problem-${c}-select">
+`;
 
     for (let undesirable of UNDESIRABLES) {
       recordResults += `<option value="${undesirable}">${undesirable}</option>`;
     }
+    recordResults += `<option class="other" value="Other">Other</option>
+</select>
+</div>
+</br>
+<div>
+  <label for="problem-${c}-other">If "other" selected, explain <span class="required-other">(required)</span>:</label>
+  <input disabled type="text" name="problem-${c}-other" id="problem-${c}-other">
+</div>
+</fieldset>
+`;
 
-    recordResults += `</select></div>`;
+    recordResults += `</section>`;
   }
-
-
 
   let recordEl = document.getElementById('record-results');
   recordEl.innerHTML = recordResults;
@@ -301,6 +325,12 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   let radios = document.querySelectorAll('input[type="radio"]');
   for (let radio of radios) {
     radio.onclick = handleRadioClick;
+  }
+
+  let selects = document.querySelectorAll('select');
+  console.log(selects);
+  for (let select of selects) {
+    select.onchange = handleUndesirableSelect;
   }
 
   // Submit button
@@ -316,14 +346,47 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   document.querySelector('#behavior-header').focus();
 }
 
+function handleUndesirableSelect(event) {
+  let radioId = event.target.id;
+  let cmdId = Number(radioId.split('-')[1]);
+  const otherSelected = document.querySelector(`#problem-${cmdId}-select option.other:checked`);
+  if (otherSelected) {
+    document.querySelector(`#problem-${cmdId}-other`).disabled = false;
+  }
+  else {
+    document.querySelector(`#problem-${cmdId}-other`).disabled = true;
+    document.querySelector(`#problem-${cmdId}-other`).value = '';
+  }
+  const anySelected = document.querySelector(`#problem-${cmdId}-select option:checked`);
+  if (anySelected) {
+    document.querySelector(`#problem-${cmdId}-true`).checked = true;
+  }
+}
 
 function handleRadioClick(event) {
   let radioId = event.target.id;
   let cmdId = Number(radioId.split('-')[1]);
 
+  if (radioId.indexOf('problem') === 0) {
+    let markedAs = radioId.split('-')[2];
+    let select = document.querySelector(`#problem-${cmdId}-select`);
+    let other = document.querySelector(`#problem-${cmdId}-other`);
+    if (markedAs === 'true') {
+      select.disabled = false;
+    }
+    else {
+      for (let option of document.querySelectorAll(`#cmd-${cmdId}-problem option`)) {
+	option.selected = false;
+      }
+      select.disabled = true;
+      other.disabled = true;
+      other.value = '';
+    }
+  }
+
   if (radioId.indexOf('allpass') === 0) {
     for (let resultType of ['pass', 'missing', 'fail']) {
-      let radios = document.querySelectorAll(`#cmd-${cmdId} .${resultType}`);
+      let radios = document.querySelectorAll(`#cmd-${cmdId}-section .${resultType}`);
       let checked = resultType === 'pass' ? true : false;
       for (let radio of radios) {
 	radio.checked = checked;
@@ -335,8 +398,10 @@ function handleRadioClick(event) {
     let markedAs = radioId.split('-')[0];
     if (markedAs === 'pass') {
 
-      let numAssertions = document.getElementById(`cmd-${cmdId}`).rows.length - 1;
-      let markedPass = document.querySelectorAll(`#cmd-${cmdId} .pass:checked`);
+      // We want the length of the rows because the total number of "pass" radio buttons
+      // is equal to the number of rows PLUS 1 for the "additional undesirable behaviors" radio
+      let numAssertions = document.getElementById(`cmd-${cmdId}`).rows.length;
+      let markedPass = document.querySelectorAll(`#cmd-${cmdId}-section .pass:checked`);
       if (markedPass.length === numAssertions) {
 	let allradio = document.querySelector(`#cmd-${cmdId}-summary #allpass-${cmdId}`);
 	allradio.checked = true;
@@ -354,34 +419,42 @@ function validateResults() {
   let focusEl;
   for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
 
-    let fieldset = document.getElementById(`cmd-${c}-summary`);
-    let cmdInput = fieldset.querySelector('input[type="text"]');
+    // If there is no output recorded, mark the screen reader output as required
+    let summaryFieldset = document.getElementById(`cmd-${c}-summary`);
+    let cmdInput = summaryFieldset.querySelector('input[type="text"]');
     if (!cmdInput.value) {
       focusEl = focusEl || cmdInput;
-      fieldset.classList.add('highlight-required');
-      fieldset.querySelector('.required').classList.add('highlight-required');
+      summaryFieldset.classList.add('highlight-required');
+      summaryFieldset.querySelector('.required').classList.add('highlight-required');
     } else {
-      fieldset.classList.remove('highlight-required');
-      fieldset.querySelector('.required').classList.remove('highlight-required');
+      summaryFieldset.classList.remove('highlight-required');
+      summaryFieldset.querySelector('.required').classList.remove('highlight-required');
     }
 
-    let allSelected = fieldset.querySelector(`input[name="allresults-${c}"]:checked`);
+    // If neither the "all pass" or "some failed" radios are checked, then no further results have been recorded,
+    // so highlight the summaryFieldset as required.
+    let allSelected = summaryFieldset.querySelector(`input[name="allresults-${c}"]:checked`);
     if (!allSelected) {
       focusEl = focusEl || document.getElementById(`allpass-${c}`);
-      fieldset.classList.add('highlight-required');
+      summaryFieldset.classList.add('highlight-required');
     }
 
+    // If "all pass" is selected, remove "required" mark any remaining assertions (because they will
+    // all have been marked as passing, now) and move to the next command
+
     let numAssertions = document.getElementById(`cmd-${c}`).rows.length - 1;
-    if (
-      fieldset.querySelector('.allpass').checked
-      || !allSelected
-    ) {
+    let undesirableFieldset = document.getElementById(`cmd-${c}-problem`);
+
+    if ( summaryFieldset.querySelector('.allpass').checked || !allSelected ) {
       for (let a = 0; a < numAssertions; a++) {
 	document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
       }
+
+      undesirableFieldset.classList.remove('highlight-required');
       continue;
     }
 
+    // Otherwise, we must go though each assertion and add or remove the "required" mark
     for (let a = 0; a < numAssertions; a++) {
       let selectedRadio = document.querySelector(`input[name="result-${c}-${a}"]:checked`);
       if (!selectedRadio) {
@@ -390,6 +463,32 @@ function validateResults() {
       }
       else {
 	document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
+      }
+    }
+
+    // Check that a radio in the fieldset is selected
+    let problemRadio = document.querySelector(`input[name="problem-${c}"]:checked`);
+    let problemSelected = document.querySelector(`#problem-${c}-select option:checked`);
+    let otherSelected = document.querySelector(`#problem-${c}-select option.other:checked`);
+    let otherText = document.querySelector(`#problem-${c}-other`).value;
+    if (!problemRadio || !problemSelected || (otherSelected && !otherText)) {
+	undesirableFieldset.classList.add('highlight-required');
+    }
+    if (!problemRadio || !problemSelected) {
+      document.querySelector(`#cmd-${c}-problem .required`).classList.add('highlight-required');
+      focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="radio"]`);
+    }
+    else if (problemRadio && problemSelected) {
+      document.querySelector(`#cmd-${c}-problem .required`).classList.remove('highlight-required');
+      focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="select"]`);
+    }
+    if (otherSelected) {
+      if (!otherText) {
+	document.querySelector(`#cmd-${c}-problem .required-other`).classList.add('highlight-required');
+	focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="select"]`);
+      }
+      else {
+	document.querySelector(`#cmd-${c}-problem .required-other`).classList.remove('highlight-required');
       }
     }
   }
@@ -413,8 +512,10 @@ function submitResult(event) {
 
   let assertionResults = {};
   let otherUndesirables = [];
+  let priorityOfAssertion = {};
   for (let assertion of allBehaviors[currentTestedBehavior].output_assertions) {
-    assertionResults[assertion] = ({pass: [], fail: [], missing: []});
+    assertionResults[assertion[1]] = ({pass: [], fail: [], missing: []});
+    priorityOfAssertion[assertion[1]] = assertion[0];
   }
 
   let additional = allBehaviors[currentTestedBehavior].additional_assertions;
@@ -477,6 +578,7 @@ function submitResult(event) {
 
     behaviorResults.push({
       name: assertionName,
+      priority: priorityOfAssertion[assertionName],
       status: status,
       details: assertionResult
     });

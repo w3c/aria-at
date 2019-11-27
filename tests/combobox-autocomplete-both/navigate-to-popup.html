@@ -23,10 +23,10 @@
     task: "open combobox from input",
     specific_user_instruction: "Navigate into the popup from the empty combobox",
     output_assertions: [
-      "The popup role of 'listbox' is conveyed",
-      "The popup name of 'States' is spoken",
-      "The name of the focused option is spoken, e.g., 'Alabama' if first option, 'Wyoming' if last \option",
-      "The position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option"
+      [1, "The popup role of 'listbox' is conveyed"],
+      [2, "The popup name of 'States' is spoken"],
+      [1, "The name of the focused option is spoken, e.g., 'Alabama' if first option, 'Wyoming' if last \option"],
+      [2, "The position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option"]
     ]
   });
 

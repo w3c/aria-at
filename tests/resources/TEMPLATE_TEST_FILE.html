@@ -15,12 +15,12 @@
     jaws: [{
       keys: [keys.TAB_AND_SHIFT_TAB],
       mode: 'reading',
-      assertion: 'After command, JAWS is in Forms Mode'
+      assertion: [PRIORITY#, 'After command, JAWS is in Forms Mode']
     }],
     nvda: [{
       keys: [keys.TAB_AND_SHIFT_TAB],
       mode: 'reading',
-      assertion: 'After command, NVDA is in Focus Mode'
+      assertion: [PRIORITY#, 'After command, NVDA is in Focus Mode']
     }]
   };
 
@@ -33,7 +33,7 @@
     task: "",
     specific_user_instruction: "",
     output_assertions: [
-      "",
+      [PRIORITY#, ASSERTION],
     ],
     additional_assertions: additionalAssertions
   });

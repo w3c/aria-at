@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Group role, name and boundaries are announced when navigating through checkbox group.</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<link rel="help" href="https://w3c.github.io/aria/#group">
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    mode: ["reading", "interaction"],
+    task: "navigate to checkbox group",
+    specific_user_instruction: "navigate through boundaries of checkbox group",
+    output_assertions: [
+      "The role 'group' is spoken",
+      "The group's name 'Sandwich Condiments' is spoken",
+      "The boundaries of the group (before the first checkbox and after the last checkbox) are conveyed"
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/two-state-checkbox.html");
+
+</script>

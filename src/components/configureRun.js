@@ -31,6 +31,11 @@ export default class ConfigureRun extends Component {
     });
   }
 
+  selectATVersion(event) {
+    this.setState({
+      atVersion: event.target.value
+    });
+  }
   selectTest(event) {
     let newSelectedTests = Object.assign({}, this.state.selectedTests);
 
@@ -95,7 +100,7 @@ export default class ConfigureRun extends Component {
           <label
             htmlFor={id}
           >
-            Run all tests for desing pattern: {designPattern}
+            Tests for {designPattern}
           </label>
   	</summary>
 	<ul className="select-test-list">
@@ -129,22 +134,37 @@ export default class ConfigureRun extends Component {
   render() {
     const { allTests, ats, browser } = this.props;
 
+    let countTests = 0;
+    let selectedPatterns = new Set();
+    for (let designPattern in allTests) {
+      for (let test of allTests[designPattern]) {
+        if (this.state.selectedTests[designPattern][test.name]) {
+          countTests++;
+          selectedPatterns.add(designPattern);
+        }
+      }
+    }
+
     return (
       <section>
         <h1>It's test time!</h1>
         <div ref={this.selectTestEl} tabIndex="0">Select at least one test to run:</div>
         {Object.keys(allTests).map((designPattern) => this.renderDesignPatternSelectable(designPattern, allTests[designPattern]))}
         <div className="configuration-item">
-          <label htmlFor="select-at">Select which assistive technology you are testing:</label>
-          <select name="at" id="select-at" value={this.state.value} onChange={this.selectAT}>
+          <label htmlFor="select-at">Select which assistive technology you are testing: </label>
+          <select name="at" id="select-at" value={this.state.at} onChange={this.selectAT}>
 	    {ats.map((at) => ( <option value={at} key={at}>{at}</option> )) }
           </select>
+        </div>
+        <div className="configuration-item">
+          <label htmlFor="select-at">Which version of {this.state.at}?: </label>
+          <input type="text" name="at-version" id="select-at-version" value={this.state.atVersion} onChange={this.selectATVersion} />
         </div>
         <div className="configuration-item">
           Saving results for UserAgent: <span className="us">{browser}</span>
         </div>
         <button onClick={this.runTests}>
-          Run Selected Tests
+          Run {countTests} test{countTests === 1 ? '' : 's'} for {selectedPatterns.size} pattern{selectedPatterns.size === 1 ? '' : 's'}
         </button>
       </section>
     );

@@ -9,29 +9,13 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["reading", "interaction"],
+    mode: ["reading"],
     task: "navigate to checkbox",
     specific_user_instruction: "navigate to the first checkbox",
     output_assertions: [
       [1, "The role 'checkbox' is spoken"],
       [1, "The name 'Lettuce' is spoken"],
       [1, "The state of the checkbox (not checked) is conveyed"]
-    ]
-  });
-
-  verifyATBehavior({
-    // Mark the first checkbox as checked before the next test
-    setupTestPage: function setupTestPage(testPageDocument) {
-      const checkboxes = testPageDocument.querySelectorAll('[role="checkbox"]');
-      checkboxes[0].setAttribute('aria-checked', 'true');
-    },
-    mode: ["reading", "interaction"],
-    task: "navigate to checkbox",
-    specific_user_instruction: "navigate to the first checkbox (which is now checked)",
-    output_assertions: [
-      [1, "The role 'checkbox' is spoken"],
-      [1, "The name 'Lettuce' is spoken"],
-      [1, "The state of the checkbox (checked) is conveyed"]
     ]
   });
 

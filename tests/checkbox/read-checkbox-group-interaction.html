@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Reading checkbox conveys role, name and state.</title>
+<title>Reading checkbox group conveys group role and name.</title>
 <link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
 <link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<link rel="help" href="https://w3c.github.io/aria/#group">
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setupTestPage: function setupTestPage(testPageDocument) {
-      const checkboxes = testPageDocument.querySelectorAll('[role="checkbox"]');
-      checkboxes[0].focus();
-    },
-    mode: ["reading"],
-    task: "read checkbox",
-    specific_user_instruction: "when the focus or reading cursor is on the first checkbox, read the first checkbox",
+    mode: ["interaction"],
+    task: "read the checkbox group",
+    specific_user_instruction: "when focus or cursor is on a checkbox, read the group",
     output_assertions: [
-      [1, "The role 'checkbox' is spoken"],
-      [1, "The name 'Lettuce' is spoken"],
-      [1, "The state of the checkbox (not checked) is conveyed"]
+      [1, "The role 'group' is spoken"],
+      [1, "The group's name 'Sandwich Condiments' is spoken"]
     ]
   });
 

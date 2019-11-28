@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Reading empty, editable combobox conveys role, name, editability, and state.</title>
+<link rel="author" title="Matt King" href="mailto:a11ythinker@gmail.com">
+<link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#combobox">
+<link rel="help" href="https://w3c.github.io/aria/#combobox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-controls">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+<script type="module">
+  // Applies to: Desktop Screen Readers
+
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    mode: ["reading", "interaction"],
+    task: "read the combobox",
+    specific_user_instruction: "When the focus or reading cursor is on the 'state' combobox, read the 'state' combobox",
+    output_assertions: [
+      [1, "The role 'combobox' is conveyed"],
+      [1, "The name 'State' is spoken"],
+      [1, "Users are informed they can edit text in the combobox"],
+      [2, "The collapsed state of the combobox is conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+
+</script>

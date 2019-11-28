@@ -1,0 +1,31 @@
+language: node_js
+node_js:
+  - lts/*
+
+git:
+  depth: 3
+
+before_install:
+  - npm i -g npm@6.10.2
+
+stages:
+  - deploy
+
+jobs:
+  include:
+    - stage: deploy
+      name: "Deploy to gh-pages"
+      if: branch = master
+      script:
+        - git clone --depth=1 --branch=gh-pages https://github.com/w3c/aria-at.git
+        - cd aria-at
+        - npm install
+        - npm run build
+      deploy:
+        provider: pages
+        skip-cleanup: true
+        github-token: $GH_TOKEN
+        keep-history: true
+        local-dir: dist
+        on:
+          branch: master

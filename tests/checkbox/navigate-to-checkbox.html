@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigating to checkbox conveys role, name and state.</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    mode: ["reading", "interaction"],
+    task: "navigate to checkbox",
+    specific_user_instruction: "navigate to the first checkbox",
+    output_assertions: [
+      [1, "The role 'checkbox' is spoken"],
+      [1, "The name 'Lettuce' is spoken"],
+      [1, "The state of the checkbox (not checked) is conveyed"]
+    ]
+  });
+
+  verifyATBehavior({
+    // Mark the first checkbox as checked before the next test
+    setupTestPage: function setupTestPage(testPageDocument) {
+      const checkboxes = testPageDocument.querySelectorAll('[role="checkbox"]');
+      checkboxes[0].setAttribute('aria-checked', 'true');
+    },
+    mode: ["reading", "interaction"],
+    task: "navigate to checkbox",
+    specific_user_instruction: "navigate to the first checkbox (which is now checked)",
+    output_assertions: [
+      [1, "The role 'checkbox' is spoken"],
+      [1, "The name 'Lettuce' is spoken"],
+      [1, "The state of the checkbox (checked) is conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/two-state-checkbox.html");
+
+</script>

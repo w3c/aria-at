@@ -328,7 +328,6 @@ Were there additional undesirable behaviors? <span class="required">(required)</
   }
 
   let selects = document.querySelectorAll('select');
-  console.log(selects);
   for (let select of selects) {
     select.onchange = handleUndesirableSelect;
   }
@@ -471,10 +470,10 @@ function validateResults() {
     let problemSelected = document.querySelector(`#problem-${c}-select option:checked`);
     let otherSelected = document.querySelector(`#problem-${c}-select option.other:checked`);
     let otherText = document.querySelector(`#problem-${c}-other`).value;
-    if (!problemRadio || !problemSelected || (otherSelected && !otherText)) {
+    if (!problemRadio || (problemRadio.classList.contains('fail') && !problemSelected) || (otherSelected && !otherText)) {
 	undesirableFieldset.classList.add('highlight-required');
     }
-    if (!problemRadio || !problemSelected) {
+    if (!problemRadio || (problemRadio.classList.contains('fail') && !problemSelected)) {
       document.querySelector(`#cmd-${c}-problem .required`).classList.add('highlight-required');
       focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="radio"]`);
     }
@@ -511,7 +510,7 @@ function submitResult(event) {
   }
 
   let assertionResults = {};
-  let otherUndesirables = [];
+  let allUndesirables = [];
   let priorityOfAssertion = {};
   for (let assertion of allBehaviors[currentTestedBehavior].output_assertions) {
     assertionResults[assertion[1]] = ({pass: [], fail: [], missing: []});
@@ -556,12 +555,13 @@ function submitResult(event) {
       );
     }
 
-    let undesirable = document.getElementById(`problem-${c}`).value;
-    if (undesirable) {
-      if (!otherUndesirables[undesirable]) {
-	otherUndesirables[undesirable] = [];
+    let undesirables = document.querySelectorAll(`#problem-${c}-select option:checked`);
+    for (let undesirable of undesirables) {
+      let val = undesirable.value;
+      if (!allUndesirables[val]) {
+	allUndesirables[val] = [];
       }
-      otherUndesirables[undesirable].push(allBehaviors[currentTestedBehavior].commands[c]);
+      allUndesirables[val].push(allBehaviors[currentTestedBehavior].commands[c]);
     }
   }
 
@@ -574,7 +574,7 @@ function submitResult(event) {
     // The status is fail of anything fails, or incomplete if nothing fails but somethings are incomplete
     let status = !assertionResult.missings || assertionResult.missings.length === 0 ? 'PASS' : 'INCOMPLETE';
     status = assertionResult.fail.length === 0 ? status : 'FAIL';
-    status = otherUndesirables.length === 0 ? status : 'FAIL';
+    status = allUndesirables.length === 0 ? status : 'FAIL';
 
     behaviorResults.push({
       name: assertionName,
@@ -597,7 +597,7 @@ function submitResult(event) {
     task: allBehaviors[currentTestedBehavior].specific_user_instruction,
     mode: allBehaviors[currentTestedBehavior].mode,
     speechOutputForCommand: cmdOutput,
-    undesirables: Object.keys(otherUndesirables).map((undesirable) => ({ undesirable, cmds: otherUndesirables[undesirable]}))
+    undesirables: Object.keys(allUndesirables).map((undesirable) => ({ undesirable, cmds: allUndesirables[undesirable]}))
   });
 
   // Display the next behavior

@@ -53,6 +53,15 @@ const PAGE_STYLES = `
   fieldset .highlight-required {
     color: red;
   }
+
+  .off-screen {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    white-space: nowrap;
+  }
 `;
 
 const allBehaviors = [];
@@ -252,14 +261,14 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 <tr>
   <td id="assertion-${c}-${a}"><div class="assertion">${assertions[a]}</div><div class="required">(required: mark output)</div></td>
   <td>
-      <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}">
-      <label for="pass-${c}-${a}">Good Output</label>
+      <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}" aria-labelledby="pass-${c}-${a}-label assertion-${c}-${a}">
+      <label id="pass-${c}-${a}-label">Good Output <span class="off-screen">for assertion</span></label>
   </td>
   <td>
-      <input type="radio" id="missing-${c}-${a}" class="missing" name="result-${c}-${a}">
-      <label for="missing-${c}-${a}">No Output</label>
-      <input type="radio" id="fail-${c}-${a}" class="fail" name="result-${c}-${a}">
-      <label for="fail-${c}-${a}">Incorrect Output</label>
+      <input type="radio" id="missing-${c}-${a}" class="missing" name="result-${c}-${a}" aria-labelledby="missing-${c}-${a}-label assertion-${c}-${a}">
+      <label id="missing-${c}-${a}-label">No Output <span class="off-screen">for assertion</span></label>
+      <input type="radio" id="fail-${c}-${a}" class="fail" name="result-${c}-${a}" aria-labelledby="fail-${c}-${a}-label assertion-${c}-${a}">
+      <label for="fail-${c}-${a}-label">Incorrect Output <span class="off-screen">for assertion</span></label>
   </td>
 </tr>
 `;
@@ -272,12 +281,12 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 <tr>
   <td id="assertion-${c}-${a}"><div class="assertion">${additionalAssertions[n]}</div><div class="required">(required: mark support)</div></td>
   <td>
-      <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}">
-      <label for="pass-${c}-${a}">Good Support</label>
+      <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}" aria-labelledby="pass-${c}-${a}-label assertion-${c}-${a}">
+      <label for="pass-${c}-${a}-label">Good Support <span class="off-screen">for assertion</span></label>
   </td>
   <td>
-      <input type="radio" id="fail-${c}-${a}" class="fail" name="result-${c}-${a}">
-      <label for="fail-${c}-${a}">No Support</label>
+      <input type="radio" id="fail-${c}-${a}" class="fail" name="result-${c}-${a}" aria-labelledby="fail-${c}-${a}-label assertion-${c}-${a}">
+      <label for="fail-${c}-${a}-label">No Support <span class="off-screen">for assertion</span></label>
   </td>
 </tr>
 `;

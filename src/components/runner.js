@@ -28,6 +28,7 @@ export default class Runner extends Component {
   startRun(configuration) {
     this.tests = configuration.tests;
     this.at = configuration.at;
+    this.atVersion = configuration.atVersion;
     this.setState({
       stage: 'runTests'
     });
@@ -46,7 +47,8 @@ export default class Runner extends Component {
       <TestRun
         tests={this.tests}
         browser={this.browser}
-        at={this.state.at}
+        at={this.at}
+        atVersion={this.atVersion}
         finishRun={this.finishRun}
       />
     );
@@ -67,7 +69,8 @@ export default class Runner extends Component {
     return (
       <TestResults
         results={this.results}
-        at={this.state.at}
+        at={this.at}
+        atVersion={this.atVersion}
         browser={this.browser}
       />
     );

@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Operating a role="checkbox" widget in reading mode.</title>
+<title>Reading checkbox group in interaction mode.</title>
 <link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
 <link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<link rel="help" href="https://w3c.github.io/aria/#group">
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["reading"],
-    task: "operate checkbox",
-    specific_user_instruction: "check and uncheck the first checkbox",
+    mode: ["interaction"],
+    task: "read the checkbox group",
+    specific_user_instruction: "when focus or cursor is on a checkbox, read the group",
     output_assertions: [
-      [1, "The change in the state of the checkbox is conveyed when the box is unchecked."],
-      [1, "The change in the state of the checkbox is conveyed when the box is checked."]
-    ],
+      [1, "The role 'group' is spoken"],
+      [1, "The group's name 'Sandwich Condiments' is spoken"]
+    ]
   });
 
   displayTestPageAndInstructions("reference/two-state-checkbox.html");

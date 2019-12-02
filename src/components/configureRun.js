@@ -16,6 +16,7 @@ export default class ConfigureRun extends Component {
     this.state = {
       selectedTests,
       at: this.props.ats[0],
+      atVersion: ''
     };
 
     this.selectTestEl = React.createRef();
@@ -23,6 +24,7 @@ export default class ConfigureRun extends Component {
     this.runTests = this.runTests.bind(this);
     this.selectTest = this.selectTest.bind(this);
     this.selectAT = this.selectAT.bind(this);
+    this.selectATVersion = this.selectATVersion.bind(this);
   }
 
   selectAT(event) {
@@ -36,6 +38,7 @@ export default class ConfigureRun extends Component {
       atVersion: event.target.value
     });
   }
+
   selectTest(event) {
     let newSelectedTests = Object.assign({}, this.state.selectedTests);
 
@@ -72,7 +75,7 @@ export default class ConfigureRun extends Component {
     }
 
     if (tests.length) {
-      this.props.startRun({tests: tests, at: this.state.at});
+      this.props.startRun({tests: tests, at: this.state.at, atVersion: this.state.atVersion});
     }
     else {
       this.selectTestEl.current.focus();

@@ -120,6 +120,9 @@ export function verifyATBehavior(behavior) {
     let newBehavior = Object.assign({}, behavior, { mode: behavior.mode[m] });
     newBehavior.commands = getATCommands(behavior.mode[m], behavior.task, at);
     newBehavior.output_assertions = newBehavior.output_assertions ? newBehavior.output_assertions : [];
+    newBehavior.additional_assertions = newBehavior.additional_assertions
+      ? behavior.additional_assertions[at.toLowerCase()] || []
+      : [];
     if (newBehavior.commands.length) {
       allBehaviors.push(newBehavior);
     }
@@ -164,12 +167,11 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   const commands = behavior.commands;
   const assertions = behavior.output_assertions.map((a) => a[1]);
 
-  const additionalAssertionsList = behavior.additional_assertions ? behavior.additional_assertions[at.toLowerCase()] || [] : [];
-  const additionalBehaviorAssertions = additionalAssertionsList.map((a) => a[1]);
+  const additionalBehaviorAssertions = behavior.additional_assertions.map((a) => a[1]);
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
-<h1 id="behavior-header" tabindex="0">Testing behavior ${behaviorId+1} of ${totalBehaviors}</h1>
+<h1 id="behavior-header" tabindex="0">Testing task: ${behavior.task}</h1>
 <p>How does ${at} respond after task "${userInstructions}" is performed in ${mode} mode?</p>
 <h2>Test instructions</h2>
 <ol>
@@ -334,9 +336,9 @@ Were there additional undesirable behaviors? <span class="required">(required)</
 
   // Submit button
   let el = document.createElement('button');
-  el.innerText = "Move to next behavior test";
+  el.innerText = "Perform the next behavior test";
   if (behaviorId === allBehaviors.length - 1) {
-    el.innerText = "Finish test";
+    el.innerText = "Review Results";
   }
   el.value = behaviorId;
   el.addEventListener('click', submitResult);
@@ -359,6 +361,8 @@ function handleUndesirableSelect(event) {
   const anySelected = document.querySelector(`#problem-${cmdId}-select option:checked`);
   if (anySelected) {
     document.querySelector(`#problem-${cmdId}-true`).checked = true;
+    let allradio = document.querySelector(`#cmd-${cmdId}-summary #somefailure-${cmdId}`);
+    allradio.checked = true;
   }
 }
 
@@ -450,7 +454,6 @@ function validateResults() {
       }
 
       undesirableFieldset.classList.remove('highlight-required');
-      continue;
     }
 
     // Otherwise, we must go though each assertion and add or remove the "required" mark
@@ -465,7 +468,7 @@ function validateResults() {
       }
     }
 
-    // Check that a radio in the fieldset is selected
+    // Check that the "unexpected/additional problems" fieldset is filled out
     let problemRadio = document.querySelector(`input[name="problem-${c}"]:checked`);
     let problemSelected = document.querySelector(`#problem-${c}-select option:checked`);
     let otherSelected = document.querySelector(`#problem-${c}-select option.other:checked`);
@@ -484,7 +487,7 @@ function validateResults() {
     if (otherSelected) {
       if (!otherText) {
 	document.querySelector(`#cmd-${c}-problem .required-other`).classList.add('highlight-required');
-	focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="select"]`);
+	focusEl = focusEl || document.querySelector(`#cmd-${c}-problem select`);
       }
       else {
 	document.querySelector(`#cmd-${c}-problem .required-other`).classList.remove('highlight-required');
@@ -499,108 +502,102 @@ function validateResults() {
   return true;
 }
 
+
 function submitResult(event) {
   if (!validateResults()) {
     return;
   }
 
-  let cmdOutput = {};
-  for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
-    cmdOutput[allBehaviors[currentTestedBehavior].commands[c]] = document.querySelector(`#speechoutput-${c}`).value;
+  const assertionPriority = {};
+  for (let a = 0; a < allBehaviors[currentTestedBehavior].output_assertions.length; a++) {
+    const assertion = allBehaviors[currentTestedBehavior].output_assertions[a];
+    assertionPriority[assertion[1]] = assertion[0];
   }
 
-  let assertionResults = {};
-  let allUndesirables = [];
-  let priorityOfAssertion = {};
-  for (let assertion of allBehaviors[currentTestedBehavior].output_assertions) {
-    assertionResults[assertion[1]] = ({pass: [], fail: [], missing: []});
-    priorityOfAssertion[assertion[1]] = assertion[0];
+  for (let a = 0; a < allBehaviors[currentTestedBehavior].additional_assertions.length; a++) {
+    const assertion = allBehaviors[currentTestedBehavior].additional_assertions[a].assertion;
+    assertionPriority[assertion[1]] = assertion[0];
   }
 
-  let additional = allBehaviors[currentTestedBehavior].additional_assertions;
-  let additionalAssertions = additional
-      ? additional[at.toLowerCase()].filter(
-	(assertion) => assertion.mode === allBehaviors[currentTestedBehavior].mode
-      )
-      : [];
-  for (let assertion of additionalAssertions) {
-    assertionResults[assertion.assertion] = ({pass: [], fail: [], missing: []});
-  }
+  const summary = {
+    1: {pass: 0, fail: 0},
+    2: {pass: 0, fail: 0},
+    3: {pass: 0, fail: 0},
+    unexpectedCount: 0
+  };
+
+  const commandResults = [];
 
   for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
-    let failures = document.querySelectorAll(`#cmd-${c} .fail:checked`);
-    for (let failure of failures) {
-      let assertionId = Number(failure.id.split('-')[2]);
-      let assertion = document.querySelector(`#assertion-${c}-${assertionId} .assertion`).innerHTML;
-      assertionResults[assertion].fail.push(
-	allBehaviors[currentTestedBehavior].commands[c]
-      );
-    }
 
-    let successes = document.querySelectorAll(`#cmd-${c} .pass:checked`);
-    for (let success of successes) {
-      let assertionId = Number(success.id.split('-')[2]);
-      let assertion = document.querySelector(`#assertion-${c}-${assertionId} .assertion`).innerHTML;
-      assertionResults[assertion].pass.push(
-	allBehaviors[currentTestedBehavior].commands[c]
-      );
-    }
+    let assertions = [];
+    let support = 'FULL';
+    let totalAssertions = document.querySelectorAll(`#cmd-${c} tr`).length - 1;
 
-    let missings = document.querySelectorAll(`#cmd-${c} .missing:checked`);
-    for (let missing of missings) {
-      let assertionId = Number(missing.id.split('-')[2]);
-      let assertion = document.querySelector(`#assertion-${c}-${assertionId} .assertion`).innerHTML;
-      assertionResults[assertion].missing.push(
-	allBehaviors[currentTestedBehavior].commands[c]
-      );
-    }
+    for (let a = 0; a < totalAssertions; a++) {
+      const assertion = document.querySelector(`#assertion-${c}-${a} .assertion`).innerHTML;
+      const resultEl = document.querySelector(`input[name="result-${c}-${a}"]:checked`);
+      const resultId = resultEl.id;
+      const pass = resultEl.classList.contains('pass');
+      const result = document.querySelector(`label[for="${resultId}"]`).innerHTML;
+      const priority = assertionPriority[assertion];
 
-    let undesirables = document.querySelectorAll(`#problem-${c}-select option:checked`);
-    for (let undesirable of undesirables) {
-      let val = undesirable.value;
-      if (!allUndesirables[val]) {
-	allUndesirables[val] = [];
+      let assertionResult = {
+	assertion,
+	priority
+      };
+
+      if (pass) {
+	assertionResult.pass = result;
+	summary[priority].pass++;
       }
-      allUndesirables[val].push(allBehaviors[currentTestedBehavior].commands[c]);
+      else {
+	assertionResult.fail = result;
+	summary[priority].fail++;
+
+	// If any priority 1 assertion fails, the test fails for this command
+	if (priority === 1) {
+	  support = 'FAILING';
+	}
+	// If any only a priority >1 assertion fails, then this test meets the all required pass case
+	else if (support !== 'FAILING') {
+	  support = 'ALL REQUIRED';
+	}
+      }
+
+      assertions.push(assertionResult);
     }
-  }
 
+    const unexpected = [];
+    for (let problemEl of document.querySelectorAll(`#problem-${c}-select option:checked`)) {
+      support = 'FAILING';
+      summary.unexpectedCount++;
+      if (problemEl.classList.contains('other')) {
+	unexpected.push(document.querySelector(`#problem-${c}-other`).value);
+      }
+      else {
+	unexpected.push(problemEl.value);
+      }
+    }
 
-  let behaviorResults = [];
-  let overallBehaviorResult = 'PASS';
-  for (let assertionName in assertionResults) {
-    let assertionResult = assertionResults[assertionName];
-
-    // The status is fail of anything fails, or incomplete if nothing fails but somethings are incomplete
-    let status = !assertionResult.missings || assertionResult.missings.length === 0 ? 'PASS' : 'INCOMPLETE';
-    status = assertionResult.fail.length === 0 ? status : 'FAIL';
-    status = allUndesirables.length === 0 ? status : 'FAIL';
-
-    behaviorResults.push({
-      name: assertionName,
-      priority: priorityOfAssertion[assertionName],
-      status: status,
-      details: assertionResult
+    commandResults.push({
+      command: allBehaviors[currentTestedBehavior].commands[c],
+      output: document.querySelector(`#speechoutput-${c}`).value,
+      unexpected_behaviors: unexpected,
+      support,
+      assertions
     });
-
-    if (status === 'FAIL') {
-      overallBehaviorResult = 'FAIL';
-    }
-    else if (status === 'INCOMPLETE' && overallBehaviorResult === 'PASS') {
-      overallBehaviorResult = 'INCOMPLETE';
-    }
   }
 
   allBehaviorResults.push({
-    status: overallBehaviorResult,
-    assertionResults: behaviorResults,
-    task: allBehaviors[currentTestedBehavior].specific_user_instruction,
-    mode: allBehaviors[currentTestedBehavior].mode,
-    speechOutputForCommand: cmdOutput,
-    undesirables: Object.keys(allUndesirables).map((undesirable) => ({ undesirable, cmds: allUndesirables[undesirable]}))
+    name: document.title,
+    specific_user_instruction: allBehaviors[currentTestedBehavior].specific_user_instruction,
+    task: allBehaviors[currentTestedBehavior].task,
+    commands: commandResults,
+    summary
   });
 
-  // Display the next behavior
+  //Display the next behavior
   if (currentTestedBehavior < allBehaviors.length - 1) {
     currentTestedBehavior++;
     displayInstructionsForBehaviorTest(currentTestedBehavior);
@@ -610,50 +607,73 @@ function submitResult(event) {
   }
 }
 
+
 function endTest() {
   let resulthtml = `<h1>${document.title}</h1><h2 id=overallstatus></h2>`;
+  let status = "PASS";
 
-  let status = 'PASS';
   for (let result of allBehaviorResults) {
+    resulthtml += `<table>
+  <tr>
+    <th>Command</th>
+    <th>Support</th>
+    <th>Details</th>
+  </tr>
+`;
 
-    if (result.status === 'FAIL') {
-      status = 'FAIL';
-    }
-    else if (result.status === 'INCOMPLETE' && status === 'PASS') {
-      status = 'INCOMPLETE';
-    }
+    for (let command of result.commands) {
 
-    resulthtml += `<h3>After user performs task "${result.task}" in ${result.mode} mode, the following behavior was observed:</h3>`;
-    resulthtml += `<table>`;
-    for (let assertionResult of result.assertionResults) {
-      resulthtml += `<tr><td>${assertionResult.status}</td><td>${assertionResult.name}</td>`;
-
-      let failingCmds = assertionResult.details.fail;
-      let passingCmds = assertionResult.details.pass;
-      let missingCmds = assertionResult.details.missing;
-
-      resulthtml += '<td><ul>';
-      if (passingCmds.length) {
-	resulthtml += `<li>Passed for commands: ${passingCmds.join(', ')}.</li>`;
+      if (command.support === 'FAILING') {
+	status = "FAIL";
       }
-      if (failingCmds.length) {
-	resulthtml += `<li>Incorrect information supplied after commands: ${failingCmds.join(', ')}.</li>`;
+
+      let passingAssertions = '';
+      let failingAssertions = '';
+      for (let assertion of command.assertions) {
+	if (assertion.pass) {
+	  passingAssertions += `<li>${assertion.assertion}</li>`;
+	}
+	if (assertion.fail) {
+	  failingAssertions += `<li>${assertion.assertion}</li>`;
+	}
       }
-      if (missingCmds.length) {
-	resulthtml += `<li>Incomplete or no information supplied for commands: ${missingCmds.join(', ')}.</li>`;
+      let unexpectedBehaviors = '';
+      for (let unexpected of command.unexpected_behaviors) {
+	unexpectedBehaviors += `<li>${unexpected}</li>`;
       }
-      resulthtml += '</ul></td>';
-      resulthtml += '</tr>';
+      passingAssertions = passingAssertions === '' ? '<li>No passing assertions.</li>' : passingAssertions;
+      failingAssertions = failingAssertions === '' ? '<li>No failing assertions.</li>' : failingAssertions;
+      unexpectedBehaviors = unexpectedBehaviors === '' ? '<li>No unexpect behaviors.</li>' : unexpectedBehaviors;
+
+
+      resulthtml+= `
+<tr>
+  <td>${command.command}</td>
+  <td>${command.support}</td>
+  <td>
+    <p>${at} output: "${command.output}"</p>
+    <div>Passing Assertions:
+      <ul>
+      ${passingAssertions}
+      </ul>
+    </div>
+    <div>Failing Assertions:
+      <ul>
+      ${failingAssertions}
+      </ul>
+    </div>
+    <div>Unexpected Behavior:
+      <ul>
+      ${unexpectedBehaviors}
+      </ul>
+    </div>
+  </td>
+</tr>
+`;
+
     }
+
     resulthtml += `</table>`;
-
-    if (result.undesirables.length > 0) {
-      resulthtml += `<p>The following unwanted behaviors were observed:<p><table>`;
-      for (let undesirable of result.undesirables) {
-	resulthtml += `<tr><td>${undesirable.undesirable}</td><td>This behavior occured after the following commands: ${undesirable.cmds.join(', ')}</td></tr>`;
-      }
-      resulthtml += `</table>`;
-    }
   }
 
   document.body.innerHTML = resulthtml;
@@ -665,7 +685,6 @@ function endTest() {
     testPageWindow.close();
   }
 }
-
 
 function showUserError() {
   if (errors.length) {
@@ -685,7 +704,7 @@ function reportResults(testResults, status) {
   results_element.id = "__ariaatharness__results__";
   var data = {
     test: document.title,
-    tests: testResults,
+    details: testResults,
     status: status
   };
   results_element.textContent = JSON.stringify(data);

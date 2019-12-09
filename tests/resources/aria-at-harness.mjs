@@ -268,7 +268,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
       <input type="radio" id="missing-${c}-${a}" class="missing" name="result-${c}-${a}" aria-labelledby="missing-${c}-${a}-label assertion-${c}-${a}">
       <label id="missing-${c}-${a}-label">No Output <span class="off-screen">for assertion</span></label>
       <input type="radio" id="fail-${c}-${a}" class="fail" name="result-${c}-${a}" aria-labelledby="fail-${c}-${a}-label assertion-${c}-${a}">
-      <label for="fail-${c}-${a}-label">Incorrect Output <span class="off-screen">for assertion</span></label>
+      <label id="fail-${c}-${a}-label">Incorrect Output <span class="off-screen">for assertion</span></label>
   </td>
 </tr>
 `;
@@ -282,11 +282,11 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   <td id="assertion-${c}-${a}"><div class="assertion">${additionalAssertions[n]}</div><div class="required">(required: mark support)</div></td>
   <td>
       <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}" aria-labelledby="pass-${c}-${a}-label assertion-${c}-${a}">
-      <label for="pass-${c}-${a}-label">Good Support <span class="off-screen">for assertion</span></label>
+      <label id="pass-${c}-${a}-label">Good Support <span class="off-screen">for assertion</span></label>
   </td>
   <td>
       <input type="radio" id="fail-${c}-${a}" class="fail" name="result-${c}-${a}" aria-labelledby="fail-${c}-${a}-label assertion-${c}-${a}">
-      <label for="fail-${c}-${a}-label">No Support <span class="off-screen">for assertion</span></label>
+      <label id="fail-${c}-${a}-label">No Support <span class="off-screen">for assertion</span></label>
   </td>
 </tr>
 `;
@@ -548,7 +548,7 @@ function submitResult(event) {
       const resultEl = document.querySelector(`input[name="result-${c}-${a}"]:checked`);
       const resultId = resultEl.id;
       const pass = resultEl.classList.contains('pass');
-      const result = document.querySelector(`label[for="${resultId}"]`).innerHTML;
+      const result = document.querySelector(`#${resultId}-label`).innerHTML.split('<span')[0];
       const priority = assertionPriority[assertion];
 
       let assertionResult = {

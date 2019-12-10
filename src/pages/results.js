@@ -24,7 +24,7 @@ function renderResultLink(r) {
 
   return (
     <Fragment>
-      <Link to={`/results/test-run/${r.id}`}>{`Results for ${numberTests} tests of ${at} (${atVersion}) run on ${browser} (${browserVersion})`}</Link>
+      <Link to={`/aria-at/results/test-run/${r.id}`}>{`Results for ${numberTests} tests of ${at} (${atVersion}) run on ${browser} (${browserVersion})`}</Link>
       <div className="results-details">{r.fileName}</div>
     </Fragment>
   );

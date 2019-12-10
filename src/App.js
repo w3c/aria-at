@@ -9,7 +9,7 @@ function App() {
   return (
     <Root>
       <h1 className="header">
-        ARIA-AT Test Runner
+        ARIA-AT Project
       </h1>
       <div className="content">
         <React.Suspense fallback={<em>Loading...</em>}>

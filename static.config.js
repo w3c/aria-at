@@ -44,7 +44,7 @@ export default {
       }
     });
 
-    // Get all the result files
+    // Get all the result jsons
     const allResults = [];
 
     let i = 0;
@@ -102,4 +102,5 @@ export default {
   ],
   siteRoot: "https://w3c.github.io",
   basePath: "aria-at",
+  devBasePath: "aria-at",
 }

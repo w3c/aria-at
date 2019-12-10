@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{56:function(e,n,t){"use strict";t.r(n);var a=t(0),o=t.n(a);n.default=function(){return o.a.createElement("div",null,o.a.createElement("h1",null,"404 - Oh no! Page does not exist."))}}}]);

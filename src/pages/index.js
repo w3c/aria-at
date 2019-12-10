@@ -1,7 +1,14 @@
 import React from 'react'
+import { Link } from 'components/Router'
 
 export default () => (
   <div style={{ textAlign: 'center' }}>
-    <h2>Home Page</h2>
+    <h2>ARIA-AT Test Runner Prototype</h2>
+    <h3>
+    <Link to="/runner">Run tests with the test runner</Link>
+    </h3>
+    <h3>
+    <Link to="/results">See results for previous test runs</Link>
+    </h3>
   </div>
 )

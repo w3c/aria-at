@@ -135,7 +135,7 @@ export default class ConfigureRun extends Component {
   }
 
   render() {
-    const { allTests, ats, browser } = this.props;
+    const { allTests, ats, browser, browserVersion } = this.props;
 
     let countTests = 0;
     let selectedPatterns = new Set();
@@ -164,7 +164,7 @@ export default class ConfigureRun extends Component {
           <input type="text" name="at-version" id="select-at-version" value={this.state.atVersion} onChange={this.selectATVersion} />
         </div>
         <div className="configuration-item">
-          Saving results for UserAgent: <span className="us">{browser}</span>
+          Saving results for UserAgent: <span className="us">{browser} ({browserVersion})</span>
         </div>
         <button onClick={this.runTests}>
           Run {countTests} test{countTests === 1 ? '' : 's'} for {selectedPatterns.size} pattern{selectedPatterns.size === 1 ? '' : 's'}

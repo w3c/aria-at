@@ -16,9 +16,11 @@ export default class Runner extends Component {
     this.tests = [];
     this.results = [];
     this.browser = '';
+    this.browserVersion
     if (typeof window !== "undefined") {
       let b = Bowser.getParser(window.navigator.userAgent);
-      this.browser = `${b.getBrowser().name} (${b.getBrowser().version})`;
+      this.browser = b.getBrowser().name;
+      this.browserVersion = b.getBrowser().version;
     }
 
     this.finishRun = this.finishRun.bind(this);
@@ -47,6 +49,7 @@ export default class Runner extends Component {
       <TestRun
         tests={this.tests}
         browser={this.browser}
+        browserVersion={this.browserVersion}
         at={this.at}
         atVersion={this.atVersion}
         finishRun={this.finishRun}
@@ -61,6 +64,7 @@ export default class Runner extends Component {
         allTests={this.props.allTests}
         startRun={this.startRun}
         browser={this.browser}
+        browserVersion={this.browserVersion}
       />
     );
   }
@@ -72,6 +76,7 @@ export default class Runner extends Component {
         at={this.at}
         atVersion={this.atVersion}
         browser={this.browser}
+        browserVersion={this.browserVersion}
       />
     );
   }

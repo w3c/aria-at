@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import ConfigureRun from 'components/configureRun';
-import TestResults from 'components/testResults';
+import RunResults from 'components/runResults';
 import TestRun from 'components/testRun';
 import Bowser from 'bowser';
 
@@ -70,13 +70,20 @@ export default class Runner extends Component {
   }
 
   renderResults() {
+    let resultsData = {
+      results: this.results,
+      assistiveTechnology: {
+        name: this.at,
+        version: this.atVersion
+      },
+      browser: {
+        name: this.browser,
+        version: this.browserVersion
+      }
+    };
     return (
-      <TestResults
-        results={this.results}
-        at={this.at}
-        atVersion={this.atVersion}
-        browser={this.browser}
-        browserVersion={this.browserVersion}
+      <RunResults
+        resultsData={resultsData}
       />
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-export default class testResults extends Component {
+export default class RunResults extends Component {
 
   constructor(props) {
     super(props);
@@ -103,28 +103,23 @@ export default class testResults extends Component {
   }
 
   render() {
-    let { results, at, browser, atVersion, browserVersion } = this.props;
+    let { resultsData } = this.props;
+    let { assistiveTechnology, browser, results } = resultsData;
 
-    let resultsData = {
-      results,
-      assitiveTechnology: {
-        name: at,
-        version: atVersion
-      },
-      browser: {
-        name: browser,
-        version: browserVersion
-      }
-    };
+    let fileName = resultsData.fileName
+	? `${resultsData.fileName}.json`
+	: `results_${assistiveTechnology.name}-${assistiveTechnology.version}_${browser.name}-${browser.version}_${new Date().toISOString()}.json`;
 
     return (
       <Fragment>
-        <a
-          download={`results_${at}-${atVersion}_${browser}-${browserVersion}_${new Date().toISOString()}.json`}
-          href={`data:application/json;charset=utf-8;,${encodeURIComponent(JSON.stringify(resultsData))}`}>Download Results JSON
-        </a>
+	<p>
+          <a
+           download={fileName}
+           href={`data:application/json;charset=utf-8;,${encodeURIComponent(JSON.stringify(resultsData))}`}>Download Results JSON
+          </a>
+	</p>
         <section>
-        <h1>Summary of results</h1>
+        <h1>Summary of results for tests of {`${assistiveTechnology.name} (${assistiveTechnology.version}) on ${browser.name} (${browser.version})`}</h1>
           <table className="results-table">
             <thead>
               <tr>

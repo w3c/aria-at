@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import ConfigureRun from 'components/configureRun';
-import TestResults from 'components/testResults';
+import RunResults from 'components/runResults';
 import TestRun from 'components/testRun';
 import Bowser from 'bowser';
 
@@ -16,9 +16,11 @@ export default class Runner extends Component {
     this.tests = [];
     this.results = [];
     this.browser = '';
+    this.browserVersion
     if (typeof window !== "undefined") {
       let b = Bowser.getParser(window.navigator.userAgent);
-      this.browser = `${b.getBrowser().name} (${b.getBrowser().version})`;
+      this.browser = b.getBrowser().name;
+      this.browserVersion = b.getBrowser().version;
     }
 
     this.finishRun = this.finishRun.bind(this);
@@ -47,6 +49,7 @@ export default class Runner extends Component {
       <TestRun
         tests={this.tests}
         browser={this.browser}
+        browserVersion={this.browserVersion}
         at={this.at}
         atVersion={this.atVersion}
         finishRun={this.finishRun}
@@ -61,17 +64,26 @@ export default class Runner extends Component {
         allTests={this.props.allTests}
         startRun={this.startRun}
         browser={this.browser}
+        browserVersion={this.browserVersion}
       />
     );
   }
 
   renderResults() {
+    let resultsData = {
+      results: this.results,
+      assistiveTechnology: {
+        name: this.at,
+        version: this.atVersion
+      },
+      browser: {
+        name: this.browser,
+        version: this.browserVersion
+      }
+    };
     return (
-      <TestResults
-        results={this.results}
-        at={this.at}
-        atVersion={this.atVersion}
-        browser={this.browser}
+      <RunResults
+        resultsData={resultsData}
       />
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Head } from 'react-static';
 import ConfigureRun from 'components/configureRun';
 import RunResults from 'components/runResults';
 import TestRun from 'components/testRun';
@@ -91,9 +92,9 @@ export default class Runner extends Component {
   render() {
     return (
       <Fragment>
-      { this.state.stage === 'configureRun' && this.renderConfigureRun() }
-      { this.state.stage === 'runTests' && this.renderTestRun() }
-      { this.state.stage === 'displayResults' && this.renderResults() }
+        { this.state.stage === 'configureRun' && this.renderConfigureRun() }
+        { this.state.stage === 'runTests' && this.renderTestRun() }
+        { this.state.stage === 'displayResults' && this.renderResults() }
       </Fragment>
 
     );

@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { createPortal } from 'react-dom';
+import { Head } from 'react-static';
 
 export default class testRun extends Component {
 
@@ -71,19 +72,24 @@ export default class testRun extends Component {
 
 
     return (
-      <section>
-        <p>Screen reader: {at}, browser: {browser}</p>
-        <h1>Current test ({this.state.currentTest + 1} of {tests.length}): {test.fullName}</h1>
-	  <iframe id="testfile"
-                src={`../tests${test.location}?at=${at}`}
-                ref={this.testIframe}
-        >
-	  </iframe>
-        <button onClick={this.handleRedo}>Redo Test</button>
-        <button onClick={this.handleSkip}>Skip Test</button>
-        <button onClick={this.handleSubmit}>Submit Results</button>
-	{this.state.remindFinishTest && <p className="test-incomplete" tabIndex="0">Current test not completed, finish marking behavior results.</p>}
-      </section>
+      <Fragment>
+        <Head>
+          <title>ARIA-AT: Test Run</title>
+        </Head>
+        <section>
+          <p>Screen reader: {at}, browser: {browser}</p>
+          <h1>Current test ({this.state.currentTest + 1} of {tests.length}): {test.fullName}</h1>
+  	  <iframe id="testfile"
+                  src={`../tests${test.location}?at=${at}`}
+                  ref={this.testIframe}
+          >
+  	  </iframe>
+          <button onClick={this.handleRedo}>Redo Test</button>
+          <button onClick={this.handleSkip}>Skip Test</button>
+          <button onClick={this.handleSubmit}>Submit Results</button>
+  	{this.state.remindFinishTest && <p className="test-incomplete" tabIndex="0">Current test not completed, finish marking behavior results.</p>}
+        </section>
+      </Fragment>
     );
   }
 }

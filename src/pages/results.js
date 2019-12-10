@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useRouteData } from 'react-static';
+import { useRouteData, Head } from 'react-static';
 import { Link } from 'components/Router';
 
 export default function ResultsPage() {
@@ -7,6 +7,9 @@ export default function ResultsPage() {
 
   return (
     <Fragment>
+      <Head>
+        <title>ARIA-AT: All Test Results</title>
+      </Head>
       <h1>Test Run Results</h1>
       <ul>
         {allResults.map((r) => <li>{renderResultLink(r)}</li>)}

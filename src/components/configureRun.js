@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Head } from 'react-static';
 
 export default class ConfigureRun extends Component {
 
@@ -149,27 +150,32 @@ export default class ConfigureRun extends Component {
     }
 
     return (
-      <section>
-        <h1>It's test time!</h1>
-        <div ref={this.selectTestEl} tabIndex="0">Select at least one test to run:</div>
-        {Object.keys(allTests).map((designPattern) => this.renderDesignPatternSelectable(designPattern, allTests[designPattern]))}
-        <div className="configuration-item">
-          <label htmlFor="select-at">Select which assistive technology you are testing: </label>
-          <select name="at" id="select-at" value={this.state.at} onChange={this.selectAT}>
-	    {ats.map((at) => ( <option value={at} key={at}>{at}</option> )) }
-          </select>
-        </div>
-        <div className="configuration-item">
-          <label htmlFor="select-at">Which version of {this.state.at}?: </label>
-          <input type="text" name="at-version" id="select-at-version" value={this.state.atVersion} onChange={this.selectATVersion} />
-        </div>
-        <div className="configuration-item">
-          Saving results for UserAgent: <span className="us">{browser} ({browserVersion})</span>
-        </div>
-        <button onClick={this.runTests}>
-          Run {countTests} test{countTests === 1 ? '' : 's'} for {selectedPatterns.size} pattern{selectedPatterns.size === 1 ? '' : 's'}
-        </button>
-      </section>
+      <Fragment>
+        <Head>
+          <title>ARIA-AT: Configure Test Run</title>
+        </Head>
+        <section>
+          <h1>It's test time!</h1>
+          <div ref={this.selectTestEl} tabIndex="0">Select at least one test to run:</div>
+          {Object.keys(allTests).map((designPattern) => this.renderDesignPatternSelectable(designPattern, allTests[designPattern]))}
+          <div className="configuration-item">
+            <label htmlFor="select-at">Select which assistive technology you are testing: </label>
+            <select name="at" id="select-at" value={this.state.at} onChange={this.selectAT}>
+  	    {ats.map((at) => ( <option value={at} key={at}>{at}</option> )) }
+            </select>
+          </div>
+          <div className="configuration-item">
+            <label htmlFor="select-at">Which version of {this.state.at}?: </label>
+            <input type="text" name="at-version" id="select-at-version" value={this.state.atVersion} onChange={this.selectATVersion} />
+          </div>
+          <div className="configuration-item">
+            Saving results for UserAgent: <span className="us">{browser} ({browserVersion})</span>
+          </div>
+          <button onClick={this.runTests}>
+            Run {countTests} test{countTests === 1 ? '' : 's'} for {selectedPatterns.size} pattern{selectedPatterns.size === 1 ? '' : 's'}
+          </button>
+        </section>
+      </Fragment>
     );
   }
 }

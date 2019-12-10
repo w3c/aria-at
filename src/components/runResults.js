@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Head } from 'react-static';
 
 export default class RunResults extends Component {
 
@@ -112,6 +113,9 @@ export default class RunResults extends Component {
 
     return (
       <Fragment>
+        <Head>
+          <title>ARIA-AT: Test Run Results</title>
+        </Head>
 	<p>
           <a
            download={fileName}

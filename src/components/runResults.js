@@ -6,7 +6,7 @@ export default class RunResults extends Component {
     super(props);
   }
 
-  renderResultRow(result) {
+  renderResultRow(result, i) {
 
     // Details is an array of one because the tests originally were designed to have multiple "behavior" tests,
     // but for now all tests only test one "behavior" and this functionality might be removed.
@@ -14,7 +14,7 @@ export default class RunResults extends Component {
 
     return (
       <tr key={details.name}>
-        <td>{details.name}</td>
+        <td><a href={`#test-${i.toString()}`}>{details.name}</a></td>
         <td>{result.status}</td>
         <td>{details.summary[1].pass} / {details.summary[1].fail}</td>
         <td>{details.summary[2].pass} / {details.summary[2].fail}</td>
@@ -24,7 +24,7 @@ export default class RunResults extends Component {
     );
   }
 
-  renderResultDetails(result) {
+  renderResultDetails(result, i) {
 
     // Details is an array of one because the tests originally were designed to have multiple "behavior" tests,
     // but for now all tests only test one "behavior" and this functionality might be removed.
@@ -32,7 +32,7 @@ export default class RunResults extends Component {
 
     return (
       <section>
-        <h2>Results for: "{details.name}"</h2>
+        <h2 id={`test-${i.toString()}`}>Results for: "{details.name}"</h2>
         <table className="results-table">
           <thead>
             <tr>
@@ -132,11 +132,11 @@ export default class RunResults extends Component {
               </tr>
             </thead>
             <tbody>
-              {results.map((result) => this.renderResultRow(result))}
+              {results.map((result, i) => this.renderResultRow(result, i))}
             </tbody>
           </table>
         </section>
-        {results.map((result) => this.renderResultDetails(result))}
+        {results.map((result, i) => this.renderResultDetails(result, i))}
       </Fragment>
     );
   }

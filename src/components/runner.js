@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import { Head } from 'react-static';
 import ConfigureRun from 'components/configureRun';
 import RunResults from 'components/runResults';
 import TestRun from 'components/testRun';
@@ -32,6 +31,7 @@ export default class Runner extends Component {
     this.tests = configuration.tests;
     this.at = configuration.at;
     this.atVersion = configuration.atVersion;
+    this.designPattern = configuration.designPattern;
     this.setState({
       stage: 'runTests'
     });
@@ -54,6 +54,7 @@ export default class Runner extends Component {
         at={this.at}
         atVersion={this.atVersion}
         finishRun={this.finishRun}
+        designPattern={this.designPattern}
       />
     );
   }
@@ -80,7 +81,8 @@ export default class Runner extends Component {
       browser: {
         name: this.browser,
         version: this.browserVersion
-      }
+      },
+      designPattern: this.designPattern
     };
     return (
       <RunResults

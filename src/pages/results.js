@@ -2,8 +2,19 @@ import React, { Fragment } from 'react';
 import { useRouteData, Head } from 'react-static';
 import { Link } from 'components/Router';
 
+const resultsByPattern = {};
+
 export default function ResultsPage() {
   const { allResults } = useRouteData();
+
+  for (let result of allResults) {
+    if (resultsByPattern[result.designPattern]) {
+      resultsByPattern[result.designPattern].push(result);
+    }
+    else {
+      resultsByPattern[result.designPattern] = [result];
+    }
+  }
 
   return (
     <Fragment>
@@ -12,10 +23,22 @@ export default function ResultsPage() {
       </Head>
       <h1>Test Run Results</h1>
       <ul>
-        {allResults.map((r) => <li>{renderResultLink(r)}</li>)}
+        {Object.keys(resultsByPattern).map((p) => <li>{renderPatternList(p)}</li>)}
       </ul>
     </Fragment>
   );
+}
+
+function renderPatternList(p) {
+
+  return (
+    <li>
+      Test results for design pattern: {p}
+      <ul>
+        {resultsByPattern[p].map((r) => <li>{renderResultLink(r)}</li>)}
+      </ul>
+    </li>
+  )
 }
 
 function renderResultLink(r) {
@@ -27,8 +50,8 @@ function renderResultLink(r) {
 
   return (
     <Fragment>
-      <Link to={`/aria-at/results/test-run/${r.id}`}>{`Results for ${numberTests} tests of ${at} (${atVersion}) run on ${browser} (${browserVersion})`}</Link>
-      <div className="results-details">{r.fileName}</div>
+      <Link to={`/aria-at/results/test-run/${r.id}`}>{`${numberTests} tests of ${at} (${atVersion}) run on ${browser} (${browserVersion})`}</Link>
+      <div className="results-details">file: {r.fileName}.json</div>
     </Fragment>
   );
 }

@@ -13,8 +13,6 @@ export default function ResultPage() {
 
   return (
     <div>
-      <h1>{`Results for ${numberTests} tests of ${at} (${atVersion}) run on ${browser} (${browserVersion})`}</h1>
-      <p>{`Displaying result file: ${result.fileName}.json`}</p>
       <RunResults
         resultsData={result}
       />

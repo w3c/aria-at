@@ -32,7 +32,7 @@ export default class RunResults extends Component {
 
     return (
       <section>
-        <h2 id={`test-${i.toString()}`}>Results for: "{details.name}"</h2>
+        <h2 id={`test-${i.toString()}`}>Details for test "{details.name}"</h2>
         <table className="results-table">
           <thead>
             <tr>
@@ -104,7 +104,8 @@ export default class RunResults extends Component {
 
   render() {
     let { resultsData } = this.props;
-    let { assistiveTechnology, browser, results } = resultsData;
+    let { assistiveTechnology, browser, designPattern, results } = resultsData;
+    let countTests = results.length;
 
     let fileName = resultsData.fileName
 	? `${resultsData.fileName}.json`
@@ -129,21 +130,29 @@ export default class RunResults extends Component {
       }
     }
 
-    console.log(support);
 
     return (
       <Fragment>
         <Head>
           <title>ARIA-AT: Test Run Results</title>
         </Head>
-	<p>
-          <a
-           download={fileName}
-           href={`data:application/json;charset=utf-8;,${encodeURIComponent(JSON.stringify(resultsData))}`}>Download Results JSON
-          </a>
-	</p>
         <section>
-        <h1>Summary of results for tests of {`${assistiveTechnology.name} (${assistiveTechnology.version}) on ${browser.name} (${browser.version})`}</h1>
+          <h1>{`Results for test run of pattern "${designPattern}" (${countTests} test${countTests === 1 ? '' : 's'})`}</h1>
+          <p>
+            {`${assistiveTechnology.name} (${assistiveTechnology.version}) on ${browser.name} (${browser.version})`}
+          </p>
+          { fileName &&
+            <p>
+              Loaded from result file: {fileName}
+            </p>
+          }
+	  <p>
+            <a
+              download={fileName}
+              href={`data:application/json;charset=utf-8;,${encodeURIComponent(JSON.stringify(resultsData))}`}>Download Results JSON
+            </a>
+	  </p>
+          <h2>Summary of tests</h2>
           <table className="results-table">
             <thead>
               <tr>

@@ -31,6 +31,7 @@ export default class Runner extends Component {
     this.tests = configuration.tests;
     this.at = configuration.at;
     this.atVersion = configuration.atVersion;
+    this.designPattern = configuration.designPattern;
     this.setState({
       stage: 'runTests'
     });
@@ -53,6 +54,7 @@ export default class Runner extends Component {
         at={this.at}
         atVersion={this.atVersion}
         finishRun={this.finishRun}
+        designPattern={this.designPattern}
       />
     );
   }
@@ -79,7 +81,8 @@ export default class Runner extends Component {
       browser: {
         name: this.browser,
         version: this.browserVersion
-      }
+      },
+      designPattern: this.designPattern
     };
     return (
       <RunResults
@@ -91,9 +94,9 @@ export default class Runner extends Component {
   render() {
     return (
       <Fragment>
-      { this.state.stage === 'configureRun' && this.renderConfigureRun() }
-      { this.state.stage === 'runTests' && this.renderTestRun() }
-      { this.state.stage === 'displayResults' && this.renderResults() }
+        { this.state.stage === 'configureRun' && this.renderConfigureRun() }
+        { this.state.stage === 'runTests' && this.renderTestRun() }
+        { this.state.stage === 'displayResults' && this.renderResults() }
       </Fragment>
 
     );

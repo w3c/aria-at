@@ -175,8 +175,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
   const userInstructions = behavior.specific_user_instruction;
   const commands = behavior.commands;
   const assertions = behavior.output_assertions.map((a) => a[1]);
-
-  const additionalBehaviorAssertions = behavior.additional_assertions.map((a) => a[1]);
+  const additionalBehaviorAssertions = behavior.additional_assertions;
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
@@ -210,7 +209,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 
   for (let additional of additionalBehaviorAssertions) {
     let el = document.createElement('li');
-    el.innerHTML = `<em>${additional.assertion}</em>`;
+    el.innerHTML = `<em>${additional.assertion[1]}</em>`;
     document.getElementById('assertions').append(el);
   }
 
@@ -279,7 +278,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
       let a = assertions.length + n;
       recordResults += `
 <tr>
-  <td id="assertion-${c}-${a}"><div class="assertion">${additionalAssertions[n]}</div><div class="required">(required: mark support)</div></td>
+  <td id="assertion-${c}-${a}"><div class="assertion">${additionalAssertions[n][1]}</div><div class="required">(required: mark support)</div></td>
   <td>
       <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}" aria-labelledby="pass-${c}-${a}-label assertion-${c}-${a}">
       <label id="pass-${c}-${a}-label">Good Support <span class="off-screen">for assertion</span></label>

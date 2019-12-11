@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Head } from 'react-static';
 
 export default class ConfigureRun extends Component {
 
@@ -16,7 +17,8 @@ export default class ConfigureRun extends Component {
     this.state = {
       selectedTests,
       at: this.props.ats[0],
-      atVersion: ''
+      atVersion: '',
+      selectedDesignPattern: undefined
     };
 
     this.selectTestEl = React.createRef();
@@ -41,13 +43,29 @@ export default class ConfigureRun extends Component {
 
   selectTest(event) {
     let newSelectedTests = Object.assign({}, this.state.selectedTests);
+    let newDesignPattern = this.state.selectedDesignPattern;
 
     let checkbox = event.target.name;
     if (checkbox.indexOf('all-') === 0) {
       let designPattern = checkbox.slice(4);
       let checked = event.target.checked;
-      for (let test in newSelectedTests[designPattern]) {
-        newSelectedTests[designPattern][test] = checked;
+
+      // Select all tests for newly selected design pattern, and unselect all other tests
+      if (checked) {
+        newDesignPattern = designPattern;
+
+        for (let dp in newSelectedTests) {
+          for (let test in newSelectedTests[dp]) {
+            newSelectedTests[dp][test] = dp === designPattern ? true : false;
+          }
+        }
+      }
+      // Unselect all tests for design pattern
+      else {
+        newDesignPattern = undefined;
+        for (let test in newSelectedTests[designPattern]) {
+          newSelectedTests[designPattern][test] = false;
+        }
       }
     }
     else {
@@ -55,10 +73,21 @@ export default class ConfigureRun extends Component {
       let test = checkbox.split('_')[1];
       let checked = event.target.checked;
       newSelectedTests[designPattern][test] = checked;
+      newDesignPattern = designPattern;
+
+      // Unselect tests of all other design patterns
+      for (let dp in newSelectedTests) {
+        if (dp !== designPattern) {
+          for (let test in newSelectedTests[dp]) {
+            newSelectedTests[dp][test] = false;
+          }
+        }
+      }
     }
 
     this.setState({
-      selectedTests: newSelectedTests
+      selectedTests: newSelectedTests,
+      selectedDesignPattern: newDesignPattern,
     });
   }
 
@@ -75,7 +104,7 @@ export default class ConfigureRun extends Component {
     }
 
     if (tests.length) {
-      this.props.startRun({tests: tests, at: this.state.at, atVersion: this.state.atVersion});
+      this.props.startRun({tests: tests, at: this.state.at, atVersion: this.state.atVersion, designPattern: this.state.selectedDesignPattern});
     }
     else {
       this.selectTestEl.current.focus();
@@ -149,27 +178,36 @@ export default class ConfigureRun extends Component {
     }
 
     return (
-      <section>
-        <h1>It's test time!</h1>
-        <div ref={this.selectTestEl} tabIndex="0">Select at least one test to run:</div>
-        {Object.keys(allTests).map((designPattern) => this.renderDesignPatternSelectable(designPattern, allTests[designPattern]))}
-        <div className="configuration-item">
-          <label htmlFor="select-at">Select which assistive technology you are testing: </label>
-          <select name="at" id="select-at" value={this.state.at} onChange={this.selectAT}>
-	    {ats.map((at) => ( <option value={at} key={at}>{at}</option> )) }
-          </select>
-        </div>
-        <div className="configuration-item">
-          <label htmlFor="select-at">Which version of {this.state.at}?: </label>
-          <input type="text" name="at-version" id="select-at-version" value={this.state.atVersion} onChange={this.selectATVersion} />
-        </div>
-        <div className="configuration-item">
-          Saving results for UserAgent: <span className="us">{browser} ({browserVersion})</span>
-        </div>
-        <button onClick={this.runTests}>
-          Run {countTests} test{countTests === 1 ? '' : 's'} for {selectedPatterns.size} pattern{selectedPatterns.size === 1 ? '' : 's'}
-        </button>
-      </section>
+      <Fragment>
+        <Head>
+          <title>ARIA-AT: Configure Test Run</title>
+        </Head>
+        <section>
+          <h1>It's test time!</h1>
+          <div ref={this.selectTestEl} tabIndex="0">Select at least one test to run. Only one design pattern can be tested at a time.</div>
+          {Object.keys(allTests).map((designPattern) => this.renderDesignPatternSelectable(designPattern, allTests[designPattern]))}
+          <div className="configuration-item">
+            <label htmlFor="select-at">Select which assistive technology you are testing: </label>
+            <select name="at" id="select-at" value={this.state.at} onChange={this.selectAT}>
+  	    {ats.map((at) => ( <option value={at} key={at}>{at}</option> )) }
+            </select>
+          </div>
+          <div className="configuration-item">
+            <label htmlFor="select-at">Which version of {this.state.at}?: </label>
+            <input type="text" name="at-version" id="select-at-version" value={this.state.atVersion} onChange={this.selectATVersion} />
+          </div>
+          <div className="configuration-item">
+            Saving results for UserAgent: <span className="us">{browser} ({browserVersion})</span>
+          </div>
+          <button onClick={this.runTests}>
+            {
+              countTests
+                ? `Run ${countTests} test${countTests === 1 ? '' : 's'} for pattern "${this.state.selectedDesignPattern}"`
+                : "Run 0 tests"
+            }
+          </button>
+        </section>
+      </Fragment>
     );
   }
 }

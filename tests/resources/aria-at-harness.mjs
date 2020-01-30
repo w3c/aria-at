@@ -113,7 +113,9 @@ function putTestPageWindowIntoCorrectState() {
 function executeScriptInTestPage() {
   let setupTestPage = allBehaviors[currentTestedBehavior].setupTestPage;
   if (setupTestPage) {
-    if (testPageWindow.document.readyState !== 'complete') {
+    if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
+        || testPageWindow.document.readyState !== 'complete'
+    ) {
       window.setTimeout(() => {
 	executeScriptInTestPage();
       }, 100);

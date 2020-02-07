@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigating to checkbox in reading mode.</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    mode: ["reading"],
+    task: "Navigating to menubar in reading mode.",
+    specific_user_instruction: "navigate to menubar",
+    output_assertions: [
+["navigate to the first menuitem(Font) in menubar."],
+["The role 'menubar' is conveyed"],
+["The name 'Text Formatting' is spoken"],
+["The role 'menuitem' is conveyed"],
+["The name 'Font' is spoken"],
+["The state of the checkbox aria-haspopup is conveyed"],
+["The position in menubar and number of menubar items is spoken"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/menubar-editor.html");
+
+</script>

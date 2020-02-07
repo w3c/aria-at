@@ -50,8 +50,8 @@ for row in tests:
     assertions = assertions.strip()[:-1]
 
     example = sys.argv[2]
-    fname = (task + mode).lower().replace('=', '-').replace("'", '').replace('"', '').replace(' ', '-')
-    if len(fname):
+    fname = (task + '-' + mode).lower().replace('=', '-').replace("'", '').replace('"', '').replace(' ', '-')
+    if len(fname) > 3:
       fname += '.html'
       print(fname)
 

@@ -10,13 +10,14 @@
 
   verifyATBehavior({
     mode: ["interaction"],
-    task: "Navigating to menuitemcheckbox in interaction mode.",
-    specific_user_instruction: "navigate to menuitemcheckbox",
+    task: "Reading disabled menuitem",
+    specific_user_instruction: "read disabled menuitem",
     output_assertions: [
-["navigate to the first menuitemcheckbox(Bold) in menu"],
-["The role 'menuitemcheckbox' is conveyed"],
-["The name 'Bold' is spoken"],
-["The state of the checkbox aria-checked is conveyed"]
+["when the focus or reading cursor is on the disabled menuitem; read the menuitem"],
+["The role 'menuitem' is conveyed"],
+["The name 'Smaller' is spoken"],
+["The state of the checkbox aria-disabled is conveyed"],
+["The position in menubar and number of menubar items is spoken"]
     ]
   });
 

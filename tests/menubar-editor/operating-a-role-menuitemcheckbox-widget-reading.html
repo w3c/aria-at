@@ -10,13 +10,13 @@
 
   verifyATBehavior({
     mode: ["reading"],
-    task: "Navigating to menuitemcheckbox in reading mode.",
-    specific_user_instruction: "navigate to menuitemcheckbox",
+    task: "Operating a role='menuitemcheckbox' widget",
+    specific_user_instruction: "operate menuitemcheckbox",
     output_assertions: [
-["navigate to the first menuitemcheckbox(Bold) in menu"],
-["The role 'menuitemcheckbox' is conveyed"],
-["The name 'Sans-serif' is spoken"],
-["The state of the checkbox aria-checked is conveyed"]
+["check the first menuitemcheckbox"],
+["The change in the state of the menuitemcheckbox is conveyed when the menuitemcheckbox(Bold) is checked"],
+["The change in the state of the menuitemcheckbox is conveyed when the menuitemcheckbox(Bold) is checked"],
+["The change in the state of the menuitemcheckbox is conveyed when the menuitemcheckbox(Bold) is unchecked"]
     ]
   });
 

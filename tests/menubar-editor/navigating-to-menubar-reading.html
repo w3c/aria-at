@@ -9,13 +9,17 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["interaction"],
-    task: "Reading Text Color group in interaction mode.",
-    specific_user_instruction: "read the Text Color group",
+    mode: ["reading"],
+    task: "Navigating to menubar",
+    specific_user_instruction: "navigate to menubar",
     output_assertions: [
-["when focus is on a menuitem in Text Color group(Black); read the group(Text Color)"],
-["The role 'group' is spoken"],
-["The group name 'Text Color' is spoken"]
+["navigate to the first menuitem(Font) in menubar"],
+["The role 'menubar' is conveyed"],
+["The name 'Text Formatting' is spoken"],
+["The role 'menuitem' is conveyed"],
+["The name 'Font' is spoken"],
+["The state of the checkbox aria-haspopup is conveyed"],
+["The position in menubar and number of menubar items is spoken"]
     ]
   });
 

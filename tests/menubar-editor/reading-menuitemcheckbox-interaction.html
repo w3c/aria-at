@@ -9,14 +9,15 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["reading"],
-    task: "Navigating to menuitemradio in reading mode.",
-    specific_user_instruction: "navigate to menuitemradio",
+    mode: ["interaction"],
+    task: "Reading menuitemcheckbox",
+    specific_user_instruction: "read menuitem(menuitemcheckbox)",
     output_assertions: [
-["navigate to the first menuitemradio(Sans-serif) in menu"],
-["The role 'menuitemradio' is conveyed"],
-["The name 'Sans-serif' is spoken"],
-["The state of the checkbox aria-checked is conveyed"]
+["when the focus or reading cursor is on the first menuitemcheckbox(Bold); read the first menuitem"],
+["The role 'menuitemcheckbox' is conveyed"],
+["The name 'Bold' is spoken"],
+["The state of the checkbox aria-checked is conveyed"],
+["The position in menubar and number of menubar items is spoken"]
     ]
   });
 

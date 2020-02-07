@@ -10,15 +10,13 @@
 
   verifyATBehavior({
     mode: ["interaction"],
-    task: "Navigating to menubar in interaction mode.",
-    specific_user_instruction: "navigate to menubar",
+    task: "Reading menuitemradio",
+    specific_user_instruction: "read menuitem(menuitemradio)",
     output_assertions: [
-["navigate to the first menuitem(Font) in menubar."],
-["The role 'menubar' is conveyed"],
-["The name 'Text Formatting' is spoken"],
-["The role 'menuitem' is conveyed"],
-["The name 'Font' is spoken"],
-["The state of the checkbox aria-haspopup is conveyed"],
+["when the focus or reading cursor is on the first menuitemradio(Sans-serif); read the first menuitemradio"],
+["The role 'menuitemradio' is conveyed"],
+["The name 'Sans-serif' is spoken"],
+["The state of the checkbox aria-checked is conveyed"],
 ["The position in menubar and number of menubar items is spoken"]
     ]
   });

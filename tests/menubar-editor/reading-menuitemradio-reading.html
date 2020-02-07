@@ -10,12 +10,14 @@
 
   verifyATBehavior({
     mode: ["reading"],
-    task: "Operating a role='menuitemradio' widget in reading mode.",
-    specific_user_instruction: "operate menuitemradio",
+    task: "Reading menuitemradio",
+    specific_user_instruction: "read menuitem(menuitemradio)",
     output_assertions: [
-["check the first menuitemradio"],
-["The change in the state of the menuitemradio is conveyed when the menuitemradio(Sans-serif) is checked"],
-["The change in the state of the menuitemradio is conveyed when the menuitemradio(Sans-serif) is unchecked"]
+["when the focus or reading cursor is on the first menuitemradio(Sans-serif); read the first menuitemradio"],
+["The role 'menuitemradio' is conveyed"],
+["The name 'Sans-serif' is spoken"],
+["The state of the checkbox aria-checked is conveyed"],
+["The position in menubar and number of menubar items is spoken"]
     ]
   });
 

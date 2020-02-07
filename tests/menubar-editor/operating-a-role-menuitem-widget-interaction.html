@@ -10,13 +10,11 @@
 
   verifyATBehavior({
     mode: ["interaction"],
-    task: "Reading disabled menuitem in interaction mode",
-    specific_user_instruction: "read disabled menuitem",
+    task: "Operating a role='menuitem' widget",
+    specific_user_instruction: "operate menuitem",
     output_assertions: [
-["when the focus or reading cursor is on the disabled menuitem; read the menuitem"],
-["The role 'menuitem' is conveyed"],
-["The name 'Smaller' is spoken"],
-["The state of the checkbox aria-disabled is conveyed"],
+["closes submenu"],
+["The name 'Font' of the parent menubar is spoken"],
 ["The position in menubar and number of menubar items is spoken"]
     ]
   });

@@ -9,14 +9,13 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["reading"],
-    task: "Operating a role='menuitemcheckbox' widget in reading mode.",
-    specific_user_instruction: "operate menuitemcheckbox",
+    mode: ["interaction"],
+    task: "Operating a role='menuitemradio' widget",
+    specific_user_instruction: "operate menuitemradio",
     output_assertions: [
-["check the first menuitemcheckbox"],
-["The change in the state of the menuitemcheckbox is conveyed when the menuitemcheckbox(Bold) is checked"],
-["The change in the state of the menuitemcheckbox is conveyed when the menuitemcheckbox(Bold) is checked"],
-["The change in the state of the menuitemcheckbox is conveyed when the menuitemcheckbox(Bold) is unchecked"]
+["check the first menuitemradio"],
+["The change in the state of the menuitemradio is conveyed when the menuitemradio(Sans-serif) is checked"],
+["The change in the state of the menuitemradio is conveyed when the menuitemradio(Sans-serif) is unchecked"]
     ]
   });
 

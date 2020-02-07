@@ -9,15 +9,15 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["interaction"],
-    task: "Reading menuitem in menubar in interaction mode",
-    specific_user_instruction: "read menubar",
+    mode: ["reading"],
+    task: "Reading disabled menuitem",
+    specific_user_instruction: "read disabled menuitem",
     output_assertions: [
-["when the focus or reading cursor is on the first menuitem; read the first menuitem"],
-["The role 'menubar' is conveyed"],
-["The name 'Font' is spoken"],
-["The state of the checkbox aria-haspopup is conveyed"],
-["The state of the checkbox (expanded/collapsed) is conveyed"]
+["when the focus or reading cursor is on the disabled menuitem; read the menuitem"],
+["The role 'menuitem' is conveyed"],
+["The name 'Smaller' is spoken"],
+["The state of the checkbox aria-disabled is conveyed"],
+["The position in menubar and number of menubar items is spoken"]
     ]
   });
 

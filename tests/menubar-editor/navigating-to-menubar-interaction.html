@@ -9,12 +9,17 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["reading"],
-    task: "Navigating to 'Text Formatting' menuba switches mode from reading to interaction.",
-    specific_user_instruction: "navigate to menubar with keys that switch modes",
+    mode: ["interaction"],
+    task: "Navigating to menubar",
+    specific_user_instruction: "navigate to menubar",
     output_assertions: [
-["navigate to the 'Text Formatting' menubar"],
-["After command; JAWS is in Forms Mode"]
+["navigate to the first menuitem(Font) in menubar"],
+["The role 'menubar' is conveyed"],
+["The name 'Text Formatting' is spoken"],
+["The role 'menuitem' is conveyed"],
+["The name 'Font' is spoken"],
+["The state of the checkbox aria-haspopup is conveyed"],
+["The position in menubar and number of menubar items is spoken"]
     ]
   });
 

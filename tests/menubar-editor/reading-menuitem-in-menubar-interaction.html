@@ -9,13 +9,15 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["reading"],
-    task: "Operating a role='menuitem' widget in reading mode.",
-    specific_user_instruction: "operate menuitem",
+    mode: ["interaction"],
+    task: "Reading menuitem in menubar",
+    specific_user_instruction: "read menubar",
     output_assertions: [
-["closes submenu"],
-["The name 'Font' of the parent menubar is spoken"],
-["The position in menubar and number of menubar items is spoken"]
+["when the focus or reading cursor is on the first menuitem; read the first menuitem"],
+["The role 'menubar' is conveyed"],
+["The name 'Font' is spoken"],
+["The state of the checkbox aria-haspopup is conveyed"],
+["The state of the checkbox (expanded/collapsed) is conveyed"]
     ]
   });
 

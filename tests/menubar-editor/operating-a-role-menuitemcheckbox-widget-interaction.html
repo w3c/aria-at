@@ -9,15 +9,13 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["reading"],
-    task: "Reading menuitemcheckbox in reading mode",
-    specific_user_instruction: "read menuitem(menuitemcheckbox)",
+    mode: ["interaction"],
+    task: "Operating a role='menuitemcheckbox' widget",
+    specific_user_instruction: "operate menuitemcheckbox",
     output_assertions: [
-["when the focus or reading cursor is on the first menuitemcheckbox(Bold); read the first menuitem"],
-["The role 'menuitemcheckbox' is conveyed"],
-["The name 'Bold' is spoken"],
-["The state of the checkbox aria-checked is conveyed"],
-["The position in menubar and number of menubar items is spoken"]
+["check the first menuitemcheckbox"],
+["The change in the state of the menuitemcheckbox is conveyed when the menuitemcheckbox(Bold) is checked"],
+["The change in the state of the menuitemcheckbox is conveyed when the menuitemcheckbox(Bold) is unchecked"]
     ]
   });
 

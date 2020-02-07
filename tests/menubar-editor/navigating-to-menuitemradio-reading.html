@@ -9,13 +9,14 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["interaction"],
-    task: "Operating a role='menuitemradio' widget in interaction mode.",
-    specific_user_instruction: "operate menuitemradio",
+    mode: ["reading"],
+    task: "Navigating to menuitemradio",
+    specific_user_instruction: "navigate to menuitemradio",
     output_assertions: [
-["check the first menuitemradio"],
-["The change in the state of the menuitemradio is conveyed when the menuitemradio(Sans-serif) is checked"],
-["The change in the state of the menuitemradio is conveyed when the menuitemradio(Sans-serif) is unchecked"]
+["navigate to the first menuitemradio(Sans-serif) in menu"],
+["The role 'menuitemradio' is conveyed"],
+["The name 'Sans-serif' is spoken"],
+["The state of the checkbox aria-checked is conveyed"]
     ]
   });
 

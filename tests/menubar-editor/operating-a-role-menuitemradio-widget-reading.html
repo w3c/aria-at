@@ -9,13 +9,13 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    mode: ["interaction"],
-    task: "Operating a role='menuitem' widget in interaction mode.",
-    specific_user_instruction: "operate menuitem",
+    mode: ["reading"],
+    task: "Operating a role='menuitemradio' widget",
+    specific_user_instruction: "operate menuitemradio",
     output_assertions: [
-["closes submenu"],
-["The name 'Font' of the parent menubar is spoken"],
-["The position in menubar and number of menubar items is spoken"]
+["check the first menuitemradio"],
+["The change in the state of the menuitemradio is conveyed when the menuitemradio(Sans-serif) is checked"],
+["The change in the state of the menuitemradio is conveyed when the menuitemradio(Sans-serif) is unchecked"]
     ]
   });
 

@@ -96,6 +96,12 @@ export default {
             result,
           }),
         }))
+      },
+      {
+        path: '/review-test-plans',
+        getData: () => ({
+          allTests: allTests
+        })
       }
     ]
   },

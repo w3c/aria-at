@@ -38,10 +38,24 @@ const AT_COMMAND_MAP = {
       ]
     }
   },
+  "navigate to item with keys that switch modes": {
+    reading: {
+      jaws: [
+        keys.TAB_AND_SHIFT_TAB
+      ]
+    }
+  },
   "navigate to combobox with keys that switch modes": {
     reading: {
       jaws: [
         keys.TAB_AND_SHIFT_TAB
+      ]
+    }
+  },
+  "activate item": {
+    reading: {
+      jaws: [
+        keys.ENTER
       ]
     }
   },

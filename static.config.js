@@ -14,9 +14,6 @@ export default {
     const cmd = 'npm';
     const cmdargs = ['run', 'review-tests'];
     const output = spawnSync(cmd, cmdargs);
-    console.log(output.stdout.toString());
-    console.log(output.stderr.toString());
-
 
     // Move all the test files
     await fse.copy(testDir, publicTestDir);

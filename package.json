@@ -10,12 +10,14 @@
     "analyze": "react-static build --analyze",
     "serve": "serve dist -p 3000",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs"
   },
   "dependencies": {
     "@reach/router": "^1.2.1",
     "bowser": "^2.7.0",
     "fs-extra": "^8.1.0",
+    "mustache": "^4.0.0",
     "node-html-parser": "^1.1.16",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",

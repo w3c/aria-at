@@ -1,4 +1,4 @@
-import {isKnownAT, getATCommands, getModeInstructions, getAdditionalAssertions} from './at-commands.mjs';
+import {isKnownAT, getATCommands, getModeInstructions} from './at-commands.mjs';
 
 const DEFAULT_AT = 'JAWS';
 const UNDESIRABLES = [
@@ -211,7 +211,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 
   for (let additional of additionalBehaviorAssertions) {
     let el = document.createElement('li');
-    el.innerHTML = `<em>${additional.assertion[1]}</em>`;
+    el.innerHTML = `<em>${additional[1]}</em>`;
     document.getElementById('assertions').append(el);
   }
 
@@ -275,12 +275,11 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 `;
     }
 
-    let additionalAssertions = getAdditionalAssertions(additionalBehaviorAssertions, commands[c], mode);
-    for (let n = 0; n < additionalAssertions.length; n++) {
+    for (let n = 0; n < additionalBehaviorAssertions.length; n++) {
       let a = assertions.length + n;
       recordResults += `
 <tr>
-  <td id="assertion-${c}-${a}"><div class="assertion">${additionalAssertions[n][1]}</div><div class="required">(required: mark support)</div></td>
+  <td id="assertion-${c}-${a}"><div class="assertion">${additionalBehaviorAssertions[n][1]}</div><div class="required">(required: mark support)</div></td>
   <td>
       <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}" aria-labelledby="pass-${c}-${a}-label assertion-${c}-${a}">
       <label id="pass-${c}-${a}-label">Good Support <span class="off-screen">for assertion</span></label>
@@ -525,7 +524,7 @@ function submitResult(event) {
   }
 
   for (let a = 0; a < allBehaviors[currentTestedBehavior].additional_assertions.length; a++) {
-    const assertion = allBehaviors[currentTestedBehavior].additional_assertions[a].assertion;
+    const assertion = allBehaviors[currentTestedBehavior].additional_assertions[a];
     assertionPriority[assertion[1]] = assertion[0];
   }
 

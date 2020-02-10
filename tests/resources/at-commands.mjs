@@ -38,24 +38,10 @@ const AT_COMMAND_MAP = {
       ]
     }
   },
-  "navigate to item with keys that switch modes": {
-    reading: {
-      jaws: [
-        keys.TAB_AND_SHIFT_TAB
-      ]
-    }
-  },
   "navigate to combobox with keys that switch modes": {
     reading: {
       jaws: [
         keys.TAB_AND_SHIFT_TAB
-      ]
-    }
-  },
-  "activate item": {
-    reading: {
-      jaws: [
-        keys.ENTER
       ]
     }
   },
@@ -88,7 +74,7 @@ const AT_COMMAND_MAP = {
         keys.TAB_AND_SHIFT_TAB,
         keys.UP_AND_DOWN,
         keys.INS_DOWN_OR_CAPS_DOWN,
-        `${keys.INS_F7_OR_CAPS_F7} to access list of elements on the page; then select 'type' = 'form fields'; then select a checkbox in the list of form controls; then press 'Enter' to navigate to that checkbox`
+        `${keys.INS_F7_OR_CAPS_F7} to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox`
       ],
       voiceover: []
     },
@@ -105,7 +91,7 @@ const AT_COMMAND_MAP = {
         keys.CTRL_OPT_A,
         keys.CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J,
         keys.CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C,
-        `${keys.CTRL_U} to open the 'Rotor' menu; then press the Right arrow until the list of 'Form Controls' appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press 'Enter' to navigate to that checkbox`
+        `${keys.CTRL_U} to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox`
       ]
     }
   },
@@ -170,7 +156,7 @@ const AT_COMMAND_MAP = {
         keys.UP_AND_DOWN,
         keys.TAB_AND_SHIFT_TAB,
         keys.INS_DOWN_OR_CAPS_DOWN,
-        `${keys.INS_F7_OR_CAPS_F7} to access list of elements on the page; then select 'type' = 'form fields'; then select a checkbox in the list of form controls; then press 'Enter' to navigate to that checkbox`
+        `${keys.INS_F7_OR_CAPS_F7} to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox`
       ],
       voiceover: []
     },
@@ -187,7 +173,7 @@ const AT_COMMAND_MAP = {
         keys.CTRL_OPT_A,
         keys.CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J,
         keys.CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C,
-        `${keys.CTRL_U} to open the 'Rotor' menu; then press the Right arrow until the list of 'Form Controls' appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press 'Enter' to navigate to that checkbox`
+        `${keys.CTRL_U} to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox`
       ]
     }
   },
@@ -201,8 +187,7 @@ const AT_COMMAND_MAP = {
         keys.INS_TAB_OR_CAPS_TAB,
         keys.INS_UP_OR_CAPS_UP
       ],
-      voiceover: [
-      ]
+      voiceover: []
     },
     interaction: {
       jaws: [
@@ -213,13 +198,13 @@ const AT_COMMAND_MAP = {
         keys.INS_TAB_OR_CAPS_TAB,
         keys.INS_UP_OR_CAPS_UP
       ],
-      voiceover: [
-      ]
+      voiceover: []
     }
   },
   "Navigating to 'Text Formatting' menubar switches mode from reading to interaction": {
     reading: {
       jaws: [
+        keys.TAB_AND_SHIFT_TAB,
         keys.TAB_AND_SHIFT_TAB
       ]
     }
@@ -227,6 +212,7 @@ const AT_COMMAND_MAP = {
   "Navigating to menubar": {
     reading: {
       jaws: [
+        keys.TAB_AND_SHIFT_TAB,
         keys.TAB_AND_SHIFT_TAB
       ]
     },
@@ -235,33 +221,43 @@ const AT_COMMAND_MAP = {
         keys.F_AND_SHIFT_F,
         keys.TAB_AND_SHIFT_TAB,
         keys.UP_AND_DOWN,
-        keys.LEFT_AND_RIGHT (with Smart Navigation on)
+        `${keys.LEFT_AND_RIGHT} (with Smart Navigation on)`,
+        keys.F_AND_SHIFT_F,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.UP_AND_DOWN,
+        `${keys.LEFT_AND_RIGHT} (with Smart Navigation on)`
       ]
     }
   },
   "Navigating to menuitemradio": {
     reading: {
       jaws: [
+        keys.UP_AND_DOWN,
         keys.UP_AND_DOWN
       ]
     },
     interaction: {
       jaws: [
         keys.UP_AND_DOWN,
-        keys.S (Navigate by first letter of menuitem)
+        `${keys.S} (Navigate by first letter of menuitem)`,
+        keys.UP_AND_DOWN,
+        `${keys.S} (Navigate by first letter of menuitem)`
       ]
     }
   },
   "Navigating to menuitemcheckbox": {
     reading: {
       jaws: [
+        keys.UP_AND_DOWN,
         keys.UP_AND_DOWN
       ]
     },
     interaction: {
       jaws: [
         keys.UP_AND_DOWN,
-        keys.B (Navigate by first letter of menuitem)
+        `${keys.B} (Navigate by first letter of menuitem)`,
+        keys.UP_AND_DOWN,
+        `${keys.B} (Navigate by first letter of menuitem)`
       ]
     }
   },
@@ -269,11 +265,15 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
         keys.SPACE
       ]
     },
     interaction: {
       jaws: [
+        keys.ENTER,
+        keys.SPACE,
         keys.ENTER,
         keys.SPACE
       ]
@@ -283,11 +283,15 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
         keys.SPACE
       ]
     },
     interaction: {
       jaws: [
+        keys.ENTER,
+        keys.SPACE,
         keys.ENTER,
         keys.SPACE
       ]
@@ -296,11 +300,13 @@ const AT_COMMAND_MAP = {
   "Operating a role='menuitem' widget": {
     reading: {
       jaws: [
+        keys.ESC,
         keys.ESC
       ]
     },
     interaction: {
       jaws: [
+        keys.ESC,
         keys.ESC
       ]
     }
@@ -309,11 +315,15 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
         keys.INSERT_UP
       ]
     },
     interaction: {
       jaws: [
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
         keys.INSERT_TAB,
         keys.INSERT_UP
       ]
@@ -323,11 +333,15 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
         keys.INSERT_UP
       ]
     },
     interaction: {
       jaws: [
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
         keys.INSERT_TAB,
         keys.INSERT_UP
       ]
@@ -337,11 +351,15 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
         keys.INSERT_UP
       ]
     },
     interaction: {
       jaws: [
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
         keys.INSERT_TAB,
         keys.INSERT_UP
       ]
@@ -351,11 +369,15 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
         keys.INSERT_UP
       ]
     },
     interaction: {
       jaws: [
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
         keys.INSERT_TAB,
         keys.INSERT_UP
       ]
@@ -381,10 +403,10 @@ const MODE_INSTRUCTIONS = {
   reading: {
     jaws: `Put JAWS into Virtual Cursor Mode using ${keys.INS_Z}`,
     nvda: `Put NVDA into Browser Mode using ${keys.ESC}`,
-    voiceover: ``
+    voiceover: ""
   },
   interaction: {
     jaws: `Put JAWS into Forms Mode by turning Virual Cursor off using ${keys.INS_Z}`,
-    nvda: `Put NVDA into Focus Mode using NVDA+Space`,
+    nvda: "Put NVDA into Focus Mode using NVDA+Space",
     voiceover: `Turn Quick Nav off by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
   }

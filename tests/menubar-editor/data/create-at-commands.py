@@ -42,11 +42,11 @@ def ATCommandsToObject(commands):
               if len(k):
                 commandsObj[command][mode][at].append(k)
 
-            for k in commandsObj[command][mode][at]:
-              print('[' + command + '][' + mode + '][' + at + ']: ' + k)
+#            for k in commandsObj[command][mode][at]:
+#              print('[' + command + '][' + mode + '][' + at + ']: ' + k)
             return
 
-    print('[' + command + '][' + mode + '][' + at + ']: not found')
+#    print('[' + command + '][' + mode + '][' + at + ']: not found')
 
   commandsObj = {}
 
@@ -116,7 +116,14 @@ for row in newCommandsCSV:
     i = 4
     key = clean(cells[i])
     while len(key):
-      nc[command][mode][at].append('keys.' + key)
+
+      space = key.find(' ');
+      if space >= 0:
+        key = "`${keys." + key[0:space] + "}" + key[space:] + "`"
+      else:
+        key = 'keys.' + key
+
+      nc[command][mode][at].append(key)
       print ('[' + command + '][' + mode + '][' + at + ']: ' + key)
       i += 1
       key = clean(cells[i])

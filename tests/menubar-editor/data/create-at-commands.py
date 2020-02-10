@@ -84,7 +84,7 @@ def ATCommandsToObject(commands):
 
 
 if len(sys.argv) != 2:
-  print('usage: python create-at-commands.py [at-commance.csv]')
+  print('usage: python create-at-commands.py [at-commands.csv]')
   exit()
 
 ccf = open('../../resources/at-commands.mjs', 'r')

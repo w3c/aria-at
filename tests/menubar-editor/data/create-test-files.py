@@ -22,7 +22,7 @@ def getAssertion(a):
 
 
 if len(sys.argv) != 4:
-  print('usage: python create-test-files.py [help.txt] [tests.csv] [reference/example.html]')
+  print('usage: python create-test-files.py [help.csv] [tests.csv] [reference/example.html]')
   exit()
 
 f = open('test.template', 'r')

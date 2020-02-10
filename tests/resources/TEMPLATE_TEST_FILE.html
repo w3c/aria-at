@@ -26,16 +26,12 @@
     // This is example of an additional assertion list, for assertions which only apply to some key commands
     // and some screen readers
     additional_assertions: {
-      jaws: [{
-	keys: [keys.TAB_AND_SHIFT_TAB],
-	mode: 'reading',
-	assertion: [1, 'After command, JAWS is in Forms Mode']
-      }],
-      nvda: [{
-	keys: [keys.TAB_AND_SHIFT_TAB],
-	mode: 'reading',
-	assertion: [1, 'After command, NVDA is in Focus Mode']
-      }]
+      jaws: [
+	[1, 'After command, JAWS is in Forms Mode']
+      ],
+      nvda: [
+	[1, 'After command, NVDA is in Focus Mode']
+      ]
     }
   };
 

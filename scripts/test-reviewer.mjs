@@ -62,17 +62,16 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	for (const sr of SRs) {
 	  let commands, assertions;
 
+	  try {
+	    commands = getATCommands(mode, task, sr);
+	  }
+	  catch (error) {
+	  } // An error will occur if there is no data for a screen reader, ignore it
+
 	  if (testData.additional_assertions && testData.additional_assertions[sr]) {
-	    commands = testData.additional_assertions[sr].keys;
-	    assertions = testData.additional_assertions[sr].keys;
+	    assertions = testData.additional_assertions[sr];
 	  }
 	  else {
-	    try {
-	      commands = getATCommands(mode, task, sr);
-	    }
-	    catch (error) {
-	    } // An error will occur if there is no data for a screen reader, ignore it
-
 	    assertions = testData.output_assertions;
 	  }
 

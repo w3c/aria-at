@@ -17,11 +17,9 @@
     task: "activate combobox",
     specific_user_instruction: "activate the 'state' combobox",
     additional_assertions: {
-      jaws: [{
-        keys: [keys.ENTER],
-        mode: 'reading',
-        assertion: [1, 'the screen reader switches to mode that allows text input']
-      }],
+      jaws: [
+        [1, 'the screen reader switches to mode that allows text input']
+      ]
     }
   });
 

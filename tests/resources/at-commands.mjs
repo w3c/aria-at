@@ -27,14 +27,14 @@ const AT_COMMAND_MAP = {
   "read combobox": {
     reading: {
       jaws: [
-        keys.INSERT_TAB,
-        keys.INSERT_UP
+        keys.INS_TAB,
+        keys.INS_UP
       ]
     },
     interaction: {
       jaws: [
-        keys.INSERT_TAB,
-        keys.INSERT_UP
+        keys.INS_TAB,
+        keys.INS_UP
       ]
     }
   },
@@ -248,12 +248,3 @@ export function isKnownAT(at) {
   return KNOWN_ATS[at.toLowerCase()];
 }
 
-export function getAdditionalAssertions(atAdditionalAssertions, key, mode) {
-  let assertions = [];
-  for (let assertion of atAdditionalAssertions) {
-    if (assertion.keys.includes(key) && assertion.mode === mode) {
-      assertions.push(assertion.assertion);
-    }
-  }
-  return assertions;
-}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Review for pattern: {{pattern}}</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 1em;
+      }
+
+      table, td, th {
+        border: 1px solid black;
+      }
+
+      td {
+        padding: .5em;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>Test Review for pattern: {{pattern}}</h1>
+
+    <p>
+      <ul>
+	<li>Number of tests: {{totalTests}}</li>
+      </ul>
+    </p>
+
+    {{#tests}}
+    <h2>Test {{testNumber}}: {{{name}}}</h2>
+    <p>
+      <ul>
+	<li>Mode: {{mode}}</i>
+	<li>Applies to: {{allReleventSRs}}</li>
+	<li>File: {{{location}}}</li>
+	<li>Relevent Specifications:
+          <ul>
+            {{#helpLinks}}
+              <li>{{.}}</li>
+            {{/helpLinks}}
+	  </ul>
+	</li>
+      </ul>
+    </p>
+      {{#SRTests}}
+      <h3>{{sr}}</h3>
+      <h4>Instructions</h4>
+      <p>
+        <ol>
+  	  <li>{{modeInstruction}}</li>
+  	  <li>Then, perform the task "{{userInstruction}}" using the following commands:
+	    <ul>
+	      {{#commands}}
+	        <li>{{.}}</li>
+              {{/commands}}
+	    </ul>
+	  </li>
+        </ol>
+      </p>
+      <h4>Assertions</h4>
+      <table>
+	<tr><th>Priority</th><th>Assertion</th></tr>
+	{{#assertions}}
+          <tr><td>{{priority}}</td><td>{{description}}</td></tr>
+	{{/assertions}}
+      </table>
+      {{/SRTests}}
+    {{/tests}}
+
+  </body>
+</html>

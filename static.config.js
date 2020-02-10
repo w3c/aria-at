@@ -1,6 +1,7 @@
 import fse from 'fs-extra';
 import path from 'path';
 import { parse } from 'node-html-parser';
+import { spawnSync } from 'child_process';
 
 const resultsDir = path.resolve('.', 'results');
 const testDir = path.resolve('.', 'tests');
@@ -8,6 +9,11 @@ const publicTestDir = path.resolve('.', 'public', 'tests');
 
 export default {
   getRoutes: async () => {
+
+    // Create the test review pages
+    const cmd = 'npm';
+    const cmdargs = ['run', 'review-tests'];
+    const output = spawnSync(cmd, cmdargs);
 
     // Move all the test files
     await fse.copy(testDir, publicTestDir);
@@ -87,6 +93,12 @@ export default {
             result,
           }),
         }))
+      },
+      {
+        path: '/review-test-plans',
+        getData: () => ({
+          allTests: allTests
+        })
       }
     ]
   },

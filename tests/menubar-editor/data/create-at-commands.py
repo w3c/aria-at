@@ -43,10 +43,10 @@ def ATCommandsToObject(commands):
                 commandsObj[command][mode][at].append(k)
 
             for k in commandsObj[command][mode][at]:
-              print('[A][' + command + '][' + mode + '][' + at + ']: ' + k)
+              print('[reading][' + command + '][' + mode + '][' + at + ']: ' + k)
             return
 
-    print('[A][' + command + '][' + mode + '][' + at + ']: not found')
+    print('[reading][' + command + '][' + mode + '][' + at + ']: not found')
 
   commandsObj = {}
 
@@ -65,7 +65,7 @@ def ATCommandsToObject(commands):
       i = commands.find('"', j)
       if i > 0:
         j = commands.find('"', i+1)
-        print('[' + str(i) + '][' + str(j) + ']: ' + commands[i: i+12])
+        print()
         if j > 0:
           j += 1
           command = commands[i+1:j-1]
@@ -97,11 +97,17 @@ newCommands = ATCommandsToObject(newCommands)
 newCommandsCSV = open(sys.argv[1], 'r')
 count = 0
 commands = ''
+command = ''
+lastCommand = 'x'
 
 for row in newCommandsCSV:
   cells = row.split(',')
+
   if count > 1:
     command = clean(cells[1])
+    if command != lastCommand:
+      print()
+
     mode = clean(cells[2])
     at = clean(cells[3])
 
@@ -127,10 +133,11 @@ for row in newCommandsCSV:
         key = 'keys.' + key
 
       nc[command][mode][at].append(key)
-      print ('[B][' + command + '][' + mode + '][' + at + ']: ' + key)
+      print ('[adding][' + command + '][' + mode + '][' + at + ']: ' + key)
       i += 1
       key = clean(cells[i])
 
+  lastCommand = command
   count += 1
 
 ncStr = '\n'

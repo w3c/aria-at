@@ -205,6 +205,11 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.TAB_AND_SHIFT_TAB,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.TAB_AND_SHIFT_TAB,
         keys.TAB_AND_SHIFT_TAB
       ]
     }
@@ -213,11 +218,36 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.TAB_AND_SHIFT_TAB,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.TAB_AND_SHIFT_TAB,
         keys.TAB_AND_SHIFT_TAB
       ]
     },
     interaction: {
       jaws: [
+        keys.F_AND_SHIFT_F,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.UP_AND_DOWN,
+        `${keys.LEFT_AND_RIGHT} (with Smart Navigation on)`,
+        keys.F_AND_SHIFT_F,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.UP_AND_DOWN,
+        `${keys.LEFT_AND_RIGHT} (with Smart Navigation on)`,
+        keys.F_AND_SHIFT_F,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.UP_AND_DOWN,
+        `${keys.LEFT_AND_RIGHT} (with Smart Navigation on)`,
+        keys.F_AND_SHIFT_F,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.UP_AND_DOWN,
+        `${keys.LEFT_AND_RIGHT} (with Smart Navigation on)`,
+        keys.F_AND_SHIFT_F,
+        keys.TAB_AND_SHIFT_TAB,
+        keys.UP_AND_DOWN,
+        `${keys.LEFT_AND_RIGHT} (with Smart Navigation on)`,
         keys.F_AND_SHIFT_F,
         keys.TAB_AND_SHIFT_TAB,
         keys.UP_AND_DOWN,
@@ -233,11 +263,26 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.UP_AND_DOWN,
+        keys.UP_AND_DOWN,
+        keys.UP_AND_DOWN,
+        keys.UP_AND_DOWN,
+        keys.UP_AND_DOWN,
+        keys.UP_AND_DOWN,
         keys.UP_AND_DOWN
       ]
     },
     interaction: {
       jaws: [
+        keys.UP_AND_DOWN,
+        `${keys.S} (Navigate by first letter of menuitem)`,
+        keys.UP_AND_DOWN,
+        `${keys.S} (Navigate by first letter of menuitem)`,
+        keys.UP_AND_DOWN,
+        `${keys.S} (Navigate by first letter of menuitem)`,
+        keys.UP_AND_DOWN,
+        `${keys.S} (Navigate by first letter of menuitem)`,
+        keys.UP_AND_DOWN,
+        `${keys.S} (Navigate by first letter of menuitem)`,
         keys.UP_AND_DOWN,
         `${keys.S} (Navigate by first letter of menuitem)`,
         keys.UP_AND_DOWN,
@@ -249,11 +294,26 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.UP_AND_DOWN,
+        keys.UP_AND_DOWN,
+        keys.UP_AND_DOWN,
+        keys.UP_AND_DOWN,
+        keys.UP_AND_DOWN,
+        keys.UP_AND_DOWN,
         keys.UP_AND_DOWN
       ]
     },
     interaction: {
       jaws: [
+        keys.UP_AND_DOWN,
+        `${keys.B} (Navigate by first letter of menuitem)`,
+        keys.UP_AND_DOWN,
+        `${keys.B} (Navigate by first letter of menuitem)`,
+        keys.UP_AND_DOWN,
+        `${keys.B} (Navigate by first letter of menuitem)`,
+        keys.UP_AND_DOWN,
+        `${keys.B} (Navigate by first letter of menuitem)`,
+        keys.UP_AND_DOWN,
+        `${keys.B} (Navigate by first letter of menuitem)`,
         keys.UP_AND_DOWN,
         `${keys.B} (Navigate by first letter of menuitem)`,
         keys.UP_AND_DOWN,
@@ -267,11 +327,31 @@ const AT_COMMAND_MAP = {
         keys.ENTER,
         keys.SPACE,
         keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
         keys.SPACE
       ]
     },
     interaction: {
       jaws: [
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
         keys.ENTER,
         keys.SPACE,
         keys.ENTER,
@@ -285,11 +365,31 @@ const AT_COMMAND_MAP = {
         keys.ENTER,
         keys.SPACE,
         keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
         keys.SPACE
       ]
     },
     interaction: {
       jaws: [
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
+        keys.ENTER,
+        keys.SPACE,
         keys.ENTER,
         keys.SPACE,
         keys.ENTER,
@@ -301,11 +401,21 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.ESC,
+        keys.ESC,
+        keys.ESC,
+        keys.ESC,
+        keys.ESC,
+        keys.ESC,
         keys.ESC
       ]
     },
     interaction: {
       jaws: [
+        keys.ESC,
+        keys.ESC,
+        keys.ESC,
+        keys.ESC,
+        keys.ESC,
         keys.ESC,
         keys.ESC
       ]
@@ -317,11 +427,31 @@ const AT_COMMAND_MAP = {
         keys.INSERT_TAB,
         keys.INSERT_UP,
         keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
         keys.INSERT_UP
       ]
     },
     interaction: {
       jaws: [
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
         keys.INSERT_TAB,
         keys.INSERT_UP,
         keys.INSERT_TAB,
@@ -335,11 +465,31 @@ const AT_COMMAND_MAP = {
         keys.INSERT_TAB,
         keys.INSERT_UP,
         keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
         keys.INSERT_UP
       ]
     },
     interaction: {
       jaws: [
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
         keys.INSERT_TAB,
         keys.INSERT_UP,
         keys.INSERT_TAB,
@@ -353,11 +503,31 @@ const AT_COMMAND_MAP = {
         keys.INSERT_TAB,
         keys.INSERT_UP,
         keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
         keys.INSERT_UP
       ]
     },
     interaction: {
       jaws: [
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
         keys.INSERT_TAB,
         keys.INSERT_UP,
         keys.INSERT_TAB,
@@ -371,11 +541,31 @@ const AT_COMMAND_MAP = {
         keys.INSERT_TAB,
         keys.INSERT_UP,
         keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
         keys.INSERT_UP
       ]
     },
     interaction: {
       jaws: [
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
         keys.INSERT_TAB,
         keys.INSERT_UP,
         keys.INSERT_TAB,
@@ -389,11 +579,31 @@ const AT_COMMAND_MAP = {
         keys.INSERT_TAB,
         keys.INSERT_UP,
         keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
         keys.INSERT_UP
       ]
     },
     interaction: {
       jaws: [
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
         keys.INSERT_TAB,
         keys.INSERT_UP,
         keys.INSERT_TAB,

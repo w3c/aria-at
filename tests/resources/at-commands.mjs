@@ -191,7 +191,31 @@ const AT_COMMAND_MAP = {
       ]
     }
   },
-  "read the checkbox group": 
+  "read the checkbox group": {
+    reading: {
+      jaws: [
+        keys.INS_TAB_OR_CAPS_TAB,
+        keys.INS_UP_OR_CAPS_I
+      ],
+      nvda: [
+        keys.INS_TAB_OR_CAPS_TAB,
+        keys.INS_UP_OR_CAPS_UP
+      ],
+      voiceover: [
+      ]
+    },
+    interaction: {
+      jaws: [
+        keys.INS_TAB_OR_CAPS_TAB,
+        keys.INS_UP_OR_CAPS_I
+      ],
+      nvda: [
+        keys.INS_TAB_OR_CAPS_TAB,
+        keys.INS_UP_OR_CAPS_UP
+      ],
+      voiceover: [
+      ]
+    }
   },
   "Navigating to 'Text Formatting' menubar switches mode from reading to interaction": {
     reading: {

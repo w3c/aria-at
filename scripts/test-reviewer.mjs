@@ -115,6 +115,8 @@ if (!fse.existsSync(reviewDir)){
     fse.mkdirSync(reviewDir);
 }
 
+console.log("\n");
+
 for (let pattern in allTestsForPattern) {
 
   var rendered = mustache.render(template, {
@@ -123,5 +125,9 @@ for (let pattern in allTestsForPattern) {
     tests: allTestsForPattern[pattern]
   });
 
-  fse.writeFileSync(path.resolve(reviewDir, `${pattern}.html`), rendered);
+  let summaryFile = path.resolve(reviewDir, `${pattern}.html`);
+  fse.writeFileSync(summaryFile, rendered);
+  console.log(`Summarized ${pattern} tests: ${summaryFile}`);
 }
+
+console.log("\n\nDone.");

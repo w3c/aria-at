@@ -9,6 +9,8 @@ import shlex
 import time
 import getopt
 
+import pprint
+
 def clean(s):
   return s.replace('""', "'").replace('"', "").replace('  ', ' ').strip()
 
@@ -65,7 +67,7 @@ def ATCommandsToObject(commands):
         j = commands.find('"', i+1)
         if j > 0:
           j += 1
-          command = commands[i:j]
+          command = commands[i+1:j-1]
           commandsObj[command] = {}
           k = commands.find('"', j)
           if k > 0:
@@ -78,7 +80,7 @@ def ATCommandsToObject(commands):
             getKeyboardCommands(commandData, command, 'interaction', 'nvda')
             getKeyboardCommands(commandData, command, 'interaction', 'voiceover')
 
-  return [before, commandsObj, after]
+  return [before, commands, after, commandsObj]
 
 
 if len(sys.argv) != 2:
@@ -99,14 +101,52 @@ for row in newCommandsCSV:
     command = clean(cells[1])
     mode = clean(cells[2])
     at = clean(cells[3])
-    keys = clean(cells[4])
 
-    print (command + ' ' + at + ' ' + mode + ' ' + keys)
+    nc = newCommands[3]
+
+    if nc.get(command) == None:
+      nc[command] = {}
+
+    if nc[command].get(mode) == None:
+      nc[command][mode] = {}
+
+    if nc[command][mode].get(at) == None:
+      nc[command][mode][at] = []
+
+    i = 4
+    key = clean(cells[i])
+    while len(key):
+      nc[command][mode][at].append('keys.' + key)
+      print ('[' + command + '][' + mode + '][' + at + ']: ' + key)
+      i += 1
+      key = clean(cells[i])
 
   count += 1
 
+ncStr = '\n'
+for command in nc:
+  ncStr += '  "' + command + '": {\n'
 
-ncf = open('at-commands.mjs', 'w')
-ncf.write(newCommands[0]+str(newCommands[1])+newCommands[2])
+  for mode in nc[command]:
+    ncStr += '    ' + mode + ': {\n'
+
+    for at in nc[command][mode]:
+      ncStr += '      ' + at + ': [\n'
+      flag = False
+      for key in nc[command][mode][at]:
+        ncStr += '        ' + key + ',\n'
+        flag = True
+
+      if flag:
+        ncStr = ncStr[:-2] + '\n      ],\n'
+      else:
+        ncStr = ncStr[:-1] + '],\n'
+
+    ncStr = ncStr[:-2] + '\n    },\n'
+  ncStr = ncStr[:-2] + '\n  },\n'
+ncStr = ncStr[:-2] + '\n'
+
+ncf = open('../../resources/at-commands.mjs', 'w')
+ncf.write(newCommands[0]+ncStr+newCommands[2])
 ncf.close()
 

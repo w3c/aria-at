@@ -21,15 +21,21 @@ def getAssertion(a):
   return a
 
 
-if len(sys.argv) != 3:
-  print('usage: python create-test-files.py [tests.csv] [reference/example.html]')
+if len(sys.argv) != 4:
+  print('usage: python create-test-files.py [help.txt] [tests.csv] [reference/example.html]')
   exit()
 
 f = open('test.template', 'r')
 
 template = f.read()
 
-tests = open(sys.argv[1], 'r')
+help = open(sys.argv[1], 'r')
+help_urls = ''
+for url in help:
+  help_urls += '<link rel="help" href="' + url.strip() + '">\n'
+
+
+tests = open(sys.argv[2], 'r')
 
 count = 0
 for row in tests:
@@ -49,13 +55,15 @@ for row in tests:
 
     assertions = assertions.strip()[:-1]
 
-    example = sys.argv[2]
+    example = sys.argv[3]
     fname = (task + '-' + mode).lower().replace('=', '-').replace("'", '').replace('"', '').replace(' ', '-')
     if len(fname) > 3:
       fname += '.html'
       print(fname)
 
       test = template
+      test = test.replace('%TITLE%', task + ' in ' + mode + ' mode')
+      test = test.replace('%HELP_URLS%', help_urls)
       test = test.replace('%TASK%', task)
       test = test.replace('%MODE%', mode)
       test = test.replace('%INSTRUCTIONS%', instructions)

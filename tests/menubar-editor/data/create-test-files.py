@@ -16,7 +16,20 @@ def getAssertion(a):
   if len(a) == 0:
     return ''
 
-  a = '["' + a + '"],\n'
+  priority = '1'
+
+  if a.find('1:') == 0:
+    a = a[2:]
+
+  if a.find('2:') == 0:
+    priority = '2'
+    a = a[2:]
+
+  if a.find('3:') == 0:
+    priority = '3'
+    a = a[2:]
+
+  a = '      [' + priority + ', "' + a + '"],\n'
 
   return a
 
@@ -53,7 +66,7 @@ for row in tests:
       i += 1
       assertions += getAssertion(a)
 
-    assertions = assertions.strip()[:-1]
+    assertions = assertions[:-2]
 
     example = sys.argv[3]
     fname = (task + '-' + mode).lower().replace('=', '-').replace("'", '').replace('"', '').replace(' ', '-')

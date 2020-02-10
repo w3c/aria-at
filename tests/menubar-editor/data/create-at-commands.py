@@ -42,11 +42,11 @@ def ATCommandsToObject(commands):
               if len(k):
                 commandsObj[command][mode][at].append(k)
 
-#            for k in commandsObj[command][mode][at]:
-#              print('[' + command + '][' + mode + '][' + at + ']: ' + k)
+            for k in commandsObj[command][mode][at]:
+              print('[A][' + command + '][' + mode + '][' + at + ']: ' + k)
             return
 
-#    print('[' + command + '][' + mode + '][' + at + ']: not found')
+    print('[A][' + command + '][' + mode + '][' + at + ']: not found')
 
   commandsObj = {}
 
@@ -54,31 +54,34 @@ def ATCommandsToObject(commands):
   before = a[0] + TARGET1
   commands = a[1]
   if len(commands) > 0:
-    b = commands.split(TARGET2)
-    commands = b[0]
-    after = TARGET2 + b[1]
+    b = commands.find(TARGET2, len(before) + 1)
+    after = commands[b:]
+    commands = commands[0:b]
 
     i = 0
     j = 0;
-    while i >=0 and j >= 0 and i < len(commands):
+    while i >= 0:
 
       i = commands.find('"', j)
       if i > 0:
         j = commands.find('"', i+1)
+        print('[' + str(i) + '][' + str(j) + ']: ' + commands[i: i+12])
         if j > 0:
           j += 1
           command = commands[i+1:j-1]
           commandsObj[command] = {}
           k = commands.find('"', j)
-          if k > 0:
-            commandData = commands[j+1:k-1]
+          if k < 0:
+            k = len(commands) - 1
 
-            getKeyboardCommands(commandData, command, 'reading', 'jaws')
-            getKeyboardCommands(commandData, command, 'reading', 'nvda')
-            getKeyboardCommands(commandData, command, 'reading', 'voiceover')
-            getKeyboardCommands(commandData, command, 'interaction', 'jaws')
-            getKeyboardCommands(commandData, command, 'interaction', 'nvda')
-            getKeyboardCommands(commandData, command, 'interaction', 'voiceover')
+          commandData = commands[j+1:k-1]
+
+          getKeyboardCommands(commandData, command, 'reading', 'jaws')
+          getKeyboardCommands(commandData, command, 'reading', 'nvda')
+          getKeyboardCommands(commandData, command, 'reading', 'voiceover')
+          getKeyboardCommands(commandData, command, 'interaction', 'jaws')
+          getKeyboardCommands(commandData, command, 'interaction', 'nvda')
+          getKeyboardCommands(commandData, command, 'interaction', 'voiceover')
 
   return [before, commands, after, commandsObj]
 
@@ -124,7 +127,7 @@ for row in newCommandsCSV:
         key = 'keys.' + key
 
       nc[command][mode][at].append(key)
-      print ('[' + command + '][' + mode + '][' + at + ']: ' + key)
+      print ('[B][' + command + '][' + mode + '][' + at + ']: ' + key)
       i += 1
       key = clean(cells[i])
 

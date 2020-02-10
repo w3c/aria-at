@@ -387,11 +387,15 @@ const AT_COMMAND_MAP = {
     reading: {
       jaws: [
         keys.INSERT_TAB,
+        keys.INSERT_UP,
+        keys.INSERT_TAB,
         keys.INSERT_UP
       ]
     },
     interaction: {
       jaws: [
+        keys.INSERT_TAB,
+        keys.INSERT_UP,
         keys.INSERT_TAB,
         keys.INSERT_UP
       ]
@@ -410,3 +414,39 @@ const MODE_INSTRUCTIONS = {
     nvda: "Put NVDA into Focus Mode using NVDA+Space",
     voiceover: `Turn Quick Nav off by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
   }
+};
+
+export function getATCommands(mode, task, assistiveTech) {
+  const at = assistiveTech.toLowerCase();
+
+  if (!AT_COMMAND_MAP[task]) {
+    throw new Error(`Task "${task}" does not exist, please add to at-commands or correct your spelling.`);
+  }
+  else if (!AT_COMMAND_MAP[task][mode]) {
+    throw new Error(`Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`);
+  }
+
+  return AT_COMMAND_MAP[task][mode][at] || [];
+}
+
+export function getModeInstructions(mode, assistiveTech) {
+  const at = assistiveTech.toLowerCase();
+  if (MODE_INSTRUCTIONS[mode] && MODE_INSTRUCTIONS[mode][at]) {
+    return MODE_INSTRUCTIONS[mode][at];
+  }
+  return '';
+}
+
+export function isKnownAT(at) {
+  return KNOWN_ATS[at.toLowerCase()];
+}
+
+export function getAdditionalAssertions(atAdditionalAssertions, key, mode) {
+  let assertions = [];
+  for (let assertion of atAdditionalAssertions) {
+    if (assertion.keys.includes(key) && assertion.mode === mode) {
+      assertions.push(assertion.assertion);
+    }
+  }
+  return assertions;
+}

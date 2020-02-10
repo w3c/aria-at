@@ -10,5 +10,8 @@ export default () => (
     <h3>
     <Link to="/aria-at/results/">See results for previous test runs</Link>
     </h3>
+    <h3>
+    <Link to="/aria-at/review-test-plans/">Review test plans for design patterns</Link>
+    </h3>
   </div>
 )

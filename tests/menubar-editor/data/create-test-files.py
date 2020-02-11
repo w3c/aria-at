@@ -56,15 +56,16 @@ for row in tests:
   if count > 1:
     mode = clean(cells[3])
     task = clean(cells[2])
-    instructions = clean(cells[4])
+    instructions = clean(cells[5])
 
     assertions = ''
 
-    i = 5
+    i = 6
     while (i < len(cells)):
       a = clean(cells[i])
       i += 1
       assertions += getAssertion(a)
+
 
     assertions = assertions[:-2]
 

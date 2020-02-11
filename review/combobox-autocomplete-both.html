@@ -23,7 +23,7 @@
 
     <p>
       <ul>
-	<li>Number of tests: 9</li>
+	<li>Number of tests: 15</li>
       </ul>
     </p>
 
@@ -93,7 +93,43 @@
 	<tr><th>Priority</th><th>Assertion</th></tr>
           <tr><td>1</td><td>After command, JAWS is in Forms Mode</td></tr>
       </table>
-    <h2>Test 3: Navigating to empty, editable combobox conveys role, name, editability, and state.</h2>
+    <h2>Test 3: Navigating to empty, editable combobox conveys role, name, editability, and state in interaction mode.</h2>
+    <p>
+      <ul>
+	<li>Mode: interaction</i>
+	<li>Applies to: JAWS</li>
+	<li>File: /combobox-autocomplete-both/navigate-to-empty-combobox-interaction.html</li>
+	<li>Relevent Specifications:
+          <ul>
+              <li>https:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;wai-aria-practices-1.1&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
+	  </ul>
+	</li>
+      </ul>
+    </p>
+      <h3>JAWS</h3>
+      <h4>Instructions</h4>
+      <p>
+        <ol>
+  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+  	  <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+	    <ul>
+	        <li>Tab &#x2F; Shift+Tab</li>
+	    </ul>
+	  </li>
+        </ol>
+      </p>
+      <h4>Assertions</h4>
+      <table>
+	<tr><th>Priority</th><th>Assertion</th></tr>
+          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+          <tr><td>2</td><td>The collapsed state of the combobox is conveyed.</td></tr>
+      </table>
+    <h2>Test 4: Navigating to empty, editable combobox conveys role, name, editability, and state in reading mode.</h2>
     <p>
       <ul>
 	<li>Mode: reading</i>
@@ -132,7 +168,44 @@
           <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
           <tr><td>2</td><td>The collapsed state of the combobox is conveyed.</td></tr>
       </table>
-    <h2>Test 4: Navigating to filled, editable, collapsed combobox conveys role, name, editability, value, and state.</h2>
+    <h2>Test 5: Navigating to filled, editable, collapsed combobox conveys role, name, editability, value, and state in interaction mode.</h2>
+    <p>
+      <ul>
+	<li>Mode: interaction</i>
+	<li>Applies to: JAWS</li>
+	<li>File: /combobox-autocomplete-both/navigate-to-filled-combobox-interaction.html</li>
+	<li>Relevent Specifications:
+          <ul>
+              <li>https:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;wai-aria-practices-1.1&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
+	  </ul>
+	</li>
+      </ul>
+    </p>
+      <h3>JAWS</h3>
+      <h4>Instructions</h4>
+      <p>
+        <ol>
+  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+  	  <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+	    <ul>
+	        <li>Tab &#x2F; Shift+Tab</li>
+	    </ul>
+	  </li>
+        </ol>
+      </p>
+      <h4>Assertions</h4>
+      <table>
+	<tr><th>Priority</th><th>Assertion</th></tr>
+          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+          <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+          <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+      </table>
+    <h2>Test 6: Navigating to filled, editable, collapsed combobox conveys role, name, editability, value, and state in reading mode.</h2>
     <p>
       <ul>
 	<li>Mode: reading</i>
@@ -172,7 +245,44 @@
           <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
           <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
       </table>
-    <h2>Test 5: Navigating to filled, editable, open combobox conveys role, name, editability, value, and state.</h2>
+    <h2>Test 7: Navigating to filled, editable, open combobox conveys role, name, editability, value, and state in interaction mode.</h2>
+    <p>
+      <ul>
+	<li>Mode: interaction</i>
+	<li>Applies to: JAWS</li>
+	<li>File: /combobox-autocomplete-both/navigate-to-filled-open-combobox-interaction.html</li>
+	<li>Relevent Specifications:
+          <ul>
+              <li>https:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;wai-aria-practices-1.1&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
+	  </ul>
+	</li>
+      </ul>
+    </p>
+      <h3>JAWS</h3>
+      <h4>Instructions</h4>
+      <p>
+        <ol>
+  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+  	  <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+	    <ul>
+	        <li>Tab &#x2F; Shift+Tab</li>
+	    </ul>
+	  </li>
+        </ol>
+      </p>
+      <h4>Assertions</h4>
+      <table>
+	<tr><th>Priority</th><th>Assertion</th></tr>
+          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+          <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+          <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+      </table>
+    <h2>Test 8: Navigating to filled, editable, open combobox conveys role, name, editability, value, and state in reading mode.</h2>
     <p>
       <ul>
 	<li>Mode: reading</i>
@@ -212,7 +322,7 @@
           <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
           <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
       </table>
-    <h2>Test 6: Opening popup from input conveys role, name, properties, and states of the popup and selected option.</h2>
+    <h2>Test 9: Opening popup from input conveys role, name, properties, and states of the popup and selected option.</h2>
     <p>
       <ul>
 	<li>Mode: interaction</i>
@@ -239,7 +349,7 @@
   	  <li>Then, perform the task "Navigate into the popup from the empty combobox" using the following commands:
 	    <ul>
 	        <li>Down Arrow</li>
-	        <li></li>
+	        <li>Up Arrow</li>
 	    </ul>
 	  </li>
         </ol>
@@ -252,7 +362,44 @@
           <tr><td>1</td><td>The name of the focused option is spoken, e.g., &#39;Alabama&#39; if first option, &#39;Wyoming&#39; if last option</td></tr>
           <tr><td>2</td><td>The position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option</td></tr>
       </table>
-    <h2>Test 7: Reading empty, editable combobox conveys role, name, editability, and state.</h2>
+    <h2>Test 10: Reading empty, editable combobox conveys role, name, editability, and state in interaction mode.</h2>
+    <p>
+      <ul>
+	<li>Mode: interaction</i>
+	<li>Applies to: JAWS</li>
+	<li>File: /combobox-autocomplete-both/read-empty-combobox-interaction.html</li>
+	<li>Relevent Specifications:
+          <ul>
+              <li>https:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;wai-aria-practices-1.1&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
+	  </ul>
+	</li>
+      </ul>
+    </p>
+      <h3>JAWS</h3>
+      <h4>Instructions</h4>
+      <p>
+        <ol>
+  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+	    <ul>
+	        <li>Insert+Tab</li>
+	        <li>Insert+Up</li>
+	    </ul>
+	  </li>
+        </ol>
+      </p>
+      <h4>Assertions</h4>
+      <table>
+	<tr><th>Priority</th><th>Assertion</th></tr>
+          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+          <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+      </table>
+    <h2>Test 11: Reading empty, editable combobox conveys role, name, editability, and state in reading mode.</h2>
     <p>
       <ul>
 	<li>Mode: reading</i>
@@ -275,8 +422,8 @@
   	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
   	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
 	    <ul>
-	        <li></li>
-	        <li></li>
+	        <li>Insert+Tab</li>
+	        <li>Insert+Up</li>
 	    </ul>
 	  </li>
         </ol>
@@ -289,11 +436,49 @@
           <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
           <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
       </table>
-    <h2>Test 8: Reading empty, editable combobox conveys role, name, editability, and state.</h2>
+    <h2>Test 12: Reading empty, editable combobox conveys role, name, editability, and state in interaction mode.</h2>
+    <p>
+      <ul>
+	<li>Mode: interaction</i>
+	<li>Applies to: JAWS</li>
+	<li>File: /combobox-autocomplete-both/read-filled-combobox-interaction.html</li>
+	<li>Relevent Specifications:
+          <ul>
+              <li>https:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;wai-aria-practices-1.1&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
+	  </ul>
+	</li>
+      </ul>
+    </p>
+      <h3>JAWS</h3>
+      <h4>Instructions</h4>
+      <p>
+        <ol>
+  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+	    <ul>
+	        <li>Insert+Tab</li>
+	        <li>Insert+Up</li>
+	    </ul>
+	  </li>
+        </ol>
+      </p>
+      <h4>Assertions</h4>
+      <table>
+	<tr><th>Priority</th><th>Assertion</th></tr>
+          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+          <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+          <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+      </table>
+    <h2>Test 13: Reading empty, editable combobox conveys role, name, editability, and state in reading mode.</h2>
     <p>
       <ul>
 	<li>Mode: reading</i>
-	<li>Applies to: </li>
+	<li>Applies to: JAWS</li>
 	<li>File: /combobox-autocomplete-both/read-filled-combobox.html</li>
 	<li>Relevent Specifications:
           <ul>
@@ -305,11 +490,71 @@
 	</li>
       </ul>
     </p>
-    <h2>Test 9: Reading empty, editable, open combobox conveys role, name, editability, and state.</h2>
+      <h3>JAWS</h3>
+      <h4>Instructions</h4>
+      <p>
+        <ol>
+  	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+	    <ul>
+	        <li>Insert+Tab</li>
+	        <li>Insert+Up</li>
+	    </ul>
+	  </li>
+        </ol>
+      </p>
+      <h4>Assertions</h4>
+      <table>
+	<tr><th>Priority</th><th>Assertion</th></tr>
+          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+          <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+          <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+      </table>
+    <h2>Test 14: Reading empty, editable, open combobox conveys role, name, editability, and state in interaction mode.</h2>
+    <p>
+      <ul>
+	<li>Mode: interaction</i>
+	<li>Applies to: JAWS</li>
+	<li>File: /combobox-autocomplete-both/read-filled-open-combobox-interaction.html</li>
+	<li>Relevent Specifications:
+          <ul>
+              <li>https:&#x2F;&#x2F;www.w3.org&#x2F;TR&#x2F;wai-aria-practices-1.1&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
+              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
+	  </ul>
+	</li>
+      </ul>
+    </p>
+      <h3>JAWS</h3>
+      <h4>Instructions</h4>
+      <p>
+        <ol>
+  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+	    <ul>
+	        <li>Insert+Tab</li>
+	        <li>Insert+Up</li>
+	    </ul>
+	  </li>
+        </ol>
+      </p>
+      <h4>Assertions</h4>
+      <table>
+	<tr><th>Priority</th><th>Assertion</th></tr>
+          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+          <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+          <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+      </table>
+    <h2>Test 15: Reading empty, editable, open combobox conveys role, name, editability, and state in reading mode.</h2>
     <p>
       <ul>
 	<li>Mode: reading</i>
-	<li>Applies to: </li>
+	<li>Applies to: JAWS</li>
 	<li>File: /combobox-autocomplete-both/read-filled-open-combobox.html</li>
 	<li>Relevent Specifications:
           <ul>
@@ -321,6 +566,28 @@
 	</li>
       </ul>
     </p>
+      <h3>JAWS</h3>
+      <h4>Instructions</h4>
+      <p>
+        <ol>
+  	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+	    <ul>
+	        <li>Insert+Tab</li>
+	        <li>Insert+Up</li>
+	    </ul>
+	  </li>
+        </ol>
+      </p>
+      <h4>Assertions</h4>
+      <table>
+	<tr><th>Priority</th><th>Assertion</th></tr>
+          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+          <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+          <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+      </table>
 
   </body>
 </html>

@@ -25,5 +25,6 @@ export const LEFT                             = "Left Arrow";
 export const RIGHT                            = "Right Arrow";
 export const SPACE                            = "Space";
 export const TAB_AND_SHIFT_TAB                = "Tab / Shift+Tab";
+export const UP                               = "Up Arrow";
 export const UP_AND_DOWN                      = "Up Arrow / Down Arrow";
 export const X_AND_SHIFT_X                    = "X / Shift+X";

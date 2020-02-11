@@ -83,7 +83,7 @@ for row in tests:
       test = test.replace('%ASSERTIONS%', assertions)
       test = test.replace('%EXAMPLE%', example)
 
-      t = open('..\\' + fname, 'w')
+      t = open(os.path.join('..', fname), 'w')
       t.write(test)
       t.close()
 

@@ -6,17 +6,17 @@
 <link rel="help" href="https://w3c.github.io/aria/#ARIA-ROLE">
 <link rel="help" href="https://w3c.github.io/aria/#ARIA-ATTRIBUTE">
 <script type="module">
-  import { verifyATBehavoir, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
   import * as keys from "../resources/keys.mjs";
 
-  verifyATBehavoir({
+  verifyATBehavior({
 
     // If this test requires set up steps, then they should be encoded here.
     setupTestPage: function setupTestPage(testPageDocument) {
       return;
     },
 
-    mode: ["reading"],              // Only list one mode, "reading" or "interaction".
+    mode: "reading",              // Only list one mode, "reading" or "interaction".
     task: "",                       // The key used to get the appropraite key commands from ../resources/at-commands.mjs
     specific_user_instruction: "",  // A more detailed, human understandable description of the task
     output_assertions: [

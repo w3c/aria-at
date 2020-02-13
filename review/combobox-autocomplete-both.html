@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Test Review for pattern: combobox-autocomplete-both</title>
+    <title>Test plan review for pattern: combobox-autocomplete-both</title>
     <style>
       table {
         border-collapse: collapse;
@@ -15,579 +15,1280 @@
       td {
         padding: .5em;
       }
+
+      button[value="all"] {
+        display: block;
+      }
     </style>
+    <script>
+      const filterATs = function(button) {
+        const val = button.value;
+
+        if (val === 'all') {
+          document.querySelector('#ats-selected').innerHTML = "Viewing tests for all assitive technologies.";
+
+          for (let at of document.querySelectorAll('button')) {
+            if (at.value !== 'all') {
+              for (let result of document.querySelectorAll(`.${at.value}`)) {
+                result.style.display = 'block';
+              }
+            }
+            else {
+              at.style.display = 'none';
+            }
+          }
+        }
+        else {
+          document.querySelector('#ats-selected').innerHTML = `Viewing only tests for ${val}.`;
+
+          for (let at of document.querySelectorAll('button')) {
+
+            if (at.value === 'all') {
+              at.style.display = 'block';
+              continue;
+            }
+
+            for (let result of document.querySelectorAll(`.${at.value}`)) {
+              result.style.display = 'none';
+            }
+            for (let result of document.querySelectorAll(`.${val}`)) {
+              result.style.display = 'block';
+            }
+
+          }
+        }
+      }
+    </script>
   </head>
   <body>
 
-    <h1>Test Review for pattern: combobox-autocomplete-both</h1>
+    <h1>Test plan review for pattern: combobox-autocomplete-both (15 tests)</h1>
 
-    <p>
-      <ul>
-	<li>Number of tests: 15</li>
-      </ul>
-    </p>
+    <div>
+      <p id="ats-selected">Viewing tests for all assitive technologies.</p>
+      <button onclick="filterATs(this)" value="all">Show tests for all assistive technologies</button>
+      <button onclick="filterATs(this)" value="JAWS">Show tests for JAWS</button>
+      <button onclick="filterATs(this)" value="VoiceOver">Show tests for VoiceOver</button>
+      <button onclick="filterATs(this)" value="NVDA">Show tests for NVDA</button>
+    </div>
 
     <h2>Test 1: Activating editable combobox switches mode from reading to interaction.</h2>
     <p>
       <ul>
-	<li>Mode: reading</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/activate-switches-mode.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: reading</i>
+        <li>Applies to: NVDA, JAWS</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/activate-switches-mode.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-  	  <li>Then, perform the task "activate the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Enter</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>the screen reader switches to mode that allows text input</td></tr>
-      </table>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browser Mode using Escape</li>
+             <li>Then, perform the task "activate the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td colspan="2">No assertions have been listed for NVDA. Add assertion or update the "applies_to" to list only the relevent assistive technologies.</td></tr>
+        </table>
+      </div>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Then, perform the task "activate the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Enter</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>the screen reader switches to mode that allows text input</td></tr>
+        </table>
+      </div>
     <h2>Test 2: Navigating to editable combobox switches mode from reading to interaction.</h2>
     <p>
       <ul>
-	<li>Mode: reading</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/navigate-switches-mode.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: reading</i>
+        <li>Applies to: NVDA, JAWS</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/navigate-switches-mode.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-  	  <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Tab &#x2F; Shift+Tab</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>After command, JAWS is in Forms Mode</td></tr>
-      </table>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browser Mode using Escape</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>After command, NVDA is in Focus Mode</td></tr>
+        </table>
+      </div>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>After command, JAWS is in Forms Mode</td></tr>
+        </table>
+      </div>
     <h2>Test 3: Navigating to empty, editable combobox conveys role, name, editability, and state in interaction mode.</h2>
     <p>
       <ul>
-	<li>Mode: interaction</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/navigate-to-empty-combobox-interaction.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/navigate-to-empty-combobox-interaction.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
-  	  <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Tab &#x2F; Shift+Tab</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>2</td><td>The collapsed state of the combobox is conveyed.</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Turn Quick Nav off by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed.</td></tr>
+        </table>
+      </div>
     <h2>Test 4: Navigating to empty, editable combobox conveys role, name, editability, and state in reading mode.</h2>
     <p>
       <ul>
-	<li>Mode: reading</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/navigate-to-empty-combobox.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: reading</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/navigate-to-empty-combobox.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-  	  <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>C &#x2F; Shift+C</li>
-	        <li>F &#x2F; Shift+F</li>
-	        <li>Up Arrow &#x2F; Down Arrow</li>
-	        <li>Left Arrow &#x2F; Right Arrow (with Smart Navigation set to Controls and Tables)</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>2</td><td>The collapsed state of the combobox is conveyed.</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>F &#x2F; Shift+F</li>
+                   <li>Up Arrow &#x2F; Down Arrow</li>
+                   <li>Left Arrow &#x2F; Right Arrow (with Smart Navigation set to Controls and Tables)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li></li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browser Mode using Escape</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed.</td></tr>
+        </table>
+      </div>
     <h2>Test 5: Navigating to filled, editable, collapsed combobox conveys role, name, editability, value, and state in interaction mode.</h2>
     <p>
       <ul>
-	<li>Mode: interaction</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/navigate-to-filled-combobox-interaction.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/navigate-to-filled-combobox-interaction.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
-  	  <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Tab &#x2F; Shift+Tab</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
-          <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Turn Quick Nav off by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 6: Navigating to filled, editable, collapsed combobox conveys role, name, editability, value, and state in reading mode.</h2>
     <p>
       <ul>
-	<li>Mode: reading</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/navigate-to-filled-combobox.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: reading</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/navigate-to-filled-combobox.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-  	  <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>C &#x2F; Shift+C</li>
-	        <li>F &#x2F; Shift+F</li>
-	        <li>Up Arrow &#x2F; Down Arrow</li>
-	        <li>Left Arrow &#x2F; Right Arrow (with Smart Navigation set to Controls and Tables)</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
-          <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>F &#x2F; Shift+F</li>
+                   <li>Up Arrow &#x2F; Down Arrow</li>
+                   <li>Left Arrow &#x2F; Right Arrow (with Smart Navigation set to Controls and Tables)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li></li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browser Mode using Escape</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 7: Navigating to filled, editable, open combobox conveys role, name, editability, value, and state in interaction mode.</h2>
     <p>
       <ul>
-	<li>Mode: interaction</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/navigate-to-filled-open-combobox-interaction.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/navigate-to-filled-open-combobox-interaction.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
-  	  <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Tab &#x2F; Shift+Tab</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
-          <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Turn Quick Nav off by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 8: Navigating to filled, editable, open combobox conveys role, name, editability, value, and state in reading mode.</h2>
     <p>
       <ul>
-	<li>Mode: reading</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/navigate-to-filled-open-combobox.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: reading</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/navigate-to-filled-open-combobox.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-  	  <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>C &#x2F; Shift+C</li>
-	        <li>F &#x2F; Shift+F</li>
-	        <li>Up Arrow &#x2F; Down Arrow</li>
-	        <li>Left Arrow &#x2F; Right Arrow (with Smart Navigation set to Controls and Tables)</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
-          <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>F &#x2F; Shift+F</li>
+                   <li>Up Arrow &#x2F; Down Arrow</li>
+                   <li>Left Arrow &#x2F; Right Arrow (with Smart Navigation set to Controls and Tables)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li></li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browser Mode using Escape</li>
+             <li>Then, perform the task "navigate to the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 9: Opening popup from input conveys role, name, properties, and states of the popup and selected option.</h2>
     <p>
       <ul>
-	<li>Mode: interaction</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/navigate-to-popup.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/navigate-to-popup.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#listbox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#option</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-selected</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#listbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#listbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#option">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#option</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-selected">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-selected</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
-  	  <li>Then, perform the task "Navigate into the popup from the empty combobox" using the following commands:
-	    <ul>
-	        <li>Down Arrow</li>
-	        <li>Up Arrow</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The popup role of &#39;listbox&#39; is conveyed</td></tr>
-          <tr><td>2</td><td>The popup name of &#39;States&#39; is spoken</td></tr>
-          <tr><td>1</td><td>The name of the focused option is spoken, e.g., &#39;Alabama&#39; if first option, &#39;Wyoming&#39; if last option</td></tr>
-          <tr><td>2</td><td>The position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+             <li>Then, perform the task "Navigate into the popup from the empty combobox" using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The popup role of &#39;listbox&#39; is conveyed</td></tr>
+            <tr><td>2</td><td>The popup name of &#39;States&#39; is spoken</td></tr>
+            <tr><td>1</td><td>The name of the focused option is spoken, e.g., &#39;Alabama&#39; if first option, &#39;Wyoming&#39; if last option</td></tr>
+            <tr><td>2</td><td>The position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Turn Quick Nav off by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "Navigate into the popup from the empty combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The popup role of &#39;listbox&#39; is conveyed</td></tr>
+            <tr><td>2</td><td>The popup name of &#39;States&#39; is spoken</td></tr>
+            <tr><td>1</td><td>The name of the focused option is spoken, e.g., &#39;Alabama&#39; if first option, &#39;Wyoming&#39; if last option</td></tr>
+            <tr><td>2</td><td>The position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "Navigate into the popup from the empty combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The popup role of &#39;listbox&#39; is conveyed</td></tr>
+            <tr><td>2</td><td>The popup name of &#39;States&#39; is spoken</td></tr>
+            <tr><td>1</td><td>The name of the focused option is spoken, e.g., &#39;Alabama&#39; if first option, &#39;Wyoming&#39; if last option</td></tr>
+            <tr><td>2</td><td>The position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option</td></tr>
+        </table>
+      </div>
     <h2>Test 10: Reading empty, editable combobox conveys role, name, editability, and state in interaction mode.</h2>
     <p>
       <ul>
-	<li>Mode: interaction</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/read-empty-combobox-interaction.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/read-empty-combobox-interaction.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
-  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Insert+Tab</li>
-	        <li>Insert+Up</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Turn Quick Nav off by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 11: Reading empty, editable combobox conveys role, name, editability, and state in reading mode.</h2>
     <p>
       <ul>
-	<li>Mode: reading</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/read-empty-combobox.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: reading</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/read-empty-combobox.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Insert+Tab</li>
-	        <li>Insert+Up</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li></li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browser Mode using Escape</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 12: Reading empty, editable combobox conveys role, name, editability, and state in interaction mode.</h2>
     <p>
       <ul>
-	<li>Mode: interaction</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/read-filled-combobox-interaction.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/read-filled-combobox-interaction.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
-  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Insert+Tab</li>
-	        <li>Insert+Up</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
-          <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Turn Quick Nav off by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 13: Reading empty, editable combobox conveys role, name, editability, and state in reading mode.</h2>
     <p>
       <ul>
-	<li>Mode: reading</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/read-filled-combobox.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: reading</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/read-filled-combobox.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Insert+Tab</li>
-	        <li>Insert+Up</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
-          <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li></li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browser Mode using Escape</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;Alabama&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The collapsed state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 14: Reading empty, editable, open combobox conveys role, name, editability, and state in interaction mode.</h2>
     <p>
       <ul>
-	<li>Mode: interaction</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/read-filled-open-combobox-interaction.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/read-filled-open-combobox-interaction.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
-  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Insert+Tab</li>
-	        <li>Insert+Up</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
-          <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virual Cursor off using Insert+Z</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Turn Quick Nav off by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 15: Reading empty, editable, open combobox conveys role, name, editability, and state in reading mode.</h2>
     <p>
       <ul>
-	<li>Mode: reading</i>
-	<li>Applies to: JAWS</li>
-	<li>File: /combobox-autocomplete-both/read-filled-open-combobox.html</li>
-	<li>Relevent Specifications:
+        <li>Mode: reading</i>
+        <li>Applies to: Desktop Screen Readers</li>
+	<li>Lasted edited: }">/combobox-autocomplete-both/read-filled-open-combobox.html<a></li>}
+        <li>Relevent Specifications:
           <ul>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</li>
-              <li>https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</li>
-	  </ul>
-	</li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#combobox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-controls</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+          </ul>
+        </li>
       </ul>
     </p>
-      <h3>JAWS</h3>
-      <h4>Instructions</h4>
-      <p>
-        <ol>
-  	  <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-  	  <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
-	    <ul>
-	        <li>Insert+Tab</li>
-	        <li>Insert+Up</li>
-	    </ul>
-	  </li>
-        </ol>
-      </p>
-      <h4>Assertions</h4>
-      <table>
-	<tr><th>Priority</th><th>Assertion</th></tr>
-          <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
-          <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
-          <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
-          <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
-          <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
-      </table>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li></li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browser Mode using Escape</li>
+             <li>Then, perform the task "When the focus or reading cursor is on the &#39;state&#39; combobox, read the &#39;state&#39; combobox" using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>1</td><td>The role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>1</td><td>The name &#39;State&#39; is spoken</td></tr>
+            <tr><td>1</td><td>Users are informed they can edit text in the combobox</td></tr>
+            <tr><td>1</td><td>The value &#39;A&#39; is spoken</td></tr>
+            <tr><td>2</td><td>The expanded state of the combobox is conveyed</td></tr>
+        </table>
+      </div>
 
   </body>
 </html>

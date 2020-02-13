@@ -91,6 +91,11 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	  });
 	}
 
+	// Create the test review pages
+	const testFilePath = path.join('.', 'tests', subDir, test);
+	const output = spawnSync('git', ['log', '-1', '--pretty=%ci', testFilePath]);
+	const lastEdited = output.stdout.toString();
+
 	tests.push({
 	  testNumber: tests.length+1,
 	  name: testFullName,
@@ -99,7 +104,8 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	  task,
 	  mode,
 	  ATTests,
-	  helpLinks
+	  helpLinks,
+	  lastEdited
 	});
       }
     });

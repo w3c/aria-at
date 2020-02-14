@@ -118,6 +118,8 @@ const AT_COMMAND_MAP = {
         keys.INS_UP_OR_CAPS_UP
       ],
       voiceover: [
+        keys.CTRL_OPT_F3,
+        keys.CTRL_OPT_F4
       ]
     }
   },
@@ -203,6 +205,8 @@ const AT_COMMAND_MAP = {
         keys.INS_UP_OR_CAPS_UP
       ],
       voiceover: [
+        keys.CTRL_OPT_F3,
+        keys.CTRL_OPT_F4
       ]
     }
   }

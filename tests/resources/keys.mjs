@@ -28,3 +28,5 @@ export const TAB_AND_SHIFT_TAB                = "Tab / Shift+Tab";
 export const UP                               = "Up Arrow";
 export const UP_AND_DOWN                      = "Up Arrow / Down Arrow";
 export const X_AND_SHIFT_X                    = "X / Shift+X";
+export const CTRL_OPT_F3                      = "Control+Option+F3";
+export const CTRL_OPT_F4                      = "Control+Option+F4";

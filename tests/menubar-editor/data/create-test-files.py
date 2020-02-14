@@ -33,51 +33,78 @@ def getAssertion(a):
 
   return a
 
+def getSetupTestPageScript(code):
 
-if len(sys.argv) != 4:
+  setupCode = ''
+
+  if len(code):
+    setupCode += "setupTestPage: function setupTestPage(testPageDocument) {\n"
+    for c in code.split(';'):
+      setupCode += "      " + clean(c) + '\n'
+    setupCode += "    },"
+
+  return setupCode
+
+if len(sys.argv) != 3:
   print('usage: python create-test-files.py [help.csv] [tests.csv] [reference/example.html]')
   exit()
 
 f = open('test.template', 'r')
-
 template = f.read()
 
-help = open(sys.argv[1], 'r')
-help_urls = ''
-for url in help:
-  help_urls += '<link rel="help" href="' + url.strip() + '">\n'
+print('[A]')
+references = open(sys.argv[1], 'r')
+referenceLinks = {}
+for ref in references:
+  r = ref.split(',')
+  key = r[0].strip()
+  url = r[1].strip()
+  print(key + ': ' + url)
+  referenceLinks[key] = url
 
 
+print('[B]')
 tests = open(sys.argv[2], 'r')
 
 count = 0
 for row in tests:
   cells = row.split(',')
   if count > 1:
-    mode = clean(cells[3])
-    task = clean(cells[2])
-    instructions = clean(cells[5])
+    title = clean(cells[2])
+    appliesTo = clean(cells[3])
+    mode = clean(cells[4])
+    task = clean(cells[5])
+    setupTestPage = getSetupTestPageScript(cells[6])
+    refs = clean(cells[7]).split(' ')
+    instructions = clean(cells[8])
 
     assertions = ''
 
-    i = 6
+    i = 9
     while (i < len(cells)):
       a = clean(cells[i])
       i += 1
       assertions += getAssertion(a)
 
+    references = '<link rel="help" href="' + referenceLinks['example'] + '">\n'
+    for r in refs:
+      references += '<link rel="help" href="' + referenceLinks[r] + '">\n'
+
 
     assertions = assertions[:-2]
 
-    example = sys.argv[3]
-    fname = (task + '-' + mode).lower().replace('=', '-').replace("'", '').replace('"', '').replace(' ', '-')
+    example = referenceLinks['reference']
+    fname = task.lower().replace('=', '-').replace("'", '').replace('"', '').replace(' ', '-')
+
+    test = template
     if len(fname) > 3:
       fname += '.html'
       print(fname)
-
-      test = template
-      test = test.replace('%TITLE%', task + ' in ' + mode + ' mode')
-      test = test.replace('%HELP_URLS%', help_urls)
+      if (len(setupTestPage)):
+        test = test.replace('%SETUP_TEST_PAGE%', setupTestPage)
+      test = test.replace('%TITLE%', title)
+      test = test.replace('%REFERENCES%', references)
+      test = test.replace('%APPLIES_TO%', appliesTo)
       test = test.replace('%TASK%', task)
       test = test.replace('%MODE%', mode)
       test = test.replace('%INSTRUCTIONS%', instructions)

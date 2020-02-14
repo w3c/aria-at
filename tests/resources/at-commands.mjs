@@ -215,7 +215,7 @@ const MODE_INSTRUCTIONS = {
     voiceover: ""
   },
   interaction: {
-    jaws: `Put JAWS into Forms Mode by turning Virual Cursor off using ${keys.INS_Z}`,
+    jaws: `Put JAWS into Forms Mode by turning Virtual Cursor off using ${keys.INS_Z}`,
     nvda: "Put NVDA into Focus Mode using NVDA+Space",
     voiceover: `Turn Quick Nav off by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
   }

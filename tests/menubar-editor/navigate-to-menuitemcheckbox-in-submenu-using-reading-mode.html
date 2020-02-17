@@ -10,10 +10,10 @@
 
   verifyATBehavior({
     setupTestPage: function setupTestPage(testPageDocument) {
-      const combobox = testPageDocument.querySelector('[role='combobox']')
-      combobox.focus()
-      
+      document.querySelectorAll('role=menuitem')[1].setAttribue('aria-expanded', 'true');
+      document.querySelectorAll('role=menuitem')[1].focus();
     },
+
     applies_to: ["Desktop Screen Readers"],
     mode: ["reading"],
     task: "navigate to menuitemcheckbox in submenu using reading mode",

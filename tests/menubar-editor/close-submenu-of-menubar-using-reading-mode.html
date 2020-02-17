@@ -10,11 +10,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setupTestPage: function setupTestPage(testPageDocument) {
-      const combobox = testPageDocument.querySelector('[role='combobox']')
-      combobox.focus()
-      
-    },
+    %SETUP_TEST_PAGE%
     applies_to: ["Desktop Screen Readers"],
     mode: ["reading"],
     task: "close submenu of menubar using reading mode",

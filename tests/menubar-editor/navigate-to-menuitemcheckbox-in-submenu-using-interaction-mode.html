@@ -10,10 +10,9 @@
 
   verifyATBehavior({
     setupTestPage: function setupTestPage(testPageDocument) {
-      const combobox = testPageDocument.querySelector('[role='combobox']')
-      combobox.focus()
-      
+      document.querySelectorAll('role=menuitem')[1].focus();
     },
+
     applies_to: ["Desktop Screen Readers"],
     mode: ["interaction"],
     task: "navigate to menuitemcheckbox in submenu using interaction mode",

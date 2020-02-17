@@ -10,10 +10,9 @@
 
   verifyATBehavior({
     setupTestPage: function setupTestPage(testPageDocument) {
-      const menuitem = testPageDocument.querySelector('[role='menuitem']')
-      menuitem.focus()
-      
+      document.querySelector('a').focus();
     },
+
     applies_to: ["Desktop Screen Readers"],
     mode: ["reading"],
     task: "navigate to menubar in reading mode",

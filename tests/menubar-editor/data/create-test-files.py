@@ -33,26 +33,31 @@ def getAssertion(a):
 
   return a
 
-def getSetupTestPageScript(code):
+def getSetupTestPageScript(fname):
 
-  setupCode = ''
+  code = ''
 
-  if len(code):
-    setupCode += "setupTestPage: function setupTestPage(testPageDocument) {\n"
-    for c in code.split(';'):
-      setupCode += "      " + clean(c) + '\n'
-    setupCode += "    },"
+  if len(fname.strip()):
+    f = open(os.path.join('js', (fname + '.js')), 'r')
 
-  return setupCode
+    code = 'setupTestPage: function setupTestPage(testPageDocument) {\n'
+
+    for line in f:
+      code += '      ' + line.strip() + '\n'
+
+    code += '    },\n'
+
+  return code
 
 if len(sys.argv) != 3:
-  print('usage: python create-test-files.py [help.csv] [tests.csv] [reference/example.html]')
+  print('usage: python create-test-files.py [reference.csv] [tests.csv]')
   exit()
 
 f = open('test.template', 'r')
 template = f.read()
 
-print('[A]')
+print('REFERENCES')
+
 references = open(sys.argv[1], 'r')
 referenceLinks = {}
 for ref in references:
@@ -62,8 +67,10 @@ for ref in references:
   print(key + ': ' + url)
   referenceLinks[key] = url
 
+print()
 
-print('[B]')
+print('FILES')
+
 tests = open(sys.argv[2], 'r')
 
 count = 0
@@ -99,7 +106,7 @@ for row in tests:
     test = template
     if len(fname) > 3:
       fname += '.html'
-      print(fname)
+      print('TEST ' + str(count-1) + ': ' + fname)
       if (len(setupTestPage)):
         test = test.replace('%SETUP_TEST_PAGE%', setupTestPage)
       test = test.replace('%TITLE%', title)

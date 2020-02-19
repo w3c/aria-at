@@ -91,7 +91,6 @@ const AT_COMMAND_MAP = {
         keys.CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT,
         keys.CTRL_OPT_A,
         keys.CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J,
-        keys.CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C,
         `${keys.CTRL_U} to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox`
       ]
     }
@@ -119,6 +118,8 @@ const AT_COMMAND_MAP = {
         keys.INS_UP_OR_CAPS_UP
       ],
       voiceover: [
+        keys.CTRL_OPT_F3,
+        keys.CTRL_OPT_F4
       ]
     }
   },
@@ -177,7 +178,6 @@ const AT_COMMAND_MAP = {
         keys.CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT,
         keys.CTRL_OPT_A,
         keys.CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J,
-        keys.CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C,
         `${keys.CTRL_U} to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox`
       ]
     },
@@ -205,6 +205,8 @@ const AT_COMMAND_MAP = {
         keys.INS_UP_OR_CAPS_UP
       ],
       voiceover: [
+        keys.CTRL_OPT_F3,
+        keys.CTRL_OPT_F4
       ]
     }
   }
@@ -217,7 +219,7 @@ const MODE_INSTRUCTIONS = {
     voiceover: ""
   },
   interaction: {
-    jaws: `Put JAWS into Forms Mode by turning Virual Cursor off using ${keys.INS_Z}`,
+    jaws: `Put JAWS into Forms Mode by turning Virtual Cursor off using ${keys.INS_Z}`,
     nvda: "Put NVDA into Focus Mode using NVDA+Space",
     voiceover: `Turn Quick Nav off by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
   }

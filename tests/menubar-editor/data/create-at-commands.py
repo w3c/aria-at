@@ -90,7 +90,7 @@ if len(sys.argv) != 2:
   print('usage: python create-at-commands.py [at-commands.csv]')
   exit()
 
-ccf = open('../../resources/at-commands.mjs', 'r')
+ccf = open(os.path.join('../../resources/', 'at-commands.mjs'), 'r')
 newCommands = ccf.read()
 
 newCommands = ATCommandsToObject(newCommands)
@@ -163,7 +163,7 @@ for command in nc:
   ncStr = ncStr[:-2] + '\n  },\n'
 ncStr = ncStr[:-2] + '\n'
 
-ncf = open('../../resources/at-commands.mjs', 'w')
+ncf = open('at-commands.mjs', 'w')
 ncf.write(newCommands[0]+ncStr+newCommands[2])
 ncf.close()
 

@@ -107,8 +107,7 @@ for row in tests:
     if len(fname) > 3:
       fname += '.html'
       print('TEST ' + str(count-1) + ': ' + fname)
-      if (len(setupTestPage)):
-        test = test.replace('%SETUP_TEST_PAGE%', setupTestPage)
+      test = test.replace('%SETUP_TEST_PAGE%', setupTestPage)
       test = test.replace('%TITLE%', title)
       test = test.replace('%REFERENCES%', references)
       test = test.replace('%APPLIES_TO%', appliesTo)

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Change state of menu item checkbox to unchecked in interaction mode</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
+<link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    
+    applies_to: ["Desktop Screen Readers"],
+    mode: ["interaction"],
+    task: "change state of menuitemcheckbox in submenu using interaction mode",
+    specific_user_instruction: "uncheck the 'Italic' menu item in the 'Style/Color' menu",
+    output_assertions: [
+      [1, "The unchecked state of the checkbox is conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference\menubar-editor.html");
+
+</script>

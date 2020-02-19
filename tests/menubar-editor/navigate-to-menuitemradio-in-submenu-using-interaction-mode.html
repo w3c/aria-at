@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to menu item radio in submenu using interaction mode</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
+<link rel="help" href="https://w3c.github.io/aria/#menuitemradio">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    setupTestPage: function setupTestPage(testPageDocument) {
+      document.querySelector('role=menuitem').focus();
+    },
+
+    applies_to: ["Desktop Screen Readers"],
+    mode: ["interaction"],
+    task: "navigate to menuitemradio in submenu using interaction mode",
+    specific_user_instruction: "navigate to 'Sans-serif' menu item in the 'Font' submenu",
+    output_assertions: [
+      [1, "The role 'menu item radio' is spoken"],
+      [1, "The label 'Sans-serif' is spoken"],
+      [1, "The checked state is conveyed"],
+      [2, " The position and size of the submenu is spoken"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference\menubar-editor.html");
+
+</script>

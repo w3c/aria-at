@@ -11,7 +11,8 @@ const testDir = path.resolve('.', 'tests');
 const templateFile = path.resolve('.', 'scripts', 'review-template.mustache');
 const reviewDir = path.resolve('.', 'public', 'review');
 const allTestsForPattern = {};
-const SRs = ['jaws', 'voiceover', 'nvda'];
+const ATs = ['jaws', 'voiceover', 'nvda'];
+const ATNames = ATs.map((x) => isKnownAT(x));
 
 fse.readdirSync(testDir).forEach(function (subDir) {
   const subDirFullPath = path.join(testDir, subDir);
@@ -36,10 +37,6 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	  }
 	}
 
-	for (let help of root.querySelectorAll('link[rel="help"]')) {
-	  console.log(help.attributes.href);
-	}
-
 	// Get data for declarative tests
 	const jsString = root.querySelector('script').innerHTML;
         const re = /verifyATBehavior\({([\w\W]+)}\);/g;
@@ -56,50 +53,59 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	const userInstruction = testData.specific_user_instruction;
 	const task = testData.task;
 	const mode = testData.mode[0];
-	const SRTests = [];
+	const ATTests = [];
 
-	const allReleventSRs = [];
-	for (const sr of SRs) {
+	// TODO: These apply_to strings are not standarized yet.
+	let allReleventATs = [];
+	if (testData.applies_to[0] === "Desktop Screen Readers") {
+	  allReleventATs = ATs;
+	}
+	else {
+	  allReleventATs = testData.applies_to;
+	}
+
+	for (const at of allReleventATs.map((a) => a.toLowerCase())) {
 	  let commands, assertions;
 
-	  if (testData.additional_assertions && testData.additional_assertions[sr]) {
-	    commands = testData.additional_assertions[sr].keys;
-	    assertions = testData.additional_assertions[sr].keys;
+	  try {
+	    commands = getATCommands(mode, task, at);
+	  }
+	  catch (error) {
+	  } // An error will occur if there is no data for a screen reader, ignore it
+
+	  if (testData.additional_assertions && testData.additional_assertions[at]) {
+	    assertions = testData.additional_assertions[at];
 	  }
 	  else {
-	    try {
-	      commands = getATCommands(mode, task, sr);
-	    }
-	    catch (error) {
-	    } // An error will occur if there is no data for a screen reader, ignore it
-
 	    assertions = testData.output_assertions;
 	  }
 
-	  if (commands && commands.length) {
-	    let properSR = isKnownAT(sr);
-	    allReleventSRs.push(properSR);
+	  let properAT = isKnownAT(at);
 
-	    SRTests.push({
-	      sr: properSR,
-	      commands: commands,
-	      assertions: assertions.map(a => ({ priority: a[0], description: a[1] })),
-	      userInstruction,
-	      modeInstruction: getModeInstructions(mode, sr)
-	    });
-	  }
-
+	  ATTests.push({
+	    atName: properAT,
+	    commands: commands.length ? commands : undefined,
+	    assertions: assertions && assertions.length ? assertions.map(a => ({ priority: a[0], description: a[1] })) : undefined,
+	    userInstruction,
+	    modeInstruction: getModeInstructions(mode, at)
+	  });
 	}
+
+	// Create the test review pages
+	const testFilePath = path.join('.', 'tests', subDir, test);
+	const output = spawnSync('git', ['log', '-1', '--format="%ad"', testFilePath]);
+	const lastEdited = output.stdout.toString().replace(/"/gi, '');
 
 	tests.push({
 	  testNumber: tests.length+1,
 	  name: testFullName,
 	  location: `/${subDir}/${test}`,
-	  allReleventSRs: allReleventSRs.join(', '),
+	  allReleventATs: testData.applies_to.join(', '),
 	  task,
 	  mode,
-	  SRTests,
-	  helpLinks
+	  ATTests,
+	  helpLinks,
+	  lastEdited
 	});
       }
     });
@@ -122,7 +128,8 @@ for (let pattern in allTestsForPattern) {
   var rendered = mustache.render(template, {
     pattern: pattern,
     totalTests: allTestsForPattern[pattern].length,
-    tests: allTestsForPattern[pattern]
+    tests: allTestsForPattern[pattern],
+    AToptions: ATNames
   });
 
   let summaryFile = path.resolve(reviewDir, `${pattern}.html`);

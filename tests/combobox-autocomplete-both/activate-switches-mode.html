@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <title>Activating editable combobox switches mode from reading to interaction.</title>
 <link rel="author" title="Matt King" href="mailto:a11ythinker@gmail.com">
-<link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#combobox">
+<link rel="help" href="https://w3c.github.io/aria-practices/#combobox">
 <link rel="help" href="https://w3c.github.io/aria/#combobox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-controls">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
@@ -13,15 +13,14 @@
   import * as keys from "../resources/keys.mjs";
 
   verifyATBehavior({
+    applies_to: ["NVDA", "JAWS"],
     mode: ["reading"],
     task: "activate combobox",
     specific_user_instruction: "activate the 'state' combobox",
     additional_assertions: {
-      jaws: [{
-        keys: [keys.ENTER],
-        mode: 'reading',
-        assertion: [1, 'the screen reader switches to mode that allows text input']
-      }],
+      jaws: [
+        [1, 'the screen reader switches to mode that allows text input']
+      ]
     }
   });
 

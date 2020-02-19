@@ -2,7 +2,7 @@
 <meta charset="utf-8">
 <title>Navigating to editable combobox switches mode from reading to interaction.</title>
 <link rel="author" title="Matt King" href="mailto:a11ythinker@gmail.com">
-<link rel="help" href="https://www.w3.org/TR/wai-aria-practices-1.1/#combobox">
+<link rel="help" href="https://w3c.github.io/aria-practices/#combobox">
 <link rel="help" href="https://w3c.github.io/aria/#combobox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-controls">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
@@ -13,20 +13,17 @@
   import * as keys from "../resources/keys.mjs";
 
   verifyATBehavior({
+    applies_to: ["NVDA", "JAWS"],
     mode: ["reading"],
     task: "navigate to combobox with keys that switch modes",
     specific_user_instruction: "navigate to the 'state' combobox",
     additional_assertions: {
-      jaws: [{
-        keys: [keys.TAB_AND_SHIFT_TAB],
-        mode: 'reading',
-        assertion: [1, 'After command, JAWS is in Forms Mode']
-      }],
-      nvda: [{
-        keys: [keys.TAB_AND_SHIFT_TAB],
-        mode: 'reading',
-        assertion: [1, 'After command, NVDA is in Focus Mode']
-      }]
+      jaws: [
+        [1, 'After command, JAWS is in Forms Mode']
+      ],
+      nvda: [
+        [1, 'After command, NVDA is in Focus Mode']
+      ]
     }
   });
 

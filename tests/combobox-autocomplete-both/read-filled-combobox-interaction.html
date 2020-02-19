@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Navigating to filled, editable, collapsed combobox conveys role, name, editability, value, and state in reading mode.</title>
+<title>Reading empty, editable combobox conveys role, name, editability, and state in interaction mode.</title>
 <link rel="author" title="Matt King" href="mailto:a11ythinker@gmail.com">
 <link rel="help" href="https://w3c.github.io/aria-practices/#combobox">
 <link rel="help" href="https://w3c.github.io/aria/#combobox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-controls">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 <script type="module">
-  // Applies to: Screen Readers
+  // Applies to: Desktop Screen Readers
 
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
@@ -18,9 +18,9 @@
       combobox.value = 'Alabama';
     },
     applies_to: ["Desktop Screen Readers"],
-    mode: ["reading"],
-    task: "navigate to combobox",
-    specific_user_instruction: "navigate to the 'state' combobox",
+    mode: ["interaction"],
+    task: "read combobox",
+    specific_user_instruction: "When the focus or reading cursor is on the 'state' combobox, read the 'state' combobox",
     output_assertions: [
       [1, "The role 'combobox' is conveyed"],
       [1, "The name 'State' is spoken"],

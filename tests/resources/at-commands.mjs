@@ -76,7 +76,8 @@ const AT_COMMAND_MAP = {
         keys.INS_DOWN_OR_CAPS_DOWN,
         `${keys.INS_F7_OR_CAPS_F7} to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox`
       ],
-      voiceover: []
+      voiceover: [
+      ]
     },
     interaction: {
       jaws: [
@@ -90,7 +91,6 @@ const AT_COMMAND_MAP = {
         keys.CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT,
         keys.CTRL_OPT_A,
         keys.CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J,
-        keys.CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C,
         `${keys.CTRL_U} to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox`
       ]
     }
@@ -105,7 +105,8 @@ const AT_COMMAND_MAP = {
         keys.INS_TAB_OR_CAPS_TAB,
         keys.INS_UP_OR_CAPS_UP
       ],
-      voiceover: []
+      voiceover: [
+      ]
     },
     interaction: {
       jaws: [
@@ -116,7 +117,10 @@ const AT_COMMAND_MAP = {
         keys.INS_TAB_OR_CAPS_TAB,
         keys.INS_UP_OR_CAPS_UP
       ],
-      voiceover: []
+      voiceover: [
+        keys.CTRL_OPT_F3,
+        keys.CTRL_OPT_F4
+      ]
     }
   },
   "operate checkbox": {
@@ -129,7 +133,8 @@ const AT_COMMAND_MAP = {
         keys.ENTER,
         keys.SPACE
       ],
-      voiceover: []
+      voiceover: [
+      ]
     },
     interaction: {
       jaws: [
@@ -158,11 +163,12 @@ const AT_COMMAND_MAP = {
         keys.INS_DOWN_OR_CAPS_DOWN,
         `${keys.INS_F7_OR_CAPS_F7} to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox`
       ],
-      voiceover: []
+      voiceover: [
+      ]
     },
     interaction: {
       jaws: [
-        keys.TAB_AND_SHIFT_TAB
+	keys.TAB_AND_SHIFT_TAB
       ],
       nvda: [
         keys.TAB_AND_SHIFT_TAB
@@ -172,10 +178,9 @@ const AT_COMMAND_MAP = {
         keys.CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT,
         keys.CTRL_OPT_A,
         keys.CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J,
-        keys.CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C,
         `${keys.CTRL_U} to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox`
       ]
-    }
+    },
   },
   "read the checkbox group": {
     reading: {
@@ -187,7 +192,8 @@ const AT_COMMAND_MAP = {
         keys.INS_TAB_OR_CAPS_TAB,
         keys.INS_UP_OR_CAPS_UP
       ],
-      voiceover: []
+      voiceover: [
+      ]
     },
     interaction: {
       jaws: [
@@ -198,7 +204,10 @@ const AT_COMMAND_MAP = {
         keys.INS_TAB_OR_CAPS_TAB,
         keys.INS_UP_OR_CAPS_UP
       ],
-      voiceover: []
+      voiceover: [
+        keys.CTRL_OPT_F3,
+        keys.CTRL_OPT_F4
+      ]
     }
   },
   "tab to menubar in reading mode": {
@@ -402,7 +411,7 @@ const MODE_INSTRUCTIONS = {
     voiceover: ""
   },
   interaction: {
-    jaws: `Put JAWS into Forms Mode by turning Virual Cursor off using ${keys.INS_Z}`,
+    jaws: `Put JAWS into Forms Mode by turning Virtual Cursor off using ${keys.INS_Z}`,
     nvda: "Put NVDA into Focus Mode using NVDA+Space",
     voiceover: `Turn Quick Nav off by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
   }

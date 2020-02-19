@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigation to menubar switches mode from reading to interaction mode</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
+<link rel="help" href="https://w3c.github.io/aria/#menubar">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    setupTestPage: function setupTestPage(testPageDocument) {
+      document.querySelector('a').focus();
+    },
+
+    applies_to: ["Desktop Screen Readers"],
+    mode: ["reading"],
+    task: "tab to menubar in reading mode",
+    specific_user_instruction: "navigate to the 'Text Formatting' menubar",
+    output_assertions: [
+      [1, "Screen reader switching to interaction mode is conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference\menubar-editor.html");
+
+</script>

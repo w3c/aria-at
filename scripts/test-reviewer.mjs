@@ -52,7 +52,10 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 
 	const userInstruction = testData.specific_user_instruction;
 	const task = testData.task;
-	const mode = testData.mode[0];
+
+	// This is temporary while transitioning from lists to strings
+	const mode = typeof testData.mode === 'string' ? testData.mode : testData.mode[0];
+
 	const ATTests = [];
 
 	// TODO: These apply_to strings are not standarized yet.

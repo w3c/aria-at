@@ -339,7 +339,6 @@ Were there additional undesirable behaviors? <span class="required">(required)</
 
   // Submit button
   let el = document.createElement('button');
-  el.innerText = "Perform the next behavior test";
   el.innerText = "Review Results";
   el.addEventListener('click', submitResult);
   recordEl.append(el);
@@ -480,17 +479,20 @@ function validateResults() {
       document.querySelector(`#cmd-${c}-problem .required`).classList.add('highlight-required');
       focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="radio"]`);
     }
-    else if (problemRadio && problemSelected) {
+    else if (document.querySelector(`input#problem-${c}-false:checked`) || (problemRadio && problemSelected)) {
       document.querySelector(`#cmd-${c}-problem .required`).classList.remove('highlight-required');
-      focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="select"]`);
+      undesirableFieldset.classList.remove('highlight-required');
     }
+
     if (otherSelected) {
       if (!otherText) {
 	document.querySelector(`#cmd-${c}-problem .required-other`).classList.add('highlight-required');
+	undesirableFieldset.classList.add('highlight-required');
 	focusEl = focusEl || document.querySelector(`#cmd-${c}-problem select`);
       }
       else {
 	document.querySelector(`#cmd-${c}-problem .required-other`).classList.remove('highlight-required');
+	undesirableFieldset.classList.remove('highlight-required');
       }
     }
   }

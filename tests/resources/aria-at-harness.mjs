@@ -64,10 +64,9 @@ const PAGE_STYLES = `
   }
 `;
 
-const allBehaviors = [];
-const allBehaviorResults = [];
+let behavior;
+let behaviorResults;
 const errors = [];
-let currentTestedBehavior = 0;
 let testPageUri;
 let testPageWindow;
 
@@ -111,7 +110,7 @@ function putTestPageWindowIntoCorrectState() {
 }
 
 function executeScriptInTestPage() {
-  let setupTestPage = allBehaviors[currentTestedBehavior].setupTestPage;
+  let setupTestPage = behavior.setupTestPage;
   if (setupTestPage) {
     if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
         || testPageWindow.document.readyState !== 'complete'
@@ -126,17 +125,20 @@ function executeScriptInTestPage() {
   }
 }
 
-export function verifyATBehavior(behavior) {
-  for (let m = 0; m < behavior.mode.length; m++) {
-    let newBehavior = Object.assign({}, behavior, { mode: behavior.mode[m] });
-    newBehavior.commands = getATCommands(behavior.mode[m], behavior.task, at);
-    newBehavior.output_assertions = newBehavior.output_assertions ? newBehavior.output_assertions : [];
-    newBehavior.additional_assertions = newBehavior.additional_assertions
-      ? behavior.additional_assertions[at.toLowerCase()] || []
-      : [];
-    if (newBehavior.commands.length) {
-      allBehaviors.push(newBehavior);
-    }
+export function verifyATBehavior(atBehavior) {
+  // This is temporary until transition is complete from multiple modes to one mode
+  let mode = typeof atBehavior.mode === 'string' ? atBehavior.mode : atBehavior.mode[0];
+
+  let newBehavior = Object.assign({}, atBehavior, { mode: mode });
+  newBehavior.commands = getATCommands(mode, atBehavior.task, at);
+  newBehavior.output_assertions = newBehavior.output_assertions ? newBehavior.output_assertions : [];
+  newBehavior.additional_assertions = newBehavior.additional_assertions
+    ? atBehavior.additional_assertions[at.toLowerCase()] || []
+    : [];
+  if (!behavior && newBehavior.commands.length) {
+    behavior = newBehavior;
+  } else {
+    throw new Error('Test files should only contain one verifyATBehavior call.');
   }
 }
 
@@ -158,19 +160,14 @@ export function displayTestPageAndInstructions(testPage) {
 
   showUserError();
 
-  if (allBehaviors.length > 0) {
-    displayInstructionsForBehaviorTest(0);
-  }
+  displayInstructionsForBehaviorTest();
 }
 
-function displayInstructionsForBehaviorTest(behaviorId) {
+function displayInstructionsForBehaviorTest() {
   // First, execute necesary set up script in test page if the test page is open from a previous behavior test
   if (testPageWindow) {
     putTestPageWindowIntoCorrectState();
   }
-
-  const totalBehaviors = allBehaviors.length;
-  const behavior = allBehaviors[behaviorId];
 
   const mode = behavior.mode;
   const modeInstructions = getModeInstructions(mode, at);
@@ -181,7 +178,7 @@ function displayInstructionsForBehaviorTest(behaviorId) {
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
-<h1 id="behavior-header" tabindex="0">Testing task: ${behavior.task}</h1>
+<h1 id="behavior-header" tabindex="0">Testing task: ${document.title}</h1>
 <p>How does ${at} respond after task "${userInstructions}" is performed in ${mode} mode?</p>
 <h2>Test instructions</h2>
 <ol>
@@ -345,11 +342,7 @@ Were there additional undesirable behaviors? <span class="required">(required)</
 
   // Submit button
   let el = document.createElement('button');
-  el.innerText = "Perform the next behavior test";
-  if (behaviorId === allBehaviors.length - 1) {
-    el.innerText = "Review Results";
-  }
-  el.value = behaviorId;
+  el.innerText = "Review Results";
   el.addEventListener('click', submitResult);
   recordEl.append(el);
 
@@ -429,7 +422,7 @@ function handleRadioClick(event) {
 function validateResults() {
 
   let focusEl;
-  for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
+  for (let c = 0; c < behavior.commands.length; c++) {
 
     // If there is no output recorded, mark the screen reader output as required
     let summaryFieldset = document.getElementById(`cmd-${c}-summary`);
@@ -489,17 +482,20 @@ function validateResults() {
       document.querySelector(`#cmd-${c}-problem .required`).classList.add('highlight-required');
       focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="radio"]`);
     }
-    else if (problemRadio && problemSelected) {
+    else if (document.querySelector(`input#problem-${c}-false:checked`) || (problemRadio && problemSelected)) {
       document.querySelector(`#cmd-${c}-problem .required`).classList.remove('highlight-required');
-      focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="select"]`);
+      undesirableFieldset.classList.remove('highlight-required');
     }
+
     if (otherSelected) {
       if (!otherText) {
 	document.querySelector(`#cmd-${c}-problem .required-other`).classList.add('highlight-required');
+	undesirableFieldset.classList.add('highlight-required');
 	focusEl = focusEl || document.querySelector(`#cmd-${c}-problem select`);
       }
       else {
 	document.querySelector(`#cmd-${c}-problem .required-other`).classList.remove('highlight-required');
+	undesirableFieldset.classList.remove('highlight-required');
       }
     }
   }
@@ -518,13 +514,13 @@ function submitResult(event) {
   }
 
   const assertionPriority = {};
-  for (let a = 0; a < allBehaviors[currentTestedBehavior].output_assertions.length; a++) {
-    const assertion = allBehaviors[currentTestedBehavior].output_assertions[a];
+  for (let a = 0; a < behavior.output_assertions.length; a++) {
+    const assertion = behavior.output_assertions[a];
     assertionPriority[assertion[1]] = assertion[0];
   }
 
-  for (let a = 0; a < allBehaviors[currentTestedBehavior].additional_assertions.length; a++) {
-    const assertion = allBehaviors[currentTestedBehavior].additional_assertions[a];
+  for (let a = 0; a < behavior.additional_assertions.length; a++) {
+    const assertion = behavior.additional_assertions[a];
     assertionPriority[assertion[1]] = assertion[0];
   }
 
@@ -537,7 +533,7 @@ function submitResult(event) {
 
   const commandResults = [];
 
-  for (let c = 0; c < allBehaviors[currentTestedBehavior].commands.length; c++) {
+  for (let c = 0; c < behavior.commands.length; c++) {
 
     let assertions = [];
     let support = 'FULL';
@@ -590,7 +586,7 @@ function submitResult(event) {
     }
 
     commandResults.push({
-      command: allBehaviors[currentTestedBehavior].commands[c],
+      command: behavior.commands[c],
       output: document.querySelector(`#speechoutput-${c}`).value,
       unexpected_behaviors: unexpected,
       support,
@@ -598,22 +594,15 @@ function submitResult(event) {
     });
   }
 
-  allBehaviorResults.push({
+  behaviorResults = {
     name: document.title,
-    specific_user_instruction: allBehaviors[currentTestedBehavior].specific_user_instruction,
-    task: allBehaviors[currentTestedBehavior].task,
+    specific_user_instruction: behavior.specific_user_instruction,
+    task: behavior.task,
     commands: commandResults,
     summary
-  });
+  };
 
-  //Display the next behavior
-  if (currentTestedBehavior < allBehaviors.length - 1) {
-    currentTestedBehavior++;
-    displayInstructionsForBehaviorTest(currentTestedBehavior);
-  }
-  else {
-    endTest();
-  }
+  endTest();
 }
 
 
@@ -621,16 +610,15 @@ function endTest() {
   let resulthtml = `<h1>${document.title}</h1><h2 id=overallstatus></h2>`;
   let status = "PASS";
 
-  for (let result of allBehaviorResults) {
-    resulthtml += `<table>
-  <tr>
-    <th>Command</th>
-    <th>Support</th>
-    <th>Details</th>
-  </tr>
-`;
+  resulthtml += `<table>
+    <tr>
+      <th>Command</th>
+      <th>Support</th>
+      <th>Details</th>
+    </tr>
+  `;
 
-    for (let command of result.commands) {
+  for (let command of behaviorResults.commands) {
 
       if (command.support === 'FAILING') {
 	status = "FAIL";
@@ -682,13 +670,12 @@ function endTest() {
 
     }
 
-    resulthtml += `</table>`;
-  }
+  resulthtml += `</table>`;
 
   document.body.innerHTML = resulthtml;
   document.querySelector('#overallstatus').innerHTML = `Test result: ${status}`;
 
-  reportResults(allBehaviorResults, status);
+  reportResults(behaviorResults, status);
 
   if (typeof testPageWindow !== 'undefined') {
     testPageWindow.close();

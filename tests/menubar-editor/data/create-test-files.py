@@ -40,7 +40,7 @@ def getSetupTestPageScript(fname):
   if len(fname.strip()):
     f = open(os.path.join('js', (fname + '.js')), 'r')
 
-    code = 'setupTestPage: function setupTestPage(testPageDocument) {\n'
+    code = 'setupTestPage: function setupTestPage(document) {\n'
 
     for line in f:
       code += '      ' + line.strip() + '\n'

@@ -12,7 +12,7 @@
   verifyATBehavior({
     
     applies_to: ["Desktop Screen Readers"],
-    mode: ["interaction"],
+    mode: "interaction",
     task: "open submenu of menubar using interaction mode",
     specific_user_instruction: "opens 'Text Align' submenu and focus moves to 'Left' menu item",
     output_assertions: [
@@ -25,6 +25,6 @@
     ]
   });
 
-  displayTestPageAndInstructions("reference\menubar-editor.html");
+  displayTestPageAndInstructions("reference/menubar-editor.html");
 
 </script>

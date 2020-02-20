@@ -9,13 +9,13 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setupTestPage: function setupTestPage(testPageDocument) {
+    setupTestPage: function setupTestPage(document) {
       document.querySelectorAll('role=menuitem')[1].setAttribue('aria-expanded', 'true');
       document.querySelectorAll('role=menuitem')[1].focus();
     },
 
     applies_to: ["Desktop Screen Readers"],
-    mode: ["reading"],
+    mode: "reading",
     task: "navigate to menuitemcheckbox in submenu using reading mode",
     specific_user_instruction: "navigate to 'Bold' menu item in the 'Style/Color' submenu",
     output_assertions: [
@@ -26,6 +26,6 @@
     ]
   });
 
-  displayTestPageAndInstructions("reference\menubar-editor.html");
+  displayTestPageAndInstructions("reference/menubar-editor.html");
 
 </script>

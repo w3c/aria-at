@@ -9,7 +9,7 @@
   verifyATBehavior({
     %SETUP_TEST_PAGE%
     applies_to: ["%APPLIES_TO%"],
-    mode: ["%MODE%"],
+    mode: "%MODE%",
     task: "%TASK%",
     specific_user_instruction: "%INSTRUCTIONS%",
     output_assertions: [

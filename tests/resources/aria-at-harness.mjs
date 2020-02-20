@@ -126,8 +126,11 @@ function executeScriptInTestPage() {
 }
 
 export function verifyATBehavior(atBehavior) {
-  let newBehavior = Object.assign({}, atBehavior, { mode: atBehavior.mode });
-  newBehavior.commands = getATCommands(atBehavior.mode, atBehavior.task, at);
+  // This is temporary until transition is complete from multiple modes to one mode
+  let mode = typeof atBehavior.mode === 'string' ? atBehavior.mode : atBehavior.mode[0];
+
+  let newBehavior = Object.assign({}, atBehavior, { mode: mode });
+  newBehavior.commands = getATCommands(mode, atBehavior.task, at);
   newBehavior.output_assertions = newBehavior.output_assertions ? newBehavior.output_assertions : [];
   newBehavior.additional_assertions = newBehavior.additional_assertions
     ? atBehavior.additional_assertions[at.toLowerCase()] || []
@@ -175,7 +178,7 @@ function displayInstructionsForBehaviorTest() {
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
-<h1 id="behavior-header" tabindex="0">Testing task: ${behavior.task}</h1>
+<h1 id="behavior-header" tabindex="0">Testing task: ${document.title}</h1>
 <p>How does ${at} respond after task "${userInstructions}" is performed in ${mode} mode?</p>
 <h2>Test instructions</h2>
 <ol>

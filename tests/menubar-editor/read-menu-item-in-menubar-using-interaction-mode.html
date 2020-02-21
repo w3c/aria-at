@@ -12,14 +12,18 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    
+    setupTestPage: function setupTestPage(document) {
+      // Move focus to the "Size" menu item
+      document.querySelector('role=menuitem')[3].focus();
+    },
+
     applies_to: ["Desktop Screen Readers"],
     mode: "interaction",
     task: "read menu item in menubar using interaction mode",
     specific_user_instruction: "Review the 'Size' menu item in the menubar",
     output_assertions: [
-      [1, "The role 'menu item' is spoken"],
-      [1, "The label 'Size' is spoken"],
+      [1, "The role 'menu item' is conveyed"],
+      [1, "The label 'Size' is conveyed"],
       [1, "Opens submenu is conveyed"],
       [2, " The role 'menubar' is conveyed"],
       [3, " The menubar label 'Text Formatting' is conveyed"]

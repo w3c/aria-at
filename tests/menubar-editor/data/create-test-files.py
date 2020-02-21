@@ -49,12 +49,18 @@ def getSetupTestPageScript(fname):
 
   return code
 
-if len(sys.argv) != 3:
-  print('usage: python create-test-files.py [reference.csv] [tests.csv]')
+if len(sys.argv) != 5:
+  print('usage: python create-test-files.py [reference.csv] [tests.csv] [path] [title]')
   exit()
+
+path = sys.argv[3]
+testTitle = sys.argv[4]
 
 f = open('test.template', 'r')
 template = f.read()
+
+f = open('index.template', 'r')
+index = f.read()
 
 print('REFERENCES')
 
@@ -74,6 +80,7 @@ print('FILES')
 tests = open(sys.argv[2], 'r')
 
 count = 0
+testList = ''
 for row in tests:
   cells = row.split(',')
   if count > 1:
@@ -117,8 +124,18 @@ for row in tests:
       test = test.replace('%ASSERTIONS%', assertions)
       test = test.replace('%EXAMPLE%', example)
 
+      testList += '    <li><a target="test_file" href="localhost:3000/tests/' + path + '/' + fname + '">' + title + '</a></li>\n'
+
       t = open(os.path.join('..', fname), 'w')
       t.write(test)
       t.close()
 
   count += 1
+
+index = index.replace("%TITLE%", "Menubar Editor")
+index = index.replace("%TEST_LIST%", testList)
+
+t = open(os.path.join('..', 'index.html'), 'w')
+t.write(index)
+t.close()
+

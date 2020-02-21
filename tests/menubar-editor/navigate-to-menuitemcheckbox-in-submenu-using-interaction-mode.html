@@ -10,6 +10,7 @@
 
   verifyATBehavior({
     setupTestPage: function setupTestPage(document) {
+      // Move focus to the "Style/Color" menu item
       document.querySelectorAll('role=menuitem')[1].focus();
     },
 
@@ -18,10 +19,10 @@
     task: "navigate to menuitemcheckbox in submenu using interaction mode",
     specific_user_instruction: "navigate to 'Bold' menu item in the 'Style/Color' submenu",
     output_assertions: [
-      [1, "The role 'menu item checkbox' is spoken"],
-      [1, "The label 'Bold' is spoken"],
+      [1, "The role 'menu item checkbox' is conveyed"],
+      [1, "The label 'Bold' is conveyed"],
       [1, "The unchecked state is conveyed"],
-      [2, " The position and size of the submenu is spoken"]
+      [2, " The position and size of the submenu is conveyed"]
     ]
   });
 

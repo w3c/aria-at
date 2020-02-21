@@ -1,0 +1,206 @@
+{
+  "navigate to combobox":{
+    "reading":{
+      "jaws":[
+        ["C_AND_SHIFT_C"],
+        ["F_AND_SHIFT_F"],
+        ["UP_AND_DOWN"],
+        ["LEFT_AND_RIGHT", "(with Smart Navigation set to Controls and Tables)"]
+      ]
+    },
+    "interaction":{
+      "jaws":[
+        ["TAB_AND_SHIFT_TAB"]
+      ]
+    }
+  },
+  "read combobox":{
+    "reading":{
+      "jaws":[
+        ["INS_TAB"],
+        ["INS_UP"]
+      ]
+    },
+    "interaction":{
+      "jaws":[
+        ["INS_TAB"],
+        ["INS_UP"]
+      ]
+    }
+  },
+  "navigate to combobox with keys that switch modes":{
+    "reading":{
+      "jaws":[
+        ["TAB_AND_SHIFT_TAB"]
+      ]
+    }
+  },
+  "activate combobox":{
+    "reading":{
+      "jaws":[
+        ["ENTER"]
+      ]
+    }
+  },
+  "open combobox from input":{
+    "interaction":{
+      "jaws":[
+        ["DOWN"],
+        ["UP"]
+      ]
+    }
+  },
+  "navigate to checkbox":{
+    "reading":{
+      "jaws":[
+        ["X_AND_SHIFT_X"],
+        ["TAB_AND_SHIFT_TAB"],
+        ["UP_AND_DOWN"],
+        ["LEFT_AND_RIGHT", "(with Smart Navigation on)"],
+        ["CTRL_INS_X", "to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox"]
+      ],
+      "nvda":[
+        ["X_AND_SHIFT_X"],
+        ["TAB_AND_SHIFT_TAB"],
+        ["UP_AND_DOWN"],
+        ["INS_DOWN_OR_CAPS_DOWN"],
+        ["INS_F7_OR_CAPS_F7", "to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox"]
+      ],
+      "voiceover":[
+
+      ]
+    },
+    "interaction":{
+      "jaws":[
+        ["TAB_AND_SHIFT_TAB"]
+      ],
+      "nvda":[
+        ["TAB_AND_SHIFT_TAB"]
+      ],
+      "voiceover":[
+        ["TAB_AND_SHIFT_TAB"],
+        ["CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"],
+        ["CTRL_OPT_A"],
+        ["CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"],
+        ["CTRL_U", "to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox"]
+      ]
+    }
+  },
+  "read checkbox":{
+    "reading":{
+      "jaws":[
+        ["INS_TAB_OR_CAPS_TAB"],
+        ["INS_UP_OR_CAPS_I"]
+      ],
+      "nvda":[
+        ["INS_TAB_OR_CAPS_TAB"],
+        ["INS_UP_OR_CAPS_UP"]
+      ],
+      "voiceover":[
+
+      ]
+    },
+    "interaction":{
+      "jaws":[
+        ["INS_TAB_OR_CAPS_TAB"],
+        ["INS_UP_OR_CAPS_I"]
+      ],
+      "nvda":[
+        ["INS_TAB_OR_CAPS_TAB"],
+        ["INS_UP_OR_CAPS_UP"]
+      ],
+      "voiceover":[
+        ["CTRL_OPT_F3"],
+        ["CTRL_OPT_F4"]
+      ]
+    }
+  },
+  "operate checkbox":{
+    "reading":{
+      "jaws":[
+        ["ENTER"],
+        ["SPACE"]
+      ],
+      "nvda":[
+        ["ENTER"],
+        ["SPACE"]
+      ],
+      "voiceover":[
+      ]
+    },
+    "interaction":{
+      "jaws":[
+        ["SPACE"]
+      ],
+      "nvda":[
+        ["SPACE"]
+      ],
+      "voiceover":[
+        ["CTRL_OPT_SPACE"],
+        ["SPACE"]
+      ]
+    }
+  },
+  "navigate to checkbox group":{
+    "reading":{
+      "jaws":[
+        ["UP_AND_DOWN"],
+        ["TAB_AND_SHIFT_TAB"],
+        ["CTRL_INS_X", "to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox"]
+      ],
+      "nvda":[
+        ["X_AND_SHIFT_X"],
+        ["UP_AND_DOWN"],
+        ["TAB_AND_SHIFT_TAB"],
+        ["INS_DOWN_OR_CAPS_DOWN"],
+        ["INS_F7_OR_CAPS_F7", "to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox"]
+      ],
+      "voiceover":[
+
+      ]
+    },
+    "interaction":{
+      "jaws":[
+        ["TAB_AND_SHIFT_TAB"]
+      ],
+      "nvda":[
+        ["TAB_AND_SHIFT_TAB"]
+      ],
+      "voiceover":[
+        ["TAB_AND_SHIFT_TAB"],
+        ["CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"],
+        ["CTRL_OPT_A"],
+        ["CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"],
+        ["CTRL_U", "to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox"]
+      ]
+    }
+  },
+  "read the checkbox group":{
+    "reading":{
+      "jaws":[
+        ["INS_TAB_OR_CAPS_TAB"],
+        ["INS_UP_OR_CAPS_I"]
+      ],
+      "nvda":[
+        ["INS_TAB_OR_CAPS_TAB"],
+        ["INS_UP_OR_CAPS_UP"]
+      ],
+      "voiceover":[
+      ]
+    },
+    "interaction":{
+      "jaws":[
+        ["INS_TAB_OR_CAPS_TAB"],
+        ["INS_UP_OR_CAPS_I"]
+      ],
+      "nvda":[
+        ["INS_TAB_OR_CAPS_TAB"],
+        ["INS_UP_OR_CAPS_UP"]
+      ],
+      "voiceover":[
+        ["CTRL_OPT_F3"],
+        ["CTRL_OPT_F4"]
+      ]
+    }
+  }
+}

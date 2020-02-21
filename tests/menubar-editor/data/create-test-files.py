@@ -49,12 +49,17 @@ def getSetupTestPageScript(fname):
 
   return code
 
-if len(sys.argv) != 5:
+path = ''
+testTitle = ''
+
+if not (len(sys.argv) == 3 or len(sys.argv) == 5):
   print('usage: python create-test-files.py [reference.csv] [tests.csv] [path] [title]')
+  print('note: path and title are optional, when included an index.html file will be created')
   exit()
 
-path = sys.argv[3]
-testTitle = sys.argv[4]
+if len(sys.argv) == 5:
+  path = sys.argv[3]
+  testTitle = sys.argv[4]
 
 f = open('test.template', 'r')
 template = f.read()
@@ -124,7 +129,8 @@ for row in tests:
       test = test.replace('%ASSERTIONS%', assertions)
       test = test.replace('%EXAMPLE%', example)
 
-      testList += '    <li><a target="test_file" href="localhost:3000/tests/' + path + '/' + fname + '">' + title + '</a></li>\n'
+      if len(testTitle):
+          testList += '    <li><a target="test_file" href="localhost:3000/tests/' + path + '/' + fname + '">' + title + '</a></li>\n'
 
       t = open(os.path.join('..', fname), 'w')
       t.write(test)
@@ -132,10 +138,11 @@ for row in tests:
 
   count += 1
 
-index = index.replace("%TITLE%", "Menubar Editor")
-index = index.replace("%TEST_LIST%", testList)
 
-t = open(os.path.join('..', 'index.html'), 'w')
-t.write(index)
-t.close()
+if len(testTitle):
+  index = index.replace("%TITLE%", testTitle)
+  index = index.replace("%TEST_LIST%", testList)
+  t = open(os.path.join('..', 'index.html'), 'w')
+  t.write(index)
+  t.close()
 

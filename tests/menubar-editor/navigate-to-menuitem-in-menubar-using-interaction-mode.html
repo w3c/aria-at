@@ -10,6 +10,7 @@
 
   verifyATBehavior({
     setupTestPage: function setupTestPage(document) {
+      // Move focus to the "Font" menu item
       document.querySelector('role=menuitem').focus();
     },
 
@@ -18,8 +19,8 @@
     task: "navigate to menuitem in menubar using interaction mode",
     specific_user_instruction: "navigate to 'Style/Color' menu",
     output_assertions: [
-      [1, "The role 'menu item' is spoken"],
-      [1, "The label 'Font' is spoken"],
+      [1, "The role 'menu item' is conveyed"],
+      [1, "The label 'Font' is conveyed"],
       [1, "Opens submenu is conveyed"],
       [2, " The role 'menubar' is conveyed"],
       [2, " The menubar label 'Text Formatting' is conveyed"]

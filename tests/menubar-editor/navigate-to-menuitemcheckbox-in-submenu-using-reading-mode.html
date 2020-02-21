@@ -10,6 +10,7 @@
 
   verifyATBehavior({
     setupTestPage: function setupTestPage(document) {
+      // open "Text Align" menuitem and give the "Text ALign" menu item focus
       document.querySelectorAll('role=menuitem')[1].setAttribue('aria-expanded', 'true');
       document.querySelectorAll('role=menuitem')[1].focus();
     },
@@ -19,10 +20,10 @@
     task: "navigate to menuitemcheckbox in submenu using reading mode",
     specific_user_instruction: "navigate to 'Bold' menu item in the 'Style/Color' submenu",
     output_assertions: [
-      [1, "The role 'menu item checkbox' is spoken"],
-      [1, "The label 'Sans-serif' is spoken"],
+      [1, "The role 'menu item checkbox' is conveyed"],
+      [1, "The label 'Sans-serif' is conveyed"],
       [1, "The unchecked state is conveyed"],
-      [2, " The position and size of the submenu is spoken"]
+      [2, " The position and size of the submenu is conveyed"]
     ]
   });
 

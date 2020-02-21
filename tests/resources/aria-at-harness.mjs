@@ -1,4 +1,4 @@
-import {isKnownAT, getATCommands, getModeInstructions} from './at-commands.mjs';
+import {commandsAPI} from './at-commands.mjs';
 
 const DEFAULT_AT = 'JAWS';
 const UNDESIRABLES = [
@@ -71,13 +71,34 @@ let testPageUri;
 let testPageWindow;
 
 let at = DEFAULT_AT;
+let commandsData;
+let commapi;
 
+// Get the commands for this test file ("commands.json" in the same directory)
+// and initialize the commands API.
+var xobj = new XMLHttpRequest();
+xobj.overrideMimeType("application/json");
+xobj.open('GET', 'commands.json', false);
+xobj.onreadystatechange = function () {
+  if (xobj.readyState == 4) {
+    if (xobj.status == "200") {
+      commandsData = JSON.parse(xobj.responseText);
+    }
+    else {
+      throw new Error("Cound not find commands.json file for this pattern.");
+    }
+  }
+};
+xobj.send(null);
+commapi = new commandsAPI(commandsData);
+
+// Get the AT under test from the URL search params
 let params = (new URL(document.location)).searchParams;
 for (const [key, value] of params) {
   if (key === 'at') {
     let requestedAT = value;
-    if (isKnownAT(requestedAT)) {
-      at = isKnownAT(requestedAT);
+    if (commapi.isKnownAT(requestedAT)) {
+      at = commapi.isKnownAT(requestedAT);
     }
     else {
       errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${DEFAULT_AT}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
@@ -130,7 +151,8 @@ export function verifyATBehavior(atBehavior) {
   let mode = typeof atBehavior.mode === 'string' ? atBehavior.mode : atBehavior.mode[0];
 
   let newBehavior = Object.assign({}, atBehavior, { mode: mode });
-  newBehavior.commands = getATCommands(mode, atBehavior.task, at);
+  newBehavior.commands = commapi.getATCommands(mode, atBehavior.task, at);
+
   newBehavior.output_assertions = newBehavior.output_assertions ? newBehavior.output_assertions : [];
   newBehavior.additional_assertions = newBehavior.additional_assertions
     ? atBehavior.additional_assertions[at.toLowerCase()] || []
@@ -170,7 +192,7 @@ function displayInstructionsForBehaviorTest() {
   }
 
   const mode = behavior.mode;
-  const modeInstructions = getModeInstructions(mode, at);
+  const modeInstructions = commapi.getModeInstructions(mode, at);
   const userInstructions = behavior.specific_user_instruction;
   const commands = behavior.commands;
   const assertions = behavior.output_assertions.map((a) => a[1]);

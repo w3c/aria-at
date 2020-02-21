@@ -4,7 +4,7 @@ import htmlparser2 from 'htmlparser2';
 import { spawnSync } from 'child_process';
 import np from 'node-html-parser';
 import mustache from 'mustache';
-import { getATCommands, getModeInstructions, isKnownAT } from '../tests/resources/at-commands.mjs';
+import { commandsAPI } from '../tests/resources/at-commands.mjs';
 import * as keys from '../tests/resources/keys.mjs';
 
 const testDir = path.resolve('.', 'tests');
@@ -12,7 +12,7 @@ const templateFile = path.resolve('.', 'scripts', 'review-template.mustache');
 const reviewDir = path.resolve('.', 'public', 'review');
 const allTestsForPattern = {};
 const ATs = ['jaws', 'voiceover', 'nvda'];
-const ATNames = ATs.map((x) => isKnownAT(x));
+const ATNames = ['JAWS', 'VoiceOver', 'NVDA'];
 
 fse.readdirSync(testDir).forEach(function (subDir) {
   const subDirFullPath = path.join(testDir, subDir);
@@ -21,6 +21,12 @@ fse.readdirSync(testDir).forEach(function (subDir) {
     stat.isDirectory() &&
     subDir !== 'resources'
   ) {
+
+    // Initialize the commands API
+    const commandsJSONFile = path.join(subDirFullPath, 'commands.json');
+    const commands = JSON.parse(fse.readFileSync(commandsJSONFile));
+    const commAPI = new commandsAPI(commands);
+
     const tests = [];
     fse.readdirSync(subDirFullPath).forEach(function (test) {
       if (path.extname(test) === '.html') {
@@ -71,7 +77,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	  let commands, assertions;
 
 	  try {
-	    commands = getATCommands(mode, task, at);
+	    commands = commAPI.getATCommands(mode, task, at);
 	  }
 	  catch (error) {
 	  } // An error will occur if there is no data for a screen reader, ignore it
@@ -83,14 +89,14 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	    assertions = testData.output_assertions;
 	  }
 
-	  let properAT = isKnownAT(at);
+	  let properAT = commAPI.isKnownAT(at);
 
 	  ATTests.push({
 	    atName: properAT,
 	    commands: commands.length ? commands : undefined,
 	    assertions: assertions && assertions.length ? assertions.map(a => ({ priority: a[0], description: a[1] })) : undefined,
 	    userInstruction,
-	    modeInstruction: getModeInstructions(mode, at)
+	    modeInstruction: commAPI.getModeInstructions(mode, at)
 	  });
 	}
 

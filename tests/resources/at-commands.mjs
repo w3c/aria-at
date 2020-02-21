@@ -1,443 +1,69 @@
 import * as keys from './keys.mjs';
 
-const KNOWN_ATS = {
-  jaws: 'JAWS',
-  nvda: 'NVDA',
-  voiceover: 'VoiceOver'
-}
+export class commandsAPI {
+  constructor(commands) {
+    if (!commands) {
+      throw new Error("You must initialize commandsAPI with a commands data object");
+    }
 
-/* Add new commands here */
+    this.AT_COMMAND_MAP = commands;
 
-const AT_COMMAND_MAP = {
-  "navigate to combobox": {
-    reading: {
-      jaws: [
-        keys.C_AND_SHIFT_C,
-        keys.F_AND_SHIFT_F,
-        keys.UP_AND_DOWN,
-        `${keys.LEFT_AND_RIGHT} (with Smart Navigation set to Controls and Tables)`
-      ]
-    },
-    interaction: {
-      jaws: [
-        keys.TAB_AND_SHIFT_TAB
-      ]
-    }
-  },
-  "read combobox": {
-    reading: {
-      jaws: [
-        keys.INS_TAB,
-        keys.INS_UP
-      ]
-    },
-    interaction: {
-      jaws: [
-        keys.INS_TAB,
-        keys.INS_UP
-      ]
-    }
-  },
-  "navigate to combobox with keys that switch modes": {
-    reading: {
-      jaws: [
-        keys.TAB_AND_SHIFT_TAB
-      ]
-    }
-  },
-  "activate combobox": {
-    reading: {
-      jaws: [
-        keys.ENTER
-      ]
-    }
-  },
-  "open combobox from input": {
-    interaction: {
-      jaws: [
-        keys.DOWN,
-        keys.UP
-      ]
-    }
-  },
-  "navigate to checkbox": {
-    reading: {
-      jaws: [
-        keys.X_AND_SHIFT_X,
-        keys.TAB_AND_SHIFT_TAB,
-        keys.UP_AND_DOWN,
-        `${keys.LEFT_AND_RIGHT} (with Smart Navigation on)`,
-        `${keys.CTRL_INS_X} to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox`
-      ],
-      nvda: [
-        keys.X_AND_SHIFT_X,
-        keys.TAB_AND_SHIFT_TAB,
-        keys.UP_AND_DOWN,
-        keys.INS_DOWN_OR_CAPS_DOWN,
-        `${keys.INS_F7_OR_CAPS_F7} to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox`
-      ],
-      voiceover: [
-      ]
-    },
-    interaction: {
-      jaws: [
-        keys.TAB_AND_SHIFT_TAB
-      ],
-      nvda: [
-        keys.TAB_AND_SHIFT_TAB
-      ],
-      voiceover: [
-        keys.TAB_AND_SHIFT_TAB,
-        keys.CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT,
-        keys.CTRL_OPT_A,
-        keys.CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J,
-        `${keys.CTRL_U} to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox`
-      ]
-    }
-  },
-  "read checkbox": {
-    reading: {
-      jaws: [
-        keys.INS_TAB_OR_CAPS_TAB,
-        keys.INS_UP_OR_CAPS_I
-      ],
-      nvda: [
-        keys.INS_TAB_OR_CAPS_TAB,
-        keys.INS_UP_OR_CAPS_UP
-      ],
-      voiceover: [
-      ]
-    },
-    interaction: {
-      jaws: [
-        keys.INS_TAB_OR_CAPS_TAB,
-        keys.INS_UP_OR_CAPS_I
-      ],
-      nvda: [
-        keys.INS_TAB_OR_CAPS_TAB,
-        keys.INS_UP_OR_CAPS_UP
-      ],
-      voiceover: [
-        keys.CTRL_OPT_F3,
-        keys.CTRL_OPT_F4
-      ]
-    }
-  },
-  "operate checkbox": {
-    reading: {
-      jaws: [
-        keys.ENTER,
-        keys.SPACE
-      ],
-      nvda: [
-        keys.ENTER,
-        keys.SPACE
-      ],
-      voiceover: [
-      ]
-    },
-    interaction: {
-      jaws: [
-        keys.SPACE
-      ],
-      nvda: [
-        keys.SPACE
-      ],
-      voiceover: [
-        keys.CTRL_OPT_SPACE,
-        keys.SPACE
-      ]
-    }
-  },
-  "navigate to checkbox group": {
-    reading: {
-      jaws: [
-        keys.UP_AND_DOWN,
-        keys.TAB_AND_SHIFT_TAB,
-        `${keys.CTRL_INS_X} to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox`
-      ],
-      nvda: [
-        keys.X_AND_SHIFT_X,
-        keys.UP_AND_DOWN,
-        keys.TAB_AND_SHIFT_TAB,
-        keys.INS_DOWN_OR_CAPS_DOWN,
-        `${keys.INS_F7_OR_CAPS_F7} to access list of elements on the page; then select ‘type’ = ‘form fields’; then select a checkbox in the list of form controls; then press ‘Enter’ to navigate to that checkbox`
-      ],
-      voiceover: [
-      ]
-    },
-    interaction: {
-      jaws: [
-	keys.TAB_AND_SHIFT_TAB
-      ],
-      nvda: [
-        keys.TAB_AND_SHIFT_TAB
-      ],
-      voiceover: [
-        keys.TAB_AND_SHIFT_TAB,
-        keys.CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT,
-        keys.CTRL_OPT_A,
-        keys.CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J,
-        `${keys.CTRL_U} to open the ‘Rotor’ menu; then press the Right arrow until the list of 'Form Controls’ appears; then select a checkbox in the list of form controls using the Up/Down arrow keys; then press ‘Enter’ to navigate to that checkbox`
-      ]
-    },
-  },
-  "read the checkbox group": {
-    reading: {
-      jaws: [
-        keys.INS_TAB_OR_CAPS_TAB,
-        keys.INS_UP_OR_CAPS_I
-      ],
-      nvda: [
-        keys.INS_TAB_OR_CAPS_TAB,
-        keys.INS_UP_OR_CAPS_UP
-      ],
-      voiceover: [
-      ]
-    },
-    interaction: {
-      jaws: [
-        keys.INS_TAB_OR_CAPS_TAB,
-        keys.INS_UP_OR_CAPS_I
-      ],
-      nvda: [
-        keys.INS_TAB_OR_CAPS_TAB,
-        keys.INS_UP_OR_CAPS_UP
-      ],
-      voiceover: [
-        keys.CTRL_OPT_F3,
-        keys.CTRL_OPT_F4
-      ]
-    }
-  },
-  "tab to menubar in reading mode": {
-    reading: {
-      jaws: [
-        keys.TAB_AND_SHIFT_TAB
-      ]
-    }
-  },
-  "navigate to menubar in reading mode": {
-    reading: {
-      jaws: [
-        keys.UP_AND_DOWN,
-        keys.F_AND_SHIFT_F
-      ]
-    }
-  },
-  "navigate to menuitem in menubar using reading mode": {
-    reading: {
-      jaws: [
-        `${keys.LEFT_AND_RIGHT} (with Smart Navigation on)`
-      ]
-    }
-  },
-  "navigate to menuitem in menubar using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.TAB_AND_SHIFT_TAB
-      ]
-    }
-  },
-  "navigate to menuitemradio in submenu using reading mode": {
-    reading: {
-      jaws: [
-        keys.UP_AND_DOWN
-      ]
-    }
-  },
-  "navigate to menuitemradio in submenu using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.ENTER,
-        keys.SPACE,
-        keys.DOWN
-      ]
-    }
-  },
-  "navigate to menuitemcheckbox in submenu using reading mode": {
-    reading: {
-      jaws: [
-        keys.UP_AND_DOWN
-      ]
-    }
-  },
-  "navigate to menuitemcheckbox in submenu using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.ENTER,
-        keys.SPACE,
-        keys.DOWN
-      ]
-    }
-  },
-  "change state of menuitemradio in submenu using reading mode": {
-    reading: {
-      jaws: [
-        keys.ENTER,
-        keys.SPACE
-      ]
-    }
-  },
-  "change state of menuitemradio in submenu using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.ENTER,
-        keys.SPACE
-      ]
-    }
-  },
-  "change state of menuitemcheckbox in submenu using reading mode": {
-    reading: {
-      jaws: [
-        keys.ENTER,
-        keys.SPACE,
-        keys.ENTER,
-        keys.SPACE
-      ]
-    }
-  },
-  "change state of menuitemcheckbox in submenu using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.ENTER,
-        keys.SPACE,
-        keys.ENTER,
-        keys.SPACE
-      ]
-    }
-  },
-  "open submenu of menubar using reading mode": {
-    reading: {
-      jaws: [
-        keys.ENTER,
-        keys.SPACE
-      ]
-    }
-  },
-  "open submenu of menubar using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.ENTER,
-        keys.SPACE,
-        keys.UP_AND_DOWN
-      ]
-    }
-  },
-  "close submenu of menubar using reading mode": {
-    reading: {
-      jaws: [
-        keys.ESC
-      ]
-    }
-  },
-  "close submenu of menubar using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.ESC
-      ]
-    }
-  },
-  "read menu item in menubar using reading mode": {
-    reading: {
-      jaws: [
-        keys.INS_TAB,
-        keys.INS_UP
-      ]
-    }
-  },
-  "read menu item in menubar using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.INS_TAB,
-        keys.INS_UP
-      ]
-    }
-  },
-  "read menuitemradio in a group in submenu using reading mode": {
-    reading: {
-      jaws: [
-        keys.INS_TAB,
-        keys.INS_UP
-      ]
-    }
-  },
-  "read menuitemradio in a group in a submenu using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.INS_TAB,
-        keys.INS_UP
-      ]
-    }
-  },
-  "read menuitemcheckbox in a submenu using reading mode": {
-    reading: {
-      jaws: [
-        keys.INS_TAB,
-        keys.INS_UP
-      ]
-    }
-  },
-  "read menuitemcheckbox in a submenu using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.INS_TAB,
-        keys.INS_UP
-      ]
-    }
-  },
-  "read disabled menuitem in a submenu using reading mode": {
-    reading: {
-      jaws: [
-        keys.INS_TAB,
-        keys.INS_UP
-      ]
-    }
-  },
-  "read disabled menuitem in a submenu using interaction mode": {
-    interaction: {
-      jaws: [
-        keys.INS_TAB,
-        keys.INS_UP
-      ]
-    }
-  }
-};
+    this.MODE_INSTRUCTIONS = {
+      reading: {
+	jaws: `Put JAWS into Virtual Cursor Mode using ${keys.INS_Z}`,
+	nvda: `Put NVDA into Browser Mode using ${keys.ESC}`,
+	voiceover: ""
+      },
+      interaction: {
+	jaws: `Put JAWS into Forms Mode by turning Virtual Cursor off using ${keys.INS_Z}`,
+	nvda: "Put NVDA into Focus Mode using NVDA+Space",
+	voiceover: `Turn Quick Nav off by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
+      }
+    };
 
-const MODE_INSTRUCTIONS = {
-  reading: {
-    jaws: `Put JAWS into Virtual Cursor Mode using ${keys.INS_Z}`,
-    nvda: `Put NVDA into Browser Mode using ${keys.ESC}`,
-    voiceover: ""
-  },
-  interaction: {
-    jaws: `Put JAWS into Forms Mode by turning Virtual Cursor off using ${keys.INS_Z}`,
-    nvda: "Put NVDA into Focus Mode using NVDA+Space",
-    voiceover: `Turn Quick Nav off by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
-  }
-};
-
-export function getATCommands(mode, task, assistiveTech) {
-  const at = assistiveTech.toLowerCase();
-
-  if (!AT_COMMAND_MAP[task]) {
-    throw new Error(`Task "${task}" does not exist, please add to at-commands or correct your spelling.`);
-  }
-  else if (!AT_COMMAND_MAP[task][mode]) {
-    throw new Error(`Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`);
+    this.KNOWN_ATS = {
+      jaws: 'JAWS',
+      nvda: 'NVDA',
+      voiceover: 'VoiceOver'
+    };
   }
 
-  return AT_COMMAND_MAP[task][mode][at] || [];
-}
+  getATCommands(mode, task, assistiveTech) {
+    const at = assistiveTech.toLowerCase();
 
-export function getModeInstructions(mode, assistiveTech) {
-  const at = assistiveTech.toLowerCase();
-  if (MODE_INSTRUCTIONS[mode] && MODE_INSTRUCTIONS[mode][at]) {
-    return MODE_INSTRUCTIONS[mode][at];
+    if (!this.AT_COMMAND_MAP[task]) {
+      throw new Error(`Task "${task}" does not exist, please add to at-commands or correct your spelling.`);
+    }
+    else if (!this.AT_COMMAND_MAP[task][mode]) {
+      throw new Error(`Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`);
+    }
+
+    let commandsData = this.AT_COMMAND_MAP[task][mode][at] || [];
+    let commands = [];
+
+    for (let c of commandsData) {
+      let command = keys[c[0]];
+      if (typeof command === 'undefined') {
+	throw new Error(`Key instruction identifier "${c}" for AT "${assistiveTech}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`);
+      }
+
+      let furtherInstruction = c[1];
+      command = furtherInstruction ? `${command} ${furtherInstruction}` : command;
+      commands.push(command);
+    }
+
+    return commands;
   }
-  return '';
-}
 
-export function isKnownAT(at) {
-  return KNOWN_ATS[at.toLowerCase()];
+  getModeInstructions(mode, assistiveTech) {
+    const at = assistiveTech.toLowerCase();
+    if (this.MODE_INSTRUCTIONS[mode] && this.MODE_INSTRUCTIONS[mode][at]) {
+      return this.MODE_INSTRUCTIONS[mode][at];
+    }
+    return '';
+  }
+
+  isKnownAT(at) {
+    return this.KNOWN_ATS[at.toLowerCase()];
+  }
 }

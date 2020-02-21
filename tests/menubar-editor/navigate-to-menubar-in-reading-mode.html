@@ -9,12 +9,12 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setupTestPage: function setupTestPage(testPageDocument) {
+    setupTestPage: function setupTestPage(document) {
       document.querySelector('a').focus();
     },
 
     applies_to: ["Desktop Screen Readers"],
-    mode: ["reading"],
+    mode: "reading",
     task: "navigate to menubar in reading mode",
     specific_user_instruction: "navigate to the 'Text Formatting' menubar",
     output_assertions: [
@@ -24,6 +24,6 @@
     ]
   });
 
-  displayTestPageAndInstructions("reference\menubar-editor.html");
+  displayTestPageAndInstructions("reference/menubar-editor.html");
 
 </script>

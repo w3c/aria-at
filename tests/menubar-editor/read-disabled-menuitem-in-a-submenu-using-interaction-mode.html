@@ -14,7 +14,7 @@
   verifyATBehavior({
     
     applies_to: ["Desktop Screen Readers"],
-    mode: ["interaction"],
+    mode: "interaction",
     task: "read disabled menuitem in a submenu using interaction mode",
     specific_user_instruction: "Review the 'Larger' menu item in the 'Size' submenu",
     output_assertions: [
@@ -25,6 +25,6 @@
     ]
   });
 
-  displayTestPageAndInstructions("reference\menubar-editor.html");
+  displayTestPageAndInstructions("reference/menubar-editor.html");
 
 </script>

@@ -9,12 +9,12 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setupTestPage: function setupTestPage(testPageDocument) {
+    setupTestPage: function setupTestPage(document) {
       document.querySelector('role=menuitem').focus();
     },
 
     applies_to: ["Desktop Screen Readers"],
-    mode: ["interaction"],
+    mode: "interaction",
     task: "navigate to menuitemradio in submenu using interaction mode",
     specific_user_instruction: "navigate to 'Sans-serif' menu item in the 'Font' submenu",
     output_assertions: [
@@ -25,6 +25,6 @@
     ]
   });
 
-  displayTestPageAndInstructions("reference\menubar-editor.html");
+  displayTestPageAndInstructions("reference/menubar-editor.html");
 
 </script>

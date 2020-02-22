@@ -49,12 +49,23 @@ def getSetupTestPageScript(fname):
 
   return code
 
-if len(sys.argv) != 3:
-  print('usage: python create-test-files.py [reference.csv] [tests.csv]')
+path = ''
+testTitle = ''
+
+if not (len(sys.argv) == 3 or len(sys.argv) == 5):
+  print('usage: python create-test-files.py [reference.csv] [tests.csv] [path] [title]')
+  print('note: path and title are optional, when included an index.html file will be created')
   exit()
+
+if len(sys.argv) == 5:
+  path = sys.argv[3]
+  testTitle = sys.argv[4]
 
 f = open('test.template', 'r')
 template = f.read()
+
+f = open('index.template', 'r')
+index = f.read()
 
 print('REFERENCES')
 
@@ -74,6 +85,7 @@ print('FILES')
 tests = open(sys.argv[2], 'r')
 
 count = 0
+testList = ''
 for row in tests:
   cells = row.split(',')
   if count > 1:
@@ -117,8 +129,20 @@ for row in tests:
       test = test.replace('%ASSERTIONS%', assertions)
       test = test.replace('%EXAMPLE%', example)
 
+      if len(testTitle):
+          testList += '    <li><a target="test_file" href="localhost:3000/tests/' + path + '/' + fname + '">' + title + '</a></li>\n'
+
       t = open(os.path.join('..', fname), 'w')
       t.write(test)
       t.close()
 
   count += 1
+
+
+if len(testTitle):
+  index = index.replace("%TITLE%", testTitle)
+  index = index.replace("%TEST_LIST%", testList)
+  t = open(os.path.join('..', 'index.html'), 'w')
+  t.write(index)
+  t.close()
+

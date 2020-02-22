@@ -12,14 +12,19 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    
+    setupTestPage: function setupTestPage(document) {
+      // open "Style/Color" menu item and move focue to the 'Black' menu item radio option
+      document.querySelectorAll('role=menuitem')[1].setAttribue('aria-expanded', 'true');
+      document.querySelector('[data-option="font-color"]').firstElementChild.focus();
+    },
+
     applies_to: ["Desktop Screen Readers"],
     mode: "reading",
     task: "read menuitemradio in a group in submenu using reading mode",
     specific_user_instruction: "Review the 'Black' menu item radio in the 'Style/Color' submenu",
     output_assertions: [
-      [1, "The role 'menu item radio' is spoken"],
-      [1, "The label 'Black' is spoken"],
+      [1, "The role 'menu item radio' is conveyed"],
+      [1, "The label 'Black' is conveyed"],
       [1, "The checked state is conveyed"],
       [2, " The role group is conveyed"],
       [2, " The group label 'Text Color' is conveyed"]

@@ -12,16 +12,22 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    
+    setupTestPage: function setupTestPage(document) {
+      // open "Size" menu item, disable the "Larger" option and move focus to the "Larger" menu item checkbox option
+      document.querySelectorAll('role=menuitem')[3].setAttribue('aria-expanded', 'true');
+      document.querySelector('[data-option="font-larger"]').setAttribute('aria-disabled', 'true');
+      document.querySelector('[data-option="font-larger"]').focus();
+    },
+
     applies_to: ["Desktop Screen Readers"],
     mode: "interaction",
     task: "read disabled menuitem in a submenu using interaction mode",
     specific_user_instruction: "Review the 'Larger' menu item in the 'Size' submenu",
     output_assertions: [
-      [1, "The role 'menu item' is spoken"],
-      [1, "The label 'Smaller' is spoken"],
+      [1, "The role 'menu item' is conveyed"],
+      [1, "The label 'Smaller' is conveyed"],
       [1, "The disabled state is conveyed"],
-      [2, " The position and size of the submenu is spoken"]
+      [2, " The position and size of the submenu is conveyed"]
     ]
   });
 

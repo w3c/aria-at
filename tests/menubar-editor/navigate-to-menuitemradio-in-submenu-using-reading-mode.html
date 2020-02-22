@@ -10,6 +10,7 @@
 
   verifyATBehavior({
     setupTestPage: function setupTestPage(document) {
+      // Open "Font" menu item and move focus to the "Font" menu item
       document.querySelector('role=menuitem').setAttribue('aria-expanded', 'true');
       document.querySelector('role=menuitem').focus();
     },
@@ -19,10 +20,10 @@
     task: "navigate to menuitemradio in submenu using reading mode",
     specific_user_instruction: "navigate to 'Sans-serif' menu item in the 'Font' submenu",
     output_assertions: [
-      [1, "The role 'menu item radio' is spoken"],
-      [1, "The label 'Sans-serif' is spoken"],
+      [1, "The role 'menu item radio' is conveyed"],
+      [1, "The label 'Sans-serif' is conveyed"],
       [1, "The checked state is conveyed"],
-      [2, " The position and size of the submenu is spoken"]
+      [2, " The position and size of the submenu is conveyed"]
     ]
   });
 

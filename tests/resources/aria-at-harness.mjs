@@ -197,6 +197,7 @@ function displayInstructionsForBehaviorTest() {
   const commands = behavior.commands;
   const assertions = behavior.output_assertions.map((a) => a[1]);
   const additionalBehaviorAssertions = behavior.additional_assertions;
+  const setupScriptDescription = behavior.setup_script_description;
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
@@ -204,6 +205,10 @@ function displayInstructionsForBehaviorTest() {
 <p>How does ${at} respond after task "${userInstructions}" is performed in ${mode} mode?</p>
 <h2>Test instructions</h2>
 <ol>
+  <li>Click the "Open test page" button below to open the example widget in a popup window
+    <ul id='setup_script_description'>
+    </ul>
+  </li>
   <li><em>${modeInstructions}</em></li>
   <li>Then, perform the task "<em>${userInstructions}</em>" using the following commands:
     <ul id='at_controls' aria-label='AT controls'>
@@ -215,6 +220,12 @@ function displayInstructionsForBehaviorTest() {
 <ul id='assertions'>
 </ul>
 `;
+
+  if (setupScriptDescription) {
+    let setupDescEl = document.createElement('li');
+    setupDescEl.innerHTML = `Setup test page script description: ${setupScriptDescription}`;
+    document.getElementById('setup_script_description').append(setupDescEl);
+  }
 
   for (let command of commands) {
     let commandEl = document.createElement('li');

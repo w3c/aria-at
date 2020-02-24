@@ -9,7 +9,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    // Mark the first checkbox as checked before the next test
+    setup_script_description: "Mark the first checkbox as checked",
     setupTestPage: function setupTestPage(testPageDocument) {
       const checkboxes = testPageDocument.querySelectorAll('[role="checkbox"]');
       checkboxes[0].focus();

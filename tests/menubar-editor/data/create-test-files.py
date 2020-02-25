@@ -49,6 +49,12 @@ def getSetupTestPageScript(fname):
 
   return code
 
+def getSetupTestPageDescription(description):
+  if description:
+    return 'setup_script_description: "' + description.replace('"', "'") + '",'
+  else:
+    return ''
+
 path = ''
 testTitle = ''
 
@@ -94,18 +100,20 @@ for row in tests:
     mode = clean(cells[4])
     task = clean(cells[5])
     setupTestPage = getSetupTestPageScript(cells[6])
-    refs = clean(cells[7]).split(' ')
-    instructions = clean(cells[8])
+    setupTestPageDescription = getSetupTestPageDescription(cells[7])
+    refs = clean(cells[8]).split(' ')
+    instructions = clean(cells[9])
 
     assertions = ''
 
-    i = 9
+    i = 10
     while (i < len(cells)):
       a = clean(cells[i])
       i += 1
       assertions += getAssertion(a)
 
     references = '<link rel="help" href="' + referenceLinks['example'] + '">\n'
+
     for r in refs:
       references += '<link rel="help" href="' + referenceLinks[r] + '">\n'
 
@@ -120,6 +128,7 @@ for row in tests:
       fname += '.html'
       print('TEST ' + str(count-1) + ': ' + fname)
       test = test.replace('%SETUP_TEST_PAGE%', setupTestPage)
+      test = test.replace('%SETUP_TEST_PAGE_DESCRIPTION%', setupTestPageDescription)
       test = test.replace('%TITLE%', title)
       test = test.replace('%REFERENCES%', references)
       test = test.replace('%APPLIES_TO%', appliesTo)

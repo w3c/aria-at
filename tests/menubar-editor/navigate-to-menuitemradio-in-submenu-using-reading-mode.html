@@ -9,6 +9,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
+    setup_script_description: "Open 'Font' menu item and move focus to the 'Font' menu item",
     setupTestPage: function setupTestPage(document) {
       // Open "Font" menu item and move focus to the "Font" menu item
       document.querySelector('role=menuitem').setAttribue('aria-expanded', 'true');

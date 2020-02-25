@@ -60,7 +60,10 @@ for row in newCommandsCSV:
           print ('[adding][' + command + '][' + mode + '][' + at + ']: ' + key)
 
       i += 1
-      key = clean(cells[i])
+      if (i >= len(cells)):
+        key = '';
+      else:
+        key = clean(cells[i])
 
   lastCommand = command
   count += 1

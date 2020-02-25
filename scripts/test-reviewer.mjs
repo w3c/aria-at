@@ -118,7 +118,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 
 	  ATTests.push({
 	    atName: properAT,
-	    commands: commands.length ? commands : undefined,
+	    commands: commands && commands.length ? commands : undefined,
 	    assertions: assertions && assertions.length ? assertions.map(a => ({ priority: getPriorityString(a[0]), description: a[1] })) : undefined,
 	    userInstruction,
 	    modeInstruction: commAPI.getModeInstructions(mode, at),

@@ -12,6 +12,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
+    setup_script_description: "Move focus to the 'Size' menu item",
     setupTestPage: function setupTestPage(document) {
       // Move focus to the "Size" menu item
       document.querySelector('role=menuitem')[3].focus();

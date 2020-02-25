@@ -10,6 +10,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
+    setup_script_description: "open 'Style/Color' menu item and move focus to the 'Italic' menu item checkbox option",
     setupTestPage: function setupTestPage(document) {
       // open "Style/Color" menu item and move focus to the 'Italic' menu item checkbox option
       document.querySelectorAll('role=menuitem')[1].setAttribue('aria-expanded', 'true');

@@ -22,8 +22,6 @@
       const filterATs = function(button) {
         const val = button.value;
 
-        console.log(val)
-
         if (val === 'all') {
           for (let at of document.querySelectorAll('input')) {
             if (at.value !== 'all') {
@@ -77,7 +75,7 @@
       <ul>
         <li>Mode: {{mode}}</i>
         <li>Applies to: {{allReleventATs}}</li>
-	<li>Lasted edited: {{lastEdited}}
+        <li>Lasted edited: {{lastEdited}}
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests{{{location}}}">{{{location}}}<a></li>
         <li>Relevant Specifications:
           <ul>
@@ -91,13 +89,13 @@
       {{#ATTests}}
       <div class="{{atName}}">
         <h3>{{atName}}</h3>
-	{{#setupScriptDescription}}
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>{{.}}</li>
-	</ol>
-	{{/setupScriptDescription}}
+        {{#setupScriptDescription}}
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>{{.}}</li>
+        </ol>
+        {{/setupScriptDescription}}
         <h4>Tester Instructions</h4>
         <p>
           <ol>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Change state of menu item radioÿtoÿchecked</title>
+<title>Change state of menu item radioï¿½toï¿½checked</title>
 <link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menuitemradio">
@@ -10,6 +10,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
+    setup_script_description: "open 'Style/Color' menu item and move focus to the 'Blue' menu item radio option",
     setupTestPage: function setupTestPage(document) {
       // open "Style/Color" menu item and move focus to the 'Blue' menu item radio option
       document.querySelectorAll('role=menuitem')[1].setAttribue('aria-expanded', 'true');

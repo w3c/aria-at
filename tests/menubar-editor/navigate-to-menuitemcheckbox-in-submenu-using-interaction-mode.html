@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Navigate to menu item checkboxÿin interaction mode</title>
+<title>Navigate to menu item checkboxï¿½in interaction mode</title>
 <link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
@@ -9,6 +9,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
+    setup_script_description: "Move focus to the 'Style/Color' menu item",
     setupTestPage: function setupTestPage(document) {
       // Move focus to the "Style/Color" menu item
       document.querySelectorAll('role=menuitem')[1].focus();

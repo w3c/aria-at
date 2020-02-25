@@ -10,6 +10,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
+    setup_script_description: "Move focus to the 'Text Align' menu item",
     setupTestPage: function setupTestPage(document) {
       // Move focus to the "Text Align" menu item
       document.querySelector('role=menuitem')[2].focus();

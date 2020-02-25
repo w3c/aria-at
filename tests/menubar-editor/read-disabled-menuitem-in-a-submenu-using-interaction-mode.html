@@ -12,6 +12,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
+    setup_script_description: "open 'Size' menu item and disable the 'Larger' option and move focus to the 'Larger' menu item checkbox option",
     setupTestPage: function setupTestPage(document) {
       // open "Size" menu item, disable the "Larger" option and move focus to the "Larger" menu item checkbox option
       document.querySelectorAll('role=menuitem')[3].setAttribue('aria-expanded', 'true');

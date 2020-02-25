@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
 <html>
   <head>
     <title>Test plan review for pattern: {{pattern}}</title>
@@ -16,36 +17,34 @@
         padding: .5em;
       }
 
-      button[value="all"] {
-        display: block;
-      }
     </style>
     <script>
       const filterATs = function(button) {
         const val = button.value;
 
-        if (val === 'all') {
-          document.querySelector('#ats-selected').innerHTML = "Viewing tests for all assitive technologies.";
+        console.log(val)
 
-          for (let at of document.querySelectorAll('button')) {
+        if (val === 'all') {
+          for (let at of document.querySelectorAll('input')) {
             if (at.value !== 'all') {
               for (let result of document.querySelectorAll(`.${at.value}`)) {
                 result.style.display = 'block';
               }
+              at.checked = false;
             }
             else {
-              at.style.display = 'none';
+              at.checked = true;
             }
           }
         }
         else {
-          document.querySelector('#ats-selected').innerHTML = `Viewing only tests for ${val}.`;
+          for (let at of document.querySelectorAll('input')) {
 
-          for (let at of document.querySelectorAll('button')) {
-
-            if (at.value === 'all') {
-              at.style.display = 'block';
-              continue;
+            if (at.value === val) {
+              at.checked = true;
+            }
+            else {
+              at.checked = false;
             }
 
             for (let result of document.querySelectorAll(`.${at.value}`)) {
@@ -64,13 +63,13 @@
 
     <h1>Test plan review for pattern: {{pattern}} ({{totalTests}} tests)</h1>
 
-    <div>
-      <p id="ats-selected">Viewing tests for all assitive technologies.</p>
-      <button onclick="filterATs(this)" value="all">Show tests for all assistive technologies</button>
+    <fieldset>
+      <legend>Filter tests by assistive technology</legend>
+      <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
       {{#AToptions}}
-      <button onclick="filterATs(this)" value="{{.}}">Show tests for {{.}}</button>
+        <input type="radio" onclick="filterATs(this)" id="{{.}}" value="{{.}}"><label for="{{.}}">{{.}}</label>
       {{/AToptions}}
-    </div>
+    </fieldset>
 
     {{#tests}}
     <h2>Test {{testNumber}}: {{{name}}}</h2>

@@ -20,12 +20,12 @@ for row in newCommandsCSV:
   cells = row.split(',')
 
   if count > 1:
-    command = clean(cells[1])
+    command = clean(cells[1]).lower()
     if command != lastCommand:
       print()
 
-    mode = clean(cells[2])
-    at = clean(cells[3])
+    mode = clean(cells[2]).lower()
+    at = clean(cells[3]).lower()
 
     if nc.get(command) == None:
       nc[command] = {}
@@ -56,7 +56,7 @@ for row in newCommandsCSV:
           else:
             keyData = [key]
 
-          nc[command][mode][at].append(key)
+          nc[command][mode][at].append(keyData)
           print ('[adding][' + command + '][' + mode + '][' + at + ']: ' + key)
 
       i += 1

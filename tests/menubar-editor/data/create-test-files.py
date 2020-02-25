@@ -10,7 +10,7 @@ import time
 import getopt
 
 def clean(s):
-  return s.replace('""', "'").replace('"', '').replace('  ', ' ').strip()
+  return s.replace('""', "'").replace('"', '').replace('  ', ' ').replace(';', ',').strip()
 
 def getAssertion(a):
   if len(a) == 0:
@@ -70,8 +70,9 @@ if len(sys.argv) == 5:
 f = open('test.template', 'r')
 template = f.read()
 
-f = open('index.template', 'r')
-index = f.read()
+if len(testTitle):
+  f = open('index.template', 'r')
+  index = f.read()
 
 print('REFERENCES')
 
@@ -92,11 +93,12 @@ tests = open(sys.argv[2], 'r')
 
 count = 0
 testList = ''
+repeatNames = {}
 for row in tests:
   cells = row.split(',')
   if count > 1:
     title = clean(cells[2])
-    appliesTo = clean(cells[3])
+    appliesTo = clean(cells[3]).replace(', ', '", "');
     mode = clean(cells[4])
     task = clean(cells[5])
     setupTestPage = getSetupTestPageScript(cells[6])
@@ -115,13 +117,20 @@ for row in tests:
     references = '<link rel="help" href="' + referenceLinks['example'] + '">\n'
 
     for r in refs:
-      references += '<link rel="help" href="' + referenceLinks[r] + '">\n'
-
+      if len(r):
+        references += '<link rel="help" href="' + referenceLinks[r] + '">\n'
 
     assertions = assertions[:-2]
 
     example = referenceLinks['reference']
     fname = task.lower().replace('=', '-').replace("'", '').replace('"', '').replace(' ', '-')
+
+    if fname in repeatNames.keys():
+      num = repeatNames[fname] + 1
+      repeatNames[fname] = repeatNames[fname] + 1
+      fname = fname + '-' + str(num)
+    else:
+      repeatNames[fname] = 1
 
     test = template
     if len(fname) > 3:

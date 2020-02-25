@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Closing combobox conveys combobox state</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    setup_script_description: "Set focus on combobox; ensure it is empty and expanded.",
+    
+    applies_to: ["Desktop Screen Readers"],
+    mode: "interaction",
+    task: "Close combobox",
+    specific_user_instruction: "Collapse the combobox popup",
+    output_assertions: [
+      [1, "Collapsed state of combobox is conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+
+</script>

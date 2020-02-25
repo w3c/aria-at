@@ -96,7 +96,8 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	    commands: commands.length ? commands : undefined,
 	    assertions: assertions && assertions.length ? assertions.map(a => ({ priority: a[0], description: a[1] })) : undefined,
 	    userInstruction,
-	    modeInstruction: commAPI.getModeInstructions(mode, at)
+	    modeInstruction: commAPI.getModeInstructions(mode, at),
+	    setupScriptDescription: testData.setup_script_description
 	  });
 	}
 

@@ -92,7 +92,14 @@
       {{#ATTests}}
       <div class="{{atName}}">
         <h3>{{atName}}</h3>
-        <h4>Instructions</h4>
+	{{#setupScriptDescription}}
+	<h4>Scripted Instructions</h4>
+	The following instuctions are executed by a script in the test page to initialize the widget:
+	<ol>
+	<li>{{.}}</li>
+	</ol>
+	{{/setupScriptDescription}}
+        <h4>Tester Instructions</h4>
         <p>
           <ol>
              <li>{{modeInstruction}}</li>

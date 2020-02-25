@@ -92,6 +92,7 @@ tests = open(sys.argv[2], 'r')
 
 count = 0
 testList = ''
+repeatNames = {}
 for row in tests:
   cells = row.split(',')
   if count > 1:
@@ -122,6 +123,13 @@ for row in tests:
 
     example = referenceLinks['reference']
     fname = task.lower().replace('=', '-').replace("'", '').replace('"', '').replace(' ', '-')
+
+    if fname in repeatNames.keys():
+      num = repeatNames[fname] + 1
+      repeatNames[fname] = repeatNames[fname] + 1
+      fname = fname + '-' + str(num)
+    else:
+      repeatNames[fname] = 1
 
     test = template
     if len(fname) > 3:

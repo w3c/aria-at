@@ -210,7 +210,7 @@ function displayInstructionsForBehaviorTest() {
     </ul>
   </li>
   <li><em>${modeInstructions}</em></li>
-  <li>Then, perform the task "<em>${userInstructions}</em>" using the following commands:
+  <li><em>${userInstructions}</em> using the following commands:
     <ul id='at_controls' aria-label='AT controls'>
     </ul>
   </li>

@@ -13,6 +13,19 @@ const reviewDir = path.resolve('.', 'public', 'review');
 const allTestsForPattern = {};
 const ATs = ['jaws', 'voiceover', 'nvda'];
 const ATNames = ['JAWS', 'VoiceOver', 'NVDA'];
+const getPriorityString = function(priority) {
+  priority = parseInt(priority);
+  if (priority === 1) {
+    return 'must have';
+  }
+  else if (priority === 2) {
+    return 'should have';
+  }
+  else if (priority === 2) {
+    return 'nice to have';
+  }
+  return '';
+}
 
 fse.readdirSync(testDir).forEach(function (subDir) {
   const subDirFullPath = path.join(testDir, subDir);
@@ -39,7 +52,19 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	const helpLinks = [];
 	for (let link of root.querySelectorAll('link')) {
 	  if (link.attributes.rel === 'help') {
-	    helpLinks.push(link.attributes.href);
+	    let href = link.attributes.href;
+	    let text;
+	    if (href.indexOf('#') >= 0) {
+	      text = `ARIA specification: ${href.split('#')[1]}`;
+	    }
+	    else {
+	      text = `APG example: ${href.split('examples/')[1]}`;
+	    }
+
+	    helpLinks.push({
+	      link: href,
+	      text: text
+	    });
 	  }
 	}
 
@@ -94,7 +119,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	  ATTests.push({
 	    atName: properAT,
 	    commands: commands.length ? commands : undefined,
-	    assertions: assertions && assertions.length ? assertions.map(a => ({ priority: a[0], description: a[1] })) : undefined,
+	    assertions: assertions && assertions.length ? assertions.map(a => ({ priority: getPriorityString(a[0]), description: a[1] })) : undefined,
 	    userInstruction,
 	    modeInstruction: commAPI.getModeInstructions(mode, at),
 	    setupScriptDescription: testData.setup_script_description

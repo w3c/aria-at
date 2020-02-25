@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
 <html>
   <head>
     <title>Test plan review for pattern: menubar-editor</title>
@@ -16,36 +17,32 @@
         padding: .5em;
       }
 
-      button[value="all"] {
-        display: block;
-      }
     </style>
     <script>
       const filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
-          document.querySelector('#ats-selected').innerHTML = "Viewing tests for all assitive technologies.";
-
-          for (let at of document.querySelectorAll('button')) {
+          for (let at of document.querySelectorAll('input')) {
             if (at.value !== 'all') {
               for (let result of document.querySelectorAll(`.${at.value}`)) {
                 result.style.display = 'block';
               }
+              at.checked = false;
             }
             else {
-              at.style.display = 'none';
+              at.checked = true;
             }
           }
         }
         else {
-          document.querySelector('#ats-selected').innerHTML = `Viewing only tests for ${val}.`;
+          for (let at of document.querySelectorAll('input')) {
 
-          for (let at of document.querySelectorAll('button')) {
-
-            if (at.value === 'all') {
-              at.style.display = 'block';
-              continue;
+            if (at.value === val) {
+              at.checked = true;
+            }
+            else {
+              at.checked = false;
             }
 
             for (let result of document.querySelectorAll(`.${at.value}`)) {
@@ -64,38 +61,38 @@
 
     <h1>Test plan review for pattern: menubar-editor (24 tests)</h1>
 
-    <div>
-      <p id="ats-selected">Viewing tests for all assitive technologies.</p>
-      <button onclick="filterATs(this)" value="all">Show tests for all assistive technologies</button>
-      <button onclick="filterATs(this)" value="JAWS">Show tests for JAWS</button>
-      <button onclick="filterATs(this)" value="VoiceOver">Show tests for VoiceOver</button>
-      <button onclick="filterATs(this)" value="NVDA">Show tests for NVDA</button>
-    </div>
+    <fieldset>
+      <legend>Filter tests by assistive technology</legend>
+      <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
+        <input type="radio" onclick="filterATs(this)" id="JAWS" value="JAWS"><label for="JAWS">JAWS</label>
+        <input type="radio" onclick="filterATs(this)" id="VoiceOver" value="VoiceOver"><label for="VoiceOver">VoiceOver</label>
+        <input type="radio" onclick="filterATs(this)" id="NVDA" value="NVDA"><label for="NVDA">NVDA</label>
+    </fieldset>
 
     <h2>Test 1: Change state of menu item checkbox to unchecked in interaction mode</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/change-state-of-menuitemcheckbox-in-submenu-using-interaction-mode.html">/menubar-editor/change-state-of-menuitemcheckbox-in-submenu-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -111,16 +108,16 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The unchecked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state of the checkbox is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -135,16 +132,16 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The unchecked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state of the checkbox is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -159,7 +156,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The unchecked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state of the checkbox is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 2: Change state of menu item checkbox to unchecked in reading mode</h2>
@@ -167,25 +164,25 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/change-state-of-menuitemcheckbox-in-submenu-using-reading-mode.html">/menubar-editor/change-state-of-menuitemcheckbox-in-submenu-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -201,17 +198,17 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The unchecked state of the checkbox is conveyed</td></tr>
-            <tr><td>1</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -226,17 +223,17 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The unchecked state of the checkbox is conveyed</td></tr>
-            <tr><td>1</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Italic&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -251,8 +248,8 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The unchecked state of the checkbox is conveyed</td></tr>
-            <tr><td>1</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 3: Change state of menu item radio�to�checked</h2>
@@ -260,25 +257,25 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/change-state-of-menuitemradio-in-submenu-using-interaction-mode.html">/menubar-editor/change-state-of-menuitemradio-in-submenu-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -294,16 +291,16 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The checked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state of the checkbox is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -318,16 +315,16 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The checked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state of the checkbox is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -342,7 +339,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The checked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state of the checkbox is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 4: Change state of menu item radio to checked</h2>
@@ -350,25 +347,25 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/change-state-of-menuitemradio-in-submenu-using-reading-mode.html">/menubar-editor/change-state-of-menuitemradio-in-submenu-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -384,17 +381,17 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The checked state of the checkbox is conveyed</td></tr>
-            <tr><td>1</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -409,17 +406,17 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The checked state of the checkbox is conveyed</td></tr>
-            <tr><td>1</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Blue&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -434,8 +431,8 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The checked state of the checkbox is conveyed</td></tr>
-            <tr><td>1</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state of the checkbox is conveyed</td></tr>
+            <tr><td>must have</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 5: Close submenu in interaction mode</h2>
@@ -443,25 +440,25 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/close-submenu-of-menubar-using-interaction-mode.html">/menubar-editor/close-submenu-of-menubar-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">ARIA specification: aria-expanded</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -476,21 +473,21 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role menubar is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the menubar is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role menubar is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the menubar is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -505,21 +502,21 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role menubar is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the menubar is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role menubar is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the menubar is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -534,12 +531,12 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role menubar is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the menubar is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role menubar is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the menubar is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 6: Close submenu in reading mode</h2>
@@ -547,25 +544,25 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/close-submenu-of-menubar-using-reading-mode.html">/menubar-editor/close-submenu-of-menubar-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">ARIA specification: aria-expanded</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -580,21 +577,21 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role menubar is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the menubar is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role menubar is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the menubar is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -609,21 +606,21 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role menubar is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the menubar is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role menubar is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the menubar is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Text Align&#39; menu item and move focus to the &#39;Left&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -638,12 +635,12 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role menubar is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the menubar is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role menubar is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the menubar is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 7: Navigation to menubar using reading mode</h2>
@@ -651,24 +648,24 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/navigate-to-menubar-in-reading-mode.html">/menubar-editor/navigate-to-menubar-in-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the link just before the meunbar</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the link just before the meunbar</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -684,18 +681,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Number of items in menubar is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Number of items in menubar is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the link just before the meunbar</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the link just before the meunbar</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -710,18 +707,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Number of items in menubar is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Number of items in menubar is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the link just before the meunbar</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the link just before the meunbar</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -736,9 +733,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Number of items in menubar is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Number of items in menubar is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 8: Navigate to menu item in menubar using interaction mode</h2>
@@ -746,24 +743,24 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/navigate-to-menuitem-in-menubar-using-interaction-mode.html">/menubar-editor/navigate-to-menuitem-in-menubar-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -778,20 +775,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Font&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Font&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -806,20 +803,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Font&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Font&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -834,11 +831,11 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Font&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Font&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 9: Navigate to menu item in menubar using reading mode</h2>
@@ -846,24 +843,24 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/navigate-to-menuitem-in-menubar-using-reading-mode.html">/menubar-editor/navigate-to-menuitem-in-menubar-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -878,20 +875,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Font&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Font&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -906,20 +903,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Font&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Font&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -934,11 +931,11 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Font&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Font&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 10: Navigate to menu item checkbox�in interaction mode</h2>
@@ -946,24 +943,24 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/navigate-to-menuitemcheckbox-in-submenu-using-interaction-mode.html">/menubar-editor/navigate-to-menuitemcheckbox-in-submenu-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Style&#x2F;Color&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Style&#x2F;Color&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -980,19 +977,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Style&#x2F;Color&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Style&#x2F;Color&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1007,19 +1004,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Style&#x2F;Color&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Style&#x2F;Color&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1034,10 +1031,10 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 11: Navigate to menu item checkbox in submenu using reading mode</h2>
@@ -1045,24 +1042,24 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/navigate-to-menuitemcheckbox-in-submenu-using-reading-mode.html">/menubar-editor/navigate-to-menuitemcheckbox-in-submenu-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Text Align&#39; menuitem and give the &#39;Text ALign&#39; menu item focus</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Text Align&#39; menuitem and give the &#39;Text ALign&#39; menu item focus</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1077,19 +1074,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Text Align&#39; menuitem and give the &#39;Text ALign&#39; menu item focus</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Text Align&#39; menuitem and give the &#39;Text ALign&#39; menu item focus</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1104,19 +1101,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Text Align&#39; menuitem and give the &#39;Text ALign&#39; menu item focus</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Text Align&#39; menuitem and give the &#39;Text ALign&#39; menu item focus</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1131,10 +1128,10 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 12: Navigate to menu item radio in submenu using interaction mode</h2>
@@ -1142,24 +1139,24 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/navigate-to-menuitemradio-in-submenu-using-interaction-mode.html">/menubar-editor/navigate-to-menuitemradio-in-submenu-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1176,19 +1173,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1203,19 +1200,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1230,10 +1227,10 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 13: Navigate to menu item radio in submenu using reading mode</h2>
@@ -1241,24 +1238,24 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/navigate-to-menuitemradio-in-submenu-using-reading-mode.html">/menubar-editor/navigate-to-menuitemradio-in-submenu-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Open &#39;Font&#39; menu item and move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Open &#39;Font&#39; menu item and move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1273,19 +1270,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Open &#39;Font&#39; menu item and move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Open &#39;Font&#39; menu item and move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1300,19 +1297,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Open &#39;Font&#39; menu item and move focus to the &#39;Font&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Open &#39;Font&#39; menu item and move focus to the &#39;Font&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1327,10 +1324,10 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Sans-serif&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 14: Open submenu in interaction mode</h2>
@@ -1338,25 +1335,25 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/open-submenu-of-menubar-using-interaction-mode.html">/menubar-editor/open-submenu-of-menubar-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">ARIA specification: aria-expanded</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Text Align&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Text Align&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1373,20 +1370,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Left&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The role menu is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Left&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The role menu is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Text Align&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Text Align&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1401,20 +1398,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Left&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The role menu is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Left&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The role menu is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Text Align&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Text Align&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1429,11 +1426,11 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Left&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The role menu is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Left&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The role menu is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 15: Open submenu in reading mode</h2>
@@ -1441,25 +1438,25 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/open-submenu-of-menubar-using-reading-mode.html">/menubar-editor/open-submenu-of-menubar-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">ARIA specification: aria-expanded</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Text Align&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Text Align&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1475,20 +1472,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Left&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menu&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Left&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Text Align&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Text Align&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1503,20 +1500,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Left&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menu&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Left&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Text Align&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Text Align&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1531,11 +1528,11 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Left&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menu&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Left&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The label &#39;Text Align&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 16: Read disabled menu item in submenu in interaction mode</h2>
@@ -1543,27 +1540,27 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/read-disabled-menuitem-in-a-submenu-using-interaction-mode.html">/menubar-editor/read-disabled-menuitem-in-a-submenu-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-disabled">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-disabled</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-disabled">ARIA specification: aria-disabled</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1579,19 +1576,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The disabled state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The disabled state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1606,19 +1603,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The disabled state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The disabled state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1633,10 +1630,10 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The disabled state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The disabled state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 17: Read disabled menu item in submenu in reading mode</h2>
@@ -1644,27 +1641,27 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/read-disabled-menuitem-in-a-submenu-using-reading-mode.html">/menubar-editor/read-disabled-menuitem-in-a-submenu-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-disabled">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-disabled</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-disabled">ARIA specification: aria-disabled</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1680,19 +1677,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The disabled state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The disabled state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1707,19 +1704,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The disabled state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The disabled state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Size&#39; menu item and disable the &#39;Larger&#39; option and move focus to the &#39;Larger&#39; menu item checkbox option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1734,10 +1731,10 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The disabled state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Smaller&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The disabled state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 18: Read menu item in menubar in interaction mode</h2>
@@ -1745,27 +1742,27 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/read-menu-item-in-menubar-using-interaction-mode.html">/menubar-editor/read-menu-item-in-menubar-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">ARIA specification: aria-expanded</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Size&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Size&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1781,20 +1778,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Size&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>3</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Size&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td></td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Size&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Size&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1809,20 +1806,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Size&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>3</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Size&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td></td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Size&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Size&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1837,11 +1834,11 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Size&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>3</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Size&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td></td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 19: Read menu item in menubar in reading mode</h2>
@@ -1849,27 +1846,27 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/read-menu-item-in-menubar-using-reading-mode.html">/menubar-editor/read-menu-item-in-menubar-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">ARIA specification: aria-expanded</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Size&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Size&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1885,20 +1882,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Size&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>3</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Size&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td></td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Size&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Size&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1913,20 +1910,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Size&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>3</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Size&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td></td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the &#39;Size&#39; menu item</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the &#39;Size&#39; menu item</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1941,11 +1938,11 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Size&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Opens submenu is conveyed</td></tr>
-            <tr><td>2</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
-            <tr><td>3</td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Size&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Opens submenu is conveyed</td></tr>
+            <tr><td>should have</td><td> The role &#39;menubar&#39; is conveyed</td></tr>
+            <tr><td></td><td> The menubar label &#39;Text Formatting&#39; is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 20: Read menu item checkbox in submenu in interaction mode</h2>
@@ -1953,27 +1950,27 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/read-menuitemcheckbox-in-a-submenu-using-interaction-mode.html">/menubar-editor/read-menuitemcheckbox-in-a-submenu-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1989,19 +1986,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2016,19 +2013,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2043,10 +2040,10 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 21: Read menu item checkbox in submenu in reading mode</h2>
@@ -2054,27 +2051,27 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/read-menuitemcheckbox-in-a-submenu-using-reading-mode.html">/menubar-editor/read-menuitemcheckbox-in-a-submenu-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2090,19 +2087,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2117,19 +2114,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focus to the &#39;Bold&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2144,10 +2141,10 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The unchecked state is conveyed</td></tr>
-            <tr><td>2</td><td> The position and size of the submenu is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Bold&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The unchecked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The position and size of the submenu is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 22: Read menu item radio button in submenu in interaction mode</h2>
@@ -2155,27 +2152,27 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/read-menuitemradio-in-a-group-in-a-submenu-using-interaction-mode.html">/menubar-editor/read-menuitemradio-in-a-group-in-a-submenu-using-interaction-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2191,20 +2188,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Black&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The role group is conveyed</td></tr>
-            <tr><td>2</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Black&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The role group is conveyed</td></tr>
+            <tr><td>should have</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2219,20 +2216,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Black&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The role group is conveyed</td></tr>
-            <tr><td>2</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Black&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The role group is conveyed</td></tr>
+            <tr><td>should have</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2247,11 +2244,11 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Black&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The role group is conveyed</td></tr>
-            <tr><td>2</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Black&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The role group is conveyed</td></tr>
+            <tr><td>should have</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 23: Read menu item radio button in submenu in reading mode</h2>
@@ -2259,27 +2256,27 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/read-menuitemradio-in-a-group-in-submenu-using-reading-mode.html">/menubar-editor/read-menuitemradio-in-a-group-in-submenu-using-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2295,20 +2292,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Black&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The role group is conveyed</td></tr>
-            <tr><td>2</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Black&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The role group is conveyed</td></tr>
+            <tr><td>should have</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2323,20 +2320,20 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Black&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The role group is conveyed</td></tr>
-            <tr><td>2</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Black&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The role group is conveyed</td></tr>
+            <tr><td>should have</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>open &#39;Style&#x2F;Color&#39; menu item and move focue to the &#39;Black&#39; menu item radio option</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2351,11 +2348,11 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The label &#39;Black&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>The checked state is conveyed</td></tr>
-            <tr><td>2</td><td> The role group is conveyed</td></tr>
-            <tr><td>2</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The role &#39;menu item radio&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The label &#39;Black&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>The checked state is conveyed</td></tr>
+            <tr><td>should have</td><td> The role group is conveyed</td></tr>
+            <tr><td>should have</td><td> The group label &#39;Text Color&#39; is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 24: Navigation to menubar switches mode from reading to interaction mode</h2>
@@ -2363,24 +2360,24 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 17:05:08 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/menubar-editor/tab-to-menubar-in-reading-mode.html">/menubar-editor/tab-to-menubar-in-reading-mode.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the link just before the meunbar</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the link just before the meunbar</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2395,16 +2392,16 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
+            <tr><td>must have</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the link just before the meunbar</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the link just before the meunbar</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2419,16 +2416,16 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
+            <tr><td>must have</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Move focus to the link just before the meunbar</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Move focus to the link just before the meunbar</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -2443,7 +2440,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
+            <tr><td>must have</td><td>Screen reader switching to interaction mode is conveyed</td></tr>
         </table>
       </div>
 

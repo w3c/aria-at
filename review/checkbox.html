@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta charset="utf-8">
 <html>
   <head>
     <title>Test plan review for pattern: checkbox</title>
@@ -16,36 +17,32 @@
         padding: .5em;
       }
 
-      button[value="all"] {
-        display: block;
-      }
     </style>
     <script>
       const filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
-          document.querySelector('#ats-selected').innerHTML = "Viewing tests for all assitive technologies.";
-
-          for (let at of document.querySelectorAll('button')) {
+          for (let at of document.querySelectorAll('input')) {
             if (at.value !== 'all') {
               for (let result of document.querySelectorAll(`.${at.value}`)) {
                 result.style.display = 'block';
               }
+              at.checked = false;
             }
             else {
-              at.style.display = 'none';
+              at.checked = true;
             }
           }
         }
         else {
-          document.querySelector('#ats-selected').innerHTML = `Viewing only tests for ${val}.`;
+          for (let at of document.querySelectorAll('input')) {
 
-          for (let at of document.querySelectorAll('button')) {
-
-            if (at.value === 'all') {
-              at.style.display = 'block';
-              continue;
+            if (at.value === val) {
+              at.checked = true;
+            }
+            else {
+              at.checked = false;
             }
 
             for (let result of document.querySelectorAll(`.${at.value}`)) {
@@ -64,28 +61,28 @@
 
     <h1>Test plan review for pattern: checkbox (14 tests)</h1>
 
-    <div>
-      <p id="ats-selected">Viewing tests for all assitive technologies.</p>
-      <button onclick="filterATs(this)" value="all">Show tests for all assistive technologies</button>
-      <button onclick="filterATs(this)" value="JAWS">Show tests for JAWS</button>
-      <button onclick="filterATs(this)" value="VoiceOver">Show tests for VoiceOver</button>
-      <button onclick="filterATs(this)" value="NVDA">Show tests for NVDA</button>
-    </div>
+    <fieldset>
+      <legend>Filter tests by assistive technology</legend>
+      <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
+        <input type="radio" onclick="filterATs(this)" id="JAWS" value="JAWS"><label for="JAWS">JAWS</label>
+        <input type="radio" onclick="filterATs(this)" id="VoiceOver" value="VoiceOver"><label for="VoiceOver">VoiceOver</label>
+        <input type="radio" onclick="filterATs(this)" id="NVDA" value="NVDA"><label for="NVDA">NVDA</label>
+    </fieldset>
 
     <h2>Test 1: Navigate through a checkbox group in interaction mode.</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-through-checkbox-group-interaction.html">/checkbox/navigate-through-checkbox-group-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
           </ul>
         </li>
       </ul>
@@ -106,9 +103,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -131,9 +128,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -152,9 +149,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
     <h2>Test 2: Navigate through a checkbox group in reading mode.</h2>
@@ -162,15 +159,15 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-through-checkbox-group.html">/checkbox/navigate-through-checkbox-group.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
           </ul>
         </li>
       </ul>
@@ -193,9 +190,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -214,9 +211,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -239,9 +236,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
     <h2>Test 3: Navigate to a checked checkbox in interaction mode.</h2>
@@ -249,25 +246,25 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-to-checked-checkbox-interaction.html">/checkbox/navigate-to-checked-checkbox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -282,18 +279,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -312,18 +309,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -338,9 +335,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 4: Navigate to a checked checkbox in reading mode.</h2>
@@ -348,25 +345,25 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-to-checked-checkbox.html">/checkbox/navigate-to-checked-checkbox.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -385,18 +382,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -411,18 +408,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -441,9 +438,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 5: Navigate to an unchecked checkbox in interaction mode.</h2>
@@ -451,14 +448,14 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-to-unchecked-checkbox-interaction.html">/checkbox/navigate-to-unchecked-checkbox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
@@ -479,9 +476,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -504,9 +501,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -525,9 +522,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 6: Navigate to an unchecked checkbox in reading mode.</h2>
@@ -535,14 +532,14 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-to-unchecked-checkbox.html">/checkbox/navigate-to-unchecked-checkbox.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
@@ -567,9 +564,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -588,9 +585,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -613,9 +610,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 7: Operate a checkbox in interaction mode.</h2>
@@ -623,14 +620,14 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/operate-checkbox-interaction.html">/checkbox/operate-checkbox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
@@ -651,7 +648,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Change in state is conveyed</td></tr>
+            <tr><td>must have</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -671,7 +668,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Change in state is conveyed</td></tr>
+            <tr><td>must have</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -690,7 +687,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Change in state is conveyed</td></tr>
+            <tr><td>must have</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 8: Operate a checkbox in reading mode.</h2>
@@ -698,14 +695,14 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/operate-checkbox.html">/checkbox/operate-checkbox.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
@@ -727,7 +724,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Change in state is conveyed</td></tr>
+            <tr><td>must have</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -746,7 +743,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Change in state is conveyed</td></tr>
+            <tr><td>must have</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -766,7 +763,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Change in state is conveyed</td></tr>
+            <tr><td>must have</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 9: Read a checkbox group in interaction mode.</h2>
@@ -774,15 +771,15 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checkbox-group-interaction.html">/checkbox/read-checkbox-group-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
           </ul>
         </li>
       </ul>
@@ -804,8 +801,8 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group&#39;s name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group&#39;s name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -825,8 +822,8 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group&#39;s name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group&#39;s name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -846,8 +843,8 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group&#39;s name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group&#39;s name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 10: Read a checkbox group in reading mode.</h2>
@@ -855,15 +852,15 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checkbox-group.html">/checkbox/read-checkbox-group.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
           </ul>
         </li>
       </ul>
@@ -885,8 +882,8 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -905,8 +902,8 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -926,8 +923,8 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 11: Read an unchecked checkbox in reading mode.</h2>
@@ -935,25 +932,25 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checkbox-interaction.html">/checkbox/read-checkbox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Put DOM focus on the first checkbox</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Put DOM focus on the first checkbox</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -969,18 +966,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Put DOM focus on the first checkbox</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Put DOM focus on the first checkbox</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -996,18 +993,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Put DOM focus on the first checkbox</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Put DOM focus on the first checkbox</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1023,9 +1020,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 12: Read an unchecked checkbox in interaction mode.</h2>
@@ -1033,25 +1030,25 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checkbox.html">/checkbox/read-checkbox.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Put DOM focus on the first checkbox</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Put DOM focus on the first checkbox</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1067,18 +1064,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Put DOM focus on the first checkbox</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Put DOM focus on the first checkbox</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1093,18 +1090,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Put DOM focus on the first checkbox</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Put DOM focus on the first checkbox</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1120,9 +1117,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 13: Read a checked checkbox in interaction mode.</h2>
@@ -1130,25 +1127,25 @@
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checked-checkbox-interaction.html">/checkbox/read-checked-checkbox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1164,18 +1161,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1191,18 +1188,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1218,9 +1215,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
     <h2>Test 14: Read a checked checkbox in reading mode.</h2>
@@ -1228,25 +1225,25 @@
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: Desktop Screen Readers</li>
-	<li>Lasted edited: Mon Feb 24 16:08:59 2020 -0800
+        <li>Lasted edited: Mon Feb 24 18:02:16 2020 -0800
 
         <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checked-checkbox.html">/checkbox/read-checked-checkbox.html<a></li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
       <div class="JAWS">
         <h3>JAWS</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1262,18 +1259,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
         <h3>VoiceOver</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1288,18 +1285,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
         <h3>NVDA</h3>
-	<h4>Scripted Instructions</h4>
-	The following instuctions are executed by a script in the test page to initialize the widget:
-	<ol>
-	<li>Mark the first checkbox as checked</li>
-	</ol>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
@@ -1315,9 +1312,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>1</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>1</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
 

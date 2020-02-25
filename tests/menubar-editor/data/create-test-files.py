@@ -99,8 +99,8 @@ for row in tests:
   if count > 1:
     title = clean(cells[2])
     appliesTo = clean(cells[3]).replace(', ', '", "');
-    mode = clean(cells[4])
-    task = clean(cells[5])
+    mode = clean(cells[4]).lower()
+    task = clean(cells[5]).lower()
     setupTestPage = getSetupTestPageScript(cells[6])
     setupTestPageDescription = getSetupTestPageDescription(cells[7])
     refs = clean(cells[8]).split(' ')

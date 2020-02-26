@@ -662,7 +662,12 @@
              <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
              <li>Then, perform the task "Start caret movement in the textbox while focus is in the listbox" using the following commands:
                <ul>
-                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+                   <li>Left Arrow</li>
+                   <li>Right Arrow</li>
+                   <li>Home</li>
+                   <li>End</li>
+                   <li>Command+Left  (Mac)</li>
+                   <li>Command+Right  (Mac)</li>
                </ul>
              </li>
           </ol>
@@ -719,7 +724,12 @@
              <li>Put NVDA into Focus Mode using NVDA+Space</li>
              <li>Then, perform the task "Start caret movement in the textbox while focus is in the listbox" using the following commands:
                <ul>
-                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+                   <li>Left Arrow</li>
+                   <li>Right Arrow</li>
+                   <li>Home</li>
+                   <li>End</li>
+                   <li>Command+Left  (Mac)</li>
+                   <li>Command+Right  (Mac)</li>
                </ul>
              </li>
           </ol>
@@ -1063,8 +1073,8 @@
         </li>
       </ul>
     </p>
-      <div class="">
-        <h3></h3>
+      <div class="JAWS">
+        <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instuctions are executed by a script in the test page to initialize the widget:
         <ol>
@@ -1073,10 +1083,71 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li></li>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
              <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
                <ul>
-                   <li>No commands have been added for this test for . Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>E &#x2F; Shift+E</li>
+                   <li>F &#x2F; Shift+F</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav ON by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
+               <ul>
+                   <li>F &#x2F; Shift+F</li>
+                   <li>Left Arrow &#x2F; Right Arrow  Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browser Mode using Escape</li>
+             <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>E &#x2F; Shift+E</li>
+                   <li>F &#x2F; Shift+F</li>
                </ul>
              </li>
           </ol>
@@ -1106,8 +1177,8 @@
         </li>
       </ul>
     </p>
-      <div class="">
-        <h3></h3>
+      <div class="JAWS">
+        <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instuctions are executed by a script in the test page to initialize the widget:
         <ol>
@@ -1116,10 +1187,67 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li></li>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
              <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
                <ul>
-                   <li>No commands have been added for this test for . Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
                </ul>
              </li>
           </ol>
@@ -1149,8 +1277,8 @@
         </li>
       </ul>
     </p>
-      <div class="">
-        <h3></h3>
+      <div class="JAWS">
+        <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instuctions are executed by a script in the test page to initialize the widget:
         <ol>
@@ -1159,10 +1287,71 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li></li>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
              <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
                <ul>
-                   <li>No commands have been added for this test for . Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>E &#x2F; Shift+E</li>
+                   <li>F &#x2F; Shift+F</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav ON by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
+               <ul>
+                   <li>F &#x2F; Shift+F</li>
+                   <li>Left Arrow &#x2F; Right Arrow  Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browser Mode using Escape</li>
+             <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>E &#x2F; Shift+E</li>
+                   <li>F &#x2F; Shift+F</li>
                </ul>
              </li>
           </ol>
@@ -1192,8 +1381,8 @@
         </li>
       </ul>
     </p>
-      <div class="">
-        <h3></h3>
+      <div class="JAWS">
+        <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instuctions are executed by a script in the test page to initialize the widget:
         <ol>
@@ -1202,10 +1391,67 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li></li>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
              <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
                <ul>
-                   <li>No commands have been added for this test for . Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
                </ul>
              </li>
           </ol>
@@ -1288,15 +1534,60 @@
         </li>
       </ul>
     </p>
-      <div class="">
-        <h3></h3>
+      <div class="JAWS">
+        <h3>JAWS</h3>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li></li>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
              <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
                <ul>
-                   <li>No commands have been added for this test for . Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "Navigate to the &#39;State&#39; combobox" using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
                </ul>
              </li>
           </ol>
@@ -2086,8 +2377,8 @@
         </li>
       </ul>
     </p>
-      <div class="">
-        <h3></h3>
+      <div class="JAWS">
+        <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instuctions are executed by a script in the test page to initialize the widget:
         <ol>
@@ -2096,10 +2387,64 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li></li>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
              <li>Then, perform the task "Type &#39;a&#39; in the empty combobox" using the following commands:
                <ul>
-                   <li>No commands have been added for this test for . Add commands, or, update the "applies_to" to list only the relevent assitive technologies.</li>
+                   <li>A</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Either 1) The selected text &#39;labama&#39; is conveyed or 2) The entire value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>The selected state of of the value option &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>The combobox state change from collapsed to expanded is conveyed</td></tr>
+            <tr><td>should have</td><td>The position in set of the selected option is conveyed, e.g., 1 of 4 suggestions.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Then, perform the task "Type &#39;a&#39; in the empty combobox" using the following commands:
+               <ul>
+                   <li>A</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Either 1) The selected text &#39;labama&#39; is conveyed or 2) The entire value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>The selected state of of the value option &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>The combobox state change from collapsed to expanded is conveyed</td></tr>
+            <tr><td>should have</td><td>The position in set of the selected option is conveyed, e.g., 1 of 4 suggestions.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instuctions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Then, perform the task "Type &#39;a&#39; in the empty combobox" using the following commands:
+               <ul>
+                   <li>A</li>
                </ul>
              </li>
           </ol>

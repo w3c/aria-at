@@ -19,7 +19,7 @@ nc = {}
 for row in newCommandsCSV:
   cells = row.split(',')
 
-  if count > 1:
+  if count >= 1:
     command = clean(cells[1]).lower()
     if command != lastCommand:
       print()

@@ -91,7 +91,10 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 
 	// TODO: These apply_to strings are not standarized yet.
 	let allReleventATs = [];
-	if (testData.applies_to[0] === "Desktop Screen Readers") {
+	if (
+          testData.applies_to[0].toLowerCase() === "desktop screen readers"
+          || testData.applies_to[0].toLowerCase() === "screen readers"
+        ) {
 	  allReleventATs = ATs;
 	}
 	else {

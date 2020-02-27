@@ -26,7 +26,7 @@ constructor(commands) {
     this.MODE_INSTRUCTIONS = {
       reading: {
         jaws: `Put JAWS into Virtual Cursor Mode using ${keys.INS_Z}`,
-        nvda: `Put NVDA into Browser Mode using ${keys.ESC}`,
+        nvda: `Put NVDA into Browse Mode using ${keys.ESC}`,
         voiceover: `Toggle Quick Nav ON by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
       },
       interaction: {

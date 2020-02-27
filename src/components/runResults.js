@@ -9,10 +9,7 @@ export default class RunResults extends Component {
 
   renderResultRow(result, i) {
 
-    // Details is an array of one because the tests originally were designed to have multiple "behavior" tests,
-    // but for now all tests only test one "behavior" and this functionality might be removed.
-    const details = result.details[0];
-
+    const details = result.details;
     return (
       <tr key={details.name}>
         <td><a href={`#test-${i.toString()}`}>{details.name}</a></td>
@@ -26,10 +23,7 @@ export default class RunResults extends Component {
 
   renderResultDetails(result, i) {
 
-    // Details is an array of one because the tests originally were designed to have multiple "behavior" tests,
-    // but for now all tests only test one "behavior" and this functionality might be removed.
-    const details = result.details[0];
-
+    const details = result.details;
     return (
       <section>
         <h2 id={`test-${i.toString()}`}>Details for test "{details.name}"</h2>
@@ -122,7 +116,7 @@ export default class RunResults extends Component {
     let totalUnexpecteds = 0;
 
     for (let result of results) {
-      let details = result.details[0];
+      let details = result.details;
       totalUnexpecteds += details.summary.unexpectedCount;
       for (let i = 1; i <= 3; i++) {
         support[i][0] += details.summary[i].pass;

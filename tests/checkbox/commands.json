@@ -136,16 +136,21 @@
       ]
     }
   },
-  "navigate to checkbox group":{
+  "navigate into checkbox group":{
     "reading":{
       "jaws":[
-        ["UP_AND_DOWN"],
-        ["TAB_AND_SHIFT_TAB"]
+        ["UP"],
+        ["DOWN"],
+        ["TAB"],
+        ["SHIFT_TAB"]
       ],
       "nvda":[
-        ["X_AND_SHIFT_X"],
-        ["UP_AND_DOWN"],
-        ["TAB_AND_SHIFT_TAB"]
+        ["X"],
+        ["SHIFT_X"],
+        ["UP"],
+        ["DOWN"],
+        ["TAB"],
+        ["SHIFT_TAB"]
       ],
       "voiceover":[
 
@@ -153,15 +158,59 @@
     },
     "interaction":{
       "jaws":[
-        ["TAB_AND_SHIFT_TAB"]
+        ["TAB"],
+        ["SHIFT_TAB"]
       ],
       "nvda":[
-        ["TAB_AND_SHIFT_TAB"]
+        ["TAB"],
+        ["SHIFT_TAB"]
       ],
       "voiceover":[
-        ["TAB_AND_SHIFT_TAB"],
-        ["CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"],
-        ["CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"]
+        ["TAB"],
+        ["SHIFT_TAB"],
+        ["CTRL_OPT_RIGHT"],
+        ["CTRL_OPT_LEFT"],
+        ["CTRL_OPT_CMD_J"],
+        ["SHIFT_CTRL_OPT_CMD_J"]
+      ]
+    }
+  },
+  "navigate out of checkbox group":{
+    "reading":{
+      "jaws":[
+        ["UP"],
+        ["DOWN"],
+        ["TAB"],
+        ["SHIFT_TAB"]
+      ],
+      "nvda":[
+        ["X"],
+        ["SHIFT_X"],
+        ["UP"],
+        ["DOWN"],
+        ["TAB"],
+        ["SHIFT_TAB"]
+      ],
+      "voiceover":[
+
+      ]
+    },
+    "interaction":{
+      "jaws":[
+        ["TAB"],
+        ["SHIFT_TAB"]
+      ],
+      "nvda":[
+        ["TAB"],
+        ["SHIFT_TAB"]
+      ],
+      "voiceover":[
+        ["TAB"],
+        ["SHIFT_TAB"],
+        ["CTRL_OPT_RIGHT"],
+        ["CTRL_OPT_LEFT"],
+        ["CTRL_OPT_CMD_J"],
+        ["SHIFT_CTRL_OPT_CMD_J"]
       ]
     }
   },

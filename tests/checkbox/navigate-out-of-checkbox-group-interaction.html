@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate out of a checkbox group in interaction mode.</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<link rel="help" href="https://w3c.github.io/aria/#group">
+<script type="module">
+    import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+    verifyATBehavior({
+        applies_to: ["Desktop Screen Readers"],
+        mode: "interaction",
+        task: "navigate out of checkbox group",
+        specific_user_instruction: "Navigate out of a checkbox group",
+        output_assertions: [
+            [3, "Role 'group' is conveyed"],
+            [3, "Group name 'Sandwich Condiments' is conveyed"],
+            [3, "Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed"]
+        ]
+    });
+
+    displayTestPageAndInstructions("reference/two-state-checkbox.html");
+
+</script>

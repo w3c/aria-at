@@ -267,7 +267,7 @@ Unexpected behaviors recorded:
   }
 
   if (SAVE) {
-    fse.writeFileSync(`revised-${resultsFile1.split('.')[0]}.json`, JSON.stringify(combinedResults), 'utf8');
+    fse.writeFileSync(`revised-${results1.assistiveTechnology.name}-${results1.assistiveTechnology.version}-${results1.browser.name}-${results1.browser.version}.json`, JSON.stringify(combinedResults), 'utf8');
   }
   if (HTML) {
     htmlDiff = `

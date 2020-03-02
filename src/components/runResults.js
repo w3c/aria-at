@@ -101,10 +101,18 @@ export default class RunResults extends Component {
     let { assistiveTechnology, browser, designPattern, results } = resultsData;
     let countTests = results.length;
 
+    let loadedFromFile = resultsData.fileName ? true : false;
     let fileName = resultsData.fileName
 	? `${resultsData.fileName}.json`
 	: `results_${assistiveTechnology.name}-${assistiveTechnology.version}_${browser.name}-${browser.version}_${new Date().toISOString()}.json`;
-
+    let dateOfRun = resultsData.dateOfRun ? new Date(resultsData.dateOfRun).toLocaleString() : undefined;
+    let testCase = resultsData.designPattern;
+    let testCaseTestPageMap = {
+      "checkbox": "/tests/checkbox/reference/two-state-checkbox.html",
+      "menubar-edit": "/tests/menubar-edit/reference/menubar-editor.html",
+      "combobox-autocomplete-both": "/tests/combobox-autocomplete-both/reference/combobox-autocomplete-both.html"
+    };
+    let testCaseLink = testCaseTestPageMap[testCase];
 
     // This array is for caculating percentage support
     // Accross all tests for priorities 1-3
@@ -124,28 +132,35 @@ export default class RunResults extends Component {
       }
     }
 
+    let atVersion = assistiveTechnology.version ? ` (${assistiveTechnology.version})` : '';
+    let browserVersion = browser.version ? ` (${browser.version})` : '';
 
     return (
       <Fragment>
         <Head>
           <title>ARIA-AT: Test Run Results</title>
         </Head>
+        <nav aria-label="Breadcrumb">
+          <a href="../../">ARIA-AT Home</a> &gt; <a href="../">Test Results</a>
+        </nav>
         <section>
           <h1>{`Results for test run of pattern "${designPattern}" (${countTests} test${countTests === 1 ? '' : 's'})`}</h1>
+          <p>CAUTION: The information on this page is preliminary and not for use outside the ARIA-AT project.</p>
           <p>
-            {`${assistiveTechnology.name} (${assistiveTechnology.version}) on ${browser.name} (${browser.version})`}
+            {`Results for ${assistiveTechnology.name}${atVersion} in ${browser.name}${browserVersion}`}
           </p>
-          { fileName &&
-            <p>
-              Loaded from result file: {fileName}
-            </p>
-          }
-	  <p>
-            <a
-              download={fileName}
-              href={`data:application/json;charset=utf-8;,${encodeURIComponent(JSON.stringify(resultsData))}`}>Download Results JSON
-            </a>
-	  </p>
+            <ul>
+              <li><a href={testCaseLink}>Test Case: {testCase}</a></li>
+              {dateOfRun && <li>Updated: {dateOfRun}</li>}
+              <li>
+                {loadedFromFile && `Loaded from result file: ${fileName}`}
+              </li>
+              <li>
+                <a download={fileName} href={`data:application/json;charset=utf-8;,${encodeURIComponent(JSON.stringify(resultsData))}`}>
+                  Download Results JSON
+                </a>
+              </li>
+            </ul>
           <h2>Summary of tests</h2>
           <table className="results-table">
             <thead>

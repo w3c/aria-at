@@ -21,6 +21,9 @@ export default function ResultsPage() {
       <Head>
         <title>ARIA-AT: All Test Results</title>
       </Head>
+      <nav aria-label="Breadcrumb">
+        <a href="../../">ARIA-AT Home</a>
+      </nav>
       <h1>Test Run Results</h1>
       <ul>
         {Object.keys(resultsByPattern).map((p) => <li>{renderPatternList(p)}</li>)}
@@ -44,13 +47,13 @@ function renderPatternList(p) {
 function renderResultLink(r) {
   let numberTests = r.results.length;
   let at = r.assistiveTechnology.name;
-  let atVersion = r.assistiveTechnology.version;
+  let atVersion = r.assistiveTechnology.version ? ` (${r.assistiveTechnology.version})` : '';
   let browser = r.browser.name;
-  let browserVersion = r.browser.version;
+  let browserVersion = r.browser.version ? ` (${r.browser.version})` : '';
 
   return (
     <Fragment>
-      <Link to={`/aria-at/results/test-run/${r.id}`}>{`${numberTests} tests of ${at} (${atVersion}) run on ${browser} (${browserVersion})`}</Link>
+      <Link to={`/aria-at/results/test-run/${r.id}`}>{`${numberTests} tests of ${at}${atVersion} run on ${browser}${browserVersion}`}</Link>
       <div className="results-details">file: {r.fileName}.json</div>
     </Fragment>
   );

@@ -82,7 +82,8 @@ export default class Runner extends Component {
         name: this.browser,
         version: this.browserVersion
       },
-      designPattern: this.designPattern
+      designPattern: this.designPattern,
+      dateOfRun: new Date().toISOString()
     };
     return (
       <RunResults

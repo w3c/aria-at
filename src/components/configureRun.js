@@ -124,21 +124,20 @@ export default class ConfigureRun extends Component {
     let id = `all-${designPattern}`;
 
     return (
-      <details className="design-pattern-options" key={designPattern}>
-	<summary className="configuration-item">
-          <input type="checkbox" id={id} name={id} checked={isChecked}
+      <Fragment>
+        <input type="checkbox" id={id} name={id} checked={isChecked}
             onChange={this.selectTest}
-          />
-          <label
-            htmlFor={id}
-          >
-            Tests for {designPattern}
-          </label>
-  	</summary>
-	<ul className="select-test-list">
-	  {testList.map((test) => this.renderTestSelectable(designPattern, test))}
-	</ul>
-      </details>
+        />
+        <label htmlFor={id}>Select all tests for {designPattern}</label>
+        <details className="design-pattern-options" key={designPattern}>
+          <summary className="configuration-item">
+              Select individual tests for {designPattern}
+          </summary>
+          <ul className="select-test-list">
+            {testList.map((test) => this.renderTestSelectable(designPattern, test))}
+          </ul>
+        </details>
+      </Fragment>
     );
   }
 
@@ -189,7 +188,7 @@ export default class ConfigureRun extends Component {
           <div className="configuration-item">
             <label htmlFor="select-at">Select which assistive technology you are testing: </label>
             <select name="at" id="select-at" value={this.state.at} onChange={this.selectAT}>
-  	    {ats.map((at) => ( <option value={at} key={at}>{at}</option> )) }
+              {ats.map((at) => ( <option value={at} key={at}>{at}</option> )) }
             </select>
           </div>
           <div className="configuration-item">

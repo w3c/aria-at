@@ -16,7 +16,7 @@ export default class RunResults extends Component {
         <td>{details.summary[1].pass} / {details.summary[1].fail}</td>
         <td>{details.summary[2].pass} / {details.summary[2].fail}</td>
         <td>{details.summary[3].pass} / {details.summary[3].fail}</td>
-        <td>{details.summary.unexpectedCount}</td>
+        <td>{details.unexpectedCount}</td>
       </tr>
     );
   }
@@ -125,7 +125,7 @@ export default class RunResults extends Component {
 
     for (let result of results) {
       let details = result.details;
-      totalUnexpecteds += details.summary.unexpectedCount;
+      totalUnexpecteds += parseInt(details.unexpectedCount);
       for (let i = 1; i <= 3; i++) {
         support[i][0] += details.summary[i].pass;
         support[i][1] += details.summary[i].pass + details.summary[i].fail;

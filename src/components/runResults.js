@@ -152,7 +152,7 @@ export default class RunResults extends Component {
             <ul>
               <li><a href={testCaseLink}>Test Case: {testCase}</a></li>
               {dateOfRun && <li>Updated: {dateOfRun}</li>}
-              {loadedFromFile && <li>`Loaded from result file: ${fileName}`</li>}
+              {loadedFromFile && <li>Loaded from result file: {fileName}</li>}
               <li>
                 <a download={fileName} href={`data:application/json;charset=utf-8;,${encodeURIComponent(JSON.stringify(resultsData))}`}>
                   Download Results JSON

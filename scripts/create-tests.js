@@ -42,7 +42,7 @@ const testDirectory = rootDirectory + args._[0];
 const testsFile = testDirectory + '\\data\\tests.csv';
 const atCommandsFile = testDirectory + '\\data\\at-commands.csv';
 const referencesFile = testDirectory + '\\data\\references.csv';
-const javascriptDir  = testDirectory + '\\data\\js\\';
+const javascriptDirectory = testDirectory + '\\data\\js\\';
 
 try {
   fse.statSync(testDirectory);
@@ -183,7 +183,7 @@ function createTestFile (test, refs, commands) {
       let script = '';
 
       try {
-          const data = fs.readFileSync(javascriptDir + test.setupScript + '.js', 'UTF-8');
+          const data = fs.readFileSync(javascriptDirectory + test.setupScript + '.js', 'UTF-8');
           const lines = data.split(/\r?\n/);
           lines.forEach((line) => {
             if (line.trim().length)

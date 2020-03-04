@@ -116,10 +116,7 @@ function createATCommandFile(cmds) {
       data[task][mode][at] = [];
     }
 
-    let item = [];
-    item.push(key);
-
-    data[task][mode][at].push(item);
+    data[task][mode][at].push([].push(key));
   }
 
   cmds.forEach(function(cmd) {

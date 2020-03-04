@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Read menu item checkbox in submenu in reading mode</title>
-<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
-<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
+<title>Read menu item checkbox in submenu in interaction mode</title>
+<link rel="author" title="Jon Gunderson" href="mailto:jongund@illinois.edu">
+<link rel="example" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#group">
 <link rel="help" href="https://w3c.github.io/aria/#aria-label">
 <link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
@@ -13,21 +14,20 @@
 
   verifyATBehavior({
     setup_script_description: "open 'Style/Color' menu item and move focus to the 'Bold' menu item radio option",
-    setupTestPage: function setupTestPage(document) {
+    setupTestPage: function setupTestPage(testPageDocument) {
       // open "Style/Color" menu item and move focus to the 'Bold' menu item checkbox option
       document.querySelectorAll('role=menuitem')[1].setAttribue('aria-expanded', 'true');
       document.querySelector('[data-option="bold"]').focus();
     },
-
     applies_to: ["Desktop Screen Readers"],
-    mode: "reading",
-    task: "read menuitemcheckbox in a submenu using reading mode",
+    mode: "interaction",
+    task: "read menuitemcheckbox in a submenu using interaction mode",
     specific_user_instruction: "Review the 'Bold' menu item in the 'Style/Color' submenu",
     output_assertions: [
       [1, "The role 'menu item checkbox' is conveyed"],
       [1, "The label 'Bold' is conveyed"],
       [1, "The unchecked state is conveyed"],
-      [2, " The position and size of the submenu is conveyed"]
+      [2, "The position and size of the submenu  is conveyed"]
     ]
   });
 

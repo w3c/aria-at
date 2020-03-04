@@ -78,7 +78,7 @@ catch (err) {
 
 // delete test files
 
-var deleteTestFiles = function(dirPath) {
+var deleteFilesFromDirectory = function(dirPath) {
   try { var files = fs.readdirSync(dirPath); }
   catch(e) { return; }
   if (files.length > 0) {
@@ -274,7 +274,7 @@ fs.createReadStream(referencesFile)
             console.log('Test CSV file successfully processed');
 
             console.log('Deleting current test files...')
-            deleteTestFiles(testDirectory);
+            deleteFilesFromDirectory(testDirectory);
 
             console.log('Creating AT commands file')
             createATCommandFile(atCommands);

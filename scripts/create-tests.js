@@ -158,7 +158,7 @@ function createTestFile (test, refs, commands) {
     }
   }
 
-  let fname = testDirectory + '\\' + test.task.replace('/ /g', '-') + '.html'
+  let fname = testDirectory + '\\' + test.task.replace(/\s+/g, '-').toLowerCase() + '.html'
 
   // get references (e.g. links)
   let references = ''
@@ -176,6 +176,7 @@ function createTestFile (test, refs, commands) {
     }
   });
 
+  // Add setup script if defined
   let setupTestPage = ''
 
   if (typeof test.setupScript === 'string') {
@@ -185,13 +186,8 @@ function createTestFile (test, refs, commands) {
       let script = '';
 
       try {
-          // read contents of the file
           const data = fs.readFileSync(javascriptDir + test.setupScript + '.js', 'UTF-8');
-
-          // split the contents by new line
           const lines = data.split(/\r?\n/);
-
-          // print all lines
           lines.forEach((line) => {
             if (line.trim().length)
             script += '      ' + line.trim() + '\n';
@@ -199,7 +195,6 @@ function createTestFile (test, refs, commands) {
       } catch (err) {
           console.error(err);
       }
-
 
       setupTestPage = `setupTestPage: function setupTestPage(testPageDocument) {
 ${script}    },`
@@ -247,6 +242,7 @@ ${assertions}
 `;
 
   fse.writeFileSync(fname, testHTML, 'utf8');
+  return fname;
 }
 
 
@@ -279,10 +275,21 @@ fs.createReadStream(referencesFile)
           })
           .on('end', () => {
             console.log('Test CSV file successfully processed');
+
+            console.log('Deleting current test files...')
             deleteTestFiles(testDirectory);
+
+            console.log('Creating AT commands file')
             createATCommandFile(atCommands);
+
+            console.log('Creating the following test files: ')
             tests.forEach(function(test) {
-              createTestFile(test, refs, atCommands);
+              try {
+                console.log(createTestFile(test, refs, atCommands));
+              }
+              catch (err) {
+                console.error(err);
+              }
             });
           });
       });

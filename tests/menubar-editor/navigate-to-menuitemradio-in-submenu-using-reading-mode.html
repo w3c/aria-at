@@ -11,8 +11,8 @@
     setup_script_description: "Open 'Font' menu item and move focus to the 'Font' menu item",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Open "Font" menu item and move focus to the "Font" menu item
-      document.querySelector('role=menuitem').setAttribue('aria-expanded', 'true');
-      document.querySelector('role=menuitem').focus();
+      document.querySelector('[role=menuitem]').setAttribue('aria-expanded', 'true');
+      document.querySelector('[role=menuitem]').focus();
     },
     applies_to: ["JAWS","NVDA"],
     mode: "reading",

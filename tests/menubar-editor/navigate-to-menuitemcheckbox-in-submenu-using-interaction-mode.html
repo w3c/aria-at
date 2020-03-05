@@ -11,7 +11,7 @@
     setup_script_description: "Move focus to the 'Style/Color' menu item",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the "Style/Color" menu item
-      document.querySelectorAll('role=menuitem')[1].focus();
+      document.querySelectorAll('[role=menuitem]')[1].focus();
     },
     applies_to: ["JAWS","NVDA"],
     mode: "interaction",

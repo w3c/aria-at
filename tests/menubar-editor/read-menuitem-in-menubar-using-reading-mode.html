@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Read menu item in menubar in interaction mode</title>
+<title>Read menu item in menubar in reading mode</title>
 <link rel="author" title="Jon Gunderson" href="mailto:jongund@illinois.edu">
 
 <script type="module">
@@ -13,9 +13,9 @@
       // Move focus to the "Size" menu item
       document.querySelector('role=menuitem')[3].focus();
     },
-    applies_to: ["["JAWS","NVDA"]"],
-    mode: "interaction",
-    task: "read menu item in menubar using interaction mode",
+    applies_to: ["JAWS","NVDA"],
+    mode: "reading",
+    task: "read menuitem in menubar using reading mode",
     specific_user_instruction: "Review the  'Size' menu item in the menubar",
     output_assertions: [
       [1, "The role 'menu item' is conveyed"],

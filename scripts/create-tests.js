@@ -10,7 +10,8 @@ const fs = require('fs');
 
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
-    h: 'help'
+    h: 'help',
+    i: 'initialize'  // future feature
   },
 });
 
@@ -34,6 +35,9 @@ if (args._.length !== 1) {
   console.log("Command expects a directory name, please supply.");
   process.exit();
 }
+
+const validModes = ['reading', 'interaction'];
+const validAppliesTo = ['JAWS', 'NVDA', 'VoiceOver', 'Orca'];
 
 const scriptDirectory = path.dirname(__filename);
 const rootDirectory = scriptDirectory.split('scripts')[0];
@@ -132,11 +136,43 @@ function createATCommandFile(cmds) {
 
   fs.writeFileSync(fname, JSON.stringify(data));
 
+  return data;
+
 };
 
 // Create Test File
 
 function createTestFile (test, refs, commands) {
+
+
+  function getModeValue(value) {
+    if (!validModes.includes(value)) {
+        addTestError(test.testId, '"' + value + '" is not valid value for "mode" property.')
+    }
+    return value;
+  }
+
+  function validTaskReference(ref) {
+    if (typeof commands[ref] !== 'object') {
+      addTestError(test.testId, '"' + ref + '" does not exist in commands.csv file.')
+    }
+  }
+
+  function getAppliesToValues(values) {
+    let items = values.split(' ');
+    let str = '[';
+    items.forEach(function (item) {
+      if (!validAppliesTo.includes(item)) {
+        addTestError(test.testId, '"' + item + '" is not valid value for "appliesTo" property.')
+      }
+      str += '"' + item + '"';
+      if (items[items.length-1] !== item) {
+        str += ",";
+      }
+    });
+    str += ']';
+    return str;
+  }
 
   function addAssertion(a) {
     let level = '1';
@@ -155,35 +191,36 @@ function createTestFile (test, refs, commands) {
     }
   }
 
-  let fname = testDirectory + '\\' + test.task.replace(/\s+/g, '-').toLowerCase() + '.html'
+  function addReferences () {
+    if (typeof refs.example === 'string' && refs.example.length) {
+      references += `<link rel="example" href="${refs.example}">\n`;
+    }
 
-  // get references (e.g. links)
-  let references = ''
+    let items = test.refs.split(' ');
+    items.forEach(function(item) {
+      item = item.trim();
 
-  if (typeof refs.example === 'string' && refs.example.length) {
-    references += `<link rel="example" href="${refs.example}">\n`;
+      if (item.length) {
+        references += `<link rel="help" href="${refs[item]}">\n`;
+      }
+    });
   }
 
-  let items = test.refs.split(' ');
-  items.forEach(function(item) {
-    item = item.trim();
+  function getSetupScript (fname) {
 
-    if (item.length) {
-      references += `<link rel="help" href="${refs[item]}">\n`;
-    }
-  });
-
-  // Add setup script if defined
-  let setupTestPage = ''
-
-  if (typeof test.setupScript === 'string') {
-    test.setupScript = test.setupScript.trim();
-
-    if (test.setupScript.length) {
-      let script = '';
+    let script = '';
+    if (fname.length) {
 
       try {
-          const data = fs.readFileSync(javascriptDirectory + test.setupScript + '.js', 'UTF-8');
+        fse.statSync(fname);
+      }
+      catch (err) {
+        addTestError(test.testId, "Setup script does not exist: " + fname);
+        return '';
+      }
+
+      try {
+          const data = fs.readFileSync(fname, 'UTF-8');
           const lines = data.split(/\r?\n/);
           lines.forEach((line) => {
             if (line.trim().length)
@@ -193,14 +230,32 @@ function createTestFile (test, refs, commands) {
           console.error(err);
       }
 
-      setupTestPage = `setupTestPage: function setupTestPage(testPageDocument) {
+      script = `setupTestPage: function setupTestPage(testPageDocument) {
 ${script}    },`
     }
 
+    return script;
   }
 
-  // Get assertions
-  let assertions = ''
+
+  let references = '';
+  let assertions = '';
+  let setupFileName = '';
+  let testFileName = testDirectory + '\\' + test.task.replace(/\s+/g, '-').toLowerCase() + '.html';
+
+  if (typeof test.setupScript === 'string') {
+    let setupScript = test.setupScript.trim();
+    if (setupScript.length) {
+      setupFileName = javascriptDirectory + test.setupScript + '.js';
+    }
+  }
+
+  validTaskReference(test.task);
+
+  let mode = getModeValue(test.mode);
+  let appliesTo = getAppliesToValues(test.appliesTo);
+  let setupScript = getSetupScript(setupFileName);
+
   addAssertion(test.assertion1);
   addAssertion(test.assertion2);
   addAssertion(test.assertion3);
@@ -223,9 +278,9 @@ ${references}
 
   verifyATBehavior({
     setup_script_description: "${test.setupScriptDescription}",
-    ${setupTestPage}
-    applies_to: ["${test.appliesTo}"],
-    mode: "${test.mode}",
+    ${setupScript}
+    applies_to: ["${appliesTo}"],
+    mode: "${mode}",
     task: "${test.task}",
     specific_user_instruction: "${test.instructions}",
     output_assertions: [
@@ -238,8 +293,8 @@ ${assertions}
 </script>
 `;
 
-  fse.writeFileSync(fname, testHTML, 'utf8');
-  return fname;
+  fse.writeFileSync(testFileName, testHTML, 'utf8');
+  return testFileName;
 }
 
 
@@ -248,6 +303,13 @@ ${assertions}
 var refs = {};
 var atCommands = [];
 var tests = [];
+var errorCount = 0;
+var errors = '';
+
+function addTestError(id, error) {
+  errorCount += 1;
+  errors += '[Test ' + id + ']: ' + error + '\n';
+}
 
 fs.createReadStream(referencesFile)
   .pipe(csv())
@@ -277,19 +339,27 @@ fs.createReadStream(referencesFile)
             deleteFilesFromDirectory(testDirectory);
 
             console.log('Creating AT commands file')
-            createATCommandFile(atCommands);
+            atCommands = createATCommandFile(atCommands);
 
             console.log('Creating the following test files: ')
             tests.forEach(function(test) {
               try {
-                console.log(createTestFile(test, refs, atCommands));
+                console.log('[Test ' + test.testId + ']: ' + createTestFile(test, refs, atCommands));
               }
               catch (err) {
                 console.error(err);
               }
             });
+
+
+            if (errorCount) {
+              console.log('\n\n*** ' + errorCount + ' Errors in tests ***');
+              console.log(errors);
+            }
+            else {
+              console.log('No validation errors detected');
+            }
           });
       });
   });
-
 

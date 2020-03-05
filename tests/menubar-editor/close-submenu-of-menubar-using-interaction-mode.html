@@ -3,9 +3,6 @@
 <meta charset="utf-8">
 <title>Close submenu in interaction mode</title>
 <link rel="author" title="Jon Gunderson" href="mailto:jongund@illinois.edu">
-<link rel="example" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
-<link rel="help" href="https://w3c.github.io/aria/#menuitem">
-<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
@@ -17,7 +14,7 @@
       document.querySelectorAll('role=menuitem')[2].setAttribue('aria-expanded', 'true');
       document.querySelector('[data-option="text-align"]').firstElementChild.focus();
     },
-    applies_to: ["Desktop Screen Readers"],
+    applies_to: ["["JAWS","NVDA"]"],
     mode: "interaction",
     task: "close submenu of menubar using interaction mode",
     specific_user_instruction: "Closes 'Text Align' submenu and moves focus to 'Text Align' menu item",

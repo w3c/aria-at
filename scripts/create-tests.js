@@ -316,7 +316,7 @@ function createIndexFile(urls) {
 
   let links = '';
 
-  urls.forEach( url => links += `<li><a href="localhost:3000\\${testDirectoryRelative}\\${url.href}" target="_testfile">${url.title}</a></li>\n`)
+  urls.forEach( url => links += `<li><a href="${url.href}">${url.title}</a></li>\n`)
 
   let indexHTML = `
 <!DOCTYPE html>

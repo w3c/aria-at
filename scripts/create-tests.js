@@ -6,6 +6,7 @@ const util = require('util');
 const csv = require('csv-parser');
 const readline = require('readline');
 const fs = require('fs');
+const beautify = require("json-beautify");
 
 
 const args = require('minimist')(process.argv.slice(2), {
@@ -42,11 +43,13 @@ const validAppliesTo = ['JAWS', 'NVDA', 'VoiceOver', 'Orca'];
 const scriptDirectory = path.dirname(__filename);
 const rootDirectory = scriptDirectory.split('scripts')[0];
 const testDirectory = rootDirectory + args._[0];
+const testDirectoryRelative = args._[0];
 
 const testsFile = testDirectory + '\\data\\tests.csv';
-const atCommandsFile = testDirectory + '\\data\\at-commands.csv';
+const atCommandsFile = testDirectory + '\\data\\commands.csv';
 const referencesFile = testDirectory + '\\data\\references.csv';
 const javascriptDirectory = testDirectory + '\\data\\js\\';
+const indexFile = testDirectory + '\\index.html';
 
 try {
   fse.statSync(testDirectory);
@@ -120,7 +123,15 @@ function createATCommandFile(cmds) {
       data[task][mode][at] = [];
     }
 
-    data[task][mode][at].push([].push(key));
+    let items = key.split('(');
+
+    items[0] = items[0].trim();
+
+    if (items.length === 2) {
+      items[1] = '(' + items[1].trim();
+    }
+
+    data[task][mode][at].push(items);
   }
 
   cmds.forEach(function(cmd) {
@@ -134,7 +145,8 @@ function createATCommandFile(cmds) {
 
   });
 
-  fs.writeFileSync(fname, JSON.stringify(data));
+//  fs.writeFileSync(fname, JSON.stringify(data));
+  fs.writeFileSync(fname, beautify(data, null, 2, 40));
 
   return data;
 
@@ -167,7 +179,7 @@ function createTestFile (test, refs, commands) {
       }
       str += '"' + item + '"';
       if (items[items.length-1] !== item) {
-        str += ",";
+        str += ',';
       }
     });
     str += ']';
@@ -241,7 +253,8 @@ ${script}    },`
   let references = '';
   let assertions = '';
   let setupFileName = '';
-  let testFileName = testDirectory + '\\' + test.task.replace(/\s+/g, '-').toLowerCase() + '.html';
+  let testFileName = test.task.replace(/\s+/g, '-').toLowerCase() + '.html';
+  let testFileAbsolute = testDirectory + '\\' + testFileName;
 
   if (typeof test.setupScript === 'string') {
     let setupScript = test.setupScript.trim();
@@ -279,7 +292,7 @@ ${references}
   verifyATBehavior({
     setup_script_description: "${test.setupScriptDescription}",
     ${setupScript}
-    applies_to: ["${appliesTo}"],
+    applies_to: ${appliesTo},
     mode: "${mode}",
     task: "${test.task}",
     specific_user_instruction: "${test.instructions}",
@@ -293,10 +306,36 @@ ${assertions}
 </script>
 `;
 
-  fse.writeFileSync(testFileName, testHTML, 'utf8');
+  fse.writeFileSync(testFileAbsolute, testHTML, 'utf8');
   return testFileName;
 }
 
+// Create an index file for a local server
+
+function createIndexFile(urls) {
+
+  let links = '';
+
+  urls.forEach( url => links += `<li><a href="localhost:3000\\${testDirectoryRelative}\\${url.href}" target="_testfile">${url.title}</a></li>\n`)
+
+  let indexHTML = `
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Index of Test Files for local Server</title>
+</head>
+<body>
+  <h1>Index of Test Files</h1>
+  <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
+  test runner is being executed, using <code>npm run start</code> from the root director: <code>${rootDirectory}</code>.</p>
+  <ul>
+  ${links}
+  </ul>
+</body>
+`;
+
+   fse.writeFileSync(indexFile, indexHTML, 'utf8');
+}
 
 // Process CSV files
 
@@ -305,6 +344,7 @@ var atCommands = [];
 var tests = [];
 var errorCount = 0;
 var errors = '';
+var indexOfURLs = [];
 
 function addTestError(id, error) {
   errorCount += 1;
@@ -344,13 +384,16 @@ fs.createReadStream(referencesFile)
             console.log('Creating the following test files: ')
             tests.forEach(function(test) {
               try {
-                console.log('[Test ' + test.testId + ']: ' + createTestFile(test, refs, atCommands));
+                let url = createTestFile(test, refs, atCommands);
+                indexOfURLs.push({ title: test.title, href: url});
+                console.log('[Test ' + test.testId + ']: ' + url);
               }
               catch (err) {
                 console.error(err);
               }
             });
 
+            createIndexFile(indexOfURLs);
 
             if (errorCount) {
               console.log('\n\n*** ' + errorCount + ' Errors in tests ***');

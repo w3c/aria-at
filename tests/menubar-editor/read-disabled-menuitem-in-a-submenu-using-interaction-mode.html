@@ -3,11 +3,6 @@
 <meta charset="utf-8">
 <title>Read disabled menu item in submenu in interaction mode</title>
 <link rel="author" title="Jon Gunderson" href="mailto:jongund@illinois.edu">
-<link rel="example" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
-<link rel="help" href="https://w3c.github.io/aria/#group">
-<link rel="help" href="https://w3c.github.io/aria/#aria-label">
-<link rel="help" href="https://w3c.github.io/aria/#menuitem">
-<link rel="help" href="https://w3c.github.io/aria/#aria-disabled">
 
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
@@ -20,7 +15,7 @@
       document.querySelector('[data-option="font-larger"]').setAttribute('aria-disabled', 'true');
       document.querySelector('[data-option="font-larger"]').focus();
     },
-    applies_to: ["Desktop Screen Readers"],
+    applies_to: ["["JAWS","NVDA"]"],
     mode: "interaction",
     task: "read disabled menuitem in a submenu using interaction mode",
     specific_user_instruction: "Review the 'Larger' menu item in the 'Size' submenu",

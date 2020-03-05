@@ -3,11 +3,6 @@
 <meta charset="utf-8">
 <title>Read menu item radio button in submenu in reading mode</title>
 <link rel="author" title="Jon Gunderson" href="mailto:jongund@illinois.edu">
-<link rel="example" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
-<link rel="help" href="https://w3c.github.io/aria/#group">
-<link rel="help" href="https://w3c.github.io/aria/#aria-label">
-<link rel="help" href="https://w3c.github.io/aria/#menuitemradio">
-<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
@@ -19,7 +14,7 @@
       document.querySelectorAll('role=menuitem')[1].setAttribue('aria-expanded', 'true');
       document.querySelector('[data-option="font-color"]').firstElementChild.focus();
     },
-    applies_to: ["Desktop Screen Readers"],
+    applies_to: ["["JAWS","NVDA"]"],
     mode: "reading",
     task: "read menuitemradio in a group in submenu using reading mode",
     specific_user_instruction: "Review the  'Black' menu item radio in the 'Style/Color' submenu",

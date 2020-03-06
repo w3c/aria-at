@@ -45,6 +45,8 @@ const rootDirectory = scriptDirectory.split('scripts')[0];
 const testDirectory = path.join(rootDirectory, args._[0]);
 const testDirectoryRelative = args._[0];
 
+const keysFile = path.join(rootDirectory, 'tests', 'resources', 'keys.mjs');
+
 const testsFile = path.join(testDirectory, 'data', 'tests.csv');
 const atCommandsFile = path.join(testDirectory, 'data', 'commands.csv');
 const referencesFile = path.join(testDirectory, 'data', 'references.csv');
@@ -82,6 +84,10 @@ catch (err) {
   console.log("The references.csv file does not exist. Please create '" + referencesFile + "' file.");
   process.exit();
 }
+
+// get Keys that are defined
+
+let keys = fs.readFileSync(keysFile);
 
 // delete test files
 

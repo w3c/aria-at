@@ -188,7 +188,9 @@ function createTestFile (test, refs, commands) {
       return false;
     }
 
-    let items = values.split(' ');
+    // check for individual assistive technologies
+
+    let items = values.split(',');
     let str = '[';
     items.forEach(function (item) {
       let value = checkValue(item);

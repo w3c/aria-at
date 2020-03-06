@@ -38,7 +38,7 @@ if (args._.length !== 1) {
 }
 
 const validModes = ['reading', 'interaction'];
-const validAppliesTo = ['JAWS', 'NVDA', 'VoiceOver', 'Orca'];
+const validAppliesTo = ['Screen Readers', 'JAWS', 'NVDA', 'VoiceOver', 'Orca'];
 
 const scriptDirectory = path.dirname(__filename);
 const rootDirectory = scriptDirectory.split('scripts')[0];
@@ -158,14 +158,15 @@ function createTestFile (test, refs, commands) {
 
 
   function getModeValue(value) {
-    if (!validModes.includes(value)) {
+    let v = value.trim().toLowerCase();
+    if (!validModes.includes(v)) {
         addTestError(test.testId, '"' + value + '" is not valid value for "mode" property.')
     }
-    return value;
+    return v;
   }
 
   function getTask(t) {
-    let task = t.trim();
+    let task = t.trim().toLowerCase();
 
     if (typeof commands[task] !== 'object') {
       addTestError(test.testId, '"' + task + '" does not exist in commands.csv file.')
@@ -175,13 +176,26 @@ function createTestFile (test, refs, commands) {
   }
 
   function getAppliesToValues(values) {
+
+    function checkValue(value) {
+      let v1 = value.trim().toLowerCase();
+      for (let i=0; i < validAppliesTo.length; i++) {
+        let v2 = validAppliesTo[i];
+        if (v1 === v2.toLowerCase()) {
+          return v2;
+        }
+      };
+      return false;
+    }
+
     let items = values.split(' ');
     let str = '[';
     items.forEach(function (item) {
-      if (!validAppliesTo.includes(item)) {
+      let value = checkValue(item);
+      if (!value) {
         addTestError(test.testId, '"' + item + '" is not valid value for "appliesTo" property.')
       }
-      str += '"' + item + '"';
+      str += '"' + value + '"';
       if (items[items.length-1] !== item) {
         str += ',';
       }
@@ -267,7 +281,7 @@ ${script}    },`
     if (typeof desc === 'string') {
       let d = desc.trim();
       if (d.length) {
-        str = `\n    setup_script_description: "${d}",,\n    `;
+        str = `\n    setup_script_description: "${d}",\n    `;
       }
     }
 
@@ -286,10 +300,10 @@ ${script}    },`
     }
   }
 
-  let task = getTask(test.task);
-  let references = getReferences(refs.example, test.refs);
-  let mode = getModeValue(test.mode);
-  let appliesTo = getAppliesToValues(test.appliesTo);
+  let task        = getTask(test.task);
+  let references  = getReferences(refs.example, test.refs);
+  let mode        = getModeValue(test.mode);
+  let appliesTo   = getAppliesToValues(test.appliesTo);
   let setupScript = getSetupScript(setupFileName);
   let setupScriptDescription = getSetupScriptDescription(test.setupScriptDescription);
 

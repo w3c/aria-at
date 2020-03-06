@@ -11,7 +11,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "open 'Text Align' menu item and move focus to the 'Left' menu item checkbox option",,
+    setup_script_description: "open 'Text Align' menu item and move focus to the 'Left' menu item checkbox option",
     setupTestPage: function setupTestPage(testPageDocument) {
       // open "Text Align" menu item and move focus to the 'Left' menu item checkbox option
       document.querySelectorAll('[role=menuitem]')[2].setAttribute('aria-expanded', 'true');

@@ -13,7 +13,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "open 'Style/Color' menu item and move focue to the 'Black' menu item radio option",,
+    setup_script_description: "open 'Style/Color' menu item and move focue to the 'Black' menu item radio option",
     setupTestPage: function setupTestPage(testPageDocument) {
       // open "Style/Color" menu item and move focue to the 'Black' menu item radio option
       document.querySelectorAll('[role=menuitem]')[1].setAttribute('aria-expanded', 'true');

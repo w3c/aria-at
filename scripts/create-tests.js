@@ -164,10 +164,14 @@ function createTestFile (test, refs, commands) {
     return value;
   }
 
-  function validTaskReference(ref) {
-    if (typeof commands[ref] !== 'object') {
-      addTestError(test.testId, '"' + ref + '" does not exist in commands.csv file.')
+  function getTask(t) {
+    let task = t.trim();
+
+    if (typeof commands[task] !== 'object') {
+      addTestError(test.testId, '"' + task + '" does not exist in commands.csv file.')
     }
+
+    return task;
   }
 
   function getAppliesToValues(values) {
@@ -203,9 +207,11 @@ function createTestFile (test, refs, commands) {
     }
   }
 
-  function addReferences () {
-    if (typeof refs.example === 'string' && refs.example.length) {
-      references += `<link rel="example" href="${refs.example}">\n`;
+  function getReferences (example, testRefs) {
+    let links = '';
+
+    if (typeof example === 'string' && example.length) {
+      links += `<link rel="help" href="${refs.example}">\n`;
     }
 
     let items = test.refs.split(' ');
@@ -213,9 +219,16 @@ function createTestFile (test, refs, commands) {
       item = item.trim();
 
       if (item.length) {
-        references += `<link rel="help" href="${refs[item]}">\n`;
+        if (typeof refs[item] === 'string') {
+          links += `<link rel="help" href="${refs[item]}">\n`;
+        }
+        else {
+          addTestError(test.testId, "Reference does not exist: " + item);
+        }
       }
     });
+
+    return links;
   }
 
   function getSetupScript (fname) {
@@ -249,11 +262,21 @@ ${script}    },`
     return script;
   }
 
+  function getSetupScriptDescription(desc) {
+    let str = '';
+    if (typeof desc === 'string') {
+      let d = desc.trim();
+      if (d.length) {
+        str = `\n    setup_script_description: "${d}",,\n    `;
+      }
+    }
 
-  let references = '';
+    return str;
+  }
+
   let assertions = '';
   let setupFileName = '';
-  let testFileName = test.task.replace(/\s+/g, '-').toLowerCase() + '.html';
+  let testFileName = test.task.replace(/\s+/g, '-').toLowerCase() + '-' + test.mode + '.html';
   let testFileAbsolute = path.join(testDirectory, testFileName);
 
   if (typeof test.setupScript === 'string') {
@@ -263,11 +286,12 @@ ${script}    },`
     }
   }
 
-  validTaskReference(test.task);
-
+  let task = getTask(test.task);
+  let references = getReferences(refs.example, test.refs);
   let mode = getModeValue(test.mode);
   let appliesTo = getAppliesToValues(test.appliesTo);
   let setupScript = getSetupScript(setupFileName);
+  let setupScriptDescription = getSetupScriptDescription(test.setupScriptDescription);
 
   addAssertion(test.assertion1);
   addAssertion(test.assertion2);
@@ -289,12 +313,10 @@ ${references}
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "${test.setupScriptDescription}",
-    ${setupScript}
+  verifyATBehavior({${setupScriptDescription}${setupScript}
     applies_to: ${appliesTo},
     mode: "${mode}",
-    task: "${test.task}",
+    task: "${task}",
     specific_user_instruction: "${test.instructions}",
     output_assertions: [
 ${assertions}

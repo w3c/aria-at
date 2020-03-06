@@ -1,21 +1,24 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Navigate to menu item radio in submenu using interaction mode</title>
+<title>Navigate to menu item radio in submenu using reading mode</title>
 <link rel="author" title="Jon Gunderson" href="mailto:jongund@illinois.edu">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
+<link rel="help" href="https://w3c.github.io/aria/#menuitemradio">
 
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "Move focus to the 'Font' menu item",
+    setup_script_description: "Open 'Font' menu item and move focus to the 'Font' menu item",,
     setupTestPage: function setupTestPage(testPageDocument) {
-      // Move focus to the "Font" menu item
+      // Open "Font" menu item and move focus to the "Font" menu item
+      document.querySelector('[role=menuitem]').setAttribute('aria-expanded', 'true');
       document.querySelector('[role=menuitem]').focus();
     },
     applies_to: ["JAWS","NVDA"],
-    mode: "interaction",
-    task: "navigate to menuitemradio in submenu using interaction mode",
+    mode: "reading",
+    task: "navigate to menuitemradio in submenu",
     specific_user_instruction: "navigate to 'Sans-serif' menu item in the 'Font' submenu",
     output_assertions: [
       [1, "The role 'menu item radio' is conveyed"],

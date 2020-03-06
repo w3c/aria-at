@@ -42,14 +42,14 @@ const validAppliesTo = ['JAWS', 'NVDA', 'VoiceOver', 'Orca'];
 
 const scriptDirectory = path.dirname(__filename);
 const rootDirectory = scriptDirectory.split('scripts')[0];
-const testDirectory = rootDirectory + args._[0];
+const testDirectory = path.join(rootDirectory, args._[0]);
 const testDirectoryRelative = args._[0];
 
-const testsFile = testDirectory + '\\data\\tests.csv';
-const atCommandsFile = testDirectory + '\\data\\commands.csv';
-const referencesFile = testDirectory + '\\data\\references.csv';
-const javascriptDirectory = testDirectory + '\\data\\js\\';
-const indexFile = testDirectory + '\\index.html';
+const testsFile = path.join(testDirectory, 'data', 'tests.csv');
+const atCommandsFile = path.join(testDirectory, 'data', 'commands.csv');
+const referencesFile = path.join(testDirectory, 'data', 'references.csv');
+const javascriptDirectory = path.join(testDirectory, 'data', 'js');
+const indexFile = path.join(testDirectory,'index.html');
 
 try {
   fse.statSync(testDirectory);
@@ -102,7 +102,7 @@ var deleteFilesFromDirectory = function(dirPath) {
 
 function createATCommandFile(cmds) {
 
-  const fname = testDirectory + '\\commands.json';
+  const fname = path.join(testDirectory, 'commands.json');
   let data = {};
 
   function addCommand(task, mode, at, key) {
@@ -254,12 +254,12 @@ ${script}    },`
   let assertions = '';
   let setupFileName = '';
   let testFileName = test.task.replace(/\s+/g, '-').toLowerCase() + '.html';
-  let testFileAbsolute = testDirectory + '\\' + testFileName;
+  let testFileAbsolute = path.join(testDirectory, testFileName);
 
   if (typeof test.setupScript === 'string') {
     let setupScript = test.setupScript.trim();
     if (setupScript.length) {
-      setupFileName = javascriptDirectory + test.setupScript + '.js';
+      setupFileName = path.join(javascriptDirectory, test.setupScript + '.js');
     }
   }
 

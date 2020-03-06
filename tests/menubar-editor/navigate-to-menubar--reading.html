@@ -1,24 +1,28 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Navigation to menubar switches mode from reading to interaction mode</title>
+<title>Navigation to menubar using reading mode</title>
 <link rel="author" title="Jon Gunderson" href="mailto:jongund@illinois.edu">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
+<link rel="help" href="https://w3c.github.io/aria/#menubar">
 
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "Move focus to the link just before the meunbar",
+    setup_script_description: "Move focus to the link just before the meunbar",,
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the link just before the meunbar
       document.querySelector('a').focus();
     },
     applies_to: ["JAWS","NVDA"],
     mode: "reading",
-    task: "tab to menubar in reading mode",
+    task: "navigate to menubar",
     specific_user_instruction: "navigate to the 'Text Formatting' menubar",
     output_assertions: [
-      [1, "Screen reader switching to interaction mode is conveyed"]
+      [1, "The role 'menubar' is conveyed"],
+      [1, "The menubar label 'Text Formatting' is conveyed"],
+      [1, "Number of items in menubar is conveyed"]
     ]
   });
 

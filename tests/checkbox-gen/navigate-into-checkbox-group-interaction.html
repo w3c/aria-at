@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate into a checkbox group in interaction mode.</title>
+<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<link rel="help" href="https://w3c.github.io/aria/#group">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    applies_to: ["JAWS","NVDA"],
+    mode: "interaction",
+    task: "navigate into checkbox group",
+    specific_user_instruction: "Navigate into a checkbox group",
+    output_assertions: [
+      [1, "Role 'group' is conveyed"],
+      [1, "Group name 'Sandwich Condiments' is conveyed"],
+      [1, "Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/two-state-checkbox.html");
+
+</script>

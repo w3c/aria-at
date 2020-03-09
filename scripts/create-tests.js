@@ -53,6 +53,8 @@ const referencesFile = path.join(testDirectory, 'data', 'references.csv');
 const javascriptDirectory = path.join(testDirectory, 'data', 'js');
 const indexFile = path.join(testDirectory,'index.html');
 
+const keyDefs = {};
+
 try {
   fse.statSync(testDirectory);
 }
@@ -87,7 +89,27 @@ catch (err) {
 
 // get Keys that are defined
 
-let keys = fs.readFileSync(keysFile);
+try {
+    // read contents of the file
+    const keys = fs.readFileSync(keysFile, 'UTF-8');
+
+    // split the contents by new line
+    const lines = keys.split(/\r?\n/);
+
+    // print all lines
+    lines.forEach((line) => {
+      let parts1 = line.split(' ');
+      let parts2 = line.split('"');
+
+      if (parts1.length > 3) {
+        let code = parts1[2].trim();
+        keyDefs[code] = parts2[1].trim();
+      }
+
+    });
+} catch (err) {
+    console.error(err);
+}
 
 // delete test files
 
@@ -132,6 +154,10 @@ function createATCommandFile(cmds) {
     let items = key.split('(');
 
     items[0] = items[0].trim();
+
+    if (typeof keyDefs[items[0]] !== 'string') {
+      addCommandError(task, items[0]);
+    }
 
     if (items.length === 2) {
       items[1] = '(' + items[1].trim();
@@ -395,6 +421,11 @@ function addTestError(id, error) {
   errors += '[Test ' + id + ']: ' + error + '\n';
 }
 
+function addCommandError(task, key) {
+  errorCount += 1;
+  errors += '[Command]: The key reference "' + key + '" is invalid for the "' + task + '" task.\n';
+}
+
 fs.createReadStream(referencesFile)
   .pipe(csv())
   .on('data', (row) => {
@@ -440,7 +471,7 @@ fs.createReadStream(referencesFile)
             createIndexFile(indexOfURLs);
 
             if (errorCount) {
-              console.log('\n\n*** ' + errorCount + ' Errors in tests ***');
+              console.log('\n\n*** ' + errorCount + ' Errors in tests and/or commands ***');
               console.log(errors);
             }
             else {

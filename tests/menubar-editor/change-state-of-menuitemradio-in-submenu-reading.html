@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Change state of menu item radio to checked</title>
+<link rel="author" title="Jon Gunderson" href="mailto:jongund@illinois.edu">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
+<link rel="help" href="https://w3c.github.io/aria/#menuitemradio">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    setup_script_description: "open 'Style/Color' menu item and move focus to the 'Blue' menu item radio option",
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // open "Style/Color" menu item and move focus to the 'Blue' menu item radio option
+      document.querySelectorAll('[role=menuitem]')[1].setAttribute('aria-expanded', 'true');
+      document.querySelector('[data-option="font-color"]').firstElementChild.nextElementSibling.focus();
+    },
+    applies_to: ["JAWS","NVDA"],
+    mode: "reading",
+    task: "change state of menuitemradio in submenu",
+    specific_user_instruction: "check the 'Blue' menu item in the 'Style/Color'sub menu",
+    output_assertions: [
+      [1, "The checked state of the checkbox is conveyed"],
+      [1, "Screen reader switching to interaction mode is conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/menubar-editor.html");
+
+</script>

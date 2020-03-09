@@ -135,6 +135,11 @@ function createATCommandFile(cmds) {
 
   function addCommand(task, mode, at, key) {
 
+    task = task.trim().toLowerCase();
+    mode = mode.trim().toLowerCase();
+    at = at.trim().toLowerCase();
+
+
     if (typeof key !== 'string' || key.length === 0) {
       return;
     }

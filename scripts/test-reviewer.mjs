@@ -42,7 +42,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 
     const tests = [];
     fse.readdirSync(subDirFullPath).forEach(function (test) {
-      if (path.extname(test) === '.html') {
+      if (path.extname(test) === '.html' && path.basename(test) !== 'index.html') {
 
 	const testFile = path.join(testDir, subDir, test);
 	const root = np.parse(fse.readFileSync(testFile, 'utf8'), {script: true});

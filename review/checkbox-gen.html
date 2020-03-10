@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <title>Test plan review for pattern: checkbox-gen</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 1em;
+      }
+
+      table, td, th {
+        border: 1px solid black;
+      }
+
+      td {
+        padding: .5em;
+      }
+
+    </style>
+    <script>
+      const filterATs = function(button) {
+        const val = button.value;
+
+        if (val === 'all') {
+          for (let at of document.querySelectorAll('input')) {
+            if (at.value !== 'all') {
+              for (let result of document.querySelectorAll(`.${at.value}`)) {
+                result.style.display = 'block';
+              }
+              at.checked = false;
+            }
+            else {
+              at.checked = true;
+            }
+          }
+        }
+        else {
+          for (let at of document.querySelectorAll('input')) {
+
+            if (at.value === val) {
+              at.checked = true;
+            }
+            else {
+              at.checked = false;
+            }
+
+            for (let result of document.querySelectorAll(`.${at.value}`)) {
+              result.style.display = 'none';
+            }
+            for (let result of document.querySelectorAll(`.${val}`)) {
+              result.style.display = 'block';
+            }
+
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+
+    <h1>Test plan review for pattern: checkbox-gen (1 tests)</h1>
+
+    <fieldset>
+      <legend>Filter tests by assistive technology</legend>
+      <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
+        <input type="radio" onclick="filterATs(this)" id="JAWS" value="JAWS"><label for="JAWS">JAWS</label>
+        <input type="radio" onclick="filterATs(this)" id="VoiceOver" value="VoiceOver"><label for="VoiceOver">VoiceOver</label>
+        <input type="radio" onclick="filterATs(this)" id="NVDA" value="NVDA"><label for="NVDA">NVDA</label>
+    </fieldset>
+
+    <h2>Test 1: Navigate into a checkbox group in interaction mode.</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Screen Readers</li>
+        <li>Lasted edited: Mon Mar 9 10:38:54 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox-gen/navigate-into-checkbox-group-interaction.html">/checkbox-gen/navigate-into-checkbox-group-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Navigate into a checkbox group using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate into a checkbox group using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Navigate into a checkbox group using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+        </table>
+      </div>
+
+  </body>
+</html>

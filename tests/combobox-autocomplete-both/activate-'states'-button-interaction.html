@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>Activating 'States' button closes combobox and conveys collapsed state</title>
-<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="author" title="Matt King" href="mailto:undefined">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
 <script type="module">
@@ -10,8 +11,8 @@
   verifyATBehavior({
     setup_script_description: "Set focus on 'States' button; Ensure combobox is expanded.",
     
-    applies_to: ["JAWS", "NVDA"],
-    mode: "reading",
+    applies_to: ["VoiceOver"],
+    mode: "interaction",
     task: "activate 'states' button",
     specific_user_instruction: "Activate the button that hides the list of states.",
     output_assertions: [

@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Reading popup item conveys name and properties of the selected option</title>
+<link rel="author" title="Matt King" href="mailto:undefined">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    setup_script_description: "Set focus on combobox; press down arrow 2 times.",
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Set focus on combobox
+      // Set value of 'combobox' to 'Alabama'
+      // Ensure in expanded state.
+      var node = document.querySelector('[role=combobox]');
+      node.value = 'a';
+      node.focus();
+    },
+    applies_to: ["false"],
+    mode: "interaction",
+    task: "read option in listbox popup",
+    specific_user_instruction: "With focus on an item in the popup listbox; read the item.",
+    output_assertions: [
+      [1, "Name of focused option is conveyed; e.g.; 'Alaska'"],
+      [2, "ole listbox or role option is conveyed"],
+      [2, "he position in set of the focused option is conveyed; e.g.; 2 of 56"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+
+</script>

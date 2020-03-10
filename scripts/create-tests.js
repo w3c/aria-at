@@ -173,12 +173,12 @@ function createATCommandFile(cmds) {
 
   cmds.forEach(function(cmd) {
 
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandA);
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandB);
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandC);
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandD);
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandE);
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandF);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandA);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandB);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandC);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandD);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandE);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandF);
 
   });
 

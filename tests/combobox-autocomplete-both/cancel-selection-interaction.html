@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Canceling option selection conveys combobox role, name, editability, value, and state</title>
-<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<title>Canceling option selection conveys combobox role; name; editability; value; and state</title>
+<link rel="author" title="Matt King" href="mailto:undefined">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
 <script type="module">
@@ -9,8 +10,15 @@
 
   verifyATBehavior({
     setup_script_description: "Set focus on combobox; type 'A'; down arrow 2 times.",
-    
-    applies_to: ["Desktop Screen Readers"],
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Set focus on combobox
+      // Set value of 'combobox' to 'Alabama'
+      // Ensure in expanded state.
+      var node = document.querySelector('[role=combobox]');
+      node.value = 'a';
+      node.focus();
+    },
+    applies_to: ["false"],
     mode: "interaction",
     task: "cancel selection",
     specific_user_instruction: "Collapse the combobox popup",

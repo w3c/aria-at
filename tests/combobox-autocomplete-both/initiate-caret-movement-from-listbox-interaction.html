@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>Initiating caret movement from listbox conveys combobox value</title>
-<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="author" title="Matt King" href="mailto:undefined">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
 <script type="module">
@@ -9,16 +10,23 @@
 
   verifyATBehavior({
     setup_script_description: "Set focus on combobox; press down arrow 2 times.",
-    
-    applies_to: ["Desktop Screen Readers"],
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Set focus on combobox
+      // Set value of 'combobox' to 'Alabama'
+      // Ensure in expanded state.
+      var node = document.querySelector('[role=combobox]');
+      node.value = 'a';
+      node.focus();
+    },
+    applies_to: ["false"],
     mode: "interaction",
     task: "initiate caret movement from listbox",
     specific_user_instruction: "Start caret movement in the textbox while focus is in the listbox",
     output_assertions: [
       [1, "Caret position is conveyed"],
       [1, "Role 'combobox' is conveyed"],
-      [2, "Name 'State' is conveyed"],
-      [2, "Value 'Alaska' is conveyed."]
+      [2, "ame 'State' is conveyed"],
+      [2, "alue 'Alaska' is conveyed."]
     ]
   });
 

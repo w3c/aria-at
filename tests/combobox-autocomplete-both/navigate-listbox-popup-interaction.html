@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>Navigating popup conveys name and properties of the selected option</title>
-<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<link rel="author" title="Matt King" href="mailto:undefined">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
 <script type="module">
@@ -9,15 +10,22 @@
 
   verifyATBehavior({
     setup_script_description: "Set focus on combobox; press down arrow 2 times.",
-    
-    applies_to: ["Desktop Screen Readers"],
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Set focus on combobox
+      // Set value of 'combobox' to 'Alabama'
+      // Ensure in expanded state.
+      var node = document.querySelector('[role=combobox]');
+      node.value = 'a';
+      node.focus();
+    },
+    applies_to: ["false"],
     mode: "interaction",
     task: "navigate listbox popup",
     specific_user_instruction: "Navigate through options in the popup listbox",
     output_assertions: [
-      [1, "The name of the focused option is conveyed, e.g., 'American Samoa'"],
-      [2, "Role listbox or role option is conveyed"],
-      [2, "The position in set of the focused option is conveyed, e.g., 3 of 56"]
+      [1, "The name of the focused option is conveyed; e.g.; 'American Samoa'"],
+      [2, "ole listbox or role option is conveyed"],
+      [2, "he position in set of the focused option is conveyed; e.g.; 3 of 56"]
     ]
   });
 

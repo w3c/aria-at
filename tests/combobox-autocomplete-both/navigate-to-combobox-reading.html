@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Navigating to filled, editable, expanded combobox conveys role, name, editability, value, and state</title>
-<link rel="author" title="Valerie Young" href="mailto:valerie@bocoup.com">
+<title>Navigating to filled; editable; expanded combobox conveys role; name; editability; value; and state</title>
+<link rel="author" title="Matt King" href="mailto:undefined">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
 <script type="module">
@@ -9,9 +10,16 @@
 
   verifyATBehavior({
     setup_script_description: "Set focus on combobox; set value of 'combobox' to 'A'; ensure in expanded state.",
-    
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Set focus on combobox
+      // Set value of 'combobox' to 'a'
+      // Ensure in expanded state.
+      var node = document.querySelector('[role=combobox]');
+      node.value = 'a';
+      node.focus();
+    },
     applies_to: ["Screen Readers"],
-    mode: "interaction",
+    mode: "reading",
     task: "navigate to combobox",
     specific_user_instruction: "Navigate to the 'State' combobox",
     output_assertions: [
@@ -19,7 +27,7 @@
       [1, "Name 'State' is conveyed"],
       [1, "Ability to enter text is conveyed"],
       [1, "Value 'A' is conveyed."],
-      [2, "Expanded state is conveyed."]
+      [2, "xpanded state is conveyed."]
     ]
   });
 

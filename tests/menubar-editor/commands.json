@@ -46,14 +46,7 @@
           "LEFT_AND_RIGHT",
           "(with Smart Navigation on)"
         ]
-      ]
-    },
-    "interaction": {
-      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ]
-    }
-  },
-  "Navigate to menuitem in menubar": {
-    "reading": {
+      ],
       "nvda": [
         [ "TAB_AND_SHIFT_TAB" ],
         [ "UP_AND_DOWN" ],
@@ -71,6 +64,7 @@
       ]
     },
     "interaction": {
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
       "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
       "voiceover": [
         [
@@ -85,21 +79,17 @@
     }
   },
   "navigate to menuitemradio in submenu": {
-    "reading": { "jaws": [ [ "UP_AND_DOWN" ] ] },
+    "reading": {
+      "jaws": [ [ "UP_AND_DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ],
+      "voiceover": [ [ "ENTER" ], [ "SPACE" ] ]
+    },
     "interaction": {
       "jaws": [
         [ "ENTER" ],
         [ "SPACE" ],
         [ "DOWN" ]
-      ]
-    }
-  },
-  "Navigate to menuitemradio in submenu": {
-    "reading": {
-      "nvda": [ [ "DOWN" ] ],
-      "voiceover": [ [ "ENTER" ], [ "SPACE" ] ]
-    },
-    "interaction": {
+      ],
       "nvda": [
         [ "DOWN" ],
         [ "ENTER" ],

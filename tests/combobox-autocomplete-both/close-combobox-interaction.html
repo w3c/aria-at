@@ -10,8 +10,15 @@
 
   verifyATBehavior({
     setup_script_description: "Set focus on combobox; ensure it is empty and expanded.",
-    
-    applies_to: ["false"],
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Set focus on combobox
+      // Set value of 'combobox' to 'Alabama'
+      // Ensure in expanded state.
+      var node = document.querySelector('[role=combobox]');
+      node.value = 'a';
+      node.focus();
+    },
+    applies_to: ["Desktop Screen Readers"],
     mode: "interaction",
     task: "close combobox",
     specific_user_instruction: "Collapse the combobox popup",

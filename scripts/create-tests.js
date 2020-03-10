@@ -38,7 +38,7 @@ if (args._.length !== 1) {
 }
 
 const validModes = ['reading', 'interaction'];
-const validAppliesTo = ['Screen Readers', 'JAWS', 'NVDA', 'VoiceOver', 'Orca'];
+const validAppliesTo = ['Screen Readers', 'Desktop Screen Readers', 'JAWS', 'NVDA', 'VoiceOver', 'Orca'];
 
 const scriptDirectory = path.dirname(__filename);
 const rootDirectory = scriptDirectory.split('scripts')[0];
@@ -135,7 +135,7 @@ function createATCommandFile(cmds) {
 
   function addCommand(task, mode, at, key) {
 
-    task = task.trim().toLowerCase();
+    task = task.replace("'", '').replace(';', '').trim().toLowerCase();
     mode = mode.trim().toLowerCase();
     at = at.trim().toLowerCase();
 
@@ -203,7 +203,7 @@ function createTestFile (test, refs, commands) {
   }
 
   function getTask(t) {
-    let task = t.trim().toLowerCase();
+    let task = t.replace("'", '').replace(';', '').trim().toLowerCase();
 
     if (typeof commands[task] !== 'object') {
       addTestError(test.testId, '"' + task + '" does not exist in commands.csv file.')
@@ -329,7 +329,7 @@ ${script}    },`
 
   let assertions = '';
   let setupFileName = '';
-  let testFileName = test.task.replace(/\s+/g, '-').toLowerCase() + '-' + test.mode + '.html';
+  let testFileName = test.task.replace("'", '').replace(';', '').replace(/\s+/g, '-').toLowerCase() + '-' + test.mode + '.html';
   let testFileAbsolute = path.join(testDirectory, testFileName);
 
   if (typeof test.setupScript === 'string') {

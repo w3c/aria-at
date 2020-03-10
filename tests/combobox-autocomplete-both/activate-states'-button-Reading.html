@@ -10,10 +10,15 @@
 
   verifyATBehavior({
     setup_script_description: "Set focus on 'States' button; Ensure combobox is expanded.",
-    
-    applies_to: ["VoiceOver"],
-    mode: "interaction",
-    task: "activate 'states' button",
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Set focus on button
+      // Ensure in expanded state.
+      var node = document.querySelector('#ex1 button');
+      node.focus();
+    },
+    applies_to: ["JAWS","NVDA"],
+    mode: "reading",
+    task: "activate states' button",
     specific_user_instruction: "Activate the button that hides the list of states.",
     output_assertions: [
       [1, "Collapsed state is conveyed"]

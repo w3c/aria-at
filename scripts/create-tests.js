@@ -126,6 +126,10 @@ var deleteFilesFromDirectory = function(dirPath) {
   }
 };
 
+function cleanTask(task) {
+  return task.replace(/'/g, '').replace(/;/g, '').trim().toLowerCase()
+}
+
 // Create AT commands file
 
 function createATCommandFile(cmds) {
@@ -135,7 +139,7 @@ function createATCommandFile(cmds) {
 
   function addCommand(task, mode, at, key) {
 
-    task = task.replace(/'/g, '').replace(/;/g, '').trim().toLowerCase();
+    task = cleanTask(task);
     mode = mode.trim().toLowerCase();
     at = at.trim().toLowerCase();
 
@@ -203,7 +207,7 @@ function createTestFile (test, refs, commands) {
   }
 
   function getTask(t) {
-    let task = t.replace(/'/g, '').replace(/;/g, '').trim().toLowerCase();
+    let task = cleanTask(t);
 
     if (typeof commands[task] !== 'object') {
       addTestError(test.testId, '"' + task + '" does not exist in commands.csv file.')
@@ -329,7 +333,7 @@ ${script}    },`
 
   let assertions = '';
   let setupFileName = '';
-  let testFileName = test.task.replace(/'/g, '').replace(/;/g, '').replace(/\s+/g, '-').toLowerCase() + '-' + test.mode + '.html';
+  let testFileName = cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode + '.html';
   let testFileAbsolute = path.join(testDirectory, testFileName);
 
   if (typeof test.setupScript === 'string') {

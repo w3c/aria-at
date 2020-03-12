@@ -13,7 +13,7 @@
     setup_script_description: "Move focus to the 'Font' menu item",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the "Font" menu item
-      document.querySelector('[role=menuitem]').focus();
+      testPageDocument.querySelector('[role=menuitem]').focus();
     },
     applies_to: ["JAWS","NVDA"],
     mode: "reading",

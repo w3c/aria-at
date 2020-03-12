@@ -14,8 +14,8 @@
     setup_script_description: "open 'Text Align' menu item and move focus to the 'Left' menu item checkbox option",
     setupTestPage: function setupTestPage(testPageDocument) {
       // open "Text Align" menu item and move focus to the 'Left' menu item checkbox option
-      document.querySelectorAll('[role=menuitem]')[2].setAttribute('aria-expanded', 'true');
-      document.querySelector('[data-option="text-align"]').firstElementChild.focus();
+      testPageDocument.querySelectorAll('[role=menuitem]')[2].setAttribute('aria-expanded', 'true');
+      testPageDocument.querySelector('[data-option="text-align"]').firstElementChild.focus();
     },
     applies_to: ["JAWS","NVDA"],
     mode: "interaction",

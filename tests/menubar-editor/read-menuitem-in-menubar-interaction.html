@@ -16,7 +16,7 @@
     setup_script_description: "Move focus to the 'Size' menu item",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the "Size" menu item
-      document.querySelector('[role=menuitem]')[3].focus();
+      testPageDocument.querySelector('[role=menuitem]')[3].focus();
     },
     applies_to: ["JAWS","NVDA"],
     mode: "interaction",

@@ -333,7 +333,7 @@ ${script}    },`
 
   let assertions = '';
   let setupFileName = '';
-  let testFileName = cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode + '.html';
+  let testFileName = cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.html';
   let testFileAbsolute = path.join(testDirectory, testFileName);
 
   if (typeof test.setupScript === 'string') {

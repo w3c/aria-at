@@ -14,9 +14,11 @@
       // Set focus on combobox
       // Set value of 'combobox' to 'Alabama'
       // Ensure in expanded state.
-      var node = document.querySelector('[role=combobox]');
+      var node = testPageDocument.querySelector('[role=combobox]');
       node.value = 'a';
       node.focus();
+      console.log('[node]: ' + node);
+      console.log('[comboboxTest]: ' + testPageDocument.comboboxTest);
     },
     applies_to: ["Desktop Screen Readers"],
     mode: "reading",

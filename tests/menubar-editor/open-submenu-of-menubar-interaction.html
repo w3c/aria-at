@@ -14,6 +14,7 @@
     setup_script_description: "Move focus to the 'Text Align' menu item",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the "Text Align" menu item
+      console.log('[focusOnTextAlign][testPageDocument]: ' + testPageDocument);
       testPageDocument.querySelector('[role=menuitem]')[2].focus();
     },
     applies_to: ["JAWS","NVDA"],

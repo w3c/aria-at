@@ -8,7 +8,8 @@
 */
 
 window.addEventListener('load', function () {
-  var menubar      = new MenubarAction(document.getElementById('menubar1'));
+  var menubar      = new MenubarEditor();
+  (document.getElementById('menubar1'));
   var styleManager = new StyleManager('textarea1');
   menubar.init(styleManager);
 });

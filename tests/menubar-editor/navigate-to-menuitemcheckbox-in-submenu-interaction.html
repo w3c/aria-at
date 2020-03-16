@@ -13,6 +13,7 @@
     setup_script_description: "Move focus to the 'Style/Color' menu item",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the "Style/Color" menu item
+      console.log('[focusOnStyleColor][testPageDocument]: ' + testPageDocument);
       testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
     },
     applies_to: ["JAWS","NVDA"],

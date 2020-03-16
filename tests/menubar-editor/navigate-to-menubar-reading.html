@@ -13,6 +13,7 @@
     setup_script_description: "Move focus to the link just before the meunbar",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the link just before the meunbar
+      console.log('[focusOnFIrstLink][testPageDocument]: ' + testPageDocument);
       testPageDocument.querySelector('a').focus();
     },
     applies_to: ["JAWS","NVDA"],

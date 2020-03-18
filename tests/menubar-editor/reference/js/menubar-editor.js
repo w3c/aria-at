@@ -7,133 +7,395 @@
 *   Desc:   Creates a menubar to control the styling of text in a textarea element
 */
 
-var MenubarEditor = function (domNode) {
+var MenubarEditor = function (domNode, actionManager) {
 
   this.domNode = domNode;
+  this.actionManager = actionManager;
+  this.isMouseDownOnBackground = false;
 
-  this.menubarMenuitems = []; // see Menubar init method
-  this.menubarFirstChars = []; // see Menubar init method
+  this.menuitemGroups = {};
+  this.menuOrientation = {};
+  this.isPopup = {};
+  this.openPopups = false;
 
-  this.firstMenubarMenuitem = null; // see Menubar init method
-  this.lastMenubarMenuitem = null; // see Menubar init method
+  this.firstChars = {}; // see Menubar init method
+  this.firstMenuitem = {}; // see Menubar init method
+  this.lastMenuitem = {}; // see Menubar init method
+
+  this.initMenu(domNode)
+  domNode.addEventListener('focusin', this.handleMenubarFocusin.bind(this));
+  domNode.addEventListener('focusout', this.handleMenubarFocusout.bind(this));
+
+  document.body.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
+  document.body.addEventListener('mouseup', this.handleBackgroundMouseup.bind(this), true);
 };
 
-MenubarEditor.prototype.init = function (actionManager) {
-  var i, menuitems, menuitem;
+MenubarEditor.prototype.getMenuitems = function(domNode) {
+  var nodes = [];
 
-  this.actionManager = actionManager;
+  var initMenu = this.initMenu.bind(this);
+  var getGroupId = this.getGroupId.bind(this);
+  var menuitemGroups = this.menuitemGroups;
 
-  this.domNode.addEventListener('focusin', this.handleMenubarFocusin.bind(this));
-  this.domNode.addEventListener('focusout', this.handleMenubarFocusout.bind(this));
+  function findMenuitems(node, group) {
+    var role, flag, groupId;
 
-  menuitems = this.domNode.querySelectorAll('li > [role="menuitem"]');
+    while (node) {
+      flag = true;
+      role = node.getAttribute('role');
+
+      if (role) {
+        role = role.trim().toLowerCase();
+      }
+
+      switch (role) {
+        case 'menu':
+          initMenu(node);
+          flag = false;
+          break;
+
+        case 'group':
+          groupId = getGroupId(node);
+          menuitemGroups[groupId] = [];
+          break;
+
+        case 'menuitem':
+        case 'menuitemradio':
+        case 'menuitemcheckbox':
+          nodes.push(node);
+          if (group) {
+            group.push(node);
+          }
+          break;
+
+        default:
+          break;
+      }
+
+      if (flag && node.firstElementChild) {
+        findMenuitems(node.firstElementChild, menuitemGroups[groupId]);
+      }
+
+      node = node.nextElementSibling;
+    }
+  }
+
+  findMenuitems(domNode.firstElementChild, false);
+
+  return nodes;
+};
+
+MenubarEditor.prototype.initMenu = function (menu) {
+  var i, menuitems, menuitem, role, nextElement;
+
+  var menuId = this.getMenuId(menu);
+
+  console.log('[initMenu][menuId]: ' + menuId);
+
+  menuitems = this.getMenuitems(menu);
+
+  this.menuOrientation[menuId] = this.getMenuOrientation(menu);
+  console.log('[initMenu][orientation]: ' + this.menuOrientation[menuId]);
+
+  this.isPopup[menuId] = menu.getAttribute('role') === 'menu';
+  console.log('[initMenu][isPopup]: ' + this.isPopup[menuId]);
+
+  this.menuitemGroups[menuId] = [];
+  this.firstChars[menuId] = [];
+  this.firstMenuitem[menuId] = null;
+  this.lastMenuitem[menuId] = null;
 
   for(i = 0; i < menuitems.length; i++) {
     menuitem = menuitems[i];
+    role = menuitem.getAttribute('role');
+
+    if (role.indexOf('menuitem') < 0) {
+      continue;
+    }
 
     menuitem.tabIndex = -1;
-    this.menubarMenuitems.push(menuitem);
-    this.menubarFirstChars.push(menuitem.textContent[0].toLowerCase());
+    this.menuitemGroups[menuId].push(menuitem);
+    this.firstChars[menuId].push(menuitem.textContent[0].toLowerCase());
 
-    menuitem.addEventListener('keydown', this.handleMenubarKeydown.bind(this));
+    menuitem.addEventListener('keydown', this.handleKeydown.bind(this));
 
-    if( !this.firstMenubarMenuitem) {
+    if( !this.firstMenuitem[menuId]) {
       menuitem.tabIndex = 0;
-      this.firstMenubarMenuitem = menuitem;
+      this.firstMenuitem[menuId] = menuitem;
     }
-    this.lastMenubarMenuitem = menuitem;
+    this.lastMenuitem[menuId] = menuitem;
+
   }
 
-
+  console.log('[initMenu][' + menuId + '][count]: ' + this.menuitemGroups[menuId].length);
 
 };
 
 /* MenubarEditor FOCUS MANAGEMENT METHODS */
 
-MenubarEditor.prototype.setMenubarFocusToMenuitem = function (menuitem) {
+MenubarEditor.prototype.setFocusToMenuitem = function (menuId, newMenuitem, currentMenuitem) {
 
-  this.menubarMenuitems.forEach(function(item) {
+  if (typeof currentMenuitem !== 'object') {
+    currentMenuitem = false;
+  }
+
+  this.menuitemGroups[menuId].forEach(function(item) {
     item.tabIndex = -1;
   });
 
-  menuitem.tabIndex = 0;
-  menuitem.focus();
+  newMenuitem.tabIndex = 0;
+  newMenuitem.focus();
 
+  if (currentMenuitem &&
+      this.hasPopup(currentMenuitem) &&
+      this.isOpen(currentMenuitem)) {
+    this.closePopup(currentMenuitem);
+  }
+
+  if (this.hasPopup(newMenuitem) && this.openPopups) {
+    this.openPopup(newMenuitem)
+  }
 
 };
 
-MenubarEditor.prototype.setMenubarFocusToFirstMenuitem = function () {
-  this.setMenubarFocusToMenuitem(this.firstMenubarMenuitem);
+MenubarEditor.prototype.setFocusToFirstMenuitem = function (menuId,  currentMenuitem) {
+  this.setFocusToMenuitem(menuId, this.firstMenuitem[menuId],  currentMenuitem);
 };
 
-MenubarEditor.prototype.setMenubarFocusToLastMenuitem = function () {
-  this.setMenubarFocusToMenuitem(this.lastMenubarMenuitem);
+MenubarEditor.prototype.setFocusToLastMenuitem = function (menuId,  currentMenuitem) {
+  this.setFocusToMenuitem(menuId, this.lastMenuitem[menuId],  currentMenuitem);
 };
 
-MenubarEditor.prototype.setMenubarFocusToPreviousMenuitem = function (currentMenuitem) {
+MenubarEditor.prototype.setFocusToPreviousMenuitem = function (menuId, currentMenuitem) {
   var newMenuitem, index;
 
-  if (currentMenuitem === this.firstMenubarMenuitem) {
-    newMenuitem = this.lastMenubarMenuitem;
+  if (currentMenuitem === this.firstMenuitem[menuId]) {
+    newMenuitem = this.lastMenuitem[menuId];
   }
   else {
-    index = this.menubarMenuitems.indexOf(currentMenuitem);
-    newMenuitem = this.menubarMenuitems[ index - 1 ];
+    index = this.menuitemGroups[menuId].indexOf(currentMenuitem);
+    newMenuitem = this.menuitemGroups[menuId][ index - 1 ];
   }
 
-  this.setMenubarFocusToMenuitem(newMenuitem);
+  this.setFocusToMenuitem(menuId, newMenuitem, currentMenuitem);
+
+  return newMenuitem;
 };
 
-MenubarEditor.prototype.setMenubarFocusToNextMenuitem = function (currentMenuitem) {
+MenubarEditor.prototype.setFocusToNextMenuitem = function (menuId, currentMenuitem) {
   var newMenuitem, index;
 
-  if (currentMenuitem === this.lastMenubarMenuitem) {
-    newMenuitem = this.firstMenubarMenuitem;
+  if (currentMenuitem === this.lastMenuitem[menuId]) {
+    newMenuitem = this.firstMenuitem[menuId];
   }
   else {
-    index = this.menubarMenuitems.indexOf(currentMenuitem);
-    newMenuitem = this.menubarMenuitems[ index + 1 ];
+    index = this.menuitemGroups[menuId].indexOf(currentMenuitem);
+    newMenuitem = this.menuitemGroups[menuId][ index + 1 ];
   }
-  this.setMenubarFocusToMenuitem(newMenuitem);
+  this.setFocusToMenuitem(menuId, newMenuitem, currentMenuitem);
+
+  return newMenuitem;
 };
 
-MenubarEditor.prototype.setMenubarFocusByFirstCharacter = function (currentMenuitem, char) {
+MenubarEditor.prototype.setFocusByFirstCharacter = function (menuId, currentMenuitem, char) {
   var start, index;
 
   char = char.toLowerCase();
 
   // Get start index for search based on position of currentItem
-  start = this.menubarMenuitems.indexOf(currentMenuitem) + 1;
-  if (start >=  this.menubarMenuitems.length) {
+  start = this.menuitemGroups[menuId].indexOf(currentMenuitem) + 1;
+  if (start >=  this.menuitemGroups[menuId].length) {
     start = 0;
   }
 
   // Check remaining slots in the menu
-  index = this.getMenubarIndexFirstChars(start, char);
+  index = this.getIndexFirstChars(menuId, start, char);
 
   // If not found in remaining slots, check from beginning
   if (index === -1) {
-    index = this.getMenubarIndexFirstChars(0, char);
+    index = this.getIndexFirstChars(menuId, 0, char);
   }
 
   // If match was found...
   if (index > -1) {
-    this.menubarMenuitems[index].focus();
-    this.menubarMenuitems[index].tabIndex = 0;
-    currentMenuitem.tabIndex = -1;
+    this.setFocusToMenuitem(menuId, this.menuitemGroups[menuId][index], currentMenuitem);
   }
 };
 
-MenubarEditor.prototype.getMenubarIndexFirstChars = function (startIndex, char) {
-  for (var i = startIndex; i < this.menubarFirstChars.length; i++) {
-    if (char === this.menubarFirstChars[i]) {
+// Utitlities
+
+MenubarEditor.prototype.getIndexFirstChars = function (menuId, startIndex, char) {
+  for (var i = startIndex; i < this.firstChars[menuId].length; i++) {
+    if (char === this.firstChars[menuId][i]) {
       return i;
     }
   }
   return -1;
 };
 
-// Event handlers
+MenubarEditor.prototype.isPrintableCharacter = function(str) {
+    return str.length === 1 && str.match(/\S/);
+};
+
+MenubarEditor.prototype.getIdFromAriaLabel = function(node) {
+  var id = node.getAttribute('aria-label')
+  if (id) {
+    id = id.trim().toLowerCase().replace(' ', '-').replace('/', '-');
+  }
+  return id;
+};
+
+
+MenubarEditor.prototype.getMenuOrientation = function(node) {
+
+  var orientation = node.getAttribute('aria-orientation');
+
+  if (!orientation) {
+    var role = node.getAttribute('role');
+
+    switch (role) {
+      case 'menubar':
+        orientation = 'horizontal';
+        break;
+
+      case 'menu':
+        orientation = 'vertical';
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  return orientation;
+};
+
+MenubarEditor.prototype.getGroupId = function(node) {
+
+  var id = false;
+  var role = node.getAttribute('role');
+
+  while (node && (role !== 'group') &&
+         (role !== 'menu') &&
+         (role !== 'menubar')) {
+    node = node.parentNode;
+    if (node) {
+      role = node.getAttribute('role');
+    }
+ }
+
+  if (node) {
+    id = role + '-' + this.getIdFromAriaLabel(node);
+  }
+
+  return id;
+};
+
+MenubarEditor.prototype.getMenuId = function(node) {
+
+  var id = false;
+  var role = node.getAttribute('role');
+
+  while (node && (role !== 'menu') && (role !== 'menubar')) {
+    node = node.parentNode;
+    if (node) {
+      role = node.getAttribute('role');
+    }
+  }
+
+  if (node) {
+    id = role + '-' + this.getIdFromAriaLabel(node);
+  }
+
+  return id;
+};
+
+MenubarEditor.prototype.getMenu = function(menuitem) {
+
+  var id = false;
+  var menu = menuitem;
+  var role = menuitem.getAttribute('role');
+
+  while (menu && (role !== 'menu') && (role !== 'menubar')) {
+    menu = menu.parentNode
+    if (menu) {
+      role = menu.getAttribute('role');
+    }
+  }
+
+  return menu;
+};
+
+MenubarEditor.prototype.toggleCheckbox = function(menuitem) {
+  if (menuitem.getAttribute('aria-checked') === 'true') {
+    menuitem.setAttribute('aria-checked', 'false');
+  }
+  else {
+    menuitem.setAttribute('aria-checked', 'true');
+  }
+};
+
+MenubarEditor.prototype.setRadioButton = function(menuitem) {
+  var groupId = this.getGroupId(menuitem);
+  var radiogroupItems = this.menuitemGroups[groupId];
+  radiogroupItems.forEach( item => item.setAttribute('aria-checked', 'false'));
+  menuitem.setAttribute('aria-checked', 'true');
+};
+
+
+// Popup menu methods
+
+MenubarEditor.prototype.openPopup = function (menuitem) {
+
+  // set aria-expanded attribute
+  var popupMenu = menuitem.nextElementSibling;
+
+  var rect = menuitem.getBoundingClientRect();
+
+  // set CSS properties
+  popupMenu.style.position = 'absolute';
+  popupMenu.style.top = (rect.height - 1) + 'px';
+  popupMenu.style.left = '0px';
+  popupMenu.style.zIndex = 100;
+  popupMenu.style.display = 'block';
+
+  menuitem.setAttribute('aria-expanded', 'true');
+
+  return this.getMenuId(popupMenu);
+
+};
+
+MenubarEditor.prototype.closePopup = function (menuitem) {
+  var menu, cmi;
+
+  if (this.hasPopup(menuitem)) {
+    if (this.isOpen(menuitem)) {
+      menuitem.setAttribute('aria-expanded', 'false');
+      menuitem.nextElementSibling.style.display = 'none';
+      menuitem.nextElementSibling.style.zIndex = 0;
+
+    }
+  }
+  else {
+    menu = this.getMenu(menuitem);
+    cmi = menu.previousElementSibling;
+    cmi.setAttribute('aria-expanded', 'false');
+    cmi.focus();
+    menu.style.display = 'none';
+    menu.style.zIndex = 0;
+  }
+  return cmi;
+};
+
+MenubarEditor.prototype.hasPopup = function (menuitem) {
+  return menuitem.getAttribute('aria-haspopup') === 'true';
+};
+
+MenubarEditor.prototype.isOpen = function (menuitem) {
+  return menuitem.getAttribute('aria-expanded') === 'true';
+};
+
+// Menu event handlers
 
 MenubarEditor.prototype.handleMenubarFocusin = function (event) {
   // if the menubar or any of its menus has focus, add styling hook for hover
@@ -145,59 +407,152 @@ MenubarEditor.prototype.handleMenubarFocusout = function (event) {
   this.domNode.classList.remove('focus');
 };
 
-MenubarEditor.prototype.handleMenubarKeydown = function (event) {
+MenubarEditor.prototype.handleBackgroundMousedown = function (event) {
+  console.log('[handleBackgroundMousedown]');
+  if (!this.domNode.contains(event.target)) {
+
+    this.isMouseDownOnBackground = true;
+
+    var popups = this.domNode.querySelectorAll('[aria-haspopup]');
+
+    for (var i = 0; i < popups.length; i++) {
+      var popup = popups[i];
+      if (this.isOpen(popup)) {
+        this.closePopup(popup);
+        event.stopPropagation();
+        event.preventDefault();
+      }
+    }
+
+  }
+};
+
+MenubarEditor.prototype.handleBackgroundMouseup = function () {
+  console.log('[handleBackgroundMouseup]');
+  this.isMouseDownOnBackground = false;
+};
+
+
+MenubarEditor.prototype.handleKeydown = function (event) {
   var tgt = event.currentTarget,
     key = event.key,
-    flag = false;
+    flag = false,
+    menuId = this.getMenuId(tgt),
+    id,
+    popupMenuId,
+    mi,
+    role;
 
-  function isPrintableCharacter (str) {
-    return str.length === 1 && str.match(/\S/);
-  }
-
-  console.log('[handleMenubarKeydown]: ' + key);
+  console.log('[handleMenubarKeydown][key]: ' + key);
+  console.log('[handleMenubarKeydown][menuId]: ' + menuId);
 
   switch (key) {
     case ' ':
     case 'Enter':
+     if (this.hasPopup(tgt)) {
+        this.openPopups = true;
+        popupMenuId = this.openPopup(tgt);
+        flag = true;
+      }
+      else {
+        role = tgt.getAttribute('role');
+        switch(role) {
+          case 'menuitem':
+            break;
+
+          case 'menuitemcheckbox':
+            this.toggleCheckbox(tgt);
+            break;
+
+          case 'menuitemradio':
+            this.setRadioButton(tgt);
+            break;
+
+          default:
+            break;
+        }
+      }
+     break;
+
     case 'ArrowDown':
     case 'Down':
+      if (this.menuOrientation[menuId] === 'vertical') {
+        this.setFocusToNextMenuitem(menuId, tgt);
+        flag = true;
+      }
+      else {
+        if (this.hasPopup(tgt)) {
+          this.openPopups = true;
+          popupMenuId = this.openPopup(tgt);
+          this.setFocusToFirstMenuitem(popupMenuId);
+          flag = true;
+        }
+      }
       break;
 
     case 'Esc':
     case 'Escape':
+        this.openPopups = false;
+        this.closePopup(tgt);
+        flag = true;
       break;
 
     case 'Left':
     case 'ArrowLeft':
-      this.setMenubarFocusToPreviousMenuitem(tgt);
-      flag = true;
+      if (this.menuOrientation[menuId] === 'horizontal') {
+        this.setFocusToPreviousMenuitem(menuId, tgt);
+        flag = true;
+      }
+      else {
+        mi = this.closePopup(tgt);
+        id = this.getMenuId(mi);
+        mi = this.setFocusToPreviousMenuitem(id, mi);
+        this.openPopup(mi);
+      }
       break;
 
     case 'Right':
     case 'ArrowRight':
-      this.setMenubarFocusToNextMenuitem(tgt);
-      flag = true;
+      if (this.menuOrientation[menuId] === 'horizontal') {
+        this.setFocusToNextMenuitem(menuId, tgt);
+        flag = true;
+      }
+      else {
+        mi = this.closePopup(tgt);
+        id = this.getMenuId(mi);
+        mi = this.setFocusToNextMenuitem(id, mi);
+        this.openPopup(mi);
+      }
       break;
 
     case 'Up':
     case 'ArrowUp':
+      if (this.menuOrientation[menuId] === 'vertical') {
+        this.setFocusToPreviousMenuitem(menuId, tgt);
+        flag = true;
+      }
       break;
 
     case 'Home':
     case 'PageUp':
-      this.setMenubarFocusToFirstMenuitem();
+      this.setFocusToFirstMenuitem(menuId, tgt);
       flag = true;
       break;
 
     case 'End':
     case 'PageDown':
-      this.setMenubarFocusToLastMenuitem();
+      this.setFocusToLastMenuitem(menuId, tgt);
       flag = true;
       break;
 
+    case 'Tab':
+      this.openPopups = false;
+      this.closePopup(tgt);
+      break;
+
     default:
-      if (isPrintableCharacter(key)) {
-        this.setMenubarFocusByFirstCharacter(tgt, key);
+      if (this.isPrintableCharacter(key)) {
+        this.setFocusByFirstCharacter(menuId, tgt, key);
         flag = true;
       }
       break;
@@ -214,7 +569,6 @@ MenubarEditor.prototype.handleMenubarKeydown = function (event) {
 
 window.addEventListener('load', function () {
   var styleManager  = new StyleManager('textarea1');
-  var menubarEditor = new MenubarEditor(document.getElementById('menubar1'));
-  menubarEditor.init(styleManager);
+  var menubarEditor = new MenubarEditor(document.getElementById('menubar1'), styleManager);
 });
 

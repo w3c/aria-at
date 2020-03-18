@@ -26,8 +26,8 @@ var MenubarEditor = function (domNode, actionManager) {
   domNode.addEventListener('focusin', this.handleMenubarFocusin.bind(this));
   domNode.addEventListener('focusout', this.handleMenubarFocusout.bind(this));
 
-  document.body.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
-  document.body.addEventListener('mouseup', this.handleBackgroundMouseup.bind(this), true);
+  window.addEventListener('mousedown', this.handleBackgroundMousedown.bind(this), true);
+  window.addEventListener('mouseup', this.handleBackgroundMouseup.bind(this), true);
 };
 
 MenubarEditor.prototype.getMenuitems = function(domNode) {
@@ -112,6 +112,8 @@ MenubarEditor.prototype.initMenu = function (menu) {
     this.firstChars[menuId].push(menuitem.textContent[0].toLowerCase());
 
     menuitem.addEventListener('keydown', this.handleKeydown.bind(this));
+    menuitem.addEventListener('click', this.handleMenuitemClick.bind(this));
+    menuitem.addEventListener('mouseover', this.handleMenuitemMouseover.bind(this));
 
     if( !this.firstMenuitem[menuId]) {
       menuitem.tabIndex = 0;
@@ -448,6 +450,21 @@ MenubarEditor.prototype.closePopup = function (menuitem) {
   return cmi;
 };
 
+MenubarEditor.prototype.closePopupAll = function () {
+
+  var popups = this.domNode.querySelectorAll('[aria-haspopup]');
+
+  for (var i = 0; i < popups.length; i++) {
+    var popup = popups[i];
+    if (this.isOpen(popup)) {
+      this.closePopup(popup);
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  }
+
+};
+
 MenubarEditor.prototype.hasPopup = function (menuitem) {
   return menuitem.getAttribute('aria-haspopup') === 'true';
 };
@@ -470,20 +487,8 @@ MenubarEditor.prototype.handleMenubarFocusout = function (event) {
 
 MenubarEditor.prototype.handleBackgroundMousedown = function (event) {
   if (!this.domNode.contains(event.target)) {
-
     this.isMouseDownOnBackground = true;
-
-    var popups = this.domNode.querySelectorAll('[aria-haspopup]');
-
-    for (var i = 0; i < popups.length; i++) {
-      var popup = popups[i];
-      if (this.isOpen(popup)) {
-        this.closePopup(popup);
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    }
-
+    this.closePopupAll();
   }
 };
 
@@ -513,6 +518,7 @@ MenubarEditor.prototype.handleKeydown = function (event) {
      if (this.hasPopup(tgt)) {
         this.openPopups = true;
         popupMenuId = this.openPopup(tgt);
+        this.setFocusToFirstMenuitem(popupMenuId);
       }
       else {
         role = tgt.getAttribute('role');
@@ -539,9 +545,9 @@ MenubarEditor.prototype.handleKeydown = function (event) {
         if (this.getMenuId(tgt) === 'menu-size') {
           this.updateFontSizeMenu('menu-size');
         }
+        this.openPopups = false;
+        this.closePopup(tgt);
       }
-      this.openPopups = false;
-      this.closePopup(tgt);
       flag = true;
      break;
 
@@ -635,6 +641,68 @@ MenubarEditor.prototype.handleKeydown = function (event) {
   }
 };
 
+MenubarEditor.prototype.handleMenuitemClick = function (event) {
+  var tgt = event.currentTarget,
+  role,
+  option,
+  value;
+
+  if (this.hasPopup(tgt)) {
+    if (this.isOpen(tgt)) {
+      this.openPopups = false;
+      this.closePopup(tgt);
+    }
+    else {
+      this.closePopupAll();
+      this.openPopups = true;
+      this.openPopup(tgt);
+    }
+  }
+  else {
+    role = tgt.getAttribute('role');
+    option = this.getDataOption(tgt);
+    switch(role) {
+      case 'menuitem':
+        this.actionManager.setOption(option, tgt.textContent);
+        break;
+
+      case 'menuitemcheckbox':
+        value = this.toggleCheckbox(tgt);
+        this.actionManager.setOption(option, value);
+        break;
+
+      case 'menuitemradio':
+        value = this.setRadioButton(tgt);
+        this.actionManager.setOption(option, value);
+        break;
+
+      default:
+        break;
+    }
+
+    if (this.getMenuId(tgt) === 'menu-size') {
+      this.updateFontSizeMenu('menu-size');
+    }
+    this.openPopups = false;
+    this.closePopup(tgt);
+  }
+
+  event.stopPropagation();
+  event.preventDefault();
+
+};
+
+MenubarEditor.prototype.handleMenuitemMouseover = function (event) {
+  var tgt = event.currentTarget;
+
+  if (this.hasPopup(tgt) && this.openPopups) {
+    if (!this.isOpen(tgt)) {
+      this.closePopupAll();
+      this.openPopups = true;
+      this.openPopup(tgt);
+    }
+  }
+};
 
 // Initialize menubar editor
 

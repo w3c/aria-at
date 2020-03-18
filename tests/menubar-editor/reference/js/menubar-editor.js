@@ -90,15 +90,9 @@ MenubarEditor.prototype.initMenu = function (menu) {
 
   var menuId = this.getMenuId(menu);
 
-  console.log('[initMenu][menuId]: ' + menuId);
-
   menuitems = this.getMenuitems(menu);
-
   this.menuOrientation[menuId] = this.getMenuOrientation(menu);
-  console.log('[initMenu][orientation]: ' + this.menuOrientation[menuId]);
-
   this.isPopup[menuId] = menu.getAttribute('role') === 'menu';
-  console.log('[initMenu][isPopup]: ' + this.isPopup[menuId]);
 
   this.menuitemGroups[menuId] = [];
   this.firstChars[menuId] = [];
@@ -126,9 +120,6 @@ MenubarEditor.prototype.initMenu = function (menu) {
     this.lastMenuitem[menuId] = menuitem;
 
   }
-
-  console.log('[initMenu][' + menuId + '][count]: ' + this.menuitemGroups[menuId].length);
-
 };
 
 /* MenubarEditor FOCUS MANAGEMENT METHODS */
@@ -270,6 +261,32 @@ MenubarEditor.prototype.getMenuOrientation = function(node) {
   return orientation;
 };
 
+MenubarEditor.prototype.getDataOption = function(node) {
+
+  var option = false;
+  var hasOption = node.hasAttribute('data-option');
+  var role = node.hasAttribute('role');
+
+  if (!hasOption) {
+
+    while (node && !hasOption &&
+         (role !== 'menu') &&
+         (role !== 'menubar')) {
+      node = node.parentNode;
+      if (node) {
+        role = node.getAttribute('role');
+        hasOption = node.hasAttribute('data-option');
+      }
+    }
+  }
+
+  if (node) {
+    option = node.getAttribute('data-option');
+  }
+
+  return option;
+};
+
 MenubarEditor.prototype.getGroupId = function(node) {
 
   var id = false;
@@ -329,10 +346,10 @@ MenubarEditor.prototype.getMenu = function(menuitem) {
 MenubarEditor.prototype.toggleCheckbox = function(menuitem) {
   if (menuitem.getAttribute('aria-checked') === 'true') {
     menuitem.setAttribute('aria-checked', 'false');
+    return false;
   }
-  else {
-    menuitem.setAttribute('aria-checked', 'true');
-  }
+  menuitem.setAttribute('aria-checked', 'true');
+  return true;
 };
 
 MenubarEditor.prototype.setRadioButton = function(menuitem) {
@@ -340,8 +357,52 @@ MenubarEditor.prototype.setRadioButton = function(menuitem) {
   var radiogroupItems = this.menuitemGroups[groupId];
   radiogroupItems.forEach( item => item.setAttribute('aria-checked', 'false'));
   menuitem.setAttribute('aria-checked', 'true');
+  return menuitem.textContent;
 };
 
+MenubarEditor.prototype.updateFontSizeMenu = function(menuId) {
+
+  var fontSizeMenuitems = this.menuitemGroups[menuId];
+  var currentValue = this.actionManager.getFontSize();
+
+  for (var i = 0; i < fontSizeMenuitems.length; i++) {
+    var mi = fontSizeMenuitems[i];
+    var dataOption = mi.getAttribute('data-option');
+    var value = mi.textContent.trim().toLowerCase();
+
+    switch (dataOption) {
+      case 'font-smaller':
+        if (currentValue === 'x-small') {
+          mi.setAttribute('aria-disabled', 'true');
+        }
+        else {
+          mi.removeAttribute('aria-disabled');
+        }
+        break;
+
+      case 'font-larger':
+        if (currentValue === 'x-large') {
+          mi.setAttribute('aria-disabled', 'true');
+        }
+        else {
+          mi.removeAttribute('aria-disabled');
+        }
+        break;
+
+      default:
+        if (currentValue === value) {
+          mi.setAttribute('aria-checked', 'true');
+        }
+        else {
+          mi.setAttribute('aria-checked', 'false');
+        }
+        break;
+
+    }
+  }
+
+
+}
 
 // Popup menu methods
 
@@ -408,7 +469,6 @@ MenubarEditor.prototype.handleMenubarFocusout = function (event) {
 };
 
 MenubarEditor.prototype.handleBackgroundMousedown = function (event) {
-  console.log('[handleBackgroundMousedown]');
   if (!this.domNode.contains(event.target)) {
 
     this.isMouseDownOnBackground = true;
@@ -428,7 +488,6 @@ MenubarEditor.prototype.handleBackgroundMousedown = function (event) {
 };
 
 MenubarEditor.prototype.handleBackgroundMouseup = function () {
-  console.log('[handleBackgroundMouseup]');
   this.isMouseDownOnBackground = false;
 };
 
@@ -441,10 +500,12 @@ MenubarEditor.prototype.handleKeydown = function (event) {
     id,
     popupMenuId,
     mi,
-    role;
+    role,
+    option,
+    value;
 
-  console.log('[handleMenubarKeydown][key]: ' + key);
-  console.log('[handleMenubarKeydown][menuId]: ' + menuId);
+//  console.log('[handleMenubarKeydown][key]: ' + key);
+//  console.log('[handleMenubarKeydown][menuId]: ' + menuId);
 
   switch (key) {
     case ' ':
@@ -452,26 +513,36 @@ MenubarEditor.prototype.handleKeydown = function (event) {
      if (this.hasPopup(tgt)) {
         this.openPopups = true;
         popupMenuId = this.openPopup(tgt);
-        flag = true;
       }
       else {
         role = tgt.getAttribute('role');
+        option = this.getDataOption(tgt);
         switch(role) {
           case 'menuitem':
+            this.actionManager.setOption(option, tgt.textContent);
             break;
 
           case 'menuitemcheckbox':
-            this.toggleCheckbox(tgt);
+            value = this.toggleCheckbox(tgt);
+            this.actionManager.setOption(option, value);
             break;
 
           case 'menuitemradio':
-            this.setRadioButton(tgt);
+            value = this.setRadioButton(tgt);
+            this.actionManager.setOption(option, value);
             break;
 
           default:
             break;
         }
+
+        if (this.getMenuId(tgt) === 'menu-size') {
+          this.updateFontSizeMenu('menu-size');
+        }
       }
+      this.openPopups = false;
+      this.closePopup(tgt);
+      flag = true;
      break;
 
     case 'ArrowDown':

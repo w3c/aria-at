@@ -1,4 +1,6 @@
 // Open "Font" menu item and move focus to the "Font" menu item
-console.log('[openFontSubMenu][testPageDocument]: ' + testPageDocument);
-testPageDocument.querySelector('[role=menuitem]').setAttribute('aria-expanded', 'true');
-testPageDocument.querySelector('[role=menuitem]').focus();
+var node = testPageDocument.querySelectorAll('[role=menuitem]')[0];
+var menuId = testPageDocument.menubarEditor.getMenuId(node);
+testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
+testPageDocument.menubarEditor.openPopup(node);
+

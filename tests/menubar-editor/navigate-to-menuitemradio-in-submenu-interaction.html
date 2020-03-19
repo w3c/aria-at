@@ -13,8 +13,9 @@
     setup_script_description: "Move focus to the 'Font' menu item",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the "Font" menu item
-      console.log('[focusOnFont][testPageDocument]: ' + testPageDocument);
-      testPageDocument.querySelector('[role=menuitem]').focus();
+      var node = testPageDocument.querySelectorAll('[role=menuitem]')[0];
+      var menuId = testPageDocument.menubarEditor.getMenuId(node);
+      testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
     },
     applies_to: ["JAWS","NVDA"],
     mode: "interaction",

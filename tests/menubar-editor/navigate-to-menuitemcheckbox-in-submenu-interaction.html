@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Navigate to menu item checkbox�in interaction mode</title>
+<title>Navigate to menu item checkbox in interaction mode</title>
 <link rel="author" title="Jon Gunderson" href="mailto:jongund@illinois.edu">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
@@ -13,8 +13,9 @@
     setup_script_description: "Move focus to the 'Style/Color' menu item",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the "Style/Color" menu item
-      console.log('[focusOnStyleColor][testPageDocument]: ' + testPageDocument);
-      testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+      var node = testPageDocument.querySelectorAll('[role=menuitem]')[1];
+      var menuId = testPageDocument.menubarEditor.getMenuId(node);
+      testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
     },
     applies_to: ["JAWS","NVDA"],
     mode: "interaction",

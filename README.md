@@ -5,7 +5,7 @@ The aim of this project is to facilitate consistently effective rendering of ARI
 1. Developing methodologies for assessing how effectively assistive technologies render ARIA patterns.
 2. Providing a framework for collecting, discussing, and disseminating assessment information.
 
-This project:
+The [ARIA and Assistive Technologies Community Group](https://www.w3.org/community/aria-at/):
 
 * Is managed by the [Authoring Practices Task Force](https://www.w3.org/WAI/ARIA/task-forces/practices/) of the [ARIA Working Group](http://www.w3.org/WAI/ARIA/).
 * Staff contact: [Michael Cooper](http://www.w3.org/People/cooper/).

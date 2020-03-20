@@ -11,3 +11,5 @@ The [ARIA and Assistive Technologies Community Group](https://www.w3.org/communi
 * Staff contact: [Michael Cooper](http://www.w3.org/People/cooper/).
 
 Please do not provide commit access to this repository without coordination.
+
+[Documentation is available in the wiki](https://github.com/w3c/aria-at/wiki).

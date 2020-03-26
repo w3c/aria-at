@@ -7,4 +7,3 @@ cb.comboboxNode.focus();
 cb.filter = cb.comboboxNode.value;
 cb.filterOptions();
 cb.open();
-console.log('[comboboxAutocomplete][filtered]: ' + cb.filter);

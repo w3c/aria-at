@@ -7,4 +7,3 @@ cb.combobox.focus();
 cb.filter = cb.comboboxNode.value;
 cb.filterOptions();
 cb.open();
-console.log('[filter]: empty');

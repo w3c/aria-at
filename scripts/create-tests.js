@@ -399,25 +399,74 @@ ${assertions}
 
 // Create an index file for a local server
 
-function createIndexFile(urls) {
+function createIndexFile(tasks) {
 
   let links = '';
 
-  urls.forEach( url => links += `<li><a href="${url.href}">${url.title}</a> (${url.script})</li>\n`)
+  tasks.forEach( task => links += `<tr><td>${task.id}</td><td><a href="${task.href}">${task.title}</a></td><td>${task.script}</td></tr>\n`)
 
   let indexHTML = `
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
   <title>Index of Test Files for local Server</title>
+  <style>
+    table {
+      display: table;
+      border-collapse: collapse;
+      border-spacing: 2px;
+      border-color: gray;
+    }
+
+    thead {
+      display: table-row-group;
+      vertical-align: middle;
+      border-bottom: black solid 2px;
+    }
+
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: gray;
+    }
+
+    tr:nth-child(even) {background: #DDD}
+    tr:nth-child(odd) {background: #FFF}
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: gray;
+    }
+
+    td {
+      padding: 3px;
+      display: table-cell;
+    }
+
+    th {
+      padding: 3px;
+      font-weight: bold;
+      display: table-cell;
+    }
+  </style>
 </head>
 <body>
   <h1>Index of Test Files</h1>
   <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
   test runner is being executed, using <code>npm run start</code> from the root director: <code>${rootDirectory}</code>.</p>
-  <ul>
-  ${links}
-  </ul>
+  <table>
+    <thead>
+      <tr>
+        <th>Task ID</th>
+        <th>Testing Task</th>
+        <th>Setup Script Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+${links}
+    </tbody>
+  </table>
 </body>
 `;
 
@@ -477,7 +526,7 @@ fs.createReadStream(referencesFile)
             tests.forEach(function(test) {
               try {
                 let url = createTestFile(test, refs, atCommands);
-                indexOfURLs.push({ title: 'TEST ' + test.testId + ': ' + test.title, href: url, script: test.setupScript});
+                indexOfURLs.push({ id: test.testId, title: test.title, href: url, script: test.setupScript});
                 console.log('[Test ' + test.testId + ']: ' + url);
               }
               catch (err) {

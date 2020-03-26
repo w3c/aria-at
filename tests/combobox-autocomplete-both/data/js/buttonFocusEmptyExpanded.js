@@ -1,5 +1,7 @@
 // Set focus on button
 // Ensure in expanded state.
-var node = testPageDocument.querySelector('#ex1 buton');
-node.focus();
-console.log('[comboboxAutocomplete]' + testPageDocument.comboboxAutocomplete);
+var cb = testPageDocument.comboboxAutocomplete;
+cb.buttonNode.focus();
+cb.filter = cb.comboboxNode.value;
+cb.filterOptions();
+cb.open();

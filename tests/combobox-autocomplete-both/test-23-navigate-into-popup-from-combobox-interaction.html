@@ -14,11 +14,12 @@
       // Set focus on combobox
       // Set value of 'combobox' to 'Alabama'
       // Ensure in expanded state.
-      var node = testPageDocument.querySelector('[role=combobox]');
-      node.value = 'a';
-      node.focus();
-      console.log('[node]: ' + node);
-      console.log('[comboboxTest]: ' + testPageDocument.comboboxTest);
+      var cb = testPageDocument.comboboxAutocomplete;
+      cb.comboboxNode.value = '';
+      cb.combobox.focus();
+      cb.filter = cb.comboboxNode.value;
+      cb.filterOptions();
+      cb.open();
     },
     applies_to: ["Desktop Screen Readers"],
     mode: "interaction",
@@ -26,7 +27,7 @@
     specific_user_instruction: "Navigate into the popup from the empty combobox",
     output_assertions: [
       [1, "Role 'listbox' is conveyed for the popup."],
-      [2, "ame 'States' is conveyed for the popup."],
+      [2, "Name 'States' is conveyed for the popup."],
       [1, "Name of focused option is conveyed; e.g.; 'Alabama' if first option; 'Wyoming' if last option."],
       [1, "Position in set of the focused option is conveyed; e.g.; 1 of 56 if first option; 56 of 56 if last option."]
     ]

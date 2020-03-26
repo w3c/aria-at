@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Activating editable combobox switches mode from reading to interaction</title>
+<title>Activating 'States' button opens combobox and conveys name; role; editability; and state</title>
 <link rel="author" title="Matt King" href="mailto:undefined">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
@@ -9,23 +9,22 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "Set focus on combobox",
+    setup_script_description: "Set focus on 'States' button; Ensure combobox is empty and collapsed.",
     setupTestPage: function setupTestPage(testPageDocument) {
-      // Set focus on combobox
-      // Set value of 'combobox' to 'Alabama'
-      // Ensure in expanded state.
-      var node = testPageDocument.querySelector('[role=combobox]');
-      node.value = 'a';
+      // Set focus on button
+      // Ensure in collapsed state.
+      var node = testPageDocument.querySelector('#ex1 buton');
       node.focus();
-      console.log('[node]: ' + node);
-      console.log('[comboboxTest]: ' + testPageDocument.comboboxTest);
     },
     applies_to: ["JAWS","NVDA"],
     mode: "reading",
-    task: "activate combobox",
-    specific_user_instruction: "Activate the 'state' combobox",
+    task: "activate states button",
+    specific_user_instruction: "Activate the button that displays the list of states.",
     output_assertions: [
-      [1, "The screen reader switches to mode that allows text input"]
+      [1, "Role 'combobox' is conveyed"],
+      [1, "Name 'State' is conveyed"],
+      [1, "Ability to enter text is conveyed"],
+      [1, "expanded state is conveyed."]
     ]
   });
 

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Navigating popup conveys name and properties of the selected option</title>
+<title>Opening combobox conveys combobox state and optionally describes suggestion availability</title>
 <link rel="author" title="Matt King" href="mailto:undefined">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
@@ -9,25 +9,26 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "Set focus on combobox; press down arrow 2 times.",
+    setup_script_description: "Set focus on combobox; ensure it is empty and collapsed.",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Set focus on combobox
       // Set value of 'combobox' to 'Alabama'
       // Ensure in expanded state.
-      var node = testPageDocument.querySelector('[role=combobox]');
-      node.value = 'a';
-      node.focus();
-      console.log('[node]: ' + node);
-      console.log('[comboboxTest]: ' + testPageDocument.comboboxTest);
+      var cb = testPageDocument.comboboxAutocomplete;
+      cb.comboboxNode.value = '';
+      cb.combobox.focus();
+      cb.filter = cb.comboboxNode.value;
+      cb.filterOptions();
+      cb.open();
     },
     applies_to: ["Desktop Screen Readers"],
     mode: "interaction",
-    task: "navigate listbox popup",
-    specific_user_instruction: "Navigate through options in the popup listbox",
+    task: "open combobox",
+    specific_user_instruction: "Display the popup from empty combobox",
     output_assertions: [
-      [1, "The name of the focused option is conveyed; e.g.; 'American Samoa'"],
-      [2, "ole listbox or role option is conveyed"],
-      [2, "he position in set of the focused option is conveyed; e.g.; 3 of 56"]
+      [1, "Expanded state of combobox is conveyed"],
+      [2, "Name 'States' is conveyed for the popup."],
+      [2, "Number of options available is conveyed"]
     ]
   });
 

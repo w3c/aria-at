@@ -14,11 +14,12 @@
       // Set focus on combobox
       // Set value of 'combobox' to 'Alabama'
       // Ensure in expanded state.
-      var node = testPageDocument.querySelector('[role=combobox]');
-      node.value = 'a';
-      node.focus();
-      console.log('[node]: ' + node);
-      console.log('[comboboxTest]: ' + testPageDocument.comboboxTest);
+      var cb = testPageDocument.comboboxAutocomplete;
+      cb.comboboxNode.value = '';
+      cb.combobox.focus();
+      cb.filter = cb.comboboxNode.value;
+      cb.filterOptions();
+      cb.open();
     },
     applies_to: ["Screen Readers"],
     mode: "interaction",
@@ -28,7 +29,7 @@
       [1, "Either 1) The selected text 'labama' is conveyed or 2) The entire value 'Alabama' is conveyed."],
       [1, "The selected state of of the value option 'Alabama' is conveyed."],
       [1, "The combobox state change from collapsed to expanded is conveyed"],
-      [2, "he position in set of the selected option is conveyed; e.g.; 1 of 4 suggestions."]
+      [2, "The position in set of the selected option is conveyed; e.g.; 1 of 4 suggestions."]
     ]
   });
 

@@ -555,7 +555,8 @@ window.addEventListener('load', function () {
     var listboxNode  = combobox.querySelector('[role="listbox"]');
     var cba = new ComboboxAutocomplete(comboboxNode, buttonNode, listboxNode);
     cba.init();
-    comboboxText = cba;
   }
+
+  document.comboboxAutocomplete = cba;
 
 });

@@ -1,8 +1,10 @@
 // Set focus on combobox
 // Set value of 'combobox' to 'a'
 // Ensure in expanded state.
-var node = testPageDocument.querySelector('[role=combobox]');
-node.value = 'a';
-node.focus();
-console.log('[node]: ' + node);
-console.log('[comboboxTest]: ' + testPageDocument.comboboxTest);
+var cb = testPageDocument.comboboxAutocomplete;
+cb.comboboxNode.value = 'a';
+cb.comboboxNode.focus();
+cb.filter = cb.comboboxNode.value;
+cb.filterOptions();
+cb.open();
+console.log('[comboboxAutocomplete][filtered]: ' + cb.filter);

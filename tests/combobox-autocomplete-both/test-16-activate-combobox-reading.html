@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Activating editable combobox switches mode from reading to interaction</title>
+<link rel="author" title="Matt King" href="mailto:undefined">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    setup_script_description: "Set focus on combobox",
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Set focus on combobox
+      // Set value of 'combobox' to 'Alabama'
+      // Ensure in expanded state.
+      var cb = testPageDocument.comboboxAutocomplete;
+      cb.comboboxNode.value = '';
+      cb.combobox.focus();
+      cb.filter = cb.comboboxNode.value;
+      cb.filterOptions();
+      cb.open();
+    },
+    applies_to: ["JAWS","NVDA"],
+    mode: "reading",
+    task: "activate combobox",
+    specific_user_instruction: "Activate the 'State' combobox",
+    output_assertions: [
+      [1, "The screen reader switches to mode that allows text input"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+
+</script>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Closing combobox conveys combobox state</title>
+<title>Reading popup item conveys name and properties of the selected option</title>
 <link rel="author" title="Matt King" href="mailto:undefined">
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
@@ -9,23 +9,26 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "Set focus on combobox; ensure it is empty and expanded.",
+    setup_script_description: "Set focus on combobox; press down arrow 2 times.",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Set focus on combobox
       // Set value of 'combobox' to 'Alabama'
       // Ensure in expanded state.
-      var node = testPageDocument.querySelector('[role=combobox]');
-      node.value = 'a';
-      node.focus();
-      console.log('[node]: ' + node);
-      console.log('[comboboxTest]: ' + testPageDocument.comboboxTest);
+      var cb = testPageDocument.comboboxAutocomplete;
+      cb.comboboxNode.value = '';
+      cb.combobox.focus();
+      cb.filter = cb.comboboxNode.value;
+      cb.filterOptions();
+      cb.open();
     },
     applies_to: ["Desktop Screen Readers"],
     mode: "interaction",
-    task: "close combobox",
-    specific_user_instruction: "Collapse the combobox popup",
+    task: "read option in listbox popup",
+    specific_user_instruction: "With focus on an item in the popup listbox; read the item.",
     output_assertions: [
-      [1, "Collapsed state of combobox is conveyed"]
+      [1, "Name of focused option is conveyed; e.g.; 'Alaska'"],
+      [2, "Role listbox or role option is conveyed"],
+      [2, "The position in set of the focused option is conveyed; e.g.; 2 of 56"]
     ]
   });
 

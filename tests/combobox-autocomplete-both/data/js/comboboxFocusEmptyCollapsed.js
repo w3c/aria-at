@@ -1,8 +1,9 @@
 // Set focus on combobox
 // Set value of 'combobox' to 'Alabama'
 // Ensure in expanded state.
-var node = testPageDocument.querySelector('[role=combobox]');
-node.value = 'a';
-node.focus();
-console.log('[node]: ' + node);
-console.log('[comboboxTest]: ' + testPageDocument.comboboxTest);
+var cb = testPageDocument.comboboxAutocomplete;
+cb.comboboxNode.value = '';
+cb.combobox.focus();
+cb.filter = cb.comboboxNode.value;
+cb.filterOptions();
+cb.open();

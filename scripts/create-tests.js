@@ -256,7 +256,11 @@ function createTestFile (test, refs, commands) {
 
     if (parts.length === 2) {
       level = parts[0];
-      str = parts[1].substring(1);
+      str = parts[1].substring(0);
+      if ((level != '1') && (level != '2')) {
+        addTestError(test.testId, "Level value must be 1 or 2, value found was '" + level + "' for assertion '" + str + "' (NOTE: level 2 defined for this assertion).");
+        level = '2';
+      }
     }
 
     if (a.length) {
@@ -333,7 +337,11 @@ ${script}    },`
 
   let assertions = '';
   let setupFileName = '';
-  let testFileName = cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.html';
+  let id = test.testId;
+  if (parseInt(test.testId) < 10) {
+    id = '0' + id;
+  }
+  let testFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.html';
   let testFileAbsolute = path.join(testDirectory, testFileName);
 
   if (typeof test.setupScript === 'string') {
@@ -395,7 +403,7 @@ function createIndexFile(urls) {
 
   let links = '';
 
-  urls.forEach( url => links += `<li><a href="${url.href}">${url.title}</a></li>\n`)
+  urls.forEach( url => links += `<li><a href="${url.href}">${url.title}</a> (${url.script})</li>\n`)
 
   let indexHTML = `
 <!DOCTYPE html>
@@ -469,7 +477,7 @@ fs.createReadStream(referencesFile)
             tests.forEach(function(test) {
               try {
                 let url = createTestFile(test, refs, atCommands);
-                indexOfURLs.push({ title: test.title, href: url});
+                indexOfURLs.push({ title: 'TEST ' + test.testId + ': ' + test.title, href: url, script: test.setupScript});
                 console.log('[Test ' + test.testId + ']: ' + url);
               }
               catch (err) {

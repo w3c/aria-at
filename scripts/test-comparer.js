@@ -10,13 +10,10 @@ const ATNames = ['JAWS', 'VoiceOver', 'NVDA'];
 const getPriorityString = function(priority) {
   priority = parseInt(priority);
   if (priority === 1) {
-    return 'must have';
+    return 'required';
   }
   else if (priority === 2) {
-    return 'should have';
-  }
-  else if (priority === 2) {
-    return 'nice to have';
+    return 'optional';
   }
   return '';
 };

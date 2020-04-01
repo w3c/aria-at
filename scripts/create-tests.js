@@ -38,7 +38,7 @@ if (args._.length !== 1) {
 }
 
 const validModes = ['reading', 'interaction'];
-const validAppliesTo = ['Screen Readers', 'JAWS', 'NVDA', 'VoiceOver', 'Orca'];
+const validAppliesTo = ['Screen Readers', 'Desktop Screen Readers', 'JAWS', 'NVDA', 'VoiceOver', 'Orca'];
 
 const scriptDirectory = path.dirname(__filename);
 const rootDirectory = scriptDirectory.split('scripts')[0];
@@ -126,6 +126,10 @@ var deleteFilesFromDirectory = function(dirPath) {
   }
 };
 
+function cleanTask(task) {
+  return task.replace(/'/g, '').replace(/;/g, '').trim().toLowerCase()
+}
+
 // Create AT commands file
 
 function createATCommandFile(cmds) {
@@ -135,7 +139,7 @@ function createATCommandFile(cmds) {
 
   function addCommand(task, mode, at, key) {
 
-    task = task.trim().toLowerCase();
+    task = cleanTask(task);
     mode = mode.trim().toLowerCase();
     at = at.trim().toLowerCase();
 
@@ -173,12 +177,12 @@ function createATCommandFile(cmds) {
 
   cmds.forEach(function(cmd) {
 
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandA);
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandB);
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandC);
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandD);
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandE);
-    addCommand(cmd.Task, cmd.mode, cmd.at, cmd.commandF);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandA);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandB);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandC);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandD);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandE);
+    addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandF);
 
   });
 
@@ -203,7 +207,7 @@ function createTestFile (test, refs, commands) {
   }
 
   function getTask(t) {
-    let task = t.trim().toLowerCase();
+    let task = cleanTask(t);
 
     if (typeof commands[task] !== 'object') {
       addTestError(test.testId, '"' + task + '" does not exist in commands.csv file.')
@@ -252,7 +256,11 @@ function createTestFile (test, refs, commands) {
 
     if (parts.length === 2) {
       level = parts[0];
-      str = parts[1].substring(1);
+      str = parts[1].substring(0);
+      if ((level != '1') && (level != '2')) {
+        addTestError(test.testId, "Level value must be 1 or 2, value found was '" + level + "' for assertion '" + str + "' (NOTE: level 2 defined for this assertion).");
+        level = '2';
+      }
     }
 
     if (a.length) {
@@ -329,7 +337,11 @@ ${script}    },`
 
   let assertions = '';
   let setupFileName = '';
-  let testFileName = test.task.replace(/\s+/g, '-').toLowerCase() + '-' + test.mode + '.html';
+  let id = test.testId;
+  if (parseInt(test.testId) < 10) {
+    id = '0' + id;
+  }
+  let testFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.html';
   let testFileAbsolute = path.join(testDirectory, testFileName);
 
   if (typeof test.setupScript === 'string') {
@@ -387,25 +399,74 @@ ${assertions}
 
 // Create an index file for a local server
 
-function createIndexFile(urls) {
+function createIndexFile(tasks) {
 
   let links = '';
 
-  urls.forEach( url => links += `<li><a href="${url.href}">${url.title}</a></li>\n`)
+  tasks.forEach( task => links += `<tr><td>${task.id}</td><td><a href="${task.href}">${task.title}</a></td><td>${task.script}</td></tr>\n`)
 
   let indexHTML = `
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
   <title>Index of Test Files for local Server</title>
+  <style>
+    table {
+      display: table;
+      border-collapse: collapse;
+      border-spacing: 2px;
+      border-color: gray;
+    }
+
+    thead {
+      display: table-row-group;
+      vertical-align: middle;
+      border-bottom: black solid 2px;
+    }
+
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: gray;
+    }
+
+    tr:nth-child(even) {background: #DDD}
+    tr:nth-child(odd) {background: #FFF}
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: gray;
+    }
+
+    td {
+      padding: 3px;
+      display: table-cell;
+    }
+
+    th {
+      padding: 3px;
+      font-weight: bold;
+      display: table-cell;
+    }
+  </style>
 </head>
 <body>
   <h1>Index of Test Files</h1>
   <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
   test runner is being executed, using <code>npm run start</code> from the root director: <code>${rootDirectory}</code>.</p>
-  <ul>
-  ${links}
-  </ul>
+  <table>
+    <thead>
+      <tr>
+        <th>Task ID</th>
+        <th>Testing Task</th>
+        <th>Setup Script Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+${links}
+    </tbody>
+  </table>
 </body>
 `;
 
@@ -465,7 +526,7 @@ fs.createReadStream(referencesFile)
             tests.forEach(function(test) {
               try {
                 let url = createTestFile(test, refs, atCommands);
-                indexOfURLs.push({ title: test.title, href: url});
+                indexOfURLs.push({ id: test.testId, title: test.title, href: url, script: test.setupScript});
                 console.log('[Test ' + test.testId + ']: ' + url);
               }
               catch (err) {

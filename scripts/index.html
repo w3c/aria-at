@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>AOM Test File</title>
+
+  <script>
+
+    window.addEventListener('load', function() {
+      var resultNode = document.getEleemntById('ignore');
+      var result = '<ul>\n';
+
+      function getNodeInfomration(n) {
+        var str = '';
+        str = '<li>' + node.tagName + ' ' + node.role + '</li>\n';
+        return str;
+      }
+
+
+      function examineNode(node) {
+
+        while (node) {
+
+          result += getNodeInformation(node);
+
+          if (node.firstElementChild) {
+            examineNode(node.firstElementChild);
+          }
+
+          node.
+
+        }
+
+      }
+
+      examineNode(document.body.firstElementChild);
+
+      result += '</ul>\n';
+
+      resultNode.innerHTML = result;
+
+    });
+
+  </script>
+
+</head>
+<body>
+  <h1>AOM Test File</h1>
+
+  <h2>Show AOM Results</h2>
+  <div id="ignore"></div>
+</body>

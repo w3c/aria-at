@@ -59,7 +59,7 @@
   </head>
   <body>
 
-    <h1>Test plan review for pattern: combobox-autocomplete-both (29 tests)</h1>
+    <h1>Test plan review for pattern: combobox-autocomplete-both (30 tests)</h1>
 
     <fieldset>
       <legend>Filter tests by assistive technology</legend>
@@ -69,14 +69,1243 @@
         <input type="radio" onclick="filterATs(this)" id="NVDA" value="NVDA"><label for="NVDA">NVDA</label>
     </fieldset>
 
-    <h2>Test 1: Activating editable combobox switches mode from reading to interaction</h2>
+    <h2>Test 1: Navigating to empty; editable combobox conveys role; name; editability; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-01-navigate-to-combobox-reading.html">/combobox-autocomplete-both/test-01-navigate-to-combobox-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>E &#x2F; Shift+E</li>
+                   <li>F &#x2F; Shift+F</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav ON by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>F &#x2F; Shift+F</li>
+                   <li>Left Arrow &#x2F; Right Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>E &#x2F; Shift+E</li>
+                   <li>F &#x2F; Shift+F</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 2: Navigating by line to empty; editable combobox conveys role; editability; and state</h2>
     <p>
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: JAWS, NVDA</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/activate-combobox.html">/combobox-autocomplete-both/activate-combobox.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-02-navigate-by-line-to-combobox-reading.html">/combobox-autocomplete-both/test-02-navigate-by-line-to-combobox-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 3: Navigating to empty; editable combobox conveys role; name; editability; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-03-navigate-to-combobox-interaction.html">/combobox-autocomplete-both/test-03-navigate-to-combobox-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 4: Reading empty; editable combobox conveys role; name; editability; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-04-read-combobox-reading.html">/combobox-autocomplete-both/test-04-read-combobox-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>With the reading cursor on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>With the reading cursor on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 5: Reading empty; editable combobox conveys role; name; editability; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-05-read-combobox-interaction.html">/combobox-autocomplete-both/test-05-read-combobox-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>With focus on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>With focus on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 6: Navigating to filled; editable; collapsed  combobox conveys role; name; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-06-navigate-to-combobox-reading.html">/combobox-autocomplete-both/test-06-navigate-to-combobox-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>E &#x2F; Shift+E</li>
+                   <li>F &#x2F; Shift+F</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav ON by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>F &#x2F; Shift+F</li>
+                   <li>Left Arrow &#x2F; Right Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>E &#x2F; Shift+E</li>
+                   <li>F &#x2F; Shift+F</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 7: Navigating to filled; editable; collapsed  combobox conveys role; name; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-07-navigate-to-combobox-interaction.html">/combobox-autocomplete-both/test-07-navigate-to-combobox-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 8: Reading filled; editable; collapsed combobox conveys role; name; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-08-read-combobox-reading.html">/combobox-autocomplete-both/test-08-read-combobox-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>With the reading cursor on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>With the reading cursor on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 9: Reading filled; editable; collapsed combobox conveys role; name; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-09-read-combobox-interaction.html">/combobox-autocomplete-both/test-09-read-combobox-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>With focus on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>With focus on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 10: Navigating to filled; editable; expanded combobox conveys role; name; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-10-navigate-to-combobox-reading.html">/combobox-autocomplete-both/test-10-navigate-to-combobox-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>E &#x2F; Shift+E</li>
+                   <li>F &#x2F; Shift+F</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav ON by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>F &#x2F; Shift+F</li>
+                   <li>Left Arrow &#x2F; Right Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>C &#x2F; Shift+C</li>
+                   <li>E &#x2F; Shift+E</li>
+                   <li>F &#x2F; Shift+F</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 11: Navigating by line to filled; editable; expanded combobox conveys role; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-11-navigate-by-line-to-combobox-reading.html">/combobox-autocomplete-both/test-11-navigate-by-line-to-combobox-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 12: Navigating to filled; editable; expanded combobox conveys role; name; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-12-navigate-to-combobox-interaction.html">/combobox-autocomplete-both/test-12-navigate-to-combobox-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 13: Reading filled; editable; expanded combobox conveys role; name; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-13-read-combobox-reading.html">/combobox-autocomplete-both/test-13-read-combobox-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>With the reading cursor on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>With the reading cursor on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 14: Reading filled; editable; expanded combobox conveys role; name; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-14-read-combobox-interaction.html">/combobox-autocomplete-both/test-14-read-combobox-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>With focus on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>With focus on the combobox; read the combobox. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 15: Navigating to editable combobox switches mode from reading to interaction</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-15-navigate-to-combobox-with-keys-that-switch-modes-reading.html">/combobox-autocomplete-both/test-15-navigate-to-combobox-with-keys-that-switch-modes-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>The screen reader switches to mode that allows text input</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Navigate to the &#39;State&#39; combobox using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>The screen reader switches to mode that allows text input</td></tr>
+        </table>
+      </div>
+    <h2>Test 16: Activating editable combobox switches mode from reading to interaction</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-16-activate-combobox-reading.html">/combobox-autocomplete-both/test-16-activate-combobox-reading.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
@@ -95,9 +1324,9 @@
         <p>
           <ol>
              <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>Activate the &#39;state&#39; combobox using the following commands:
+             <li>Activate the &#39;State&#39; combobox using the following commands:
                <ul>
-                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>Enter</li>
                </ul>
              </li>
           </ol>
@@ -119,7 +1348,7 @@
         <p>
           <ol>
              <li>Put NVDA into Browse Mode using Escape</li>
-             <li>Activate the &#39;state&#39; combobox using the following commands:
+             <li>Activate the &#39;State&#39; combobox using the following commands:
                <ul>
                    <li>Enter</li>
                </ul>
@@ -132,14 +1361,265 @@
             <tr><td>must have</td><td>The screen reader switches to mode that allows text input</td></tr>
         </table>
       </div>
-    <h2>Test 2: Activating 'States' button opens combobox and conveys name, role, editability, and state</h2>
+    <h2>Test 17: Opening combobox conveys combobox state and optionally describes suggestion availability</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-17-open-combobox-interaction.html">/combobox-autocomplete-both/test-17-open-combobox-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty and collapsed.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Display the popup from empty combobox using the following commands:
+               <ul>
+                   <li>Alt+Down</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Expanded state of combobox is conveyed</td></tr>
+            <tr><td>should have</td><td>Name &#39;States&#39; is conveyed for the popup.</td></tr>
+            <tr><td>should have</td><td>Number of options available is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty and collapsed.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Display the popup from empty combobox using the following commands:
+               <ul>
+                   <li>Alt+Down</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Expanded state of combobox is conveyed</td></tr>
+            <tr><td>should have</td><td>Name &#39;States&#39; is conveyed for the popup.</td></tr>
+            <tr><td>should have</td><td>Number of options available is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty and collapsed.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Display the popup from empty combobox using the following commands:
+               <ul>
+                   <li>Alt+Down</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Expanded state of combobox is conveyed</td></tr>
+            <tr><td>should have</td><td>Name &#39;States&#39; is conveyed for the popup.</td></tr>
+            <tr><td>should have</td><td>Number of options available is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 18: Closing combobox conveys combobox state</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-18-close-combobox-interaction.html">/combobox-autocomplete-both/test-18-close-combobox-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty and expanded.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Collapse the combobox popup using the following commands:
+               <ul>
+                   <li>Escape</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Collapsed state of combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty and expanded.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Collapse the combobox popup using the following commands:
+               <ul>
+                   <li>Escape</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Collapsed state of combobox is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty and expanded.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Collapse the combobox popup using the following commands:
+               <ul>
+                   <li>Escape</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Collapsed state of combobox is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 19: Activating 'States' button opens combobox and conveys name; role; editability; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-19-activate-states-button-reading.html">/combobox-autocomplete-both/test-19-activate-states-button-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on &#39;States&#39; button; Ensure combobox is empty and collapsed.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Activate the button that displays the list of states. using the following commands:
+               <ul>
+                   <li>Enter</li>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on &#39;States&#39; button; Ensure combobox is empty and collapsed.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Activate the button that displays the list of states. using the following commands:
+               <ul>
+                   <li>Enter</li>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>expanded state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 20: Activating 'States' button opens combobox and conveys name; role; editability; and state</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: VoiceOver</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/activate-states-button-2.html">/combobox-autocomplete-both/activate-states-button-2.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-20-activate-states-button-interaction.html">/combobox-autocomplete-both/test-20-activate-states-button-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
@@ -174,14 +1654,14 @@
             <tr><td>must have</td><td>expanded state is conveyed.</td></tr>
         </table>
       </div>
-    <h2>Test 3: Activating 'States' button closes combobox and conveys collapsed state</h2>
+    <h2>Test 21: Activating 'States' button closes combobox and conveys collapsed state</h2>
     <p>
       <ul>
         <li>Mode: reading</i>
         <li>Applies to: JAWS, NVDA</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/activate-states-button-3.html">/combobox-autocomplete-both/activate-states-button-3.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-21-activate-states-button-reading.html">/combobox-autocomplete-both/test-21-activate-states-button-reading.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
@@ -239,14 +1719,14 @@
             <tr><td>must have</td><td>Collapsed state is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Activating 'States' button closes combobox and conveys collapsed state</h2>
+    <h2>Test 22: Activating 'States' button closes combobox and conveys collapsed state</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: VoiceOver</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/activate-states-button-4.html">/combobox-autocomplete-both/activate-states-button-4.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-22-activate-states-button-interaction.html">/combobox-autocomplete-both/test-22-activate-states-button-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
@@ -278,599 +1758,14 @@
             <tr><td>must have</td><td>Collapsed state is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Activating 'States' button opens combobox and conveys name, role, editability, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: JAWS, NVDA</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/activate-states-button.html">/combobox-autocomplete-both/activate-states-button.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on &#39;States&#39; button; Ensure combobox is empty and collapsed.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>Activate the button that displays the list of states. using the following commands:
-               <ul>
-                   <li>Enter</li>
-                   <li>Space</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on &#39;States&#39; button; Ensure combobox is empty and collapsed.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>Activate the button that displays the list of states. using the following commands:
-               <ul>
-                   <li>Enter</li>
-                   <li>Space</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 6: Canceling option selection conveys combobox role, name, editability, value, and state</h2>
+    <h2>Test 23: Navigating into popup from empty combobox conveys role; name; properties; and states of the popup and selected option</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/cancel-selection.html">/combobox-autocomplete-both/cancel-selection.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; type &#39;A&#39;; down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Collapse the combobox popup using the following commands:
-               <ul>
-                   <li>Escape</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; type &#39;A&#39;; down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Collapse the combobox popup using the following commands:
-               <ul>
-                   <li>Escape</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; type &#39;A&#39;; down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Collapse the combobox popup using the following commands:
-               <ul>
-                   <li>Escape</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 7: Activating option in popup conveys combobox role, name, editability, value, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/choose-combobox-option.html">/combobox-autocomplete-both/choose-combobox-option.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; press down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Choose &#39;Alaska&#39; from the listbox. using the following commands:
-               <ul>
-                   <li>Enter</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; press down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Choose &#39;Alaska&#39; from the listbox. using the following commands:
-               <ul>
-                   <li>Enter</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; press down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Choose &#39;Alaska&#39; from the listbox. using the following commands:
-               <ul>
-                   <li>Enter</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 8: Closing combobox conveys combobox state</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/close-combobox.html">/combobox-autocomplete-both/close-combobox.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; ensure it is empty and expanded.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Collapse the combobox popup using the following commands:
-               <ul>
-                   <li>Escape</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Collapsed state of combobox is conveyed</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; ensure it is empty and expanded.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Collapse the combobox popup using the following commands:
-               <ul>
-                   <li>Escape</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Collapsed state of combobox is conveyed</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; ensure it is empty and expanded.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Collapse the combobox popup using the following commands:
-               <ul>
-                   <li>Escape</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Collapsed state of combobox is conveyed</td></tr>
-        </table>
-      </div>
-    <h2>Test 9: Initiating caret movement from listbox conveys combobox value</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/initiate-caret-movement-from-listbox.html">/combobox-autocomplete-both/initiate-caret-movement-from-listbox.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; press down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Start caret movement in the textbox while focus is in the listbox using the following commands:
-               <ul>
-                   <li>Left Arrow</li>
-                   <li>Right Arrow</li>
-                   <li>Home</li>
-                   <li>End</li>
-                   <li>Command+Left  (Mac)</li>
-                   <li>Command+Right  (Mac)</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Caret position is conveyed</td></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>should have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>should have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; press down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Start caret movement in the textbox while focus is in the listbox using the following commands:
-               <ul>
-                   <li>Left Arrow</li>
-                   <li>Right Arrow</li>
-                   <li>Command+Left  (Mac)</li>
-                   <li>Command+Right  (Mac)</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Caret position is conveyed</td></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>should have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>should have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; press down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Start caret movement in the textbox while focus is in the listbox using the following commands:
-               <ul>
-                   <li>Left Arrow</li>
-                   <li>Right Arrow</li>
-                   <li>Home</li>
-                   <li>End</li>
-                   <li>Command+Left  (Mac)</li>
-                   <li>Command+Right  (Mac)</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Caret position is conveyed</td></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>should have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>should have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 10: Navigating by line to filled, editable, expanded combobox conveys role, editability, value, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: JAWS, NVDA</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/navigate-by-line-to-combobox-2.html">/combobox-autocomplete-both/navigate-by-line-to-combobox-2.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Down Arrow</li>
-                   <li>Up Arrow</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Down Arrow</li>
-                   <li>Up Arrow</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 11: Navigating by line to empty, editable combobox conveys role, editability, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: JAWS, NVDA</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/navigate-by-line-to-combobox.html">/combobox-autocomplete-both/navigate-by-line-to-combobox.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Down Arrow</li>
-                   <li>Up Arrow</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Down Arrow</li>
-                   <li>Up Arrow</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 12: Navigating into popup from empty combobox conveys role, name, properties, and states of the popup and selected option</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/navigate-into-popup-from-combobox.html">/combobox-autocomplete-both/navigate-into-popup-from-combobox.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-23-navigate-into-popup-from-combobox-interaction.html">/combobox-autocomplete-both/test-23-navigate-into-popup-from-combobox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
@@ -902,8 +1797,8 @@
           <tr><th>Priority</th><th>Assertion</th></tr>
             <tr><td>must have</td><td>Role &#39;listbox&#39; is conveyed for the popup.</td></tr>
             <tr><td>should have</td><td>Name &#39;States&#39; is conveyed for the popup.</td></tr>
-            <tr><td>must have</td><td>Name of focused option is conveyed, e.g., &#39;Alabama&#39; if first option, &#39;Wyoming&#39; if last option.</td></tr>
-            <tr><td>must have</td><td>Position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option.</td></tr>
+            <tr><td>must have</td><td>Name of focused option is conveyed; e.g.; &#39;Alabama&#39; if first option; &#39;Wyoming&#39; if last option.</td></tr>
+            <tr><td>must have</td><td>Position in set of the focused option is conveyed; e.g.; 1 of 56 if first option; 56 of 56 if last option.</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -930,8 +1825,8 @@
           <tr><th>Priority</th><th>Assertion</th></tr>
             <tr><td>must have</td><td>Role &#39;listbox&#39; is conveyed for the popup.</td></tr>
             <tr><td>should have</td><td>Name &#39;States&#39; is conveyed for the popup.</td></tr>
-            <tr><td>must have</td><td>Name of focused option is conveyed, e.g., &#39;Alabama&#39; if first option, &#39;Wyoming&#39; if last option.</td></tr>
-            <tr><td>must have</td><td>Position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option.</td></tr>
+            <tr><td>must have</td><td>Name of focused option is conveyed; e.g.; &#39;Alabama&#39; if first option; &#39;Wyoming&#39; if last option.</td></tr>
+            <tr><td>must have</td><td>Position in set of the focused option is conveyed; e.g.; 1 of 56 if first option; 56 of 56 if last option.</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -958,18 +1853,114 @@
           <tr><th>Priority</th><th>Assertion</th></tr>
             <tr><td>must have</td><td>Role &#39;listbox&#39; is conveyed for the popup.</td></tr>
             <tr><td>should have</td><td>Name &#39;States&#39; is conveyed for the popup.</td></tr>
-            <tr><td>must have</td><td>Name of focused option is conveyed, e.g., &#39;Alabama&#39; if first option, &#39;Wyoming&#39; if last option.</td></tr>
-            <tr><td>must have</td><td>Position in set of the focused option is conveyed, e.g., 1 of 56 if first option, 56 of 56 if last option.</td></tr>
+            <tr><td>must have</td><td>Name of focused option is conveyed; e.g.; &#39;Alabama&#39; if first option; &#39;Wyoming&#39; if last option.</td></tr>
+            <tr><td>must have</td><td>Position in set of the focused option is conveyed; e.g.; 1 of 56 if first option; 56 of 56 if last option.</td></tr>
         </table>
       </div>
-    <h2>Test 13: Navigating popup conveys name and properties of the selected option</h2>
+    <h2>Test 24: Typing portion of valid value to open popup conveys changes in combobox state and value selection</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-24-type-in-empty-combobox-interaction.html">/combobox-autocomplete-both/test-24-type-in-empty-combobox-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Type &#39;a&#39; in the empty combobox using the following commands:
+               <ul>
+                   <li>A</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Either 1) The selected text &#39;labama&#39; is conveyed or 2) The entire value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>The selected state of of the value option &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>The combobox state change from collapsed to expanded is conveyed</td></tr>
+            <tr><td>should have</td><td>The position in set of the selected option is conveyed; e.g.; 1 of 4 suggestions.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Type &#39;a&#39; in the empty combobox using the following commands:
+               <ul>
+                   <li>A</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Either 1) The selected text &#39;labama&#39; is conveyed or 2) The entire value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>The selected state of of the value option &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>The combobox state change from collapsed to expanded is conveyed</td></tr>
+            <tr><td>should have</td><td>The position in set of the selected option is conveyed; e.g.; 1 of 4 suggestions.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; ensure it is empty.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Type &#39;a&#39; in the empty combobox using the following commands:
+               <ul>
+                   <li>A</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Either 1) The selected text &#39;labama&#39; is conveyed or 2) The entire value &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>The selected state of of the value option &#39;Alabama&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>The combobox state change from collapsed to expanded is conveyed</td></tr>
+            <tr><td>should have</td><td>The position in set of the selected option is conveyed; e.g.; 1 of 4 suggestions.</td></tr>
+        </table>
+      </div>
+    <h2>Test 25: Navigating popup conveys name and properties of the selected option</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/navigate-listbox-popup.html">/combobox-autocomplete-both/navigate-listbox-popup.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-25-navigate-listbox-popup-interaction.html">/combobox-autocomplete-both/test-25-navigate-listbox-popup-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
@@ -999,9 +1990,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>The name of the focused option is conveyed, e.g., &#39;American Samoa&#39;</td></tr>
+            <tr><td>must have</td><td>The name of the focused option is conveyed; e.g.; &#39;American Samoa&#39;</td></tr>
             <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the focused option is conveyed, e.g., 3 of 56</td></tr>
+            <tr><td>should have</td><td>The position in set of the focused option is conveyed; e.g.; 3 of 56</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -1026,9 +2017,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>The name of the focused option is conveyed, e.g., &#39;American Samoa&#39;</td></tr>
+            <tr><td>must have</td><td>The name of the focused option is conveyed; e.g.; &#39;American Samoa&#39;</td></tr>
             <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the focused option is conveyed, e.g., 3 of 56</td></tr>
+            <tr><td>should have</td><td>The position in set of the focused option is conveyed; e.g.; 3 of 56</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -1053,1135 +2044,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>The name of the focused option is conveyed, e.g., &#39;American Samoa&#39;</td></tr>
+            <tr><td>must have</td><td>The name of the focused option is conveyed; e.g.; &#39;American Samoa&#39;</td></tr>
             <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the focused option is conveyed, e.g., 3 of 56</td></tr>
+            <tr><td>should have</td><td>The position in set of the focused option is conveyed; e.g.; 3 of 56</td></tr>
         </table>
       </div>
-    <h2>Test 14: Navigating to filled, editable, collapsed combobox conveys role, name, editability, value, and state</h2>
+    <h2>Test 26: Reading popup item conveys name and properties of the selected option</h2>
     <p>
       <ul>
         <li>Mode: reading</i>
-        <li>Applies to: Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/navigate-to-combobox-2.html">/combobox-autocomplete-both/navigate-to-combobox-2.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>C &#x2F; Shift+C</li>
-                   <li>E &#x2F; Shift+E</li>
-                   <li>F &#x2F; Shift+F</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav ON by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>F &#x2F; Shift+F</li>
-                   <li>Left Arrow &#x2F; Right Arrow  Arrow</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>C &#x2F; Shift+C</li>
-                   <li>E &#x2F; Shift+E</li>
-                   <li>F &#x2F; Shift+F</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 15: Navigating to filled, editable, collapsed combobox conveys role, name, editability, value, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/navigate-to-combobox-3.html">/combobox-autocomplete-both/navigate-to-combobox-3.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 16: Navigating to filled, editable, expanded combobox conveys role, name, editability, value, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/navigate-to-combobox-4.html">/combobox-autocomplete-both/navigate-to-combobox-4.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>C &#x2F; Shift+C</li>
-                   <li>E &#x2F; Shift+E</li>
-                   <li>F &#x2F; Shift+F</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav ON by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>F &#x2F; Shift+F</li>
-                   <li>Left Arrow &#x2F; Right Arrow  Arrow</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>C &#x2F; Shift+C</li>
-                   <li>E &#x2F; Shift+E</li>
-                   <li>F &#x2F; Shift+F</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 17: Navigating to filled, editable, expanded combobox conveys role, name, editability, value, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/navigate-to-combobox-5.html">/combobox-autocomplete-both/navigate-to-combobox-5.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 18: Navigating to editable combobox switches mode from reading to interaction</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: JAWS, NVDA</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/navigate-to-combobox-with-keys-that-switch-modes.html">/combobox-autocomplete-both/navigate-to-combobox-with-keys-that-switch-modes.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>The screen reader switches to mode that allows text input</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>The screen reader switches to mode that allows text input</td></tr>
-        </table>
-      </div>
-    <h2>Test 19: Navigating to empty, editable combobox conveys role, name, editability, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/navigate-to-combobox.html">/combobox-autocomplete-both/navigate-to-combobox.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Navigate to the &#39;State&#39; combobox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 20: Opening combobox conveys combobox state and optionally describes suggestion availability</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
         <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/open-combobox.html">/combobox-autocomplete-both/open-combobox.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; ensure it is empty and collapsed.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Display the popup from empty combobox using the following commands:
-               <ul>
-                   <li>Alt+Down</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Expanded state of combobox is conveyed</td></tr>
-            <tr><td></td><td>Name &#39;States&#39; is conveyed for the popup.</td></tr>
-            <tr><td></td><td>Number of options available is conveyed</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; ensure it is empty and collapsed.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Display the popup from empty combobox using the following commands:
-               <ul>
-                   <li>Alt+Down</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Expanded state of combobox is conveyed</td></tr>
-            <tr><td></td><td>Name &#39;States&#39; is conveyed for the popup.</td></tr>
-            <tr><td></td><td>Number of options available is conveyed</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; ensure it is empty and collapsed.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Display the popup from empty combobox using the following commands:
-               <ul>
-                   <li>Alt+Down</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Expanded state of combobox is conveyed</td></tr>
-            <tr><td></td><td>Name &#39;States&#39; is conveyed for the popup.</td></tr>
-            <tr><td></td><td>Number of options available is conveyed</td></tr>
-        </table>
-      </div>
-    <h2>Test 21: Reading empty, editable combobox conveys role, name, editability, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/read-combobox-2.html">/combobox-autocomplete-both/read-combobox-2.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>With focus on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>With focus on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Control+Option+F4</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>With focus on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 22: Reading filled, editable, collapsed combobox conveys role, name, editability, value, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: JAWS, NVDA</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/read-combobox-3.html">/combobox-autocomplete-both/read-combobox-3.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>With the reading cursor on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>With the reading cursor on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 23: Reading filled, editable, collapsed combobox conveys role, name, editability, value, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/read-combobox-4.html">/combobox-autocomplete-both/read-combobox-4.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>With focus on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>With focus on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Control+Option+F4</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;Alabama&#39;; ensure in collapsed state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>With focus on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 24: Reading filled, editable, expanded combobox conveys role, name, editability, value, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: JAWS, NVDA</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/read-combobox-5.html">/combobox-autocomplete-both/read-combobox-5.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>With the reading cursor on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>With the reading cursor on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 25: Reading filled, editable, expanded combobox conveys role, name, editability, value, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/read-combobox-6.html">/combobox-autocomplete-both/read-combobox-6.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>With focus on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>With focus on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Control+Option+F4</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; set value of &#39;combobox&#39; to &#39;A&#39;; ensure in expanded state.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>With focus on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
-            <tr><td>should have</td><td>Expanded state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 26: Reading empty, editable combobox conveys role, name, editability, and state</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: JAWS, NVDA</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/read-combobox.html">/combobox-autocomplete-both/read-combobox.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>With the reading cursor on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>With the reading cursor on the combobox, read the combobox. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
-            <tr><td>should have</td><td>Collapsed state is conveyed.</td></tr>
-        </table>
-      </div>
-    <h2>Test 27: Reading popup item conveys name and properties of the selected option</h2>
-    <p>
-      <ul>
-        <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/read-option-in-listbox-popup-2.html">/combobox-autocomplete-both/read-option-in-listbox-popup-2.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-26-read-option-in-listbox-popup-reading.html">/combobox-autocomplete-both/test-26-read-option-in-listbox-popup-reading.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
@@ -2199,8 +2074,8 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>With focus on an item in the popup listbox, read the item. using the following commands:
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>With focus on an item in the popup listbox; read the item. using the following commands:
                <ul>
                    <li>Insert+Tab</li>
                    <li>Insert+Up</li>
@@ -2211,103 +2086,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Name of focused option is conveyed, e.g., &#39;Alaska&#39;</td></tr>
+            <tr><td>must have</td><td>Name of focused option is conveyed; e.g.; &#39;Alaska&#39;</td></tr>
             <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the focused option is conveyed, e.g., 2 of 56</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; press down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>With focus on an item in the popup listbox, read the item. using the following commands:
-               <ul>
-                   <li>Control+Option+F4</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Name of focused option is conveyed, e.g., &#39;Alaska&#39;</td></tr>
-            <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the focused option is conveyed, e.g., 2 of 56</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; press down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>With focus on an item in the popup listbox, read the item. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Name of focused option is conveyed, e.g., &#39;Alaska&#39;</td></tr>
-            <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the focused option is conveyed, e.g., 2 of 56</td></tr>
-        </table>
-      </div>
-    <h2>Test 28: Reading popup item conveys name and properties of the selected option</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/read-option-in-listbox-popup.html">/combobox-autocomplete-both/read-option-in-listbox-popup.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Set focus on combobox; press down arrow 2 times.</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>With focus on an item in the popup listbox, read the item. using the following commands:
-               <ul>
-                   <li>Insert+Tab</li>
-                   <li>Insert+Up</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Name of focused option is conveyed, e.g., &#39;Alaska&#39;</td></tr>
-            <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the focused option is conveyed, e.g., 2 of 56</td></tr>
+            <tr><td>should have</td><td>The position in set of the focused option is conveyed; e.g.; 2 of 56</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -2321,7 +2102,7 @@
         <p>
           <ol>
              <li>Toggle Quick Nav ON by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>With focus on an item in the popup listbox, read the item. using the following commands:
+             <li>With focus on an item in the popup listbox; read the item. using the following commands:
                <ul>
                    <li>No commands have been added for this test for VoiceOver. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
                </ul>
@@ -2331,9 +2112,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Name of focused option is conveyed, e.g., &#39;Alaska&#39;</td></tr>
+            <tr><td>must have</td><td>Name of focused option is conveyed; e.g.; &#39;Alaska&#39;</td></tr>
             <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the focused option is conveyed, e.g., 2 of 56</td></tr>
+            <tr><td>should have</td><td>The position in set of the focused option is conveyed; e.g.; 2 of 56</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -2347,7 +2128,7 @@
         <p>
           <ol>
              <li>Put NVDA into Browse Mode using Escape</li>
-             <li>With focus on an item in the popup listbox, read the item. using the following commands:
+             <li>With focus on an item in the popup listbox; read the item. using the following commands:
                <ul>
                    <li>Insert+Tab</li>
                </ul>
@@ -2357,19 +2138,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Name of focused option is conveyed, e.g., &#39;Alaska&#39;</td></tr>
+            <tr><td>must have</td><td>Name of focused option is conveyed; e.g.; &#39;Alaska&#39;</td></tr>
             <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the focused option is conveyed, e.g., 2 of 56</td></tr>
+            <tr><td>should have</td><td>The position in set of the focused option is conveyed; e.g.; 2 of 56</td></tr>
         </table>
       </div>
-    <h2>Test 29: Typing portion of valid value to open popup conveys changes in combobox state and value selection</h2>
+    <h2>Test 27: Reading popup item conveys name and properties of the selected option</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
-        <li>Applies to: Screen Readers</li>
-        <li>Lasted edited: Tue Mar 17 14:21:24 2020 +0000
+        <li>Applies to: Desktop Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/type-in-empty-combobox.html">/combobox-autocomplete-both/type-in-empty-combobox.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-27-read-option-in-listbox-popup-interaction.html">/combobox-autocomplete-both/test-27-read-option-in-listbox-popup-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
@@ -2382,15 +2163,16 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>Set focus on combobox; ensure it is empty.</li>
+        <li>Set focus on combobox; press down arrow 2 times.</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
              <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Type &#39;a&#39; in the empty combobox using the following commands:
+             <li>With focus on an item in the popup listbox; read the item. using the following commands:
                <ul>
-                   <li>A</li>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
                </ul>
              </li>
           </ol>
@@ -2398,10 +2180,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Either 1) The selected text &#39;labama&#39; is conveyed or 2) The entire value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>The selected state of of the value option &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>The combobox state change from collapsed to expanded is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the selected option is conveyed, e.g., 1 of 4 suggestions.</td></tr>
+            <tr><td>must have</td><td>Name of focused option is conveyed; e.g.; &#39;Alaska&#39;</td></tr>
+            <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
+            <tr><td>should have</td><td>The position in set of the focused option is conveyed; e.g.; 2 of 56</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -2409,15 +2190,15 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>Set focus on combobox; ensure it is empty.</li>
+        <li>Set focus on combobox; press down arrow 2 times.</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
              <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Type &#39;a&#39; in the empty combobox using the following commands:
+             <li>With focus on an item in the popup listbox; read the item. using the following commands:
                <ul>
-                   <li>A</li>
+                   <li>Control+Option+F4</li>
                </ul>
              </li>
           </ol>
@@ -2425,10 +2206,9 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Either 1) The selected text &#39;labama&#39; is conveyed or 2) The entire value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>The selected state of of the value option &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>The combobox state change from collapsed to expanded is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the selected option is conveyed, e.g., 1 of 4 suggestions.</td></tr>
+            <tr><td>must have</td><td>Name of focused option is conveyed; e.g.; &#39;Alaska&#39;</td></tr>
+            <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
+            <tr><td>should have</td><td>The position in set of the focused option is conveyed; e.g.; 2 of 56</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -2436,15 +2216,15 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>Set focus on combobox; ensure it is empty.</li>
+        <li>Set focus on combobox; press down arrow 2 times.</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
              <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Type &#39;a&#39; in the empty combobox using the following commands:
+             <li>With focus on an item in the popup listbox; read the item. using the following commands:
                <ul>
-                   <li>A</li>
+                   <li>Insert+Tab</li>
                </ul>
              </li>
           </ol>
@@ -2452,10 +2232,316 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Either 1) The selected text &#39;labama&#39; is conveyed or 2) The entire value &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>The selected state of of the value option &#39;Alabama&#39; is conveyed.</td></tr>
-            <tr><td>must have</td><td>The combobox state change from collapsed to expanded is conveyed</td></tr>
-            <tr><td>should have</td><td>The position in set of the selected option is conveyed, e.g., 1 of 4 suggestions.</td></tr>
+            <tr><td>must have</td><td>Name of focused option is conveyed; e.g.; &#39;Alaska&#39;</td></tr>
+            <tr><td>should have</td><td>Role listbox or role option is conveyed</td></tr>
+            <tr><td>should have</td><td>The position in set of the focused option is conveyed; e.g.; 2 of 56</td></tr>
+        </table>
+      </div>
+    <h2>Test 28: Activating option in popup conveys combobox role; name; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-28-choose-combobox-option-interaction.html">/combobox-autocomplete-both/test-28-choose-combobox-option-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; press down arrow 2 times.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Choose &#39;Alaska&#39; from the listbox. using the following commands:
+               <ul>
+                   <li>Enter</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; press down arrow 2 times.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Choose &#39;Alaska&#39; from the listbox. using the following commands:
+               <ul>
+                   <li>Enter</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; press down arrow 2 times.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Choose &#39;Alaska&#39; from the listbox. using the following commands:
+               <ul>
+                   <li>Enter</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 29: Canceling option selection conveys combobox role; name; editability; value; and state</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-29-cancel-selection-interaction.html">/combobox-autocomplete-both/test-29-cancel-selection-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; type &#39;A&#39;; down arrow 2 times.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Collapse the combobox popup using the following commands:
+               <ul>
+                   <li>Escape</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; type &#39;A&#39;; down arrow 2 times.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Collapse the combobox popup using the following commands:
+               <ul>
+                   <li>Escape</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; type &#39;A&#39;; down arrow 2 times.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Collapse the combobox popup using the following commands:
+               <ul>
+                   <li>Escape</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Ability to enter text is conveyed</td></tr>
+            <tr><td>must have</td><td>Value &#39;A&#39; is conveyed.</td></tr>
+            <tr><td>must have</td><td>Collapsed state is conveyed.</td></tr>
+        </table>
+      </div>
+    <h2>Test 30: Initiating caret movement from listbox conveys combobox value</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</i>
+        <li>Applies to: Desktop Screen Readers</li>
+        <li>Lasted edited: Wed Apr 1 14:43:22 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/combobox-autocomplete-both/test-30-initiate-caret-movement-from-listbox-interaction.html">/combobox-autocomplete-both/test-30-initiate-caret-movement-from-listbox-interaction.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;combobox&#x2F;combobox-autocomplete-both.html">APG example: combobox&#x2F;combobox-autocomplete-both.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; press down arrow 2 times.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Start caret movement in the textbox while focus is in the listbox using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+                   <li>Right Arrow</li>
+                   <li>Home</li>
+                   <li>End</li>
+                   <li>Command+Left (Mac)</li>
+                   <li>Command+Right (Mac)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Caret position is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; press down arrow 2 times.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Start caret movement in the textbox while focus is in the listbox using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+                   <li>Right Arrow</li>
+                   <li>Command+Left (Mac)</li>
+                   <li>Command+Right (Mac)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Caret position is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Set focus on combobox; press down arrow 2 times.</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Start caret movement in the textbox while focus is in the listbox using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+                   <li>Right Arrow</li>
+                   <li>Home</li>
+                   <li>End</li>
+                   <li>Command+Left (Mac)</li>
+                   <li>Command+Right (Mac)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Caret position is conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;combobox&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Name &#39;State&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Value &#39;Alaska&#39; is conveyed.</td></tr>
         </table>
       </div>
 

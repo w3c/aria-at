@@ -52,8 +52,11 @@ const atCommandsFile = path.join(testDirectory, 'data', 'commands.csv');
 const referencesFile = path.join(testDirectory, 'data', 'references.csv');
 const javascriptDirectory = path.join(testDirectory, 'data', 'js');
 const indexFile = path.join(testDirectory,'index.html');
+const scriptsFile = path.join(testDirectory,'scripts.js');
 
 const keyDefs = {};
+
+let scripts = [];
 
 try {
   fse.statSync(testDirectory);
@@ -225,26 +228,23 @@ function createTestFile (test, refs, commands) {
         if (v1 === v2.toLowerCase()) {
           return v2;
         }
-      };
+      }
       return false;
     }
 
     // check for individual assistive technologies
-
     let items = values.split(',');
-    let str = '[';
-    items.forEach(function (item) {
+    let newValues = [];
+    items.filter(item => {
       let value = checkValue(item);
       if (!value) {
         addTestError(test.testId, '"' + item + '" is not valid value for "appliesTo" property.')
       }
-      str += '"' + value + '"';
-      if (items[items.length-1] !== item) {
-        str += ',';
-      }
+
+      newValues.push(value);
     });
-    str += ']';
-    return str;
+
+    return newValues;
   }
 
   function addAssertion(a) {
@@ -264,7 +264,7 @@ function createTestFile (test, refs, commands) {
     }
 
     if (a.length) {
-      assertions += `      [${level}, "${str}"],\n`
+      assertions.push([level, str]);
     }
   }
 
@@ -292,7 +292,7 @@ function createTestFile (test, refs, commands) {
     return links;
   }
 
-  function getSetupScript (fname) {
+  function addSetupScript (scriptName, fname) {
 
     let script = '';
     if (fname.length) {
@@ -310,14 +310,13 @@ function createTestFile (test, refs, commands) {
           const lines = data.split(/\r?\n/);
           lines.forEach((line) => {
             if (line.trim().length)
-            script += '      ' + line.trim() + '\n';
+            script += '\t' + line.trim() + '\n';
           });
       } catch (err) {
           console.error(err);
       }
 
-      script = `setupTestPage: function setupTestPage(testPageDocument) {
-${script}    },`
+      scripts.push(`\t${scriptName}: function(testPageDocument){\n${script}}`);
     }
 
     return script;
@@ -328,14 +327,14 @@ ${script}    },`
     if (typeof desc === 'string') {
       let d = desc.trim();
       if (d.length) {
-        str = `\n    setup_script_description: "${d}",\n    `;
+        str = d;
       }
     }
 
     return str;
   }
 
-  let assertions = '';
+  let assertions = [];
   let setupFileName = '';
   let id = test.testId;
   if (parseInt(test.testId) < 10) {
@@ -351,42 +350,36 @@ ${script}    },`
     }
   }
 
-  let task        = getTask(test.task);
   let references  = getReferences(refs.example, test.refs);
-  let mode        = getModeValue(test.mode);
-  let appliesTo   = getAppliesToValues(test.appliesTo);
-  let setupScript = getSetupScript(setupFileName);
-  let setupScriptDescription = getSetupScriptDescription(test.setupScriptDescription);
+  addSetupScript(test.setupScript, setupFileName);
 
-  addAssertion(test.assertion1);
-  addAssertion(test.assertion2);
-  addAssertion(test.assertion3);
-  addAssertion(test.assertion4);
-  addAssertion(test.assertion5);
-  addAssertion(test.assertion6);
-
-  if (assertions.length > 1) {
-    assertions = assertions.substring(0,assertions.length-2);
+  for (let i=1; i<6; i++) {
+    addAssertion(test["assertion"+i]);
   }
+
+  let testData = {
+    setup_script_description: getSetupScriptDescription(test.setupScriptDescription),
+    setupTestPage: test.setupScript,
+    applies_to: getAppliesToValues(test.appliesTo),
+    mode: getModeValue(test.mode),
+    task: getTask(test.task),
+    specific_user_instruction: test.instructions,
+    output_assertions: assertions
+  };
 
   let testHTML = `
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>${test.title}</title>
 ${references}
+<script id="test-data" type="application/json">
+${JSON.stringify(testData, null, 2)}
+</script>
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({${setupScriptDescription}${setupScript}
-    applies_to: ${appliesTo},
-    mode: "${mode}",
-    task: "${task}",
-    specific_user_instruction: "${test.instructions}",
-    output_assertions: [
-${assertions}
-    ]
-  });
-
+  verifyATBehavior();
   displayTestPageAndInstructions("${refs.reference}");
 
 </script>
@@ -472,6 +465,13 @@ ${links}
    fse.writeFileSync(indexFile, indexHTML, 'utf8');
 }
 
+function createScriptsFile() {
+  let js = 'var scripts = {\n';
+  js += scripts.join(',\n');
+  js += '\n};';
+  fse.writeFileSync(scriptsFile, js, 'utf8');
+}
+
 // Process CSV files
 
 var refs = {};
@@ -534,6 +534,8 @@ fs.createReadStream(referencesFile)
             });
 
             createIndexFile(indexOfURLs);
+
+            createScriptsFile();
 
             if (errorCount) {
               console.log('\n\n*** ' + errorCount + ' Errors in tests and/or commands ***');

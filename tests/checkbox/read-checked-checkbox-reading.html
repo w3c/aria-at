@@ -11,6 +11,13 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
+    setup_script_description: "Mark first checkbox as checked",
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Move focus and set aria-checked on first checkbox
+      const checkboxes = testPageDocument.querySelectorAll('[role="checkbox"]');
+      checkboxes[0].focus();
+      checkboxes[0].setAttribute('aria-checked', 'true');
+    },
     applies_to: ["JAWS","NVDA"],
     mode: "reading",
     task: "read checked checkbox",

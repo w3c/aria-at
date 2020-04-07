@@ -11,6 +11,12 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
+    setup_script_description: "Put DOM focus on the first checkbox",
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Move focus to first checkbox
+      const checkboxes = testPageDocument.querySelectorAll('[role="checkbox"]');
+      checkboxes[0].focus();
+    },
     applies_to: ["JAWS","NVDA","VoiceOver"],
     mode: "interaction",
     task: "read unchecked checkbox",

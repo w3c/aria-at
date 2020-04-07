@@ -8,7 +8,8 @@
         [ "SHIFT_TAB" ],
         [ "CTRL_OPT_RIGHT" ],
         [ "CTRL_OPT_LEFT" ],
-        [ "CTRL_OPT_CMD_J" ]
+        [ "CTRL_OPT_CMD_J" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
       ]
     },
     "reading": {
@@ -23,7 +24,8 @@
         [ "SHIFT_X" ],
         [ "UP" ],
         [ "DOWN" ],
-        [ "TAB" ]
+        [ "TAB" ],
+        [ "SHIFT_TAB" ]
       ]
     }
   },
@@ -36,7 +38,8 @@
         [ "SHIFT_TAB" ],
         [ "CTRL_OPT_RIGHT" ],
         [ "CTRL_OPT_LEFT" ],
-        [ "CTRL_OPT_CMD_J" ]
+        [ "CTRL_OPT_CMD_J" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
       ]
     },
     "reading": {
@@ -51,28 +54,16 @@
         [ "SHIFT_X" ],
         [ "UP" ],
         [ "DOWN" ],
-        [ "TAB" ]
+        [ "TAB" ],
+        [ "SHIFT_TAB" ]
       ]
     }
   },
-  "navigate to checkbox": {
+  "navigate to checked checkbox": {
     "interaction": {
-      "jaws": [
-        [ "TAB_AND_SHIFT_TAB" ],
-        [ "TAB_AND_SHIFT_TAB" ]
-      ],
-      "nvda": [
-        [ "TAB_AND_SHIFT_TAB" ],
-        [ "TAB_AND_SHIFT_TAB" ]
-      ],
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
       "voiceover": [
-        [ "TAB_AND_SHIFT_TAB" ],
-        [
-          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
-        ],
-        [
-          "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
-        ],
         [ "TAB_AND_SHIFT_TAB" ],
         [
           "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
@@ -90,7 +81,31 @@
         [
           "LEFT_AND_RIGHT",
           "(with Smart Navigation on)"
+        ]
+      ],
+      "nvda": [
+        [ "X_AND_SHIFT_X" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ]
+      ]
+    }
+  },
+  "navigate to unchecked checkbox": {
+    "interaction": {
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "voiceover": [
+        [ "TAB_AND_SHIFT_TAB" ],
+        [
+          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
         ],
+        [
+          "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
+        ]
+      ]
+    },
+    "reading": {
+      "jaws": [
         [ "X_AND_SHIFT_X" ],
         [ "TAB_AND_SHIFT_TAB" ],
         [ "UP_AND_DOWN" ],
@@ -100,9 +115,6 @@
         ]
       ],
       "nvda": [
-        [ "X_AND_SHIFT_X" ],
-        [ "TAB_AND_SHIFT_TAB" ],
-        [ "UP_AND_DOWN" ],
         [ "X_AND_SHIFT_X" ],
         [ "TAB_AND_SHIFT_TAB" ],
         [ "UP_AND_DOWN" ]
@@ -149,23 +161,17 @@
       ]
     }
   },
-  "read checkbox": {
+  "read unchecked checkbox": {
     "interaction": {
       "jaws": [
-        [ "INS_TAB_OR_CAPS_TAB" ],
-        [ "INS_UP_OR_CAPS_I" ],
         [ "INS_TAB_OR_CAPS_TAB" ],
         [ "INS_UP_OR_CAPS_I" ]
       ],
       "nvda": [
         [ "INS_TAB_OR_CAPS_TAB" ],
-        [ "INS_UP_OR_CAPS_UP" ],
-        [ "INS_TAB_OR_CAPS_TAB" ],
         [ "INS_UP_OR_CAPS_UP" ]
       ],
       "voiceover": [
-        [ "CTRL_OPT_F3" ],
-        [ "CTRL_OPT_F4" ],
         [ "CTRL_OPT_F3" ],
         [ "CTRL_OPT_F4" ]
       ]
@@ -173,13 +179,35 @@
     "reading": {
       "jaws": [
         [ "INS_TAB_OR_CAPS_TAB" ],
-        [ "INS_UP_OR_CAPS_I" ],
+        [ "INS_UP_OR_CAPS_I" ]
+      ],
+      "nvda": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_UP" ]
+      ]
+    }
+  },
+  "read checked checkbox": {
+    "interaction": {
+      "jaws": [
         [ "INS_TAB_OR_CAPS_TAB" ],
         [ "INS_UP_OR_CAPS_I" ]
       ],
       "nvda": [
         [ "INS_TAB_OR_CAPS_TAB" ],
-        [ "INS_UP_OR_CAPS_UP" ],
+        [ "INS_UP_OR_CAPS_UP" ]
+      ],
+      "voiceover": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    },
+    "reading": {
+      "jaws": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_I" ]
+      ],
+      "nvda": [
         [ "INS_TAB_OR_CAPS_TAB" ],
         [ "INS_UP_OR_CAPS_UP" ]
       ]

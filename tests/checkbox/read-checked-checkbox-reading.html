@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Navigate to an unchecked checkbox in reading mode.</title>
+<title>Read a checked checkbox in reading mode.</title>
 <link rel="author" title="Michael Fairchild" href="mailto:michael.fairchild@deque.com">
 <link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
@@ -13,8 +13,8 @@
   verifyATBehavior({
     applies_to: ["JAWS","NVDA"],
     mode: "reading",
-    task: "navigate to checkbox",
-    specific_user_instruction: "Navigate to the first checkbox (which is now checked)",
+    task: "read checked checkbox",
+    specific_user_instruction: "When the focus or reading cursor is on the first checkbox, read the first checkbox (which is now checked)",
     output_assertions: [
       [1, "Role 'checkbox' is conveyed"],
       [1, "Name 'Lettuce' is conveyed"],

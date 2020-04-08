@@ -13,7 +13,9 @@
     setup_script_description: "Move focus to the 'Font' menu item",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the "Font" menu item
-      document.querySelector('[role=menuitem]').focus();
+      var node = testPageDocument.querySelectorAll('[role=menuitem]')[0];
+      var menuId = testPageDocument.menubarEditor.getMenuId(node);
+      testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
     },
     applies_to: ["JAWS","NVDA"],
     mode: "reading",
@@ -21,7 +23,7 @@
     specific_user_instruction: "navigate to 'Style/Color' menu",
     output_assertions: [
       [1, "The role 'menu item' is conveyed"],
-      [1, "The label 'Font' is conveyed"],
+      [1, "The label 'Style/Color' is conveyed"],
       [1, "Opens submenu is conveyed"],
       [2, "The role 'menubar' is conveyed"],
       [2, "The menubar label 'Text Formatting' is conveyed"]

@@ -1,2 +1,4 @@
 // Move focus to the "Font" menu item
-document.querySelector('[role=menuitem]').focus();
+var node = testPageDocument.querySelectorAll('[role=menuitem]')[0];
+var menuId = testPageDocument.menubarEditor.getMenuId(node);
+testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);

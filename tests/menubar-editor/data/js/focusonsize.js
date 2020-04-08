@@ -1,2 +1,5 @@
 // Move focus to the "Size" menu item
-document.querySelector('[role=menuitem]')[3].focus();
+var node = testPageDocument.querySelectorAll('[role=menuitem]')[3];
+var menuId = testPageDocument.menubarEditor.getMenuId(node);
+testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
+

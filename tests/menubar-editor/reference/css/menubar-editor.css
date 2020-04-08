@@ -1,0 +1,152 @@
+ul[role="menubar"] {
+  margin: 0;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  padding: 12px;
+  font-size: 110%;
+  list-style: none;
+  background-color: #eee;
+  border: #eee solid 0px;
+  border-radius: 5px;
+}
+
+ul[role="menubar"].focus {
+  padding: 9px;
+  border: #034575 solid 3px;
+}
+
+ul[role="menubar"] li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+ul[role="menubar"] > li {
+  display: inline;
+  position: relative;
+}
+
+ul[role="menubar"] > li > [role="menuitem"]::after {
+  content: url('../images/down-arrow-brown.png');
+  padding-left: 0.25em;
+}
+
+ul[role="menubar"] ul[role="menu"] {
+  display: none;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+}
+
+ul[role="menubar"] ul[role="group"] {
+  margin: 0;
+  padding: 0;
+}
+
+ul[role="menubar"] li[aria-disabled="true"] {
+  color: #666;
+  text-decoration: line-through;
+}
+
+ul[role="menubar"] [role="menuitem"],
+ul[role="menubar"] [role="menuitemcheckbox"],
+ul[role="menubar"] [role="menuitemradio"],
+ul[role="menubar"] [role="separator"] {
+  margin-left: 0.25em;
+  margin-right: 0.25em;
+  padding: 6px;
+  background-color: #eee;
+  border: 0px solid #eee;
+  color: black;
+}
+
+ul[role="menubar"] a[role="menuitem"] {
+  border-radius: 5px;
+}
+
+ul[role="menubar"] [role="menu"] [role="menuitem"],
+ul[role="menubar"] [role="menu"] [role="menuitemcheckbox"],
+ul[role="menubar"] [role="menu"] [role="menuitemradio"],
+ul[role="menubar"] [role="menu"] [role="separator"] {
+  padding-left: 27px;
+  width: 8em;
+}
+
+ul[role="menubar"] [role="separator"] {
+  padding-top: 3px;
+  background-image: url('../images/separator.png');
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+ul[role="menubar"] [role="menuitem"]:focus {
+  padding: 3px;
+  border: 3px solid #034575;
+}
+
+ul[role="menubar"] [role="menuitem"][aria-expanded="true"] {
+  padding: 4px;
+  border: 2px solid #034575;
+}
+
+ul[role="menubar"] [role="menuitem"]:hover {
+  padding: 3px;
+  border: 3px solid #034575;
+}
+
+ul[role="menubar"] [role="menu"] [role="menuitem"]:hover,
+ul[role="menubar"] [role="menu"] [role="menuitem"]:focus {
+  padding: 3px;
+  padding-left: 24px;
+  border: 3px solid #034575;
+}
+
+ul[role="menubar"] [role="menu"] [aria-checked='false']:hover,
+ul[role="menubar"] [role="menu"] [aria-checked='false']:focus {
+  padding: 3px;
+  padding-left: 24px;
+  border: 3px solid #034575;
+}
+
+ul[role="menubar"] [role="menu"] [aria-checked='true'] {
+  padding: 6px;
+  padding-left: 12px;
+  padding-right: 18px;
+}
+
+ul[role="menubar"] [role="menu"] [aria-checked='true']:hover,
+ul[role="menubar"] [role="menu"] [aria-checked='true']:focus {
+  padding: 3px;
+  padding-left: 9px;
+  padding-right: 18px;
+  border: 3px solid #034575;
+}
+
+ul[role="menubar"]  [role="menu"] [aria-checked='true']::before {
+  content: url('../images/dot-brown.png');
+  padding-right: 5px;
+}
+
+/*
+* Text area styles
+*/
+.italic {
+  font-style: italic;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+#textarea1 {
+  padding: 0.5em;
+  border: 1px solid black;
+  height: 400px;
+  width: 70%;
+  font-size: medium;
+  font-family: sans-serif;
+}

@@ -13,7 +13,8 @@
     setup_script_description: "Move focus to the link just before the meunbar",
     setupTestPage: function setupTestPage(testPageDocument) {
       // Move focus to the link just before the meunbar
-      document.querySelector('a').focus();
+      console.log('[focusOnFirstLink][menubarEditor]: ' + testPageDocument.menubarEditor);
+      testPageDocument.querySelector('a').focus();
     },
     applies_to: ["JAWS","NVDA"],
     mode: "reading",

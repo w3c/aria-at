@@ -1,2 +1,3 @@
 // Move focus to the link just before the meunbar
-document.querySelector('a').focus();
+console.log('[focusOnFirstLink][menubarEditor]: ' + testPageDocument.menubarEditor);
+testPageDocument.querySelector('a').focus();

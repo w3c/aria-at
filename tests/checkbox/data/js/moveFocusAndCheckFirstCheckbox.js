@@ -1,4 +1,4 @@
 // Move focus and set aria-checked on first checkbox
-const checkboxes = testPageDocument.querySelectorAll('[role="checkbox"]');
-checkboxes[0].focus();
-checkboxes[0].setAttribute('aria-checked', 'true');
+const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+checkbox.focus();
+checkbox.setAttribute('aria-checked', 'true');

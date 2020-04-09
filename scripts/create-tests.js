@@ -341,7 +341,9 @@ function createTestFile (test, refs, commands) {
     id = '0' + id;
   }
   let testFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.html';
+  let testJSONFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.json';
   let testFileAbsolute = path.join(testDirectory, testFileName);
+  let testJSONFileAbsolute = path.join(testDirectory, testJSONFileName);
 
   if (typeof test.setupScript === 'string') {
     let setupScript = test.setupScript.trim();
@@ -367,19 +369,23 @@ function createTestFile (test, refs, commands) {
     output_assertions: assertions
   };
 
+  fse.writeFileSync(testJSONFileAbsolute, JSON.stringify(testData, null, 2), 'utf8');
+
   let testHTML = `
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>${test.title}</title>
 ${references}
-<script id="test-data" type="application/json">
-${JSON.stringify(testData, null, 2)}
-</script>
 <script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior();
+  fetch("${testJSONFileName}")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+    });
+  
   displayTestPageAndInstructions("${refs.reference}");
 
 </script>

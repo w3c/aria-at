@@ -146,9 +146,7 @@ function executeScriptInTestPage() {
   }
 }
 
-export function verifyATBehavior() {
-  let atBehavior = JSON.parse(document.getElementById('test-data').innerHTML);
-
+export function verifyATBehavior(atBehavior) {
   // This is temporary until transition is complete from multiple modes to one mode
   let mode = typeof atBehavior.mode === 'string' ? atBehavior.mode : atBehavior.mode[0];
 

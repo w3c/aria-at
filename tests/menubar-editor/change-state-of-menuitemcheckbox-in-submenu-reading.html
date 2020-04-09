@@ -14,8 +14,10 @@
     setup_script_description: "open 'Style/Color' menu item and move focus to the 'Italic' menu item checkbox option",
     setupTestPage: function setupTestPage(testPageDocument) {
       // open "Style/Color" menu item and move focus to the 'Italic' menu item checkbox option
-      document.querySelectorAll('[role=menuitem]')[1].setAttribute('aria-expanded', 'true');
-      document.querySelector('[data-option="italic"]').focus();
+      var node = testPageDocument.querySelectorAll('[role=menuitemcheckbox]')[1];
+      var menuId = testPageDocument.menubarEditor.getMenuId(node)
+      testPageDocument.menubarEditor.toggleCheckbox(node)
+      testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
     },
     applies_to: ["JAWS","NVDA"],
     mode: "reading",

@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigating to empty; editable combobox conveys role; name; editability; and state</title>
+<link rel="author" title="Matt King" href="mailto:undefined">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    applies_to: ["Screen Readers"],
+    mode: "interaction",
+    task: "navigate to combobox",
+    specific_user_instruction: "Navigate to the 'State' combobox",
+    output_assertions: [
+      [1, "Role 'combobox' is conveyed"],
+      [1, "Name 'State' is conveyed"],
+      [1, "Ability to enter text is conveyed"],
+      [2, "Collapsed state is conveyed."]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+
+</script>

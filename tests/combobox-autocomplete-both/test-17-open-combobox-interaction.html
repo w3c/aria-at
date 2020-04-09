@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Opening combobox conveys combobox state and optionally describes suggestion availability</title>
+<link rel="author" title="Matt King" href="mailto:undefined">
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    setup_script_description: "Set focus on combobox; ensure it is empty and collapsed.",
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Set focus on combobox
+      // Set value of 'combobox' is empty
+      // Ensure in collapsed state
+      var cb = testPageDocument.comboboxAutocomplete;
+      cb.comboboxNode.value = '';
+      cb.combobox.focus();
+    },
+    applies_to: ["Desktop Screen Readers"],
+    mode: "interaction",
+    task: "open combobox",
+    specific_user_instruction: "Display the popup from empty combobox",
+    output_assertions: [
+      [1, "Expanded state of combobox is conveyed"],
+      [2, "Name 'States' is conveyed for the popup."],
+      [2, "Number of options available is conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+
+</script>

@@ -3,28 +3,77 @@
 <meta charset="utf-8">
 <head>
   <title>Index of Test Files for local Server</title>
+  <style>
+    table {
+      display: table;
+      border-collapse: collapse;
+      border-spacing: 2px;
+      border-color: gray;
+    }
+
+    thead {
+      display: table-row-group;
+      vertical-align: middle;
+      border-bottom: black solid 2px;
+    }
+
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: gray;
+    }
+
+    tr:nth-child(even) {background: #DDD}
+    tr:nth-child(odd) {background: #FFF}
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: gray;
+    }
+
+    td {
+      padding: 3px;
+      display: table-cell;
+    }
+
+    th {
+      padding: 3px;
+      font-weight: bold;
+      display: table-cell;
+    }
+  </style>
 </head>
 <body>
   <h1>Index of Test Files</h1>
   <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
-  test runner is being executed, using <code>npm run start</code> from the root director: <code>/Users/shimizuyohta/github/aria-at/</code>.</p>
-  <ul>
-  <li><a href="navigate-into-checkbox-group-interaction.html">Navigate into a checkbox group in interaction mode.</a></li>
-<li><a href="navigate-into-checkbox-group-reading.html">Navigate into a checkbox group in reading mode.</a></li>
-<li><a href="navigate-out-of-checkbox-group-interaction.html">Navigate out of a checkbox group in interaction mode.</a></li>
-<li><a href="navigate-out-of-checkbox-group-reading.html">Navigate out of a checkbox group  in reading mode.</a></li>
-<li><a href="navigate-to-checked-checkbox-interaction.html">Navigate to a checked checkbox in interaction mode.</a></li>
-<li><a href="navigate-to-checked-checkbox-reading.html">Navigate to a checked checkbox in reading mode.</a></li>
-<li><a href="navigate-to-unchecked-checkbox-interaction.html">Navigate to an unchecked checkbox in interaction mode.</a></li>
-<li><a href="navigate-to-unchecked-checkbox-reading.html">Navigate to an unchecked checkbox in reading mode.</a></li>
-<li><a href="operate-checkbox-interaction.html">Operate a checkbox in interaction mode.</a></li>
-<li><a href="operate-checkbox-reading.html">Operate a checkbox in reading mode.</a></li>
-<li><a href="read-the-checkbox-group-interaction.html">Read grouping information of a checkbox group in interaction mode.</a></li>
-<li><a href="read-the-checkbox-group-reading.html">Read grouping information of a checkbox group in reading mode.</a></li>
-<li><a href="read-unchecked-checkbox-interaction.html">Read an unchecked checkbox in interaction mode.</a></li>
-<li><a href="read-unchecked-checkbox-reading.html">Read an unchecked checkbox in reading mode.</a></li>
-<li><a href="read-checked-checkbox-interaction.html">Read a checked checkbox in interaction mode.</a></li>
-<li><a href="read-checked-checkbox-reading.html">Read a checked checkbox in reading mode.</a></li>
+  test runner is being executed, using <code>npm run start</code> from the root director: <code>C:\inetpub\wwwroot\aria-at\</code>.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Task ID</th>
+        <th>Testing Task</th>
+        <th>Setup Script Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td>1</td><td><a href="test-01-navigate-into-checkbox-group-interaction.html">Navigate into a checkbox group in interaction mode.</a></td><td></td></tr>
+<tr><td>2</td><td><a href="test-02-navigate-into-checkbox-group-reading.html">Navigate into a checkbox group in reading mode.</a></td><td></td></tr>
+<tr><td>3</td><td><a href="test-03-navigate-out-of-checkbox-group-interaction.html">Navigate out of a checkbox group in interaction mode.</a></td><td></td></tr>
+<tr><td>4</td><td><a href="test-04-navigate-out-of-checkbox-group-reading.html">Navigate out of a checkbox group  in reading mode.</a></td><td></td></tr>
+<tr><td>5</td><td><a href="test-05-navigate-to-checked-checkbox-interaction.html">Navigate to a checked checkbox in interaction mode.</a></td><td>checkFirstCheckbox</td></tr>
+<tr><td>6</td><td><a href="test-06-navigate-to-checked-checkbox-reading.html">Navigate to a checked checkbox in reading mode.</a></td><td>checkFirstCheckbox</td></tr>
+<tr><td>7</td><td><a href="test-07-navigate-to-unchecked-checkbox-interaction.html">Navigate to an unchecked checkbox in interaction mode.</a></td><td></td></tr>
+<tr><td>8</td><td><a href="test-08-navigate-to-unchecked-checkbox-reading.html">Navigate to an unchecked checkbox in reading mode.</a></td><td></td></tr>
+<tr><td>9</td><td><a href="test-09-operate-checkbox-interaction.html">Operate a checkbox in interaction mode.</a></td><td></td></tr>
+<tr><td>10</td><td><a href="test-10-operate-checkbox-reading.html">Operate a checkbox in reading mode.</a></td><td></td></tr>
+<tr><td>11</td><td><a href="test-11-read-the-checkbox-group-interaction.html">Read grouping information of a checkbox group in interaction mode.</a></td><td></td></tr>
+<tr><td>12</td><td><a href="test-12-read-the-checkbox-group-reading.html">Read grouping information of a checkbox group in reading mode.</a></td><td></td></tr>
+<tr><td>13</td><td><a href="test-13-read-unchecked-checkbox-interaction.html">Read an unchecked checkbox in interaction mode.</a></td><td>moveFocusToFirstCheckbox</td></tr>
+<tr><td>14</td><td><a href="test-14-read-unchecked-checkbox-reading.html">Read an unchecked checkbox in reading mode.</a></td><td>moveFocusToFirstCheckbox</td></tr>
+<tr><td>15</td><td><a href="test-15-read-checked-checkbox-interaction.html">Read a checked checkbox in interaction mode.</a></td><td>moveFocusAndCheckFirstCheckbox</td></tr>
+<tr><td>16</td><td><a href="test-16-read-checked-checkbox-reading.html">Read a checked checkbox in reading mode.</a></td><td>moveFocusAndCheckFirstCheckbox</td></tr>
 
-  </ul>
+    </tbody>
+  </table>
 </body>

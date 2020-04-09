@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Read a checked checkbox in reading mode.</title>
+<title>Read an unchecked checkbox in interaction mode.</title>
 <link rel="author" title="Michael Fairchild" href="mailto:michael.fairchild@deque.com">
 <link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
@@ -11,17 +11,15 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "Mark first checkbox as checked",
+    setup_script_description: "Put DOM focus on the first checkbox",
     setupTestPage: function setupTestPage(testPageDocument) {
-      // Move focus and set aria-checked on first checkbox
-      const checkboxes = testPageDocument.querySelectorAll('[role="checkbox"]');
-      checkboxes[0].focus();
-      checkboxes[0].setAttribute('aria-checked', 'true');
+      // Move focus to first checkbox
+      testPageDocument.querySelector('[role="checkbox"]').focus();
     },
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "read checked checkbox",
-    specific_user_instruction: "When the focus or reading cursor is on the first checkbox, read the first checkbox (which is now checked)",
+    applies_to: ["JAWS","NVDA","VoiceOver"],
+    mode: "interaction",
+    task: "read unchecked checkbox",
+    specific_user_instruction: "When the focus or reading cursor is on the first checkbox, read the first checkbox",
     output_assertions: [
       [1, "Role 'checkbox' is conveyed"],
       [1, "Name 'Lettuce' is conveyed"],

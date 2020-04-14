@@ -68,18 +68,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	  }
 	}
 
-	// Get data for declarative tests
-	const jsString = root.querySelector('script').innerHTML;
-        const re = /verifyATBehavior\({([\w\W]+)}\);/g;
-        const match = re.exec(jsString);
-        const verifyATBehaviorArgument = match[1];
-
-	if (!verifyATBehaviorArgument) {
-	  throw("Cannot match verifyATBehavior arguments for file: ", test);
-	}
-
-        let testData;
-        eval('testData = {' + verifyATBehaviorArgument + '}');
+	let testData = JSON.parse(fse.readFileSync(path.join(subDirFullPath, path.parse(test).name+'.json'), 'utf8'));
 
 	const userInstruction = testData.specific_user_instruction;
 	const task = testData.task;

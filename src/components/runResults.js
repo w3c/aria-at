@@ -141,7 +141,7 @@ export default class RunResults extends Component {
           <title>ARIA-AT: Test Run Results</title>
         </Head>
         <nav aria-label="Breadcrumb">
-          <a href="../../">ARIA-AT Home</a> &gt; <a href="../">Test Results</a>
+          <a href="/aria-at/">ARIA-AT Home</a> &gt; <a href="/aria-at/results/">Test Results</a>
         </nav>
         <section>
           <h1>{`Results for test run of pattern "${designPattern}" (${countTests} test${countTests === 1 ? '' : 's'})`}</h1>

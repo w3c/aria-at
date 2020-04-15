@@ -15,7 +15,6 @@ export default class RunResults extends Component {
         <td><a href={`#test-${i.toString()}`}>{details.name}</a></td>
         <td>{details.summary[1].pass} / {details.summary[1].fail}</td>
         <td>{details.summary[2].pass} / {details.summary[2].fail}</td>
-        <td>{details.summary[3].pass} / {details.summary[3].fail}</td>
         <td>{details.unexpectedCount}</td>
       </tr>
     );

@@ -73,16 +73,16 @@
     <p>
       <ul>
         <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA, VoiceOver</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-into-checkbox-group-interaction.html">/checkbox/navigate-into-checkbox-group-interaction.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-01-navigate-into-checkbox-group-interaction.html">/checkbox/test-01-navigate-into-checkbox-group-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
@@ -93,6 +93,28 @@
         <p>
           <ol>
              <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Navigate into a checkbox group using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
              <li>Navigate into a checkbox group using the following commands:
                <ul>
                    <li>Tab</li>
@@ -135,56 +157,32 @@
             <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Navigate into a checkbox group using the following commands:
-               <ul>
-                   <li>Tab</li>
-                   <li>Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
-        </table>
-      </div>
     <h2>Test 2: Navigate into a checkbox group in reading mode.</h2>
     <p>
       <ul>
         <li>Mode: reading</i>
-        <li>Applies to: NVDA, JAWS</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-into-checkbox-group.html">/checkbox/navigate-into-checkbox-group.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-02-navigate-into-checkbox-group-reading.html">/checkbox/test-02-navigate-into-checkbox-group-reading.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
-      <div class="NVDA">
-        <h3>NVDA</h3>
+      <div class="JAWS">
+        <h3>JAWS</h3>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
              <li>Navigate into a checkbox group using the following commands:
                <ul>
-                   <li>X</li>
-                   <li>Shift+X</li>
                    <li>Up Arrow</li>
                    <li>Down Arrow</li>
                    <li>Tab</li>
@@ -201,14 +199,16 @@
             <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
-      <div class="JAWS">
-        <h3>JAWS</h3>
+      <div class="NVDA">
+        <h3>NVDA</h3>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Put NVDA into Browse Mode using Escape</li>
              <li>Navigate into a checkbox group using the following commands:
                <ul>
+                   <li>X</li>
+                   <li>Shift+X</li>
                    <li>Up Arrow</li>
                    <li>Down Arrow</li>
                    <li>Tab</li>
@@ -229,16 +229,16 @@
     <p>
       <ul>
         <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA, VoiceOver</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-out-of-checkbox-group-interaction.html">/checkbox/navigate-out-of-checkbox-group-interaction.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-03-navigate-out-of-checkbox-group-interaction.html">/checkbox/test-03-navigate-out-of-checkbox-group-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
@@ -249,7 +249,7 @@
         <p>
           <ol>
              <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Navigate out of a checkbox group using the following commands:
+             <li>Navigate out of checkbox group using the following commands:
                <ul>
                    <li>Tab</li>
                    <li>Shift+Tab</li>
@@ -260,9 +260,31 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td></td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td></td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td></td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+            <tr><td>should have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Navigate out of checkbox group using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>should have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
       <div class="VoiceOver">
@@ -271,7 +293,7 @@
         <p>
           <ol>
              <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Navigate out of a checkbox group using the following commands:
+             <li>Navigate out of checkbox group using the following commands:
                <ul>
                    <li>Tab</li>
                    <li>Shift+Tab</li>
@@ -286,19 +308,39 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td></td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td></td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td></td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+            <tr><td>should have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>should have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
+    <h2>Test 4: Navigate out of a checkbox group  in reading mode.</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-04-navigate-out-of-checkbox-group-reading.html">/checkbox/test-04-navigate-out-of-checkbox-group-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="JAWS">
+        <h3>JAWS</h3>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Navigate out of a checkbox group using the following commands:
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Navigate out of checkbox group using the following commands:
                <ul>
+                   <li>Up Arrow</li>
+                   <li>Down Arrow</li>
                    <li>Tab</li>
                    <li>Shift+Tab</li>
                </ul>
@@ -308,36 +350,18 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td></td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td></td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td></td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate out of a checkbox group in reading mode.</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: NVDA, JAWS</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-out-of-checkbox-group.html">/checkbox/navigate-out-of-checkbox-group.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
       <div class="NVDA">
         <h3>NVDA</h3>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
              <li>Put NVDA into Browse Mode using Escape</li>
-             <li>Navigate out of a checkbox group using the following commands:
+             <li>Navigate out of checkbox group using the following commands:
                <ul>
                    <li>X</li>
                    <li>Shift+X</li>
@@ -352,43 +376,19 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td></td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td></td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td></td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
-        </table>
-      </div>
-      <div class="JAWS">
-        <h3>JAWS</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>Navigate out of a checkbox group using the following commands:
-               <ul>
-                   <li>Up Arrow</li>
-                   <li>Down Arrow</li>
-                   <li>Tab</li>
-                   <li>Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td></td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td></td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-            <tr><td></td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed</td></tr>
         </table>
       </div>
     <h2>Test 5: Navigate to a checked checkbox in interaction mode.</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA, VoiceOver</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-to-checked-checkbox-interaction.html">/checkbox/navigate-to-checked-checkbox-interaction.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-05-navigate-to-checked-checkbox-interaction.html">/checkbox/test-05-navigate-to-checked-checkbox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
@@ -409,6 +409,32 @@
         <p>
           <ol>
              <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Navigate to the first checkbox (which is now checked) using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
              <li>Navigate to the first checkbox (which is now checked) using the following commands:
                <ul>
                    <li>Tab &#x2F; Shift+Tab</li>
@@ -440,32 +466,6 @@
                    <li>Tab &#x2F; Shift+Tab</li>
                    <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
                    <li>Control+Option+Command+J &#x2F; Shift+Control+Option+Command+J</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
-        </table>
-      </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Mark the first checkbox as checked</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Navigate to the first checkbox (which is now checked) using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
                </ul>
              </li>
           </ol>
@@ -482,10 +482,10 @@
     <p>
       <ul>
         <li>Mode: reading</i>
-        <li>Applies to: NVDA, JAWS</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-to-checked-checkbox.html">/checkbox/navigate-to-checked-checkbox.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-06-navigate-to-checked-checkbox-reading.html">/checkbox/test-06-navigate-to-checked-checkbox-reading.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
@@ -495,34 +495,6 @@
         </li>
       </ul>
     </p>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Mark the first checkbox as checked</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>Navigate to the first checkbox (which is now checked) using the following commands:
-               <ul>
-                   <li>X &#x2F; Shift+X</li>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Up Arrow &#x2F; Down Arrow</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
-        </table>
-      </div>
       <div class="JAWS">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
@@ -552,14 +524,42 @@
             <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark the first checkbox as checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Navigate to the first checkbox (which is now checked) using the following commands:
+               <ul>
+                   <li>X &#x2F; Shift+X</li>
+                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>Up Arrow &#x2F; Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 7: Navigate to an unchecked checkbox in interaction mode.</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA, VoiceOver</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-to-unchecked-checkbox-interaction.html">/checkbox/navigate-to-unchecked-checkbox-interaction.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-07-navigate-to-unchecked-checkbox-interaction.html">/checkbox/test-07-navigate-to-unchecked-checkbox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
@@ -575,7 +575,28 @@
         <p>
           <ol>
              <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
-             <li>Navigate to the first checkbox using the following commands:
+             <li>Navigate to the first checkbox (which is now unchecked) using the following commands:
+               <ul>
+                   <li>Tab &#x2F; Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
+             <li>Navigate to the first checkbox (which is now unchecked) using the following commands:
                <ul>
                    <li>Tab &#x2F; Shift+Tab</li>
                </ul>
@@ -596,7 +617,7 @@
         <p>
           <ol>
              <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Navigate to the first checkbox using the following commands:
+             <li>Navigate to the first checkbox (which is now unchecked) using the following commands:
                <ul>
                    <li>Tab &#x2F; Shift+Tab</li>
                    <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
@@ -613,35 +634,14 @@
             <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Navigate to the first checkbox using the following commands:
-               <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
-        </table>
-      </div>
     <h2>Test 8: Navigate to an unchecked checkbox in reading mode.</h2>
     <p>
       <ul>
         <li>Mode: reading</i>
-        <li>Applies to: NVDA, JAWS</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/navigate-to-unchecked-checkbox.html">/checkbox/navigate-to-unchecked-checkbox.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-08-navigate-to-unchecked-checkbox-reading.html">/checkbox/test-08-navigate-to-unchecked-checkbox-reading.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
@@ -651,36 +651,13 @@
         </li>
       </ul>
     </p>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>Navigate to the first checkbox using the following commands:
-               <ul>
-                   <li>X &#x2F; Shift+X</li>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Up Arrow &#x2F; Down Arrow</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
-        </table>
-      </div>
       <div class="JAWS">
         <h3>JAWS</h3>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
              <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
-             <li>Navigate to the first checkbox using the following commands:
+             <li>Navigate to the first checkbox (which is now unchecked) using the following commands:
                <ul>
                    <li>X &#x2F; Shift+X</li>
                    <li>Tab &#x2F; Shift+Tab</li>
@@ -698,18 +675,40 @@
             <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Navigate to the first checkbox (which is now unchecked) using the following commands:
+               <ul>
+                   <li>X &#x2F; Shift+X</li>
+                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>Up Arrow &#x2F; Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 9: Operate a checkbox in interaction mode.</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA, VoiceOver</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/operate-checkbox-interaction.html">/checkbox/operate-checkbox-interaction.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-09-operate-checkbox-interaction.html">/checkbox/test-09-operate-checkbox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
@@ -721,6 +720,25 @@
         <p>
           <ol>
              <li>Put JAWS into Forms Mode by turning Virtual Cursor off using Insert+Z</li>
+             <li>Check and uncheck the first checkbox using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Change in state is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Focus Mode using NVDA+Space</li>
              <li>Check and uncheck the first checkbox using the following commands:
                <ul>
                    <li>Space</li>
@@ -754,48 +772,28 @@
             <tr><td>must have</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Focus Mode using NVDA+Space</li>
-             <li>Check and uncheck the first checkbox using the following commands:
-               <ul>
-                   <li>Space</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Change in state is conveyed</td></tr>
-        </table>
-      </div>
     <h2>Test 10: Operate a checkbox in reading mode.</h2>
     <p>
       <ul>
         <li>Mode: reading</i>
-        <li>Applies to: NVDA, JAWS</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/operate-checkbox.html">/checkbox/operate-checkbox.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-10-operate-checkbox-reading.html">/checkbox/test-10-operate-checkbox-reading.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
     </p>
-      <div class="NVDA">
-        <h3>NVDA</h3>
+      <div class="JAWS">
+        <h3>JAWS</h3>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
              <li>Check and uncheck the first checkbox using the following commands:
                <ul>
                    <li>Enter</li>
@@ -810,12 +808,12 @@
             <tr><td>must have</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
-      <div class="JAWS">
-        <h3>JAWS</h3>
+      <div class="NVDA">
+        <h3>NVDA</h3>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Put JAWS into Virtual Cursor Mode using Insert+Z</li>
+             <li>Put NVDA into Browse Mode using Escape</li>
              <li>Check and uncheck the first checkbox using the following commands:
                <ul>
                    <li>Enter</li>
@@ -834,15 +832,13 @@
     <p>
       <ul>
         <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA, VoiceOver</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checkbox-group-interaction.html">/checkbox/read-checkbox-group-interaction.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-11-read-the-checkbox-group-interaction.html">/checkbox/test-11-read-the-checkbox-group-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
           </ul>
         </li>
@@ -866,28 +862,7 @@
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
             <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Group&#39;s name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>When focus or cursor is on a checkbox, read its grouping information using the following commands:
-               <ul>
-                   <li>Control+Option+F3</li>
-                   <li>Control+Option+F4</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Group&#39;s name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -908,37 +883,19 @@
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
             <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Group&#39;s name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Read grouping information of a checkbox group in reading mode.</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: NVDA, JAWS</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checkbox-group.html">/checkbox/read-checkbox-group.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="NVDA">
-        <h3>NVDA</h3>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
              <li>When focus or cursor is on a checkbox, read its grouping information using the following commands:
                <ul>
-                   <li>Insert+Tab (or CapsLock+Tab)</li>
-                   <li>Insert+Up (or CapsLock+Up)</li>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
                </ul>
              </li>
           </ol>
@@ -950,6 +907,22 @@
             <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
+    <h2>Test 12: Read grouping information of a checkbox group in reading mode.</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-12-read-the-checkbox-group-reading.html">/checkbox/test-12-read-the-checkbox-group-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
       <div class="JAWS">
         <h3>JAWS</h3>
         <h4>Tester Instructions</h4>
@@ -971,14 +944,35 @@
             <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>When focus or cursor is on a checkbox, read its grouping information using the following commands:
+               <ul>
+                   <li>Insert+Tab (or CapsLock+Tab)</li>
+                   <li>Insert+Up (or CapsLock+Up)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 13: Read an unchecked checkbox in interaction mode.</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA, VoiceOver</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checkbox-interaction.html">/checkbox/read-checkbox-interaction.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-13-read-unchecked-checkbox-interaction.html">/checkbox/test-13-read-unchecked-checkbox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
@@ -1015,33 +1009,6 @@
             <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Put DOM focus on the first checkbox</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>When the focus or reading cursor is on the first checkbox, read the first checkbox using the following commands:
-               <ul>
-                   <li>Control+Option+F3</li>
-                   <li>Control+Option+F4</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
-        </table>
-      </div>
       <div class="NVDA">
         <h3>NVDA</h3>
         <h4>Scripted Instructions</h4>
@@ -1057,6 +1024,33 @@
                <ul>
                    <li>Insert+Tab (or CapsLock+Tab)</li>
                    <li>Insert+Up (or CapsLock+Up)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Put DOM focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>When the focus or reading cursor is on the first checkbox, read the first checkbox using the following commands:
+               <ul>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
                </ul>
              </li>
           </ol>
@@ -1073,10 +1067,10 @@
     <p>
       <ul>
         <li>Mode: reading</i>
-        <li>Applies to: NVDA, JAWS</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checkbox.html">/checkbox/read-checkbox.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-14-read-unchecked-checkbox-reading.html">/checkbox/test-14-read-unchecked-checkbox-reading.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
@@ -1086,33 +1080,6 @@
         </li>
       </ul>
     </p>
-      <div class="NVDA">
-        <h3>NVDA</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Put DOM focus on the first checkbox</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
-             <li>When the focus or reading cursor is on the first checkbox, read the first checkbox using the following commands:
-               <ul>
-                   <li>Insert+Tab (or CapsLock+Tab)</li>
-                   <li>Insert+Up (or CapsLock+Up)</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
-        </table>
-      </div>
       <div class="JAWS">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
@@ -1140,14 +1107,41 @@
             <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Put DOM focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>When the focus or reading cursor is on the first checkbox, read the first checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab (or CapsLock+Tab)</li>
+                   <li>Insert+Up (or CapsLock+Up)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
     <h2>Test 15: Read a checked checkbox in interaction mode.</h2>
     <p>
       <ul>
         <li>Mode: interaction</i>
-        <li>Applies to: Desktop Screen Readers</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
+        <li>Applies to: JAWS, NVDA, VoiceOver</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
 
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checked-checkbox-interaction.html">/checkbox/read-checked-checkbox-interaction.html<a></li>
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-15-read-checked-checkbox-interaction.html">/checkbox/test-15-read-checked-checkbox-interaction.html<a></li>
         <li>Relevant Specifications:
           <ul>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
@@ -1162,7 +1156,7 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>Mark the first checkbox as checked</li>
+        <li>Mark first checkbox as checked</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1181,34 +1175,7 @@
           <tr><th>Priority</th><th>Assertion</th></tr>
             <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
             <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
-        </table>
-      </div>
-      <div class="VoiceOver">
-        <h3>VoiceOver</h3>
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
-        <ol>
-        <li>Mark the first checkbox as checked</li>
-        </ol>
-        <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>When the focus or reading cursor is on the first checkbox, read the first checkbox (which is now checked) using the following commands:
-               <ul>
-                   <li>Control+Option+F3</li>
-                   <li>Control+Option+F4</li>
-               </ul>
-             </li>
-          </ol>
-        </p>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
       <div class="NVDA">
@@ -1216,7 +1183,7 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>Mark the first checkbox as checked</li>
+        <li>Mark first checkbox as checked</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1235,41 +1202,24 @@
           <tr><th>Priority</th><th>Assertion</th></tr>
             <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
             <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Read a checked checkbox in reading mode.</h2>
-    <p>
-      <ul>
-        <li>Mode: reading</i>
-        <li>Applies to: NVDA, JAWS</li>
-        <li>Lasted edited: Mon Apr 6 15:49:58 2020 +0000
-
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/read-checked-checkbox.html">/checkbox/read-checked-checkbox.html<a></li>
-        <li>Relevant Specifications:
-          <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
-          </ul>
-        </li>
-      </ul>
-    </p>
-      <div class="NVDA">
-        <h3>NVDA</h3>
+      <div class="VoiceOver">
+        <h3>VoiceOver</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>Mark the first checkbox as checked</li>
+        <li>Mark first checkbox as checked</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
              <li>When the focus or reading cursor is on the first checkbox, read the first checkbox (which is now checked) using the following commands:
                <ul>
-                   <li>Insert+Tab (or CapsLock+Tab)</li>
-                   <li>Insert+Up (or CapsLock+Up)</li>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
                </ul>
              </li>
           </ol>
@@ -1279,15 +1229,32 @@
           <tr><th>Priority</th><th>Assertion</th></tr>
             <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
             <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
+    <h2>Test 16: Read a checked checkbox in reading mode.</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</i>
+        <li>Applies to: JAWS, NVDA</li>
+        <li>Lasted edited: Wed Apr 15 14:16:53 2020 -0500
+
+        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests/checkbox/test-16-read-checked-checkbox-reading.html">/checkbox/test-16-read-checked-checkbox-reading.html<a></li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
       <div class="JAWS">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>Mark the first checkbox as checked</li>
+        <li>Mark first checkbox as checked</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1306,7 +1273,34 @@
           <tr><th>Priority</th><th>Assertion</th></tr>
             <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
             <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
-            <tr><td>must have</td><td>State of the checkbox (checked) is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="NVDA">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>Mark first checkbox as checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Put NVDA into Browse Mode using Escape</li>
+             <li>When the focus or reading cursor is on the first checkbox, read the first checkbox (which is now checked) using the following commands:
+               <ul>
+                   <li>Insert+Tab (or CapsLock+Tab)</li>
+                   <li>Insert+Up (or CapsLock+Up)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>must have</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>must have</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
 

@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read an unchecked checkbox in interaction mode.</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    setup_script_description: "Put DOM focus on the first checkbox",
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // Move focus to first checkbox
+      testPageDocument.querySelector('[role="checkbox"]').focus();
+    },
+    applies_to: ["JAWS","NVDA","VoiceOver"],
+    mode: "interaction",
+    task: "read unchecked checkbox",
+    specific_user_instruction: "When the focus or reading cursor is on the first checkbox, read the first checkbox",
+    output_assertions: [
+      [1, "Role 'checkbox' is conveyed"],
+      [1, "Name 'Lettuce' is conveyed"],
+      [1, "State of the checkbox (not checked) is conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/two-state-checkbox.html");
+
+</script>

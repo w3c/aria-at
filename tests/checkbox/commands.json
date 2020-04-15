@@ -1,244 +1,215 @@
 {
-  "navigate to combobox":{
-    "reading":{
-      "jaws":[
-        ["C_AND_SHIFT_C"],
-        ["F_AND_SHIFT_F"],
-        ["UP_AND_DOWN"],
-        ["LEFT_AND_RIGHT", "(with Smart Navigation set to Controls and Tables)"]
+  "navigate into checkbox group": {
+    "interaction": {
+      "jaws": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+      "voiceover": [
+        [ "TAB" ],
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "CTRL_OPT_CMD_J" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
       ]
     },
-    "interaction":{
-      "jaws":[
-        ["TAB_AND_SHIFT_TAB"]
+    "reading": {
+      "jaws": [
+        [ "UP" ],
+        [ "DOWN" ],
+        [ "TAB" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "nvda": [
+        [ "X" ],
+        [ "SHIFT_X" ],
+        [ "UP" ],
+        [ "DOWN" ],
+        [ "TAB" ],
+        [ "SHIFT_TAB" ]
       ]
     }
   },
-  "read combobox":{
-    "reading":{
-      "jaws":[
-        ["INS_TAB"],
-        ["INS_UP"]
+  "navigate out of checkbox group": {
+    "interaction": {
+      "jaws": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+      "voiceover": [
+        [ "TAB" ],
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "CTRL_OPT_CMD_J" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
       ]
     },
-    "interaction":{
-      "jaws":[
-        ["INS_TAB"],
-        ["INS_UP"]
-      ]
-    }
-  },
-  "navigate to combobox with keys that switch modes":{
-    "reading":{
-      "jaws":[
-        ["TAB_AND_SHIFT_TAB"]
-      ]
-    }
-  },
-  "activate combobox":{
-    "reading":{
-      "jaws":[
-        ["ENTER"]
-      ]
-    }
-  },
-  "open combobox from input":{
-    "interaction":{
-      "jaws":[
-        ["DOWN"],
-        ["UP"]
-      ]
-    }
-  },
-  "navigate to checkbox":{
-    "reading":{
-      "jaws":[
-        ["X_AND_SHIFT_X"],
-        ["TAB_AND_SHIFT_TAB"],
-        ["UP_AND_DOWN"],
-        ["LEFT_AND_RIGHT", "(with Smart Navigation on)"]
+    "reading": {
+      "jaws": [
+        [ "UP" ],
+        [ "DOWN" ],
+        [ "TAB" ],
+        [ "SHIFT_TAB" ]
       ],
-      "nvda":[
-        ["X_AND_SHIFT_X"],
-        ["TAB_AND_SHIFT_TAB"],
-        ["UP_AND_DOWN"]
-      ],
-      "voiceover":[
-
+      "nvda": [
+        [ "X" ],
+        [ "SHIFT_X" ],
+        [ "UP" ],
+        [ "DOWN" ],
+        [ "TAB" ],
+        [ "SHIFT_TAB" ]
+      ]
+    }
+  },
+  "navigate to checked checkbox": {
+    "interaction": {
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "voiceover": [
+        [ "TAB_AND_SHIFT_TAB" ],
+        [
+          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+        ],
+        [
+          "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
+        ]
       ]
     },
-    "interaction":{
-      "jaws":[
-        ["TAB_AND_SHIFT_TAB"]
+    "reading": {
+      "jaws": [
+        [ "X_AND_SHIFT_X" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ],
+        [
+          "LEFT_AND_RIGHT",
+          "(with Smart Navigation on)"
+        ]
       ],
-      "nvda":[
-        ["TAB_AND_SHIFT_TAB"]
-      ],
-      "voiceover":[
-        ["TAB_AND_SHIFT_TAB"],
-        ["CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"],
-        ["CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"]
+      "nvda": [
+        [ "X_AND_SHIFT_X" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ]
       ]
     }
   },
-  "read checkbox":{
-    "reading":{
-      "jaws":[
-        ["INS_TAB_OR_CAPS_TAB"],
-        ["INS_UP_OR_CAPS_I"]
-      ],
-      "nvda":[
-        ["INS_TAB_OR_CAPS_TAB"],
-        ["INS_UP_OR_CAPS_UP"]
-      ],
-      "voiceover":[
-
+  "navigate to unchecked checkbox": {
+    "interaction": {
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "voiceover": [
+        [ "TAB_AND_SHIFT_TAB" ],
+        [
+          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+        ],
+        [
+          "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
+        ]
       ]
     },
-    "interaction":{
-      "jaws":[
-        ["INS_TAB_OR_CAPS_TAB"],
-        ["INS_UP_OR_CAPS_I"]
+    "reading": {
+      "jaws": [
+        [ "X_AND_SHIFT_X" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ],
+        [
+          "LEFT_AND_RIGHT",
+          "(with Smart Navigation on)"
+        ]
       ],
-      "nvda":[
-        ["INS_TAB_OR_CAPS_TAB"],
-        ["INS_UP_OR_CAPS_UP"]
-      ],
-      "voiceover":[
-        ["CTRL_OPT_F3"],
-        ["CTRL_OPT_F4"]
+      "nvda": [
+        [ "X_AND_SHIFT_X" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ]
       ]
     }
   },
-  "operate checkbox":{
-    "reading":{
-      "jaws":[
-        ["ENTER"],
-        ["SPACE"]
-      ],
-      "nvda":[
-        ["ENTER"],
-        ["SPACE"]
-      ],
-      "voiceover":[
+  "operate checkbox": {
+    "interaction": {
+      "jaws": [ [ "SPACE" ] ],
+      "nvda": [ [ "SPACE" ] ],
+      "voiceover": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ]
       ]
     },
-    "interaction":{
-      "jaws":[
-        ["SPACE"]
+    "reading": {
+      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
+    }
+  },
+  "read the checkbox group": {
+    "interaction": {
+      "jaws": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_I" ]
       ],
-      "nvda":[
-        ["SPACE"]
+      "nvda": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_UP" ]
       ],
-      "voiceover":[
-        ["CTRL_OPT_SPACE"],
-        ["SPACE"]
+      "voiceover": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    },
+    "reading": {
+      "jaws": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_I" ]
+      ],
+      "nvda": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_UP" ]
       ]
     }
   },
-  "navigate into checkbox group":{
-    "reading":{
-      "jaws":[
-        ["UP"],
-        ["DOWN"],
-        ["TAB"],
-        ["SHIFT_TAB"]
+  "read unchecked checkbox": {
+    "interaction": {
+      "jaws": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_I" ]
       ],
-      "nvda":[
-        ["X"],
-        ["SHIFT_X"],
-        ["UP"],
-        ["DOWN"],
-        ["TAB"],
-        ["SHIFT_TAB"]
+      "nvda": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_UP" ]
       ],
-      "voiceover":[
-
+      "voiceover": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
       ]
     },
-    "interaction":{
-      "jaws":[
-        ["TAB"],
-        ["SHIFT_TAB"]
+    "reading": {
+      "jaws": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_I" ]
       ],
-      "nvda":[
-        ["TAB"],
-        ["SHIFT_TAB"]
-      ],
-      "voiceover":[
-        ["TAB"],
-        ["SHIFT_TAB"],
-        ["CTRL_OPT_RIGHT"],
-        ["CTRL_OPT_LEFT"],
-        ["CTRL_OPT_CMD_J"],
-        ["SHIFT_CTRL_OPT_CMD_J"]
+      "nvda": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_UP" ]
       ]
     }
   },
-  "navigate out of checkbox group":{
-    "reading":{
-      "jaws":[
-        ["UP"],
-        ["DOWN"],
-        ["TAB"],
-        ["SHIFT_TAB"]
+  "read checked checkbox": {
+    "interaction": {
+      "jaws": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_I" ]
       ],
-      "nvda":[
-        ["X"],
-        ["SHIFT_X"],
-        ["UP"],
-        ["DOWN"],
-        ["TAB"],
-        ["SHIFT_TAB"]
+      "nvda": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_UP" ]
       ],
-      "voiceover":[
-
+      "voiceover": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
       ]
     },
-    "interaction":{
-      "jaws":[
-        ["TAB"],
-        ["SHIFT_TAB"]
+    "reading": {
+      "jaws": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_I" ]
       ],
-      "nvda":[
-        ["TAB"],
-        ["SHIFT_TAB"]
-      ],
-      "voiceover":[
-        ["TAB"],
-        ["SHIFT_TAB"],
-        ["CTRL_OPT_RIGHT"],
-        ["CTRL_OPT_LEFT"],
-        ["CTRL_OPT_CMD_J"],
-        ["SHIFT_CTRL_OPT_CMD_J"]
-      ]
-    }
-  },
-  "read the checkbox group":{
-    "reading":{
-      "jaws":[
-        ["INS_TAB_OR_CAPS_TAB"],
-        ["INS_UP_OR_CAPS_I"]
-      ],
-      "nvda":[
-        ["INS_TAB_OR_CAPS_TAB"],
-        ["INS_UP_OR_CAPS_UP"]
-      ],
-      "voiceover":[
-      ]
-    },
-    "interaction":{
-      "jaws":[
-        ["INS_TAB_OR_CAPS_TAB"],
-        ["INS_UP_OR_CAPS_I"]
-      ],
-      "nvda":[
-        ["INS_TAB_OR_CAPS_TAB"],
-        ["INS_UP_OR_CAPS_UP"]
-      ],
-      "voiceover":[
-        ["CTRL_OPT_F3"],
-        ["CTRL_OPT_F4"]
+      "nvda": [
+        [ "INS_TAB_OR_CAPS_TAB" ],
+        [ "INS_UP_OR_CAPS_UP" ]
       ]
     }
   }

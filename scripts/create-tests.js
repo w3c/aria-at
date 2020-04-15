@@ -373,7 +373,6 @@ ${script}    },`
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>${test.title}</title>
-<link rel="author" title="${refs.author}" href="mailto:${refs.authorEmail}">
 ${references}
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";

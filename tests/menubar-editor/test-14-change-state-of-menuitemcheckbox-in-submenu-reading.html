@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Change state of menu item checkbox to unchecked in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
+<link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    setup_script_description: "open 'Style/Color' menu item and move focus to the 'Italic' menu item checkbox option",
+    setupTestPage: function setupTestPage(testPageDocument) {
+      // open "Style/Color" menu item and move focus to the 'Italic' menu item checkbox option
+      var node = testPageDocument.querySelectorAll('[role=menuitemcheckbox]')[1];
+      var menuId = testPageDocument.menubarEditor.getMenuId(node)
+      testPageDocument.menubarEditor.toggleCheckbox(node)
+      testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
+    },
+    applies_to: ["JAWS","NVDA"],
+    mode: "reading",
+    task: "change state of menuitemcheckbox in submenu",
+    specific_user_instruction: "uncheck the 'Italic' menu item in the 'Style/Color' submenu",
+    output_assertions: [
+      [1, "The unchecked state of the checkbox is conveyed"],
+      [1, "Screen reader switching to interaction mode is conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/menubar-editor.html");
+
+</script>

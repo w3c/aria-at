@@ -1,0 +1,26 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to an unchecked checkbox in reading mode.</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  verifyATBehavior({
+    applies_to: ["JAWS","NVDA"],
+    mode: "reading",
+    task: "navigate to unchecked checkbox",
+    specific_user_instruction: "Navigate to the first checkbox (which is now unchecked)",
+    output_assertions: [
+      [1, "Role 'checkbox' is conveyed"],
+      [1, "Name 'Lettuce' is conveyed"],
+      [1, "State of the checkbox (not checked) is conveyed"]
+    ]
+  });
+
+  displayTestPageAndInstructions("reference/two-state-checkbox.html");
+
+</script>

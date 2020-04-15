@@ -22,7 +22,7 @@ export default function ResultsPage() {
         <title>ARIA-AT: All Test Results</title>
       </Head>
       <nav aria-label="Breadcrumb">
-        <a href="../">ARIA-AT Home</a>
+        <a href="/aria-at/">ARIA-AT Home</a>
       </nav>
       <h1>Test Run Results</h1>
       <ul>

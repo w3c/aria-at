@@ -384,9 +384,8 @@ ${references}
     .then(response => response.json()) // parse the JSON from the server
     .then(data => {
       verifyATBehavior(data);
+      displayTestPageAndInstructions("${refs.reference}");
     });
-  
-  displayTestPageAndInstructions("${refs.reference}");
 
 </script>
 `;

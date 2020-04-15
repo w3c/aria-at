@@ -1,0 +1,29 @@
+{
+  "setup_script_description": "Open 'Font' menu item and move focus to the 'Font' menu item",
+  "setupTestPage": "openfontsubmenu",
+  "applies_to": [
+    "JAWS",
+    "NVDA"
+  ],
+  "mode": "reading",
+  "task": "navigate to menuitemradio in submenu",
+  "specific_user_instruction": "navigate to 'Sans-serif' menu item in the 'Font' submenu",
+  "output_assertions": [
+    [
+      "1",
+      "The role 'menu item radio' is conveyed"
+    ],
+    [
+      "1",
+      "The label 'Sans-serif' is conveyed"
+    ],
+    [
+      "1",
+      "The checked state is conveyed"
+    ],
+    [
+      "2",
+      " The position and size of the submenu  is conveyed"
+    ]
+  ]
+}

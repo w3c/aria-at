@@ -4,29 +4,15 @@
 <title>Activating 'States' button opens combobox and conveys name; role; editability; and state</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Set focus on 'States' button; Ensure combobox is empty and collapsed.",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Set focus on button
-      // Ensure in collapsed state.
-      var cb = testPageDocument.comboboxAutocomplete;
-      cb.buttonNode.focus();
-    },
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "activate states button",
-    specific_user_instruction: "Activate the button that displays the list of states.",
-    output_assertions: [
-      [1, "Role 'combobox' is conveyed"],
-      [1, "Name 'State' is conveyed"],
-      [1, "Ability to enter text is conveyed"],
-      [1, "expanded state is conveyed."]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  fetch("test-19-activate-states-button-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+    });
 
 </script>

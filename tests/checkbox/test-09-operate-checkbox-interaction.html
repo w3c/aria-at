@@ -5,19 +5,15 @@
 <link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    applies_to: ["JAWS","NVDA","VoiceOver"],
-    mode: "interaction",
-    task: "operate checkbox",
-    specific_user_instruction: "Check and uncheck the first checkbox",
-    output_assertions: [
-      [1, "Change in state is conveyed"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/two-state-checkbox.html");
+  fetch("test-09-operate-checkbox-interaction.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/two-state-checkbox.html");
+    });
 
 </script>

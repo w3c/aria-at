@@ -1,0 +1,16 @@
+{
+  "setup_script_description": "Set focus on combobox; ensure it is empty and expanded.",
+  "setupTestPage": "comboboxFocusEmptyExpanded",
+  "applies_to": [
+    "Desktop Screen Readers"
+  ],
+  "mode": "interaction",
+  "task": "close combobox",
+  "specific_user_instruction": "Collapse the combobox popup",
+  "output_assertions": [
+    [
+      "1",
+      "Collapsed state of combobox is conveyed"
+    ]
+  ]
+}

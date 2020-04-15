@@ -1,0 +1,28 @@
+{
+  "setup_script_description": "Set focus on combobox; ensure it is empty.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "Screen Readers"
+  ],
+  "mode": "interaction",
+  "task": "type in empty combobox",
+  "specific_user_instruction": "Type 'a' in the empty combobox",
+  "output_assertions": [
+    [
+      "1",
+      "Either 1) The selected text 'labama' is conveyed or 2) The entire value 'Alabama' is conveyed."
+    ],
+    [
+      "1",
+      "The selected state of of the value option 'Alabama' is conveyed."
+    ],
+    [
+      "1",
+      "The combobox state change from collapsed to expanded is conveyed"
+    ],
+    [
+      "2",
+      "The position in set of the selected option is conveyed; e.g.; 1 of 4 suggestions."
+    ]
+  ]
+}

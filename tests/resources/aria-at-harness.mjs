@@ -560,7 +560,6 @@ function submitResult(event) {
   const summary = {
     1: {pass: 0, fail: 0},
     2: {pass: 0, fail: 0},
-    3: {pass: 0, fail: 0},
     unexpectedCount: 0
   };
 

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Change state of menu item checkbox to unchecked in interaction mode</title>
+<title>Change state of menu item checkbox to checked in interaction mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
@@ -15,15 +15,14 @@
       // open "Style/Color" menu item and move focus to the 'Italic' menu item checkbox option
       var node = testPageDocument.querySelectorAll('[role=menuitemcheckbox]')[1];
       var menuId = testPageDocument.menubarEditor.getMenuId(node)
-      testPageDocument.menubarEditor.toggleCheckbox(node)
       testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
     },
     applies_to: ["JAWS","NVDA"],
     mode: "interaction",
-    task: "change state of menuitemcheckbox in submenu",
-    specific_user_instruction: "uncheck the 'Italic' menu item in the 'Style/Color' menu",
+    task: "change state of menuitemcheckbox in submenu to checked",
+    specific_user_instruction: "check the 'Italic' menu item in the 'Style/Color'sub menu",
     output_assertions: [
-      [1, "The unchecked state of the checkbox is conveyed"]
+      [1, "The checked state of the checkbox is conveyed"]
     ]
   });
 

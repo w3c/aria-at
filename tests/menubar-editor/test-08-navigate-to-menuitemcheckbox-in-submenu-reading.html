@@ -9,21 +9,20 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "open 'Text Align' menuitem and give the 'Text ALign' menu item focus",
+    setup_script_description: "Open 'Style/Color' menuitem and give the 'Style/Color' menu item focus",
     setupTestPage: function setupTestPage(testPageDocument) {
-      // open "Text Align" menuitem and give the "Text Align" menu item focus
-      var node = testPageDocument.querySelectorAll('[role=menuitem]')[2];
+      // Move focus to the "Style/Color" menu item
+      var node = testPageDocument.querySelectorAll('[role=menuitem]')[1];
       var menuId = testPageDocument.menubarEditor.getMenuId(node);
       testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
-      testPageDocument.menubarEditor.openPopup(node);
     },
     applies_to: ["JAWS","NVDA"],
     mode: "reading",
     task: "navigate to menuitemcheckbox in submenu",
-    specific_user_instruction: "navigate to 'Bold' menu item in the 'Style/Color' submenu",
+    specific_user_instruction: "Navigate to 'Bold' menu item in the 'Style/Color' submenu",
     output_assertions: [
       [1, "The role 'menu item checkbox' is conveyed"],
-      [1, "The label 'Sans-serif' is conveyed"],
+      [1, "The name 'Bold' is conveyed"],
       [1, "The unchecked state is conveyed"],
       [2, " The position and size of the submenu  is conveyed"]
     ]

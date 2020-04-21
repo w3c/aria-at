@@ -12,20 +12,20 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "open 'Style/Color' menu item and move focus to the 'Bold' menu item radio option",
+    setup_script_description: "Open 'Style/Color' menu item and move focus to the 'Bold' menu item radio option",
     setupTestPage: function setupTestPage(testPageDocument) {
       // open "Style/Color" menu item and move focus to the 'Bold' menu item checkbox option
       var node = testPageDocument.querySelectorAll('[role=menuitemcheckbox]')[0];
       var menuId = testPageDocument.menubarEditor.getMenuId(node)
       testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
     },
-    applies_to: ["JAWS","NVDA"],
+    applies_to: ["JAWS","NVDA","VoiceOver"],
     mode: "interaction",
     task: "read menuitemcheckbox in a submenu",
     specific_user_instruction: "Review the 'Bold' menu item in the 'Style/Color' submenu",
     output_assertions: [
       [1, "The role 'menu item checkbox' is conveyed"],
-      [1, "The label 'Bold' is conveyed"],
+      [1, "The name 'Bold' is conveyed"],
       [1, "The unchecked state is conveyed"],
       [2, " The position and size of the submenu  is conveyed"]
     ]

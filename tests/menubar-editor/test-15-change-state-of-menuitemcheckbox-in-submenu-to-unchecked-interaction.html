@@ -10,7 +10,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "open 'Style/Color' menu item and move focus to the 'Italic' menu item checkbox option",
+    setup_script_description: "Open 'Style/Color' menu item and move focus to the 'Italic' menu item checkbox option",
     setupTestPage: function setupTestPage(testPageDocument) {
       // open "Style/Color" menu item and move focus to the 'Italic' menu item checkbox option
       var node = testPageDocument.querySelectorAll('[role=menuitemcheckbox]')[1];
@@ -18,10 +18,10 @@
       testPageDocument.menubarEditor.toggleCheckbox(node)
       testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
     },
-    applies_to: ["JAWS","NVDA"],
+    applies_to: ["JAWS","NVDA","VoiceOver"],
     mode: "interaction",
     task: "change state of menuitemcheckbox in submenu to unchecked",
-    specific_user_instruction: "uncheck the 'Italic' menu item in the 'Style/Color' menu",
+    specific_user_instruction: "Uncheck the 'Italic' menu item in the 'Style/Color' submenu",
     output_assertions: [
       [1, "The unchecked state of the checkbox is conveyed"]
     ]

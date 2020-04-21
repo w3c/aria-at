@@ -12,7 +12,7 @@
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
   verifyATBehavior({
-    setup_script_description: "open 'Size' menu item and disable the 'Larger' option and move focus to the 'Larger' menu item checkbox option",
+    setup_script_description: "Open 'Size' menu item and disable the 'Larger' option and move focus to the 'Larger' menu item checkbox option",
     setupTestPage: function setupTestPage(testPageDocument) {
       // open "Size" menu item, disable the "Larger" option and move focus to the "Larger" menu item checkbox option
       var nodes = testPageDocument.querySelectorAll('[role=menuitemradio]');
@@ -32,7 +32,7 @@
     specific_user_instruction: "Review the 'Larger' menu item in the 'Size' submenu",
     output_assertions: [
       [1, "The role 'menu item' is conveyed"],
-      [1, "The label 'Smaller' is conveyed"],
+      [1, "The name 'Smaller' is conveyed"],
       [1, "The disabled state is conveyed"],
       [2, " The position and size of the submenu  is conveyed"]
     ]

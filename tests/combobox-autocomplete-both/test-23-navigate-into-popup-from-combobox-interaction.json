@@ -1,0 +1,28 @@
+{
+  "setup_script_description": "Set focus on combobox; ensure it is empty.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "Desktop Screen Readers"
+  ],
+  "mode": "interaction",
+  "task": "navigate into popup from combobox",
+  "specific_user_instruction": "Navigate into the popup from the empty combobox",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'listbox' is conveyed for the popup."
+    ],
+    [
+      "2",
+      "Name 'States' is conveyed for the popup."
+    ],
+    [
+      "1",
+      "Name of focused option is conveyed; e.g.; 'Alabama' if first option; 'Wyoming' if last option."
+    ],
+    [
+      "1",
+      "Position in set of the focused option is conveyed; e.g.; 1 of 56 if first option; 56 of 56 if last option."
+    ]
+  ]
+}

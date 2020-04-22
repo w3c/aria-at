@@ -1,0 +1,22 @@
+{
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "JAWS",
+    "NVDA",
+    "VoiceOver"
+  ],
+  "mode": "interaction",
+  "task": "read the checkbox group",
+  "specific_user_instruction": "When focus or cursor is on a checkbox, read its grouping information",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ]
+  ]
+}

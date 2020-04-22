@@ -5,29 +5,15 @@
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Open 'Style/Color' menuitem and give the 'Style/Color' menu item focus",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Move focus to the "Style/Color" menu item
-      var node = testPageDocument.querySelectorAll('[role=menuitem]')[1];
-      var menuId = testPageDocument.menubarEditor.getMenuId(node);
-      testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
-    },
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "navigate to menuitemcheckbox in submenu",
-    specific_user_instruction: "Navigate to 'Bold' menu item in the 'Style/Color' submenu",
-    output_assertions: [
-      [1, "The role 'menu item checkbox' is conveyed"],
-      [1, "The name 'Bold' is conveyed"],
-      [1, "The unchecked state is conveyed"],
-      [2, " The position and size of the submenu  is conveyed"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/menubar-editor.html");
+  fetch("test-08-navigate-to-menuitemcheckbox-in-submenu-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/menubar-editor.html");
+    });
 
 </script>

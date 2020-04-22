@@ -5,30 +5,15 @@
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menuitemradio">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Open 'Font' menu item and move focus to the 'Font' menu item",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Open "Font" menu item and move focus to the "Font" menu item
-      var node = testPageDocument.querySelectorAll('[role=menuitem]')[0];
-      var menuId = testPageDocument.menubarEditor.getMenuId(node);
-      testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
-      testPageDocument.menubarEditor.openPopup(node);
-    },
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "navigate to menuitemradio in submenu",
-    specific_user_instruction: "Navigate to 'Sans-serif' menu item in the 'Font' submenu",
-    output_assertions: [
-      [1, "The role 'menu item radio' is conveyed"],
-      [1, "The name 'Sans-serif' is conveyed"],
-      [1, "The checked state is conveyed"],
-      [2, " The position and size of the submenu  is conveyed"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/menubar-editor.html");
+  fetch("test-06-navigate-to-menuitemradio-in-submenu-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/menubar-editor.html");
+    });
 
 </script>

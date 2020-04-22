@@ -4,32 +4,15 @@
 <title>Canceling option selection conveys combobox role; name; editability; value; and state</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Set focus on combobox; type 'A'; down arrow 2 times.",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Set focus on combobox
-      // Set value of 'combobox' is empty
-      // Ensure in collapsed state
-      var cb = testPageDocument.comboboxAutocomplete;
-      cb.comboboxNode.value = '';
-      cb.combobox.focus();
-    },
-    applies_to: ["Desktop Screen Readers"],
-    mode: "interaction",
-    task: "cancel selection",
-    specific_user_instruction: "Collapse the combobox popup",
-    output_assertions: [
-      [1, "Role 'combobox' is conveyed"],
-      [1, "Name 'State' is conveyed"],
-      [1, "Ability to enter text is conveyed"],
-      [1, "Value 'A' is conveyed."],
-      [1, "Collapsed state is conveyed."]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  fetch("test-29-cancel-selection-interaction.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+    });
 
 </script>

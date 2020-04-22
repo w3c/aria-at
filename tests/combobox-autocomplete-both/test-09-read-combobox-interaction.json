@@ -1,0 +1,32 @@
+{
+  "setup_script_description": "Set focus on combobox; set value of 'combobox' to 'Alabama'; ensure in collapsed state.",
+  "setupTestPage": "comboboxValueSetCollapsedState",
+  "applies_to": [
+    "Desktop Screen Readers"
+  ],
+  "mode": "interaction",
+  "task": "read combobox",
+  "specific_user_instruction": "With focus on the combobox; read the combobox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'State' is conveyed"
+    ],
+    [
+      "1",
+      "Ability to enter text is conveyed"
+    ],
+    [
+      "1",
+      "Value 'Alabama' is conveyed."
+    ],
+    [
+      "2",
+      "Collapsed state is conveyed."
+    ]
+  ]
+}

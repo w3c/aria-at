@@ -8,29 +8,15 @@
 <link rel="help" href="https://w3c.github.io/aria/#aria-haspopup">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Move focus to the 'Size' menu item",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Move focus to the "Size" menu item
-      var node = testPageDocument.querySelectorAll('[role=menuitem]')[3];
-      var menuId = testPageDocument.menubarEditor.getMenuId(node);
-      testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
-    },
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "read menuitem in menubar",
-    specific_user_instruction: "Review the  'Size' menu item in the menubar",
-    output_assertions: [
-      [1, "The role 'menu item' is conveyed"],
-      [1, "The name 'Size' is conveyed"],
-      [2, " The role 'menubar' is conveyed"],
-      [2, " The menubar name 'Text Formatting' is conveyed"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/menubar-editor.html");
+  fetch("test-20-read-menuitem-in-menubar-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/menubar-editor.html");
+    });
 
 </script>

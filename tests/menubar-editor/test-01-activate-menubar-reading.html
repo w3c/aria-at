@@ -5,19 +5,15 @@
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menubar">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "activate menubar",
-    specific_user_instruction: "Activate the 'Text Formatting' menubar",
-    output_assertions: [
-      [1, "Screen reader switching to interaction mode is conveyed"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/menubar-editor.html");
+  fetch("test-01-activate-menubar-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/menubar-editor.html");
+    });
 
 </script>

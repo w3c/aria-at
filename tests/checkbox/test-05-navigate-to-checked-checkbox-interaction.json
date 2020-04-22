@@ -1,0 +1,26 @@
+{
+  "setup_script_description": "Mark the first checkbox as checked",
+  "setupTestPage": "checkFirstCheckbox",
+  "applies_to": [
+    "JAWS",
+    "NVDA",
+    "VoiceOver"
+  ],
+  "mode": "interaction",
+  "task": "navigate to checked checkbox",
+  "specific_user_instruction": "Navigate to the first checkbox (which is now checked)",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Lettuce' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (checked) is conveyed"
+    ]
+  ]
+}

@@ -4,29 +4,15 @@
 <title>Activating 'States' button closes combobox and conveys collapsed state</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Set focus on 'States' button; Ensure combobox is expanded.",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Set focus on button
-      // Ensure in expanded state.
-      var cb = testPageDocument.comboboxAutocomplete;
-      cb.buttonNode.focus();
-      cb.filter = cb.comboboxNode.value;
-      cb.filterOptions();
-      cb.open();
-    },
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "activate states button",
-    specific_user_instruction: "Activate the button that hides the list of states.",
-    output_assertions: [
-      [1, "Collapsed state is conveyed"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  fetch("test-21-activate-states-button-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+    });
 
 </script>

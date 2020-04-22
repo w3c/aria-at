@@ -6,30 +6,15 @@
 <link rel="help" href="https://w3c.github.io/aria/#menuitem">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Move focus to the 'Text Align' menu item",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Move focus to the "Text Align" menu item
-      var node = testPageDocument.querySelectorAll('[role=menuitem]')[2];
-      var menuId = testPageDocument.menubarEditor.getMenuId(node);
-      testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
-    },
-    applies_to: ["JAWS","NVDA","VoiceOver"],
-    mode: "interaction",
-    task: "open submenu of menubar",
-    specific_user_instruction: "Opens 'Text Align' submenu and move focus to 'Left' menu item",
-    output_assertions: [
-      [1, "The role 'menu item radio' is conveyed"],
-      [1, "The name 'Left' is conveyed"],
-      [2, " The role menu is conveyed"],
-      [2, " The name 'Text Align' is conveyed"],
-      [2, " The position and size of the submenu  is conveyed"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/menubar-editor.html");
+  fetch("test-17-open-submenu-of-menubar-interaction.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/menubar-editor.html");
+    });
 
 </script>

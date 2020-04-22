@@ -6,26 +6,15 @@
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Mark the first checkbox as checked",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Set aria-checked on first checkbox
-      testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
-    },
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "navigate to checked checkbox",
-    specific_user_instruction: "Navigate to the first checkbox (which is now checked)",
-    output_assertions: [
-      [1, "Role 'checkbox' is conveyed"],
-      [1, "Name 'Lettuce' is conveyed"],
-      [1, "State of the checkbox (checked) is conveyed"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/two-state-checkbox.html");
+  fetch("test-06-navigate-to-checked-checkbox-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/two-state-checkbox.html");
+    });
 
 </script>

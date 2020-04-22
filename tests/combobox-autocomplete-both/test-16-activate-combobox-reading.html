@@ -4,28 +4,15 @@
 <title>Activating editable combobox switches mode from reading to interaction</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Set focus on combobox",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Set focus on combobox
-      // Set value of 'combobox' is empty
-      // Ensure in collapsed state
-      var cb = testPageDocument.comboboxAutocomplete;
-      cb.comboboxNode.value = '';
-      cb.combobox.focus();
-    },
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "activate combobox",
-    specific_user_instruction: "Activate the 'State' combobox",
-    output_assertions: [
-      [1, "The screen reader switches to mode that allows text input"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  fetch("test-16-activate-combobox-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+    });
 
 </script>

@@ -5,27 +5,15 @@
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menubar">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Move focus to the link just before the meunbar",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Move focus to the link just before the meunbar
-      console.log('[focusOnFirstLink][menubarEditor]: ' + testPageDocument.menubarEditor);
-      testPageDocument.querySelector('a').focus();
-    },
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "navigate to menubar",
-    specific_user_instruction: "Navigate to the 'Text Formatting' menubar",
-    output_assertions: [
-      [1, "The role 'menubar' is conveyed"],
-      [1, "The menubar name 'Text Formatting' is conveyed"],
-      [1, "Number of items in menubar is conveyed"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/menubar-editor.html");
+  fetch("test-03-navigate-to-menubar-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/menubar-editor.html");
+    });
 
 </script>

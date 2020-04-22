@@ -4,22 +4,15 @@
 <title>Navigating by line to filled; editable; expanded combobox conveys role; editability; value; and state</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    applies_to: ["JAWS","NVDA"],
-    mode: "reading",
-    task: "navigate by line to combobox",
-    specific_user_instruction: "Navigate to the 'State' combobox",
-    output_assertions: [
-      [1, "Role 'combobox' is conveyed"],
-      [1, "Ability to enter text is conveyed"],
-      [1, "Value 'A' is conveyed."],
-      [2, "Expanded state is conveyed."]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  fetch("test-11-navigate-by-line-to-combobox-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+    });
 
 </script>

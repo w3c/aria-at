@@ -1,8 +1,8 @@
 {
   "ats": [
     {
-      "name": "VoiceOver for MacOS",
-      "key": "voiceover"
+      "name": "VoiceOver for macOS",
+      "key": "voiceover-macos"
     },
     {
       "name": "NVDA",
@@ -13,13 +13,25 @@
       "key": "jaws"
     }
   ],
+  "applies_to": {
+    "Desktop Screen Readers": [
+      "VoiceOver for macOS",
+      "NVDA",
+      "JAWS"
+    ],
+    "Screen Readers": [
+      "VoiceOver for macOS",
+      "NVDA",
+      "JAWS"
+    ]
+  },
   "examples": [
     {
       "directory": "checkbox",
       "name": "Checkbox Example (Two State)"
     },
     {
-      "directory": "menubar-edit",
+      "directory": "menubar-editor",
       "name": "Editor Menubar Example"
     },
     {

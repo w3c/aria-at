@@ -1,0 +1,30 @@
+{
+  "setup_script_description": "Move focus to the 'Font' menu item",
+  "setupTestPage": "focusonfont",
+  "applies_to": [
+    "JAWS",
+    "NVDA",
+    "VoiceOver"
+  ],
+  "mode": "interaction",
+  "task": "navigate to menuitemradio in submenu",
+  "specific_user_instruction": "Navigate to 'Sans-serif' menu item in the 'Font' submenu",
+  "output_assertions": [
+    [
+      "1",
+      "The role 'menu item radio' is conveyed"
+    ],
+    [
+      "1",
+      "The name 'Sans-serif' is conveyed"
+    ],
+    [
+      "1",
+      "The checked state is conveyed"
+    ],
+    [
+      "2",
+      " The position and size of the submenu  is conveyed"
+    ]
+  ]
+}

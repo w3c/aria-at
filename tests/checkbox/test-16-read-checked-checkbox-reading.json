@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "Mark first checkbox as checked",
+  "setupTestPage": "moveFocusAndCheckFirstCheckbox",
+  "applies_to": [
+    "JAWS",
+    "NVDA"
+  ],
+  "mode": "reading",
+  "task": "read checked checkbox",
+  "specific_user_instruction": "When the focus or reading cursor is on the first checkbox, read the first checkbox (which is now checked)",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Lettuce' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (not checked) is conveyed"
+    ]
+  ]
+}

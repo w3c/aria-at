@@ -1,0 +1,21 @@
+{
+  "setup_script_description": "open 'Style/Color' menu item and move focus to the 'Italic' menu item checkbox option",
+  "setupTestPage": "focusonstylecoloritalic",
+  "applies_to": [
+    "JAWS",
+    "NVDA"
+  ],
+  "mode": "reading",
+  "task": "change state of menuitemcheckbox in submenu",
+  "specific_user_instruction": "check the 'Italic' menu item in the 'Style/Color' submenu",
+  "output_assertions": [
+    [
+      "1",
+      "The checked state of the checkbox is conveyed"
+    ],
+    [
+      "1",
+      "Screen reader switching to interaction mode is conveyed"
+    ]
+  ]
+}

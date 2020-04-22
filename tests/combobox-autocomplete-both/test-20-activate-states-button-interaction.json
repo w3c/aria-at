@@ -1,0 +1,28 @@
+{
+  "setup_script_description": "Set focus on 'States' button; Ensure combobox is empty and collapsed.",
+  "setupTestPage": "buttonFocusEmptyCollpased",
+  "applies_to": [
+    "VoiceOver"
+  ],
+  "mode": "interaction",
+  "task": "activate states button",
+  "specific_user_instruction": "Activate the button that displays the list of states.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'State' is conveyed"
+    ],
+    [
+      "1",
+      "Ability to enter text is conveyed"
+    ],
+    [
+      "1",
+      "expanded state is conveyed."
+    ]
+  ]
+}

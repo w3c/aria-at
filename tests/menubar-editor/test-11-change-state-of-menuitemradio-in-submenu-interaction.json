@@ -1,0 +1,17 @@
+{
+  "setup_script_description": "open 'Style/Color' menu item and move focus to the 'Blue' menu item radio option",
+  "setupTestPage": "focusonstylecolorblue",
+  "applies_to": [
+    "JAWS",
+    "NVDA"
+  ],
+  "mode": "interaction",
+  "task": "change state of menuitemradio in submenu",
+  "specific_user_instruction": "check the 'Blue' menu item in the 'Style/Color' submenu",
+  "output_assertions": [
+    [
+      "1",
+      "The checked state of the checkbox is conveyed"
+    ]
+  ]
+}

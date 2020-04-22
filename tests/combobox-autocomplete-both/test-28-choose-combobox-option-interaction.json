@@ -1,0 +1,32 @@
+{
+  "setup_script_description": "Set focus on combobox; press down arrow 2 times.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "Desktop Screen Readers"
+  ],
+  "mode": "interaction",
+  "task": "choose combobox option",
+  "specific_user_instruction": "Choose 'Alaska' from the listbox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'State' is conveyed"
+    ],
+    [
+      "1",
+      "Ability to enter text is conveyed"
+    ],
+    [
+      "1",
+      "Value 'Alaska' is conveyed."
+    ],
+    [
+      "1",
+      "Collapsed state is conveyed."
+    ]
+  ]
+}

@@ -142,7 +142,7 @@ function executeScriptInTestPage() {
       return;
     }
 
-    setupTestPage(testPageWindow.document);
+    scripts[behavior.setupTestPage](testPageWindow.document);
   }
 }
 

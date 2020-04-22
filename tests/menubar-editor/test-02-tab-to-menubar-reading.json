@@ -1,0 +1,17 @@
+{
+  "setup_script_description": "Move focus to the link just before the meunbar",
+  "setupTestPage": "focusonfirstlink",
+  "applies_to": [
+    "JAWS",
+    "NVDA"
+  ],
+  "mode": "reading",
+  "task": "tab to menubar",
+  "specific_user_instruction": "navigate to the 'Text Formatting' menubar",
+  "output_assertions": [
+    [
+      "1",
+      "Screen reader switching to interaction mode is conveyed"
+    ]
+  ]
+}

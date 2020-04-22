@@ -4,32 +4,15 @@
 <title>Activating option in popup conveys combobox role; name; editability; value; and state</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "Set focus on combobox; press down arrow 2 times.",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // Set focus on combobox
-      // Set value of 'combobox' is empty
-      // Ensure in collapsed state
-      var cb = testPageDocument.comboboxAutocomplete;
-      cb.comboboxNode.value = '';
-      cb.combobox.focus();
-    },
-    applies_to: ["Desktop Screen Readers"],
-    mode: "interaction",
-    task: "choose combobox option",
-    specific_user_instruction: "Choose 'Alaska' from the listbox.",
-    output_assertions: [
-      [1, "Role 'combobox' is conveyed"],
-      [1, "Name 'State' is conveyed"],
-      [1, "Ability to enter text is conveyed"],
-      [1, "Value 'Alaska' is conveyed."],
-      [1, "Collapsed state is conveyed."]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  fetch("test-28-choose-combobox-option-interaction.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+    });
 
 </script>

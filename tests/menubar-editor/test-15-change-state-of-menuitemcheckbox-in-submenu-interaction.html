@@ -6,27 +6,15 @@
 <link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
+<script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  verifyATBehavior({
-    setup_script_description: "open 'Style/Color' menu item and move focus to the 'Italic' menu item checkbox option",
-    setupTestPage: function setupTestPage(testPageDocument) {
-      // open "Style/Color" menu item and move focus to the 'Italic' menu item checkbox option
-      var node = testPageDocument.querySelectorAll('[role=menuitemcheckbox]')[1];
-      var menuId = testPageDocument.menubarEditor.getMenuId(node)
-      testPageDocument.menubarEditor.toggleCheckbox(node)
-      testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
-    },
-    applies_to: ["JAWS","NVDA"],
-    mode: "interaction",
-    task: "change state of menuitemcheckbox in submenu",
-    specific_user_instruction: "uncheck the 'Italic' menu item in the 'Style/Color' menu",
-    output_assertions: [
-      [1, "The unchecked state of the checkbox is conveyed"]
-    ]
-  });
-
-  displayTestPageAndInstructions("reference/menubar-editor.html");
+  fetch("test-15-change-state-of-menuitemcheckbox-in-submenu-interaction.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/menubar-editor.html");
+    });
 
 </script>

@@ -1,0 +1,28 @@
+{
+  "setup_script_description": "Set focus on combobox; press down arrow 2 times.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "Desktop Screen Readers"
+  ],
+  "mode": "interaction",
+  "task": "initiate caret movement from listbox",
+  "specific_user_instruction": "Start caret movement in the textbox while focus is in the listbox",
+  "output_assertions": [
+    [
+      "1",
+      "Caret position is conveyed"
+    ],
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "2",
+      "Name 'State' is conveyed"
+    ],
+    [
+      "2",
+      "Value 'Alaska' is conveyed."
+    ]
+  ]
+}

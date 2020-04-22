@@ -1,0 +1,26 @@
+{
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "JAWS",
+    "NVDA",
+    "VoiceOver"
+  ],
+  "mode": "interaction",
+  "task": "navigate out of checkbox group",
+  "specific_user_instruction": "Navigate out of checkbox group",
+  "output_assertions": [
+    [
+      "2",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "2",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ],
+    [
+      "2",
+      "Boundaries of the group (before the first checkbox and after the last checkbox) are conveyed"
+    ]
+  ]
+}

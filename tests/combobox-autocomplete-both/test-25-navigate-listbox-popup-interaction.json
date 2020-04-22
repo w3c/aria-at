@@ -1,0 +1,24 @@
+{
+  "setup_script_description": "Set focus on combobox; press down arrow 2 times.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "Desktop Screen Readers"
+  ],
+  "mode": "interaction",
+  "task": "navigate listbox popup",
+  "specific_user_instruction": "Navigate through options in the popup listbox",
+  "output_assertions": [
+    [
+      "1",
+      "The name of the focused option is conveyed; e.g.; 'American Samoa'"
+    ],
+    [
+      "2",
+      "Role listbox or role option is conveyed"
+    ],
+    [
+      "2",
+      "The position in set of the focused option is conveyed; e.g.; 3 of 56"
+    ]
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "setup_script_description": "Set focus on combobox; ensure it is empty and collapsed.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "Desktop Screen Readers"
+  ],
+  "mode": "interaction",
+  "task": "open combobox",
+  "specific_user_instruction": "Display the popup from empty combobox",
+  "output_assertions": [
+    [
+      "1",
+      "Expanded state of combobox is conveyed"
+    ],
+    [
+      "2",
+      "Name 'States' is conveyed for the popup."
+    ],
+    [
+      "2",
+      "Number of options available is conveyed"
+    ]
+  ]
+}

@@ -1,13 +1,13 @@
 {
-  "setup_script_description": "open 'Text Align' menuitem and give the 'Text ALign' menu item focus",
-  "setupTestPage": "opentextalignsubmenu",
+  "setup_script_description": "Open 'Style/Color' menuitem and give the 'Style/Color' menu item focus",
+  "setupTestPage": "focusonstylecolor",
   "applies_to": [
     "JAWS",
     "NVDA"
   ],
   "mode": "reading",
   "task": "navigate to menuitemcheckbox in submenu",
-  "specific_user_instruction": "navigate to 'Bold' menu item in the 'Style/Color' submenu",
+  "specific_user_instruction": "Navigate to 'Bold' menu item in the 'Style/Color' submenu",
   "output_assertions": [
     [
       "1",
@@ -15,7 +15,7 @@
     ],
     [
       "1",
-      "The label 'Sans-serif' is conveyed"
+      "The name 'Bold' is conveyed"
     ],
     [
       "1",

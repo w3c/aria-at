@@ -1,15 +1,14 @@
 {
   "activate menubar": {
     "reading": {
-      "jaws": [ [ "ENTER" ] ],
+      "jaws": [ [ "DOWN" ], [ "ENTER" ] ],
       "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
     }
   },
   "tab to menubar": {
     "reading": {
       "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
-      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
-      "voiceover": [ [ "TAB_AND_SHIFT_TAB" ] ]
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ]
     }
   },
   "navigate to menubar": {
@@ -23,49 +22,17 @@
         [ "UP_AND_DOWN" ],
         [ "INS_DOWN_OR_CAPS_DOWN" ],
         [ "NUMPAD_PLUS" ]
-      ],
-      "voiceover": [
-        [
-          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
-        ],
-        [
-          "CTRL_OPT_A",
-          "(Start reading)"
-        ],
-        [
-          "CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C",
-          "(Find the next style change)"
-        ]
       ]
     }
   },
   "navigate to menuitem in menubar": {
     "reading": {
-      "jaws": [
-        [
-          "LEFT_AND_RIGHT",
-          "(with Smart Navigation on)"
-        ]
-      ],
-      "nvda": [
-        [ "TAB_AND_SHIFT_TAB" ],
-        [ "UP_AND_DOWN" ],
-        [ "INS_DOWN_OR_CAPS_DOWN" ],
-        [ "NUMPAD_PLUS" ]
-      ],
-      "voiceover": [
-        [
-          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
-        ],
-        [
-          "CTRL_OPT_A",
-          "(Start reading)"
-        ]
-      ]
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [ [ "RIGHT" ] ]
     },
     "interaction": {
-      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
-      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [ [ "RIGHT" ] ],
       "voiceover": [
         [
           "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
@@ -81,8 +48,7 @@
   "navigate to menuitemradio in submenu": {
     "reading": {
       "jaws": [ [ "UP_AND_DOWN" ] ],
-      "nvda": [ [ "DOWN" ] ],
-      "voiceover": [ [ "ENTER" ], [ "SPACE" ] ]
+      "nvda": [ [ "DOWN" ] ]
     },
     "interaction": {
       "jaws": [
@@ -105,8 +71,7 @@
   "navigate to menuitemcheckbox in submenu": {
     "reading": {
       "jaws": [ [ "UP_AND_DOWN" ] ],
-      "nvda": [ [ "DOWN" ] ],
-      "voiceover": [ [ "ENTER" ], [ "SPACE" ] ]
+      "nvda": [ [ "DOWN" ] ]
     },
     "interaction": {
       "jaws": [
@@ -126,15 +91,10 @@
       ]
     }
   },
-  "change state of menuitemradio in submenu": {
+  "change state of menuitemradio in submenu to checked": {
     "reading": {
       "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
-      "nvda": [ [ "ENTER" ], [ "SPACE" ] ],
-      "voiceover": [
-        [ "ENTER" ],
-        [ "SPACE" ],
-        [ "CTRL_OPT_SPACE" ]
-      ]
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
     },
     "interaction": {
       "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
@@ -146,46 +106,30 @@
       ]
     }
   },
-  "change state of menuitemcheckbox in submenu": {
+  "change state of menuitemcheckbox in submenu to checked": {
     "reading": {
-      "jaws": [
-        [ "ENTER" ],
-        [ "SPACE" ],
-        [ "ENTER" ],
-        [ "SPACE" ]
-      ],
-      "nvda": [
-        [ "ENTER" ],
-        [ "SPACE" ],
-        [ "ENTER" ],
-        [ "SPACE" ]
-      ],
+      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ],
       "voiceover": [
-        [ "ENTER" ],
-        [ "SPACE" ],
-        [ "CTRL_OPT_SPACE" ],
         [ "ENTER" ],
         [ "SPACE" ],
         [ "CTRL_OPT_SPACE" ]
       ]
+    }
+  },
+  "change state of menuitemcheckbox in submenu to unchecked": {
+    "reading": {
+      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
     },
     "interaction": {
-      "jaws": [
-        [ "ENTER" ],
-        [ "SPACE" ],
-        [ "ENTER" ],
-        [ "SPACE" ]
-      ],
-      "nvda": [
-        [ "ENTER" ],
-        [ "SPACE" ],
-        [ "ENTER" ],
-        [ "SPACE" ]
-      ],
+      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ],
       "voiceover": [
-        [ "ENTER" ],
-        [ "SPACE" ],
-        [ "CTRL_OPT_SPACE" ],
         [ "ENTER" ],
         [ "SPACE" ],
         [ "CTRL_OPT_SPACE" ]
@@ -195,8 +139,7 @@
   "open submenu of menubar": {
     "reading": {
       "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
-      "nvda": [ [ "ENTER" ], [ "SPACE" ] ],
-      "voiceover": [ [ "ENTER" ], [ "SPACE" ] ]
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
     },
     "interaction": {
       "jaws": [
@@ -219,8 +162,7 @@
   "close submenu of menubar": {
     "reading": {
       "jaws": [ [ "ESC" ] ],
-      "nvda": [ [ "ESC" ] ],
-      "voiceover": [ [ "ESC" ] ]
+      "nvda": [ [ "ESC" ] ]
     },
     "interaction": {
       "jaws": [ [ "ESC" ] ],
@@ -235,12 +177,6 @@
         [ "INS_DOWN_OR_CAPS_DOWN" ],
         [ "NUMPAD_5" ],
         [ "NUMPAD_PLUS" ]
-      ],
-      "voiceover": [
-        [
-          "CTRL_OPT_A",
-          "(Start reading)"
-        ]
       ]
     },
     "interaction": {
@@ -250,12 +186,7 @@
         [ "NUMPAD_5" ],
         [ "NUMPAD_PLUS" ]
       ],
-      "voiceover": [
-        [
-          "CTRL_OPT_A",
-          "(Start reading)"
-        ]
-      ]
+      "voiceover": [ [ "CTRL_OPT_A" ] ]
     }
   },
   "read menuitemradio in a group in submenu": {
@@ -265,12 +196,6 @@
         [ "INS_DOWN_OR_CAPS_DOWN" ],
         [ "NUMPAD_5" ],
         [ "NUMPAD_PLUS" ]
-      ],
-      "voiceover": [
-        [
-          "CTRL_OPT_A",
-          "(Start reading)"
-        ]
       ]
     }
   },
@@ -291,12 +216,6 @@
         [ "INS_DOWN_OR_CAPS_DOWN" ],
         [ "NUMPAD_5" ],
         [ "NUMPAD_PLUS" ]
-      ],
-      "voiceover": [
-        [
-          "CTRL_OPT_A",
-          "(Start reading)"
-        ]
       ]
     },
     "interaction": {
@@ -306,12 +225,7 @@
         [ "NUMPAD_5" ],
         [ "NUMPAD_PLUS" ]
       ],
-      "voiceover": [
-        [
-          "CTRL_OPT_A",
-          "(Start reading)"
-        ]
-      ]
+      "voiceover": [ [ "CTRL_OPT_A" ] ]
     }
   },
   "read disabled menuitem in a submenu": {
@@ -321,12 +235,6 @@
         [ "INS_DOWN_OR_CAPS_DOWN" ],
         [ "NUMPAD_5" ],
         [ "NUMPAD_PLUS" ]
-      ],
-      "voiceover": [
-        [
-          "CTRL_OPT_A",
-          "(Start reading)"
-        ]
       ]
     },
     "interaction": {
@@ -336,12 +244,7 @@
         [ "NUMPAD_5" ],
         [ "NUMPAD_PLUS" ]
       ],
-      "voiceover": [
-        [
-          "CTRL_OPT_A",
-          "(Start reading)"
-        ]
-      ]
+      "voiceover": [ [ "CTRL_OPT_A" ] ]
     }
   }
 }

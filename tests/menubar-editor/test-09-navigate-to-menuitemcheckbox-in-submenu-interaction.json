@@ -3,11 +3,12 @@
   "setupTestPage": "focusonstylecolor",
   "applies_to": [
     "JAWS",
-    "NVDA"
+    "NVDA",
+    "VoiceOver"
   ],
   "mode": "interaction",
   "task": "navigate to menuitemcheckbox in submenu",
-  "specific_user_instruction": "navigate to 'Bold' menu item in the 'Style/Color' submenu",
+  "specific_user_instruction": "Navigate to 'Bold' menu item in the 'Style/Color' submenu",
   "output_assertions": [
     [
       "1",
@@ -15,7 +16,7 @@
     ],
     [
       "1",
-      "The label 'Bold' is conveyed"
+      "The name 'Bold' is conveyed"
     ],
     [
       "1",

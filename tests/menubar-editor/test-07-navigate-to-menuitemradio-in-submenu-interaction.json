@@ -3,11 +3,12 @@
   "setupTestPage": "focusonfont",
   "applies_to": [
     "JAWS",
-    "NVDA"
+    "NVDA",
+    "VoiceOver"
   ],
   "mode": "interaction",
   "task": "navigate to menuitemradio in submenu",
-  "specific_user_instruction": "navigate to 'Sans-serif' menu item in the 'Font' submenu",
+  "specific_user_instruction": "Navigate to 'Sans-serif' menu item in the 'Font' submenu",
   "output_assertions": [
     [
       "1",
@@ -15,7 +16,7 @@
     ],
     [
       "1",
-      "The label 'Sans-serif' is conveyed"
+      "The name 'Sans-serif' is conveyed"
     ],
     [
       "1",

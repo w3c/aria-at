@@ -34,12 +34,11 @@ var scripts = {
 	var menuId = testPageDocument.menubarEditor.getMenuId(node);
 	testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
 },
-	opentextalignsubmenu: function(testPageDocument){
-	// open "Text Align" menuitem and give the "Text Align" menu item focus
-	var node = testPageDocument.querySelectorAll('[role=menuitem]')[2];
+	focusonstylecolor: function(testPageDocument){
+	// Move focus to the "Style/Color" menu item
+	var node = testPageDocument.querySelectorAll('[role=menuitem]')[1];
 	var menuId = testPageDocument.menubarEditor.getMenuId(node);
 	testPageDocument.menubarEditor.setFocusToMenuitem(menuId, node);
-	testPageDocument.menubarEditor.openPopup(node);
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item

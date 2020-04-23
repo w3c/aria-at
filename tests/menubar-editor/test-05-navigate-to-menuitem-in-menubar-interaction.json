@@ -3,11 +3,12 @@
   "setupTestPage": "focusonfont",
   "applies_to": [
     "JAWS",
-    "NVDA"
+    "NVDA",
+    "VoiceOver"
   ],
   "mode": "interaction",
   "task": "navigate to menuitem in menubar",
-  "specific_user_instruction": "navigate to 'Style/Color' menu",
+  "specific_user_instruction": "Navigate to 'Style/Color' menu",
   "output_assertions": [
     [
       "1",
@@ -15,11 +16,7 @@
     ],
     [
       "1",
-      "The label 'Style/Color' is conveyed"
-    ],
-    [
-      "1",
-      "Opens submenu is conveyed"
+      "The name 'Style/Color' is conveyed"
     ],
     [
       "2",
@@ -27,7 +24,7 @@
     ],
     [
       "2",
-      " The menubar label 'Text Formatting' is conveyed"
+      " The menubar name 'Text Formatting' is conveyed"
     ]
   ]
 }

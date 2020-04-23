@@ -95,6 +95,14 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 
 	  try {
 	    commands = commAPI.getATCommands(mode, task, at);
+	    commands.forEach(command => {
+	    	// Make it easier to pass the command name to Mustache
+			//console.log(at);
+	    	if (command.names && command.names[at.toLocaleLowerCase()]) {
+	    		console.log(command.key, command.names[at]);
+	    		command.commandName = command.names[at.toLowerCase()];
+			}
+		});
 	  }
 	  catch (error) {
 	  } // An error will occur if there is no data for a screen reader, ignore it

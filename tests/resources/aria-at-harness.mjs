@@ -229,7 +229,10 @@ function displayInstructionsForBehaviorTest() {
 
   for (let command of commands) {
     let commandEl = document.createElement('li');
-    commandEl.innerHTML = `${command}`;
+    commandEl.innerHTML = `${command.key}`;
+    if (command.names && command.names[at.toLowerCase()]) {
+      commandEl.innerHTML += ` (${command.names[at.toLowerCase()]})`;
+    }
     document.getElementById('at_controls').append(commandEl);
   }
 

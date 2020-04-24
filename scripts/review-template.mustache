@@ -103,7 +103,12 @@
              <li>{{userInstruction}} using the following commands:
                <ul>
                  {{#commands}}
-                   <li>{{.}}</li>
+                   <li>
+                       {{key}}
+                       {{#commandName}}
+                         ({{commandName}})
+                       {{/commandName}}
+                   </li>
                  {{/commands}}
                  {{^commands}}
                    <li>No commands have been added for this test for {{atName}}. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>

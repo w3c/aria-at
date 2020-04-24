@@ -15,7 +15,6 @@ export default class RunResults extends Component {
         <td><a href={`#test-${i.toString()}`}>{details.name}</a></td>
         <td>{details.summary[1].pass} / {details.summary[1].fail}</td>
         <td>{details.summary[2].pass} / {details.summary[2].fail}</td>
-        <td>{details.summary[3].pass} / {details.summary[3].fail}</td>
         <td>{details.unexpectedCount}</td>
       </tr>
     );
@@ -115,18 +114,17 @@ export default class RunResults extends Component {
     let testCaseLink = testCaseTestPageMap[testCase];
 
     // This array is for caculating percentage support
-    // Accross all tests for priorities 1-3
+    // Accross all tests for priorities 1-2
     let support = {
       1: [0, 0],
-      2: [0, 0],
-      3: [0, 0]
+      2: [0, 0]
     };
     let totalUnexpecteds = 0;
 
     for (let result of results) {
       let details = result.details;
       totalUnexpecteds += parseInt(details.unexpectedCount);
-      for (let i = 1; i <= 3; i++) {
+      for (let i = 1; i <= 2; i++) {
         support[i][0] += details.summary[i].pass;
         support[i][1] += details.summary[i].pass + details.summary[i].fail;
       }
@@ -164,9 +162,8 @@ export default class RunResults extends Component {
             <thead>
               <tr>
                 <th>Test</th>
-                <th><div>Must Have</div><div>(pass/fail)</div></th>
-                <th><div>Should Have</div><div>(pass/fail)</div></th>
-                <th><div>Nice to Have</div><div>(pass/fail)</div></th>
+                <th><div>Required</div><div>(pass/fail)</div></th>
+                <th><div>Optional</div><div>(pass/fail)</div></th>
                 <th><div>Unexpected Behaviors</div><div>(total count)</div></th>
               </tr>
             </thead>
@@ -176,7 +173,6 @@ export default class RunResults extends Component {
                 <td>Support</td>
                 <td>{support[1][1] ? `${Math.round((support[1][0]/support[1][1])*100)}%` : '-'}</td>
                 <td>{support[2][1] ? `${Math.round((support[2][0]/support[2][1])*100)}%` : '-'}</td>
-                <td>{support[3][1] ? `${Math.round((support[3][0]/support[3][1])*100)}%` : '-'}</td>
                 <td>{totalUnexpecteds ? `${totalUnexpecteds} command(s) produced unexpected behaviors` : "No unexpected behaviors" }</td>
               </tr>
             </tbody>

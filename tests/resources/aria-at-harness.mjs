@@ -76,9 +76,10 @@ let commapi;
 
 // Get the commands for this test file ("commands.json" in the same directory)
 // and initialize the commands API.
+let commandsPath = window.location.pathname.slice(0,window.location.pathname.lastIndexOf('/'))
 var xobj = new XMLHttpRequest();
 xobj.overrideMimeType("application/json");
-xobj.open('GET', 'commands.json', false);
+xobj.open('GET', `${commandsPath}/commands.json`, false);
 xobj.onreadystatechange = function () {
   if (xobj.readyState == 4) {
     if (xobj.status == "200") {

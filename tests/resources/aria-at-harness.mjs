@@ -1,6 +1,5 @@
 import {commandsAPI} from './at-commands.mjs';
 
-const DEFAULT_AT = 'JAWS';
 const UNDESIRABLES = [
   "Output is excessively verbose, e.g., includes redundant and/or irrelevant speech",
   "Reading cursor position changed in an unexpected manner",
@@ -70,38 +69,28 @@ const errors = [];
 let testPageUri;
 let testPageWindow;
 
-let at = DEFAULT_AT;
+let at;
 let commandsData;
 let commapi;
+let support;
 
-// Get the commands for this test file ("commands.json" in the same directory)
-// and initialize the commands API.
-var xobj = new XMLHttpRequest();
-xobj.overrideMimeType("application/json");
-xobj.open('GET', 'commands.json', false);
-xobj.onreadystatechange = function () {
-  if (xobj.readyState == 4) {
-    if (xobj.status == "200") {
-      commandsData = JSON.parse(xobj.responseText);
-    }
-    else {
-      throw new Error("Cound not find commands.json file for this pattern.");
-    }
-  }
-};
-xobj.send(null);
-commapi = new commandsAPI(commandsData);
+export function initialize(newSupport, newCommandsData) {
+  support = newSupport;
+  commandsData = newCommandsData;
+  commapi = new commandsAPI(commandsData, support);
 
-// Get the AT under test from the URL search params
-let params = (new URL(document.location)).searchParams;
-for (const [key, value] of params) {
-  if (key === 'at') {
-    let requestedAT = value;
-    if (commapi.isKnownAT(requestedAT)) {
-      at = commapi.isKnownAT(requestedAT);
-    }
-    else {
-      errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${DEFAULT_AT}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
+  // Get the AT under test from the URL search params
+  let params = (new URL(document.location)).searchParams;
+  for (const [key, value] of params) {
+    if (key === 'at') {
+      let requestedAT = value;
+      if (commapi.isKnownAT(requestedAT)) {
+        at = commapi.isKnownAT(requestedAT);
+      }
+      else {
+        at = support.ats[0];
+        errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
+      }
     }
   }
 }
@@ -115,8 +104,8 @@ function openTestPagePopup() {
   testPageWindow.onunload = function(event) {
     window.setTimeout(() => {
       if (testPageWindow.closed) {
-	testPageWindow = undefined;
-	document.getElementById('open-test-page').disabled = false;
+        testPageWindow = undefined;
+        document.getElementById('open-test-page').disabled = false;
       }
     }, 100);
 
@@ -155,7 +144,7 @@ export function verifyATBehavior(atBehavior) {
 
   newBehavior.output_assertions = newBehavior.output_assertions ? newBehavior.output_assertions : [];
   newBehavior.additional_assertions = newBehavior.additional_assertions
-    ? atBehavior.additional_assertions[at.toLowerCase()] || []
+    ? atBehavior.additional_assertions[at.key] || []
     : [];
   if (!behavior && newBehavior.commands.length) {
     behavior = newBehavior;
@@ -202,7 +191,7 @@ function displayInstructionsForBehaviorTest() {
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
 <h1 id="behavior-header" tabindex="0">Testing task: ${document.title}</h1>
-<p>How does ${at} respond after task "${userInstructions}" is performed in ${mode} mode?</p>
+<p>How does ${at.name} respond after task "${userInstructions}" is performed in ${mode} mode?</p>
 <h2>Test instructions</h2>
 <ol>
   <li>Click the "Open test page" button below to open the example widget in a popup window
@@ -680,7 +669,7 @@ function endTest() {
   <td>${command.command}</td>
   <td>${command.support}</td>
   <td>
-    <p>${at} output: "${command.output}"</p>
+    <p>${at.name} output: "${command.output}"</p>
     <div>Passing Assertions:
       <ul>
       ${passingAssertions}

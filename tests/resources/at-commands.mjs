@@ -16,9 +16,13 @@ export class commandsAPI {
    *     }
    *   }
    */
-constructor(commands) {
+constructor(commands, support) {
     if (!commands) {
       throw new Error("You must initialize commandsAPI with a commands data object");
+    }
+
+    if (!support) {
+      throw new Error("You must initialize commandsAPI with a support data object");
     }
 
     this.AT_COMMAND_MAP = commands;
@@ -27,20 +31,16 @@ constructor(commands) {
       reading: {
         jaws: `Put JAWS into Virtual Cursor Mode using ${keys.INS_Z}`,
         nvda: `Put NVDA into Browse Mode using ${keys.ESC}`,
-        voiceover: `Toggle Quick Nav ON by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
+        voiceover_macos: `Toggle Quick Nav ON by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
       },
       interaction: {
         jaws: `Put JAWS into Forms Mode by turning Virtual Cursor off using ${keys.INS_Z}`,
         nvda: "Put NVDA into Focus Mode using NVDA+Space",
-        voiceover: `Toggle Quick Nav OFF by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
+        voiceover_macos: `Toggle Quick Nav OFF by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
       }
     };
 
-    this.KNOWN_ATS = {
-      jaws: 'JAWS',
-      nvda: 'NVDA',
-      voiceover: 'VoiceOver'
-    };
+    this.support = support;
   }
 
 
@@ -52,8 +52,6 @@ constructor(commands) {
    * @return {Array} - A list of commands (strings)
    */
   getATCommands(mode, task, assistiveTech) {
-    const at = assistiveTech.toLowerCase();
-
     if (!this.AT_COMMAND_MAP[task]) {
       throw new Error(`Task "${task}" does not exist, please add to at-commands or correct your spelling.`);
     }
@@ -61,13 +59,13 @@ constructor(commands) {
       throw new Error(`Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`);
     }
 
-    let commandsData = this.AT_COMMAND_MAP[task][mode][at] || [];
+    let commandsData = this.AT_COMMAND_MAP[task][mode][assistiveTech.key] || [];
     let commands = [];
 
     for (let c of commandsData) {
       let command = keys[c[0]];
       if (typeof command === 'undefined') {
-        throw new Error(`Key instruction identifier "${c}" for AT "${assistiveTech}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`);
+        throw new Error(`Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`);
       }
 
       let furtherInstruction = c[1];
@@ -85,9 +83,8 @@ constructor(commands) {
    * @return {string} - Instructions for switching into the correct mode.
    */
   getModeInstructions(mode, assistiveTech) {
-    const at = assistiveTech.toLowerCase();
-    if (this.MODE_INSTRUCTIONS[mode] && this.MODE_INSTRUCTIONS[mode][at]) {
-      return this.MODE_INSTRUCTIONS[mode][at];
+    if (this.MODE_INSTRUCTIONS[mode] && this.MODE_INSTRUCTIONS[mode][assistiveTech.key]) {
+      return this.MODE_INSTRUCTIONS[mode][assistiveTech.key];
     }
     return '';
   }
@@ -98,6 +95,6 @@ constructor(commands) {
    * @return {string} - if this API knows instructions for `at`, it will return the `at` with proper capitalization
    */
   isKnownAT(at) {
-    return this.KNOWN_ATS[at.toLowerCase()];
+    return this.support.ats.find(o => o.key === at.toLowerCase());
   }
 }

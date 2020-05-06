@@ -110,6 +110,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 
 	  ATTests.push({
 	    atName: at.name,
+		atKey: at.key,
 	    commands: commands && commands.length ? commands : undefined,
 	    assertions: assertions && assertions.length ? assertions.map(a => ({ priority: getPriorityString(a[0]), description: a[1] })) : undefined,
 	    userInstruction,

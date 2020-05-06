@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Operate a checkbox in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script src="scripts.js"></script>
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  fetch("test-07-operate-checkbox-reading.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/two-state-checkbox.html");
+    });
+
+</script>

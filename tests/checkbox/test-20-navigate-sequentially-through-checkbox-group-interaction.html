@@ -1,0 +1,21 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate sequentially through a checkbox group</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#group">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script src="scripts.js"></script>
+<script type="module">
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  fetch("test-20-navigate-sequentially-through-checkbox-group-interaction.json")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("reference/two-state-checkbox.html");
+    });
+
+</script>

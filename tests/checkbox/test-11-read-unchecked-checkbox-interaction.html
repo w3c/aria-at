@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Read a checked checkbox</title>
+<title>Read an unchecked checkbox in interaction mode.</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
@@ -10,7 +10,7 @@
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  fetch("test-15-read-checked-checkbox-interaction.json")
+  fetch("test-11-read-unchecked-checkbox-interaction.json")
     .then(response => response.json()) // parse the JSON from the server
     .then(data => {
       verifyATBehavior(data);

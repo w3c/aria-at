@@ -1,16 +1,16 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Read a checked checkbox</title>
+<title>Read grouping information of a grouped checkbox in interaction mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
-<link rel="help" href="https://w3c.github.io/aria/#checkbox">
-<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<link rel="help" href="https://w3c.github.io/aria/#group">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
 
 <script src="scripts.js"></script>
 <script type="module">
   import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  fetch("test-15-read-checked-checkbox-interaction.json")
+  fetch("test-17-read-checkbox-group-interaction.json")
     .then(response => response.json()) // parse the JSON from the server
     .then(data => {
       verifyATBehavior(data);

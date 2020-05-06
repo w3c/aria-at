@@ -2,11 +2,12 @@
   "setup_script_description": "Mark first checkbox as checked",
   "setupTestPage": "moveFocusAndCheckFirstCheckbox",
   "applies_to": [
-    "VoiceOver"
+    "JAWS",
+    "NVDA"
   ],
-  "mode": "interaction",
+  "mode": "reading",
   "task": "read checked checkbox",
-  "specific_user_instruction": "When the focus is on the first checkbox, read the first checkbox.  Note: it should be in the checked state.",
+  "specific_user_instruction": "When the reading cursor is on the first checkbox, read the first checkbox.  Note: it should be in the checked state.",
   "output_assertions": [
     [
       "1",
@@ -18,7 +19,7 @@
     ],
     [
       "1",
-      "State of the checkbox (checked) is conveyed"
+      "State of the checkbox ( checked) is conveyed"
     ]
   ]
 }

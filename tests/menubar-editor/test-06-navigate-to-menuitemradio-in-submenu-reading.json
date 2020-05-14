@@ -1,6 +1,6 @@
 {
-  "setup_script_description": "Open 'Font' menu item and move focus to the 'Font' menu item",
-  "setupTestPage": "openfontsubmenu",
+  "setup_script_description": "Moves focus to the 'Font' menu item",
+  "setupTestPage": "focusonfont",
   "applies_to": [
     "JAWS",
     "NVDA"
@@ -20,6 +20,10 @@
     [
       "1",
       "The checked state is conveyed"
+    ],
+    [
+      "2",
+      " the menuitem radio role is conveyed"
     ],
     [
       "2",

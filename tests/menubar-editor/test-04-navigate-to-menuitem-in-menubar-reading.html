@@ -7,13 +7,16 @@
 
 <script src="scripts.js"></script>
 <script type="module">
-  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  fetch("test-04-navigate-to-menuitem-in-menubar-reading.json")
-    .then(response => response.json()) // parse the JSON from the server
-    .then(data => {
-      verifyATBehavior(data);
-      displayTestPageAndInstructions("reference/menubar-editor.html");
-    });
-
+  Promise.all(["test-04-navigate-to-menuitem-in-menubar-reading.json", '../support.json', 'commands.json'].map(url =>
+    fetch(url)
+      .then(response => response.json()) // parse the JSON from the server
+  ))
+  .then(data => {
+    // do something with the data
+    initialize(data[1], data[2]);
+    verifyATBehavior(data[0]);
+    displayTestPageAndInstructions("reference/menubar-editor.html");
+  });
 </script>

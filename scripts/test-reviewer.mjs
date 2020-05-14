@@ -11,8 +11,12 @@ const testDir = path.resolve('.', 'tests');
 const templateFile = path.resolve('.', 'scripts', 'review-template.mustache');
 const reviewDir = path.resolve('.', 'public', 'review');
 const allTestsForPattern = {};
-const ATs = ['jaws', 'voiceover', 'nvda'];
-const ATNames = ['JAWS', 'VoiceOver', 'NVDA'];
+const support = JSON.parse(fse.readFileSync(path.join(testDir, 'support.json')));
+let allATKeys = [];
+support.ats.forEach(at => {
+	allATKeys.push(at.key);
+});
+
 const getPriorityString = function(priority) {
   priority = parseInt(priority);
   if (priority === 1) {
@@ -35,7 +39,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
     // Initialize the commands API
     const commandsJSONFile = path.join(subDirFullPath, 'commands.json');
     const commands = JSON.parse(fse.readFileSync(commandsJSONFile));
-    const commAPI = new commandsAPI(commands);
+    const commAPI = new commandsAPI(commands, support);
 
     const tests = [];
     fse.readdirSync(subDirFullPath).forEach(function (test) {
@@ -81,14 +85,15 @@ fse.readdirSync(testDir).forEach(function (subDir) {
           testData.applies_to[0].toLowerCase() === "desktop screen readers"
           || testData.applies_to[0].toLowerCase() === "screen readers"
         ) {
-	  allReleventATs = ATs;
+	  allReleventATs = allATKeys;
 	}
 	else {
 	  allReleventATs = testData.applies_to;
 	}
 
-	for (const at of allReleventATs.map((a) => a.toLowerCase())) {
+	for (const atKey of allReleventATs.map((a) => a.toLowerCase())) {
 	  let commands, assertions;
+	  let at = commAPI.isKnownAT(atKey);
 
 	  try {
 	    commands = commAPI.getATCommands(mode, task, at);
@@ -96,17 +101,16 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	  catch (error) {
 	  } // An error will occur if there is no data for a screen reader, ignore it
 
-	  if (testData.additional_assertions && testData.additional_assertions[at]) {
-	    assertions = testData.additional_assertions[at];
+	  if (testData.additional_assertions && testData.additional_assertions[at.key]) {
+	    assertions = testData.additional_assertions[at.key];
 	  }
 	  else {
 	    assertions = testData.output_assertions;
 	  }
 
-	  let properAT = commAPI.isKnownAT(at);
-
 	  ATTests.push({
-	    atName: properAT,
+	    atName: at.name,
+		atKey: at.key,
 	    commands: commands && commands.length ? commands : undefined,
 	    assertions: assertions && assertions.length ? assertions.map(a => ({ priority: getPriorityString(a[0]), description: a[1] })) : undefined,
 	    userInstruction,
@@ -153,7 +157,7 @@ for (let pattern in allTestsForPattern) {
     pattern: pattern,
     totalTests: allTestsForPattern[pattern].length,
     tests: allTestsForPattern[pattern],
-    AToptions: ATNames
+    AToptions: support.ats
   });
 
   let summaryFile = path.resolve(reviewDir, `${pattern}.html`);

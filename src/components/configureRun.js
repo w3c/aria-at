@@ -30,8 +30,10 @@ export default class ConfigureRun extends Component {
   }
 
   selectAT(event) {
+    // find the AT based on key
+    let picked = this.props.ats.find(o => o.key === event.target.value);
     this.setState({
-      at: event.target.value
+      at: picked
     });
   }
 
@@ -104,7 +106,7 @@ export default class ConfigureRun extends Component {
     }
 
     if (tests.length) {
-      this.props.startRun({tests: tests, at: this.state.at, atVersion: this.state.atVersion, designPattern: this.state.selectedDesignPattern});
+      this.props.startRun({tests: tests, at: this.state.at.key, atVersion: this.state.atVersion, designPattern: this.state.selectedDesignPattern});
     }
     else {
       this.selectTestEl.current.focus();
@@ -187,12 +189,12 @@ export default class ConfigureRun extends Component {
           {Object.keys(allTests).map((designPattern) => this.renderDesignPatternSelectable(designPattern, allTests[designPattern]))}
           <div className="configuration-item">
             <label htmlFor="select-at">Select which assistive technology you are testing: </label>
-            <select name="at" id="select-at" value={this.state.at} onChange={this.selectAT}>
-              {ats.map((at) => ( <option value={at} key={at}>{at}</option> )) }
+            <select name="at" id="select-at" value={this.state.at.key} onChange={this.selectAT}>
+              {ats.map((at) => ( <option value={at.key} key={at.key}>{at.name}</option> )) }
             </select>
           </div>
           <div className="configuration-item">
-            <label htmlFor="select-at">Which version of {this.state.at}?: </label>
+            <label htmlFor="select-at">Which version of {this.state.at.name}?: </label>
             <input type="text" name="at-version" id="select-at-version" value={this.state.atVersion} onChange={this.selectATVersion} />
           </div>
           <div className="configuration-item">

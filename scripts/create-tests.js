@@ -38,6 +38,7 @@ if (args._.length !== 1) {
 }
 
 const validModes = ['reading', 'interaction'];
+const validAppliesTo = ['Screen Readers', 'Desktop Screen Readers', 'JAWS', 'NVDA', 'VoiceOver', 'Orca'];
 
 const scriptDirectory = path.dirname(__filename);
 const rootDirectory = scriptDirectory.split('scripts')[0];
@@ -56,14 +57,6 @@ const scriptsFile = path.join(testDirectory,'scripts.js');
 const keyDefs = {};
 
 let scripts = [];
-
-const support = JSON.parse(fse.readFileSync(path.join(rootDirectory, 'tests', 'support.json')));
-let allATKeys = [];
-support.ats.forEach(at => {
-  allATKeys.push(at.key);
-});
-
-const validAppliesTo = ['Screen Readers', 'Desktop Screen Readers'].concat(allATKeys);
 
 try {
   fse.statSync(testDirectory);
@@ -385,18 +378,15 @@ function createTestFile (test, refs, commands) {
 ${references}
 <script src="scripts.js"></script>
 <script type="module">
-  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["${testJSONFileName}", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
-    displayTestPageAndInstructions("${refs.reference}");
-  });
+  fetch("${testJSONFileName}")
+    .then(response => response.json()) // parse the JSON from the server
+    .then(data => {
+      verifyATBehavior(data);
+      displayTestPageAndInstructions("${refs.reference}");
+    });
+
 </script>
 `;
 

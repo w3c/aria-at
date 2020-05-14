@@ -48,7 +48,7 @@ export default class RunResults extends Component {
         <td>{command.command}</td>
         <td>{command.support}</td>
         <td>
-          <p>Output: "{command.output}"</p>
+          <p>JAWS output: "{command.output}"</p>
           {this.renderPassingAssertions(command.assertions)}
           {this.renderFailingAssertions(command.assertions)}
           {this.renderUnexpectedBehavior(command.unexpected_behaviors)}

@@ -65,7 +65,7 @@
       <legend>Filter tests by assistive technology</legend>
       <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
       {{#AToptions}}
-        <input type="radio" onclick="filterATs(this)" id="{{key}}" value="{{key}}"><label for="{{key}}">{{name}}</label>
+        <input type="radio" onclick="filterATs(this)" id="{{.}}" value="{{.}}"><label for="{{.}}">{{.}}</label>
       {{/AToptions}}
     </fieldset>
 
@@ -87,7 +87,7 @@
       </ul>
     </p>
       {{#ATTests}}
-      <div class="{{atKey}}">
+      <div class="{{atName}}">
         <h3>{{atName}}</h3>
         {{#setupScriptDescription}}
         <h4>Scripted Instructions</h4>

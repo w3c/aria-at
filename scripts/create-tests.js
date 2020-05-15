@@ -37,7 +37,7 @@ if (args._.length !== 1) {
   process.exit();
 }
 
-const validModes = ['reading', 'interaction'];
+const validModes = ['reading', 'interaction', 'item'];
 
 const scriptDirectory = path.dirname(__filename);
 const rootDirectory = scriptDirectory.split('scripts')[0];

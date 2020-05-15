@@ -39,26 +39,6 @@ var scripts = {
 	// Move focus to the "Style/Color" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
 },
-	focusonstylecolor: function(testPageDocument){
-	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
-},
-	focusonstylecolor: function(testPageDocument){
-	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
-},
-	focusonstylecolor: function(testPageDocument){
-	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
-},
-	focusonstylecolor: function(testPageDocument){
-	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
-},
-	focusontextalign: function(testPageDocument){
-	// Move focus to the "Text Align" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
-},
 	focusontextalign: function(testPageDocument){
 	// Move focus to the "Text Align" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
@@ -90,17 +70,5 @@ var scripts = {
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
-},
-	focusonstylecolor: function(testPageDocument){
-	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
-},
-	focusonsize: function(testPageDocument){
-	// Move focus to the "Size" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[3].fcous();
-},
-	focusonsize: function(testPageDocument){
-	// Move focus to the "Size" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[3].fcous();
 }
 };

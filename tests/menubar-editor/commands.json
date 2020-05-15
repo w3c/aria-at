@@ -46,33 +46,12 @@
     }
   },
   "navigate to menuitemradio in submenu": {
-    "reading": {
+    "interaction": {
       "jaws": [ [ "UP_AND_DOWN" ] ],
       "nvda": [ [ "DOWN" ] ]
-    },
-    "interaction": {
-      "jaws": [
-        [ "ENTER" ],
-        [ "SPACE" ],
-        [ "DOWN" ]
-      ],
-      "nvda": [
-        [ "DOWN" ],
-        [ "ENTER" ],
-        [ "SPACE" ]
-      ],
-      "voiceover_macos": [
-        [ "ENTER" ],
-        [ "SPACE" ],
-        [ "DOWN" ]
-      ]
     }
   },
   "navigate to menuitemcheckbox in submenu": {
-    "reading": {
-      "jaws": [ [ "UP_AND_DOWN" ] ],
-      "nvda": [ [ "DOWN" ] ]
-    },
     "interaction": {
       "jaws": [
         [ "ENTER" ],
@@ -92,10 +71,6 @@
     }
   },
   "change state of menuitemradio in submenu to checked": {
-    "reading": {
-      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
-      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
-    },
     "interaction": {
       "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
       "nvda": [ [ "ENTER" ], [ "SPACE" ] ],
@@ -107,10 +82,6 @@
     }
   },
   "change state of menuitemcheckbox in submenu to checked": {
-    "reading": {
-      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
-      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
-    },
     "interaction": {
       "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
       "nvda": [ [ "ENTER" ], [ "SPACE" ] ],
@@ -122,10 +93,6 @@
     }
   },
   "change state of menuitemcheckbox in submenu to unchecked": {
-    "reading": {
-      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
-      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
-    },
     "interaction": {
       "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
       "nvda": [ [ "ENTER" ], [ "SPACE" ] ],
@@ -160,10 +127,6 @@
     }
   },
   "close submenu of menubar": {
-    "reading": {
-      "jaws": [ [ "ESC" ] ],
-      "nvda": [ [ "ESC" ] ]
-    },
     "interaction": {
       "jaws": [ [ "ESC" ] ],
       "nvda": [ [ "ESC" ] ],
@@ -189,16 +152,6 @@
       "voiceover_macos": [ [ "CTRL_OPT_A" ] ]
     }
   },
-  "read menuitemradio in a group in submenu": {
-    "reading": {
-      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
-      "nvda": [
-        [ "INS_DOWN_OR_CAPS_DOWN" ],
-        [ "NUMPAD_5" ],
-        [ "NUMPAD_PLUS" ]
-      ]
-    }
-  },
   "read menuitemradio in a group in a submenu": {
     "interaction": {
       "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
@@ -207,17 +160,12 @@
         [ "NUMPAD_5" ],
         [ "NUMPAD_PLUS" ]
       ]
+    },
+    "item": {
+      "voiceover_macos": [ [ "INS_TAB" ], [ "INS_UP" ] ]
     }
   },
   "read menuitemcheckbox in a submenu": {
-    "reading": {
-      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
-      "nvda": [
-        [ "INS_DOWN_OR_CAPS_DOWN" ],
-        [ "NUMPAD_5" ],
-        [ "NUMPAD_PLUS" ]
-      ]
-    },
     "interaction": {
       "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
       "nvda": [
@@ -229,14 +177,6 @@
     }
   },
   "read disabled menuitem in a submenu": {
-    "reading": {
-      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
-      "nvda": [
-        [ "INS_DOWN_OR_CAPS_DOWN" ],
-        [ "NUMPAD_5" ],
-        [ "NUMPAD_PLUS" ]
-      ]
-    },
     "interaction": {
       "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
       "nvda": [

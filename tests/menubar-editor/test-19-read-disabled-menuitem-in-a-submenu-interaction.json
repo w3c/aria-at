@@ -1,11 +1,12 @@
 {
-  "setup_script_description": "Open 'Size' menu item and disable the 'Larger' option and move focus to the 'Larger' menu item checkbox option",
-  "setupTestPage": "focusonsize",
+  "setup_script_description": "Moves focus to the 'Style/Color' menu item",
+  "setupTestPage": "focusonstylecolor",
   "applies_to": [
     "jaws",
-    "nvda"
+    "nvda",
+    "voiceover_macos"
   ],
-  "mode": "reading",
+  "mode": "interaction",
   "task": "read disabled menuitem in a submenu",
   "specific_user_instruction": "Review the 'Larger' menu item in the 'Size' submenu",
   "output_assertions": [

@@ -3,9 +3,10 @@
   "setupTestPage": "focusonfont",
   "applies_to": [
     "jaws",
-    "nvda"
+    "nvda",
+    "voiceover_macos"
   ],
-  "mode": "reading",
+  "mode": "interaction",
   "task": "navigate to menuitemradio in submenu",
   "specific_user_instruction": "Navigate to 'Sans-serif' menu item in the 'Font' submenu",
   "output_assertions": [
@@ -20,10 +21,6 @@
     [
       "1",
       "The checked state is conveyed"
-    ],
-    [
-      "2",
-      " the menuitem radio role is conveyed"
     ],
     [
       "2",

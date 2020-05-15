@@ -1,11 +1,12 @@
 {
-  "setup_script_description": "Move focus to the 'Text Align' menu item",
+  "setup_script_description": "Moves focus to the 'Text Align' menu item",
   "setupTestPage": "focusontextalign",
   "applies_to": [
     "jaws",
-    "nvda"
+    "nvda",
+    "voiceover_macos"
   ],
-  "mode": "reading",
+  "mode": "interaction",
   "task": "open submenu of menubar",
   "specific_user_instruction": "Opens 'Text Align' submenu and move focus to 'Left' menu item",
   "output_assertions": [
@@ -19,7 +20,7 @@
     ],
     [
       "2",
-      " The role 'menu' is conveyed"
+      " The role menu is conveyed"
     ],
     [
       "2",

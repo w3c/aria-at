@@ -1,13 +1,14 @@
 {
-  "setup_script_description": "Open 'Style/Color' menu item and move focue to the 'Black' menu item radio option",
+  "setup_script_description": "Moves focus to the 'Style/Color' menu item",
   "setupTestPage": "focusonstylecolor",
   "applies_to": [
     "jaws",
-    "nvda"
+    "nvda",
+    "voiceover_macos"
   ],
-  "mode": "reading",
-  "task": "read menuitemradio in a group in submenu",
-  "specific_user_instruction": "Review the  'Black' menu item radio in the 'Style/Color' submenu",
+  "mode": "interaction",
+  "task": "read menuitemradio in a group in a submenu",
+  "specific_user_instruction": "Review the  'Blue' menu item radio in the 'Style/Color' submenu",
   "output_assertions": [
     [
       "1",

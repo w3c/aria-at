@@ -6,13 +6,16 @@
 
 <script src="scripts.js"></script>
 <script type="module">
-  import { verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  fetch("test-15-navigate-to-combobox-with-keys-that-switch-modes-reading.json")
-    .then(response => response.json()) // parse the JSON from the server
-    .then(data => {
-      verifyATBehavior(data);
-      displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
-    });
-
+  Promise.all(["test-15-navigate-to-combobox-with-keys-that-switch-modes-reading.json", '../support.json', 'commands.json'].map(url =>
+    fetch(url)
+      .then(response => response.json()) // parse the JSON from the server
+  ))
+  .then(data => {
+    // do something with the data
+    initialize(data[1], data[2]);
+    verifyATBehavior(data[0]);
+    displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  });
 </script>

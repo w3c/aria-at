@@ -425,10 +425,10 @@ function createIndexFile(tasks) {
     rows += `<td scope="row">${task.title}</td>`;
     for (let i = 0; i < allATKeys.length; i++ ) {
       if (task.applies_to_at[i]) {
-        rows += `<td><a href="${task.href}?at=${allATKeys[i]}" title="Task ${task.id}">${allATNames[i]}</a></td>`;
+        rows += `<td class="test"><a href="${task.href}?at=${allATKeys[i]}" aria-label="${allATNames[i]} test for task ${task.id}">${allATNames[i]}</a></td>`;
       }
       else {
-        rows += `<td>-</td>`;
+        rows += `<td class="test none">not included</td>`;
       }
     }
     rows += `<td>${task.script}</td></tr>\n`
@@ -473,6 +473,14 @@ function createIndexFile(tasks) {
       display: table-cell;
     }
 
+    td.test {
+      text-align: center;
+    }
+
+    td.none {
+      color: #333;
+    }
+
     th {
       padding: 3px;
       font-weight: bold;
@@ -483,7 +491,7 @@ function createIndexFile(tasks) {
 <body>
   <h1>Index of Test Files</h1>
   <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
-  test runner is being executed, using <code>npm run start</code> from the root director: <code>${rootDirectory}</code>.</p>
+  test runner is being executed, using <code>npm run start</code> from the root directory: <code>${rootDirectory}</code>.</p>
   <table>
     <thead>
       <tr>

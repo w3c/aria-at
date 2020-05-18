@@ -489,7 +489,7 @@ function createIndexFile(tasks) {
   </style>
 </head>
 <body>
-  <h1>Index of Test Files</h1>
+  <h1>Index of Assistive Technology Test Files</h1>
   <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
   test runner is being executed, using <code>npm run start</code> from the root directory: <code>${rootDirectory}</code>.</p>
   <table>

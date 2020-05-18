@@ -1,0 +1,32 @@
+{
+  "setup_script_description": "Moves focus to the 'Style/Color' menu item",
+  "setupTestPage": "focusonstylecolor",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "item",
+  "task": "read menuitemradio in a group in a submenu",
+  "specific_user_instruction": "Review the  'Blue' menu item radio in the 'Style/Color' submenu",
+  "output_assertions": [
+    [
+      "1",
+      "The role 'menu item radio' is conveyed"
+    ],
+    [
+      "1",
+      "The name 'Black' is conveyed"
+    ],
+    [
+      "1",
+      "The checked state is conveyed"
+    ],
+    [
+      "2",
+      " The role group is conveyed"
+    ],
+    [
+      "2",
+      " The group name 'Text Color' is conveyed"
+    ]
+  ]
+}

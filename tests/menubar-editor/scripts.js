@@ -19,10 +19,6 @@ var scripts = {
 	// Move focus to the "Font" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
 },
-	focusonfont: function(testPageDocument){
-	// Move focus to the "Font" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
-},
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
@@ -58,6 +54,10 @@ var scripts = {
 	focusonsize: function(testPageDocument){
 	// Move focus to the "Size" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[3].fcous();
+},
+	focusonstylecolor: function(testPageDocument){
+	// Move focus to the "Style/Color" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item

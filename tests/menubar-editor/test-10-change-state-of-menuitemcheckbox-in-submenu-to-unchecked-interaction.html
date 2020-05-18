@@ -1,16 +1,16 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Open submenu in interaction mode</title>
+<title>Change state of menu item checkbox to unchecked in interaction mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
-<link rel="help" href="https://w3c.github.io/aria/#menuitem">
-<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+<link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
 <script src="scripts.js"></script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-13-open-submenu-of-menubar-interaction.json", '../support.json', 'commands.json'].map(url =>
+  Promise.all(["test-10-change-state-of-menuitemcheckbox-in-submenu-to-unchecked-interaction.json", '../support.json', 'commands.json'].map(url =>
     fetch(url)
       .then(response => response.json()) // parse the JSON from the server
   ))

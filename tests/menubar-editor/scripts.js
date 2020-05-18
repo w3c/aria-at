@@ -21,31 +21,31 @@ var scripts = {
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
-},
-	focusontextalign: function(testPageDocument){
-	// Move focus to the "Text Align" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
 },
 	focusontextalign: function(testPageDocument){
 	// Move focus to the "Text Align" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
 },
 	focusontextalign: function(testPageDocument){
 	// Move focus to the "Text Align" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},
+	focusontextalign: function(testPageDocument){
+	// Move focus to the "Text Align" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
 },
 	focusonsize: function(testPageDocument){
 	// Move focus to the "Size" menu item
@@ -57,18 +57,18 @@ var scripts = {
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
 }
 };

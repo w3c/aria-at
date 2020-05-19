@@ -2,7 +2,7 @@
   "activate menubar": {
     "reading": {
       "jaws": [ [ "DOWN" ], [ "ENTER" ] ],
-      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
     }
   },
   "tab to menubar": {
@@ -179,11 +179,7 @@
   "read disabled menuitem in a submenu": {
     "interaction": {
       "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
-      "nvda": [
-        [ "INS_DOWN_OR_CAPS_DOWN" ],
-        [ "NUMPAD_5" ],
-        [ "NUMPAD_PLUS" ]
-      ],
+      "nvda": [ [ "INS_NUMPAD_5" ] ],
       "voiceover_macos": [ [ "CTRL_OPT_A" ] ]
     }
   }

@@ -49,11 +49,11 @@ var scripts = {
 },
 	focusonsize: function(testPageDocument){
 	// Move focus to the "Size" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[3].fcous();
+	testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
 },
 	focusonsize: function(testPageDocument){
 	// Move focus to the "Size" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[3].fcous();
+	testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
 },
 	focusonstylecolor: function(testPageDocument){
 	// Move focus to the "Style/Color" menu item
@@ -67,8 +67,8 @@ var scripts = {
 	// Move focus to the "Style/Color" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
 },
-	focusonstylecolor: function(testPageDocument){
-	// Move focus to the "Style/Color" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+	focusonsize: function(testPageDocument){
+	// Move focus to the "Size" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
 }
 };

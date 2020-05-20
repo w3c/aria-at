@@ -1,15 +1,31 @@
-# Assistive Technology ARIA Experience Assessment Project
+# ARIA and Assistive Technologies (ARIA-AT)
 
-The aim of this project is to facilitate consistently effective rendering of ARIA-enabled UIs by assistive technologies by:
+This repo contains a low-level test suite and harness for assessing the interoperability of AT interpretations of ARIA. These tests are designed to be modular and embeddable in higher-level applications.
 
-1. Developing methodologies for assessing how effectively assistive technologies render ARIA patterns.
-2. Providing a framework for collecting, discussing, and disseminating assessment information.
+## Scope and Method
 
-The [ARIA and Assistive Technologies Community Group](https://www.w3.org/community/aria-at/):
+The initial scope of this test suite is manual tests for screen readers. Tests are written as assertions against accessible design patterns [examples from the ARIA Practices Guide](https://w3c.github.io/aria-practices/examples/).
 
-* Is managed by the [Authoring Practices Task Force](https://www.w3.org/WAI/ARIA/task-forces/practices/) of the [ARIA Working Group](http://www.w3.org/WAI/ARIA/).
-* Staff contact: [Michael Cooper](http://www.w3.org/People/cooper/).
+## Running the tests
 
-Please do not provide commit access to this repository without coordination.
+This repo includes a [prototype runner](https://w3c.github.io/aria-at/runner) which you can use to run the tests manually. Production runs of this material are run with  [ARIA-AT-App](https://github.com/bocoup/aria-at-app).
 
-[Documentation is available in the wiki](https://github.com/w3c/aria-at/wiki).
+## Get involved
+
+You can participate in the following easy:  
+Join the [community group](https://www.w3.org/community/aria-at/)
+Sign up as a tester
+Write more tests: https://github.com/w3c/aria-at/wiki/How-to-contribute-tests
+Review the assertions of existing test plans: https://w3c.github.io/aria-at/review-test-plans/
+Review test results
+Fix a [good first issue](https://github.com/w3c/aria-at/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+
+This project is managed by the [Authoring Practices Task Force](https://www.w3.org/WAI/ARIA/task-forces/practices/) of the [ARIA Working Group](http://www.w3.org/WAI/ARIA/). The W3C staff contact is [Michael Cooper](http://www.w3.org/People/cooper/).
+
+## Conduct
+
+All contributors to this project are expected to adhere to the [W3C Code of Ethics and Professional Conduct](https://www.w3.org/Consortium/cepc/).
+
+## License
+
+All documents in this Repository are licensed by contributors under the [W3C Document License](https://www.w3.org/Consortium/Legal/2015/doc-license).

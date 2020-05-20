@@ -8,17 +8,22 @@ The initial scope of this test suite is manual tests for screen readers. Tests a
 
 ## Running the tests
 
-This repo includes a [prototype runner](https://w3c.github.io/aria-at/runner) which you can use to run the tests manually. Production runs of this material are run with  [ARIA-AT-App](https://github.com/bocoup/aria-at-app).
+This repo includes a [prototype runner](https://w3c.github.io/aria-at/runner) which you can use to run the tests manually. Production runs of this material are run with [ARIA-AT-App](https://github.com/bocoup/aria-at-app).
+
+## Documentation
+
+[Documentation is available in the wiki](https://github.com/w3c/aria-at/wiki).
 
 ## Get involved
 
-You can participate in the following easy:  
-Join the [community group](https://www.w3.org/community/aria-at/)
-Sign up as a tester
-Write more tests: https://github.com/w3c/aria-at/wiki/How-to-contribute-tests
-Review the assertions of existing test plans: https://w3c.github.io/aria-at/review-test-plans/
-Review test results
-Fix a [good first issue](https://github.com/w3c/aria-at/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
+You can participate in the following:
+
+* Join the [community group](https://www.w3.org/community/aria-at/)
+* [Sign up as a tester](https://github.com/w3c/aria-at/issues/162) for the Pilot Test (May 27 - June 2)
+* [Write more tests](https://github.com/w3c/aria-at/wiki/How-to-contribute-tests)
+* [Review the assertions of existing test plans](https://w3c.github.io/aria-at/review-test-plans/)
+* [Review test results](https://w3c.github.io/aria-at/results/)
+* Fix a [good first issue](https://github.com/w3c/aria-at/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
 
 This project is managed by the [Authoring Practices Task Force](https://www.w3.org/WAI/ARIA/task-forces/practices/) of the [ARIA Working Group](http://www.w3.org/WAI/ARIA/). The W3C staff contact is [Michael Cooper](http://www.w3.org/People/cooper/).
 

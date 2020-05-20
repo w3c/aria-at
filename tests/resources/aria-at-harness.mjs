@@ -81,6 +81,7 @@ export function initialize(newSupport, newCommandsData) {
 
   // Get the AT under test from the URL search params
   let params = (new URL(document.location)).searchParams;
+  at = support.ats[0];
   for (const [key, value] of params) {
     if (key === 'at') {
       let requestedAT = value;
@@ -88,7 +89,6 @@ export function initialize(newSupport, newCommandsData) {
         at = commapi.isKnownAT(requestedAT);
       }
       else {
-        at = support.ats[0];
         errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
       }
     }

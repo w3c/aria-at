@@ -9,11 +9,11 @@ const UNDESIRABLES = [
 ];
 
 const TEST_HTML_OUTLINE = `
-<main>
+<div>
   <section id='errors' style='display:none'><h2>Test cannot be performed due to error(s)!</h2><ul></ul><hr></section>
   <section id='instructions'></section>
   <section id='record-results'></section>
-</main>
+</div>
 `;
 const PAGE_STYLES = `
   table {

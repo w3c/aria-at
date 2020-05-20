@@ -1,6 +1,6 @@
 # ARIA and Assistive Technologies (ARIA-AT)
 
-This repo contains a low-level test suite and harness for assessing the interoperability of AT interpretations of ARIA. These tests are designed to be modular and embeddable in higher-level applications.
+This repo contains a test suite and harness for assessing AT support of ARIA. These tests are designed to be modular and embeddable in higher-level applications.
 
 ## Scope and Method
 

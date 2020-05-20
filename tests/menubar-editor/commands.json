@@ -32,21 +32,28 @@
       "jaws": [ [ "RIGHT" ] ],
       "nvda": [ [ "RIGHT" ] ],
       "voiceover_macos": [
-        [
-          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
-        ],
-        [
-          "CTRL_OPT_A",
-          "(Start reading)"
-        ],
-        [ "LEFT_AND_RIGHT" ]
+        [ "CTRL_OPT_RIGHT" ],
+        [ "RIGHT" ]
       ]
     }
   },
   "navigate to menuitemradio in submenu": {
     "interaction": {
-      "jaws": [ [ "UP_AND_DOWN" ] ],
-      "nvda": [ [ "DOWN" ] ]
+      "jaws": [
+        [ "DOWN" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ],
+      "nvda": [
+        [ "DOWN" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ],
+      "voiceover_macos": [
+        [ "DOWN" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ]
     }
   },
   "navigate to menuitemcheckbox in submenu": {
@@ -106,7 +113,7 @@
     "interaction": {
       "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
       "nvda": [ [ "INS_NUMPAD_5" ] ],
-      "voiceover_macos": [ [ "CTRL_OPT_A" ] ]
+      "voiceover_macos": [ [ "CTRL_OPT_F3" ] ]
     }
   },
   "read menuitemradio in a group in a submenu": {
@@ -116,7 +123,8 @@
         [ "INS_NUMPAD_5" ],
         [ "NUMPAD_5" ],
         [ "NUMPAD_PLUS" ]
-      ]
+      ],
+      "voiceover_macos": [ [ "CTRL_OPT_F3" ] ]
     },
     "item": {
       "voiceover_macos": [ [ "INS_TAB" ], [ "INS_UP" ] ]
@@ -130,14 +138,14 @@
         [ "NUMPAD_5" ],
         [ "NUMPAD_PLUS" ]
       ],
-      "voiceover_macos": [ [ "CTRL_OPT_A" ] ]
+      "voiceover_macos": [ [ "CTRL_OPT_F3" ] ]
     }
   },
   "read disabled menuitem in a submenu": {
     "interaction": {
       "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
       "nvda": [ [ "INS_NUMPAD_5" ] ],
-      "voiceover_macos": [ [ "CTRL_OPT_A" ] ]
+      "voiceover_macos": [ [ "CTRL_OPT_F3" ] ]
     }
   }
 }

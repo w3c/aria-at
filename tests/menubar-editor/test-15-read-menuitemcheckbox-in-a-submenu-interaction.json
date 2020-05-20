@@ -8,11 +8,11 @@
   ],
   "mode": "interaction",
   "task": "read menuitemcheckbox in a submenu",
-  "specific_user_instruction": "Open \"Style/Color\" menu using the down arrow key | Navigate to 'Bold' menu item | Review the 'Bold' menu item",
+  "specific_user_instruction": "Open \"Style/Color\" menu using the down arrow key | Navigate to 'Italic' menu item | Review the 'Italic' menu item",
   "output_assertions": [
     [
       "1",
-      "The name 'Bold' is conveyed"
+      "The name 'Italic' is conveyed"
     ],
     [
       "1",
@@ -25,10 +25,6 @@
     [
       "2",
       " The position and size of the submenu  is conveyed"
-    ],
-    [
-      "2",
-      " The group role and name 'Font Style' is conveyed"
     ]
   ]
 }

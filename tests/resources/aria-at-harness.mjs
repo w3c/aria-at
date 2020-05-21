@@ -65,9 +65,11 @@ const PAGE_STYLES = `
 
 let behavior;
 let behaviorResults;
+let overallStatus;
 const errors = [];
 let testPageUri;
 let testPageWindow;
+let showResults = true;
 
 let at;
 let commandsData;
@@ -80,6 +82,7 @@ export function initialize(newSupport, newCommandsData) {
   commapi = new commandsAPI(commandsData, support);
 
   // Get the AT under test from the URL search params
+  // set the showResults flag from the URL search params
   let params = (new URL(document.location)).searchParams;
   at = support.ats[0];
   for (const [key, value] of params) {
@@ -90,6 +93,13 @@ export function initialize(newSupport, newCommandsData) {
       }
       else {
         errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
+      }
+    }
+    if (key === 'showResults') {
+      if (value === 'true') {
+        showResults = true;
+      } else if (value === 'false') {
+        showResults = false;
       }
     }
   }
@@ -126,7 +136,7 @@ function executeScriptInTestPage() {
         || testPageWindow.document.readyState !== 'complete'
     ) {
       window.setTimeout(() => {
-	executeScriptInTestPage();
+        executeScriptInTestPage();
       }, 100);
       return;
     }
@@ -364,11 +374,22 @@ Were there additional undesirable behaviors? <span class="required">(required)</
 
   // Submit button
   let el = document.createElement('button');
+  el.id = 'review-results';
   el.innerText = "Review Results";
   el.addEventListener('click', submitResult);
   recordEl.append(el);
 
   document.querySelector('#behavior-header').focus();
+
+  // send message to parent if test is loaded in iFrame
+  if (window.parent && window.parent.postMessage) {
+    window.parent.postMessage({
+      type: 'loaded',
+      data: {
+        testPageUri: testPageUri
+      }
+    }, '*');
+  }
 }
 
 function handleUndesirableSelect(event) {
@@ -403,7 +424,7 @@ function handleRadioClick(event) {
     }
     else {
       for (let option of document.querySelectorAll(`#cmd-${cmdId}-problem option`)) {
-	option.selected = false;
+        option.selected = false;
       }
       select.disabled = true;
       other.disabled = true;
@@ -416,7 +437,7 @@ function handleRadioClick(event) {
       let radios = document.querySelectorAll(`#cmd-${cmdId}-section .${resultType}`);
       let checked = resultType === 'pass' ? true : false;
       for (let radio of radios) {
-	radio.checked = checked;
+        radio.checked = checked;
       }
     }
   }
@@ -430,8 +451,8 @@ function handleRadioClick(event) {
       let numAssertions = document.getElementById(`cmd-${cmdId}`).rows.length;
       let markedPass = document.querySelectorAll(`#cmd-${cmdId}-section .pass:checked`);
       if (markedPass.length === numAssertions) {
-	let allradio = document.querySelector(`#cmd-${cmdId}-summary #allpass-${cmdId}`);
-	allradio.checked = true;
+        let allradio = document.querySelector(`#cmd-${cmdId}-summary #allpass-${cmdId}`);
+        allradio.checked = true;
       }
     }
     else {
@@ -474,7 +495,7 @@ function validateResults() {
 
     if ( summaryFieldset.querySelector('.allpass').checked || !allSelected ) {
       for (let a = 0; a < numAssertions; a++) {
-	document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
+        document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
       }
 
       undesirableFieldset.classList.remove('highlight-required');
@@ -484,11 +505,11 @@ function validateResults() {
     for (let a = 0; a < numAssertions; a++) {
       let selectedRadio = document.querySelector(`input[name="result-${c}-${a}"]:checked`);
       if (!selectedRadio) {
-	document.querySelector(`#assertion-${c}-${a} .required`).classList.add('highlight-required');
-	focusEl = focusEl || document.getElementById(`pass-${c}-${a}`);
+        document.querySelector(`#assertion-${c}-${a} .required`).classList.add('highlight-required');
+        focusEl = focusEl || document.getElementById(`pass-${c}-${a}`);
       }
       else {
-	document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
+        document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
       }
     }
 
@@ -498,7 +519,7 @@ function validateResults() {
     let otherSelected = document.querySelector(`#problem-${c}-select option.other:checked`);
     let otherText = document.querySelector(`#problem-${c}-other`).value;
     if (!problemRadio || (problemRadio.classList.contains('fail') && !problemSelected) || (otherSelected && !otherText)) {
-	undesirableFieldset.classList.add('highlight-required');
+        undesirableFieldset.classList.add('highlight-required');
     }
     if (!problemRadio || (problemRadio.classList.contains('fail') && !problemSelected)) {
       document.querySelector(`#cmd-${c}-problem .required`).classList.add('highlight-required');
@@ -511,13 +532,13 @@ function validateResults() {
 
     if (otherSelected) {
       if (!otherText) {
-	document.querySelector(`#cmd-${c}-problem .required-other`).classList.add('highlight-required');
-	undesirableFieldset.classList.add('highlight-required');
-	focusEl = focusEl || document.querySelector(`#cmd-${c}-problem select`);
+        document.querySelector(`#cmd-${c}-problem .required-other`).classList.add('highlight-required');
+        undesirableFieldset.classList.add('highlight-required');
+        focusEl = focusEl || document.querySelector(`#cmd-${c}-problem select`);
       }
       else {
-	document.querySelector(`#cmd-${c}-problem .required-other`).classList.remove('highlight-required');
-	undesirableFieldset.classList.remove('highlight-required');
+        document.querySelector(`#cmd-${c}-problem .required-other`).classList.remove('highlight-required');
+        undesirableFieldset.classList.remove('highlight-required');
       }
     }
   }
@@ -552,6 +573,8 @@ function submitResult(event) {
     unexpectedCount: 0
   };
 
+  overallStatus = 'PASS';
+
   const commandResults = [];
 
   for (let c = 0; c < behavior.commands.length; c++) {
@@ -569,26 +592,27 @@ function submitResult(event) {
       const priority = assertionPriority[assertion];
 
       let assertionResult = {
-	assertion,
-	priority
+        assertion,
+        priority
       };
 
       if (pass) {
-	assertionResult.pass = result;
-	summary[priority].pass++;
+        assertionResult.pass = result;
+        summary[priority].pass++;
       }
       else {
-	assertionResult.fail = result;
-	summary[priority].fail++;
+        assertionResult.fail = result;
+        summary[priority].fail++;
 
-	// If any priority 1 assertion fails, the test fails for this command
-	if (priority === 1) {
-	  support = 'FAILING';
-	}
-	// If any only a priority >1 assertion fails, then this test meets the all required pass case
-	else if (support !== 'FAILING') {
-	  support = 'ALL REQUIRED';
-	}
+        // If any priority 1 assertion fails, the test fails for this command
+        if (priority === 1) {
+          support = 'FAILING';
+          overallStatus = 'FAIL';
+        }
+        // If any only a priority >1 assertion fails, then this test meets the all required pass case
+        else if (support !== 'FAILING') {
+          support = 'ALL REQUIRED';
+        }
       }
 
       assertions.push(assertionResult);
@@ -597,12 +621,13 @@ function submitResult(event) {
     const unexpected = [];
     for (let problemEl of document.querySelectorAll(`#problem-${c}-select option:checked`)) {
       support = 'FAILING';
+      overallStatus = 'FAIL';
       summary.unexpectedCount++;
       if (problemEl.classList.contains('other')) {
-	unexpected.push(document.querySelector(`#problem-${c}-other`).value);
+        unexpected.push(document.querySelector(`#problem-${c}-other`).value);
       }
       else {
-	unexpected.push(problemEl.value);
+        unexpected.push(problemEl.value);
       }
     }
 
@@ -623,13 +648,32 @@ function submitResult(event) {
     summary
   };
 
+  let data = {
+    test: document.title,
+    details: behaviorResults,
+    status: overallStatus
+  };
+
+  // send message to parent if test is loaded in iFrame
+  if (window.parent && window.parent.postMessage) {
+    window.parent.postMessage({
+      type: 'results',
+      data: data
+    }, '*');
+  }
+
   endTest();
+
+  if (showResults) {
+    showResultsTable();
+  }
+
+  appendJSONResults(data);
 }
 
 
-function endTest() {
+function showResultsTable() {
   let resulthtml = `<h1>${document.title}</h1><h2 id=overallstatus></h2>`;
-  let status = "PASS";
 
   resulthtml += `<table>
     <tr>
@@ -641,23 +685,19 @@ function endTest() {
 
   for (let command of behaviorResults.commands) {
 
-      if (command.support === 'FAILING') {
-	status = "FAIL";
-      }
-
       let passingAssertions = '';
       let failingAssertions = '';
       for (let assertion of command.assertions) {
-	if (assertion.pass) {
-	  passingAssertions += `<li>${assertion.assertion}</li>`;
-	}
-	if (assertion.fail) {
-	  failingAssertions += `<li>${assertion.assertion}</li>`;
-	}
+        if (assertion.pass) {
+          passingAssertions += `<li>${assertion.assertion}</li>`;
+        }
+        if (assertion.fail) {
+          failingAssertions += `<li>${assertion.assertion}</li>`;
+        }
       }
       let unexpectedBehaviors = '';
       for (let unexpected of command.unexpected_behaviors) {
-	unexpectedBehaviors += `<li>${unexpected}</li>`;
+        unexpectedBehaviors += `<li>${unexpected}</li>`;
       }
       passingAssertions = passingAssertions === '' ? '<li>No passing assertions.</li>' : passingAssertions;
       failingAssertions = failingAssertions === '' ? '<li>No failing assertions.</li>' : failingAssertions;
@@ -694,10 +734,10 @@ function endTest() {
   resulthtml += `</table>`;
 
   document.body.innerHTML = resulthtml;
-  document.querySelector('#overallstatus').innerHTML = `Test result: ${status}`;
+  document.querySelector('#overallstatus').innerHTML = `Test result: ${overallStatus}`;
+}
 
-  reportResults(behaviorResults, status);
-
+function endTest() {
   if (typeof testPageWindow !== 'undefined') {
     testPageWindow.close();
   }
@@ -715,15 +755,10 @@ function showUserError() {
   }
 }
 
-function reportResults(testResults, status) {
+function appendJSONResults(data) {
   var results_element = document.createElement("script");
   results_element.type = "text/json";
   results_element.id = "__ariaatharness__results__";
-  var data = {
-    test: document.title,
-    details: testResults,
-    status: status
-  };
   results_element.textContent = JSON.stringify(data);
 
   document.body.appendChild(results_element);

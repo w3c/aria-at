@@ -374,6 +374,7 @@ Were there additional undesirable behaviors? <span class="required">(required)</
 
   // Submit button
   let el = document.createElement('button');
+  el.id = 'review-results';
   el.innerText = "Review Results";
   el.addEventListener('click', submitResult);
   recordEl.append(el);

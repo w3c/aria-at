@@ -65,9 +65,11 @@ const PAGE_STYLES = `
 
 let behavior;
 let behaviorResults;
+let overallStatus;
 const errors = [];
 let testPageUri;
 let testPageWindow;
+let showResults = true;
 
 let at;
 let commandsData;
@@ -80,6 +82,7 @@ export function initialize(newSupport, newCommandsData) {
   commapi = new commandsAPI(commandsData, support);
 
   // Get the AT under test from the URL search params
+  // set the showResults flag from the URL search params
   let params = (new URL(document.location)).searchParams;
   at = support.ats[0];
   for (const [key, value] of params) {
@@ -90,6 +93,13 @@ export function initialize(newSupport, newCommandsData) {
       }
       else {
         errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
+      }
+    }
+    if (key === 'showResults') {
+      if (value === 'true') {
+        showResults = true;
+      } else if (value === 'false') {
+        showResults = false;
       }
     }
   }
@@ -369,6 +379,16 @@ Were there additional undesirable behaviors? <span class="required">(required)</
   recordEl.append(el);
 
   document.querySelector('#behavior-header').focus();
+
+  // send message to parent if test is loaded in iFrame
+  if (window.parent && window.parent.postMessage) {
+    window.parent.postMessage({
+      type: 'loaded',
+      data: {
+        testPageUri: testPageUri
+      }
+    }, '*');
+  }
 }
 
 function handleUndesirableSelect(event) {
@@ -552,6 +572,8 @@ function submitResult(event) {
     unexpectedCount: 0
   };
 
+  overallStatus = 'PASS';
+
   const commandResults = [];
 
   for (let c = 0; c < behavior.commands.length; c++) {
@@ -584,6 +606,7 @@ function submitResult(event) {
 	// If any priority 1 assertion fails, the test fails for this command
 	if (priority === 1) {
 	  support = 'FAILING';
+    overallStatus = 'FAIL';
 	}
 	// If any only a priority >1 assertion fails, then this test meets the all required pass case
 	else if (support !== 'FAILING') {
@@ -597,6 +620,7 @@ function submitResult(event) {
     const unexpected = [];
     for (let problemEl of document.querySelectorAll(`#problem-${c}-select option:checked`)) {
       support = 'FAILING';
+      overallStatus = 'FAIL';
       summary.unexpectedCount++;
       if (problemEl.classList.contains('other')) {
 	unexpected.push(document.querySelector(`#problem-${c}-other`).value);
@@ -623,13 +647,32 @@ function submitResult(event) {
     summary
   };
 
+  let data = {
+    test: document.title,
+    details: behaviorResults,
+    status: overallStatus
+  };
+
+  appendJSONResults(data);
+
+  // send message to parent if test is loaded in iFrame
+  if (window.parent && window.parent.postMessage) {
+    window.parent.postMessage({
+      type: 'results',
+      data: data
+    }, '*');
+  }
+
   endTest();
+
+  if (showResults) {
+    showResultsTable();
+  }
 }
 
 
-function endTest() {
+function showResultsTable() {
   let resulthtml = `<h1>${document.title}</h1><h2 id=overallstatus></h2>`;
-  let status = "PASS";
 
   resulthtml += `<table>
     <tr>
@@ -640,10 +683,6 @@ function endTest() {
   `;
 
   for (let command of behaviorResults.commands) {
-
-      if (command.support === 'FAILING') {
-	status = "FAIL";
-      }
 
       let passingAssertions = '';
       let failingAssertions = '';
@@ -694,10 +733,10 @@ function endTest() {
   resulthtml += `</table>`;
 
   document.body.innerHTML = resulthtml;
-  document.querySelector('#overallstatus').innerHTML = `Test result: ${status}`;
+  document.querySelector('#overallstatus').innerHTML = `Test result: ${overallStatus}`;
+}
 
-  reportResults(behaviorResults, status);
-
+function endTest() {
   if (typeof testPageWindow !== 'undefined') {
     testPageWindow.close();
   }
@@ -715,15 +754,10 @@ function showUserError() {
   }
 }
 
-function reportResults(testResults, status) {
+function appendJSONResults(data) {
   var results_element = document.createElement("script");
   results_element.type = "text/json";
   results_element.id = "__ariaatharness__results__";
-  var data = {
-    test: document.title,
-    details: testResults,
-    status: status
-  };
   results_element.textContent = JSON.stringify(data);
 
   document.body.appendChild(results_element);

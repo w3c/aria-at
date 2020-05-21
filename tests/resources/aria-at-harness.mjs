@@ -654,8 +654,6 @@ function submitResult(event) {
     status: overallStatus
   };
 
-  appendJSONResults(data);
-
   // send message to parent if test is loaded in iFrame
   if (window.parent && window.parent.postMessage) {
     window.parent.postMessage({
@@ -669,6 +667,8 @@ function submitResult(event) {
   if (showResults) {
     showResultsTable();
   }
+
+  appendJSONResults(data);
 }
 
 

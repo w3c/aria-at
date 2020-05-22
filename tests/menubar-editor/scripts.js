@@ -11,10 +11,6 @@ var scripts = {
 	// Move focus to the "Font" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
 },
-	focusonfont: function(testPageDocument){
-	// Move focus to the "Font" menu item
-	testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
-},
 	focusontextalign: function(testPageDocument){
 	// Move focus to the "Text Align" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();

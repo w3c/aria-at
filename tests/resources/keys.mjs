@@ -40,6 +40,7 @@ export const LEFT_AND_RIGHT                   = "Left Arrow / Right Arrow";
 export const LEFT                             = "Left Arrow";
 export const NUMPAD_5                         = "Numpad 5";
 export const INS_NUMPAD_5                     = "Insert+Numpad 5 (or CapsLock+Numpad 5)";
+export const INS_NUMPAD_6                     = "Insert+Numpad 6 (or CapsLock+Numpad 6)";
 export const NUMPAD_PLUS                      = "Numpad Plus";
 export const RIGHT                            = "Right Arrow";
 export const SPACE                            = "Space";

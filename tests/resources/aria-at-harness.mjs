@@ -268,7 +268,7 @@ function displayInstructionsForBehaviorTest() {
   let recordResults = `<h2>Record Results</h2><p>${document.title}</p>`;
 
   for (let c = 0; c < commands.length; c++) {
-    recordResults += `<section id="cmd-${c}-section"><h3 id="header-cmd-${c}">After: '${commands[c]}'</h3>`;
+    recordResults += `<section id="cmd-${c}-section"><h3 id="header-cmd-${c}">After '${commands[c]}'</h3>`;
     recordResults += `
 <p>
   <fieldset id="cmd-${c}-summary">

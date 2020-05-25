@@ -1,15 +1,16 @@
 
 <!DOCTYPE html>
 <meta charset="utf-8">
-<title>Navigate to menu item in menubar in interaction mode</title>
+<title>Open submenu in interaction mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menuitem">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
 <script src="scripts.js"></script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-05-navigate-to-menuitem-in-menubar-interaction.json", '../support.json', 'commands.json'].map(url =>
+  Promise.all(["test-07-open-submenu-of-menubar-interaction.json", '../support.json', 'commands.json'].map(url =>
     fetch(url)
       .then(response => response.json()) // parse the JSON from the server
   ))

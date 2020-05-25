@@ -29,13 +29,13 @@ constructor(commands, support) {
 
     this.MODE_INSTRUCTIONS = {
       reading: {
-        jaws: `Put JAWS into Virtual Cursor Mode using ${keys.INS_Z}`,
-        nvda: `Put NVDA into Browse Mode using ${keys.ESC}`,
+        jaws: `Verify the Virtual Cursor is active by pressing ${keys.ALT_DELETE}. If it is not, turn on the Virtual Cursor by pressing ${keys.INS_Z}.`,
+        nvda: `Insure NVDA is in browse mode by pressing ${keys.ESC}. Note: This command has no effect if NVDA is already in browse mode.`,
         voiceover_macos: `Toggle Quick Nav ON by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
       },
       interaction: {
-        jaws: `Put JAWS into Forms Mode by turning Virtual Cursor off using ${keys.INS_Z}`,
-        nvda: "Put NVDA into Focus Mode using NVDA+Space",
+        jaws: `Verify the PC Cursor is active by pressing ${keys.ALT_DELETE}. If it is not, turn off the Virtual Cursor by pressing ${keys.INS_Z}.`,
+        nvda: `If NVDA did not make the focus mode sound when the test page loaded, press ${keys.INS_SPACE} to turn focus mode on.`,
         voiceover_macos: `Toggle Quick Nav OFF by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`
       }
     };

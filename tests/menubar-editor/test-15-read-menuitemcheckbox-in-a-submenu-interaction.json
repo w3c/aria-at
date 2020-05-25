@@ -1,0 +1,34 @@
+{
+  "setup_script_description": "Moves focus to the 'Style/Color' menu item",
+  "setupTestPage": "focusonstylecolor",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "read menuitemcheckbox in a submenu",
+  "specific_user_instruction": "Open \"Style/Color\" menu using the down arrow key | Navigate to 'Italic' menu item using the down arrow key | Review the 'Italic' menu item",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Italic' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "The unchecked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar  is conveyed"
+    ],
+    [
+      "2",
+      " The name and role of the 'Font Style' group are conveyed"
+    ]
+  ]
+}

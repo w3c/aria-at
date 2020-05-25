@@ -1,0 +1,30 @@
+{
+  "setup_script_description": "Moves focus to the 'Size' menu item",
+  "setupTestPage": "focusonsize",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "read disabled menuitem in a submenu",
+  "specific_user_instruction": "Open \"Size\" menu using the down arrow key | Navigate to 'X-Large\" menuitem using the down arrow key | Activate \"X-Large\" menu item using the space key |Open \"Size\" menu using the down arrow key | Navigate to 'Larger\" menuitem using the down arrow key | Review the 'Larger' menu item ",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Smaller' is conveyed"
+    ],
+    [
+      "2",
+      " The role 'menu item' is conveyed"
+    ],
+    [
+      "1",
+      "The disabled state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar  is conveyed"
+    ]
+  ]
+}

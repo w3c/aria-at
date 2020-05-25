@@ -1,5 +1,6 @@
 // Keys
 
+export const ALT_DELETE                       = "Alt+Delete";
 export const ALT_DOWN                         = "Alt+Down";
 export const C_AND_SHIFT_C                    = "C / Shift+C";
 export const CTRL_INS_X                       = "Control+Insert+X";
@@ -28,15 +29,18 @@ export const SHIFT_F                          = "F / Shift+F";
 export const HOME                             = "Home";
 export const INS_DOWN_OR_CAPS_DOWN            = "Insert+Down (or CapsLock+Down)";
 export const INS_F7_OR_CAPS_F7                = "Insert+F7 (or CapsLock+F7)";
+export const INS_SPACE                        = "Insert+Space";
+export const INS_TAB                          = "Insert+Tab";
+export const INS_TAB_OR_CAPS_TAB              = "Insert+Tab (or CapsLock+Tab)";
 export const INS_UP_OR_CAPS_I                 = "Insert+Up (or CapsLock+I)";
 export const INS_UP                           = "Insert+Up";
 export const INS_UP_OR_CAPS_UP                = "Insert+Up (or CapsLock+Up)";
-export const INS_TAB                          = "Insert+Tab";
-export const INS_TAB_OR_CAPS_TAB              = "Insert+Tab (or CapsLock+Tab)";
 export const INS_Z                            = "Insert+Z";
 export const LEFT_AND_RIGHT                   = "Left Arrow / Right Arrow";
 export const LEFT                             = "Left Arrow";
 export const NUMPAD_5                         = "Numpad 5";
+export const INS_NUMPAD_5                     = "Insert+Numpad 5 (or CapsLock+Numpad 5)";
+export const INS_NUMPAD_6                     = "Insert+Numpad 6 (or CapsLock+Numpad 6)";
 export const NUMPAD_PLUS                      = "Numpad Plus";
 export const RIGHT                            = "Right Arrow";
 export const SPACE                            = "Space";

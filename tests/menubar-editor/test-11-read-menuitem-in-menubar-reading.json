@@ -1,0 +1,33 @@
+{
+  "setup_script_description": "Move focus to the 'Size' menu item",
+  "setupTestPage": "focusonsize",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read menuitem in menubar",
+  "specific_user_instruction": "Review the  'Size' menu item in the menubar",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Size' is conveyed"
+    ],
+    [
+      "1",
+      "Availability of a submenu is conveyed"
+    ],
+    [
+      "2",
+      " Closed state of the submenu is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar  is conveyed"
+    ],
+    [
+      "2",
+      " The role 'menu item' is conveyed"
+    ]
+  ]
+}

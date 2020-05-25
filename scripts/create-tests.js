@@ -37,7 +37,7 @@ if (args._.length !== 1) {
   process.exit();
 }
 
-const validModes = ['reading', 'interaction'];
+const validModes = ['reading', 'interaction', 'item'];
 
 const scriptDirectory = path.dirname(__filename);
 const rootDirectory = scriptDirectory.split('scripts')[0];
@@ -59,8 +59,10 @@ let scripts = [];
 
 const support = JSON.parse(fse.readFileSync(path.join(rootDirectory, 'tests', 'support.json')));
 let allATKeys = [];
+let allATNames = [];
 support.ats.forEach(at => {
   allATKeys.push(at.key);
+  allATNames.push(at.name);
 });
 
 const validAppliesTo = ['Screen Readers', 'Desktop Screen Readers'].concat(allATKeys);
@@ -401,22 +403,42 @@ ${references}
 `;
 
   fse.writeFileSync(testFileAbsolute, testHTML, 'utf8');
-  return testFileName;
+
+  const applies_to_at = [];
+
+  allATKeys.forEach( at => applies_to_at.push(testData.applies_to.indexOf(at) >= 0));
+
+  return [testFileName, applies_to_at];
 }
 
 // Create an index file for a local server
 
 function createIndexFile(tasks) {
 
-  let links = '';
+  let rows = '';
+  let all_ats = '';
 
-  tasks.forEach( task => links += `<tr><td>${task.id}</td><td><a href="${task.href}">${task.title}</a></td><td>${task.script}</td></tr>\n`)
+  allATNames.forEach( at => all_ats += '<th>' + at + '</th>\n');
+
+  tasks.forEach( function (task) {
+    rows += `<tr><td>${task.id}</td>`;
+    rows += `<td scope="row">${task.title}</td>`;
+    for (let i = 0; i < allATKeys.length; i++ ) {
+      if (task.applies_to_at[i]) {
+        rows += `<td class="test"><a href="${task.href}?at=${allATKeys[i]}" aria-label="${allATNames[i]} test for task ${task.id}">${allATNames[i]}</a></td>`;
+      }
+      else {
+        rows += `<td class="test none">not included</td>`;
+      }
+    }
+    rows += `<td>${task.script}</td></tr>\n`
+  });
 
   let indexHTML = `
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
-  <title>Index of Test Files for local Server</title>
+  <title>Index of Assistive Technology Test Files</title>
   <style>
     table {
       display: table;
@@ -451,6 +473,14 @@ function createIndexFile(tasks) {
       display: table-cell;
     }
 
+    td.test {
+      text-align: center;
+    }
+
+    td.none {
+      color: #333;
+    }
+
     th {
       padding: 3px;
       font-weight: bold;
@@ -459,21 +489,24 @@ function createIndexFile(tasks) {
   </style>
 </head>
 <body>
-  <h1>Index of Test Files</h1>
+ <main>
+  <h1>Index of Assistive Technology Test Files</h1>
   <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
-  test runner is being executed, using <code>npm run start</code> from the root director: <code>${rootDirectory}</code>.</p>
+  test runner is being executed, using <code>npm run start</code> from the root directory: <code>${rootDirectory}</code>.</p>
   <table>
     <thead>
       <tr>
         <th>Task ID</th>
         <th>Testing Task</th>
+        ${all_ats}
         <th>Setup Script Reference</th>
       </tr>
     </thead>
     <tbody>
-${links}
+${rows}
     </tbody>
   </table>
+  </main>
 </body>
 `;
 
@@ -539,8 +572,8 @@ fs.createReadStream(referencesFile)
             console.log('Creating the following test files: ')
             tests.forEach(function(test) {
               try {
-                let url = createTestFile(test, refs, atCommands);
-                indexOfURLs.push({ id: test.testId, title: test.title, href: url, script: test.setupScript});
+                let [url, applies_to_at] = createTestFile(test, refs, atCommands);
+                indexOfURLs.push({ id: test.testId, title: test.title, href: url, script: test.setupScript, applies_to_at: applies_to_at});
                 console.log('[Test ' + test.testId + ']: ' + url);
               }
               catch (err) {

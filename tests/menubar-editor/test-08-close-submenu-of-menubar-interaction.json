@@ -1,0 +1,30 @@
+{
+  "setup_script_description": "Moves focus to the 'Text Align' menu item",
+  "setupTestPage": "focusontextalign",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "close submenu of menubar",
+  "specific_user_instruction": "Open 'Text Align' submenu and move focus to the 'Left' menu item using down arrow key | Close submenu and return focus to 'Text Align' menu item",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Text Align' is conveyed"
+    ],
+    [
+      "1",
+      "Availability of a submenu is conveyed"
+    ],
+    [
+      "2",
+      " Closed state of the submenu is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar  is conveyed"
+    ]
+  ]
+}

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
-  <title>Index of Test Files for local Server</title>
+  <title>Index of Assistive Technology Test Files</title>
   <style>
     table {
       display: table;
@@ -37,6 +37,14 @@
       display: table-cell;
     }
 
+    td.test {
+      text-align: center;
+    }
+
+    td.none {
+      color: #333;
+    }
+
     th {
       padding: 3px;
       font-weight: bold;
@@ -45,46 +53,41 @@
   </style>
 </head>
 <body>
-  <h1>Index of Test Files</h1>
+ <main>
+  <h1>Index of Assistive Technology Test Files</h1>
   <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
-  test runner is being executed, using <code>npm run start</code> from the root director: <code>/Users/michaelfairchild/WebstormProjects/aria-at/</code>.</p>
+  test runner is being executed, using <code>npm run start</code> from the root directory: <code>C:\Users\mck\git\w3c\aria-at\main\</code>.</p>
   <table>
     <thead>
       <tr>
         <th>Task ID</th>
         <th>Testing Task</th>
+        <th>JAWS</th>
+<th>NVDA</th>
+<th>VoiceOver for macOS</th>
+
         <th>Setup Script Reference</th>
       </tr>
     </thead>
     <tbody>
-<tr><td>1</td><td><a href="test-01-activate-menubar-reading.html">Activate menubar switches mode from reading to interaction</a></td><td></td></tr>
-<tr><td>2</td><td><a href="test-02-tab-to-menubar-reading.html">Navigation to menubar switches mode from reading to interaction mode</a></td><td>focusonfirstlink</td></tr>
-<tr><td>3</td><td><a href="test-03-navigate-to-menubar-reading.html">Navigation to menubar using reading mode</a></td><td>focusonfirstlink</td></tr>
-<tr><td>4</td><td><a href="test-04-navigate-to-menuitem-in-menubar-reading.html">Navigate to menu item in menubar using reading mode</a></td><td>focusonfont</td></tr>
-<tr><td>5</td><td><a href="test-05-navigate-to-menuitem-in-menubar-interaction.html">Navigate to menu item in menubar using interaction mode</a></td><td>focusonfont</td></tr>
-<tr><td>6</td><td><a href="test-06-navigate-to-menuitemradio-in-submenu-reading.html">Navigate to menu item radio in submenu using reading mode</a></td><td>openfontsubmenu</td></tr>
-<tr><td>7</td><td><a href="test-07-navigate-to-menuitemradio-in-submenu-interaction.html">Navigate to menu item radio in submenu using interaction mode</a></td><td>focusonfont</td></tr>
-<tr><td>8</td><td><a href="test-08-navigate-to-menuitemcheckbox-in-submenu-reading.html">Navigate to menu item checkbox in submenu using reading mode</a></td><td>focusonstylecolor</td></tr>
-<tr><td>9</td><td><a href="test-09-navigate-to-menuitemcheckbox-in-submenu-interaction.html">Navigate to menu item checkbox in interaction mode</a></td><td>focusonstylecolor</td></tr>
-<tr><td>10</td><td><a href="test-10-change-state-of-menuitemradio-in-submenu-to-checked-reading.html">Change state of menu item radio to checked in reading mode</a></td><td>focusonstylecolorblue</td></tr>
-<tr><td>11</td><td><a href="test-11-change-state-of-menuitemradio-in-submenu-to-checked-interaction.html">Change state of menu item radio to checked in interaction mode</a></td><td>focusonstylecolorblue</td></tr>
-<tr><td>12</td><td><a href="test-12-change-state-of-menuitemcheckbox-in-submenu-to-checked-reading.html">Change state of menu item checkbox to checked in reading mode</a></td><td>focusonstylecoloritalic</td></tr>
-<tr><td>13</td><td><a href="test-13-change-state-of-menuitemcheckbox-in-submenu-to-checked-interaction.html">Change state of menu item checkbox to checked in interaction mode</a></td><td>focusonstylecoloritalic</td></tr>
-<tr><td>14</td><td><a href="test-14-change-state-of-menuitemcheckbox-in-submenu-to-unchecked-reading.html">Change state of menu item checkbox to unchecked in reading mode</a></td><td>focusonstylecoloritalicchecked</td></tr>
-<tr><td>15</td><td><a href="test-15-change-state-of-menuitemcheckbox-in-submenu-to-unchecked-interaction.html">Change state of menu item checkbox to unchecked in interaction mode</a></td><td>focusonstylecoloritalicchecked</td></tr>
-<tr><td>16</td><td><a href="test-16-open-submenu-of-menubar-reading.html">Open submenu in reading mode</a></td><td>focusontextalign</td></tr>
-<tr><td>17</td><td><a href="test-17-open-submenu-of-menubar-interaction.html">Open submenu in interaction mode</a></td><td>focusontextalign</td></tr>
-<tr><td>18</td><td><a href="test-18-close-submenu-of-menubar-reading.html">Close submenu in reading mode</a></td><td>focusontextalignleft</td></tr>
-<tr><td>19</td><td><a href="test-19-close-submenu-of-menubar-interaction.html">Close submenu in interaction mode</a></td><td>focusontextalignleft</td></tr>
-<tr><td>20</td><td><a href="test-20-read-menuitem-in-menubar-reading.html">Read menu item in menubar in reading mode</a></td><td>focusonsize</td></tr>
-<tr><td>21</td><td><a href="test-21-read-menuitem-in-menubar-interaction.html">Read menu item in menubar in interaction mode</a></td><td>focusonsize</td></tr>
-<tr><td>22</td><td><a href="test-22-read-menuitemradio-in-a-group-in-submenu-reading.html">Read menu item radio button in submenu in reading mode</a></td><td>focusonstylecolorblack</td></tr>
-<tr><td>23</td><td><a href="test-23-read-menuitemradio-in-a-group-in-a-submenu-interaction.html">Read menu item radio button in submenu in interaction mode</a></td><td>focusonstylecolorblack</td></tr>
-<tr><td>24</td><td><a href="test-24-read-menuitemcheckbox-in-a-submenu-reading.html">Read menu item checkbox in submenu in reading mode</a></td><td>focusonstylecolorbold</td></tr>
-<tr><td>25</td><td><a href="test-25-read-menuitemcheckbox-in-a-submenu-interaction.html">Read menu item checkbox in submenu in interaction mode</a></td><td>focusonstylecolorbold</td></tr>
-<tr><td>26</td><td><a href="test-26-read-disabled-menuitem-in-a-submenu-reading.html">Read disabled menu item in submenu in reading mode</a></td><td>focusonsizelargerdisabled</td></tr>
-<tr><td>27</td><td><a href="test-27-read-disabled-menuitem-in-a-submenu-interaction.html">Read disabled menu item in submenu in interaction mode</a></td><td>focusonsizelargerdisabled</td></tr>
+<tr><td>1</td><td scope="row">Activate menubar in reading mode</td><td class="test"><a href="test-01-activate-menubar-reading.html?at=jaws" aria-label="JAWS test for task 1">JAWS</a></td><td class="test"><a href="test-01-activate-menubar-reading.html?at=nvda" aria-label="NVDA test for task 1">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>2</td><td scope="row">Navigate to menubar with commands that switch mode from reading to interaction</td><td class="test"><a href="test-02-tab-to-menubar-reading.html?at=jaws" aria-label="JAWS test for task 2">JAWS</a></td><td class="test"><a href="test-02-tab-to-menubar-reading.html?at=nvda" aria-label="NVDA test for task 2">NVDA</a></td><td class="test none">not included</td><td>focusonfirstlink</td></tr>
+<tr><td>3</td><td scope="row">Navigate to menubar in reading mode</td><td class="test"><a href="test-03-navigate-to-menubar-reading.html?at=jaws" aria-label="JAWS test for task 3">JAWS</a></td><td class="test"><a href="test-03-navigate-to-menubar-reading.html?at=nvda" aria-label="NVDA test for task 3">NVDA</a></td><td class="test none">not included</td><td>focusonfirstlink</td></tr>
+<tr><td>4</td><td scope="row">Navigate to menu item in menubar in reading mode</td><td class="test"><a href="test-04-navigate-to-menuitem-in-menubar-reading.html?at=jaws" aria-label="JAWS test for task 4">JAWS</a></td><td class="test"><a href="test-04-navigate-to-menuitem-in-menubar-reading.html?at=nvda" aria-label="NVDA test for task 4">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>5</td><td scope="row">Navigate to menu item in menubar in interaction mode</td><td class="test"><a href="test-05-navigate-to-menuitem-in-menubar-interaction.html?at=jaws" aria-label="JAWS test for task 5">JAWS</a></td><td class="test"><a href="test-05-navigate-to-menuitem-in-menubar-interaction.html?at=nvda" aria-label="NVDA test for task 5">NVDA</a></td><td class="test"><a href="test-05-navigate-to-menuitem-in-menubar-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 5">VoiceOver for macOS</a></td><td>focusonfont</td></tr>
+<tr><td>6</td><td scope="row">Open submenu in reading mode</td><td class="test"><a href="test-06-open-submenu-of-menubar-reading.html?at=jaws" aria-label="JAWS test for task 6">JAWS</a></td><td class="test"><a href="test-06-open-submenu-of-menubar-reading.html?at=nvda" aria-label="NVDA test for task 6">NVDA</a></td><td class="test none">not included</td><td>focusontextalign</td></tr>
+<tr><td>7</td><td scope="row">Open submenu in interaction mode</td><td class="test"><a href="test-07-open-submenu-of-menubar-interaction.html?at=jaws" aria-label="JAWS test for task 7">JAWS</a></td><td class="test"><a href="test-07-open-submenu-of-menubar-interaction.html?at=nvda" aria-label="NVDA test for task 7">NVDA</a></td><td class="test"><a href="test-07-open-submenu-of-menubar-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 7">VoiceOver for macOS</a></td><td>focusontextalign</td></tr>
+<tr><td>8</td><td scope="row">Close submenu in interaction mode</td><td class="test"><a href="test-08-close-submenu-of-menubar-interaction.html?at=jaws" aria-label="JAWS test for task 8">JAWS</a></td><td class="test"><a href="test-08-close-submenu-of-menubar-interaction.html?at=nvda" aria-label="NVDA test for task 8">NVDA</a></td><td class="test"><a href="test-08-close-submenu-of-menubar-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 8">VoiceOver for macOS</a></td><td>focusontextalign</td></tr>
+<tr><td>9</td><td scope="row">Navigate to menu item radio in interaction mode</td><td class="test"><a href="test-09-navigate-to-menuitemradio-in-submenu-interaction.html?at=jaws" aria-label="JAWS test for task 9">JAWS</a></td><td class="test"><a href="test-09-navigate-to-menuitemradio-in-submenu-interaction.html?at=nvda" aria-label="NVDA test for task 9">NVDA</a></td><td class="test"><a href="test-09-navigate-to-menuitemradio-in-submenu-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 9">VoiceOver for macOS</a></td><td>focusonfont</td></tr>
+<tr><td>10</td><td scope="row">Navigate to menu item checkbox in interaction mode</td><td class="test"><a href="test-10-navigate-to-menuitemcheckbox-in-submenu-interaction.html?at=jaws" aria-label="JAWS test for task 10">JAWS</a></td><td class="test"><a href="test-10-navigate-to-menuitemcheckbox-in-submenu-interaction.html?at=nvda" aria-label="NVDA test for task 10">NVDA</a></td><td class="test"><a href="test-10-navigate-to-menuitemcheckbox-in-submenu-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 10">VoiceOver for macOS</a></td><td>focusonstylecolor</td></tr>
+<tr><td>11</td><td scope="row">Read menu item in reading mode</td><td class="test"><a href="test-11-read-menuitem-in-menubar-reading.html?at=jaws" aria-label="JAWS test for task 11">JAWS</a></td><td class="test"><a href="test-11-read-menuitem-in-menubar-reading.html?at=nvda" aria-label="NVDA test for task 11">NVDA</a></td><td class="test none">not included</td><td>focusonsize</td></tr>
+<tr><td>12</td><td scope="row">Read menu item in interaction mode</td><td class="test"><a href="test-12-read-menuitem-in-menubar-interaction.html?at=jaws" aria-label="JAWS test for task 12">JAWS</a></td><td class="test"><a href="test-12-read-menuitem-in-menubar-interaction.html?at=nvda" aria-label="NVDA test for task 12">NVDA</a></td><td class="test"><a href="test-12-read-menuitem-in-menubar-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 12">VoiceOver for macOS</a></td><td>focusonsize</td></tr>
+<tr><td>13</td><td scope="row">Read menu item radio in interaction mode</td><td class="test"><a href="test-13-read-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=jaws" aria-label="JAWS test for task 13">JAWS</a></td><td class="test"><a href="test-13-read-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=nvda" aria-label="NVDA test for task 13">NVDA</a></td><td class="test"><a href="test-13-read-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 13">VoiceOver for macOS</a></td><td>focusonstylecolor</td></tr>
+<tr><td>14</td><td scope="row">Read menu item radio in interaction mode</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-14-read-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 14">VoiceOver for macOS</a></td><td>focusonstylecolor</td></tr>
+<tr><td>15</td><td scope="row">Read menu item checkbox in interaction mode</td><td class="test"><a href="test-15-read-menuitemcheckbox-in-a-submenu-interaction.html?at=jaws" aria-label="JAWS test for task 15">JAWS</a></td><td class="test"><a href="test-15-read-menuitemcheckbox-in-a-submenu-interaction.html?at=nvda" aria-label="NVDA test for task 15">NVDA</a></td><td class="test"><a href="test-15-read-menuitemcheckbox-in-a-submenu-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 15">VoiceOver for macOS</a></td><td>focusonstylecolor</td></tr>
+<tr><td>16</td><td scope="row">Read disabled menu item in interaction mode</td><td class="test"><a href="test-16-read-disabled-menuitem-in-a-submenu-interaction.html?at=jaws" aria-label="JAWS test for task 16">JAWS</a></td><td class="test"><a href="test-16-read-disabled-menuitem-in-a-submenu-interaction.html?at=nvda" aria-label="NVDA test for task 16">NVDA</a></td><td class="test"><a href="test-16-read-disabled-menuitem-in-a-submenu-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 16">VoiceOver for macOS</a></td><td>focusonsize</td></tr>
 
     </tbody>
   </table>
+  </main>
 </body>

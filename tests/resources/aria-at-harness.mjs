@@ -185,6 +185,15 @@ export function displayTestPageAndInstructions(testPage) {
 }
 
 function displayInstructionsForBehaviorTest() {
+
+  function getSetupInstructions() {
+    let html = '';
+    for (let i = 0; i < (userInstructions.length - 1); i++) {
+      html += `<li><em>${userInstructions[i]}</em></li>`;
+    }
+    return html;
+  }
+
   // First, execute necesary set up script in test page if the test page is open from a previous behavior test
   if (testPageWindow) {
     putTestPageWindowIntoCorrectState();
@@ -192,7 +201,8 @@ function displayInstructionsForBehaviorTest() {
 
   const mode = behavior.mode;
   const modeInstructions = commapi.getModeInstructions(mode, at);
-  const userInstructions = behavior.specific_user_instruction;
+  const userInstructions = behavior.specific_user_instruction.split('|');
+  const lastInstruction = userInstructions[userInstructions.length-1];
   const commands = behavior.commands;
   const assertions = behavior.output_assertions.map((a) => a[1]);
   const additionalBehaviorAssertions = behavior.additional_assertions;
@@ -201,7 +211,7 @@ function displayInstructionsForBehaviorTest() {
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
 <h1 id="behavior-header" tabindex="0">Testing task: ${document.title}</h1>
-<p>How does ${at.name} respond after task "${userInstructions}" is performed in ${mode} mode?</p>
+<p>How does ${at.name} respond after task "${lastInstruction}" is performed in ${mode} mode?</p>
 <h2>Test instructions</h2>
 <ol>
   <li>Click the "Open test page" button below to open the example widget in a popup window
@@ -209,7 +219,8 @@ function displayInstructionsForBehaviorTest() {
     </ul>
   </li>
   <li><em>${modeInstructions}</em></li>
-  <li><em>${userInstructions}</em> using the following commands:
+  ${getSetupInstructions()}
+  <li><em>${lastInstruction}</em> using the following commands:
     <ul id='at_controls' aria-label='AT controls'>
     </ul>
   </li>

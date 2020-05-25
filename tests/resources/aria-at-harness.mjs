@@ -220,7 +220,7 @@ function displayInstructionsForBehaviorTest() {
   <li>Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}</li>
   <li id="mode-instructions-li"><em>${modeInstructions}</em></li>
   ${getSetupInstructions()}
-  <li><em>${lastInstruction}</em> using the following commands:
+  <li>Using the following commands, ${lastInstruction}
     <ul id='at_controls' aria-label='AT controls'>
     </ul>
   </li>

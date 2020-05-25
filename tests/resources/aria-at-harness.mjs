@@ -92,7 +92,7 @@ export function initialize(newSupport, newCommandsData) {
         at = commapi.isKnownAT(requestedAT);
       }
       else {
-        errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
+        errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assistive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
       }
     }
     if (key === 'showResults') {

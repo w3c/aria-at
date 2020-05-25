@@ -206,7 +206,7 @@ function displayInstructionsForBehaviorTest() {
   const commands = behavior.commands;
   const assertions = behavior.output_assertions.map((a) => a[1]);
   const additionalBehaviorAssertions = behavior.additional_assertions;
-  const setupScriptDescription = behavior.setup_script_description;
+  const setupScriptDescription = behavior.setup_script_description ? ` and runs a script that will ${behavior.setup_script_description}` : behavior.setup_script_description;
   // As a hack, special case mode instructions for VoiceOver for macOS until we support modeless tests.
   let modePhrase = at.name === "VoiceOver for macOS" ? "Describe " : `With ${at.name} in ${mode} mode, describe `;
 
@@ -216,10 +216,7 @@ function displayInstructionsForBehaviorTest() {
 <p>${modePhrase} how ${at.name} behaves when performing task "${lastInstruction}"</p>
 <h2>Test instructions</h2>
 <ol>
-  <li>Click the "Open test page" button below to open the example widget in a popup window
-    <ul id='setup_script_description'>
-    </ul>
-  </li>
+  <li>Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}</li>
   <li><em>${modeInstructions}</em></li>
   ${getSetupInstructions()}
   <li><em>${lastInstruction}</em> using the following commands:
@@ -232,12 +229,6 @@ function displayInstructionsForBehaviorTest() {
 <ul id='assertions'>
 </ul>
 `;
-
-  if (setupScriptDescription) {
-    let setupDescEl = document.createElement('li');
-    setupDescEl.innerHTML = `Setup test page script description: ${setupScriptDescription}`;
-    document.getElementById('setup_script_description').append(setupDescEl);
-  }
 
   for (let command of commands) {
     let commandEl = document.createElement('li');

@@ -221,7 +221,7 @@ function displayInstructionsForBehaviorTest() {
   <li id="mode-instructions-li"><em>${modeInstructions}</em></li>
   ${getSetupInstructions()}
   <li>Using the following commands, ${lastInstruction}
-    <ul id='at_controls' aria-label='AT controls'>
+    <ul id='at_controls' aria-label='Commands'>
     </ul>
   </li>
 </ol>

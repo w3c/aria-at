@@ -206,9 +206,10 @@ function displayInstructionsForBehaviorTest() {
   const commands = behavior.commands;
   const assertions = behavior.output_assertions.map((a) => a[1]);
   const additionalBehaviorAssertions = behavior.additional_assertions;
-  const setupScriptDescription = behavior.setup_script_description ? ` and runs a script that will ${behavior.setup_script_description}` : behavior.setup_script_description;
+  const setupScriptDescription = behavior.setup_script_description ? ` and runs a script that will ${behavior.setup_script_description}.` : behavior.setup_script_description;
   // As a hack, special case mode instructions for VoiceOver for macOS until we support modeless tests.
-  let modePhrase = at.name === "VoiceOver for macOS" ? "Describe " : `With ${at.name} in ${mode} mode, describe `;
+  // ToDo: remove this when resolving issue #194
+  const modePhrase = at.name === "VoiceOver for macOS" ? "Describe " : `With ${at.name} in ${mode} mode, describe `;
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
@@ -217,7 +218,7 @@ function displayInstructionsForBehaviorTest() {
 <h2>Test instructions</h2>
 <ol>
   <li>Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}</li>
-  <li><em>${modeInstructions}</em></li>
+  <li id="mode-instructions-li"><em>${modeInstructions}</em></li>
   ${getSetupInstructions()}
   <li><em>${lastInstruction}</em> using the following commands:
     <ul id='at_controls' aria-label='AT controls'>
@@ -229,6 +230,13 @@ function displayInstructionsForBehaviorTest() {
 <ul id='assertions'>
 </ul>
 `;
+
+  // Hack to remove mode instructions for VoiceOver for macOS to get us by until we support modeless screen readers.
+  // ToDo: remove this when resolving issue #194
+  if (at.name === "VoiceOver for macOS") {
+    let modeInstructionsEl= document.getElementById('mode-instructions-li');
+    modeInstructionsEl.parentNode.removeChild(modeInstructionsEl);
+  }
 
   for (let command of commands) {
     let commandEl = document.createElement('li');

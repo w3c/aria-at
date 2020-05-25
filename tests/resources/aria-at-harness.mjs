@@ -207,11 +207,13 @@ function displayInstructionsForBehaviorTest() {
   const assertions = behavior.output_assertions.map((a) => a[1]);
   const additionalBehaviorAssertions = behavior.additional_assertions;
   const setupScriptDescription = behavior.setup_script_description;
+  // As a hack, special case mode instructions for VoiceOver for macOS until we support modeless tests.
+  let modePhrase = at.name === "VoiceOver for macOS" ? "Describe " : `With ${at.name} in ${mode} mode, describe `;
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
 <h1 id="behavior-header" tabindex="0">Testing task: ${document.title}</h1>
-<p>How does ${at.name} respond after task "${lastInstruction}" is performed in ${mode} mode?</p>
+<p>${modePhrase} how ${at.name} behaves when performing task "${lastInstruction}."</p>
 <h2>Test instructions</h2>
 <ol>
   <li>Click the "Open test page" button below to open the example widget in a popup window

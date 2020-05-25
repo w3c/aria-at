@@ -272,7 +272,7 @@ function displayInstructionsForBehaviorTest() {
     recordResults += `
 <p>
   <fieldset id="cmd-${c}-summary">
-    <label for="speechoutput-${c}">Relevant speech output after command <span class="required">(required)</span>:</label>
+    <label for="speechoutput-${c}">${at.name} output after ${commands[c]} <span class="required">(required)</span>:</label>
     <input type="text" id="speechoutput-${c}">
     <div>
       <input type="radio" id="allpass-${c}" class="allpass" name="allresults-${c}">

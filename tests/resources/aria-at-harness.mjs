@@ -216,7 +216,7 @@ function displayInstructionsForBehaviorTest() {
 <h1 id="behavior-header" tabindex="0">Testing task: ${document.title}</h1>
 <p>${modePhrase} how ${at.name} behaves when performing task "${lastInstruction}"</p>
 <h2>Test instructions</h2>
-<ol>
+<ol aria-label="Instructions">
   <li>Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}</li>
   <li id="mode-instructions-li"><em>${modeInstructions}</em></li>
   ${getSetupInstructions()}
@@ -226,8 +226,8 @@ function displayInstructionsForBehaviorTest() {
   </li>
 </ol>
 <h3>Success Criteria</h3>
-<p>For this test to pass, the following assertions must be met for every possible command:</p>
-<ul id='assertions'>
+<p>To pass this test, ${at.name} needs to meet all the following assertions when each  specified command is executed:</p>
+<ul id='assertions' aria-label="Assertions">
 </ul>
 `;
 

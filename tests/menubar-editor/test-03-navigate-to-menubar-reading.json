@@ -1,5 +1,5 @@
 {
-  "setup_script_description": "Move focus to the link just before the meunbar",
+  "setup_script_description": "Moves focus to the link just before the menubar",
   "setupTestPage": "focusonfirstlink",
   "applies_to": [
     "jaws",
@@ -19,7 +19,15 @@
     ],
     [
       "1",
-      "Number of items in menubar is conveyed"
+      "The menu item name \"Font\" is conveyed"
+    ],
+    [
+      "1",
+      "Availability of a submenu is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar  is conveyed"
     ]
   ]
 }

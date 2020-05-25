@@ -1,0 +1,30 @@
+{
+  "setup_script_description": "Moves focus to the 'Font' menu item",
+  "setupTestPage": "focusonfont",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to menuitemradio in submenu",
+  "specific_user_instruction": "Open \"Font\" menu using the down arrow key | Navigate to 'Monospace' menu item ",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Sans-serif' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item radio' is conveyed"
+    ],
+    [
+      "1",
+      "The checked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar  is conveyed"
+    ]
+  ]
+}

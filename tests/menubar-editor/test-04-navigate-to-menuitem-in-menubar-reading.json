@@ -1,29 +1,33 @@
 {
-  "setup_script_description": "Move focus to the 'Font' menu item",
-  "setupTestPage": "focusonfont",
+  "setup_script_description": "",
+  "setupTestPage": "",
   "applies_to": [
     "jaws",
     "nvda"
   ],
   "mode": "reading",
   "task": "navigate to menuitem in menubar",
-  "specific_user_instruction": "Navigate to 'Style/Color' menu",
+  "specific_user_instruction": "Navigate to 'Text Formatting' menu with down arrow| Navigate to 'Style/Color' menu",
   "output_assertions": [
-    [
-      "1",
-      "The role 'menu item' is conveyed"
-    ],
     [
       "1",
       "The name 'Style/Color' is conveyed"
     ],
     [
-      "2",
-      " The role 'menubar' is conveyed"
+      "1",
+      "Availability of a submenu is conveyed"
     ],
     [
       "2",
-      " The menubar name 'Text Formatting' is conveyed"
+      " The position of the item and number of items in the menubar  is conveyed"
+    ],
+    [
+      "2",
+      " The role 'menuitem' is conveyed"
+    ],
+    [
+      "2",
+      " Open state of the submenu is conveyed"
     ]
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "setup_script_description": "Move focus to the 'Font' menu item",
+  "setup_script_description": "Moves focus to the 'Font' menu item",
   "setupTestPage": "focusonfont",
   "applies_to": [
     "jaws",
@@ -12,19 +12,23 @@
   "output_assertions": [
     [
       "1",
-      "The role 'menu item' is conveyed"
-    ],
-    [
-      "1",
       "The name 'Style/Color' is conveyed"
     ],
     [
-      "2",
-      " The role 'menubar' is conveyed"
+      "1",
+      "Availability of a submenu is conveyed"
     ],
     [
       "2",
-      " The menubar name 'Text Formatting' is conveyed"
+      " The position of the item and number of items in the menubar  is conveyed"
+    ],
+    [
+      "2",
+      " The role 'menuitem' is conveyed"
+    ],
+    [
+      "2",
+      " Open state of the submenu is conveyed"
     ]
   ]
 }

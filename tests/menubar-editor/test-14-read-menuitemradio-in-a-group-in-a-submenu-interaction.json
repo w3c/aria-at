@@ -1,0 +1,32 @@
+{
+  "setup_script_description": "Moves focus to the 'Style/Color' menu item",
+  "setupTestPage": "focusonstylecolor",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "read menuitemradio in a group in a submenu",
+  "specific_user_instruction": "Open \"Style/Color\" menu using the down arrow key | Use VO+Shift+Up Arrow to start DOM navigation of the menubar groups | Navigate to the \"Color\" group using VO + Down Arrow | Navigate to the \"Color\" group items using VO + Shift + Down Arrow | Navigate to 'Blue' menu item using VO + Down Arrow Key | Review the  'Blue' menu item radio button",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Black' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item radio' is conveyed"
+    ],
+    [
+      "1",
+      "The checked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar  is conveyed"
+    ],
+    [
+      "2",
+      " The name and role of the 'Text Color' group are conveyed"
+    ]
+  ]
+}

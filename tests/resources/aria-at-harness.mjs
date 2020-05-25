@@ -213,7 +213,7 @@ function displayInstructionsForBehaviorTest() {
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
 <h1 id="behavior-header" tabindex="0">Testing task: ${document.title}</h1>
-<p>${modePhrase} how ${at.name} behaves when performing task "${lastInstruction}."</p>
+<p>${modePhrase} how ${at.name} behaves when performing task "${lastInstruction}"</p>
 <h2>Test instructions</h2>
 <ol>
   <li>Click the "Open test page" button below to open the example widget in a popup window

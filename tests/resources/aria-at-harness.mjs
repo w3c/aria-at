@@ -276,11 +276,11 @@ function displayInstructionsForBehaviorTest() {
     <input type="text" id="speechoutput-${c}">
     <div>
       <input type="radio" id="allpass-${c}" class="allpass" name="allresults-${c}">
-      <label for="allpass-${c}">All assertions have been meet after ${commands[c]} and there was no additional unexpected or undesirable behaviors.</label>
+      <label for="allpass-${c}">All assertions were met after ${commands[c]} and there were no additional unexpected or undesirable behaviors.</label>
     </div>
     <div>
       <input type="radio" id="somefailure-${c}" class="somefailure" name="allresults-${c}">
-      <label for="somefailure-${c}">Some assertions have not been met after ${commands[c]} or there as an additional unexpected or undesirable behavior.</label>
+      <label for="somefailure-${c}">Some assertions were not met after ${commands[c]} or there was additional unexpected or undesirable behavior.</label>
     </div>
   </fieldset>
 </p>

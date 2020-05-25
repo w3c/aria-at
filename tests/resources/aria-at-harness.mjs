@@ -340,11 +340,11 @@ function displayInstructionsForBehaviorTest() {
 Were there additional undesirable behaviors? <span class="required">(required)</span>
 <div>
   <input type="radio" id="problem-${c}-false" class="pass" name="problem-${c}">
-  <label for="problem-${c}-false">No, there are no additional undesirable behaviors.</label>
+  <label for="problem-${c}-false">No, there were no additional undesirable behaviors.</label>
 </div>
 <div>
   <input type="radio" id="problem-${c}-true" class="fail" name="problem-${c}">
-  <label for="problem-${c}-true">Yes, there are additional undesirable behaviors</label>
+  <label for="problem-${c}-true">Yes, there were additional undesirable behaviors</label>
 </div>
 <br>
 <div>

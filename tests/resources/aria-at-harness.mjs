@@ -92,7 +92,7 @@ export function initialize(newSupport, newCommandsData) {
         at = commapi.isKnownAT(requestedAT);
       }
       else {
-        errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assitive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
+        errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assistive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
       }
     }
     if (key === 'showResults') {
@@ -206,35 +206,36 @@ function displayInstructionsForBehaviorTest() {
   const commands = behavior.commands;
   const assertions = behavior.output_assertions.map((a) => a[1]);
   const additionalBehaviorAssertions = behavior.additional_assertions;
-  const setupScriptDescription = behavior.setup_script_description;
+  const setupScriptDescription = behavior.setup_script_description ? ` and runs a script that will ${behavior.setup_script_description}.` : behavior.setup_script_description;
+  // As a hack, special case mode instructions for VoiceOver for macOS until we support modeless tests.
+  // ToDo: remove this when resolving issue #194
+  const modePhrase = at.name === "VoiceOver for macOS" ? "Describe " : `With ${at.name} in ${mode} mode, describe `;
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
 <h1 id="behavior-header" tabindex="0">Testing task: ${document.title}</h1>
-<p>How does ${at.name} respond after task "${lastInstruction}" is performed in ${mode} mode?</p>
+<p>${modePhrase} how ${at.name} behaves when performing task "${lastInstruction}"</p>
 <h2>Test instructions</h2>
-<ol>
-  <li>Click the "Open test page" button below to open the example widget in a popup window
-    <ul id='setup_script_description'>
-    </ul>
-  </li>
-  <li><em>${modeInstructions}</em></li>
+<ol aria-label="Instructions">
+  <li>Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}</li>
+  <li id="mode-instructions-li"><em>${modeInstructions}</em></li>
   ${getSetupInstructions()}
-  <li><em>${lastInstruction}</em> using the following commands:
-    <ul id='at_controls' aria-label='AT controls'>
+  <li>Using the following commands, ${lastInstruction}
+    <ul id='at_controls' aria-label='Commands'>
     </ul>
   </li>
 </ol>
 <h3>Success Criteria</h3>
-<p>For this test to pass, the following assertions must be met for every possible command:</p>
-<ul id='assertions'>
+<p>To pass this test, ${at.name} needs to meet all the following assertions when each  specified command is executed:</p>
+<ul id='assertions' aria-label="Assertions">
 </ul>
 `;
 
-  if (setupScriptDescription) {
-    let setupDescEl = document.createElement('li');
-    setupDescEl.innerHTML = `Setup test page script description: ${setupScriptDescription}`;
-    document.getElementById('setup_script_description').append(setupDescEl);
+  // Hack to remove mode instructions for VoiceOver for macOS to get us by until we support modeless screen readers.
+  // ToDo: remove this when resolving issue #194
+  if (at.name === "VoiceOver for macOS") {
+    let modeInstructionsEl= document.getElementById('mode-instructions-li');
+    modeInstructionsEl.parentNode.removeChild(modeInstructionsEl);
   }
 
   for (let command of commands) {
@@ -267,19 +268,19 @@ function displayInstructionsForBehaviorTest() {
   let recordResults = `<h2>Record Results</h2><p>${document.title}</p>`;
 
   for (let c = 0; c < commands.length; c++) {
-    recordResults += `<section id="cmd-${c}-section"><h3 id="header-cmd-${c}">After: '${commands[c]}'</h3>`;
+    recordResults += `<section id="cmd-${c}-section"><h3 id="header-cmd-${c}">After '${commands[c]}'</h3>`;
     recordResults += `
 <p>
   <fieldset id="cmd-${c}-summary">
-    <label for="speechoutput-${c}">Relevant speech output after command <span class="required">(required)</span>:</label>
+    <label for="speechoutput-${c}">${at.name} output after ${commands[c]} <span class="required">(required)</span>:</label>
     <input type="text" id="speechoutput-${c}">
     <div>
       <input type="radio" id="allpass-${c}" class="allpass" name="allresults-${c}">
-      <label for="allpass-${c}">All assertions have been meet after ${commands[c]} and there was no additional unexpected or undesirable behaviors.</label>
+      <label for="allpass-${c}">All assertions were met after ${commands[c]} and there were no additional unexpected or undesirable behaviors.</label>
     </div>
     <div>
       <input type="radio" id="somefailure-${c}" class="somefailure" name="allresults-${c}">
-      <label for="somefailure-${c}">Some assertions have not been met after ${commands[c]} or there as an additional unexpected or undesirable behavior.</label>
+      <label for="somefailure-${c}">Some assertions were not met after ${commands[c]} or there was additional unexpected or undesirable behavior.</label>
     </div>
   </fieldset>
 </p>
@@ -339,11 +340,11 @@ function displayInstructionsForBehaviorTest() {
 Were there additional undesirable behaviors? <span class="required">(required)</span>
 <div>
   <input type="radio" id="problem-${c}-false" class="pass" name="problem-${c}">
-  <label for="problem-${c}-false">No, there are no additional undesirable behaviors.</label>
+  <label for="problem-${c}-false">No, there were no additional undesirable behaviors.</label>
 </div>
 <div>
   <input type="radio" id="problem-${c}-true" class="fail" name="problem-${c}">
-  <label for="problem-${c}-true">Yes, there are additional undesirable behaviors</label>
+  <label for="problem-${c}-true">Yes, there were additional undesirable behaviors</label>
 </div>
 <br>
 <div>

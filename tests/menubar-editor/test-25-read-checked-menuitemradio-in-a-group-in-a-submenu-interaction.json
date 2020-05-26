@@ -1,0 +1,32 @@
+{
+  "setup_script_description": "sets focus on the 'Style/Color' menu item",
+  "setupTestPage": "focusonstylecolor",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "read checked menuitemradio in a group in a submenu",
+  "specific_user_instruction": "Open \"Style/Color\" menu using the down arrow key. | Navigate to 'Black' menu item using the down arrow key. | Read the  'Black' menu item radio",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Black' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item radio' is conveyed"
+    ],
+    [
+      "1",
+      "The checked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the 'Text Color' group are conveyed"
+    ],
+    [
+      "1",
+      "The name and role of the 'Text Color' group are conveyed"
+    ]
+  ]
+}

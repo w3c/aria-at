@@ -1,0 +1,33 @@
+{
+  "setup_script_description": "sets focus on the 'Style/Color' menu item",
+  "setupTestPage": "focusonstylecolor",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read unchecked menuitemradio in a group in a submenu",
+  "specific_user_instruction": "Open \"Style/Color\" menu with down arrow. | Navigate to 'Blue' menu item radio with down arrow. | Read the  'Blue' menu item radio",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Blue' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item radio' is conveyed"
+    ],
+    [
+      "1",
+      "The unchecked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the 'Text Color' group are conveyed"
+    ],
+    [
+      "1",
+      "The name and role of the 'Text Color' group are conveyed"
+    ]
+  ]
+}

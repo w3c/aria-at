@@ -1,0 +1,33 @@
+{
+  "setup_script_description": "sets focus on a link just before the menubar",
+  "setupTestPage": "focusonfirstlink",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read unchecked menuitemradio in a group in a submenu",
+  "specific_user_instruction": "Tab to 'Text Formatting' menubar. | Navigate to 'Style/Color' menu item with right arrow. | Open 'Style/Color' menu with down arrow. | Navigate to 'Blue' menu item radio with down arrow. | Activate the screen reader reading cursor. | Read the  'Blue' menu item radio",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Blue' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item radio' is conveyed"
+    ],
+    [
+      "1",
+      "The unchecked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the 'Text Color' group are conveyed"
+    ],
+    [
+      "1",
+      "The name and role of the 'Text Color' group are conveyed"
+    ]
+  ]
+}

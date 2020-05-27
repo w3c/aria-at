@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <head>
-  <title>Index of Test Files for local Server</title>
+  <title>Index of Assistive Technology Test Files</title>
   <style>
     table {
       display: table;
@@ -37,6 +37,14 @@
       display: table-cell;
     }
 
+    td.test {
+      text-align: center;
+    }
+
+    td.none {
+      color: #333;
+    }
+
     th {
       padding: 3px;
       font-weight: bold;
@@ -45,45 +53,51 @@
   </style>
 </head>
 <body>
-  <h1>Index of Test Files</h1>
+ <main>
+  <h1>Index of Assistive Technology Test Files</h1>
   <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
-  test runner is being executed, using <code>npm run start</code> from the root director: <code>/Users/michaelfairchild/WebstormProjects/aria-at/</code>.</p>
+  test runner is being executed, using <code>npm run start</code> from the root directory: <code>C:\Users\mck\git\w3c\aria-at\main\</code>.</p>
   <table>
     <thead>
       <tr>
         <th>Task ID</th>
         <th>Testing Task</th>
+        <th>JAWS</th>
+<th>NVDA</th>
+<th>VoiceOver for macOS</th>
+
         <th>Setup Script Reference</th>
       </tr>
     </thead>
     <tbody>
-<tr><td>1</td><td><a href="test-01-navigate-to-unchecked-checkbox-reading.html">Navigate to an unchecked checkbox in reading mode</a></td><td></td></tr>
-<tr><td>2</td><td><a href="test-02-navigate-to-unchecked-checkbox-interaction.html">Navigate to an unchecked checkbox in interaction mode</a></td><td></td></tr>
-<tr><td>3</td><td><a href="test-03-navigate-to-unchecked-checkbox-interaction.html">Navigate to an unchecked checkbox</a></td><td></td></tr>
-<tr><td>4</td><td><a href="test-04-navigate-to-checked-checkbox-reading.html">Navigate to a checked checkbox in reading mode</a></td><td>checkFirstCheckbox</td></tr>
-<tr><td>5</td><td><a href="test-05-navigate-to-checked-checkbox-interaction.html">Navigate to a checked checkbox in interaction mode</a></td><td>checkFirstCheckbox</td></tr>
-<tr><td>6</td><td><a href="test-06-navigate-to-checked-checkbox-interaction.html">Navigate to a checked checkbox</a></td><td>checkFirstCheckbox</td></tr>
-<tr><td>7</td><td><a href="test-07-operate-checkbox-reading.html">Operate a checkbox in reading mode</a></td><td></td></tr>
-<tr><td>8</td><td><a href="test-08-operate-checkbox-interaction.html">Operate a checkbox in interaction mode</a></td><td></td></tr>
-<tr><td>9</td><td><a href="test-09-operate-checkbox-interaction.html">Operate a checkbox</a></td><td></td></tr>
-<tr><td>10</td><td><a href="test-10-read-unchecked-checkbox-reading.html">Read an unchecked checkbox in reading mode.</a></td><td>moveFocusToFirstCheckbox</td></tr>
-<tr><td>11</td><td><a href="test-11-read-unchecked-checkbox-interaction.html">Read an unchecked checkbox in interaction mode.</a></td><td>moveFocusToFirstCheckbox</td></tr>
-<tr><td>12</td><td><a href="test-12-read-unchecked-checkbox-interaction.html">Read an unchecked checkbox</a></td><td>moveFocusToFirstCheckbox</td></tr>
-<tr><td>13</td><td><a href="test-13-read-checked-checkbox-reading.html">Read a checked checkbox in reading mode.</a></td><td>moveFocusAndCheckFirstCheckbox</td></tr>
-<tr><td>14</td><td><a href="test-14-read-checked-checkbox-interaction.html">Read a checked checkbox in interaction mode.</a></td><td>moveFocusAndCheckFirstCheckbox</td></tr>
-<tr><td>15</td><td><a href="test-15-read-checked-checkbox-interaction.html">Read a checked checkbox</a></td><td>moveFocusAndCheckFirstCheckbox</td></tr>
-<tr><td>16</td><td><a href="test-16-read-checkbox-group-reading.html">Read grouping information of a grouped checkbox in reading mode</a></td><td></td></tr>
-<tr><td>17</td><td><a href="test-17-read-checkbox-group-interaction.html">Read grouping information of a grouped checkbox in interaction mode</a></td><td></td></tr>
-<tr><td>18</td><td><a href="test-18-read-checkbox-group-interaction.html">Read grouping information of a grouped checkbox</a></td><td></td></tr>
-<tr><td>19</td><td><a href="test-19-navigate-sequentially-through-checkbox-group-reading.html">Navigate sequentially through a checkbox group in reading mode</a></td><td></td></tr>
-<tr><td>20</td><td><a href="test-20-navigate-sequentially-through-checkbox-group-interaction.html">Navigate sequentially through a checkbox group</a></td><td></td></tr>
-<tr><td>21</td><td><a href="test-21-navigate-into-checkbox-group-reading.html">Navigate into a checkbox group in reading mode</a></td><td></td></tr>
-<tr><td>22</td><td><a href="test-22-navigate-into-checkbox-group-interaction.html">Navigate into a checkbox group in interaction mode</a></td><td></td></tr>
-<tr><td>23</td><td><a href="test-23-navigate-into-checkbox-group-interaction.html">Navigate into a checkbox group</a></td><td></td></tr>
-<tr><td>24</td><td><a href="test-24-navigate-out-of-checkbox-group-reading.html">Navigate out of a checkbox group  in reading mode</a></td><td></td></tr>
-<tr><td>25</td><td><a href="test-25-navigate-out-of-checkbox-group-interaction.html">Navigate out of a checkbox group in interaction mode</a></td><td></td></tr>
-<tr><td>26</td><td><a href="test-26-navigate-out-of-checkbox-group-interaction.html">Navigate out of a checkbox group</a></td><td></td></tr>
+<tr><td>1</td><td scope="row">Navigate to an unchecked checkbox in reading mode</td><td class="test"><a href="test-01-navigate-to-unchecked-checkbox-reading.html?at=jaws" aria-label="JAWS test for task 1">JAWS</a></td><td class="test"><a href="test-01-navigate-to-unchecked-checkbox-reading.html?at=nvda" aria-label="NVDA test for task 1">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>2</td><td scope="row">Navigate to an unchecked checkbox in interaction mode</td><td class="test"><a href="test-02-navigate-to-unchecked-checkbox-interaction.html?at=jaws" aria-label="JAWS test for task 2">JAWS</a></td><td class="test"><a href="test-02-navigate-to-unchecked-checkbox-interaction.html?at=nvda" aria-label="NVDA test for task 2">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>3</td><td scope="row">Navigate to an unchecked checkbox</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-03-navigate-to-unchecked-checkbox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 3">VoiceOver for macOS</a></td><td></td></tr>
+<tr><td>4</td><td scope="row">Navigate to a checked checkbox in reading mode</td><td class="test"><a href="test-04-navigate-to-checked-checkbox-reading.html?at=jaws" aria-label="JAWS test for task 4">JAWS</a></td><td class="test"><a href="test-04-navigate-to-checked-checkbox-reading.html?at=nvda" aria-label="NVDA test for task 4">NVDA</a></td><td class="test none">not included</td><td>checkFirstCheckbox</td></tr>
+<tr><td>5</td><td scope="row">Navigate to a checked checkbox in interaction mode</td><td class="test"><a href="test-05-navigate-to-checked-checkbox-interaction.html?at=jaws" aria-label="JAWS test for task 5">JAWS</a></td><td class="test"><a href="test-05-navigate-to-checked-checkbox-interaction.html?at=nvda" aria-label="NVDA test for task 5">NVDA</a></td><td class="test none">not included</td><td>checkFirstCheckbox</td></tr>
+<tr><td>6</td><td scope="row">Navigate to a checked checkbox</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-06-navigate-to-checked-checkbox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 6">VoiceOver for macOS</a></td><td>checkFirstCheckbox</td></tr>
+<tr><td>7</td><td scope="row">Operate a checkbox in reading mode</td><td class="test"><a href="test-07-operate-checkbox-reading.html?at=jaws" aria-label="JAWS test for task 7">JAWS</a></td><td class="test"><a href="test-07-operate-checkbox-reading.html?at=nvda" aria-label="NVDA test for task 7">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>8</td><td scope="row">Operate a checkbox in interaction mode</td><td class="test"><a href="test-08-operate-checkbox-interaction.html?at=jaws" aria-label="JAWS test for task 8">JAWS</a></td><td class="test"><a href="test-08-operate-checkbox-interaction.html?at=nvda" aria-label="NVDA test for task 8">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>9</td><td scope="row">Operate a checkbox</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-09-operate-checkbox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 9">VoiceOver for macOS</a></td><td></td></tr>
+<tr><td>10</td><td scope="row">Read an unchecked checkbox in reading mode</td><td class="test"><a href="test-10-read-unchecked-checkbox-reading.html?at=jaws" aria-label="JAWS test for task 10">JAWS</a></td><td class="test"><a href="test-10-read-unchecked-checkbox-reading.html?at=nvda" aria-label="NVDA test for task 10">NVDA</a></td><td class="test none">not included</td><td>moveFocusToFirstCheckbox</td></tr>
+<tr><td>11</td><td scope="row">Read an unchecked checkbox in interaction mode</td><td class="test"><a href="test-11-read-unchecked-checkbox-interaction.html?at=jaws" aria-label="JAWS test for task 11">JAWS</a></td><td class="test"><a href="test-11-read-unchecked-checkbox-interaction.html?at=nvda" aria-label="NVDA test for task 11">NVDA</a></td><td class="test"><a href="test-11-read-unchecked-checkbox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 11">VoiceOver for macOS</a></td><td>moveFocusToFirstCheckbox</td></tr>
+<tr><td>12</td><td scope="row">Read an unchecked checkbox</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-12-read-unchecked-checkbox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 12">VoiceOver for macOS</a></td><td>moveFocusToFirstCheckbox</td></tr>
+<tr><td>13</td><td scope="row">Read a checked checkbox in reading mode</td><td class="test"><a href="test-13-read-checked-checkbox-reading.html?at=jaws" aria-label="JAWS test for task 13">JAWS</a></td><td class="test"><a href="test-13-read-checked-checkbox-reading.html?at=nvda" aria-label="NVDA test for task 13">NVDA</a></td><td class="test none">not included</td><td>moveFocusAndCheckFirstCheckbox</td></tr>
+<tr><td>14</td><td scope="row">Read a checked checkbox in interaction mode</td><td class="test"><a href="test-14-read-checked-checkbox-interaction.html?at=jaws" aria-label="JAWS test for task 14">JAWS</a></td><td class="test"><a href="test-14-read-checked-checkbox-interaction.html?at=nvda" aria-label="NVDA test for task 14">NVDA</a></td><td class="test"><a href="test-14-read-checked-checkbox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 14">VoiceOver for macOS</a></td><td>moveFocusAndCheckFirstCheckbox</td></tr>
+<tr><td>15</td><td scope="row">Read a checked checkbox</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-15-read-checked-checkbox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 15">VoiceOver for macOS</a></td><td>moveFocusAndCheckFirstCheckbox</td></tr>
+<tr><td>16</td><td scope="row">Read grouping information of a grouped checkbox in reading mode</td><td class="test"><a href="test-16-read-checkbox-group-reading.html?at=jaws" aria-label="JAWS test for task 16">JAWS</a></td><td class="test"><a href="test-16-read-checkbox-group-reading.html?at=nvda" aria-label="NVDA test for task 16">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>17</td><td scope="row">Read grouping information of a grouped checkbox in interaction mode</td><td class="test"><a href="test-17-read-checkbox-group-interaction.html?at=jaws" aria-label="JAWS test for task 17">JAWS</a></td><td class="test"><a href="test-17-read-checkbox-group-interaction.html?at=nvda" aria-label="NVDA test for task 17">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>18</td><td scope="row">Read grouping information of a grouped checkbox</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-18-read-checkbox-group-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 18">VoiceOver for macOS</a></td><td></td></tr>
+<tr><td>19</td><td scope="row">Navigate sequentially through a checkbox group in reading mode</td><td class="test"><a href="test-19-navigate-sequentially-through-checkbox-group-reading.html?at=jaws" aria-label="JAWS test for task 19">JAWS</a></td><td class="test"><a href="test-19-navigate-sequentially-through-checkbox-group-reading.html?at=nvda" aria-label="NVDA test for task 19">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>20</td><td scope="row">Navigate sequentially through a checkbox group</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-20-navigate-sequentially-through-checkbox-group-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 20">VoiceOver for macOS</a></td><td></td></tr>
+<tr><td>21</td><td scope="row">Navigate into a checkbox group in reading mode</td><td class="test"><a href="test-21-navigate-into-checkbox-group-reading.html?at=jaws" aria-label="JAWS test for task 21">JAWS</a></td><td class="test"><a href="test-21-navigate-into-checkbox-group-reading.html?at=nvda" aria-label="NVDA test for task 21">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>22</td><td scope="row">Navigate into a checkbox group in interaction mode</td><td class="test"><a href="test-22-navigate-into-checkbox-group-interaction.html?at=jaws" aria-label="JAWS test for task 22">JAWS</a></td><td class="test"><a href="test-22-navigate-into-checkbox-group-interaction.html?at=nvda" aria-label="NVDA test for task 22">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>23</td><td scope="row">Navigate into a checkbox group</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-23-navigate-into-checkbox-group-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 23">VoiceOver for macOS</a></td><td></td></tr>
+<tr><td>24</td><td scope="row">Navigate out of a checkbox group  in reading mode</td><td class="test"><a href="test-24-navigate-out-of-checkbox-group-reading.html?at=jaws" aria-label="JAWS test for task 24">JAWS</a></td><td class="test"><a href="test-24-navigate-out-of-checkbox-group-reading.html?at=nvda" aria-label="NVDA test for task 24">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>25</td><td scope="row">Navigate out of a checkbox group in interaction mode</td><td class="test"><a href="test-25-navigate-out-of-checkbox-group-interaction.html?at=jaws" aria-label="JAWS test for task 25">JAWS</a></td><td class="test"><a href="test-25-navigate-out-of-checkbox-group-interaction.html?at=nvda" aria-label="NVDA test for task 25">NVDA</a></td><td class="test none">not included</td><td></td></tr>
+<tr><td>26</td><td scope="row">Navigate out of a checkbox group</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-26-navigate-out-of-checkbox-group-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 26">VoiceOver for macOS</a></td><td></td></tr>
 
     </tbody>
   </table>
+  </main>
 </body>

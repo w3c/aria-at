@@ -206,7 +206,7 @@ function displayInstructionsForBehaviorTest() {
   const commands = behavior.commands;
   const assertions = behavior.output_assertions.map((a) => a[1]);
   const additionalBehaviorAssertions = behavior.additional_assertions;
-  const setupScriptDescription = behavior.setup_script_description ? ` and runs a script that will ${behavior.setup_script_description}.` : behavior.setup_script_description;
+  const setupScriptDescription = behavior.setup_script_description ? ` and runs a script that ${behavior.setup_script_description}.` : behavior.setup_script_description;
   // As a hack, special case mode instructions for VoiceOver for macOS until we support modeless tests.
   // ToDo: remove this when resolving issue #194
   const modePhrase = at.name === "VoiceOver for macOS" ? "Describe " : `With ${at.name} in ${mode} mode, describe `;
@@ -217,6 +217,7 @@ function displayInstructionsForBehaviorTest() {
 <p>${modePhrase} how ${at.name} behaves when performing task "${lastInstruction}"</p>
 <h2>Test instructions</h2>
 <ol aria-label="Instructions">
+  <li>Restore default settings for ${at.name}. For help, read <a href="https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing">Configuring Screen Readers for Testing</a>.</li>
   <li>Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}</li>
   <li id="mode-instructions-li"><em>${modeInstructions}</em></li>
   ${getSetupInstructions()}

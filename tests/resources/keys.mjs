@@ -15,6 +15,7 @@ export const CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C = "Control+Option+Command+C
 export const CTRL_OPT_F3                      = "Control+Option+F3";
 export const CTRL_OPT_F4                      = "Control+Option+F4";
 export const CTRL_OPT_SPACE                   = "Control+Option+Space";
+export const CTRL_OPT_SPACE_THEN_CTRL_OPT_RIGHT                   = "Control+Option+Space followed by Control+Option+Right";
 export const CTRL_U                           = "Control+U";
 export const CMD                              = "Command";
 export const CMD_LEFT                         = "Command+Left";

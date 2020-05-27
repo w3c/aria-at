@@ -217,6 +217,7 @@ function displayInstructionsForBehaviorTest() {
 <p>${modePhrase} how ${at.name} behaves when performing task "${lastInstruction}"</p>
 <h2>Test instructions</h2>
 <ol aria-label="Instructions">
+  <li>Restore default settings for ${at.name}. For help, read <a href="https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing">Configuring Screen Readers for Testing</a>.</li>
   <li>Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}</li>
   <li id="mode-instructions-li"><em>${modeInstructions}</em></li>
   ${getSetupInstructions()}

@@ -110,18 +110,6 @@ var scripts = {
 	cb.filterOptions();
 	cb.open();
 },
-	buttonFocusEmptyCollpased: function(testPageDocument){
-	// Set focus on button
-	// Ensure in collapsed state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.buttonNode.focus();
-},
-	buttonFocusEmptyCollpased: function(testPageDocument){
-	// Set focus on button
-	// Ensure in collapsed state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.buttonNode.focus();
-},
 	buttonFocusEmptyExpanded: function(testPageDocument){
 	// Set focus on button
 	// Ensure in expanded state.

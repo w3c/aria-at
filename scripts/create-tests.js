@@ -343,6 +343,18 @@ function createTestFile (test, refs, commands) {
     return str;
   }
 
+  let task = getTask(test.task);
+  let appliesTo = getAppliesToValues(test.appliesTo);
+  let mode = getModeValue(test.mode);
+
+  appliesTo.forEach(at => {
+    if (commands[task]) {
+      if (!commands[task][mode][at.toLowerCase()]) {
+        addTestError(test.testId, 'command is missing for the combination of task: "' + task + '", mode: "'+mode+'", and AT: "'+at.toLowerCase()+'" ');
+      }
+    }
+  });
+
   let assertions = [];
   let setupFileName = '';
   let id = test.testId;
@@ -371,9 +383,9 @@ function createTestFile (test, refs, commands) {
   let testData = {
     setup_script_description: getSetupScriptDescription(test.setupScriptDescription),
     setupTestPage: test.setupScript,
-    applies_to: getAppliesToValues(test.appliesTo),
-    mode: getModeValue(test.mode),
-    task: getTask(test.task),
+    applies_to: appliesTo,
+    mode: mode,
+    task: task,
     specific_user_instruction: test.instructions,
     output_assertions: assertions
   };

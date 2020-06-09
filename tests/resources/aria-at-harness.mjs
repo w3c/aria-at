@@ -70,6 +70,7 @@ const errors = [];
 let testPageUri;
 let testPageWindow;
 let showResults = true;
+let showSubmitButton = true;
 
 let at;
 let commandsData;
@@ -100,6 +101,13 @@ export function initialize(newSupport, newCommandsData) {
         showResults = true;
       } else if (value === 'false') {
         showResults = false;
+      }
+    }
+    if (key === 'showSubmitButton') {
+      if (value === 'true') {
+        showSubmitButton = true;
+      } else if (value === 'false') {
+        showSubmitButton = false;
       }
     }
   }
@@ -385,17 +393,27 @@ Were there additional undesirable behaviors? <span class="required">(required)</
     select.onchange = handleUndesirableSelect;
   }
 
-  // Submit button
-  let el = document.createElement('button');
-  el.id = 'review-results';
-  el.innerText = "Review Results";
-  el.addEventListener('click', submitResult);
-  recordEl.append(el);
+  if (showSubmitButton) {
+    // Submit button
+    let el = document.createElement('button');
+    el.id = 'submit-results';
+    el.innerText = 'Submit Results';
+    el.addEventListener('click', submitResult);
+    recordEl.append(el);
+  }
 
   document.querySelector('#behavior-header').focus();
 
-  // send message to parent if test is loaded in iFrame
+  // if test is loaded in iFrame
   if (window.parent && window.parent.postMessage) {
+    // results can be submitted by parent posting a message to the
+    // iFrame with a data.type property of 'submit'
+    window.addEventListener('message', function(message) {
+      if (!validateMessage(message, 'submit')) return;
+      submitResult();
+    });
+
+    // send message to parent that test has loaded
     window.parent.postMessage({
       type: 'loaded',
       data: {
@@ -403,6 +421,19 @@ Were there additional undesirable behaviors? <span class="required">(required)</
       }
     }, '*');
   }
+}
+
+function validateMessage(message, type) {
+  if (window.location.origin !== message.origin) {
+      return false;
+  }
+  if (!message.data || typeof message.data !== 'object') {
+      return false;
+  }
+  if (message.data.type !== type) {
+      return false;
+  }
+  return true;
 }
 
 function handleUndesirableSelect(event) {

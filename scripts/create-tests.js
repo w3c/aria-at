@@ -376,7 +376,10 @@ function createTestFile (test, refs, commands) {
   let references  = getReferences(refs.example, test.refs);
   addSetupScript(test.setupScript, setupFileName);
 
-  for (let i=1; i<6; i++) {
+  for (let i=1; i<31; i++) {
+    if (!test["assertion"+i]) {
+      continue;
+    }
     addAssertion(test["assertion"+i]);
   }
 

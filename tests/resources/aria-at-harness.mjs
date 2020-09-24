@@ -282,7 +282,9 @@ function displayInstructionsForBehaviorTest() {
 <p>
   <fieldset id="cmd-${c}-summary">
     <label for="speechoutput-${c}">${at.name} output after ${commands[c]} <span class="required">(required)</span>:</label>
-    <input type="text" id="speechoutput-${c}">
+    <div>
+        <textarea id="speechoutput-${c}"></textarea>
+    </div>
     <div>
       <input type="radio" id="allpass-${c}" class="allpass" name="allresults-${c}">
       <label for="allpass-${c}">All assertions were met after ${commands[c]} and there were no additional unexpected or undesirable behaviors.</label>
@@ -513,7 +515,7 @@ function validateResults() {
 
     // If there is no output recorded, mark the screen reader output as required
     let summaryFieldset = document.getElementById(`cmd-${c}-summary`);
-    let cmdInput = summaryFieldset.querySelector('input[type="text"]');
+    let cmdInput = summaryFieldset.querySelector('textarea');
     if (!cmdInput.value) {
       focusEl = focusEl || cmdInput;
       summaryFieldset.classList.add('highlight-required');
@@ -753,7 +755,7 @@ function showResultsTable() {
   <td>${command.command}</td>
   <td>${command.support}</td>
   <td>
-    <p>${at.name} output: "${command.output}"</p>
+    <p>${at.name} output:<br> "${command.output.replace(/(?:\r\n|\r|\n)/g, '<br>')}"</p>
     <div>Passing Assertions:
       <ul>
       ${passingAssertions}

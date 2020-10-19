@@ -23,13 +23,18 @@
   </head>
   <body>
 
-    <h1>Test patterns for review</h1>
+    <h1>Test Patterns for Review</h1>
 
-    <ul>
+    <table>
+      <tr><th>Pattern</th><th>Index Page</th><th>Review Page</th></tr>
       {{#patterns}}
-          <li>{{.}}</i>
+          <tr>
+            <td>{{.}}</td>
+            <td><a href="./tests/{{.}}/index.html">Index</a></td>
+            <td><a href="./review/{{.}}.html">Review</a></td>
+          </tr>
       {{/patterns}}
-    </ul>
+    </table>
 
   </body>
 </html>

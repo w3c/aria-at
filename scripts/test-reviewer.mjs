@@ -10,7 +10,7 @@ import * as keys from '../tests/resources/keys.mjs';
 const testDir = path.resolve('.', 'tests');
 const templateFile = path.resolve('.', 'scripts', 'review-template.mustache');
 const templateIndexFile = path.resolve('.', 'scripts', 'review-index-template.mustache');
-const reviewDir = path.resolve('.', 'public', 'review');
+const reviewDir = path.resolve('.', 'review');
 const allTestsForPattern = {};
 const support = JSON.parse(fse.readFileSync(path.join(testDir, 'support.json')));
 let allATKeys = [];

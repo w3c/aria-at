@@ -9,6 +9,7 @@ import * as keys from '../tests/resources/keys.mjs';
 
 const testDir = path.resolve('.', 'tests');
 const templateFile = path.resolve('.', 'scripts', 'review-template.mustache');
+const templateIndexFile = path.resolve('.', 'scripts', 'review-index-template.mustache');
 const reviewDir = path.resolve('.', 'public', 'review');
 const allTestsForPattern = {};
 const support = JSON.parse(fse.readFileSync(path.join(testDir, 'support.json')));
@@ -149,6 +150,8 @@ if (!fse.existsSync(reviewDir)){
     fse.mkdirSync(reviewDir);
 }
 
+var indexTemplate = fse.readFileSync(templateIndexFile, 'utf8');
+
 console.log("\n");
 
 for (let pattern in allTestsForPattern) {
@@ -164,5 +167,12 @@ for (let pattern in allTestsForPattern) {
   fse.writeFileSync(summaryFile, rendered);
   console.log(`Summarized ${pattern} tests: ${summaryFile}`);
 }
+
+const renderedIndex = mustache.render(indexTemplate, {
+  patterns: Object.keys(allTestsForPattern)
+});
+const indexFile = path.resolve('.', `review-index.html`);
+fse.writeFileSync(indexFile, renderedIndex);
+console.log(`Generated: ${indexFile}`);
 
 console.log("\n\nDone.");

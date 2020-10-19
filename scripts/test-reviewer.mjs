@@ -172,7 +172,7 @@ for (let pattern in allTestsForPattern) {
 const renderedIndex = mustache.render(indexTemplate, {
   patterns: Object.keys(allTestsForPattern).map(pattern => ({ name: pattern, numberOfTests: allTestsForPattern[pattern].length }))
 });
-const indexFile = path.resolve('.', `review-index.html`);
+const indexFile = path.resolve('.', 'index.html');
 fse.writeFileSync(indexFile, renderedIndex);
 console.log(`Generated: ${indexFile}`);
 

@@ -74,9 +74,15 @@
     <p>
       <ul>
         <li>Mode: {{mode}}</i>
-        <li>Applies to: {{allReleventATs}}</li>
+        <li>Applies to: {{allReleventATsFormatted}}</li>
         <li>Lasted edited: {{lastEdited}}
-        <li>File: <a href="https://github.com/w3c/aria-at/tree/master/tests{{{location}}}">{{{location}}}</a></li>
+        <li>Tests:
+          <ul>
+            {{#allReleventATs}}
+              <li><a href="../tests{{{location}}}?at={{{.}}}">{{{.}}}</a></li>
+            {{/allReleventATs}}
+          </ul>
+        </li>
         <li>Relevant Specifications:
           <ul>
             {{#helpLinks}}

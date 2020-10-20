@@ -2,22 +2,352 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>Navigate to an unchecked checkbox in reading mode</title>
+<!-- Question: Do we need to worry about adding help links also making it look like
+the test changed when they didn't. Is there anything we can do about it. -->
 <link rel="help" href="https://w3c.github.io/aria-practices/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
-<script src="scripts.js"></script>
+<script>
+  // TODO: Can we figure out only the scripts that are relevent and add them
+
+  // FINDINGS: The testJson specificies which of these we need so we could
+  // could include the correct one dynmically
+
+  var scripts = {
+  //  checkFirstCheckbox: function(testPageDocument){
+  //    // Set aria-checked on first checkbox
+  //    testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+  //  },
+  //  checkFirstCheckbox: function(testPageDocument){
+  //    // Set aria-checked on first checkbox
+  //    testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+  //  },
+  //  checkFirstCheckbox: function(testPageDocument){
+  //    // Set aria-checked on first checkbox
+  //    testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+  //  },
+  //  moveFocusToFirstCheckbox: function(testPageDocument){
+  //    // Move focus to first checkbox
+  //    testPageDocument.querySelector('[role="checkbox"]').focus();
+  //  },
+  //  moveFocusToFirstCheckbox: function(testPageDocument){
+  //    // Move focus to first checkbox
+  //    testPageDocument.querySelector('[role="checkbox"]').focus();
+  //  },
+  //  moveFocusToFirstCheckbox: function(testPageDocument){
+  //    // Move focus to first checkbox
+  //    testPageDocument.querySelector('[role="checkbox"]').focus();
+  //  },
+  //  moveFocusAndCheckFirstCheckbox: function(testPageDocument){
+  //    // Move focus and set aria-checked on first checkbox
+  //    const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+  //    checkbox.focus();
+  //    checkbox.setAttribute('aria-checked', 'true');
+  //  },
+  //  moveFocusAndCheckFirstCheckbox: function(testPageDocument){
+  //    // Move focus and set aria-checked on first checkbox
+  //    const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+  //    checkbox.focus();
+  //    checkbox.setAttribute('aria-checked', 'true');
+  //  },
+  //  moveFocusAndCheckFirstCheckbox: function(testPageDocument){
+  //    // Move focus and set aria-checked on first checkbox
+  //    const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+  //    checkbox.focus();
+  //    checkbox.setAttribute('aria-checked', 'true');
+  //  }
+  };
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-01-navigate-to-unchecked-checkbox-reading.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
-    displayTestPageAndInstructions("reference/two-state-checkbox.html");
-  });
+  const testJson = {
+    "setup_script_description": "",
+    "setupTestPage": "",
+    "applies_to": [
+      "jaws",
+      "nvda"
+    ],
+    "mode": "reading",
+    "task": "navigate to unchecked checkbox",
+    "specific_user_instruction": "Navigate to the first checkbox. Note: it should be in the unchecked state.",
+    "output_assertions": [
+      [
+        "1",
+        "Role 'checkbox' is conveyed"
+      ],
+      [
+        "1",
+        "Name 'Lettuce' is conveyed"
+      ],
+      [
+        "1",
+        "State of the checkbox (not checked) is conveyed"
+      ]
+    ]
+  }
+
+  // NOTE: This is super bad because it means a change to thing (including and most
+  // problematically adding a new example would break all tests
+  //
+  // TODO: Look at what information from this we actually need see if we can be
+  // more smart about figuring out what that is
+
+  // FINDINGS: The only part of this we use is this at mapping of name to key
+  // it seems like changing this would break every test
+  // I kind of wonder if should really be configurable like this at all?
+  const supportJson = {
+  "ats": [
+    {
+      "name": "JAWS",
+      "key": "jaws"
+    },
+    {
+      "name": "NVDA",
+      "key": "nvda"
+    },
+    {
+      "name": "VoiceOver for macOS",
+      "key": "voiceover_macos"
+    }
+  ],
+  //"applies_to": {
+  //  "Desktop Screen Readers": [
+  //    "VoiceOver for macOS",
+  //    "NVDA",
+  //    "JAWS"
+  //  ],
+  //  "Screen Readers": [
+  //    "VoiceOver for macOS",
+  //    "NVDA",
+  //    "JAWS"
+  //  ]
+  //},
+  //"examples": [
+  //  {
+  //    "directory": "checkbox",
+  //    "name": "Checkbox Example (Two State)"
+  //  },
+  //  {
+  //    "directory": "menubar-editor",
+  //    "name": "Editor Menubar Example"
+  //  },
+  //  {
+  //    "directory": "combobox-autocomplete-both",
+  //    "name": "(NOT READY! DO NOT TEST!) Editable Combobox With Both List and Inline Autocomplete Example"
+  //  }
+  //]
+}
+
+// NOTE: This is scoped to just checkbox but is it possible to make it scoped
+// even more to just the test?
+//
+// TODO: Check out just picking out the correct commands
+//
+// FINDINGS: It seems like we should be able to look at the test json and only
+// include the relevant commands
+const commandsJson = {
+  "navigate to unchecked checkbox": {
+    "reading": {
+      "jaws": [
+        [ "X_AND_SHIFT_X" ],
+        [ "F_AND_SHIFT_F" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ],
+        [
+          "LEFT_AND_RIGHT",
+          "(with Smart Navigation on)"
+        ]
+      ],
+      "nvda": [
+        [ "X_AND_SHIFT_X" ],
+        [ "F_AND_SHIFT_F" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ]
+      ]
+    },
+  //  "interaction": {
+  //    "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+  //    "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+  //    "voiceover_macos": [
+  //      [ "TAB_AND_SHIFT_TAB" ],
+  //      [
+  //        "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+  //      ],
+  //      [
+  //        "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
+  //      ]
+  //    ]
+  //  }
+  },
+  //"navigate to checked checkbox": {
+  //  "reading": {
+  //    "jaws": [
+  //      [ "X_AND_SHIFT_X" ],
+  //      [ "F_AND_SHIFT_F" ],
+  //      [ "TAB_AND_SHIFT_TAB" ],
+  //      [ "UP_AND_DOWN" ],
+  //      [
+  //        "LEFT_AND_RIGHT",
+  //        "(with Smart Navigation on)"
+  //      ]
+  //    ],
+  //    "nvda": [
+  //      [ "X_AND_SHIFT_X" ],
+  //      [ "F_AND_SHIFT_F" ],
+  //      [ "TAB_AND_SHIFT_TAB" ],
+  //      [ "UP_AND_DOWN" ]
+  //    ]
+  //  },
+  //  "interaction": {
+  //    "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+  //    "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+  //    "voiceover_macos": [
+  //      [ "TAB_AND_SHIFT_TAB" ],
+  //      [
+  //        "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+  //      ],
+  //      [
+  //        "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
+  //      ]
+  //    ]
+  //  }
+  //},
+  //"operate checkbox": {
+  //  "reading": {
+  //    "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
+  //    "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
+  //  },
+  //  "interaction": {
+  //    "jaws": [ [ "SPACE" ] ],
+  //    "nvda": [ [ "SPACE" ] ],
+  //    "voiceover_macos": [
+  //      [ "CTRL_OPT_SPACE" ],
+  //      [ "SPACE" ]
+  //    ]
+  //  }
+  //},
+  //"read unchecked checkbox": {
+  //  "reading": {
+  //    "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+  //    "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+  //  },
+  //  "interaction": {
+  //    "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+  //    "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+  //    "voiceover_macos": [
+  //      [ "CTRL_OPT_F3" ],
+  //      [ "CTRL_OPT_F4" ]
+  //    ]
+  //  }
+  //},
+  //"read checked checkbox": {
+  //  "reading": {
+  //    "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+  //    "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+  //  },
+  //  "interaction": {
+  //    "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+  //    "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+  //    "voiceover_macos": [
+  //      [ "CTRL_OPT_F3" ],
+  //      [ "CTRL_OPT_F4" ]
+  //    ]
+  //  }
+  //},
+  //"read checkbox group": {
+  //  "reading": {
+  //    "jaws": [ [ "INS_TAB" ] ],
+  //    "nvda": [ [ "INS_TAB" ] ]
+  //  },
+  //  "interaction": {
+  //    "jaws": [ [ "INS_TAB" ] ],
+  //    "nvda": [ [ "INS_TAB" ] ],
+  //    "voiceover_macos": [
+  //      [ "CTRL_OPT_F3" ],
+  //      [ "CTRL_OPT_F4" ]
+  //    ]
+  //  }
+  //},
+  //"navigate sequentially through checkbox group": {
+  //  "reading": {
+  //    "jaws": [ [ "UP" ], [ "DOWN" ] ],
+  //    "nvda": [ [ "UP" ], [ "DOWN" ] ]
+  //  },
+  //  "interaction": {
+  //    "voiceover_macos": [
+  //      [ "CTRL_OPT_RIGHT" ],
+  //      [ "CTRL_OPT_LEFT" ]
+  //    ]
+  //  }
+  //},
+  //"navigate into checkbox group": {
+  //  "reading": {
+  //    "jaws": [
+  //      [ "X" ],
+  //      [ "SHIFT_X" ],
+  //      [ "F" ],
+  //      [ "SHIFT_F" ],
+  //      [ "TAB" ],
+  //      [ "SHIFT_TAB" ]
+  //    ],
+  //    "nvda": [
+  //      [ "X" ],
+  //      [ "SHIFT_X" ],
+  //      [ "F" ],
+  //      [ "SHIFT_F" ],
+  //      [ "TAB" ],
+  //      [ "SHIFT_TAB" ]
+  //    ]
+  //  },
+  //  "interaction": {
+  //    "jaws": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+  //    "nvda": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+  //    "voiceover_macos": [
+  //      [ "TAB" ],
+  //      [ "SHIFT_TAB" ],
+  //      [ "CTRL_OPT_RIGHT" ],
+  //      [ "CTRL_OPT_LEFT" ],
+  //      [ "CTRL_OPT_CMD_J" ],
+  //      [ "SHIFT_CTRL_OPT_CMD_J" ]
+  //    ]
+  //  }
+  //},
+  //"navigate out of checkbox group": {
+  //  "reading": {
+  //    "jaws": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+  //    "nvda": [ [ "TAB" ], [ "SHIFT_TAB" ] ]
+  //  },
+  //  "interaction": {
+  //    "jaws": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+  //    "nvda": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+  //    "voiceover_macos": [
+  //      [ "TAB" ],
+  //      [ "SHIFT_TAB" ],
+  //      [ "CTRL_OPT_RIGHT" ],
+  //      [ "CTRL_OPT_LEFT" ]
+  //    ]
+  //  }
+  //}
+}
+
+  initialize(supportJson, commandsJson);
+  verifyATBehavior(testJson);
+  // TODO: We could inline this but it also has another script
+  // I think the thing to do hear is create a script that brings in there other
+  // files and then also adds a version # to them
+
+  // FINDINGS:
+  // https://github.com/w3c/aria-practices/blob/master/examples/checkbox/checkbox-1/checkbox-1.html
+  // This pulls from the reference folder which is literally copy pasted from
+  // the above.
+
+  // QUESTION:
+  // ARIA practices has a checkbox-1 and a checkbox-2 but we only have a
+  // checkbox. Should we also be supporting nested examples somehow?
+
+  // Why do we need the actual file in the repo at all? Could we just do a fetch
+  // dymanically to get the reference to the correct iframe?
+  displayTestPageAndInstructions("checkbox/checkbox-2-asdasas-two-state-checkbox.html", "SHA");
 </script>

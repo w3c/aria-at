@@ -32,11 +32,11 @@
   // sematic meaning of the test. By leaving it in its own file we don't have to
   // worry about it meaning that changes to that cause a lot unnessicary test
   // invalidation
-  Promise.all(['../support.json'].map(url =>
-      fetch(url)
-        .then(response => response.json())
-    ))
-    .then(data => {
+    new Promise((resolve) => {
+      fetch('../support.json')
+        .then(response => resolve(response.json()))
+    })
+    .then(supportJson => {
       // PLAN: Inline the entire test-01-navigate-to-unchecked-checkbox-reading.json
       // file instead of fetching it
       // All of the information in is specific to this test
@@ -91,7 +91,7 @@
         }
       }
 
-      initialize(data[0], commandsJson);
+      initialize(supportJson, commandsJson);
       verifyATBehavior(testJson);
       // PLAN: The test author still refers in reference to the relevant reference
       // file under test that is copied into this repo

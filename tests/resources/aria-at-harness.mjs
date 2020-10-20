@@ -33,6 +33,10 @@ const PAGE_STYLES = `
     font-weight: bold;
   }
 
+  textarea {
+    width: 100%
+  }
+
   .required:not(.highlight-required) {
     display: none;
   }

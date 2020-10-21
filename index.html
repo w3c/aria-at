@@ -23,6 +23,12 @@
 
     </style>
     <script>
+      document.addEventListener("DOMContentLoaded", function(){
+        const branch = new URL(window.location.href.toLowerCase()).searchParams.get("branch");
+        Array.from(document.getElementsByClassName('githack-link')).forEach(function (item) {
+          item.href = item.href.replace(/BRANCH/, branch);
+        });
+      });
     </script>
   </head>
   <body>
@@ -39,24 +45,24 @@
       </tr>
           <tr>
             <td>checkbox</td>
-            <td><a href="./tests/checkbox/index.html">Index</a></td>
-            <td><a href="./review/checkbox.html">Review</a></td>
+            <td><a class="githack-link" href="https://raw.githack.com/w3c/aria-at/BRANCH/tests/checkbox/index.html">Index</a></td>
+            <td><a class="githack-link" href="https://raw.githack.com/w3c/aria-at/BRANCH/review/checkbox.html">Review</a></td>
             <td>26</td>
             <td><a href="https://github.com/w3c/aria-at/commit/4d24c9b" target="_blank">4d24c9b checkbox: don&#39;t present interaction mode tests to macOS VoiceOver users (#283)
 </a></td>
           </tr>
           <tr>
             <td>combobox-autocomplete-both</td>
-            <td><a href="./tests/combobox-autocomplete-both/index.html">Index</a></td>
-            <td><a href="./review/combobox-autocomplete-both.html">Review</a></td>
+            <td><a class="githack-link" href="https://raw.githack.com/w3c/aria-at/BRANCH/tests/combobox-autocomplete-both/index.html">Index</a></td>
+            <td><a class="githack-link" href="https://raw.githack.com/w3c/aria-at/BRANCH/review/combobox-autocomplete-both.html">Review</a></td>
             <td>30</td>
             <td><a href="https://github.com/w3c/aria-at/commit/2a3c46f" target="_blank">2a3c46f Combobox Tests: Mark not ready for testing and partially update to recent format (pull #203)
 </a></td>
           </tr>
           <tr>
             <td>menubar-editor</td>
-            <td><a href="./tests/menubar-editor/index.html">Index</a></td>
-            <td><a href="./review/menubar-editor.html">Review</a></td>
+            <td><a class="githack-link" href="https://raw.githack.com/w3c/aria-at/BRANCH/tests/menubar-editor/index.html">Index</a></td>
+            <td><a class="githack-link" href="https://raw.githack.com/w3c/aria-at/BRANCH/review/menubar-editor.html">Review</a></td>
             <td>40</td>
             <td><a href="https://github.com/w3c/aria-at/commit/826d2c2" target="_blank">826d2c2 Fix issue where menubar test 15 for jaws was not rendering (#267)
 </a></td>

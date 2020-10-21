@@ -1,14 +1,10 @@
 # ARIA and Assistive Technologies (ARIA-AT)
 
-This repo contains a test suite and harness for assessing assistive technology (AT)  support of ARIA. These tests are designed to be modular and embeddable in higher-level applications. A web app for managing  test cycles and reporting test results ([ARIA-AT-App](https://github.com/bocoup/aria-at-app)) is also being developed and is planned to be available on w3.org in June 2020.
+This repo contains a test suite and harness for assessing assistive technology (AT)  support of ARIA. These tests are designed to be modular and embeddable in higher-level applications. A web app for managing  test cycles and reporting test results ([ARIA-AT-App](https://github.com/w3c/aria-at-app)) is also being developed and is planned to be available on w3.org in June 2020.
 
 ## Scope and Method
 
 The initial scope of this test suite is manual testing of a select set of desktop screen readers. Tests are written as assertions of expected screen reader behavior when using example implementations of design patterns in the [ARIA Authoring Practices Guide](https://w3c.github.io/aria-practices/examples/).
-
-## Running the tests
-
-This repo includes a [prototype runner](https://w3c.github.io/aria-at/runner) that you can use to run the manual tests. Production runs of the  tests to produce validated reports  will be  run with [ARIA-AT-App](https://github.com/bocoup/aria-at-app).
 
 ## Documentation
 

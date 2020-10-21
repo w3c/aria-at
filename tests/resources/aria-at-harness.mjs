@@ -420,6 +420,11 @@ Were there additional undesirable behaviors? <span class="required">(required)</
       submitResult();
     });
 
+    window.addEventListener('message', function(message) {
+      if (!validateMessage(message, 'skip')) return;
+      savePartialResults();
+    });
+
     // send message to parent that test has loaded
     window.parent.postMessage({
       type: 'loaded',
@@ -726,6 +731,15 @@ function submitResult(event) {
   }
 
   appendJSONResults(data);
+}
+
+function savePartialResults() {
+  if (window.parent && window.parent.postMessage) {
+    window.parent.postMessage({
+      type: 'results',
+      data: null
+    }, '*');
+  }
 }
 
 

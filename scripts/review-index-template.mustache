@@ -23,6 +23,12 @@
 
     </style>
     <script>
+      document.addEventListener("DOMContentLoaded", function(){
+        const branch = new URL(window.location.href.toLowerCase()).searchParams.get("branch");
+        Array.from(document.getElementsByClassName('githack-link')).forEach(function (item) {
+          item.href = item.href.replace(/BRANCH/, branch);
+        });
+      });
     </script>
   </head>
   <body>
@@ -40,8 +46,8 @@
       {{#patterns}}
           <tr>
             <td>{{name}}</td>
-            <td><a href="tests/{{name}}/index.html">Index</a></td>
-            <td><a href="review/{{name}}.html">Review</a></td>
+            <td><a class="githack-link" href="https://raw.githack.com/w3c/aria-at/BRANCH/tests/{{name}}/index.html">Index</a></td>
+            <td><a class="githack-link" href="https://raw.githack.com/w3c/aria-at/BRANCH/review/{{name}}.html">Review</a></td>
             <td>{{numberOfTests}}</td>
             <td><a href="https://github.com/w3c/aria-at/commit/{{commit}}" target="_blank">{{commitDescription}}</a></td>
           </tr>

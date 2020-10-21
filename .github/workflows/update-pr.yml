@@ -1,0 +1,17 @@
+name: "Update Pull Request"
+
+on: pull_request
+
+jobs:
+  update_pr:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: tzkhan/pr-update-action@v1.1.1
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"                   # required - allows the action to make calls to GitHub's rest API
+        branch-regex: '*'                                           # required - regex to match text from the head branch name
+        title-template: ''                                          # required - text template to update title with
+        replace-title: false                                        # optional - whether to prefix or replace title with title-template
+        body-template: '[Preview](https://raw.githack.com/w3c/aria-at/%branch%/index.html)' # required - text template to prefix body
+        replace-body: false                                         # optional - whether to prefix or replace body with body-template
+        body-prefix-newline-count: 2                                # optional - number of newlines to insert after body prefix

@@ -1,0 +1,27 @@
+name: Generate and Commit Files
+
+on: [pull_request, pull_request_target]
+
+jobs:
+  generate-and-commit-files:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: Install dependencies
+      run: yarn --frozen-lockfile
+
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: Generate Review Files
+      run: yarn review-tests
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Generate test and review files automatically

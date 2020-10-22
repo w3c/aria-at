@@ -6,11 +6,11 @@ jobs:
   update_pr:
     runs-on: ubuntu-latest
     steps:
-    - uses: tzkhan/pr-update-action@v1.1.1
+    - uses: rmeritz/pr-update-action@930be7f0caa6f2e6339756fe2ef5b8b8963454cf
       with:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"                   # required - allows the action to make calls to GitHub's rest API
-        branch-regex: '.*'                                           # required - regex to match text from the head branch name
-        title-template: '%branch%'                                  # required - text template to update title with
+        branch-regex: '.*'                                          # required - regex to match text from the head branch name
+        title-template: ''                                          # required - text template to update title with
         replace-title: false                                        # optional - whether to prefix or replace title with title-template
         uppercase-title: false
         body-template: '[Preview Tests](https://raw.githack.com/w3c/aria-at/%branch%/index.html)' # required - text template to prefix body

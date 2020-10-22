@@ -12,6 +12,8 @@ jobs:
         branch-regex: '.*'                                           # required - regex to match text from the head branch name
         title-template: '%branch%'                                  # required - text template to update title with
         replace-title: false                                        # optional - whether to prefix or replace title with title-template
-        body-template: '[Preview](https://raw.githack.com/w3c/aria-at/%branch%/index.html)' # required - text template to prefix body
+        uppercase-title: false
+        body-template: '[Preview Tests](https://raw.githack.com/w3c/aria-at/%branch%/index.html)' # required - text template to prefix body
         replace-body: false                                         # optional - whether to prefix or replace body with body-template
         body-prefix-newline-count: 2                                # optional - number of newlines to insert after body prefix
+        uppercase-body: false

@@ -1,0 +1,33 @@
+{
+  "setup_script_description": "Set focus on combobox; set value of 'combobox' to 'A'; ensure in expanded state.",
+  "setupTestPage": "comboboxValueSetExpandedState",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read combobox",
+  "specific_user_instruction": "With the reading cursor on the combobox; read the combobox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'State' is conveyed"
+    ],
+    [
+      "1",
+      "Ability to enter text is conveyed"
+    ],
+    [
+      "1",
+      "Value 'A' is conveyed."
+    ],
+    [
+      "2",
+      "Expanded state is conveyed."
+    ]
+  ]
+}

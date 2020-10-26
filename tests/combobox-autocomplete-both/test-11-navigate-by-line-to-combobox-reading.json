@@ -1,0 +1,29 @@
+{
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate by line to combobox",
+  "specific_user_instruction": "Navigate to the 'State' combobox",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Ability to enter text is conveyed"
+    ],
+    [
+      "1",
+      "Value 'A' is conveyed."
+    ],
+    [
+      "2",
+      "Expanded state is conveyed."
+    ]
+  ]
+}

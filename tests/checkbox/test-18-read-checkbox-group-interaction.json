@@ -1,0 +1,20 @@
+{
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "read checkbox group",
+  "specific_user_instruction": "When focus is on a checkbox, read its grouping information",
+  "output_assertions": [
+    [
+      "2",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ]
+  ]
+}

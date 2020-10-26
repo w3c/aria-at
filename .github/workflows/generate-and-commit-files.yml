@@ -11,15 +11,18 @@ jobs:
       with:
         ref: ${{ github.head_ref }}
 
-    - name: Install dependencies
-      run: yarn --frozen-lockfile
-
     - name: Use Node.js
       uses: actions/setup-node@v1
       with:
         node-version: '12.x'
 
-    - name: Generate Review Files
+    - name: Install dependencies
+      run: yarn --frozen-lockfile
+
+    - name: Generate test files
+      run: yarn create-all-tests
+
+    - name: Generate review files
       run: yarn review-tests
 
     - uses: stefanzweifel/git-auto-commit-action@v4

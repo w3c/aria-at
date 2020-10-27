@@ -17,13 +17,13 @@ jobs:
         node-version: '12.x'
 
     - name: Install dependencies
-      run: yarn --frozen-lockfile
+      run: npm install
 
     - name: Generate test files
-      run: yarn create-all-tests
+      run: npm run create-all-tests
 
     - name: Generate review files
-      run: yarn review-tests
+      run: npm run review-tests
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:

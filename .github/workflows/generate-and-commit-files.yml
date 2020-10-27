@@ -17,7 +17,7 @@ jobs:
         node-version: '12.x'
 
     - name: Install dependencies
-      run: npm install
+      run: npm ci
 
     - name: Generate test files
       run: npm run create-all-tests

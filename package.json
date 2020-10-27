@@ -4,11 +4,13 @@
   "description": "",
   "private": true,
   "scripts": {
-    "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs"
+    "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs",
+    "create-all-tests": "node ./scripts/create-all-tests.js"
   },
   "dependencies": {
     "csv-parser": "^2.3.2",
     "fs-extra": "^8.1.0",
+    "htmlparser2": "^5.0.1",
     "inquirer": "^7.0.4",
     "json-beautify": "^1.1.1",
     "minimist": "^1.2.3",

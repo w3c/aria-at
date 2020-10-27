@@ -366,19 +366,20 @@ Were there additional undesirable behaviors? <span class="required">(required)</
   <label for="problem-${c}-select">Select all undesirable behaviors <span class="required">(required: select at least one or mark "No additional undesirable behaviors")</span>:</label>
 </div>
 <div>
-  <select multiple name="problem-${c}-select" id="problem-${c}-select">
+  <fieldset> 
 `;
-
-    for (let undesirable of UNDESIRABLES) {
-      recordResults += `<option value="${undesirable}">${undesirable}</option>`;
-    }
-    recordResults += `<option class="other" value="Other">Other</option>
-</select>
+  for (let undesirable of UNDESIRABLES) {
+    const string = `<input type="checkbox" value="${undesirable}" name="undesirable-${c}" disabled>${undesirable}<br>
+    `
+    recordResults += string;
+  }
+  recordResults += `<input type="checkbox" value="Other" id="undesirable-${c}-other" name="undesirable-${c}-other" disabled>Other<br>
+  </fieldset>
 </div>
 </br>
 <div>
-  <label for="problem-${c}-other">If "other" selected, explain <span class="required-other">(required)</span>:</label>
-  <input disabled type="text" name="problem-${c}-other" id="problem-${c}-other">
+  <label for="undesirable-${c}-other-input">If "other" selected, explain <span class="required-other">(required)</span>:</label>
+  <input disabled type="text" name="undesirable-${c}-other-input" id="undesirable-${c}-other-input">
 </div>
 </fieldset>
 `;
@@ -394,9 +395,9 @@ Were there additional undesirable behaviors? <span class="required">(required)</
     radio.onclick = handleRadioClick;
   }
 
-  let selects = document.querySelectorAll('select');
-  for (let select of selects) {
-    select.onchange = handleUndesirableSelect;
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  for (let checkbox of checkboxes) {
+    checkbox.onchange = handleUndesirableSelect;
   }
 
   if (showSubmitButton) {
@@ -444,17 +445,22 @@ function validateMessage(message, type) {
 
 function handleUndesirableSelect(event) {
   let radioId = event.target.id;
-  let cmdId = Number(radioId.split('-')[1]);
-  const otherSelected = document.querySelector(`#problem-${cmdId}-select option.other:checked`);
-  if (otherSelected) {
-    document.querySelector(`#problem-${cmdId}-other`).disabled = false;
+  let cmdId, otherSelected;
+  if (radioId) {
+    cmdId = Number(radioId.split('-')[1]);
+    otherSelected = document.querySelector(`#undesirable-${cmdId}-other`);
+    if (otherSelected && otherSelected.checked == true) {
+      document.querySelector(`#undesirable-${cmdId}-other-input`).disabled = false;
+    } else {
+      document.querySelector(`#undesirable-${cmdId}-other-input`).disabled = true;
+      document.querySelector(`#undesirable-${cmdId}-other-input`).value = '';
+    }
   }
-  else {
-    document.querySelector(`#problem-${cmdId}-other`).disabled = true;
-    document.querySelector(`#problem-${cmdId}-other`).value = '';
-  }
-  const anySelected = document.querySelector(`#problem-${cmdId}-select option:checked`);
-  if (anySelected) {
+
+  // Handle any checkbox selected
+  let radioName = event.target.name
+  if (radioName) {
+    cmdId = Number(radioName.split('-')[1]);
     document.querySelector(`#problem-${cmdId}-true`).checked = true;
     let allradio = document.querySelector(`#cmd-${cmdId}-summary #somefailure-${cmdId}`);
     allradio.checked = true;
@@ -467,18 +473,19 @@ function handleRadioClick(event) {
 
   if (radioId.indexOf('problem') === 0) {
     let markedAs = radioId.split('-')[2];
-    let select = document.querySelector(`#problem-${cmdId}-select`);
-    let other = document.querySelector(`#problem-${cmdId}-other`);
+    let checkboxes = document.querySelectorAll(`[name=undesirable-${cmdId}]`);
+    let other = document.querySelector(`#undesirable-${cmdId}-other`);
     if (markedAs === 'true') {
-      select.disabled = false;
-    }
-    else {
-      for (let option of document.querySelectorAll(`#cmd-${cmdId}-problem option`)) {
-        option.selected = false;
+      for (let checkbox of checkboxes) {
+        checkbox.disabled = false;
       }
-      select.disabled = true;
-      other.disabled = true;
-      other.value = '';
+      other.disabled = false
+    } else {
+      for (let checkbox of checkboxes) {
+        checkbox.disabled = true;
+        other.disabled = true;
+        other.value = '';
+      }
     }
   }
 
@@ -565,17 +572,17 @@ function validateResults() {
 
     // Check that the "unexpected/additional problems" fieldset is filled out
     let problemRadio = document.querySelector(`input[name="problem-${c}"]:checked`);
-    let problemSelected = document.querySelector(`#problem-${c}-select option:checked`);
-    let otherSelected = document.querySelector(`#problem-${c}-select option.other:checked`);
-    let otherText = document.querySelector(`#problem-${c}-other`).value;
-    if (!problemRadio || (problemRadio.classList.contains('fail') && !problemSelected) || (otherSelected && !otherText)) {
+    let problemSelected = document.querySelectorAll(`input[name=undesirable-${c}]:checked`)
+    let otherSelected = document.querySelector(`#undesirable-${c}-other:checked`);
+    let otherText = document.querySelector(`#undesirable-${c}-other-input`).value;
+    if (!problemRadio || (problemRadio.classList.contains('fail') && problemSelected.length === 0 && !otherSelected)) {
         undesirableFieldset.classList.add('highlight-required');
     }
-    if (!problemRadio || (problemRadio.classList.contains('fail') && !problemSelected)) {
+    if (!problemRadio || (problemRadio.classList.contains('fail') && problemSelected.length === 0 && !otherSelected)) {
       document.querySelector(`#cmd-${c}-problem .required`).classList.add('highlight-required');
       focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="radio"]`);
     }
-    else if (document.querySelector(`input#problem-${c}-false:checked`) || (problemRadio && problemSelected)) {
+    else if (document.querySelector(`input#problem-${c}-false:checked`) || (problemRadio && problemSelected.length > 0) || (otherSelected && otherText)) {
       document.querySelector(`#cmd-${c}-problem .required`).classList.remove('highlight-required');
       undesirableFieldset.classList.remove('highlight-required');
     }
@@ -584,7 +591,7 @@ function validateResults() {
       if (!otherText) {
         document.querySelector(`#cmd-${c}-problem .required-other`).classList.add('highlight-required');
         undesirableFieldset.classList.add('highlight-required');
-        focusEl = focusEl || document.querySelector(`#cmd-${c}-problem select`);
+        focusEl = focusEl || document.querySelector(`#cmd-${c}-problem fieldset`);
       }
       else {
         document.querySelector(`#cmd-${c}-problem .required-other`).classList.remove('highlight-required');
@@ -669,12 +676,12 @@ function submitResult(event) {
     }
 
     const unexpected = [];
-    for (let problemEl of document.querySelectorAll(`#problem-${c}-select option:checked`)) {
+    for (let problemEl of document.querySelectorAll(`#cmd-${c}-problem fieldset input:checked`)) {
       support = 'FAILING';
       overallStatus = 'FAIL';
       summary.unexpectedCount++;
-      if (problemEl.classList.contains('other')) {
-        unexpected.push(document.querySelector(`#problem-${c}-other`).value);
+      if (problemEl.value === 'Other') {
+        unexpected.push(document.querySelector(`#undesirable-${c}-other-input`).value);
       }
       else {
         unexpected.push(problemEl.value);

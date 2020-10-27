@@ -170,7 +170,15 @@ for (let pattern in allTestsForPattern) {
 }
 
 const renderedIndex = mustache.render(indexTemplate, {
-  patterns: Object.keys(allTestsForPattern).map(pattern => ({ name: pattern, numberOfTests: allTestsForPattern[pattern].length }))
+  patterns: Object.keys(allTestsForPattern).map(pattern => {
+    const lastCommit = spawnSync('git', ['log', '-n1', '--oneline', path.join('.', 'tests', pattern)]).stdout.toString();
+    return {
+      name: pattern,
+      numberOfTests: allTestsForPattern[pattern].length,
+      commit: lastCommit.split(' ')[0],
+      commitDescription: lastCommit
+    }
+  })
 });
 const indexFile = path.resolve('.', 'index.html');
 fse.writeFileSync(indexFile, renderedIndex);

@@ -4,44 +4,21 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "react-static start",
-    "stage": "react-static build --staging",
-    "build": "react-static build",
-    "analyze": "react-static build --analyze",
-    "serve": "serve dist -p 3000",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs",
     "create-all-tests": "node ./scripts/create-all-tests.js"
   },
   "dependencies": {
-    "@reach/router": "^1.2.1",
-    "bowser": "^2.7.0",
     "csv-parser": "^2.3.2",
     "fs-extra": "^8.1.0",
     "inquirer": "^7.0.4",
     "json-beautify": "^1.1.1",
     "minimist": "^1.2.3",
     "mustache": "^4.0.0",
-    "node-html-parser": "^1.1.16",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-static": "^7.2.0",
-    "react-static-plugin-reach-router": "^7.2.0",
-    "react-static-plugin-sitemap": "^7.2.0",
-    "react-static-plugin-source-filesystem": "^7.2.0"
+    "node-html-parser": "^1.1.16"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.2",
     "eslint": "^6.1.0",
-    "eslint-config-react-app": "^5.0.1",
-    "eslint-config-react-tools": "^1.1.7",
-    "eslint-plugin-flowtype": "^4.2.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.14.3",
-    "gh-pages": "^2.1.1",
-    "serve": "^11.1.0"
+    "eslint-plugin-import": "^2.18.2"
   },
   "repository": {
     "type": "git",

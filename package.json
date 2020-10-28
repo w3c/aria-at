@@ -4,6 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
+    "lint": "eslint .",
     "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs",
     "create-all-tests": "node ./scripts/create-all-tests.js"
   },

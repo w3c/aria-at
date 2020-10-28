@@ -1,0 +1,33 @@
+name: Lint JS
+
+on:
+  push:
+    paths:
+      - "**/*.js"
+      - "package*.json"
+      - ".eslintrc.json"
+      - ".github/workflows/js-lint.yml"
+  pull_request:
+    paths:
+      - "**/*.js"
+      - "package*.json"
+      - ".eslintrc.json"
+      - ".github/workflows/js-lint.yml"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Generate test files
+      run: npm run lint

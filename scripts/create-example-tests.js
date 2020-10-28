@@ -176,7 +176,7 @@ const createExampleTests = function (directory) {
 
     return data;
 
-  };
+  }
 
   // Create Test File
 

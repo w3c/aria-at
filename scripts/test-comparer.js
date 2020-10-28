@@ -78,9 +78,9 @@ const chooseResult = async function(option1, option2) {
       name: 'result',
       message: `Enter 1 to save the first files answer (${option1}), or enter 2 to save the second files answer (${option2})`,
       validate: function(value) {
-	if (parseInt(value) !== 1 && parseInt(value) !== 2) {
-	  return 'Please change your answer to "1" or "2"';
-	}
+        if (parseInt(value) !== 1 && parseInt(value) !== 2) {
+          return 'Please change your answer to "1" or "2"';
+        }
         return true;
       }
     }
@@ -153,12 +153,12 @@ const compareTests = async function() {
       let newAssertionResult;
       for (let a in rByAssertion[0]) {
 
-	// Compare the assertion result
-	const ar1 = formatAssertionResult(rByAssertion[0][a]);
-	const ar2 = formatAssertionResult(rByAssertion[1][a]);
+        // Compare the assertion result
+        const ar1 = formatAssertionResult(rByAssertion[0][a]);
+        const ar2 = formatAssertionResult(rByAssertion[1][a]);
         if (ar1 !== ar2) {
 
-	  console.log(`
+          console.log(`
 Difference in assertion result for test: ${testName}
 Instruction: ${rByTest[0][testName].details.specific_user_instruction}
 Using Command: ${c}
@@ -170,7 +170,7 @@ Output results recorded:
 `
 );
 
-	  htmlDiff += `
+           htmlDiff += `
 <h1>Assertion diff for: ${testName}</h1>
 <ul>
   <li>Instruction: ${rByTest[0][testName].details.specific_user_instruction}</li>
@@ -188,24 +188,24 @@ Output results recorded:
           let answer = SAVE
             ? await chooseResult(
               formatAssertionResult(rByAssertion[0][a]),
-      	      formatAssertionResult(rByAssertion[1][a]))
+              formatAssertionResult(rByAssertion[1][a]))
             : 0;
-	  newAssertionResult = rByAssertion[answer][a];
-	}
+          newAssertionResult = rByAssertion[answer][a];
+        }
         else {
-  	  // The answers are the same, so just pick on
-  	  newAssertionResult = rByAssertion[0][a];
+          // The answers are the same, so just pick on
+          newAssertionResult = rByAssertion[0][a];
         }
 
-	newAssertionList.push(newAssertionResult);
-	if (newAssertionResult.pass) {
-	  newSummary[newAssertionResult.priority].pass++;
-	}
-	else {
-	  newTestPasses = false;
-	  newCommandPasses = false;
-	  newSummary[newAssertionResult.priority].fail++;
-	}
+        newAssertionList.push(newAssertionResult);
+        if (newAssertionResult.pass) {
+          newSummary[newAssertionResult.priority].pass++;
+        }
+        else {
+          newTestPasses = false;
+          newCommandPasses = false;
+          newSummary[newAssertionResult.priority].fail++;
+        }
       }
 
       newCommand.assertions = newAssertionList;
@@ -215,10 +215,10 @@ Output results recorded:
       const ub1 = rByCommand[0][c].unexpected_behaviors.length ? rByCommand[0][c].unexpected_behaviors.join('; ') : 'none';
       const ub2 = rByCommand[1][c].unexpected_behaviors.length ? rByCommand[1][c].unexpected_behaviors.join('; ') : 'none';
       if (ub1 !== ub2) {
-  	console.log(`Unexpected Behaviors 1: ${ub1}`);
-  	console.log(`Unexpected Behaviors 2: ${ub2}`);
+        console.log(`Unexpected Behaviors 1: ${ub1}`);
+        console.log(`Unexpected Behaviors 2: ${ub2}`);
 
-	console.log(`
+        console.log(`
 Difference in unexpected results for test: ${testName}
 Instruction: ${rByTest[0][testName].details.specific_user_instruction}
 Using Command: ${c}
@@ -229,7 +229,7 @@ Unexpected behaviors recorded:
 `
 );
 
-	  htmlDiff += `
+        htmlDiff += `
 <h1>Unexpected results diff for: ${testName}</h1>
 <ul>
   <li>Instruction: ${rByTest[0][testName].details.specific_user_instruction}</li>
@@ -246,12 +246,12 @@ Unexpected behaviors recorded:
 
         if (SAVE) {
           let answer = await chooseResult(ub1, ub2);
-	  newCommand.unexpectedBehaviors = rByCommand[answer][c].unexpected_behaviors;
-	  newUnexpectedCount += rByCommand[answer][c].unexpected_behaviors.length;
+          newCommand.unexpectedBehaviors = rByCommand[answer][c].unexpected_behaviors;
+          newUnexpectedCount += rByCommand[answer][c].unexpected_behaviors.length;
         }
       }
       else {
-	newUnexpectedCount += newCommand.unexpected_behaviors.length;
+        newUnexpectedCount += newCommand.unexpected_behaviors.length;
       }
 
       newCommandsList.push(newCommand);

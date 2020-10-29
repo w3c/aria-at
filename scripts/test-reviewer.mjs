@@ -123,7 +123,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	// Create the test review pages
 	const testFilePath = path.join('.', 'tests', subDir, test);
 	const output = spawnSync('git', ['log', '-1', '--format="%ad"', testFilePath]);
-	const lastEdited = output.stdout.toString().replace(/"/gi, '');
+	const lastEdited = output.stdout.toString().replace(/"/gi, '').replace('\n', '');
 
 	tests.push({
 	  testNumber: tests.length+1,

@@ -37,6 +37,11 @@ const PAGE_STYLES = `
     width: 100%
   }
 
+  fieldset.problem-select {
+   margin-top: 1em;
+   margin-left: 1em;
+  }
+
   .required:not(.highlight-required) {
     display: none;
   }
@@ -361,26 +366,28 @@ Were there additional undesirable behaviors? <span class="required">(required)</
   <input type="radio" id="problem-${c}-true" class="fail" name="problem-${c}">
   <label for="problem-${c}-true">Yes, there were additional undesirable behaviors</label>
 </div>
-<br>
-<div>
-  <label for="problem-${c}-select">Select all undesirable behaviors <span class="required">(required: select at least one or mark "No additional undesirable behaviors")</span>:</label>
-</div>
-<div>
-  <fieldset> 
+  <fieldset class="problem-select">
+  <legend>Undesirable behaviors<span class="required"> (required)<span></legend>
 `;
+
   for (let undesirable of UNDESIRABLES) {
-    const string = `<input type="checkbox" value="${undesirable}" name="undesirable-${c}" disabled>${undesirable}<br>
-    `
+    const string = `
+      <input type="checkbox" value="${undesirable}" id="${undesirable}-${c}" class="undesirable-${c}" tabindex="-1" disabled>
+      <label for="${undesirable}-${c}">${undesirable}</label>
+      <br>
+     `;
     recordResults += string;
   }
-  recordResults += `<input type="checkbox" value="Other" id="undesirable-${c}-other" name="undesirable-${c}-other" disabled>Other<br>
-  </fieldset>
-</div>
-</br>
-<div>
-  <label for="undesirable-${c}-other-input">If "other" selected, explain <span class="required-other">(required)</span>:</label>
-  <input disabled type="text" name="undesirable-${c}-other-input" id="undesirable-${c}-other-input">
-</div>
+
+  recordResults += `
+     <input type="checkbox" value="Other" id="undesirable-${c}-other" name="undesirable-${c}-other" class="undesirable-${c}" tabindex="-1">
+     <label for="undesirable-${c}-other">Other</label>
+     </br>
+     <div>
+       <label for="undesirable-${c}-other-input">If "other" selected, explain <span class="required-other">(required)</span>:</label>
+       <input type="text" name="undesirable-${c}-other-input" id="undesirable-${c}-other-input" disabled>
+     </div>
+  </div>
 </fieldset>
 `;
 
@@ -458,7 +465,7 @@ function handleUndesirableSelect(event) {
   }
 
   // Handle any checkbox selected
-  let radioName = event.target.name
+  let radioName = event.target.name;
   if (radioName) {
     cmdId = Number(radioName.split('-')[1]);
     document.querySelector(`#problem-${cmdId}-true`).checked = true;
@@ -473,19 +480,20 @@ function handleRadioClick(event) {
 
   if (radioId.indexOf('problem') === 0) {
     let markedAs = radioId.split('-')[2];
-    let checkboxes = document.querySelectorAll(`[name=undesirable-${cmdId}]`);
-    let other = document.querySelector(`#undesirable-${cmdId}-other`);
+    let checkboxes = document.querySelectorAll(`.undesirable-${cmdId}`);
+    let otherInput = document.querySelector(`#undesirable-${cmdId}-other-input`);
     if (markedAs === 'true') {
       for (let checkbox of checkboxes) {
         checkbox.disabled = false;
       }
-      other.disabled = false
+      otherInput.disabled = false;
     } else {
       for (let checkbox of checkboxes) {
         checkbox.disabled = true;
-        other.disabled = true;
-        other.value = '';
+        checkbox.checked = false;
       }
+      otherInput.disabled = true;
+      otherInput.value = '';
     }
   }
 
@@ -572,18 +580,18 @@ function validateResults() {
 
     // Check that the "unexpected/additional problems" fieldset is filled out
     let problemRadio = document.querySelector(`input[name="problem-${c}"]:checked`);
-    let problemSelected = document.querySelectorAll(`input[name=undesirable-${c}]:checked`)
+    let problemSelected = document.querySelectorAll(`input[name=undesirable-${c}]:checked`);
     let otherSelected = document.querySelector(`#undesirable-${c}-other:checked`);
     let otherText = document.querySelector(`#undesirable-${c}-other-input`).value;
     if (!problemRadio || (problemRadio.classList.contains('fail') && problemSelected.length === 0 && !otherSelected)) {
         undesirableFieldset.classList.add('highlight-required');
     }
     if (!problemRadio || (problemRadio.classList.contains('fail') && problemSelected.length === 0 && !otherSelected)) {
-      document.querySelector(`#cmd-${c}-problem .required`).classList.add('highlight-required');
+      document.querySelector(`#cmd-${c}-problem legend .required`).classList.add('highlight-required');
       focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="radio"]`);
     }
     else if (document.querySelector(`input#problem-${c}-false:checked`) || (problemRadio && problemSelected.length > 0) || (otherSelected && otherText)) {
-      document.querySelector(`#cmd-${c}-problem .required`).classList.remove('highlight-required');
+      document.querySelector(`#cmd-${c}-problem legend .required`).classList.remove('highlight-required');
       undesirableFieldset.classList.remove('highlight-required');
     }
 

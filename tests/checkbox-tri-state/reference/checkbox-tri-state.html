@@ -27,9 +27,10 @@
       </p>
       <section>
         <div class="example-header">
-          <h2 id="ex_label">Example</h2>
+          <h2 id="ex_label" tabindex="-1">Example</h2>
         </div>
         <div role="separator" id="ex_start_sep" aria-labelledby="ex_start_sep ex_label" aria-label="Start of"></div>
+        <a id="beforelink" href="#beforelink">Navigate forwards from here</a>
         <div  id="ex1">
            <fieldset>
               <legend>Sandwich Condiments</legend>
@@ -42,6 +43,7 @@
                   >
                     All condiments
                 </div>
+                <a id="afterlink" href="#afterlink">Navigate backwards from here</a>
                 <ul class="checkboxes">
                   <li><label><input type="checkbox" id="cond1">Lettuce</label></li>
                   <li><label><input type="checkbox" id="cond2" checked>Tomato</label></li>

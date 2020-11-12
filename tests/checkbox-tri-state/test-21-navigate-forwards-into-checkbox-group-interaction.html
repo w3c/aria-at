@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards into a checkbox group in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/checkbox/checkbox-2/checkbox-2.html">
+
+<script src="scripts.js"></script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  Promise.all(["test-21-navigate-forwards-into-checkbox-group-interaction.json", '../support.json', 'commands.json'].map(url =>
+    fetch(url)
+      .then(response => response.json()) // parse the JSON from the server
+  ))
+  .then(data => {
+    // do something with the data
+    initialize(data[1], data[2]);
+    verifyATBehavior(data[0]);
+    displayTestPageAndInstructions("reference/checkbox-tri-state.html");
+  });
+</script>
+  

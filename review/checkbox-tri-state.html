@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <title>Test plan review for pattern: checkbox-tri-state</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 1em;
+      }
+
+      table, td, th {
+        border: 1px solid black;
+      }
+
+      td {
+        padding: .5em;
+      }
+
+    </style>
+    <script>
+      const filterATs = function(button) {
+        const val = button.value;
+
+        if (val === 'all') {
+          for (let at of document.querySelectorAll('input')) {
+            if (at.value !== 'all') {
+              for (let result of document.querySelectorAll(`.${at.value}`)) {
+                result.style.display = 'block';
+              }
+              at.checked = false;
+            }
+            else {
+              at.checked = true;
+            }
+          }
+        }
+        else {
+          for (let at of document.querySelectorAll('input')) {
+
+            if (at.value === val) {
+              at.checked = true;
+            }
+            else {
+              at.checked = false;
+            }
+
+            for (let result of document.querySelectorAll(`.${at.value}`)) {
+              result.style.display = 'none';
+            }
+            for (let result of document.querySelectorAll(`.${val}`)) {
+              result.style.display = 'block';
+            }
+
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+
+    <h1>Test plan review for pattern: checkbox-tri-state (24 tests)</h1>
+
+    <fieldset>
+      <legend>Filter tests by assistive technology</legend>
+      <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
+        <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
+        <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
+        <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
+    </fieldset>
+
+    <h2>Test 1: Navigate forwards to a partially checked checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-01-navigate-forwards-to-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-01-navigate-forwards-to-partially-checked-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>X</li>
+                   <li>F</li>
+                   <li>Tab</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>X</li>
+                   <li>F</li>
+                   <li>Tab</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 2: Navigate backwards to a partially checked checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-02-navigate-backwards-to-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-02-navigate-backwards-to-partially-checked-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Shift+X</li>
+                   <li>F &#x2F; Shift+F</li>
+                   <li>Shift+Tab</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Shift+X</li>
+                   <li>F &#x2F; Shift+F</li>
+                   <li>Shift+Tab</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 3: Navigate forwards to a partially checked checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-03-navigate-forwards-to-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-03-navigate-forwards-to-partially-checked-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 4: Navigate backwards to a partially checked checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-04-navigate-backwards-to-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-04-navigate-backwards-to-partially-checked-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 5: Navigate forwards to a partially checked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-05-navigate-forwards-to-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Control+Option+Right</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 6: Navigate backwards to a partially checked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-06-navigate-backwards-to-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+                   <li>Ctrl+Option+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 7: Operate a partially checked checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-07-operate-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-07-operate-partially-checked-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Check the first checkbox. using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state (to checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Check the first checkbox. using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state (to checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 8: Operate a partially checked checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-08-operate-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-08-operate-partially-checked-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Check the first checkbox. using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state (to checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Check the first checkbox. using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state (to checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 9: Operate a partially checked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-09-operate-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Check the first checkbox. using the following commands:
+               <ul>
+                   <li>Control+Option+Space</li>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state (to checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 10: Operate an unchecked checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-10-operate-unchecked-checked-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-10-operate-unchecked-checked-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox and sets its state to unchecked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Partially check the first checkbox. using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state (to partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox and sets its state to unchecked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Partially check the first checkbox. using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state (to partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 11: Operate an unchecked checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-11-operate-unchecked-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-11-operate-unchecked-checked-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox and sets its state to unchecked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Partially check the first checkbox. using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state (to partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox and sets its state to unchecked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Partially check the first checkbox. using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state (to partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 12: Operate an unchecked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-12-operate-unchecked-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Partially check the first checkbox. using the following commands:
+               <ul>
+                   <li>Control+Option+Space</li>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state (to partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 13: Read a partially checked checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-13-read-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-13-read-partially-checked-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>When the reading cursor is on the first checkbox, read the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>When the reading cursor is on the first checkbox, read the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 14: Read a partially checked checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-14-read-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-14-read-partially-checked-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>When the focus is on the first checkbox, read the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>When the focus is on the first checkbox, read the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 15: Read a partially checked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-15-read-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>When the focus is on the first checkbox, read the first checkbox. Note: it should be in the partially checked state. using the following commands:
+               <ul>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;All condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (partially checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 16: Read grouping information of a grouped, partially checked checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-16-read-checkbox-group-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>When reading cursor is on the first checkbox, read its grouping information. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>When reading cursor is on the first checkbox, read its grouping information. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 17: Read grouping information of a grouped, partially checked checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-17-read-checkbox-group-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>When focus is on the first checkbox, read its grouping information. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>When focus is on the first checkbox, read its grouping information. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 18: Read grouping information of a grouped, partially checked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>When focus is on a checkbox, read its grouping information. using the following commands:
+               <ul>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 19: Navigate forwards into a checkbox group in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-19-navigate-forwards-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-19-navigate-forwards-into-checkbox-group-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate forwards into the checkbox group. using the following commands:
+               <ul>
+                   <li>X</li>
+                   <li>F</li>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate forwards into the checkbox group. using the following commands:
+               <ul>
+                   <li>X</li>
+                   <li>F</li>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 20: Navigate backwards out of a checkbox group in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-20-navigate-backwards-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-20-navigate-backwards-out-of-checkbox-group-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate backwards out of the checkbox group. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate backwards out of the checkbox group. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 21: Navigate forwards into a checkbox group in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-21-navigate-forwards-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-21-navigate-forwards-into-checkbox-group-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate forwards into the checkbox group. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate forwards into the checkbox group. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 22: Navigate backwards out of a checkbox group in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-22-navigate-backwards-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox-tri-state/test-22-navigate-backwards-out-of-checkbox-group-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate backwards out of the checkbox group. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate backwards out of the checkbox group. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 23: Navigate forwards into a checkbox group</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-23-navigate-forwards-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate forwards into the checkbox group. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 24: Navigate backwards out of a checkbox group</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox-tri-state/test-24-navigate-backwards-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html">APG example: checkbox&#x2F;checkbox-2&#x2F;checkbox-2.html</a></li>
+          </ul>
+        </li>
+      </ul>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate backwards out of the checkbox group. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+
+  </body>
+</html>

@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Operate a partially checked checkbox in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/checkbox/checkbox-2/checkbox-2.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script src="scripts.js"></script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  Promise.all(["test-07-operate-partially-checked-checkbox-reading.json", '../support.json', 'commands.json'].map(url =>
+    fetch(url)
+      .then(response => response.json()) // parse the JSON from the server
+  ))
+  .then(data => {
+    // do something with the data
+    initialize(data[1], data[2]);
+    verifyATBehavior(data[0]);
+    displayTestPageAndInstructions("reference/checkbox-tri-state.html");
+  });
+</script>
+  

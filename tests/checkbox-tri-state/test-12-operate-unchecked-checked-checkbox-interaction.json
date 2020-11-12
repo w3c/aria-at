@@ -1,0 +1,16 @@
+{
+  "setup_script_description": "sets focus on the first checkbox",
+  "setupTestPage": "moveFocusToAndUncheckFirstCheckbox",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "operate unchecked checked checkbox",
+  "specific_user_instruction": "Partially check the first checkbox.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state (to partially checked) is conveyed"
+    ]
+  ]
+}

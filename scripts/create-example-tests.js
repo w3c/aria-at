@@ -114,7 +114,7 @@ const createExampleTests = function (directory) {
 
   // Create AT commands file
 
-  function formatATCommands(cmds) {
+  function createATCommandFile(cmds) {
 
     const fname = path.join(testDirectory, 'commands.json');
     let data = {};
@@ -167,6 +167,8 @@ const createExampleTests = function (directory) {
       addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandF);
 
     });
+
+    fs.writeFileSync(fname, beautify(data, null, 2, 40));
 
     return data;
 
@@ -337,7 +339,9 @@ const createExampleTests = function (directory) {
       id = '0' + id;
     }
     let testFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.html';
+    let testJSONFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.json';
     let testFileAbsolute = path.join(testDirectory, testFileName);
+    let testJSONFileAbsolute = path.join(testDirectory, testJSONFileName);
 
     if (typeof test.setupScript === 'string') {
       let setupScript = test.setupScript.trim();
@@ -365,6 +369,8 @@ const createExampleTests = function (directory) {
       specific_user_instruction: test.instructions,
       output_assertions: assertions
     };
+
+    fse.writeFileSync(testJSONFileAbsolute, JSON.stringify(testData, null, 2), 'utf8');
 
     function getTestJson() {
       return JSON.stringify(testData, null, 2);
@@ -556,7 +562,7 @@ ${rows}
               console.log('Deleting current test files...')
               deleteFilesFromDirectory(testDirectory);
 
-              atCommands = formatATCommands(atCommands);
+              atCommands = createATCommandFile(atCommands);
 
               console.log('Creating the following test files: ')
               tests.forEach(function(test) {

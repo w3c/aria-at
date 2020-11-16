@@ -384,13 +384,14 @@ ${references}
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(['../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
     const testJson = ${getTestJson()};
-    initialize(data[0], data[1]);
+    const commandJson = {};
+    initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("${refs.reference}");
   });

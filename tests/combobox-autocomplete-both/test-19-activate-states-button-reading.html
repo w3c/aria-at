@@ -46,7 +46,17 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "activate states button": {
+    "reading": {
+      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [ [ "CTRL_OPT_SPACE" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

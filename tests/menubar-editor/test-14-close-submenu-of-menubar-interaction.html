@@ -50,7 +50,15 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "close submenu of menubar": {
+    "interaction": {
+      "jaws": [ [ "ESC" ] ],
+      "nvda": [ [ "ESC" ] ],
+      "voiceover_macos": [ [ "ESC" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");

@@ -42,7 +42,14 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "navigate by line to combobox": {
+    "reading": {
+      "jaws": [ [ "DOWN" ], [ "UP" ] ],
+      "nvda": [ [ "DOWN" ], [ "UP" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

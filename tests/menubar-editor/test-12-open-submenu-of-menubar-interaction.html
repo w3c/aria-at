@@ -46,7 +46,30 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "open submenu of menubar": {
+    "interaction": {
+      "jaws": [
+        [ "ENTER" ],
+        [ "SPACE" ],
+        [ "DOWN" ]
+      ],
+      "nvda": [
+        [ "ENTER" ],
+        [ "SPACE" ],
+        [ "DOWN" ]
+      ],
+      "voiceover_macos": [
+        [ "ENTER" ],
+        [ "SPACE" ],
+        [ "DOWN" ],
+        [
+          "CTRL_OPT_SPACE_THEN_CTRL_OPT_RIGHT"
+        ]
+      ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");

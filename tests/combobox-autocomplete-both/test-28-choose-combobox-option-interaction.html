@@ -57,7 +57,15 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "choose combobox option": {
+    "interaction": {
+      "jaws": [ [ "ENTER" ] ],
+      "nvda": [ [ "ENTER" ] ],
+      "voiceover_macos": [ [ "ENTER" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

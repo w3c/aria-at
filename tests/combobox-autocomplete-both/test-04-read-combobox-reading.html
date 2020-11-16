@@ -46,7 +46,19 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "read combobox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [ [ "CTRL_OPT_F4" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

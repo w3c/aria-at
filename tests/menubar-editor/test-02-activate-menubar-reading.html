@@ -35,7 +35,14 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "activate menubar": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");

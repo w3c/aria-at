@@ -56,7 +56,28 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "read menuitem in menubar": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");

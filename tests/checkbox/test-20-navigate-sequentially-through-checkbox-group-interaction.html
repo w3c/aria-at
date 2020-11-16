@@ -44,7 +44,20 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "navigate sequentially through checkbox group": {
+    "reading": {
+      "jaws": [ [ "UP" ], [ "DOWN" ] ],
+      "nvda": [ [ "UP" ], [ "DOWN" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_LEFT" ]
+      ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/two-state-checkbox.html");

@@ -41,7 +41,14 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "activate combobox": {
+    "reading": {
+      "jaws": [ [ "ENTER" ] ],
+      "nvda": [ [ "ENTER" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

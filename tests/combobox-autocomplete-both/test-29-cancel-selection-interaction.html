@@ -57,7 +57,15 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "cancel selection": {
+    "interaction": {
+      "jaws": [ [ "ESC" ] ],
+      "nvda": [ [ "ESC" ] ],
+      "voiceover_macos": [ [ "ESC" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

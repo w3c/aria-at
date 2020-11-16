@@ -49,7 +49,15 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "navigate listbox popup": {
+    "interaction": {
+      "jaws": [ [ "DOWN" ], [ "UP" ] ],
+      "nvda": [ [ "DOWN" ], [ "UP" ] ],
+      "voiceover_macos": [ [ "DOWN" ], [ "UP" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

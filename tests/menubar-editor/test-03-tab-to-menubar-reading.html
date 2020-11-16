@@ -58,7 +58,14 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "tab to menubar": {
+    "reading": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");

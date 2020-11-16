@@ -44,7 +44,24 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "navigate out of checkbox group": {
+    "reading": {
+      "jaws": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB" ], [ "SHIFT_TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB" ],
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_LEFT" ]
+      ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/two-state-checkbox.html");

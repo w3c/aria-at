@@ -53,7 +53,34 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "initiate caret movement from listbox": {
+    "interaction": {
+      "jaws": [
+        [ "LEFT" ],
+        [ "RIGHT" ],
+        [ "HOME" ],
+        [ "END" ],
+        [ "CMD_LEFT", "(Mac)" ],
+        [ "CMD_RIGHT", "(Mac)" ]
+      ],
+      "nvda": [
+        [ "LEFT" ],
+        [ "RIGHT" ],
+        [ "HOME" ],
+        [ "END" ],
+        [ "CMD_LEFT", "(Mac)" ],
+        [ "CMD_RIGHT", "(Mac)" ]
+      ],
+      "voiceover_macos": [
+        [ "LEFT" ],
+        [ "RIGHT" ],
+        [ "CMD_LEFT", "(Mac)" ],
+        [ "CMD_RIGHT", "(Mac)" ]
+      ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

@@ -34,7 +34,14 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "navigate to combobox with keys that switch modes": {
+    "reading": {
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

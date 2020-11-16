@@ -53,7 +53,28 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "navigate to menubar": {
+    "reading": {
+      "jaws": [
+        [ "UP_AND_DOWN" ],
+        [ "F_AND_SHIFT_F" ]
+      ],
+      "nvda": [
+        [ "UP_AND_DOWN" ],
+        [ "INS_DOWN_OR_CAPS_DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB" ],
+        [ "CTRL_OPT_RIGHT" ]
+      ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");

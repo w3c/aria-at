@@ -54,7 +54,15 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "navigate to open menuitem in menubar": {
+    "interaction": {
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [ [ "RIGHT" ] ],
+      "voiceover_macos": [ [ "RIGHT" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");

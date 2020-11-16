@@ -53,7 +53,22 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "navigate to menuitem in menubar": {
+    "reading": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "INS_NUMPAD_6" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [ [ "RIGHT" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "RIGHT" ]
+      ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");

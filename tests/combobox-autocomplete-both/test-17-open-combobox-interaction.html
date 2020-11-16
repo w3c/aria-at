@@ -49,7 +49,15 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "open combobox": {
+    "interaction": {
+      "jaws": [ [ "ALT_DOWN" ] ],
+      "nvda": [ [ "ALT_DOWN" ] ],
+      "voiceover_macos": [ [ "ALT_DOWN" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

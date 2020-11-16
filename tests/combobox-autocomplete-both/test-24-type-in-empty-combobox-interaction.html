@@ -53,7 +53,15 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "type in empty combobox": {
+    "interaction": {
+      "jaws": [ [ "A" ] ],
+      "nvda": [ [ "A" ] ],
+      "voiceover_macos": [ [ "A" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");

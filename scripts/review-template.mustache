@@ -55,6 +55,26 @@
           }
         }
       }
+
+      function openTestPage(testPageUri, testNumber) {
+        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
+
+        document.getElementById('open-test-page-' + testNumber).disabled = true;
+
+        // If the window is closed, re-enable open popup button
+        testPageWindow.onunload = function(event) {
+          window.setTimeout(() => {
+            if (testPageWindow.closed) {
+              testPageWindow = undefined;
+              document.getElementById('open-test-page-' + testNumber).disabled = false;
+            }
+          }, 100);
+
+        };
+
+        //TODO:
+        //executeScriptInTestPage();
+      }
     </script>
   </head>
   <body>
@@ -91,6 +111,8 @@
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-{{testNumber}}" onclick="openTestPage('../tests{{reference}}', {{testNumber}});">Open Test Page</button>
     </p>
       {{#ATTests}}
       <div class="{{atKey}}">

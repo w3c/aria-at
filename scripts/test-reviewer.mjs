@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import fse from 'fs-extra';
 import htmlparser2 from 'htmlparser2';
 import { spawnSync } from 'child_process';
@@ -43,6 +44,10 @@ fse.readdirSync(testDir).forEach(function (subDir) {
     const commAPI = new commandsAPI(commands, support);
 
     const tests = [];
+
+    const referencesCsv = fs.readFileSync(path.join(subDirFullPath, 'data', 'references.csv'), 'UTF-8');
+    const reference = referencesCsv.split(/\r?\n/).find(s => s.startsWith('reference,')).split(',')[1];
+
     fse.readdirSync(subDirFullPath).forEach(function (test) {
       if (path.extname(test) === '.html' && path.basename(test) !== 'index.html') {
 
@@ -116,7 +121,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	    assertions: assertions && assertions.length ? assertions.map(a => ({ priority: getPriorityString(a[0]), description: a[1] })) : undefined,
 	    userInstruction,
 	    modeInstruction: commAPI.getModeInstructions(mode, at),
-	    setupScriptDescription: testData.setup_script_description
+	    setupScriptDescription: testData.setup_script_description,
 	  });
 	}
 
@@ -129,6 +134,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	  testNumber: tests.length+1,
 	  name: testFullName,
 	  location: `/${subDir}/${test}`,
+          reference: `/${subDir}/${reference}`,
 	  allReleventATsFormatted: testData.applies_to.join(', '),
 	  allReleventATs: testData.applies_to,
 	  task,

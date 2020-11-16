@@ -8,7 +8,14 @@
 <link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		focusonfirstlink: function(testPageDocument){
+			// Move focus to the link just before the meunbar
+			testPageDocument.querySelector('a').focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 

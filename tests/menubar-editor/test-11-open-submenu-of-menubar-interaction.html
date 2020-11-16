@@ -6,7 +6,14 @@
 <link rel="help" href="https://w3c.github.io/aria/#menuitem">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		focusontextalign: function(testPageDocument){
+			// Move focus to the "Text Align" menu item
+			testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 

@@ -6,7 +6,14 @@
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		checkFirstCheckbox: function(testPageDocument){
+			// Set aria-checked on first checkbox
+			testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 

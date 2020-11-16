@@ -6,7 +6,14 @@
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		moveFocusToFirstCheckbox: function(testPageDocument){
+			// Move focus to first checkbox
+			testPageDocument.querySelector('[role="checkbox"]').focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 

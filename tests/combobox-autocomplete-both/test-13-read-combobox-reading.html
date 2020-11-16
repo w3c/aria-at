@@ -4,7 +4,21 @@
 <title>Read filled, editable, expanded combobox in reading mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		comboboxValueSetExpandedState: function(testPageDocument){
+			// Set focus on combobox
+			// Set value of 'combobox' to 'a'
+			// Ensure in expanded state.
+			var cb = testPageDocument.comboboxAutocomplete;
+			cb.comboboxNode.value = 'a';
+			cb.comboboxNode.focus();
+			cb.filter = cb.comboboxNode.value;
+			cb.filterOptions();
+			cb.open();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 

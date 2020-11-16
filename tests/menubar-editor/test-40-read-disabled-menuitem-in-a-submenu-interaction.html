@@ -8,7 +8,14 @@
 <link rel="help" href="https://w3c.github.io/aria/#menuitem">
 <link rel="help" href="https://w3c.github.io/aria/#aria-disabled">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		focusonsize: function(testPageDocument){
+			// Move focus to the "Size" menu item
+			testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 

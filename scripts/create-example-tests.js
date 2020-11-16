@@ -24,11 +24,8 @@ const createExampleTests = function (directory) {
   const referencesFile = path.join(testDirectory, 'data', 'references.csv');
   const javascriptDirectory = path.join(testDirectory, 'data', 'js');
   const indexFile = path.join(testDirectory,'index.html');
-  const scriptsFile = path.join(testDirectory,'scripts.js');
 
   const keyDefs = {};
-
-  let scripts = [];
 
   const support = JSON.parse(fse.readFileSync(path.join(rootDirectory, 'tests', 'support.json')));
   let allATKeys = [];
@@ -181,6 +178,7 @@ const createExampleTests = function (directory) {
   // Create Test File
 
   function createTestFile (test, refs, commands) {
+    let scripts = [];
 
 
     function getModeValue(value) {
@@ -292,13 +290,13 @@ const createExampleTests = function (directory) {
             const lines = data.split(/\r?\n/);
             lines.forEach((line) => {
               if (line.trim().length)
-              script += '\t' + line.trim() + '\n';
+              script += '\t\t\t' + line.trim() + '\n';
             });
         } catch (err) {
             console.error(err);
         }
 
-        scripts.push(`\t${scriptName}: function(testPageDocument){\n${script}}`);
+        scripts.push(`\t\t${scriptName}: function(testPageDocument){\n${script}\t\t}`);
       }
 
       return script;
@@ -314,6 +312,13 @@ const createExampleTests = function (directory) {
       }
 
       return str;
+    }
+
+    function getScripts() {
+      let js = 'var scripts = {\n';
+      js += scripts.join(',\n');
+      js += '\n\t};';
+      return js;
     }
 
     let task = getTask(test.task);
@@ -373,7 +378,9 @@ const createExampleTests = function (directory) {
 <meta charset="utf-8">
 <title>${test.title}</title>
 ${references}
-<script src="scripts.js"></script>
+<script>
+  ${getScripts()}
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
@@ -501,13 +508,6 @@ ${rows}
      fse.writeFileSync(indexFile, indexHTML, 'utf8');
   }
 
-  function createScriptsFile() {
-    let js = 'var scripts = {\n';
-    js += scripts.join(',\n');
-    js += '\n};';
-    fse.writeFileSync(scriptsFile, js, 'utf8');
-  }
-
   // Process CSV files
 
   var refs = {};
@@ -570,8 +570,6 @@ ${rows}
               });
 
               createIndexFile(indexOfURLs);
-
-              createScriptsFile();
 
               if (errorCount) {
                 console.log('\n\n*** ' + errorCount + ' Errors in tests and/or commands ***');

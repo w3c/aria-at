@@ -4,7 +4,19 @@
 <title>Close combobox with 'States' button in reading mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		buttonFocusEmptyExpanded: function(testPageDocument){
+			// Set focus on button
+			// Ensure in expanded state.
+			var cb = testPageDocument.comboboxAutocomplete;
+			cb.buttonNode.focus();
+			cb.filter = cb.comboboxNode.value;
+			cb.filterOptions();
+			cb.open();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 

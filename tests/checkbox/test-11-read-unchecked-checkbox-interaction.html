@@ -17,14 +17,38 @@
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-11-read-unchecked-checkbox-interaction.json", '../support.json', 'commands.json'].map(url =>
+  Promise.all(['../support.json', 'commands.json'].map(url =>
     fetch(url)
       .then(response => response.json()) // parse the JSON from the server
   ))
   .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+    const testJson = {
+  "setup_script_description": "sets focus on the first checkbox",
+  "setupTestPage": "moveFocusToFirstCheckbox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read unchecked checkbox",
+  "specific_user_instruction": "When the focus is on the first checkbox, read the first checkbox",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Lettuce' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (not checked) is conveyed"
+    ]
+  ]
+};
+    initialize(data[0], data[1]);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/two-state-checkbox.html");
   });
 </script>

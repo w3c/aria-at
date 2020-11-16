@@ -19,14 +19,42 @@
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-38-read-disabled-menuitem-in-a-submenu-reading.json", '../support.json', 'commands.json'].map(url =>
+  Promise.all(['../support.json', 'commands.json'].map(url =>
     fetch(url)
       .then(response => response.json()) // parse the JSON from the server
   ))
   .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+    const testJson = {
+  "setup_script_description": "sets focus on a link just before the menubar",
+  "setupTestPage": "focusonfirstlink",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read disabled menuitem in a submenu",
+  "specific_user_instruction": "Tab to 'Text Formatting' menubar. | Navigate to 'Size' menu item with right arrow. | Open 'Size' menu with  down arrow. | Navigate to 'X-Small' with down arrow. | Activate 'X-Small'. with Enter. | Open 'Size' menu with down arrow. | Activate the screen reader reading cursor. | Read the 'Smaller' menu item",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Smaller' is conveyed"
+    ],
+    [
+      "2",
+      " The role 'menu item' is conveyed"
+    ],
+    [
+      "1",
+      "The disabled state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menu  are conveyed"
+    ]
+  ]
+};
+    initialize(data[0], data[1]);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");
   });
 </script>

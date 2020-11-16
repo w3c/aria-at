@@ -340,9 +340,7 @@ const createExampleTests = function (directory) {
       id = '0' + id;
     }
     let testFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.html';
-    let testJSONFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.json';
     let testFileAbsolute = path.join(testDirectory, testFileName);
-    let testJSONFileAbsolute = path.join(testDirectory, testJSONFileName);
 
     if (typeof test.setupScript === 'string') {
       let setupScript = test.setupScript.trim();
@@ -371,7 +369,9 @@ const createExampleTests = function (directory) {
       output_assertions: assertions
     };
 
-    fse.writeFileSync(testJSONFileAbsolute, JSON.stringify(testData, null, 2), 'utf8');
+    function getTestJson() {
+      return JSON.stringify(testData, null, 2);
+    }
 
     let testHTML = `
 <!DOCTYPE html>
@@ -384,14 +384,14 @@ ${references}
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["${testJSONFileName}", '../support.json', 'commands.json'].map(url =>
+  Promise.all(['../support.json', 'commands.json'].map(url =>
     fetch(url)
       .then(response => response.json()) // parse the JSON from the server
   ))
   .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+    const testJson = ${getTestJson()};
+    initialize(data[0], data[1]);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("${refs.reference}");
   });
 </script>

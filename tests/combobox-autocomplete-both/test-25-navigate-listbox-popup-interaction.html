@@ -19,14 +19,38 @@
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-25-navigate-listbox-popup-interaction.json", '../support.json', 'commands.json'].map(url =>
+  Promise.all(['../support.json', 'commands.json'].map(url =>
     fetch(url)
       .then(response => response.json()) // parse the JSON from the server
   ))
   .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+    const testJson = {
+  "setup_script_description": "Set focus on combobox; press down arrow 2 times.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate listbox popup",
+  "specific_user_instruction": "Navigate through options in the popup listbox",
+  "output_assertions": [
+    [
+      "1",
+      "The name of the focused option is conveyed; e.g.; 'American Samoa'"
+    ],
+    [
+      "2",
+      "Role listbox or role option is conveyed"
+    ],
+    [
+      "2",
+      "The position in set of the focused option is conveyed; e.g.; 3 of 56"
+    ]
+  ]
+};
+    initialize(data[0], data[1]);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
   });
 </script>

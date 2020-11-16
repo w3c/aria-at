@@ -19,14 +19,46 @@
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-35-read-checked-menuitemcheckbox-in-a-group-in-a-submenu-reading.json", '../support.json', 'commands.json'].map(url =>
+  Promise.all(['../support.json', 'commands.json'].map(url =>
     fetch(url)
       .then(response => response.json()) // parse the JSON from the server
   ))
   .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+    const testJson = {
+  "setup_script_description": "sets focus on a link just before the menubar",
+  "setupTestPage": "focusonfirstlink",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read checked menuitemcheckbox in a group in a submenu",
+  "specific_user_instruction": "Tab to 'Text Formatting' menubar. | Navigate to 'Style/Color' menu item with right arrow. | Open 'Style/Color' menu with down arrow. | Navigate to 'Italic' menu item checkbox and check it by pressing enter. (the menu will close.) | Re-open 'Style/Color' menu with down arrow. | Navigate to 'Italic' menu item checkbox. | Activate the screen reader reading cursor. | Read the 'Italic' menu item checkbox",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Italic' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "The unchecked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the 'Font Style ' group are conveyed"
+    ],
+    [
+      "1",
+      "The name and role of the 'Font Style' group are conveyed"
+    ]
+  ]
+};
+    initialize(data[0], data[1]);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");
   });
 </script>

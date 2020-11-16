@@ -19,14 +19,38 @@
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-17-open-combobox-interaction.json", '../support.json', 'commands.json'].map(url =>
+  Promise.all(['../support.json', 'commands.json'].map(url =>
     fetch(url)
       .then(response => response.json()) // parse the JSON from the server
   ))
   .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+    const testJson = {
+  "setup_script_description": "Set focus on combobox; ensure it is empty and collapsed.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "open combobox",
+  "specific_user_instruction": "Display the popup from empty combobox",
+  "output_assertions": [
+    [
+      "1",
+      "Expanded state of combobox is conveyed"
+    ],
+    [
+      "2",
+      "Name 'States' is conveyed for the popup."
+    ],
+    [
+      "2",
+      "Number of options available is conveyed"
+    ]
+  ]
+};
+    initialize(data[0], data[1]);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
   });
 </script>

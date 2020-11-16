@@ -17,14 +17,45 @@
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-20-navigate-to-unchecked-menuitemcheckbox-in-submenu-interaction.json", '../support.json', 'commands.json'].map(url =>
+  Promise.all(['../support.json', 'commands.json'].map(url =>
     fetch(url)
       .then(response => response.json()) // parse the JSON from the server
   ))
   .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Style/Color' menu item",
+  "setupTestPage": "focusonstylecolor",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to unchecked menuitemcheckbox in submenu",
+  "specific_user_instruction": "Open \"Style/Color\" menu with down arrow. | Navigate to 'Italic' menu item checkbox",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Italic' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "The unchecked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menu are conveyed"
+    ],
+    [
+      "2",
+      " The name and role of the 'Font Style' group are conveyed"
+    ]
+  ]
+};
+    initialize(data[0], data[1]);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");
   });
 </script>

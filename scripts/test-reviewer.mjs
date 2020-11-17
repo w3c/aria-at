@@ -18,6 +18,7 @@ let allATKeys = [];
 support.ats.forEach(at => {
 	allATKeys.push(at.key);
 });
+const scripts = [];
 
 const getPriorityString = function(priority) {
   priority = parseInt(priority);
@@ -47,6 +48,22 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 
     const referencesCsv = fs.readFileSync(path.join(subDirFullPath, 'data', 'references.csv'), 'UTF-8');
     const reference = referencesCsv.split(/\r?\n/).find(s => s.startsWith('reference,')).split(',')[1];
+
+    const scriptsPath = path.join(subDirFullPath, 'data', 'js');
+    fse.readdirSync(scriptsPath).forEach(function (scriptFile) {
+      let script = '';
+      try {
+        const data = fs.readFileSync(path.join(scriptsPath, scriptFile), 'UTF-8');
+        const lines = data.split(/\r?\n/);
+        lines.forEach((line) => {
+          if (line.trim().length)
+            script += '\t' + line.trim() + '\n';
+        });
+      } catch (err) {
+        console.error(err);
+      }
+      scripts.push(`\t${scriptFile.split('.js')[0]}: function(testPageDocument){\n${script}}`);
+    });
 
     fse.readdirSync(subDirFullPath).forEach(function (test) {
       if (path.extname(test) === '.html' && path.basename(test) !== 'index.html') {
@@ -137,6 +154,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
           reference: `/${subDir}/${reference}`,
 	  allReleventATsFormatted: testData.applies_to.join(', '),
 	  allReleventATs: testData.applies_to,
+          setupScriptName: testData.setupTestPage,
 	  task,
 	  mode,
 	  ATTests,
@@ -167,7 +185,8 @@ for (let pattern in allTestsForPattern) {
     pattern: pattern,
     totalTests: allTestsForPattern[pattern].length,
     tests: allTestsForPattern[pattern],
-    AToptions: support.ats
+    AToptions: support.ats,
+    setupScripts: scripts
   });
 
   let summaryFile = path.resolve(reviewDir, `${pattern}.html`);

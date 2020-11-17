@@ -56,7 +56,26 @@
         }
       }
 
-      function openTestPage(testPageUri, testNumber) {
+      function executeScriptInTestPage(setupScriptName, testPageWindow) {
+        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
+            || testPageWindow.document.readyState !== 'complete'
+        ) {
+          window.setTimeout(() => {
+            executeScriptInTestPage(setupScriptName, testPageWindow);
+          }, 100);
+          return;
+        }
+
+        if (setupScriptName) {
+          var scripts = {
+            {{{setupScripts}}}
+          };
+
+          scripts[setupScriptName](testPageWindow.document);
+        }
+      }
+
+      function openTestPage(testPageUri, testNumber, setupScriptName) {
         testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
 
         document.getElementById('open-test-page-' + testNumber).disabled = true;
@@ -72,8 +91,7 @@
 
         };
 
-        //TODO:
-        //executeScriptInTestPage();
+        executeScriptInTestPage(setupScriptName, testPageWindow);
       }
     </script>
   </head>
@@ -112,7 +130,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-{{testNumber}}" onclick="openTestPage('../tests{{reference}}', {{testNumber}});">Open Test Page</button>
+      <button id="open-test-page-{{testNumber}}"
+        onclick="openTestPage('../tests{{reference}}', {{testNumber}}, '{{setupScriptName}}');">Open Test {{testNumber}} Page</button>
     </p>
       {{#ATTests}}
       <div class="{{atKey}}">

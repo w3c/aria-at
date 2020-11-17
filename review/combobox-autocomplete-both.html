@@ -56,7 +56,101 @@
         }
       }
 
-      function openTestPage(testPageUri, testNumber) {
+      function executeScriptInTestPage(setupScriptName, testPageWindow) {
+        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
+            || testPageWindow.document.readyState !== 'complete'
+        ) {
+          window.setTimeout(() => {
+            executeScriptInTestPage(setupScriptName, testPageWindow);
+          }, 100);
+          return;
+        }
+
+        if (setupScriptName) {
+          var scripts = {
+            	checkFirstCheckbox: function(testPageDocument){
+	// Set aria-checked on first checkbox
+	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
+	// Move focus and set aria-checked on first checkbox
+	const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+	checkbox.focus();
+	checkbox.setAttribute('aria-checked', 'true');
+},	moveFocusToFirstCheckbox: function(testPageDocument){
+	// Move focus to first checkbox
+	testPageDocument.querySelector('[role="checkbox"]').focus();
+},	buttonFocusEmptyCollpased: function(testPageDocument){
+	// Set focus on button
+	// Ensure in collapsed state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.buttonNode.focus();
+},	buttonFocusEmptyExpanded: function(testPageDocument){
+	// Set focus on button
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.buttonNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	comboboxFocusEmptyCollapsed: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' is empty
+	// Ensure in collapsed state
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = '';
+	cb.combobox.focus();
+},	comboboxFocusEmptyExpanded: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'Alabama'
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = '';
+	cb.combobox.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	comboboxValueSetCollapsedState: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'Alabama'
+	// Ensure in collapsed state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = 'Alabama';
+	cb.comboboxNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+},	comboboxValueSetExpandedState: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'a'
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = 'a';
+	cb.comboboxNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	focusonfirstlink: function(testPageDocument){
+	// Move focus to the link just before the meunbar
+	testPageDocument.querySelector('a').focus();
+},	focusonfont: function(testPageDocument){
+	// Move focus to the "Font" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
+},	focusonsize: function(testPageDocument){
+	// Move focus to the "Size" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
+},	focusonstylecolor: function(testPageDocument){
+	// Move focus to the "Style/Color" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+},	focusontextalign: function(testPageDocument){
+	// Move focus to the "Text Align" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+}
+          };
+
+          scripts[setupScriptName](testPageWindow.document);
+        }
+      }
+
+      function openTestPage(testPageUri, testNumber, setupScriptName) {
         testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
 
         document.getElementById('open-test-page-' + testNumber).disabled = true;
@@ -72,8 +166,7 @@
 
         };
 
-        //TODO:
-        //executeScriptInTestPage();
+        executeScriptInTestPage(setupScriptName, testPageWindow);
       }
     </script>
   </head>
@@ -108,7 +201,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 1);">Open Test Page</button>
+      <button id="open-test-page-1"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 1, '');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -177,7 +271,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 2);">Open Test Page</button>
+      <button id="open-test-page-2"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 2, '');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -242,7 +337,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 3);">Open Test Page</button>
+      <button id="open-test-page-3"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 3, '');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -307,7 +403,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 4);">Open Test Page</button>
+      <button id="open-test-page-4"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 4, '');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -372,7 +469,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 5);">Open Test Page</button>
+      <button id="open-test-page-5"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 5, '');">Open Test 5 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -437,7 +535,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 6);">Open Test Page</button>
+      <button id="open-test-page-6"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 6, 'comboboxValueSetCollapsedState');">Open Test 6 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -518,7 +617,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 7);">Open Test Page</button>
+      <button id="open-test-page-7"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 7, 'comboboxValueSetCollapsedState');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -595,7 +695,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 8);">Open Test Page</button>
+      <button id="open-test-page-8"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 8, 'comboboxValueSetCollapsedState');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -672,7 +773,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 9);">Open Test Page</button>
+      <button id="open-test-page-9"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 9, 'comboboxValueSetCollapsedState');">Open Test 9 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -749,7 +851,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 10);">Open Test Page</button>
+      <button id="open-test-page-10"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 10, 'comboboxValueSetExpandedState');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -830,7 +933,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 11);">Open Test Page</button>
+      <button id="open-test-page-11"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 11, '');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -897,7 +1001,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 12);">Open Test Page</button>
+      <button id="open-test-page-12"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 12, 'comboboxValueSetExpandedState');">Open Test 12 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -974,7 +1079,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 13);">Open Test Page</button>
+      <button id="open-test-page-13"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 13, 'comboboxValueSetExpandedState');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1051,7 +1157,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 14);">Open Test Page</button>
+      <button id="open-test-page-14"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 14, 'comboboxValueSetExpandedState');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1128,7 +1235,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 15);">Open Test Page</button>
+      <button id="open-test-page-15"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 15, '');">Open Test 15 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1187,7 +1295,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 16);">Open Test Page</button>
+      <button id="open-test-page-16"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 16, 'comboboxFocusEmptyCollapsed');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1256,7 +1365,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 17);">Open Test Page</button>
+      <button id="open-test-page-17"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 17, 'comboboxFocusEmptyCollapsed');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1329,7 +1439,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 18);">Open Test Page</button>
+      <button id="open-test-page-18"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 18, 'comboboxFocusEmptyExpanded');">Open Test 18 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1398,7 +1509,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 19);">Open Test Page</button>
+      <button id="open-test-page-19"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 19, '');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1464,7 +1576,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 20);">Open Test Page</button>
+      <button id="open-test-page-20"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 20, '');">Open Test 20 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1507,7 +1620,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 21);">Open Test Page</button>
+      <button id="open-test-page-21"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 21, 'buttonFocusEmptyExpanded');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1578,7 +1692,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 22);">Open Test Page</button>
+      <button id="open-test-page-22"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 22, 'buttonFocusEmptyExpanded');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1647,7 +1762,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 23);">Open Test Page</button>
+      <button id="open-test-page-23"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 23, 'comboboxFocusEmptyCollapsed');">Open Test 23 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1724,7 +1840,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 24);">Open Test Page</button>
+      <button id="open-test-page-24"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 24, 'comboboxFocusEmptyCollapsed');">Open Test 24 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1799,7 +1916,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-25" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 25);">Open Test Page</button>
+      <button id="open-test-page-25"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 25, 'comboboxFocusEmptyCollapsed');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1874,7 +1992,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-26" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 26);">Open Test Page</button>
+      <button id="open-test-page-26"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 26, 'comboboxFocusEmptyCollapsed');">Open Test 26 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1948,7 +2067,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-27" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 27);">Open Test Page</button>
+      <button id="open-test-page-27"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 27, 'comboboxFocusEmptyCollapsed');">Open Test 27 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2022,7 +2142,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-28" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 28);">Open Test Page</button>
+      <button id="open-test-page-28"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 28, 'comboboxFocusEmptyCollapsed');">Open Test 28 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2099,7 +2220,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-29" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 29);">Open Test Page</button>
+      <button id="open-test-page-29"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 29, 'comboboxFocusEmptyCollapsed');">Open Test 29 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2176,7 +2298,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-30" onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 30);">Open Test Page</button>
+      <button id="open-test-page-30"
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 30, 'comboboxFocusEmptyCollapsed');">Open Test 30 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>

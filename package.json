@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint .",
     "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs",
-    "create-all-tests": "node ./scripts/create-all-tests.js"
+    "create-all-tests": "node ./scripts/create-all-tests.js",
+    "update-reference": "node ./scripts/update-reference.js"
   },
   "dependencies": {
     "csv-parser": "^2.3.2",
@@ -16,7 +17,8 @@
     "json-beautify": "^1.1.1",
     "minimist": "^1.2.3",
     "mustache": "^4.0.0",
-    "node-html-parser": "^1.1.16"
+    "node-html-parser": "^1.1.16",
+    "nodegit": "^0.27.0"
   },
   "devDependencies": {
     "eslint": "^6.1.0",

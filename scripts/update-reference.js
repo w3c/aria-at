@@ -1,50 +1,8 @@
-// test subdirectory name should be an argument
-// test subdirectory should match the directory structure and naming on on apg
-// IF there is no reference:
-//    - Download the references
-//    - Add hash to the end of the names of the html files
-//    - Update the references.csv file
-//
-// IF there is a matching reference
-//    - Check if there is a diff
-//    - IF there is a diff
-//      - Ask if the user want do do an update or not
-//      - Present the diff
-//      - IF they want to do an update
-//          - peform the update
-//      - IF they don't want to do an update exit
-//    - IF there is is no diff exit
-//
-//
-// NOTE: Handle both nested and non-nests apg examples
-//
-// NOTE: Provide an error if there is not matching reference
-//
-//
-// Example of nested directory:
-// checkbox -> checkbox-1
-// https://github.com/w3c/aria-practices/blob/master/examples/checkbox/checkbox-1/checkbox-1.html
-// css is a folder up!!!!!
-// js is in the same folder
-//
-// Example of a non-nested directory:
-// combobox-autocomplete-both
-// https://github.com/w3c/aria-practices/blob/master/examples/combobox/combobox-autocomplete-both.html
-// JS and CSS are one folder up
-//
-// menubar-editor
-// https://github.com/w3c/aria-practices/blob/master/examples/menubar/menubar-editor.html
-//
-//
-// Clone the repo locally
-// Find the matching file
-// Mkdir with a date and copy in the relvant files
-//
-//
 const fs = require('fs');
+const fse = require('fs-extra');
 const path = require('path');
-const NodeGit = require("nodegit");
-const localPath = path.join(__dirname, "tmp");
+const git = require("nodegit");
+const tmpPath = path.join(__dirname, "tmp");
 const cloneURL = 'https://github.com/w3c/aria-practices'
 
 
@@ -75,13 +33,16 @@ if (args._.length !== 1) {
 }
 
 function locateFile(startPath, fileToFind) {
-    var files = fs.readdirSync(startPath);
-    for(var i=0;i<files.length;i++){
-      var filename=path.join(startPath,files[i]);
-      var stat = fs.lstatSync(filename);
+    const files = fs.readdirSync(startPath);
+    for (let i=0; i < files.length; i++) {
+      const filename = path.join(startPath, files[i]);
+      const stat = fs.lstatSync(filename);
       if (stat.isDirectory()){
-        locateFile(filename, fileToFind); //recurse
-      } else if (filename.indexOf(fileToFind)>=0) {
+        const result = locateFile(filename, fileToFind);
+        if (result) {
+          return result;
+        }
+      } else if (filename.indexOf(fileToFind) >= 0) {
         return filename;
       }
     }
@@ -89,11 +50,24 @@ function locateFile(startPath, fileToFind) {
 
 async function copyExampleToRepo(exampleName) {
   try {
-    fs.rmdirSync(localPath, { recursive: true });
-    await NodeGit.Clone(cloneURL, localPath);
-    locateFile(path.join(localPath, 'examples'), exampleName + '.html');
+    await fse.remove(tmpPath);
+    console.log('Cloning the aria-practice repo.');
+    await git.Clone(cloneURL, tmpPath);
+    const examplesPath = path.join(tmpPath, 'examples')
+    const htmlFile = exampleName + '.html';
+    console.log(`Locating the matching example file ${htmlFile}`);
+    const htmlFileAbsolute = locateFile(examplesPath, htmlFile);
+    const currentDateTime = new Date();
+    const formattedDateTime = currentDateTime.getFullYear() + "-" + (currentDateTime.getMonth() + 1) + "-" + currentDateTime.getDate() + "_" + currentDateTime.getHours() + + currentDateTime.getMinutes() + currentDateTime.getSeconds();
+    const referenceDir = path.join(tmpPath, '..', '..', 'tests', exampleName, 'reference', formattedDateTime);
+    await fse.ensureDir(referenceDir);
+    const filterFunc = (src) => { return (src.indexOf('.html') == -1 || src == htmlFileAbsolute) };
+    console.log('Coping the located file to timestamped local directory.\n\n');
+    await fse.copy(path.join(examplesPath, htmlFileAbsolute.split('examples/')[1].split('/')[0]), referenceDir, { filter: filterFunc});
+    const referenceHtml = `reference/${formattedDateTime}/${htmlFileAbsolute.split('examples/')[1]}`;
+    console.log(`Reference file copied to tests/${exampleName}/${referenceHtml}.\nIf you want to switch the test to run the updated reference, please commit this change and update tests/${exampleName}/data/reference.csv with the reference ${referenceHtml}.`);
   } finally {
-    fs.rmdirSync(localPath, { recursive: true });
+    await fse.remove(tmpPath);
   }
 }
 

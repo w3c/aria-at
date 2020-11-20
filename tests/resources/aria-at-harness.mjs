@@ -1,11 +1,11 @@
-import {commandsAPI} from './at-commands.mjs';
+import { commandsAPI } from './at-commands.mjs';
 
 const UNDESIRABLES = [
-  "Output is excessively verbose, e.g., includes redundant and/or irrelevant speech",
-  "Reading cursor position changed in an unexpected manner",
-  "Screen reader became extremely sluggish",
-  "Screen reader crashed",
-  "Browser crashed"
+  'Output is excessively verbose, e.g., includes redundant and/or irrelevant speech',
+  'Reading cursor position changed in an unexpected manner',
+  'Screen reader became extremely sluggish',
+  'Screen reader crashed',
+  'Browser crashed',
 ];
 
 const TEST_HTML_OUTLINE = `
@@ -88,16 +88,17 @@ export function initialize(newSupport, newCommandsData) {
 
   // Get the AT under test from the URL search params
   // set the showResults flag from the URL search params
-  let params = (new URL(document.location)).searchParams;
+  let params = new URL(document.location).searchParams;
   at = support.ats[0];
   for (const [key, value] of params) {
     if (key === 'at') {
       let requestedAT = value;
       if (commapi.isKnownAT(requestedAT)) {
         at = commapi.isKnownAT(requestedAT);
-      }
-      else {
-        errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assistive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
+      } else {
+        errors.push(
+          `Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assistive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`
+        );
       }
     }
     if (key === 'showResults') {
@@ -118,19 +119,22 @@ export function initialize(newSupport, newCommandsData) {
 }
 
 function openTestPagePopup() {
-  testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
+  testPageWindow = window.open(
+    testPageUri,
+    '_blank',
+    'toolbar=0,location=0,menubar=0,width=400,height=400'
+  );
 
   document.getElementById('open-test-page').disabled = true;
 
   // If the window is closed, re-enable open popup button
-  testPageWindow.onunload = function(event) {
+  testPageWindow.onunload = function () {
     window.setTimeout(() => {
       if (testPageWindow.closed) {
         testPageWindow = undefined;
         document.getElementById('open-test-page').disabled = false;
       }
     }, 100);
-
   };
 
   executeScriptInTestPage();
@@ -144,8 +148,9 @@ function putTestPageWindowIntoCorrectState() {
 function executeScriptInTestPage() {
   let setupTestPage = behavior.setupTestPage;
   if (setupTestPage) {
-    if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-        || testPageWindow.document.readyState !== 'complete'
+    if (
+      testPageWindow.location.origin !== window.location.origin || // make sure the origin is the same, and prevent this from firing on an 'about' page
+      testPageWindow.document.readyState !== 'complete'
     ) {
       window.setTimeout(() => {
         executeScriptInTestPage();
@@ -153,25 +158,31 @@ function executeScriptInTestPage() {
       return;
     }
 
+    // eslint-disable-next-line no-undef
     scripts[behavior.setupTestPage](testPageWindow.document);
   }
 }
 
 export function verifyATBehavior(atBehavior) {
   // This is temporary until transition is complete from multiple modes to one mode
-  let mode = typeof atBehavior.mode === 'string' ? atBehavior.mode : atBehavior.mode[0];
+  let mode =
+    typeof atBehavior.mode === 'string' ? atBehavior.mode : atBehavior.mode[0];
 
   let newBehavior = Object.assign({}, atBehavior, { mode: mode });
   newBehavior.commands = commapi.getATCommands(mode, atBehavior.task, at);
 
-  newBehavior.output_assertions = newBehavior.output_assertions ? newBehavior.output_assertions : [];
+  newBehavior.output_assertions = newBehavior.output_assertions
+    ? newBehavior.output_assertions
+    : [];
   newBehavior.additional_assertions = newBehavior.additional_assertions
     ? atBehavior.additional_assertions[at.key] || []
     : [];
   if (!behavior && newBehavior.commands.length) {
     behavior = newBehavior;
   } else {
-    throw new Error('Test files should only contain one verifyATBehavior call.');
+    throw new Error(
+      'Test files should only contain one verifyATBehavior call.'
+    );
   }
 }
 
@@ -186,7 +197,7 @@ export function displayTestPageAndInstructions(testPage) {
   }
 
   document.querySelector('html').setAttribute('lang', 'en');
-  document.body.innerHTML = (TEST_HTML_OUTLINE);
+  document.body.innerHTML = TEST_HTML_OUTLINE;
   var style = document.createElement('style');
   style.innerHTML = PAGE_STYLES;
   document.head.appendChild(style);
@@ -197,10 +208,9 @@ export function displayTestPageAndInstructions(testPage) {
 }
 
 function displayInstructionsForBehaviorTest() {
-
   function getSetupInstructions() {
     let html = '';
-    for (let i = 0; i < (userInstructions.length - 1); i++) {
+    for (let i = 0; i < userInstructions.length - 1; i++) {
       html += `<li><em>${userInstructions[i]}</em></li>`;
     }
     return html;
@@ -214,22 +224,31 @@ function displayInstructionsForBehaviorTest() {
   const mode = behavior.mode;
   const modeInstructions = commapi.getModeInstructions(mode, at);
   const userInstructions = behavior.specific_user_instruction.split('|');
-  const lastInstruction = userInstructions[userInstructions.length-1];
+  const lastInstruction = userInstructions[userInstructions.length - 1];
   const commands = behavior.commands;
   const assertions = behavior.output_assertions.map((a) => a[1]);
   const additionalBehaviorAssertions = behavior.additional_assertions;
-  const setupScriptDescription = behavior.setup_script_description ? ` and runs a script that ${behavior.setup_script_description}.` : behavior.setup_script_description;
+  const setupScriptDescription = behavior.setup_script_description
+    ? ` and runs a script that ${behavior.setup_script_description}.`
+    : behavior.setup_script_description;
   // As a hack, special case mode instructions for VoiceOver for macOS until we support modeless tests.
   // ToDo: remove this when resolving issue #194
-  const modePhrase = at.name === "VoiceOver for macOS" ? "Describe " : `With ${at.name} in ${mode} mode, describe `;
+  const modePhrase =
+    at.name === 'VoiceOver for macOS'
+      ? 'Describe '
+      : `With ${at.name} in ${mode} mode, describe `;
 
   let instructionsEl = document.getElementById('instructions');
   instructionsEl.innerHTML = `
 <h1 id="behavior-header" tabindex="0">Testing task: ${document.title}</h1>
-<p>${modePhrase} how ${at.name} behaves when performing task "${lastInstruction}"</p>
+<p>${modePhrase} how ${
+    at.name
+  } behaves when performing task "${lastInstruction}"</p>
 <h2>Test instructions</h2>
 <ol aria-label="Instructions">
-  <li>Restore default settings for ${at.name}. For help, read <a href="https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing">Configuring Screen Readers for Testing</a>.</li>
+  <li>Restore default settings for ${
+    at.name
+  }. For help, read <a href="https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing">Configuring Screen Readers for Testing</a>.</li>
   <li>Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}</li>
   <li id="mode-instructions-li"><em>${modeInstructions}</em></li>
   ${getSetupInstructions()}
@@ -239,15 +258,17 @@ function displayInstructionsForBehaviorTest() {
   </li>
 </ol>
 <h3>Success Criteria</h3>
-<p>To pass this test, ${at.name} needs to meet all the following assertions when each  specified command is executed:</p>
+<p>To pass this test, ${
+    at.name
+  } needs to meet all the following assertions when each  specified command is executed:</p>
 <ul id='assertions' aria-label="Assertions">
 </ul>
 `;
 
   // Hack to remove mode instructions for VoiceOver for macOS to get us by until we support modeless screen readers.
   // ToDo: remove this when resolving issue #194
-  if (at.name === "VoiceOver for macOS") {
-    let modeInstructionsEl= document.getElementById('mode-instructions-li');
+  if (at.name === 'VoiceOver for macOS') {
+    let modeInstructionsEl = document.getElementById('mode-instructions-li');
     modeInstructionsEl.parentNode.removeChild(modeInstructionsEl);
   }
 
@@ -271,7 +292,7 @@ function displayInstructionsForBehaviorTest() {
 
   let openButton = document.createElement('button');
   openButton.id = 'open-test-page';
-  openButton.innerText = "Open Test Page";
+  openButton.innerText = 'Open Test Page';
   openButton.addEventListener('click', openTestPagePopup);
   if (testPageWindow) {
     openButton.disabled = true;
@@ -366,14 +387,14 @@ Were there additional undesirable behaviors? <span class="required">(required)</
   <label for="problem-${c}-select">Select all undesirable behaviors <span class="required">(required: select at least one or mark "No additional undesirable behaviors")</span>:</label>
 </div>
 <div>
-  <fieldset> 
+  <fieldset>
 `;
-  for (let undesirable of UNDESIRABLES) {
-    const string = `<input type="checkbox" value="${undesirable}" name="undesirable-${c}" disabled>${undesirable}<br>
-    `
-    recordResults += string;
-  }
-  recordResults += `<input type="checkbox" value="Other" id="undesirable-${c}-other" name="undesirable-${c}-other" disabled>Other<br>
+    for (let undesirable of UNDESIRABLES) {
+      const string = `<input type="checkbox" value="${undesirable}" name="undesirable-${c}" disabled>${undesirable}<br>
+    `;
+      recordResults += string;
+    }
+    recordResults += `<input type="checkbox" value="Other" id="undesirable-${c}-other" name="undesirable-${c}-other" disabled>Other<br>
   </fieldset>
 </div>
 </br>
@@ -415,30 +436,33 @@ Were there additional undesirable behaviors? <span class="required">(required)</
   if (window.parent && window.parent.postMessage) {
     // results can be submitted by parent posting a message to the
     // iFrame with a data.type property of 'submit'
-    window.addEventListener('message', function(message) {
+    window.addEventListener('message', function (message) {
       if (!validateMessage(message, 'submit')) return;
       submitResult();
     });
 
     // send message to parent that test has loaded
-    window.parent.postMessage({
-      type: 'loaded',
-      data: {
-        testPageUri: testPageUri
-      }
-    }, '*');
+    window.parent.postMessage(
+      {
+        type: 'loaded',
+        data: {
+          testPageUri: testPageUri,
+        },
+      },
+      '*'
+    );
   }
 }
 
 function validateMessage(message, type) {
   if (window.location.origin !== message.origin) {
-      return false;
+    return false;
   }
   if (!message.data || typeof message.data !== 'object') {
-      return false;
+    return false;
   }
   if (message.data.type !== type) {
-      return false;
+    return false;
   }
   return true;
 }
@@ -450,19 +474,25 @@ function handleUndesirableSelect(event) {
     cmdId = Number(radioId.split('-')[1]);
     otherSelected = document.querySelector(`#undesirable-${cmdId}-other`);
     if (otherSelected && otherSelected.checked == true) {
-      document.querySelector(`#undesirable-${cmdId}-other-input`).disabled = false;
+      document.querySelector(
+        `#undesirable-${cmdId}-other-input`
+      ).disabled = false;
     } else {
-      document.querySelector(`#undesirable-${cmdId}-other-input`).disabled = true;
+      document.querySelector(
+        `#undesirable-${cmdId}-other-input`
+      ).disabled = true;
       document.querySelector(`#undesirable-${cmdId}-other-input`).value = '';
     }
   }
 
   // Handle any checkbox selected
-  let radioName = event.target.name
+  let radioName = event.target.name;
   if (radioName) {
     cmdId = Number(radioName.split('-')[1]);
     document.querySelector(`#problem-${cmdId}-true`).checked = true;
-    let allradio = document.querySelector(`#cmd-${cmdId}-summary #somefailure-${cmdId}`);
+    let allradio = document.querySelector(
+      `#cmd-${cmdId}-summary #somefailure-${cmdId}`
+    );
     allradio.checked = true;
   }
 }
@@ -479,7 +509,7 @@ function handleRadioClick(event) {
       for (let checkbox of checkboxes) {
         checkbox.disabled = false;
       }
-      other.disabled = false
+      other.disabled = false;
     } else {
       for (let checkbox of checkboxes) {
         checkbox.disabled = true;
@@ -491,54 +521,62 @@ function handleRadioClick(event) {
 
   if (radioId.indexOf('allpass') === 0) {
     for (let resultType of ['pass', 'missing', 'fail']) {
-      let radios = document.querySelectorAll(`#cmd-${cmdId}-section .${resultType}`);
+      let radios = document.querySelectorAll(
+        `#cmd-${cmdId}-section .${resultType}`
+      );
       let checked = resultType === 'pass' ? true : false;
       for (let radio of radios) {
         radio.checked = checked;
       }
     }
-  }
-
-  else {
+  } else {
     let markedAs = radioId.split('-')[0];
     if (markedAs === 'pass') {
-
       // We want the length of the rows because the total number of "pass" radio buttons
       // is equal to the number of rows PLUS 1 for the "additional undesirable behaviors" radio
       let numAssertions = document.getElementById(`cmd-${cmdId}`).rows.length;
-      let markedPass = document.querySelectorAll(`#cmd-${cmdId}-section .pass:checked`);
+      let markedPass = document.querySelectorAll(
+        `#cmd-${cmdId}-section .pass:checked`
+      );
       if (markedPass.length === numAssertions) {
-        let allradio = document.querySelector(`#cmd-${cmdId}-summary #allpass-${cmdId}`);
+        let allradio = document.querySelector(
+          `#cmd-${cmdId}-summary #allpass-${cmdId}`
+        );
         allradio.checked = true;
       }
-    }
-    else {
-      let allradio = document.querySelector(`#cmd-${cmdId}-summary #somefailure-${cmdId}`);
+    } else {
+      let allradio = document.querySelector(
+        `#cmd-${cmdId}-summary #somefailure-${cmdId}`
+      );
       allradio.checked = true;
     }
   }
 }
 
 function validateResults() {
-
   let focusEl;
   for (let c = 0; c < behavior.commands.length; c++) {
-
     // If there is no output recorded, mark the screen reader output as required
     let summaryFieldset = document.getElementById(`cmd-${c}-summary`);
     let cmdInput = summaryFieldset.querySelector('textarea');
     if (!cmdInput.value) {
       focusEl = focusEl || cmdInput;
       summaryFieldset.classList.add('highlight-required');
-      summaryFieldset.querySelector('.required').classList.add('highlight-required');
+      summaryFieldset
+        .querySelector('.required')
+        .classList.add('highlight-required');
     } else {
       summaryFieldset.classList.remove('highlight-required');
-      summaryFieldset.querySelector('.required').classList.remove('highlight-required');
+      summaryFieldset
+        .querySelector('.required')
+        .classList.remove('highlight-required');
     }
 
     // If neither the "all pass" or "some failed" radios are checked, then no further results have been recorded,
     // so highlight the summaryFieldset as required.
-    let allSelected = summaryFieldset.querySelector(`input[name="allresults-${c}"]:checked`);
+    let allSelected = summaryFieldset.querySelector(
+      `input[name="allresults-${c}"]:checked`
+    );
     if (!allSelected) {
       focusEl = focusEl || document.getElementById(`allpass-${c}`);
       summaryFieldset.classList.add('highlight-required');
@@ -550,9 +588,11 @@ function validateResults() {
     let numAssertions = document.getElementById(`cmd-${c}`).rows.length - 1;
     let undesirableFieldset = document.getElementById(`cmd-${c}-problem`);
 
-    if ( summaryFieldset.querySelector('.allpass').checked || !allSelected ) {
+    if (summaryFieldset.querySelector('.allpass').checked || !allSelected) {
       for (let a = 0; a < numAssertions; a++) {
-        document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
+        document
+          .querySelector(`#assertion-${c}-${a} .required`)
+          .classList.remove('highlight-required');
       }
 
       undesirableFieldset.classList.remove('highlight-required');
@@ -560,41 +600,76 @@ function validateResults() {
 
     // Otherwise, we must go though each assertion and add or remove the "required" mark
     for (let a = 0; a < numAssertions; a++) {
-      let selectedRadio = document.querySelector(`input[name="result-${c}-${a}"]:checked`);
+      let selectedRadio = document.querySelector(
+        `input[name="result-${c}-${a}"]:checked`
+      );
       if (!selectedRadio) {
-        document.querySelector(`#assertion-${c}-${a} .required`).classList.add('highlight-required');
+        document
+          .querySelector(`#assertion-${c}-${a} .required`)
+          .classList.add('highlight-required');
         focusEl = focusEl || document.getElementById(`pass-${c}-${a}`);
-      }
-      else {
-        document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
+      } else {
+        document
+          .querySelector(`#assertion-${c}-${a} .required`)
+          .classList.remove('highlight-required');
       }
     }
 
     // Check that the "unexpected/additional problems" fieldset is filled out
-    let problemRadio = document.querySelector(`input[name="problem-${c}"]:checked`);
-    let problemSelected = document.querySelectorAll(`input[name=undesirable-${c}]:checked`)
-    let otherSelected = document.querySelector(`#undesirable-${c}-other:checked`);
-    let otherText = document.querySelector(`#undesirable-${c}-other-input`).value;
-    if (!problemRadio || (problemRadio.classList.contains('fail') && problemSelected.length === 0 && !otherSelected)) {
-        undesirableFieldset.classList.add('highlight-required');
+    let problemRadio = document.querySelector(
+      `input[name="problem-${c}"]:checked`
+    );
+    let problemSelected = document.querySelectorAll(
+      `input[name=undesirable-${c}]:checked`
+    );
+    let otherSelected = document.querySelector(
+      `#undesirable-${c}-other:checked`
+    );
+    let otherText = document.querySelector(`#undesirable-${c}-other-input`)
+      .value;
+    if (
+      !problemRadio ||
+      (problemRadio.classList.contains('fail') &&
+        problemSelected.length === 0 &&
+        !otherSelected)
+    ) {
+      undesirableFieldset.classList.add('highlight-required');
     }
-    if (!problemRadio || (problemRadio.classList.contains('fail') && problemSelected.length === 0 && !otherSelected)) {
-      document.querySelector(`#cmd-${c}-problem .required`).classList.add('highlight-required');
-      focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="radio"]`);
-    }
-    else if (document.querySelector(`input#problem-${c}-false:checked`) || (problemRadio && problemSelected.length > 0) || (otherSelected && otherText)) {
-      document.querySelector(`#cmd-${c}-problem .required`).classList.remove('highlight-required');
+    if (
+      !problemRadio ||
+      (problemRadio.classList.contains('fail') &&
+        problemSelected.length === 0 &&
+        !otherSelected)
+    ) {
+      document
+        .querySelector(`#cmd-${c}-problem .required`)
+        .classList.add('highlight-required');
+      focusEl =
+        focusEl ||
+        document.querySelector(`#cmd-${c}-problem input[type="radio"]`);
+    } else if (
+      document.querySelector(`input#problem-${c}-false:checked`) ||
+      (problemRadio && problemSelected.length > 0) ||
+      (otherSelected && otherText)
+    ) {
+      document
+        .querySelector(`#cmd-${c}-problem .required`)
+        .classList.remove('highlight-required');
       undesirableFieldset.classList.remove('highlight-required');
     }
 
     if (otherSelected) {
       if (!otherText) {
-        document.querySelector(`#cmd-${c}-problem .required-other`).classList.add('highlight-required');
+        document
+          .querySelector(`#cmd-${c}-problem .required-other`)
+          .classList.add('highlight-required');
         undesirableFieldset.classList.add('highlight-required');
-        focusEl = focusEl || document.querySelector(`#cmd-${c}-problem fieldset`);
-      }
-      else {
-        document.querySelector(`#cmd-${c}-problem .required-other`).classList.remove('highlight-required');
+        focusEl =
+          focusEl || document.querySelector(`#cmd-${c}-problem fieldset`);
+      } else {
+        document
+          .querySelector(`#cmd-${c}-problem .required-other`)
+          .classList.remove('highlight-required');
         undesirableFieldset.classList.remove('highlight-required');
       }
     }
@@ -607,8 +682,7 @@ function validateResults() {
   return true;
 }
 
-
-function submitResult(event) {
+function submitResult() {
   if (!validateResults()) {
     return;
   }
@@ -625,9 +699,9 @@ function submitResult(event) {
   }
 
   const summary = {
-    1: {pass: 0, fail: 0},
-    2: {pass: 0, fail: 0},
-    unexpectedCount: 0
+    1: { pass: 0, fail: 0 },
+    2: { pass: 0, fail: 0 },
+    unexpectedCount: 0,
   };
 
   overallStatus = 'PASS';
@@ -635,29 +709,33 @@ function submitResult(event) {
   const commandResults = [];
 
   for (let c = 0; c < behavior.commands.length; c++) {
-
     let assertions = [];
     let support = 'FULL';
     let totalAssertions = document.querySelectorAll(`#cmd-${c} tr`).length - 1;
 
     for (let a = 0; a < totalAssertions; a++) {
-      const assertion = document.querySelector(`#assertion-${c}-${a} .assertion`).innerHTML;
-      const resultEl = document.querySelector(`input[name="result-${c}-${a}"]:checked`);
+      const assertion = document.querySelector(
+        `#assertion-${c}-${a} .assertion`
+      ).innerHTML;
+      const resultEl = document.querySelector(
+        `input[name="result-${c}-${a}"]:checked`
+      );
       const resultId = resultEl.id;
       const pass = resultEl.classList.contains('pass');
-      const result = document.querySelector(`#${resultId}-label`).innerHTML.split('<span')[0];
+      const result = document
+        .querySelector(`#${resultId}-label`)
+        .innerHTML.split('<span')[0];
       const priority = assertionPriority[assertion];
 
       let assertionResult = {
         assertion,
-        priority
+        priority,
       };
 
       if (pass) {
         assertionResult.pass = result;
         summary[priority].pass++;
-      }
-      else {
+      } else {
         assertionResult.fail = result;
         summary[priority].fail++;
 
@@ -676,14 +754,17 @@ function submitResult(event) {
     }
 
     const unexpected = [];
-    for (let problemEl of document.querySelectorAll(`#cmd-${c}-problem fieldset input:checked`)) {
+    for (let problemEl of document.querySelectorAll(
+      `#cmd-${c}-problem fieldset input:checked`
+    )) {
       support = 'FAILING';
       overallStatus = 'FAIL';
       summary.unexpectedCount++;
       if (problemEl.value === 'Other') {
-        unexpected.push(document.querySelector(`#undesirable-${c}-other-input`).value);
-      }
-      else {
+        unexpected.push(
+          document.querySelector(`#undesirable-${c}-other-input`).value
+        );
+      } else {
         unexpected.push(problemEl.value);
       }
     }
@@ -693,7 +774,7 @@ function submitResult(event) {
       output: document.querySelector(`#speechoutput-${c}`).value,
       unexpected_behaviors: unexpected,
       support,
-      assertions
+      assertions,
     });
   }
 
@@ -702,21 +783,24 @@ function submitResult(event) {
     specific_user_instruction: behavior.specific_user_instruction,
     task: behavior.task,
     commands: commandResults,
-    summary
+    summary,
   };
 
   let data = {
     test: document.title,
     details: behaviorResults,
-    status: overallStatus
+    status: overallStatus,
   };
 
   // send message to parent if test is loaded in iFrame
   if (window.parent && window.parent.postMessage) {
-    window.parent.postMessage({
-      type: 'results',
-      data: data
-    }, '*');
+    window.parent.postMessage(
+      {
+        type: 'results',
+        data: data,
+      },
+      '*'
+    );
   }
 
   endTest();
@@ -727,7 +811,6 @@ function submitResult(event) {
 
   appendJSONResults(data);
 }
-
 
 function showResultsTable() {
   let resulthtml = `<h1>${document.title}</h1><h2 id=overallstatus></h2>`;
@@ -741,32 +824,42 @@ function showResultsTable() {
   `;
 
   for (let command of behaviorResults.commands) {
-
-      let passingAssertions = '';
-      let failingAssertions = '';
-      for (let assertion of command.assertions) {
-        if (assertion.pass) {
-          passingAssertions += `<li>${assertion.assertion}</li>`;
-        }
-        if (assertion.fail) {
-          failingAssertions += `<li>${assertion.assertion}</li>`;
-        }
+    let passingAssertions = '';
+    let failingAssertions = '';
+    for (let assertion of command.assertions) {
+      if (assertion.pass) {
+        passingAssertions += `<li>${assertion.assertion}</li>`;
       }
-      let unexpectedBehaviors = '';
-      for (let unexpected of command.unexpected_behaviors) {
-        unexpectedBehaviors += `<li>${unexpected}</li>`;
+      if (assertion.fail) {
+        failingAssertions += `<li>${assertion.assertion}</li>`;
       }
-      passingAssertions = passingAssertions === '' ? '<li>No passing assertions.</li>' : passingAssertions;
-      failingAssertions = failingAssertions === '' ? '<li>No failing assertions.</li>' : failingAssertions;
-      unexpectedBehaviors = unexpectedBehaviors === '' ? '<li>No unexpect behaviors.</li>' : unexpectedBehaviors;
+    }
+    let unexpectedBehaviors = '';
+    for (let unexpected of command.unexpected_behaviors) {
+      unexpectedBehaviors += `<li>${unexpected}</li>`;
+    }
+    passingAssertions =
+      passingAssertions === ''
+        ? '<li>No passing assertions.</li>'
+        : passingAssertions;
+    failingAssertions =
+      failingAssertions === ''
+        ? '<li>No failing assertions.</li>'
+        : failingAssertions;
+    unexpectedBehaviors =
+      unexpectedBehaviors === ''
+        ? '<li>No unexpect behaviors.</li>'
+        : unexpectedBehaviors;
 
-
-      resulthtml+= `
+    resulthtml += `
 <tr>
   <td>${command.command}</td>
   <td>${command.support}</td>
   <td>
-    <p>${at.name} output:<br> "${command.output.replace(/(?:\r\n|\r|\n)/g, '<br>')}"</p>
+    <p>${at.name} output:<br> "${command.output.replace(
+      /(?:\r\n|\r|\n)/g,
+      '<br>'
+    )}"</p>
     <div>Passing Assertions:
       <ul>
       ${passingAssertions}
@@ -785,13 +878,14 @@ function showResultsTable() {
   </td>
 </tr>
 `;
-
-    }
+  }
 
   resulthtml += `</table>`;
 
   document.body.innerHTML = resulthtml;
-  document.querySelector('#overallstatus').innerHTML = `Test result: ${overallStatus}`;
+  document.querySelector(
+    '#overallstatus'
+  ).innerHTML = `Test result: ${overallStatus}`;
 }
 
 function endTest() {
@@ -802,7 +896,7 @@ function endTest() {
 
 function showUserError() {
   if (errors.length) {
-    document.getElementById('errors').style.display = "block";
+    document.getElementById('errors').style.display = 'block';
     let errorListEl = document.querySelector('#errors ul');
     for (let error of errors) {
       let errorMsgEl = document.createElement('li');
@@ -813,9 +907,9 @@ function showUserError() {
 }
 
 function appendJSONResults(data) {
-  var results_element = document.createElement("script");
-  results_element.type = "text/json";
-  results_element.id = "__ariaatharness__results__";
+  var results_element = document.createElement('script');
+  results_element.type = 'text/json';
+  results_element.id = '__ariaatharness__results__';
   results_element.textContent = JSON.stringify(data);
 
   document.body.appendChild(results_element);

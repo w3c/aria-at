@@ -6,20 +6,25 @@
     },
     "extends": [
         "eslint:recommended",
+        "plugin:node/recommended",
+        "plugin:promise/recommended",
         "plugin:import/errors",
-        "plugin:import/warnings"
+        "plugin:import/warnings",
+        "prettier"
     ],
-    "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
-    },
     "parserOptions": {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
+    "plugins": [
+        "prettier"
+    ],
+    "globals": {
+        "testPageDocument": true
+    },
     "rules": {
+        "prettier/prettier": "error",
         "no-dupe-keys": 0,
-        "no-undef": 0,
-        "no-unused-vars": 0
+        "no-process-exit": 0
     }
 }

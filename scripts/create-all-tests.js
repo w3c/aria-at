@@ -8,5 +8,7 @@ const rootDirectory = scriptDirectory.split('scripts')[0];
 const p = path.join(rootDirectory, 'tests');
 
 fs.readdirSync(p)
-  .filter(f => f !== 'resources' && fs.statSync(path.join(p, f)).isDirectory())
-  .forEach(d => createExampleTests(path.join('tests', d)));
+  .filter(
+    (f) => f !== 'resources' && fs.statSync(path.join(p, f)).isDirectory()
+  )
+  .forEach((d) => createExampleTests(path.join('tests', d)));

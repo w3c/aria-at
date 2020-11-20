@@ -2,6 +2,7 @@
 
 export const ALT_DELETE                       = "Alt+Delete";
 export const ALT_DOWN                         = "Alt+Down";
+export const ALT_UP                         = "Alt+Up";
 export const C_AND_SHIFT_C                    = "C / Shift+C";
 export const CTRL_INS_X                       = "Control+Insert+X";
 export const CTRL_OPT_LEFT                    = "Ctrl+Option+Left";

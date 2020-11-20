@@ -12,14 +12,14 @@
   ],
   "globals": {
     "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "SharedArrayBuffer": "readonly",
+    "testPageDocument": true
   },
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
   "rules": {
-    "no-dupe-keys": 0,
-    "no-undef": 0
+    "no-dupe-keys": 0
   }
 }

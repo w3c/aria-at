@@ -6,8 +6,7 @@ const util = require('util');
 const csv = require('csv-parser');
 const readline = require('readline');
 const fs = require('fs');
-const beautify = require("json-beautify");
-
+const beautify = require('json-beautify');
 
 const createExampleTests = function (directory) {
   const validModes = ['reading', 'interaction', 'item'];
@@ -23,84 +22,102 @@ const createExampleTests = function (directory) {
   const atCommandsFile = path.join(testDirectory, 'data', 'commands.csv');
   const referencesFile = path.join(testDirectory, 'data', 'references.csv');
   const javascriptDirectory = path.join(testDirectory, 'data', 'js');
-  const indexFile = path.join(testDirectory,'index.html');
-  const scriptsFile = path.join(testDirectory,'scripts.js');
+  const indexFile = path.join(testDirectory, 'index.html');
+  const scriptsFile = path.join(testDirectory, 'scripts.js');
 
   const keyDefs = {};
 
   let scripts = [];
 
-  const support = JSON.parse(fse.readFileSync(path.join(rootDirectory, 'tests', 'support.json')));
+  const support = JSON.parse(
+    fse.readFileSync(path.join(rootDirectory, 'tests', 'support.json'))
+  );
   let allATKeys = [];
   let allATNames = [];
-  support.ats.forEach(at => {
+  support.ats.forEach((at) => {
     allATKeys.push(at.key);
     allATNames.push(at.name);
   });
 
-  const validAppliesTo = ['Screen Readers', 'Desktop Screen Readers'].concat(allATKeys);
+  const validAppliesTo = ['Screen Readers', 'Desktop Screen Readers'].concat(
+    allATKeys
+  );
 
   try {
     fse.statSync(testDirectory);
-  }
-  catch (err) {
-    console.log("The test directory '" + testDirectory + "' does not exist. Check the path to tests.");
+  } catch (err) {
+    console.log(
+      "The test directory '" +
+        testDirectory +
+        "' does not exist. Check the path to tests."
+    );
     process.exit();
   }
 
   try {
     fse.statSync(testsFile);
-  }
-  catch (err) {
-    console.log("The tests.csv file does not exist. Please create '" + testsFile + "' file.");
+  } catch (err) {
+    console.log(
+      "The tests.csv file does not exist. Please create '" +
+        testsFile +
+        "' file."
+    );
     process.exit();
   }
 
   try {
     fse.statSync(atCommandsFile);
-  }
-  catch (err) {
-    console.log("The at-commands.csv file does not exist. Please create '" + atCommandsFile + "' file.");
+  } catch (err) {
+    console.log(
+      "The at-commands.csv file does not exist. Please create '" +
+        atCommandsFile +
+        "' file."
+    );
     process.exit();
   }
 
   try {
     fse.statSync(referencesFile);
-  }
-  catch (err) {
-    console.log("The references.csv file does not exist. Please create '" + referencesFile + "' file.");
+  } catch (err) {
+    console.log(
+      "The references.csv file does not exist. Please create '" +
+        referencesFile +
+        "' file."
+    );
     process.exit();
   }
 
   // get Keys that are defined
 
   try {
-      // read contents of the file
-      const keys = fs.readFileSync(keysFile, 'UTF-8');
+    // read contents of the file
+    const keys = fs.readFileSync(keysFile, 'UTF-8');
 
-      // split the contents by new line
-      const lines = keys.split(/\r?\n/);
+    // split the contents by new line
+    const lines = keys.split(/\r?\n/);
 
-      // print all lines
-      lines.forEach((line) => {
-        let parts1 = line.split(' ');
-        let parts2 = line.split('"');
+    // print all lines
+    lines.forEach((line) => {
+      let parts1 = line.split(' ');
+      let parts2 = line.split('"');
 
-        if (parts1.length > 3) {
-          let code = parts1[2].trim();
-          keyDefs[code] = parts2[1].trim();
-        }
-
-      });
+      if (parts1.length > 3) {
+        let code = parts1[2].trim();
+        keyDefs[code] = parts2[1].trim();
+      }
+    });
   } catch (err) {
-      console.error(err);
+    console.error(err);
   }
 
   // delete test files
 
-  var deleteFilesFromDirectory = function(dirPath) {
-    try { var files = fs.readdirSync(dirPath); }
-    catch(e) { return; }
+  var deleteFilesFromDirectory = function (dirPath) {
+    try {
+      var files = fs.readdirSync(dirPath);
+    } catch (e) {
+      return;
+    }
     if (files.length > 0) {
       for (var i = 0; i < files.length; i++) {
         var filePath = dirPath + '/' + files[i];
@@ -112,22 +129,19 @@ const createExampleTests = function (directory) {
   };
 
   function cleanTask(task) {
-    return task.replace(/'/g, '').replace(/;/g, '').trim().toLowerCase()
+    return task.replace(/'/g, '').replace(/;/g, '').trim().toLowerCase();
   }
 
   // Create AT commands file
 
   function createATCommandFile(cmds) {
-
     const fname = path.join(testDirectory, 'commands.json');
     let data = {};
 
     function addCommand(task, mode, at, key) {
-
       task = cleanTask(task);
       mode = mode.trim().toLowerCase();
       at = at.trim().toLowerCase();
-
 
       if (typeof key !== 'string' || key.length === 0) {
         return;
@@ -141,7 +155,7 @@ const createExampleTests = function (directory) {
         data[task][mode] = {};
       }
 
-      if (typeof data[task][mode][at] !== 'object' ) {
+      if (typeof data[task][mode][at] !== 'object') {
         data[task][mode][at] = [];
       }
 
@@ -160,33 +174,31 @@ const createExampleTests = function (directory) {
       data[task][mode][at].push(items);
     }
 
-    cmds.forEach(function(cmd) {
-
+    cmds.forEach(function (cmd) {
       addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandA);
       addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandB);
       addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandC);
       addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandD);
       addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandE);
       addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandF);
-
     });
 
-  //  fs.writeFileSync(fname, JSON.stringify(data));
+    //  fs.writeFileSync(fname, JSON.stringify(data));
     fs.writeFileSync(fname, beautify(data, null, 2, 40));
 
     return data;
-
   }
 
   // Create Test File
 
-  function createTestFile (test, refs, commands) {
-
-
+  function createTestFile(test, refs, commands) {
     function getModeValue(value) {
       let v = value.trim().toLowerCase();
       if (!validModes.includes(v)) {
-          addTestError(test.testId, '"' + value + '" is not valid value for "mode" property.')
+        addTestError(
+          test.testId,
+          '"' + value + '" is not valid value for "mode" property.'
+        );
       }
       return v;
     }
@@ -195,17 +207,19 @@ const createExampleTests = function (directory) {
       let task = cleanTask(t);
 
       if (typeof commands[task] !== 'object') {
-        addTestError(test.testId, '"' + task + '" does not exist in commands.csv file.')
+        addTestError(
+          test.testId,
+          '"' + task + '" does not exist in commands.csv file.'
+        );
       }
 
       return task;
     }
 
     function getAppliesToValues(values) {
-
       function checkValue(value) {
         let v1 = value.trim().toLowerCase();
-        for (let i=0; i < validAppliesTo.length; i++) {
+        for (let i = 0; i < validAppliesTo.length; i++) {
           let v2 = validAppliesTo[i];
           if (v1 === v2.toLowerCase()) {
             return v2;
@@ -217,10 +231,13 @@ const createExampleTests = function (directory) {
       // check for individual assistive technologies
       let items = values.split(',');
       let newValues = [];
-      items.filter(item => {
+      items.filter((item) => {
         let value = checkValue(item);
         if (!value) {
-          addTestError(test.testId, '"' + item + '" is not valid value for "appliesTo" property.')
+          addTestError(
+            test.testId,
+            '"' + item + '" is not valid value for "appliesTo" property.'
+          );
         }
 
         newValues.push(value);
@@ -239,8 +256,15 @@ const createExampleTests = function (directory) {
       if (parts.length === 2) {
         level = parts[0];
         str = parts[1].substring(0);
-        if ((level != '1') && (level != '2')) {
-          addTestError(test.testId, "Level value must be 1 or 2, value found was '" + level + "' for assertion '" + str + "' (NOTE: level 2 defined for this assertion).");
+        if (level != '1' && level != '2') {
+          addTestError(
+            test.testId,
+            "Level value must be 1 or 2, value found was '" +
+              level +
+              "' for assertion '" +
+              str +
+              "' (NOTE: level 2 defined for this assertion)."
+          );
           level = '2';
         }
       }
@@ -250,7 +274,7 @@ const createExampleTests = function (directory) {
       }
     }
 
-    function getReferences (example, testRefs) {
+    function getReferences(example, testRefs) {
       let links = '';
 
       if (typeof example === 'string' && example.length) {
@@ -258,15 +282,14 @@ const createExampleTests = function (directory) {
       }
 
       let items = test.refs.split(' ');
-      items.forEach(function(item) {
+      items.forEach(function (item) {
         item = item.trim();
 
         if (item.length) {
           if (typeof refs[item] === 'string') {
             links += `<link rel="help" href="${refs[item]}">\n`;
-          }
-          else {
-            addTestError(test.testId, "Reference does not exist: " + item);
+          } else {
+            addTestError(test.testId, 'Reference does not exist: ' + item);
           }
         }
       });
@@ -274,31 +297,29 @@ const createExampleTests = function (directory) {
       return links;
     }
 
-    function addSetupScript (scriptName, fname) {
-
+    function addSetupScript(scriptName, fname) {
       let script = '';
       if (fname.length) {
-
         try {
           fse.statSync(fname);
-        }
-        catch (err) {
-          addTestError(test.testId, "Setup script does not exist: " + fname);
+        } catch (err) {
+          addTestError(test.testId, 'Setup script does not exist: ' + fname);
           return '';
         }
 
         try {
-            const data = fs.readFileSync(fname, 'UTF-8');
-            const lines = data.split(/\r?\n/);
-            lines.forEach((line) => {
-              if (line.trim().length)
-              script += '\t' + line.trim() + '\n';
-            });
+          const data = fs.readFileSync(fname, 'UTF-8');
+          const lines = data.split(/\r?\n/);
+          lines.forEach((line) => {
+            if (line.trim().length) script += '\t' + line.trim() + '\n';
+          });
         } catch (err) {
-            console.error(err);
+          console.error(err);
         }
 
-        scripts.push(`\t${scriptName}: function(testPageDocument){\n${script}}`);
+        scripts.push(
+          `\t${scriptName}: function(testPageDocument){\n${script}}`
+        );
       }
 
       return script;
@@ -320,10 +341,19 @@ const createExampleTests = function (directory) {
     let appliesTo = getAppliesToValues(test.appliesTo);
     let mode = getModeValue(test.mode);
 
-    appliesTo.forEach(at => {
+    appliesTo.forEach((at) => {
       if (commands[task]) {
         if (!commands[task][mode][at.toLowerCase()]) {
-          addTestError(test.testId, 'command is missing for the combination of task: "' + task + '", mode: "'+mode+'", and AT: "'+at.toLowerCase()+'" ');
+          addTestError(
+            test.testId,
+            'command is missing for the combination of task: "' +
+              task +
+              '", mode: "' +
+              mode +
+              '", and AT: "' +
+              at.toLowerCase() +
+              '" '
+          );
         }
       }
     });
@@ -334,39 +364,62 @@ const createExampleTests = function (directory) {
     if (parseInt(test.testId) < 10) {
       id = '0' + id;
     }
-    let testFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.html';
-    let testJSONFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.json';
+    let testFileName =
+      'test-' +
+      id +
+      '-' +
+      cleanTask(test.task).replace(/\s+/g, '-') +
+      '-' +
+      test.mode.trim().toLowerCase() +
+      '.html';
+    let testJSONFileName =
+      'test-' +
+      id +
+      '-' +
+      cleanTask(test.task).replace(/\s+/g, '-') +
+      '-' +
+      test.mode.trim().toLowerCase() +
+      '.json';
     let testFileAbsolute = path.join(testDirectory, testFileName);
     let testJSONFileAbsolute = path.join(testDirectory, testJSONFileName);
 
     if (typeof test.setupScript === 'string') {
       let setupScript = test.setupScript.trim();
       if (setupScript.length) {
-        setupFileName = path.join(javascriptDirectory, test.setupScript + '.js');
+        setupFileName = path.join(
+          javascriptDirectory,
+          test.setupScript + '.js'
+        );
       }
     }
 
-    let references  = getReferences(refs.example, test.refs);
+    let references = getReferences(refs.example, test.refs);
     addSetupScript(test.setupScript, setupFileName);
 
-    for (let i=1; i<31; i++) {
-      if (!test["assertion"+i]) {
+    for (let i = 1; i < 31; i++) {
+      if (!test['assertion' + i]) {
         continue;
       }
-      addAssertion(test["assertion"+i]);
+      addAssertion(test['assertion' + i]);
     }
 
     let testData = {
-      setup_script_description: getSetupScriptDescription(test.setupScriptDescription),
+      setup_script_description: getSetupScriptDescription(
+        test.setupScriptDescription
+      ),
       setupTestPage: test.setupScript,
       applies_to: appliesTo,
       mode: mode,
       task: task,
       specific_user_instruction: test.instructions,
-      output_assertions: assertions
+      output_assertions: assertions,
     };
 
-    fse.writeFileSync(testJSONFileAbsolute, JSON.stringify(testData, null, 2), 'utf8');
+    fse.writeFileSync(
+      testJSONFileAbsolute,
+      JSON.stringify(testData, null, 2),
+      'utf8'
+    );
 
     let testHTML = `
 <!DOCTYPE html>
@@ -394,7 +447,9 @@ ${references}
 
     const applies_to_at = [];
 
-    allATKeys.forEach( at => applies_to_at.push(testData.applies_to.indexOf(at) >= 0));
+    allATKeys.forEach((at) =>
+      applies_to_at.push(testData.applies_to.indexOf(at) >= 0)
+    );
 
     return [testFileName, applies_to_at];
   }
@@ -402,24 +457,22 @@ ${references}
   // Create an index file for a local server
 
   function createIndexFile(tasks) {
-
     let rows = '';
     let all_ats = '';
 
-    allATNames.forEach( at => all_ats += '<th>' + at + '</th>\n');
+    allATNames.forEach((at) => (all_ats += '<th>' + at + '</th>\n'));
 
-    tasks.forEach( function (task) {
+    tasks.forEach(function (task) {
       rows += `<tr><td>${task.id}</td>`;
       rows += `<td scope="row">${task.title}</td>`;
-      for (let i = 0; i < allATKeys.length; i++ ) {
+      for (let i = 0; i < allATKeys.length; i++) {
         if (task.applies_to_at[i]) {
           rows += `<td class="test"><a href="${task.href}?at=${allATKeys[i]}" aria-label="${allATNames[i]} test for task ${task.id}">${allATNames[i]}</a></td>`;
-        }
-        else {
+        } else {
           rows += `<td class="test none">not included</td>`;
         }
       }
-      rows += `<td>${task.script}</td></tr>\n`
+      rows += `<td>${task.script}</td></tr>\n`;
     });
 
     let indexHTML = `
@@ -498,7 +551,7 @@ ${rows}
 </body>
 `;
 
-     fse.writeFileSync(indexFile, indexHTML, 'utf8');
+    fse.writeFileSync(indexFile, indexHTML, 'utf8');
   }
 
   function createScriptsFile() {
@@ -524,7 +577,12 @@ ${rows}
 
   function addCommandError(task, key) {
     errorCount += 1;
-    errors += '[Command]: The key reference "' + key + '" is invalid for the "' + task + '" task.\n';
+    errors +=
+      '[Command]: The key reference "' +
+      key +
+      '" is invalid for the "' +
+      task +
+      '" task.\n';
   }
 
   fs.createReadStream(referencesFile)
@@ -551,20 +609,29 @@ ${rows}
             .on('end', () => {
               console.log('Test CSV file successfully processed');
 
-              console.log('Deleting current test files...')
+              console.log('Deleting current test files...');
               deleteFilesFromDirectory(testDirectory);
 
-              console.log('Creating AT commands file')
+              console.log('Creating AT commands file');
               atCommands = createATCommandFile(atCommands);
 
-              console.log('Creating the following test files: ')
-              tests.forEach(function(test) {
+              console.log('Creating the following test files: ');
+              tests.forEach(function (test) {
                 try {
-                  let [url, applies_to_at] = createTestFile(test, refs, atCommands);
-                  indexOfURLs.push({ id: test.testId, title: test.title, href: url, script: test.setupScript, applies_to_at: applies_to_at});
+                  let [url, applies_to_at] = createTestFile(
+                    test,
+                    refs,
+                    atCommands
+                  );
+                  indexOfURLs.push({
+                    id: test.testId,
+                    title: test.title,
+                    href: url,
+                    script: test.setupScript,
+                    applies_to_at: applies_to_at,
+                  });
                   console.log('[Test ' + test.testId + ']: ' + url);
-                }
-                catch (err) {
+                } catch (err) {
                   console.error(err);
                 }
               });
@@ -574,15 +641,18 @@ ${rows}
               createScriptsFile();
 
               if (errorCount) {
-                console.log('\n\n*** ' + errorCount + ' Errors in tests and/or commands ***');
+                console.log(
+                  '\n\n*** ' +
+                    errorCount +
+                    ' Errors in tests and/or commands ***'
+                );
                 console.log(errors);
-              }
-              else {
+              } else {
                 console.log('No validation errors detected');
               }
             });
         });
     });
-}
+};
 
-exports.createExampleTests = createExampleTests
+exports.createExampleTests = createExampleTests;

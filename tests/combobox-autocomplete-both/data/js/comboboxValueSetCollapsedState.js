@@ -6,4 +6,3 @@ cb.comboboxNode.value = 'Alabama';
 cb.comboboxNode.focus();
 cb.filter = cb.comboboxNode.value;
 cb.filterOptions();
-

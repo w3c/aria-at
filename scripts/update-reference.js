@@ -2,9 +2,11 @@ const fs = require('fs');
 const fse = require('fs-extra');
 const path = require('path');
 const git = require("nodegit");
+const mustache = require('mustache');
+const np = require('node-html-parser');
+
 const tmpPath = path.join(__dirname, "tmp");
 const cloneURL = 'https://github.com/w3c/aria-practices'
-
 
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
@@ -48,6 +50,17 @@ function locateFile(startPath, fileToFind) {
     }
 }
 
+function updateReferenceHtmlFile(referenceHtml) {
+	const root = np.parse(fse.readFileSync(referenceHtml, 'utf8'), {script: true});
+  const head = root.querySelector('head');
+  const header = root.querySelector('h1');
+  const example = root.querySelector('#ex1');
+  const templateFile = path.join(__dirname, 'reference-template.mustache');
+  const template = fse.readFileSync(templateFile, 'utf8');
+  const rendered = mustache.render(template, { head, header, example });
+  fse.writeFileSync(referenceHtml, rendered);
+}
+
 async function copyExampleToRepo(exampleName) {
   try {
     await fse.remove(tmpPath);
@@ -62,10 +75,13 @@ async function copyExampleToRepo(exampleName) {
     const referenceDir = path.join(tmpPath, '..', '..', 'tests', exampleName, 'reference', formattedDateTime);
     await fse.ensureDir(referenceDir);
     const filterFunc = (src) => { return (src.indexOf('.html') == -1 || src == htmlFileAbsolute) };
-    console.log('Coping the located file to timestamped local directory.\n\n');
+    console.log('Coping assets to timestamped local directory.');
     await fse.copy(path.join(examplesPath, htmlFileAbsolute.split('examples/')[1].split('/')[0]), referenceDir, { filter: filterFunc});
-    const referenceHtml = `reference/${formattedDateTime}/${htmlFileAbsolute.split('examples/')[1]}`;
-    console.log(`Reference file copied to tests/${exampleName}/${referenceHtml}.\nIf you want to switch the test to run the updated reference, please commit this change and update tests/${exampleName}/data/reference.csv with the reference ${referenceHtml}.`);
+    const referenceHtml = locateFile(referenceDir, htmlFile);
+    console.log(`Replacing reference html file with templated version\n\n`);
+    updateReferenceHtmlFile(referenceHtml);
+    const referenceHtmlPath = `reference/${referenceHtml.split('reference/')[1]}`;
+    console.log(`Reference file created at tests/${exampleName}/${referenceHtmlPath}.\nIf you want to switch the test to run the updated reference, please commit this change and update tests/${exampleName}/data/reference.csv with the reference ${referenceHtmlPath}.`);
   } finally {
     await fse.remove(tmpPath);
   }

@@ -2,8 +2,6 @@ const fs = require('fs');
 const fse = require('fs-extra');
 const path = require('path');
 const simpleGit = require('simple-git');
-const mustache = require('mustache');
-const np = require('node-html-parser');
 
 const tmpPath = path.join(__dirname, 'tmp');
 let repoBasePath = tmpPath;

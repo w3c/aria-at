@@ -6,6 +6,7 @@
     },
     "extends": [
         "eslint:recommended",
+        "plugin:node/recommended",
         "plugin:import/errors",
         "plugin:import/warnings",
         "prettier"
@@ -22,6 +23,7 @@
     },
     "rules": {
         "prettier/prettier": "error",
-        "no-dupe-keys": 0
+        "no-dupe-keys": 0,
+        "no-process-exit": 0
     }
 }

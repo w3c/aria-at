@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 var scripts = {
   focusonfirstlink: function (testPageDocument) {
     // Move focus to the link just before the meunbar

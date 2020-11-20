@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 var scripts = {
   comboboxValueSetCollapsedState: function (testPageDocument) {
     // Set focus on combobox

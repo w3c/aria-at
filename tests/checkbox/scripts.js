@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 var scripts = {
   checkFirstCheckbox: function (testPageDocument) {
     // Set aria-checked on first checkbox

@@ -1,10 +1,7 @@
 'use strict';
 const path = require('path');
 const fse = require('fs-extra');
-const inquirer = require('inquirer');
-const util = require('util');
 const csv = require('csv-parser');
-const readline = require('readline');
 const fs = require('fs');
 const beautify = require('json-beautify');
 
@@ -14,7 +11,6 @@ const createExampleTests = function (directory) {
   const scriptDirectory = path.dirname(__filename);
   const rootDirectory = scriptDirectory.split('scripts')[0];
   const testDirectory = path.join(rootDirectory, directory);
-  const testDirectoryRelative = directory;
 
   const keysFile = path.join(rootDirectory, 'tests', 'resources', 'keys.mjs');
 
@@ -274,7 +270,7 @@ const createExampleTests = function (directory) {
       }
     }
 
-    function getReferences(example, testRefs) {
+    function getReferences(example) {
       let links = '';
 
       if (typeof example === 'string' && example.length) {
@@ -393,7 +389,7 @@ const createExampleTests = function (directory) {
       }
     }
 
-    let references = getReferences(refs.example, test.refs);
+    let references = getReferences(refs.example);
     addSetupScript(test.setupScript, setupFileName);
 
     for (let i = 1; i < 31; i++) {

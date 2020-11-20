@@ -294,7 +294,6 @@ Unexpected behaviors recorded:
   }
 };
 
-compareTests().then(
-  () => console.log('Success!'),
-  (err) => console.log(err)
-);
+compareTests()
+  .then(() => console.log('Success!'))
+  .catch((err) => console.log(err));

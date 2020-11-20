@@ -17,9 +17,11 @@
     "plugins": [
         "prettier"
     ],
+    "globals": {
+        "testPageDocument": true
+    },
     "rules": {
         "prettier/prettier": "error",
-        "no-dupe-keys": 0,
-        "no-undef": 0
+        "no-dupe-keys": 0
     }
 }

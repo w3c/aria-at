@@ -385,9 +385,6 @@ window.addEventListener('load', function () {
     'Guava',
     'Huckleberry',
   ];
-  const selectEls = document.querySelectorAll('.js-select');
-
-  selectEls.forEach((el) => {
-    new Select(el, options);
-  });
+  const selectEl = document.querySelector('.js-select');
+  window.selectController = new Select(selectEl, options);
 });

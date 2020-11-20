@@ -82,3 +82,5 @@ export const W                                = "W";
 export const X                                = "X";
 export const Y                                = "Y";
 export const Z                                = "Z";
+export const PAGE_DOWN                                = "Page Down";
+export const PAGE_UP                                = "Page Up";

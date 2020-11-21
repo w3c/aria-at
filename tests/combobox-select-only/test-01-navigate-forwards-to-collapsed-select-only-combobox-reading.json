@@ -1,0 +1,29 @@
+{
+  "setup_script_description": "sets focus on a link before the Combobox",
+  "setupTestPage": "moveFocusBeforeCombobox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate forwards to collapsed select-only combobox",
+  "specific_user_instruction": "Navigate to the Combobox. Note: it should be in the collapsed state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Favorite Fruit' is conveyed"
+    ],
+    [
+      "1",
+      "Text of the selected option ('Choose a Fruit') is conveyed"
+    ],
+    [
+      "1",
+      "State of the combobox (collapsed) is conveyed"
+    ]
+  ]
+}

@@ -385,8 +385,6 @@ window.addEventListener('load', function () {
     'Guava',
     'Huckleberry',
   ];
-  const selectReady = new Event('selectReady');
   const selectEl = document.querySelector('.js-select');
   window.selectController = new Select(selectEl, options);
-  window.dispatchEvent(selectReady);
 });

@@ -1,6 +1,6 @@
 // sets focus on and expands the Combobox
 testPageDocument.querySelector('[role="combobox"]').focus();
-window.addEventListener('selectReady', onSelectReady, false);
+window.setTimeout(onSelectReady, 500);
 
 function onSelectReady() {
 	window.selectController.updateMenuState(true);

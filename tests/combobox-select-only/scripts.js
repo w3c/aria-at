@@ -74,17 +74,26 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.addEventListener('selectReady', onSelectReady, false);
+	function onSelectReady() {
 	window.selectController.updateMenuState(true);
+	}
 },
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.addEventListener('selectReady', onSelectReady, false);
+	function onSelectReady() {
 	window.selectController.updateMenuState(true);
+	}
 },
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.addEventListener('selectReady', onSelectReady, false);
+	function onSelectReady() {
 	window.selectController.updateMenuState(true);
+	}
 },
 	openListboxToApple: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
@@ -95,7 +104,10 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.addEventListener('selectReady', onSelectReady, false);
+	function onSelectReady() {
 	window.selectController.updateMenuState(true);
+	}
 },
 	openListboxToApple: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
@@ -106,12 +118,18 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.addEventListener('selectReady', onSelectReady, false);
+	function onSelectReady() {
 	window.selectController.updateMenuState(true);
+	}
 },
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.addEventListener('selectReady', onSelectReady, false);
+	function onSelectReady() {
 	window.selectController.updateMenuState(true);
+	}
 },
 	openListboxToApple: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
@@ -140,7 +158,10 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.addEventListener('selectReady', onSelectReady, false);
+	function onSelectReady() {
 	window.selectController.updateMenuState(true);
+	}
 },
 	openListboxToHuckleberry: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Huckleberry'
@@ -151,7 +172,10 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.addEventListener('selectReady', onSelectReady, false);
+	function onSelectReady() {
 	window.selectController.updateMenuState(true);
+	}
 },
 	openListboxToHuckleberry: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Huckleberry'

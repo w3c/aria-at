@@ -76,6 +76,7 @@ var scripts = {
 	testPageDocument.querySelector('[role="combobox"]').focus();
 	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
+	console.log('opening listbox');
 	window.selectController.updateMenuState(true);
 	}
 },
@@ -84,6 +85,7 @@ var scripts = {
 	testPageDocument.querySelector('[role="combobox"]').focus();
 	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
+	console.log('opening listbox');
 	window.selectController.updateMenuState(true);
 	}
 },
@@ -92,20 +94,7 @@ var scripts = {
 	testPageDocument.querySelector('[role="combobox"]').focus();
 	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
-	window.selectController.updateMenuState(true);
-	}
-},
-	openListboxToApple: function(testPageDocument){
-	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
-	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.selectController.updateMenuState(true);
-	window.selectController.onOptionChange(1);
-},
-	openListbox: function(testPageDocument){
-	// sets focus on and expands the Combobox
-	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.setTimeout(onSelectReady, 500);
-	function onSelectReady() {
+	console.log('opening listbox');
 	window.selectController.updateMenuState(true);
 	}
 },
@@ -120,6 +109,22 @@ var scripts = {
 	testPageDocument.querySelector('[role="combobox"]').focus();
 	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
+	console.log('opening listbox');
+	window.selectController.updateMenuState(true);
+	}
+},
+	openListboxToApple: function(testPageDocument){
+	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
+	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.selectController.updateMenuState(true);
+	window.selectController.onOptionChange(1);
+},
+	openListbox: function(testPageDocument){
+	// sets focus on and expands the Combobox
+	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.setTimeout(onSelectReady, 500);
+	function onSelectReady() {
+	console.log('opening listbox');
 	window.selectController.updateMenuState(true);
 	}
 },
@@ -128,6 +133,7 @@ var scripts = {
 	testPageDocument.querySelector('[role="combobox"]').focus();
 	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
+	console.log('opening listbox');
 	window.selectController.updateMenuState(true);
 	}
 },
@@ -160,6 +166,7 @@ var scripts = {
 	testPageDocument.querySelector('[role="combobox"]').focus();
 	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
+	console.log('opening listbox');
 	window.selectController.updateMenuState(true);
 	}
 },
@@ -174,6 +181,7 @@ var scripts = {
 	testPageDocument.querySelector('[role="combobox"]').focus();
 	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
+	console.log('opening listbox');
 	window.selectController.updateMenuState(true);
 	}
 },

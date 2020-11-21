@@ -74,7 +74,7 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.addEventListener('selectReady', onSelectReady, false);
+	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
 	window.selectController.updateMenuState(true);
 	}
@@ -82,7 +82,7 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.addEventListener('selectReady', onSelectReady, false);
+	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
 	window.selectController.updateMenuState(true);
 	}
@@ -90,7 +90,7 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.addEventListener('selectReady', onSelectReady, false);
+	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
 	window.selectController.updateMenuState(true);
 	}
@@ -104,7 +104,7 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.addEventListener('selectReady', onSelectReady, false);
+	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
 	window.selectController.updateMenuState(true);
 	}
@@ -118,7 +118,7 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.addEventListener('selectReady', onSelectReady, false);
+	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
 	window.selectController.updateMenuState(true);
 	}
@@ -126,22 +126,10 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.addEventListener('selectReady', onSelectReady, false);
+	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
 	window.selectController.updateMenuState(true);
 	}
-},
-	openListboxToApple: function(testPageDocument){
-	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
-	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.selectController.updateMenuState(true);
-	window.selectController.onOptionChange(1);
-},
-	openListboxToGuava: function(testPageDocument){
-	// sets focus on and expands the Combobox, and sets the focused option to 'Guave'
-	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.selectController.updateMenuState(true);
-	window.selectController.onOptionChange(11);
 },
 	openListboxToApple: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
@@ -155,10 +143,22 @@ var scripts = {
 	window.selectController.updateMenuState(true);
 	window.selectController.onOptionChange(11);
 },
+	openListboxToApple: function(testPageDocument){
+	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
+	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.selectController.updateMenuState(true);
+	window.selectController.onOptionChange(1);
+},
+	openListboxToGuava: function(testPageDocument){
+	// sets focus on and expands the Combobox, and sets the focused option to 'Guave'
+	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.selectController.updateMenuState(true);
+	window.selectController.onOptionChange(11);
+},
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.addEventListener('selectReady', onSelectReady, false);
+	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
 	window.selectController.updateMenuState(true);
 	}
@@ -172,7 +172,7 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.addEventListener('selectReady', onSelectReady, false);
+	window.setTimeout(onSelectReady, 500);
 	function onSelectReady() {
 	window.selectController.updateMenuState(true);
 	}

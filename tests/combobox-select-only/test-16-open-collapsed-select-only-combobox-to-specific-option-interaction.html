@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Open a collapsed select-only combobox to a specific option</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+<link rel="help" href="https://w3c.github.io/aria/#listbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#option">
+<link rel="help" href="https://w3c.github.io/aria/#aria-selected">
+
+<script src="scripts.js"></script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  Promise.all(["test-16-open-collapsed-select-only-combobox-to-specific-option-interaction.json", '../support.json', 'commands.json'].map(url =>
+    fetch(url)
+      .then(response => response.json()) // parse the JSON from the server
+  ))
+  .then(data => {
+    // do something with the data
+    initialize(data[1], data[2]);
+    verifyATBehavior(data[0]);
+    displayTestPageAndInstructions("reference/combobox-select-only.html");
+  });
+</script>
+  

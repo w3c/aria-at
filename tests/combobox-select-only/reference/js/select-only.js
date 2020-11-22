@@ -386,5 +386,5 @@ window.addEventListener('load', function () {
     'Huckleberry',
   ];
   const selectEl = document.querySelector('.js-select');
-  window.selectController = new Select(selectEl, options);
+  document.defaultView.selectController = new Select(selectEl, options);
 });

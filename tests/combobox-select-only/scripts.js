@@ -74,29 +74,26 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.setTimeout(onSelectReady, 500);
-	function onSelectReady() {
-	console.log('opening listbox');
-	window.selectController.updateMenuState(true);
-	}
+	window.setTimeout(onSelectReady, () => {
+	console.log('Opening listbox');
+	window.selectController.updateMenuState(true)
+	}, 500);
 },
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.setTimeout(onSelectReady, 500);
-	function onSelectReady() {
-	console.log('opening listbox');
-	window.selectController.updateMenuState(true);
-	}
+	window.setTimeout(onSelectReady, () => {
+	console.log('Opening listbox');
+	window.selectController.updateMenuState(true)
+	}, 500);
 },
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.setTimeout(onSelectReady, 500);
-	function onSelectReady() {
-	console.log('opening listbox');
-	window.selectController.updateMenuState(true);
-	}
+	window.setTimeout(onSelectReady, () => {
+	console.log('Opening listbox');
+	window.selectController.updateMenuState(true)
+	}, 500);
 },
 	openListboxToApple: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
@@ -107,11 +104,10 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.setTimeout(onSelectReady, 500);
-	function onSelectReady() {
-	console.log('opening listbox');
-	window.selectController.updateMenuState(true);
-	}
+	window.setTimeout(onSelectReady, () => {
+	console.log('Opening listbox');
+	window.selectController.updateMenuState(true)
+	}, 500);
 },
 	openListboxToApple: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
@@ -122,32 +118,18 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.setTimeout(onSelectReady, 500);
-	function onSelectReady() {
-	console.log('opening listbox');
-	window.selectController.updateMenuState(true);
-	}
+	window.setTimeout(onSelectReady, () => {
+	console.log('Opening listbox');
+	window.selectController.updateMenuState(true)
+	}, 500);
 },
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.setTimeout(onSelectReady, 500);
-	function onSelectReady() {
-	console.log('opening listbox');
-	window.selectController.updateMenuState(true);
-	}
-},
-	openListboxToApple: function(testPageDocument){
-	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
-	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.selectController.updateMenuState(true);
-	window.selectController.onOptionChange(1);
-},
-	openListboxToGuava: function(testPageDocument){
-	// sets focus on and expands the Combobox, and sets the focused option to 'Guave'
-	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.selectController.updateMenuState(true);
-	window.selectController.onOptionChange(11);
+	window.setTimeout(onSelectReady, () => {
+	console.log('Opening listbox');
+	window.selectController.updateMenuState(true)
+	}, 500);
 },
 	openListboxToApple: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
@@ -161,14 +143,25 @@ var scripts = {
 	window.selectController.updateMenuState(true);
 	window.selectController.onOptionChange(11);
 },
+	openListboxToApple: function(testPageDocument){
+	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
+	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.selectController.updateMenuState(true);
+	window.selectController.onOptionChange(1);
+},
+	openListboxToGuava: function(testPageDocument){
+	// sets focus on and expands the Combobox, and sets the focused option to 'Guave'
+	testPageDocument.querySelector('[role="combobox"]').focus();
+	window.selectController.updateMenuState(true);
+	window.selectController.onOptionChange(11);
+},
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.setTimeout(onSelectReady, 500);
-	function onSelectReady() {
-	console.log('opening listbox');
-	window.selectController.updateMenuState(true);
-	}
+	window.setTimeout(onSelectReady, () => {
+	console.log('Opening listbox');
+	window.selectController.updateMenuState(true)
+	}, 500);
 },
 	openListboxToHuckleberry: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Huckleberry'
@@ -179,11 +172,10 @@ var scripts = {
 	openListbox: function(testPageDocument){
 	// sets focus on and expands the Combobox
 	testPageDocument.querySelector('[role="combobox"]').focus();
-	window.setTimeout(onSelectReady, 500);
-	function onSelectReady() {
-	console.log('opening listbox');
-	window.selectController.updateMenuState(true);
-	}
+	window.setTimeout(onSelectReady, () => {
+	console.log('Opening listbox');
+	window.selectController.updateMenuState(true)
+	}, 500);
 },
 	openListboxToHuckleberry: function(testPageDocument){
 	// sets focus on and expands the Combobox, and sets the focused option to 'Huckleberry'

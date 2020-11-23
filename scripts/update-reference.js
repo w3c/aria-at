@@ -50,24 +50,6 @@ function locateFile(startPath, fileToFind) {
     }
 }
 
-
-function updateReferenceHtmlFile(referenceHtml) {
-  try {
-    fse.statSync(referenceHtml);
-  } catch (err) {
-    console.log("The reference example html '" + referenceHtml + "' does not exist. Please enure the provided example url in references.csv is correct.");
-    process.exit();
-  }
-	const root = np.parse(fse.readFileSync(referenceHtml, 'utf8'), {script: true});
-  const head = root.querySelector('head');
-  const header = root.querySelector('h1');
-  const example = root.querySelector('#ex1');
-  const templateFile = path.join(__dirname, 'reference-template.mustache');
-  const template = fse.readFileSync(templateFile, 'utf8');
-  const rendered = mustache.render(template, { head, header, example });
-  fse.writeFileSync(referenceHtml, rendered);
-}
-
 async function copyExampleToRepo(exampleName) {
   try {
     const testDirectory = path.join('tests', exampleName);
@@ -97,7 +79,6 @@ async function copyExampleToRepo(exampleName) {
     if (exampleUrl.indexOf('https://w3c.github.io/aria-practices/examples/') >= 0) {
       examplePath = exampleUrl.split('https://w3c.github.io/aria-practices/')[1];
       examplePath = path.join(...examplePath.split('/')); // Ensure path type is correct regardless of OS
-      console.log(`Looking for ${examplePath} in the aria-practices repo`);
     } else {
       console.log('`example` must be defined in references.csv with the format `https://w3c.github.io/aria-practices/examples/<PATH_TO_EXAMPLE>.html`');
       process.exit();
@@ -105,20 +86,27 @@ async function copyExampleToRepo(exampleName) {
     await fse.remove(tmpPath);
     console.log('Cloning the aria-practice repo.');
     await git.Clone(cloneURL, tmpPath);
-    console.log(`Locating the matching example file ${examplePath}`);
+    console.log(`Locating the matching example file ${examplePath}.`);
+
+    try {
+      fse.statSync(path.join(tmpPath, examplePath));
+    }
+    catch (err) {
+      console.log("The example html '" + examplePath + "' does not exist. Please enure the current example html utl is in the references.csv file.");
+      process.exit();
+    }
+
     const htmlFileAbsolute = path.join(tmpPath, examplePath);
     const currentDateTime = new Date();
     const formattedDateTime = currentDateTime.getFullYear() + "-" + (currentDateTime.getMonth() + 1) + "-" + currentDateTime.getDate() + "_" + currentDateTime.getHours() + + currentDateTime.getMinutes() + currentDateTime.getSeconds();
     const referenceDir = path.join(tmpPath, '..', '..', 'tests', exampleName, 'reference', formattedDateTime);
     await fse.ensureDir(referenceDir);
     const filterFunc = (src) => { return (src.indexOf('.html') == -1 || src == htmlFileAbsolute) };
-    console.log('Coping assets to timestamped local directory.');
+    console.log('Coping assets to timestamped local directory.\n\n');
     await fse.copy(path.join(tmpPath, 'examples', htmlFileAbsolute.split('examples' + path.sep)[1].split(path.sep)[0]), referenceDir, { filter: filterFunc});
     const referenceHtml = locateFile(referenceDir, path.basename(examplePath));
-    console.log(`Replacing reference html file with templated version\n\n`);
-    updateReferenceHtmlFile(referenceHtml);
     const referenceHtmlPath = path.join('reference', referenceHtml.split('reference' + path.sep)[1]);
-    console.log(`Reference file created at tests/${exampleName}/${referenceHtmlPath}.\nIf you want to switch the test to run the updated reference, please commit this change and update ${path.join('tests', exampleName, 'data', 'reference.csv')} with the reference ${referenceHtmlPath}.`);
+    console.log(`Reference file created at tests/${exampleName}/${referenceHtmlPath}.\nTo switch the test to run the updated reference:\n\t1. Commit this change\n\t2. Update ${path.join('tests', exampleName, 'data', 'reference.csv')} with the reference ${referenceHtmlPath}\n\t3. Open the html file and edit it to only include the example. The title, imported assets, h1 with the example name, and the div with the actual example (Usually #ex1) need to be preserved, but everything else can be removed.`);
   } finally {
     await fse.remove(tmpPath);
   }

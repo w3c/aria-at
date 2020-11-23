@@ -76,12 +76,12 @@ async function copyExampleToRepo(exampleName) {
     await fse.ensureDir(referenceDir);
     const filterFunc = (src) => { return (src.indexOf('.html') == -1 || src == htmlFileAbsolute) };
     console.log('Coping assets to timestamped local directory.');
-    await fse.copy(path.join(examplesPath, htmlFileAbsolute.split('examples/')[1].split('/')[0]), referenceDir, { filter: filterFunc});
+    await fse.copy(path.join(examplesPath, htmlFileAbsolute.split('examples' + path.sep)[1].split(path.sep)[0]), referenceDir, { filter: filterFunc});
     const referenceHtml = locateFile(referenceDir, htmlFile);
     console.log(`Replacing reference html file with templated version\n\n`);
     updateReferenceHtmlFile(referenceHtml);
-    const referenceHtmlPath = `reference/${referenceHtml.split('reference/')[1]}`;
-    console.log(`Reference file created at tests/${exampleName}/${referenceHtmlPath}.\nIf you want to switch the test to run the updated reference, please commit this change and update tests/${exampleName}/data/reference.csv with the reference ${referenceHtmlPath}.`);
+    const referenceHtmlPath = path.join('reference', referenceHtml.split('reference' + path.sep)[1]);
+    console.log(`Reference file created at tests/${exampleName}/${referenceHtmlPath}.\nIf you want to switch the test to run the updated reference, please commit this change and update ${path.join('tests', exampleName, 'data', 'reference.csv')} with the reference ${referenceHtmlPath}.`);
   } finally {
     await fse.remove(tmpPath);
   }

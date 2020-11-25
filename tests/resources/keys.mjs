@@ -54,6 +54,7 @@ export const SHIFT_X                          = "Shift+X";
 export const X_AND_SHIFT_X                    = "X / Shift+X";
 export const A                                = "A";
 export const B                                = "B";
+export const SHIFT_B                                = "Shift+B";
 export const C                                = "C";
 export const D                                = "D";
 export const E                                = "E";

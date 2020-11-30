@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to an expanded disclosure button</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script src="scripts.js"></script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  Promise.all(["test-12-navigate-backwards-to-expanded-disclosure-button-interaction.json", '../support.json', 'commands.json'].map(url =>
+    fetch(url)
+      .then(response => response.json()) // parse the JSON from the server
+  ))
+  .then(data => {
+    // do something with the data
+    initialize(data[1], data[2]);
+    verifyATBehavior(data[0]);
+    displayTestPageAndInstructions("reference/disclosure-navigation.html");
+  });
+</script>
+  

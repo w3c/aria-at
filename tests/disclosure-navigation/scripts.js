@@ -33,7 +33,7 @@ var scripts = {
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	let firstMenu = document.querySelector('#id_about_menu');
 	testPageDocument.defaultView.disclosureController.toggleMenu(firstMenu, false);
-	testPageDocument.querySelector('#beforelink').focus();
+	testPageDocument.querySelector('button[aria-controls="id_admissions_menu"]').focus();
 },
 	moveFocusBeforeAndExpandFirstDisclosure: function(testPageDocument){
 	// sets focus on a link before the first disclosure button, and sets the state of the first button to expanded
@@ -45,7 +45,7 @@ var scripts = {
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	let firstMenu = document.querySelector('#id_about_menu');
 	testPageDocument.defaultView.disclosureController.toggleMenu(firstMenu, false);
-	testPageDocument.querySelector('#beforelink').focus();
+	testPageDocument.querySelector('button[aria-controls="id_admissions_menu"]').focus();
 },
 	moveFocusBeforeAndExpandFirstDisclosure: function(testPageDocument){
 	// sets focus on a link before the first disclosure button, and sets the state of the first button to expanded
@@ -57,7 +57,7 @@ var scripts = {
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	let firstMenu = document.querySelector('#id_about_menu');
 	testPageDocument.defaultView.disclosureController.toggleMenu(firstMenu, false);
-	testPageDocument.querySelector('#beforelink').focus();
+	testPageDocument.querySelector('button[aria-controls="id_admissions_menu"]').focus();
 },
 	moveFocusToFirstDisclosure: function(testPageDocument){
 	// sets focus on the first disclosure button

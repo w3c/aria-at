@@ -37,8 +37,6 @@ DisclosureNav.prototype.init = function () {
       button.addEventListener('keydown', this.handleButtonKeyDown.bind(this));
     }
   }
-
-  this.rootNode.addEventListener('focusout', this.handleBlur.bind(this));
 };
 
 DisclosureNav.prototype.toggleMenu = function (domNode, show) {
@@ -91,14 +89,6 @@ DisclosureNav.prototype.controlFocusByKey = function (
       keyboardEvent.preventDefault();
       nodeList[nodeList.length - 1].focus();
       break;
-  }
-};
-
-/* Event Handlers */
-DisclosureNav.prototype.handleBlur = function (event) {
-  var menuContainsFocus = this.rootNode.contains(event.relatedTarget);
-  if (!menuContainsFocus && this.openIndex !== null) {
-    this.toggleExpand(this.openIndex, false);
   }
 };
 

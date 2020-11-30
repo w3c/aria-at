@@ -28,36 +28,30 @@ var scripts = {
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelector('#beforelink').focus();
 },
-	moveFocusToSecondDisclosureAndExpandFirstDisclosure: function(testPageDocument){
-	// sets focus on the second disclosure button in the navigation region, and sets the state of the first button to expanded without displaying its associated list of links
+	moveFocusToFirstLinkInDropdown: function(testPageDocument){
+	// sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
-	let firstMenu = testPageDocument.querySelector('#id_about_menu');
-	firstMenu.style.display = 'none';
-	testPageDocument.querySelector('button[aria-controls="id_admissions_menu"]').focus();
+	testPageDocument.querySelector('#id_about_menu a').focus();
 },
 	moveFocusBeforeAndExpandFirstDisclosure: function(testPageDocument){
 	// sets focus on a link before the first disclosure button, and sets the state of the first button to expanded
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelector('#beforelink').focus();
 },
-	moveFocusToSecondDisclosureAndExpandFirstDisclosure: function(testPageDocument){
-	// sets focus on the second disclosure button in the navigation region, and sets the state of the first button to expanded without displaying its associated list of links
+	moveFocusToFirstLinkInDropdown: function(testPageDocument){
+	// sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
-	let firstMenu = testPageDocument.querySelector('#id_about_menu');
-	firstMenu.style.display = 'none';
-	testPageDocument.querySelector('button[aria-controls="id_admissions_menu"]').focus();
+	testPageDocument.querySelector('#id_about_menu a').focus();
 },
 	moveFocusBeforeAndExpandFirstDisclosure: function(testPageDocument){
 	// sets focus on a link before the first disclosure button, and sets the state of the first button to expanded
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelector('#beforelink').focus();
 },
-	moveFocusToSecondDisclosureAndExpandFirstDisclosure: function(testPageDocument){
-	// sets focus on the second disclosure button in the navigation region, and sets the state of the first button to expanded without displaying its associated list of links
+	moveFocusToFirstLinkInDropdown: function(testPageDocument){
+	// sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
-	let firstMenu = testPageDocument.querySelector('#id_about_menu');
-	firstMenu.style.display = 'none';
-	testPageDocument.querySelector('button[aria-controls="id_admissions_menu"]').focus();
+	testPageDocument.querySelector('#id_about_menu a').focus();
 },
 	moveFocusToFirstDisclosure: function(testPageDocument){
 	// sets focus on the first disclosure button

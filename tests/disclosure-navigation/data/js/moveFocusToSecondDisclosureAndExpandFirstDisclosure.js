@@ -2,4 +2,4 @@
 testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 let firstMenu = document.querySelector('#id_about_menu');
 testPageDocument.defaultView.disclosureController.toggleMenu(firstMenu, false);
-testPageDocument.querySelector('#beforelink').focus();
+testPageDocument.querySelector('button[aria-controls="id_admissions_menu"]').focus();

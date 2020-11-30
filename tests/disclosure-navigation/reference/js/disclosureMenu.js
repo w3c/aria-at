@@ -165,22 +165,10 @@ DisclosureNav.prototype.updateKeyControls = function (useArrowKeys) {
 window.addEventListener(
   'load',
   function (event) {
-    var menus = document.querySelectorAll('.disclosure-nav');
-    var disclosureMenus = [];
-
-    for (var i = 0; i < menus.length; i++) {
-      disclosureMenus[i] = new DisclosureNav(menus[i]);
-      disclosureMenus[i].init();
-    }
-
-    // listen to arrow key checkbox
-    var arrowKeySwitch = document.getElementById('arrow-behavior-switch');
-    arrowKeySwitch.addEventListener('change', function (event) {
-      var checked = arrowKeySwitch.checked;
-      for (var i = 0; i < disclosureMenus.length; i++) {
-        disclosureMenus[i].updateKeyControls(checked);
-      }
-    });
+    var menu = document.querySelector('.disclosure-nav');
+    var disclosureMenu = new DisclosureNav(menu);
+    disclosureMenu.init();
+    document.defaultView.disclosureController = disclosureMenu;
 
     // fake link behavior
     var links = document.querySelectorAll('[href="#mythical-page-content"]');

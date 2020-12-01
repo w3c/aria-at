@@ -1,0 +1,43 @@
+nav: reference/two-state-checkbox.html
+press: h
+assert_contains: Checkbox Example (Two State)
+press: x
+assert_role: checkbox
+assert_checked: false
+assert_accname: Lettuce
+assert_equals: Sandwich Condiments grouping list with 4 items Lettuce check box not checked
+press: x
+assert_accname: Tomato
+press: Shift+x
+assert_role: checkbox
+assert_checked: false
+assert_accname: Lettuce
+assert_equals: Lettuce check box not checked
+press: Shift+h
+assert_contains: Sandwich Condiments
+press: f
+assert_role: checkbox
+assert_checked: false
+assert_accname: Lettuce
+assert_equals: Sandwich Condiments grouping list with 4 items Lettuce check box not checked
+press: f
+assert_accname: Tomato
+press: Shift+f
+assert_role: checkbox
+assert_checked: false
+assert_accname: Lettuce
+assert_equals: Lettuce check box not checked
+press: Shift+h
+assert_contains: Sandwich Condiments
+press: Tab
+assert_role: checkbox
+assert_checked: false
+assert_accname: Lettuce
+assert_equals: Sandwich Condiments grouping list with 4 items Lettuce check box not checked
+press: Tab
+assert_accname: Tomato
+press: Shift+Tab
+assert_role: checkbox
+assert_checked: false
+assert_accname: Lettuce
+assert_equals: Lettuce check box not checked

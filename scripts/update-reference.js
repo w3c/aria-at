@@ -70,7 +70,7 @@ async function copyExampleToRepo(exampleName) {
       process.exit();
     }
     const referencesCsv = fs.readFileSync(referencesCsvFile, 'UTF-8');
-    const exampleUrl = referencesCsv.split(/\r?\n/).find(s => s.startsWith('example,')).split(',')[1];
+    const exampleUrl = ((referencesCsv || '').split(/\r?\n/).find(s => s.startsWith('example,')) || '').split(',')[1];
     if (!exampleUrl) {
       console.log('`example` must be defined in the references.csv file');
       process.exit();

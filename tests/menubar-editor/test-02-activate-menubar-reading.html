@@ -5,18 +5,46 @@
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menubar">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-02-activate-menubar-reading.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "activate menubar",
+  "specific_user_instruction": "Navigate to the 'Font\" menu item in the 'Text Formatting' menubar example with down arrow. | Activate the 'Font' menu",
+  "output_assertions": [
+    [
+      "1",
+      "Change of mode from reading to interaction is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "activate menubar": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");
   });
 </script>

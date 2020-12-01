@@ -8,18 +8,76 @@
 <link rel="help" href="https://w3c.github.io/aria/#aria-haspopup">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-23-read-menuitem-in-menubar-reading.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read menuitem in menubar",
+  "specific_user_instruction": "Navigate to the 'Text Formatting' menubar. | Navigate to the size menu item in the menubar. | Read 'Size' menu item",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Size' is conveyed"
+    ],
+    [
+      "1",
+      "Availability of a submenu is conveyed"
+    ],
+    [
+      "2",
+      " Closed state of the submenu is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar are conveyed"
+    ],
+    [
+      "2",
+      " The role 'menu item' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read menuitem in menubar": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");
   });
 </script>

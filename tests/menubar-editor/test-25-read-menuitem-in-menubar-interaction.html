@@ -8,18 +8,78 @@
 <link rel="help" href="https://w3c.github.io/aria/#aria-haspopup">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		focusonsize: function(testPageDocument){
+			// Move focus to the "Size" menu item
+			testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-25-read-menuitem-in-menubar-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Size' menu item",
+  "setupTestPage": "focusonsize",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "read menuitem in menubar",
+  "specific_user_instruction": "Read the  'Size' menu item in the menubar",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Size' is conveyed"
+    ],
+    [
+      "1",
+      "Availability of a submenu is conveyed"
+    ],
+    [
+      "2",
+      " Closed state of the submenu is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar are conveyed"
+    ],
+    [
+      "2",
+      " The role 'menu item' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read menuitem in menubar": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");
   });
 </script>

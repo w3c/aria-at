@@ -4,18 +4,53 @@
 <title>Activate editable combobox in reading mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		comboboxFocusEmptyCollapsed: function(testPageDocument){
+			// Set focus on combobox
+			// Set value of 'combobox' is empty
+			// Ensure in collapsed state
+			var cb = testPageDocument.comboboxAutocomplete;
+			cb.comboboxNode.value = '';
+			cb.combobox.focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-16-activate-combobox-reading.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "Set focus on combobox",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "activate combobox",
+  "specific_user_instruction": "Activate the 'State' combobox",
+  "output_assertions": [
+    [
+      "1",
+      "The screen reader switches to mode that allows text input"
+    ]
+  ]
+};
+    const commandJson = {
+  "activate combobox": {
+    "reading": {
+      "jaws": [ [ "ENTER" ] ],
+      "nvda": [ [ "ENTER" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
   });
 </script>

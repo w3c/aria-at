@@ -4,18 +4,61 @@
 <title>Open combobox with 'States' button in reading mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-19-activate-states-button-reading.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "activate states button",
+  "specific_user_instruction": "Activate the button that displays the list of states.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'State' is conveyed"
+    ],
+    [
+      "1",
+      "Ability to enter text is conveyed"
+    ],
+    [
+      "1",
+      "expanded state is conveyed."
+    ]
+  ]
+};
+    const commandJson = {
+  "activate states button": {
+    "reading": {
+      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [ [ "CTRL_OPT_SPACE" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
   });
 </script>

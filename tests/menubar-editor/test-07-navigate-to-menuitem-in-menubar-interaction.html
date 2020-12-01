@@ -5,18 +5,73 @@
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-2/menubar-2.html">
 <link rel="help" href="https://w3c.github.io/aria/#menuitem">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		focusonfont: function(testPageDocument){
+			// Move focus to the "Font" menu item
+			testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-07-navigate-to-menuitem-in-menubar-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Font' menu item",
+  "setupTestPage": "focusonfont",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate to menuitem in menubar",
+  "specific_user_instruction": "Navigate to 'Style/Color' menu",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Style/Color' is conveyed"
+    ],
+    [
+      "1",
+      "Availability of a submenu is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar are conveyed"
+    ],
+    [
+      "2",
+      " The role 'menuitem' is conveyed"
+    ],
+    [
+      "2",
+      " Closed state of the submenu is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to menuitem in menubar": {
+    "reading": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "INS_NUMPAD_6" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [ [ "RIGHT" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "RIGHT" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");
   });
 </script>

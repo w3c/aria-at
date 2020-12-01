@@ -4,18 +4,94 @@
 <title>Navigate to filled, editable, expanded combobox in interaction mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		comboboxValueSetExpandedState: function(testPageDocument){
+			// Set focus on combobox
+			// Set value of 'combobox' to 'a'
+			// Ensure in expanded state.
+			var cb = testPageDocument.comboboxAutocomplete;
+			cb.comboboxNode.value = 'a';
+			cb.comboboxNode.focus();
+			cb.filter = cb.comboboxNode.value;
+			cb.filterOptions();
+			cb.open();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-12-navigate-to-combobox-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "Set focus on combobox; set value of 'combobox' to 'A'; ensure in expanded state.",
+  "setupTestPage": "comboboxValueSetExpandedState",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate to combobox",
+  "specific_user_instruction": "Navigate to the 'State' combobox",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'State' is conveyed"
+    ],
+    [
+      "1",
+      "Ability to enter text is conveyed"
+    ],
+    [
+      "1",
+      "Value 'A' is conveyed."
+    ],
+    [
+      "2",
+      "Expanded state is conveyed."
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to combobox": {
+    "reading": {
+      "jaws": [
+        [ "C_AND_SHIFT_C" ],
+        [ "E_AND_SHIFT_E" ],
+        [ "F_AND_SHIFT_F" ]
+      ],
+      "nvda": [
+        [ "C_AND_SHIFT_C" ],
+        [ "E_AND_SHIFT_E" ],
+        [ "F_AND_SHIFT_F" ]
+      ],
+      "voiceover_macos": [
+        [ "F_AND_SHIFT_F" ],
+        [ "LEFT_AND_RIGHT" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB_AND_SHIFT_TAB" ],
+        [
+          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+        ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
   });
 </script>

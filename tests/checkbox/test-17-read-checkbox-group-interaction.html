@@ -6,18 +6,58 @@
 <link rel="help" href="https://w3c.github.io/aria/#group">
 <link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-17-read-checkbox-group-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read checkbox group",
+  "specific_user_instruction": "When focus is on a checkbox, read its grouping information",
+  "output_assertions": [
+    [
+      "2",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read checkbox group": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/two-state-checkbox.html");
   });
 </script>

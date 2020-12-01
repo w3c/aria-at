@@ -4,18 +4,66 @@
 <title>Type portion of valid value in interaction mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		comboboxFocusEmptyCollapsed: function(testPageDocument){
+			// Set focus on combobox
+			// Set value of 'combobox' is empty
+			// Ensure in collapsed state
+			var cb = testPageDocument.comboboxAutocomplete;
+			cb.comboboxNode.value = '';
+			cb.combobox.focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-24-type-in-empty-combobox-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "Set focus on combobox; ensure it is empty.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "type in empty combobox",
+  "specific_user_instruction": "Type 'a' in the empty combobox",
+  "output_assertions": [
+    [
+      "1",
+      "Either 1) The selected text 'labama' is conveyed or 2) The entire value 'Alabama' is conveyed."
+    ],
+    [
+      "1",
+      "The selected state of of the value option 'Alabama' is conveyed."
+    ],
+    [
+      "1",
+      "The combobox state change from collapsed to expanded is conveyed"
+    ],
+    [
+      "2",
+      "The position in set of the selected option is conveyed; e.g.; 1 of 4 suggestions."
+    ]
+  ]
+};
+    const commandJson = {
+  "type in empty combobox": {
+    "interaction": {
+      "jaws": [ [ "A" ] ],
+      "nvda": [ [ "A" ] ],
+      "voiceover_macos": [ [ "A" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
   });
 </script>

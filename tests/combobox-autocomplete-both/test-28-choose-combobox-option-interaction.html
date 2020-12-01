@@ -4,18 +4,70 @@
 <title>Activate option in popup in interaction mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		comboboxFocusEmptyCollapsed: function(testPageDocument){
+			// Set focus on combobox
+			// Set value of 'combobox' is empty
+			// Ensure in collapsed state
+			var cb = testPageDocument.comboboxAutocomplete;
+			cb.comboboxNode.value = '';
+			cb.combobox.focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-28-choose-combobox-option-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "Set focus on combobox; press down arrow 2 times.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "choose combobox option",
+  "specific_user_instruction": "Choose 'Alaska' from the listbox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'State' is conveyed"
+    ],
+    [
+      "1",
+      "Ability to enter text is conveyed"
+    ],
+    [
+      "1",
+      "Value 'Alaska' is conveyed."
+    ],
+    [
+      "1",
+      "Collapsed state is conveyed."
+    ]
+  ]
+};
+    const commandJson = {
+  "choose combobox option": {
+    "interaction": {
+      "jaws": [ [ "ENTER" ] ],
+      "nvda": [ [ "ENTER" ] ],
+      "voiceover_macos": [ [ "ENTER" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
   });
 </script>

@@ -7,18 +7,60 @@
 <link rel="help" href="https://w3c.github.io/aria/#group">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-19-navigate-sequentially-through-checkbox-group-reading.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate sequentially through checkbox group",
+  "specific_user_instruction": "Navigate both forward and backward into and out of  the checkbox group.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ],
+    [
+      "1",
+      "Group boundaries at start and end of group are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate sequentially through checkbox group": {
+    "reading": {
+      "jaws": [ [ "UP" ], [ "DOWN" ] ],
+      "nvda": [ [ "UP" ], [ "DOWN" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_LEFT" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/two-state-checkbox.html");
   });
 </script>

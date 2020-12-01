@@ -4,18 +4,57 @@
 <title>Close combobox with 'States' button in reading mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		buttonFocusEmptyExpanded: function(testPageDocument){
+			// Set focus on button
+			// Ensure in expanded state.
+			var cb = testPageDocument.comboboxAutocomplete;
+			cb.buttonNode.focus();
+			cb.filter = cb.comboboxNode.value;
+			cb.filterOptions();
+			cb.open();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-22-activate-states-button-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "Set focus on 'States' button; Ensure combobox is expanded.",
+  "setupTestPage": "buttonFocusEmptyExpanded",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "activate states button",
+  "specific_user_instruction": "Activate the button that hides the list of states.",
+  "output_assertions": [
+    [
+      "1",
+      "Collapsed state is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "activate states button": {
+    "reading": {
+      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [ [ "CTRL_OPT_SPACE" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
   });
 </script>

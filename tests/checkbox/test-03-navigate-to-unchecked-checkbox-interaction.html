@@ -6,18 +6,80 @@
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-03-navigate-to-unchecked-checkbox-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to unchecked checkbox",
+  "specific_user_instruction": "Navigate to the first checkbox. Note: it should be in the unchecked state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Lettuce' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (not checked) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to unchecked checkbox": {
+    "reading": {
+      "jaws": [
+        [ "X_AND_SHIFT_X" ],
+        [ "F_AND_SHIFT_F" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ],
+        [
+          "LEFT_AND_RIGHT",
+          "(with Smart Navigation on)"
+        ]
+      ],
+      "nvda": [
+        [ "X_AND_SHIFT_X" ],
+        [ "F_AND_SHIFT_F" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB_AND_SHIFT_TAB" ],
+        [
+          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+        ],
+        [
+          "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
+        ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/two-state-checkbox.html");
   });
 </script>

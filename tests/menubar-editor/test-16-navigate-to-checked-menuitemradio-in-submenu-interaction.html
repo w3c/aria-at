@@ -6,18 +6,66 @@
 <link rel="help" href="https://w3c.github.io/aria/#menuitemradio">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		focusonfont: function(testPageDocument){
+			// Move focus to the "Font" menu item
+			testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-16-navigate-to-checked-menuitemradio-in-submenu-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Font' menu item",
+  "setupTestPage": "focusonfont",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to checked menuitemradio in submenu",
+  "specific_user_instruction": "Open \"Font\" menu with down arrow. | Navigate to 'Sans-serif' menu item radio",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Sans-serif' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item radio' is conveyed"
+    ],
+    [
+      "1",
+      "The checked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menu are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to checked menuitemradio in submenu": {
+    "interaction": {
+      "jaws": [ [ "UP_AND_DOWN" ] ],
+      "nvda": [ [ "UP_AND_DOWN" ] ],
+      "voiceover_macos": [
+        [ "UP_AND_DOWN" ],
+        [
+          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+        ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/menubar-editor.html");
   });
 </script>

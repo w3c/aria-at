@@ -2,8 +2,11 @@
 
 export const ALT_DELETE                       = "Alt+Delete";
 export const ALT_DOWN                         = "Alt+Down";
+export const ALT_UP                         = "Alt+Up";
 export const C_AND_SHIFT_C                    = "C / Shift+C";
 export const CTRL_INS_X                       = "Control+Insert+X";
+export const OPT_DOWN                    = "Option+Down";
+export const OPT_UP                    = "Option+Up";
 export const CTRL_OPT_LEFT                    = "Ctrl+Option+Left";
 export const CTRL_OPT_RIGHT                   = "Control+Option+Right";
 export const CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT = "Control+Option+Right / Ctrl+Option+Left";
@@ -57,6 +60,7 @@ export const B                                = "B";
 export const C                                = "C";
 export const D                                = "D";
 export const E                                = "E";
+export const SHIFT_E                                = "Shift+E";
 export const F                                = "F";
 export const G                                = "G";
 export const H                                = "H";

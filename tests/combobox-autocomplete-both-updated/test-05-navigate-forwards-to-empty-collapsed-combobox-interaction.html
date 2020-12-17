@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards to an empty, collapsed combobox</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+<link rel="help" href="https://w3c.github.io/aria/#combobox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+<link rel="help" href="https://w3c.github.io/aria/#aria-autocomplete">
+
+<script>
+  var scripts = {
+		moveFocusBeforeCombobox: function(testPageDocument){
+			// sets focus on a link before the Combobox
+			testPageDocument.querySelector('#beforelink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link before the Combobox",
+  "setupTestPage": "moveFocusBeforeCombobox",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to empty collapsed combobox",
+  "specific_user_instruction": "Navigate to the Combobox. Note: it should be in the collapsed state. You may need to press certain commands (such as Control+Option+Right) multiple times to hear all information relating to the combobox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the combobox ('State') is conveyed"
+    ],
+    [
+      "1",
+      "State of the combobox (collapsed) is conveyed"
+    ],
+    [
+      "1",
+      "The ability to enter or edit text is conveyed"
+    ],
+    [
+      "1",
+      "The presence of autocomplete behavior is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards to empty collapsed combobox": {
+    "reading": {
+      "jaws": [
+        [ "F" ],
+        [ "E" ],
+        [ "C" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ],
+      "nvda": [
+        [ "F" ],
+        [ "E" ],
+        [ "C" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "TAB" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-11_16649/combobox-autocomplete-both.html");
+  });
+</script>
+  

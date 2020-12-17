@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read information about a filled in, collapsed combobox in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+<link rel="help" href="https://w3c.github.io/aria/#combobox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+<link rel="help" href="https://w3c.github.io/aria/#aria-autocomplete">
+
+<script>
+  var scripts = {
+		moveFocusToComboboxAndSetValueToAlabama: function(testPageDocument){
+			// sets focus on the combobox, and sets the combobox value to 'Alabama'
+			testPageDocument.defaultView.comboboxController.setValue('Alabama');
+			testPageDocument.defaultView.comboboxController.comboboxNode.select();
+			testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the Combobox, and sets the combobox value to 'Alabama'",
+  "setupTestPage": "moveFocusToComboboxAndSetValueToAlabama",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read information about filled in collapsed combobox",
+  "specific_user_instruction": "With focus on the combobox, read information about the combobox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the combobox ('State') is conveyed"
+    ],
+    [
+      "1",
+      "State of the combobox (collapsed) is conveyed"
+    ],
+    [
+      "1",
+      "Text of the selected option ('Alabama') is conveyed"
+    ],
+    [
+      "1",
+      "The ability to enter or edit text is conveyed"
+    ],
+    [
+      "1",
+      "State of the text in the input (selected) is conveyed"
+    ],
+    [
+      "1",
+      "The presence of autocomplete behavior is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about filled in collapsed combobox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-11_16649/combobox-autocomplete-both.html");
+  });
+</script>
+  

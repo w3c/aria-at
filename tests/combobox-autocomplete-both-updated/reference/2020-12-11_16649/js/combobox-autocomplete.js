@@ -557,14 +557,11 @@ class ComboboxAutocomplete {
 // Initialize comboboxes
 
 window.addEventListener('load', function () {
-  var comboboxes = document.querySelectorAll('.combobox-list');
-
-  for (var i = 0; i < comboboxes.length; i++) {
-    var combobox = comboboxes[i];
-    var comboboxNode = combobox.querySelector('input');
-    var buttonNode = combobox.querySelector('button');
-    var listboxNode = combobox.querySelector('[role="listbox"]');
-    var cba = new ComboboxAutocomplete(comboboxNode, buttonNode, listboxNode);
-    cba.init();
-  }
+  var combobox = document.querySelector('.combobox-list');
+  var comboboxNode = combobox.querySelector('input');
+  var buttonNode = combobox.querySelector('button');
+  var listboxNode = combobox.querySelector('[role="listbox"]');
+  var cba = new ComboboxAutocomplete(comboboxNode, buttonNode, listboxNode);
+  document.defaultView.comboboxController = cba;
+  cba.init();
 });

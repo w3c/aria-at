@@ -164,7 +164,6 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 
 	// only check the file path for the first test
   if (test.includes('test-01')) {
-	console.log(subDir +' -- last edited:');
 	const checkDataFilePath = path.join('.', 'tests', subDir, 'data');
 	const outputData = spawnSync('git', ['log', '-1', '--format="%ad"', checkDataFilePath]);
 	const lastDataEdited = new Date(outputData.stdout.toString().replace(/"/gi, '').replace('\n', ''));
@@ -175,10 +174,8 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 
 	  if (dateCompare(lastReferenceEdited, lastDataEdited) === 1 ){
 		lastEdited = lastReferenceEdited;
-		console.log(lastReferenceEdited);
 	  } else {
 		lastEdited = lastDataEdited;
-		console.log(lastDataEdited);
 	  }
   }
 

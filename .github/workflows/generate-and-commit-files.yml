@@ -3,13 +3,11 @@ name: Generate and Commit Files
 on: pull_request
 
 jobs:
-  generate-and-commit-files:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.head_ref }}
 
     - name: Use Node.js
       uses: actions/setup-node@v1
@@ -20,11 +18,4 @@ jobs:
       run: npm ci
 
     - name: Generate test files
-      run: npm run create-all-tests
-
-    - name: Generate review files
-      run: npm run review-tests
-
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Generate test and review files automatically
+      run: npm run lint

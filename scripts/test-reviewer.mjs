@@ -15,6 +15,8 @@ const reviewDir = path.resolve('.', 'review');
 const allTestsForPattern = {};
 const support = JSON.parse(fse.readFileSync(path.join(testDir, 'support.json')));
 let allATKeys = [];
+let testDate = [];
+let lastEdited;
 support.ats.forEach(at => {
 	allATKeys.push(at.key);
 });
@@ -66,6 +68,7 @@ fse.readdirSync(testDir).forEach(function (subDir) {
     });
 
     fse.readdirSync(subDirFullPath).forEach(function (test) {
+    	// DW - I think this is where we check the tests originally of all html files aother than index
       if (path.extname(test) === '.html' && path.basename(test) !== 'index.html') {
 
 	const testFile = path.join(testDir, subDir, test);
@@ -142,10 +145,42 @@ fse.readdirSync(testDir).forEach(function (subDir) {
 	  });
 	}
 
+	debugger;
+
 	// Create the test review pages
-	const testFilePath = path.join('.', 'tests', subDir, test);
-	const output = spawnSync('git', ['log', '-1', '--format="%ad"', testFilePath]);
-	const lastEdited = output.stdout.toString().replace(/"/gi, '').replace('\n', '');
+
+	//const testFilePath = path.join('.', 'tests', subDir, test);
+
+
+  	let dateCompare = function(a,b) {
+  		return(
+  			isFinite(a=a.valueOf()) &&
+            isFinite(b=b.valueOf()) ?
+            (a>b)-(a<b) :
+            NaN
+		)
+  	}
+
+
+	// only check the file path for the first test
+  if (test.includes('test-01')) {
+	console.log(subDir +' -- last edited:');
+	const checkDataFilePath = path.join('.', 'tests', subDir, 'data');
+	const outputData = spawnSync('git', ['log', '-1', '--format="%ad"', checkDataFilePath]);
+	const lastDataEdited = new Date(outputData.stdout.toString().replace(/"/gi, '').replace('\n', ''));
+
+	const checkReferenceFilePath = path.join('.', 'tests', subDir, 'reference');
+	const outputReference = spawnSync('git', ['log', '-1', '--format="%ad"', checkReferenceFilePath]);
+	const lastReferenceEdited = new Date(outputReference.stdout.toString().replace(/"/gi, '').replace('\n', ''));
+
+	  if (dateCompare(lastReferenceEdited, lastDataEdited) === 1 ){
+		lastEdited = lastReferenceEdited;
+		console.log(lastReferenceEdited);
+	  } else {
+		lastEdited = lastDataEdited;
+		console.log(lastDataEdited);
+	  }
+  }
 
 	tests.push({
 	  testNumber: tests.length+1,

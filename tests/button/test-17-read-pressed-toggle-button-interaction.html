@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read a pressed toggle button in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/button/button.html">
+<link rel="help" href="https://w3c.github.io/aria/#button">
+<link rel="help" href="https://w3c.github.io/aria/#aria-pressed">
+
+<script>
+  var scripts = {
+		moveFocusAndPressSecondButton: function(testPageDocument){
+			// Move focus and set aria-pressed on second button
+			const button = testPageDocument.querySelectorAll('[role="button"]')[1];
+			button.focus();
+			button.setAttribute('aria-pressed', 'true');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the second button and sets its state to pressed",
+  "setupTestPage": "moveFocusAndPressSecondButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read pressed toggle button",
+  "specific_user_instruction": "When the focus is on the the second button, read the second button.  Note: it should be in the pressed state. ",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Mute' is conveyed"
+    ],
+    [
+      "1",
+      "State of the button (pressed) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read pressed toggle button": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-23_193452/button.html");
+  });
+</script>
+  

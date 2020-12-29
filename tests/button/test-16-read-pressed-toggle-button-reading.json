@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "sets focus on the second button and sets its state to pressed",
+  "setupTestPage": "moveFocusAndPressSecondButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read pressed toggle button",
+  "specific_user_instruction": "When the reading cursor is on the second button, read the second button.  Note: it should be in the pressed state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Mute' is conveyed"
+    ],
+    [
+      "1",
+      "State of the button (pressed) is conveyed"
+    ]
+  ]
+}

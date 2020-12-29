@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to a pressed toggle button</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/button/button.html">
+<link rel="help" href="https://w3c.github.io/aria/#button">
+<link rel="help" href="https://w3c.github.io/aria/#aria-pressed">
+
+<script>
+  var scripts = {
+		pressSecondButton: function(testPageDocument){
+			// Set aria-pressed on second button
+			testPageDocument.querySelectorAll('[role="button"]')[1].setAttribute('aria-pressed', 'true');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets the state of the second button to pressed",
+  "setupTestPage": "pressSecondButton",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to pressed toggle button",
+  "specific_user_instruction": "Navigate to the second button. Note: it should be in the pressed state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Mute' is conveyed"
+    ],
+    [
+      "1",
+      "State of the button (pressed) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to pressed toggle button": {
+    "reading": {
+      "jaws": [
+        [ "B_AND_SHIFT_B" ],
+        [ "F_AND_SHIFT_F" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ],
+        [
+          "LEFT_AND_RIGHT",
+          "(with Smart Navigation on)"
+        ]
+      ],
+      "nvda": [
+        [ "B_AND_SHIFT_B" ],
+        [ "F_AND_SHIFT_F" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB_AND_SHIFT_TAB" ],
+        [
+          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+        ],
+        [
+          "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
+        ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-23_193452/button.html");
+  });
+</script>
+  

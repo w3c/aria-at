@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "sets the state of the second button to pressed",
+  "setupTestPage": "pressSecondButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate to pressed toggle button",
+  "specific_user_instruction": "Navigate to the second button. Note: it should be in the pressed state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Mute' is conveyed"
+    ],
+    [
+      "1",
+      "State of the button (pressed) is conveyed"
+    ]
+  ]
+}

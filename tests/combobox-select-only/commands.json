@@ -19,7 +19,8 @@
       "nvda": [ [ "TAB" ] ],
       "voiceover_macos": [
         [ "CTRL_OPT_RIGHT" ],
-        [ "TAB" ]
+        [ "TAB" ],
+        [ "CTRL_OPT_CMD_J" ]
       ]
     }
   },
@@ -43,18 +44,19 @@
       "nvda": [ [ "SHIFT_TAB" ] ],
       "voiceover_macos": [
         [ "CTRL_OPT_LEFT" ],
-        [ "SHIFT_TAB" ]
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
       ]
     }
   },
   "read information about collapsed select-only combobox": {
     "reading": {
-      "jaws": [ [ "INS_TAB" ] ],
-      "nvda": [ [ "INS_TAB" ] ]
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
     },
     "interaction": {
-      "jaws": [ [ "INS_TAB" ] ],
-      "nvda": [ [ "INS_TAB" ] ],
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
       "voiceover_macos": [
         [ "CTRL_OPT_F3" ],
         [ "CTRL_OPT_F4" ]
@@ -114,8 +116,8 @@
   },
   "read information about listbox popup": {
     "interaction": {
-      "jaws": [ [ "INS_TAB" ] ],
-      "nvda": [ [ "INS_TAB" ] ],
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
       "voiceover_macos": [
         [ "CTRL_OPT_F3" ],
         [ "CTRL_OPT_F4" ]

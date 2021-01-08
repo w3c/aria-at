@@ -9,6 +9,7 @@ export const CTRL_OPT_RIGHT                   = "Control+Option+Right";
 export const CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT = "Control+Option+Right / Ctrl+Option+Left";
 export const CTRL_OPT_A                       = "Control+Option+A";
 export const CTRL_OPT_CMD_J                   = "Control+Option+Command+J";
+export const CTRL_OPT_CMD_P                   = "Control+Option+Command+P";
 export const SHIFT_CTRL_OPT_CMD_J             = "Shift+Control+Option+Command+J";
 export const CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J = "Control+Option+Command+J / Shift+Control+Option+Command+J";
 export const CTRL_OPT_CMD_C_AND_SHIFT_CTRL_OPT_CMD_C = "Control+Option+Command+C / Shift+Control+Option+Command+C";

@@ -30,7 +30,7 @@
     "voiceover_macos"
   ],
   "mode": "interaction",
-  "task": "naavigate to item in menu by typing character",
+  "task": "navigate to item in menu by typing character",
   "specific_user_instruction": "With focus on the 'Action 1' menu item, type a character to navigate to a different menu item.",
   "output_assertions": [
     [
@@ -51,7 +51,15 @@
     ]
   ]
 };
-    const commandJson = {};
+    const commandJson = {
+  "navigate to item in menu by typing character": {
+    "interaction": {
+      "jaws": [ [ "A" ] ],
+      "nvda": [ [ "A" ] ],
+      "voiceover_macos": [ [ "A" ] ]
+    }
+  }
+};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/2021-1-14_171136/menu-button-actions-active-descendant.html");

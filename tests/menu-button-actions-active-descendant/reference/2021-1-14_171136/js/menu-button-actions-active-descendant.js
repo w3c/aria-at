@@ -342,8 +342,6 @@ window.addEventListener('load', function () {
     document.getElementById('action_output').value = node.textContent.trim();
   }
 
-  var menuButtons = document.querySelectorAll('.menu-button-actions');
-  for (var i = 0; i < menuButtons.length; i++) {
-    new MenuButtonActionsActiveDescendant(menuButtons[i], performMenuAction);
-  }
+  var menuButton = document.querySelector('.menu-button-actions');
+  document.defaultView.menuController = new MenuButtonActionsActiveDescendant(menuButton, performMenuAction);
 });

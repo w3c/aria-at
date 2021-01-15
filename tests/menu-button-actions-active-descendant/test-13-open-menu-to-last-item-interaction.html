@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Open a menu to the last item in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menu-button/menu-button-actions-active-descendant.html">
+<link rel="help" href="https://w3c.github.io/aria/#menu">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#menuitem">
+<link rel="help" href="https://w3c.github.io/aria/#aria-activedescendant">
+
+<script>
+  var scripts = {
+		setFocusOnMenuButton: function(testPageDocument){
+			// sets focus on the menu button
+			testPageDocument.querySelector('#menubutton1').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the menu button",
+  "setupTestPage": "setFocusOnMenuButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "open menu to last item",
+  "specific_user_instruction": "With focus on the 'Actions' menu button, open the menu.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'menu' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Actions' is conveyed"
+    ],
+    [
+      "2",
+      "Role of the focused item, 'menu item', is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused item, 'Action 4', is conveyed"
+    ],
+    [
+      "1",
+      "Position of the focused item in the menu (4) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "open menu to last item": {
+    "interaction": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ],
+      "voiceover_macos": [ [ "UP" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-1-14_171136/menu-button-actions-active-descendant.html");
+  });
+</script>
+  

@@ -128,6 +128,23 @@
 	cb.filter = cb.comboboxNode.value;
 	cb.filterOptions();
 	cb.open();
+},	openMenuAndSetFocusToFirstItem: function(testPageDocument){
+	// opens the menu, and sets focus on 'Action 1'
+	testPageDocument.defaultView.menuController.openPopup();
+	testPageDocument.defaultView.menuController.setFocusToFirstMenuitem();
+},	openMenuAndSetFocusToLastItem: function(testPageDocument){
+	// opens the menu, and sets focus on 'Action 4'
+	testPageDocument.defaultView.menuController.openPopup();
+	testPageDocument.defaultView.menuController.setFocusToLastMenuitem();
+},	setFocusAfterMenuButton: function(testPageDocument){
+	// sets focus on a link after the menu button
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeMenuButton: function(testPageDocument){
+	// sets focus on a link before the menu button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnMenuButton: function(testPageDocument){
+	// sets focus on the menu button
+	testPageDocument.querySelector('#menubutton1').focus();
 },	focusonfirstlink: function(testPageDocument){
 	// Move focus to the link just before the meunbar
 	testPageDocument.querySelector('a').focus();
@@ -187,7 +204,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-01-navigate-to-menubar-reading.html?at=jaws">jaws</a></li>
@@ -268,7 +285,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-02-activate-menubar-reading.html?at=jaws">jaws</a></li>
@@ -331,7 +348,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-03-tab-to-menubar-reading.html?at=jaws">jaws</a></li>
@@ -412,7 +429,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-04-navigate-to-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -491,7 +508,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-05-navigate-to-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -542,7 +559,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-06-navigate-to-menuitem-in-menubar-reading.html?at=jaws">jaws</a></li>
@@ -611,7 +628,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-07-navigate-to-menuitem-in-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -690,7 +707,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-08-navigate-to-menuitem-in-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -741,7 +758,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-09-navigate-to-open-menuitem-in-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -820,7 +837,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-10-navigate-to-open-menuitem-in-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -870,7 +887,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-11-open-submenu-of-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -950,7 +967,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-12-open-submenu-of-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1002,7 +1019,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-13-close-submenu-of-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -1080,7 +1097,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-14-close-submenu-of-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1130,7 +1147,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-15-navigate-to-checked-menuitemradio-in-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -1208,7 +1225,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-16-navigate-to-checked-menuitemradio-in-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1259,7 +1276,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-17-navigate-to-unchecked-menuitemradio-in-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -1337,7 +1354,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-18-navigate-to-unchecked-menuitemradio-in-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1388,7 +1405,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-19-navigate-to-unchecked-menuitemcheckbox-in-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -1468,7 +1485,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-20-navigate-to-unchecked-menuitemcheckbox-in-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1520,7 +1537,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-21-navigate-to-checked-menuitemcheckbox-in-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -1606,7 +1623,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-22-navigate-to-checked-menuitemcheckbox-in-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1661,7 +1678,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-23-read-menuitem-in-menubar-reading.html?at=jaws">jaws</a></li>
@@ -1735,7 +1752,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-24-read-menuitem-in-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -1819,7 +1836,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-25-read-menuitem-in-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1873,7 +1890,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-26-read-unchecked-menuitemradio-in-a-group-in-a-submenu-reading.html?at=jaws">jaws</a></li>
@@ -1957,7 +1974,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-27-read-unchecked-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -2041,7 +2058,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-28-read-unchecked-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2095,7 +2112,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-29-read-checked-menuitemradio-in-a-group-in-a-submenu-reading.html?at=jaws">jaws</a></li>
@@ -2179,7 +2196,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-30-read-checked-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -2263,7 +2280,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-31-read-checked-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2317,7 +2334,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-32-read-unchecked-menuitemcheckbox-in-a-group-in-a-submenu-reading.html?at=jaws">jaws</a></li>
@@ -2401,7 +2418,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-33-read-unchecked-menuitemcheckbox-in-a-group-in-a-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -2485,7 +2502,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-34-read-unchecked-menuitemcheckbox-in-a-group-in-a-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2539,7 +2556,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-35-read-checked-menuitemcheckbox-in-a-group-in-a-submenu-reading.html?at=jaws">jaws</a></li>
@@ -2623,7 +2640,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-36-read-checked-menuitemcheckbox-in-a-group-in-a-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -2707,7 +2724,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-37-read-checked-menuitemcheckbox-in-a-group-in-a-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2761,7 +2778,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-38-read-disabled-menuitem-in-a-submenu-reading.html?at=jaws">jaws</a></li>
@@ -2843,7 +2860,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-39-read-disabled-menuitem-in-a-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -2925,7 +2942,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Dec 10 10:41:01 2020 -0800</li>
+        <li>Lasted edited: Fri Jan 15 14:36:19 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-40-read-disabled-menuitem-in-a-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

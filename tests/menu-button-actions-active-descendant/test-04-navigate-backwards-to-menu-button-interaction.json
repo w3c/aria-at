@@ -1,0 +1,21 @@
+{
+  "setup_script_description": "sets focus on a link after the menu button",
+  "setupTestPage": "setFocusAfterMenuButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to menu button",
+  "specific_user_instruction": "Navigate to the menu button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'menu button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Actions' is conveyed"
+    ]
+  ]
+}

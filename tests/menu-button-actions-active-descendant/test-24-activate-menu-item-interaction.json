@@ -1,0 +1,20 @@
+{
+  "setup_script_description": "opens the menu, and sets focus on 'Action 1'",
+  "setupTestPage": "openMenuAndSetFocusToFirstItem",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "activate menu item",
+  "specific_user_instruction": "With focus on the 'Action 1' menu item, activate the menu item.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'menu button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Actions' is conveyed"
+    ]
+  ]
+}

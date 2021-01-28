@@ -1,5 +1,10 @@
 // Keys
 
+export const CTRL_HOME                       = "Control+Home";
+export const CTRL_OPT_HOME                       = "Control+Option+Home";
+export const CTRL_END                       = "Control+End";
+export const CTRL_OPT_END                       = "Control+Option+End";
+export const CTRL_HOME_THEN_DOWN                       = "Control+Home followed by Down Arrow";
 export const ALT_DELETE                       = "Alt+Delete";
 export const ALT_DOWN                         = "Alt+Down";
 export const C_AND_SHIFT_C                    = "C / Shift+C";

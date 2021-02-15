@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the next tab in a tab list in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/tabs/tabs-2/tabs.html">
+<link rel="help" href="https://w3c.github.io/aria/#tab">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+
+<script>
+  var scripts = {
+		setFocusOnFirstTab: function(testPageDocument){
+			// sets focus on the first tab
+			testPageDocument.querySelector('#nils').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the first tab",
+  "setupTestPage": "setFocusOnFirstTab",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate to next tab in tab list",
+  "specific_user_instruction": "With the reading cursor on the 'Nils Frahm' tab, navigate to the next tab.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'tab' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Agnes Obel' is conveyed"
+    ],
+    [
+      "2",
+      "Position of tab in the tab list, 2, is conveyed"
+    ],
+    [
+      "2",
+      "Number of tabs in the tab list, 3, is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to next tab in tab list": {
+    "reading": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [ [ "RIGHT" ] ],
+      "voiceover_macos": [ [ "CTRL_OPT_RIGHT" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-2-15_124757/tabs.html");
+  });
+</script>
+  

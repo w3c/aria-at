@@ -1,0 +1,40 @@
+{
+  "setup_script_description": "sets focus on a link before the tab list",
+  "setupTestPage": "setFocusBeforeTablist",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to tab list",
+  "specific_user_instruction": "Navigate to the tab list. Note: You may need to press certain commands (such as Control+Option+Right Arrow) multiple times to hear all information relating to the tab list.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'tab list' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the tab list, 'Entertainment', is conveyed"
+    ],
+    [
+      "1",
+      "Role of the selected item, 'tab', is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused tab, 'Nils Frahm', is conveyed"
+    ],
+    [
+      "1",
+      "State of the focused tab, 'selected', is conveyed"
+    ],
+    [
+      "1",
+      "Position of the focused tab, 1, is conveyed"
+    ],
+    [
+      "1",
+      "Number of tabs in the tab list, 3, is conveyed"
+    ]
+  ]
+}

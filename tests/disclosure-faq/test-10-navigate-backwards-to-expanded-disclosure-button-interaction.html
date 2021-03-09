@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to an expanded disclosure button in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/disclosure/disclosure-faq.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script>
+  var scripts = {
+		moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
+			// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
+			const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
+			const answer = testPageDocument.querySelector('#faq1_desc');
+			btn.setAttribute('aria-expanded', 'true');
+			answer.style.display = 'block';
+			testPageDocument.querySelector('#afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets the state of the first disclosure button to expanded, and sets focus on a link after the button",
+  "setupTestPage": "moveFocusAfterAndExpandFirstDisclosure",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to expanded disclosure button",
+  "specific_user_instruction": "Navigate to the first disclosure button in the list of frequently asked questions. Note: it should be in the expanded state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name, 'What do I do if I have a permit for an assigned lot, but can't find a space there?', is conveyed"
+    ],
+    [
+      "1",
+      "State of the button (expanded) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to expanded disclosure button": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_B" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ]
+      ],
+      "nvda": [
+        [ "SHIFT_B" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-3_11559/disclosure-faq.html");
+  });
+</script>
+  

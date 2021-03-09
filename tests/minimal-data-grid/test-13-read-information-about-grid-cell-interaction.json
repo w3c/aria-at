@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "sets focus on the first cell of the second row in the grid",
+  "setupTestPage": "setFocusOnFirstDataCell",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read information about grid cell",
+  "specific_user_instruction": "With focus on the first non-header cell in the grid, read information about the cell.",
+  "output_assertions": [
+    [
+      "1",
+      "Text of the first column header ('Date') is conveyed"
+    ],
+    [
+      "1",
+      "Text of the first cell ('01-Jan-16') is conveyed"
+    ],
+    [
+      "1",
+      "coordinates of the first cell (column 1, row 2) are conveyed"
+    ]
+  ]
+}

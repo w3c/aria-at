@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards to a grid in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/grid/dataGrids.html">
+<link rel="help" href="https://w3c.github.io/aria/#grid">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+
+<script>
+  var scripts = {
+		setFocusBeforeGrid: function(testPageDocument){
+			// sets focus on a link before the grid
+			testPageDocument.querySelector('#beforelink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link before the grid",
+  "setupTestPage": "setFocusBeforeGrid",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate forwards to grid",
+  "specific_user_instruction": "Navigate to the first column header in the grid. Note: you may need to press  certain commands (such as Down Arrow) multiple times to hear all information relating to the grid and the first column header.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'grid' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Transactions January 1 through January 6' is conveyed"
+    ],
+    [
+      "1",
+      "Number of columns (5) is conveyed"
+    ],
+    [
+      "1",
+      "Number of rows (7) is conveyed"
+    ],
+    [
+      "1",
+      "Text of the first column header ('Date') is conveyed"
+    ],
+    [
+      "1",
+      "Coordinates of the column header (column 1, row 1) are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards to grid": {
+    "reading": {
+      "jaws": [
+        [ "T_THEN_DOWN" ],
+        [ "DOWN" ]
+      ],
+      "nvda": [ [ "T" ], [ "DOWN" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_T" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-3-8_151542/dataGrids.html");
+  });
+</script>
+  

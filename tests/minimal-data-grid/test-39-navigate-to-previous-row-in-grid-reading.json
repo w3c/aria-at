@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "sets focus on the first cell of the third row in the grid",
+  "setupTestPage": "setFocusOnSixthDataCell",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate to previous row in grid",
+  "specific_user_instruction": "Navigate to the previous row in the grid.",
+  "output_assertions": [
+    [
+      "1",
+      "Text of the column header ('Date') is conveyed"
+    ],
+    [
+      "1",
+      "Text of the cell ('01-Jan-16') is conveyed"
+    ],
+    [
+      "1",
+      "coordinates of the cell (column 1, row 2) are conveyed"
+    ]
+  ]
+}

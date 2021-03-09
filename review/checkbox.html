@@ -55,6 +55,174 @@
           }
         }
       }
+
+      function executeScriptInTestPage(setupScriptName, testPageWindow) {
+        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
+            || testPageWindow.document.readyState !== 'complete'
+        ) {
+          window.setTimeout(() => {
+            executeScriptInTestPage(setupScriptName, testPageWindow);
+          }, 100);
+          return;
+        }
+
+        if (setupScriptName) {
+          var scripts = {
+            	checkFirstCheckbox: function(testPageDocument){
+	// Set aria-checked on first checkbox
+	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
+	// Move focus and set aria-checked on first checkbox
+	const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+	checkbox.focus();
+	checkbox.setAttribute('aria-checked', 'true');
+},	moveFocusToFirstCheckbox: function(testPageDocument){
+	// Move focus to first checkbox
+	testPageDocument.querySelector('[role="checkbox"]').focus();
+},	buttonFocusEmptyCollpased: function(testPageDocument){
+	// Set focus on button
+	// Ensure in collapsed state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.buttonNode.focus();
+},	buttonFocusEmptyExpanded: function(testPageDocument){
+	// Set focus on button
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.buttonNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	comboboxFocusEmptyCollapsed: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' is empty
+	// Ensure in collapsed state
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = '';
+	cb.combobox.focus();
+},	comboboxFocusEmptyExpanded: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'Alabama'
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = '';
+	cb.combobox.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	comboboxValueSetCollapsedState: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'Alabama'
+	// Ensure in collapsed state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = 'Alabama';
+	cb.comboboxNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+},	comboboxValueSetExpandedState: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'a'
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = 'a';
+	cb.comboboxNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	focusonfirstlink: function(testPageDocument){
+	// Move focus to the link just before the meunbar
+	testPageDocument.querySelector('a').focus();
+},	focusonfont: function(testPageDocument){
+	// Move focus to the "Font" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
+},	focusonsize: function(testPageDocument){
+	// Move focus to the "Size" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
+},	focusonstylecolor: function(testPageDocument){
+	// Move focus to the "Style/Color" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+},	focusontextalign: function(testPageDocument){
+	// Move focus to the "Text Align" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},	moveFocusToAddDeliveryAddressButton: function(testPageDocument){
+	// sets focus on the 'Add Delivery Address' button
+	testPageDocument.querySelector('#ex1 > button').focus();
+},	openAddDeliveryAddressDialogAndFocusAddButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+},	openAddDeliveryAddressDialogAndFocusCancelButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_cancel');
+},	openAddDeliveryAddressDialogAndFocusFirstInput: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the first input
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn);
+},	openAddressAddedDialogAndFocusYourProfileLink: function(testPageDocument){
+	// opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'your profile' link inside the second dialog
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+	testPageDocument.defaultView.replaceDialog('dialog3', undefined, 'dialog3_profile');
+},	openVerificationResultDialogAndFocusCloseButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+	testPageDocument.defaultView.openDialog('dialog2', 'dialog1_verify', 'dialog2_close_btn');
+},	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
+	// activates the third tab in the tab list, and sets focus on the tab panel
+	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
+	t.setAttribute('tabindex', '-1');
+	t.setAttribute('aria-selected', 'false');
+	});
+	testPageDocument.querySelectorAll('[role="tabpanel"]').forEach(p => {
+	p.classList.add('is-hidden');
+	});
+	let thirdTab = testPageDocument.querySelector('#complex');
+	let thirdPanel = testPageDocument.querySelector('#complex-complex');
+	thirdTab.removeAttribute('tabindex');
+	thirdTab.setAttribute('aria-selected', 'true');
+	thirdPanel.classList.remove('is-hidden');
+	thirdPanel.focus();
+},	setFocusAfterTabpanel: function(testPageDocument){
+	// sets focus on a link after the tab panel
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeTablist: function(testPageDocument){
+	// sets focus on a link before the tab list
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnFirstTab: function(testPageDocument){
+	// sets focus on the first tab
+	testPageDocument.querySelector('#nils').focus();
+},	setFocusOnSecondTab: function(testPageDocument){
+	// sets focus on the second tab
+	testPageDocument.querySelector('#agnes').focus();
+},	setFocusOnThirdTab: function(testPageDocument){
+	// sets focus on the third tab
+	testPageDocument.querySelector('#complex').focus();
+}
+          };
+
+          scripts[setupScriptName](testPageWindow.document);
+        }
+      }
+
+      function openTestPage(testPageUri, testNumber, setupScriptName) {
+        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
+
+        document.getElementById('open-test-page-' + testNumber).disabled = true;
+
+        // If the window is closed, re-enable open popup button
+        testPageWindow.onunload = function(event) {
+          window.setTimeout(() => {
+            if (testPageWindow.closed) {
+              testPageWindow = undefined;
+              document.getElementById('open-test-page-' + testNumber).disabled = false;
+            }
+          }, 100);
+
+        };
+
+        executeScriptInTestPage(setupScriptName, testPageWindow);
+      }
     </script>
   </head>
   <body>
@@ -74,7 +242,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-01-navigate-to-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -83,12 +251,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-1"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 1, '');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -144,7 +315,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-02-navigate-to-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -153,12 +324,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-2"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 2, '');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -207,7 +381,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-03-navigate-to-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -215,12 +389,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-3"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 3, '');">Open Test 3 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -250,7 +427,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-04-navigate-to-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -259,12 +436,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-4"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 4, 'checkFirstCheckbox');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -330,7 +510,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-05-navigate-to-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -339,12 +519,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-5"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 5, 'checkFirstCheckbox');">Open Test 5 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -403,7 +586,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-06-navigate-to-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -411,12 +594,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-6"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 6, 'checkFirstCheckbox');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -451,7 +637,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-07-operate-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -460,11 +646,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-7"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 7, '');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -511,7 +700,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-08-operate-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -520,11 +709,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-8"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 8, '');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -569,7 +761,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-09-operate-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -577,11 +769,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-9"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 9, '');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -608,7 +803,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-10-read-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -617,12 +812,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-10"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 10, 'moveFocusToFirstCheckbox');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -683,7 +881,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-11-read-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -692,12 +890,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-11"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 11, 'moveFocusToFirstCheckbox');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -758,7 +959,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-12-read-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -766,12 +967,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-12"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 12, 'moveFocusToFirstCheckbox');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -805,7 +1009,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-13-read-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -814,12 +1018,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-13"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 13, 'moveFocusAndCheckFirstCheckbox');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -880,7 +1087,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-14-read-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -889,12 +1096,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-14"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 14, 'moveFocusAndCheckFirstCheckbox');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -955,7 +1165,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-15-read-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -963,12 +1173,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-15"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 15, 'moveFocusAndCheckFirstCheckbox');">Open Test 15 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1002,7 +1215,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1011,12 +1224,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-16"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 16, '');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1063,7 +1279,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1072,12 +1288,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-17"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 17, '');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1124,7 +1343,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1132,12 +1351,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-18"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 18, '');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1165,7 +1387,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-19-navigate-sequentially-through-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1174,13 +1396,16 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-19"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 19, '');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1231,7 +1456,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-20-navigate-sequentially-through-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1239,13 +1464,16 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-20"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 20, '');">Open Test 20 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1274,7 +1502,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-21-navigate-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1283,13 +1511,16 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-21"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 21, '');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1302,7 +1533,7 @@
                    <li>X</li>
                    <li>Shift+X</li>
                    <li>F</li>
-                   <li>Shift+F</li>
+                   <li>F &#x2F; Shift+F</li>
                    <li>Tab</li>
                    <li>Shift+Tab</li>
                </ul>
@@ -1328,7 +1559,7 @@
                    <li>X</li>
                    <li>Shift+X</li>
                    <li>F</li>
-                   <li>Shift+F</li>
+                   <li>F &#x2F; Shift+F</li>
                    <li>Tab</li>
                    <li>Shift+Tab</li>
                </ul>
@@ -1348,7 +1579,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-22-navigate-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1357,13 +1588,16 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-22"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 22, '');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1414,7 +1648,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-23-navigate-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1422,13 +1656,16 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-23"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 23, '');">Open Test 23 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1461,7 +1698,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-24-navigate-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1470,13 +1707,16 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-24"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 24, '');">Open Test 24 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1527,7 +1767,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-25-navigate-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1536,13 +1776,16 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-25"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 25, '');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1593,7 +1836,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-26-navigate-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1601,13 +1844,16 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-26"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 26, '');">Open Test 26 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>

@@ -55,6 +55,174 @@
           }
         }
       }
+
+      function executeScriptInTestPage(setupScriptName, testPageWindow) {
+        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
+            || testPageWindow.document.readyState !== 'complete'
+        ) {
+          window.setTimeout(() => {
+            executeScriptInTestPage(setupScriptName, testPageWindow);
+          }, 100);
+          return;
+        }
+
+        if (setupScriptName) {
+          var scripts = {
+            	checkFirstCheckbox: function(testPageDocument){
+	// Set aria-checked on first checkbox
+	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
+	// Move focus and set aria-checked on first checkbox
+	const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+	checkbox.focus();
+	checkbox.setAttribute('aria-checked', 'true');
+},	moveFocusToFirstCheckbox: function(testPageDocument){
+	// Move focus to first checkbox
+	testPageDocument.querySelector('[role="checkbox"]').focus();
+},	buttonFocusEmptyCollpased: function(testPageDocument){
+	// Set focus on button
+	// Ensure in collapsed state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.buttonNode.focus();
+},	buttonFocusEmptyExpanded: function(testPageDocument){
+	// Set focus on button
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.buttonNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	comboboxFocusEmptyCollapsed: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' is empty
+	// Ensure in collapsed state
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = '';
+	cb.combobox.focus();
+},	comboboxFocusEmptyExpanded: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'Alabama'
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = '';
+	cb.combobox.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	comboboxValueSetCollapsedState: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'Alabama'
+	// Ensure in collapsed state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = 'Alabama';
+	cb.comboboxNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+},	comboboxValueSetExpandedState: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'a'
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = 'a';
+	cb.comboboxNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	focusonfirstlink: function(testPageDocument){
+	// Move focus to the link just before the meunbar
+	testPageDocument.querySelector('a').focus();
+},	focusonfont: function(testPageDocument){
+	// Move focus to the "Font" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
+},	focusonsize: function(testPageDocument){
+	// Move focus to the "Size" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
+},	focusonstylecolor: function(testPageDocument){
+	// Move focus to the "Style/Color" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+},	focusontextalign: function(testPageDocument){
+	// Move focus to the "Text Align" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},	moveFocusToAddDeliveryAddressButton: function(testPageDocument){
+	// sets focus on the 'Add Delivery Address' button
+	testPageDocument.querySelector('#ex1 > button').focus();
+},	openAddDeliveryAddressDialogAndFocusAddButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+},	openAddDeliveryAddressDialogAndFocusCancelButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_cancel');
+},	openAddDeliveryAddressDialogAndFocusFirstInput: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the first input
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn);
+},	openAddressAddedDialogAndFocusYourProfileLink: function(testPageDocument){
+	// opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'your profile' link inside the second dialog
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+	testPageDocument.defaultView.replaceDialog('dialog3', undefined, 'dialog3_profile');
+},	openVerificationResultDialogAndFocusCloseButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+	testPageDocument.defaultView.openDialog('dialog2', 'dialog1_verify', 'dialog2_close_btn');
+},	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
+	// activates the third tab in the tab list, and sets focus on the tab panel
+	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
+	t.setAttribute('tabindex', '-1');
+	t.setAttribute('aria-selected', 'false');
+	});
+	testPageDocument.querySelectorAll('[role="tabpanel"]').forEach(p => {
+	p.classList.add('is-hidden');
+	});
+	let thirdTab = testPageDocument.querySelector('#complex');
+	let thirdPanel = testPageDocument.querySelector('#complex-complex');
+	thirdTab.removeAttribute('tabindex');
+	thirdTab.setAttribute('aria-selected', 'true');
+	thirdPanel.classList.remove('is-hidden');
+	thirdPanel.focus();
+},	setFocusAfterTabpanel: function(testPageDocument){
+	// sets focus on a link after the tab panel
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeTablist: function(testPageDocument){
+	// sets focus on a link before the tab list
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnFirstTab: function(testPageDocument){
+	// sets focus on the first tab
+	testPageDocument.querySelector('#nils').focus();
+},	setFocusOnSecondTab: function(testPageDocument){
+	// sets focus on the second tab
+	testPageDocument.querySelector('#agnes').focus();
+},	setFocusOnThirdTab: function(testPageDocument){
+	// sets focus on the third tab
+	testPageDocument.querySelector('#complex').focus();
+}
+          };
+
+          scripts[setupScriptName](testPageWindow.document);
+        }
+      }
+
+      function openTestPage(testPageUri, testNumber, setupScriptName) {
+        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
+
+        document.getElementById('open-test-page-' + testNumber).disabled = true;
+
+        // If the window is closed, re-enable open popup button
+        testPageWindow.onunload = function(event) {
+          window.setTimeout(() => {
+            if (testPageWindow.closed) {
+              testPageWindow = undefined;
+              document.getElementById('open-test-page-' + testNumber).disabled = false;
+            }
+          }, 100);
+
+        };
+
+        executeScriptInTestPage(setupScriptName, testPageWindow);
+      }
     </script>
   </head>
   <body>
@@ -74,7 +242,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-01-navigate-to-menubar-reading.html?at=jaws">jaws</a></li>
@@ -83,11 +251,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-1"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 1, 'focusonfirstlink');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -152,7 +323,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-02-activate-menubar-reading.html?at=jaws">jaws</a></li>
@@ -161,11 +332,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-2"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 2, '');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -212,7 +386,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-03-tab-to-menubar-reading.html?at=jaws">jaws</a></li>
@@ -221,11 +395,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-3"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 3, 'focusonfirstlink');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -290,7 +467,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-04-navigate-to-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -299,11 +476,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-4"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 4, 'focusonfirstlink');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -366,7 +546,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-05-navigate-to-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -374,11 +554,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-5"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 5, 'focusonfirstlink');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -414,7 +597,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-06-navigate-to-menuitem-in-menubar-reading.html?at=jaws">jaws</a></li>
@@ -423,11 +606,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-6"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 6, '');">Open Test 6 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -480,7 +666,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-07-navigate-to-menuitem-in-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -489,11 +675,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-7"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 7, 'focusonfont');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -556,7 +745,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-08-navigate-to-menuitem-in-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -564,11 +753,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-8"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 8, 'focusonfont');">Open Test 8 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -604,7 +796,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-09-navigate-to-open-menuitem-in-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -613,11 +805,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-9"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 9, 'focusonfont');">Open Test 9 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -680,7 +875,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-10-navigate-to-open-menuitem-in-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -688,11 +883,14 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-10"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 10, 'focusonfont');">Open Test 10 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -727,7 +925,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-11-open-submenu-of-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -736,12 +934,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">ARIA specification: aria-expanded</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-11"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 11, 'focusontextalign');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -804,7 +1005,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-12-open-submenu-of-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -812,12 +1013,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">ARIA specification: aria-expanded</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-12"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 12, 'focusontextalign');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -853,7 +1057,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-13-close-submenu-of-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -862,12 +1066,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">ARIA specification: aria-expanded</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-13"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 13, 'focusontextalign');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -928,7 +1135,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-14-close-submenu-of-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -936,12 +1143,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-expanded">ARIA specification: aria-expanded</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-14"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 14, 'focusontextalign');">Open Test 14 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -975,7 +1185,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-15-navigate-to-checked-menuitemradio-in-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -984,12 +1194,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-15"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 15, 'focusonfont');">Open Test 15 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1050,7 +1263,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-16-navigate-to-checked-menuitemradio-in-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1058,12 +1271,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-16"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 16, 'focusonfont');">Open Test 16 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1098,7 +1314,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-17-navigate-to-unchecked-menuitemradio-in-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -1107,12 +1323,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-17"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 17, 'focusonfont');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1173,7 +1392,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-18-navigate-to-unchecked-menuitemradio-in-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1181,12 +1400,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-18"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 18, 'focusonfont');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1221,7 +1443,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-19-navigate-to-unchecked-menuitemcheckbox-in-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -1230,12 +1452,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-19"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 19, 'focusonstylecolor');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1298,7 +1523,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-20-navigate-to-unchecked-menuitemcheckbox-in-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1306,12 +1531,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-20"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 20, 'focusonstylecolor');">Open Test 20 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1347,7 +1575,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-21-navigate-to-checked-menuitemcheckbox-in-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -1356,12 +1584,15 @@
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-21"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 21, 'focusonstylecolor');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1430,7 +1661,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-22-navigate-to-checked-menuitemcheckbox-in-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1438,12 +1669,15 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-22"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 22, 'focusonstylecolor');">Open Test 22 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1482,7 +1716,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-23-read-menuitem-in-menubar-reading.html?at=jaws">jaws</a></li>
@@ -1491,7 +1725,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
@@ -1499,6 +1733,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-23"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 23, '');">Open Test 23 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1553,7 +1790,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-24-read-menuitem-in-menubar-interaction.html?at=jaws">jaws</a></li>
@@ -1562,7 +1799,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
@@ -1570,6 +1807,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-24"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 24, 'focusonsize');">Open Test 24 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1634,7 +1874,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-25-read-menuitem-in-menubar-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1642,7 +1882,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menubar">ARIA specification: menubar</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
@@ -1650,6 +1890,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-25"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 25, 'focusonsize');">Open Test 25 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1685,7 +1928,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-26-read-unchecked-menuitemradio-in-a-group-in-a-submenu-reading.html?at=jaws">jaws</a></li>
@@ -1694,7 +1937,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
@@ -1702,6 +1945,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-26"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 26, 'focusonfirstlink');">Open Test 26 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1766,7 +2012,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-27-read-unchecked-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -1775,7 +2021,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
@@ -1783,6 +2029,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-27"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 27, 'focusonstylecolor');">Open Test 27 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1847,7 +2096,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-28-read-unchecked-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1855,7 +2104,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
@@ -1863,6 +2112,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-28"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 28, 'focusonstylecolor');">Open Test 28 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1898,7 +2150,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-29-read-checked-menuitemradio-in-a-group-in-a-submenu-reading.html?at=jaws">jaws</a></li>
@@ -1907,7 +2159,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
@@ -1915,6 +2167,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-29"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 29, 'focusonfirstlink');">Open Test 29 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1979,7 +2234,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-30-read-checked-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -1988,7 +2243,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
@@ -1996,6 +2251,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-30"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 30, 'focusonstylecolor');">Open Test 30 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2060,7 +2318,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-31-read-checked-menuitemradio-in-a-group-in-a-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2068,7 +2326,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemradio">ARIA specification: menuitemradio</a></li>
@@ -2076,6 +2334,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-31"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 31, 'focusonstylecolor');">Open Test 31 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2111,7 +2372,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-32-read-unchecked-menuitemcheckbox-in-a-group-in-a-submenu-reading.html?at=jaws">jaws</a></li>
@@ -2120,7 +2381,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
@@ -2128,6 +2389,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-32"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 32, 'focusonfirstlink');">Open Test 32 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2192,7 +2456,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-33-read-unchecked-menuitemcheckbox-in-a-group-in-a-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -2201,7 +2465,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
@@ -2209,6 +2473,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-33"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 33, 'focusonstylecolor');">Open Test 33 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2273,7 +2540,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-34-read-unchecked-menuitemcheckbox-in-a-group-in-a-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2281,7 +2548,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
@@ -2289,6 +2556,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-34"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 34, 'focusonstylecolor');">Open Test 34 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2324,7 +2594,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-35-read-checked-menuitemcheckbox-in-a-group-in-a-submenu-reading.html?at=jaws">jaws</a></li>
@@ -2333,7 +2603,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
@@ -2341,6 +2611,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-35"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 35, 'focusonfirstlink');">Open Test 35 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2405,7 +2678,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-36-read-checked-menuitemcheckbox-in-a-group-in-a-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -2414,7 +2687,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
@@ -2422,6 +2695,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-36"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 36, 'focusonstylecolor');">Open Test 36 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2486,7 +2762,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-37-read-checked-menuitemcheckbox-in-a-group-in-a-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2494,7 +2770,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitemcheckbox">ARIA specification: menuitemcheckbox</a></li>
@@ -2502,6 +2778,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-37"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 37, 'focusonstylecolor');">Open Test 37 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2537,7 +2816,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-38-read-disabled-menuitem-in-a-submenu-reading.html?at=jaws">jaws</a></li>
@@ -2546,7 +2825,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
@@ -2554,6 +2833,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-38"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 38, 'focusonfirstlink');">Open Test 38 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2616,7 +2898,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-39-read-disabled-menuitem-in-a-submenu-interaction.html?at=jaws">jaws</a></li>
@@ -2625,7 +2907,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
@@ -2633,6 +2915,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-39"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 39, 'focusonsize');">Open Test 39 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2695,7 +2980,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Thu Jan 7 16:22:53 2021 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menubar-editor/test-40-read-disabled-menuitem-in-a-submenu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2703,7 +2988,7 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
         </li>
         <li>Relevant Specifications:
           <ul>
-              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-2&#x2F;menubar-2.html">APG example: menubar&#x2F;menubar-2&#x2F;menubar-2.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menubar&#x2F;menubar-editor.html">APG example: menubar&#x2F;menubar-editor.html</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-label">ARIA specification: aria-label</a></li>
               <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
@@ -2711,6 +2996,9 @@ Navigate to &#39;Italic&#39; menu item checkbox using the following commands:
           </ul>
         </li>
       </ul>
+
+      <button id="open-test-page-40"
+        onclick="openTestPage('../tests&#x2F;menubar-editor&#x2F;reference&#x2F;2020-11-23_175528&#x2F;menubar-editor.html', 40, 'focusonsize');">Open Test 40 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>

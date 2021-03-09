@@ -6,18 +6,64 @@
 <link rel="help" href="https://w3c.github.io/aria/#option">
 <link rel="help" href="https://w3c.github.io/aria/#aria-selected">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		openListboxToHuckleberry: function(testPageDocument){
+			// sets focus on and expands the Combobox, and sets the focused option to 'Huckleberry'
+			testPageDocument.querySelector('[role="combobox"]').focus();
+			testPageDocument.defaultView.selectController.updateMenuState(true);
+			testPageDocument.defaultView.selectController.onOptionChange(12);
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-32-navigate-backwards-by-ten-options-in-listbox-popup-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on and expands the Combobox, and sets the focused option to 'Huckleberry'",
+  "setupTestPage": "openListboxToHuckleberry",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards by ten options in listbox popup",
+  "specific_user_instruction": "with focus on the listbox popup, navigate backwards by ten options.",
+  "output_assertions": [
+    [
+      "1",
+      "Text of the focused option in the popup ('Banana') is conveyed"
+    ],
+    [
+      "2",
+      "State of the focused option in the popup (not selected) is conveyed"
+    ],
+    [
+      "1",
+      "Position of the focused option in the popup (3) is conveyed"
+    ],
+    [
+      "1",
+      "Number of options in the popup (13) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards by ten options in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "PAGE_UP" ] ],
+      "nvda": [ [ "PAGE_UP" ] ],
+      "voiceover_macos": [ [ "PAGE_UP" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-select-only.html");
   });
 </script>

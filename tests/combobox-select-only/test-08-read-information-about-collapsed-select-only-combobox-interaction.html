@@ -7,18 +7,69 @@
 <link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		moveFocusToCombobox: function(testPageDocument){
+			// sets focus on the combobox
+			testPageDocument.querySelector('[role="combobox"]').focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-08-read-information-about-collapsed-select-only-combobox-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the combobox",
+  "setupTestPage": "moveFocusToCombobox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read information about collapsed select-only combobox",
+  "specific_user_instruction": "With focus on the combobox, read information about the combobox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Favorite Fruit' is conveyed"
+    ],
+    [
+      "1",
+      "Text of the selected option ('Choose a Fruit') is conveyed"
+    ],
+    [
+      "1",
+      "State of the combobox (collapsed) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about collapsed select-only combobox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-select-only.html");
   });
 </script>

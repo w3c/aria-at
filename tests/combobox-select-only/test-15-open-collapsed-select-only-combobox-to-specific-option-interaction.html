@@ -9,18 +9,74 @@
 <link rel="help" href="https://w3c.github.io/aria/#option">
 <link rel="help" href="https://w3c.github.io/aria/#aria-selected">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		moveFocusToCombobox: function(testPageDocument){
+			// sets focus on the combobox
+			testPageDocument.querySelector('[role="combobox"]').focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-15-open-collapsed-select-only-combobox-to-specific-option-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the combobox",
+  "setupTestPage": "moveFocusToCombobox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "open collapsed select-only combobox to specific option",
+  "specific_user_instruction": "With focus on the combobox, open the combobox and set focus on a specific option by typing a printable character.",
+  "output_assertions": [
+    [
+      "1",
+      "State of the combobox (expanded) is conveyed"
+    ],
+    [
+      "1",
+      "Role of the popup ('listbox') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the popup ('Favorite Fruit') is conveyed"
+    ],
+    [
+      "1",
+      "Text of the focused option in the popup ('Apple') is conveyed"
+    ],
+    [
+      "2",
+      "State of the focused option in the popup (not selected) is conveyed"
+    ],
+    [
+      "1",
+      "Position of the focused option in the popup (2) is conveyed"
+    ],
+    [
+      "1",
+      "Number of options in the popup (13) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "open collapsed select-only combobox to specific option": {
+    "interaction": {
+      "jaws": [ [ "A" ] ],
+      "nvda": [ [ "A" ] ],
+      "voiceover_macos": [ [ "A" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-select-only.html");
   });
 </script>

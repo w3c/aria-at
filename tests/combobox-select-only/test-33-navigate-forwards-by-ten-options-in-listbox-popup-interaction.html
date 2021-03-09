@@ -6,18 +6,62 @@
 <link rel="help" href="https://w3c.github.io/aria/#option">
 <link rel="help" href="https://w3c.github.io/aria/#aria-selected">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		openListbox: function(testPageDocument){
+			// sets focus on and expands the Combobox
+			testPageDocument.querySelector('[role="combobox"]').focus();
+			testPageDocument.defaultView.selectController.updateMenuState(true);
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-33-navigate-forwards-by-ten-options-in-listbox-popup-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on and expands the Combobox",
+  "setupTestPage": "openListbox",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards by ten options in listbox popup",
+  "specific_user_instruction": "with focus on the listbox popup, navigate forwards by ten options.",
+  "output_assertions": [
+    [
+      "1",
+      "Text of the focused option in the popup ('Grape') is conveyed"
+    ],
+    [
+      "2",
+      "State of the focused option in the popup (not selected) is conveyed"
+    ],
+    [
+      "1",
+      "Position of the focused option in the popup (11) is conveyed"
+    ],
+    [
+      "1",
+      "Number of options in the popup (13) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards by ten options in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "PAGE_DOWN" ] ],
+      "nvda": [ [ "PAGE_DOWN" ] ],
+      "voiceover_macos": [ [ "PAGE_DOWN" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-select-only.html");
   });
 </script>

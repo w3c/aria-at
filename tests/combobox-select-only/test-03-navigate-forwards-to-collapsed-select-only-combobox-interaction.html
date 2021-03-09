@@ -7,18 +7,80 @@
 <link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		moveFocusBeforeCombobox: function(testPageDocument){
+			// sets focus on a link before the Combobox
+			testPageDocument.querySelector('#beforelink').focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-03-navigate-forwards-to-collapsed-select-only-combobox-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link before the Combobox",
+  "setupTestPage": "moveFocusBeforeCombobox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to collapsed select-only combobox",
+  "specific_user_instruction": "Navigate to the Combobox. Note: it should be in the collapsed state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Favorite Fruit' is conveyed"
+    ],
+    [
+      "1",
+      "Text of the selected option ('Choose a Fruit') is conveyed"
+    ],
+    [
+      "1",
+      "State of the combobox (collapsed) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards to collapsed select-only combobox": {
+    "reading": {
+      "jaws": [
+        [ "F" ],
+        [ "C" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ],
+      "nvda": [
+        [ "F" ],
+        [ "C" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "TAB" ],
+        [ "CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/combobox-select-only.html");
   });
 </script>

@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Open a nested modal dialog in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html">
+<link rel="help" href="https://w3c.github.io/aria/#dialog">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-describedby">
+
+<script>
+  var scripts = {
+		openAddDeliveryAddressDialogAndFocusAddButton: function(testPageDocument){
+			// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button
+			const btn = testPageDocument.querySelector('#ex1 > button');
+			testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusAddButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "open nested modal dialog",
+  "specific_user_instruction": "With the reading cursor on the 'Add' button inside a modal dialog, open the nested 'Address Added' dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'dialog' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Address Added' is conveyed"
+    ],
+    [
+      "1",
+      "Description of the dialog ('The address you provided has been added to your list of delivery addresses. It is ready for immediate use. If you wish to remove it, you can do so from your profile.') is conveyed"
+    ],
+    [
+      "1",
+      "Role of the focused element ('button') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused element ('OK') is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "open nested modal dialog": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-17_13353/dialog.html");
+  });
+</script>
+  

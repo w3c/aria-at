@@ -1,0 +1,29 @@
+{
+  "setup_script_description": "sets focus on the 'Add Delivery Address' button",
+  "setupTestPage": "moveFocusToAddDeliveryAddressButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "open modal dialog",
+  "specific_user_instruction": "With focus on the 'Add Delivery Address' button, open the dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'dialog' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Add Delivery Address' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused input ('Street') is conveyed"
+    ],
+    [
+      "1",
+      "The ability to enter text into the focused input is conveyed"
+    ]
+  ]
+}

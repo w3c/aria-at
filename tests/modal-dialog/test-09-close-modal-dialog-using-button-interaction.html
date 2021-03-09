@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Close a modal dialog using a button</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html">
+
+<script>
+  var scripts = {
+		openAddDeliveryAddressDialogAndFocusCancelButton: function(testPageDocument){
+			// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button
+			const btn = testPageDocument.querySelector('#ex1 > button');
+			testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_cancel');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusCancelButton",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "close modal dialog using button",
+  "specific_user_instruction": "With focus on the 'Cancel' button inside a modal dialog, press the button to close the dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role of the focused element ('button') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused element ('Add Delivery Address') is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "close modal dialog using button": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-17_13353/dialog.html");
+  });
+</script>
+  

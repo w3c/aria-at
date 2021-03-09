@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Open a nested modal dialog using a link in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html">
+<link rel="help" href="https://w3c.github.io/aria/#dialog">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-describedby">
+
+<script>
+  var scripts = {
+		openAddressAddedDialogAndFocusYourProfileLink: function(testPageDocument){
+			// opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'your profile' link inside the second dialog
+			const btn = testPageDocument.querySelector('#ex1 > button');
+			testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+			testPageDocument.defaultView.replaceDialog('dialog3', undefined, 'dialog3_profile');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'your profile' link inside the second dialog",
+  "setupTestPage": "openAddressAddedDialogAndFocusYourProfileLink",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "open nested modal dialog using link",
+  "specific_user_instruction": "With the reading cursor on the 'your profile' link inside a modal dialog, open the nested 'End of the Road!' dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'dialog' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'End of the Road!' is conveyed"
+    ],
+    [
+      "1",
+      "Description of the dialog ('You activated a fake link or button that goes nowhere! The link or button is present for demonstration purposes only.') is conveyed"
+    ],
+    [
+      "1",
+      "Role of the focused element ('button') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused element ('Close') is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "open nested modal dialog using link": {
+    "reading": {
+      "jaws": [ [ "ENTER" ] ],
+      "nvda": [ [ "ENTER" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "ENTER" ] ],
+      "nvda": [ [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-17_13353/dialog.html");
+  });
+</script>
+  

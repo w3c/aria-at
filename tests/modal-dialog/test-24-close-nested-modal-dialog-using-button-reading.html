@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Close a nested modal dialog using a button in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html">
+<link rel="help" href="https://w3c.github.io/aria/#dialog">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+
+<script>
+  var scripts = {
+		openVerificationResultDialogAndFocusCloseButton: function(testPageDocument){
+			// opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog
+			const btn = testPageDocument.querySelector('#ex1 > button');
+			testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+			testPageDocument.defaultView.openDialog('dialog2', 'dialog1_verify', 'dialog2_close_btn');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog",
+  "setupTestPage": "openVerificationResultDialogAndFocusCloseButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "close nested modal dialog using button",
+  "specific_user_instruction": "With the reading cursor on the 'Close' button inside a modal dialog, press the button to close the dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'dialog' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Add Delivery Address' is conveyed"
+    ],
+    [
+      "1",
+      "Role of the focused element ('button') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused element ('Verify Address') is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "close nested modal dialog using button": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-17_13353/dialog.html");
+  });
+</script>
+  

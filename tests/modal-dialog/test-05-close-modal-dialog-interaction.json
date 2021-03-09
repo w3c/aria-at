@@ -1,0 +1,21 @@
+{
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the first input",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusFirstInput",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "close modal dialog",
+  "specific_user_instruction": "With focus on an input inside a modal dialog, close the dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role of the focused element ('button') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused element ('Add Delivery Address') is conveyed"
+    ]
+  ]
+}

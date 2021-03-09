@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Activate a menu item</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menu-button/menu-button-actions.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-haspopup">
+
+<script>
+  var scripts = {
+		openMenuAndSetFocusToFirstItem: function(testPageDocument){
+			// opens the menu, and sets focus on 'Action 1'
+			testPageDocument.defaultView.menuController.openPopup();
+			testPageDocument.defaultView.menuController.setFocusToFirstMenuitem();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "opens the menu, and sets focus on 'Action 1'",
+  "setupTestPage": "openMenuAndSetFocusToFirstItem",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "activate menu item",
+  "specific_user_instruction": "With focus on the 'Action 1' menu item, activate the menu item.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'menu button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Actions' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "activate menu item": {
+    "interaction": {
+      "jaws": [ [ "ENTER" ] ],
+      "nvda": [ [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-1-14_12348/menu-button-actions.html");
+  });
+</script>
+  

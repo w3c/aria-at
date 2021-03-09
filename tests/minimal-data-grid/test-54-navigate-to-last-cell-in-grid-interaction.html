@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the last cell in a grid in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/grid/dataGrids.html">
+
+<script>
+  var scripts = {
+		setFocusOnFirstDataCell: function(testPageDocument){
+			// sets focus on the first cell of the second row in the grid
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the first cell of the second row in the grid",
+  "setupTestPage": "setFocusOnFirstDataCell",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate to last cell in grid",
+  "specific_user_instruction": "Navigate to the last cell in the grid.",
+  "output_assertions": [
+    [
+      "1",
+      "Text of the column header ('Balance') is conveyed"
+    ],
+    [
+      "1",
+      "Text of the cell ('$995,532.00') is conveyed"
+    ],
+    [
+      "1",
+      "coordinates of the cell (column 5, row 7) are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to last cell in grid": {
+    "interaction": {
+      "jaws": [ [ "CTRL_END" ] ],
+      "nvda": [ [ "CTRL_END" ] ],
+      "voiceover_macos": [ [ "CTRL_END" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-3-8_151542/dataGrids.html");
+  });
+</script>
+  

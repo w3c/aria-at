@@ -152,31 +152,35 @@
 },	setFocusOnFifthDataCell: function(testPageDocument){
 	// sets focus on the fifth cell of the second row in the grid
 	testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 4);
+	testPageDocument.defaultView.ex1Grid.focusCell(0, 4);
 },	setFocusOnFirstDataCell: function(testPageDocument){
 	// sets focus on the first cell of the second row in the grid
-	testPageDocument.defaultView.setTimeout(() => {
 	testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 0);
 	testPageDocument.defaultView.ex1Grid.focusCell(0, 0);
-	}, 1000);
-	// testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 0);
 },	setFocusOnFirstLinkedCell: function(testPageDocument){
 	// sets focus on the third cell of the second row in the grid
 	testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 2);
+	testPageDocument.defaultView.ex1Grid.focusCell(0, 2);
 },	setFocusOnFourthDataCell: function(testPageDocument){
 	// sets focus on the fourth cell of the second row in the grid
 	testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 3);
+	testPageDocument.defaultView.ex1Grid.focusCell(0, 3);
 },	setFocusOnLastDataCell: function(testPageDocument){
 	// sets focus on the fifth cell of the seventh row in the grid
-	testPageDocument.defaultView.ex1Grid.setFocusPointer(6, 4);
+	testPageDocument.defaultView.ex1Grid.setFocusPointer(5, 4);
+	testPageDocument.defaultView.ex1Grid.focusCell(5, 4);
 },	setFocusOnSecondDataCell: function(testPageDocument){
 	// sets focus on the second cell of the second row in the grid
 	testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 1);
+	testPageDocument.defaultView.ex1Grid.focusCell(0, 1);
 },	setFocusOnSecondLinkedCell: function(testPageDocument){
 	// sets focus on the third cell of the third row in the grid
 	testPageDocument.defaultView.ex1Grid.setFocusPointer(1, 2);
+	testPageDocument.defaultView.ex1Grid.focusCell(1, 2);
 },	setFocusOnSixthDataCell: function(testPageDocument){
 	// sets focus on the first cell of the third row in the grid
 	testPageDocument.defaultView.ex1Grid.setFocusPointer(1, 0);
+	testPageDocument.defaultView.ex1Grid.focusCell(1, 0);
 },	moveFocusToAddDeliveryAddressButton: function(testPageDocument){
 	// sets focus on the 'Add Delivery Address' button
 	testPageDocument.querySelector('#ex1 > button').focus();

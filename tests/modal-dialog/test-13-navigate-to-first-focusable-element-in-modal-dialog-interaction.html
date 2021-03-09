@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the first focusable element in a modal dialog</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html">
+
+<script>
+  var scripts = {
+		openAddDeliveryAddressDialogAndFocusCancelButton: function(testPageDocument){
+			// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button
+			const btn = testPageDocument.querySelector('#ex1 > button');
+			testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_cancel');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusCancelButton",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to first focusable element in modal dialog",
+  "specific_user_instruction": "With focus on the last focusable element inside a modal dialog, navigate to the first focusable element in the same dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Name 'Street' is conveyed"
+    ],
+    [
+      "1",
+      "The ability to enter text is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to first focusable element in modal dialog": {
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [ [ "TAB" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-17_13353/dialog.html");
+  });
+</script>
+  

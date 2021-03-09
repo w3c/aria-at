@@ -1,0 +1,32 @@
+{
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusAddButton",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "open nested modal dialog",
+  "specific_user_instruction": "With focus on the 'Add' button inside a modal dialog, open the nested 'Address Added' dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'dialog' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Address Added' is conveyed"
+    ],
+    [
+      "1",
+      "Description of the dialog ('The address you provided has been added to your list of delivery addresses. It is ready for immediate use. If you wish to remove it, you can do so from your profile.') is conveyed"
+    ],
+    [
+      "1",
+      "Role of the focused element ('button') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused element ('OK') is conveyed"
+    ]
+  ]
+}

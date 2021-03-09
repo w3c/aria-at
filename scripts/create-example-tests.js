@@ -24,11 +24,8 @@ const createExampleTests = function (directory) {
   const referencesFile = path.join(testDirectory, 'data', 'references.csv');
   const javascriptDirectory = path.join(testDirectory, 'data', 'js');
   const indexFile = path.join(testDirectory,'index.html');
-  const scriptsFile = path.join(testDirectory,'scripts.js');
 
   const keyDefs = {};
-
-  let scripts = [];
 
   const support = JSON.parse(fse.readFileSync(path.join(rootDirectory, 'tests', 'support.json')));
   let allATKeys = [];
@@ -171,7 +168,6 @@ const createExampleTests = function (directory) {
 
     });
 
-  //  fs.writeFileSync(fname, JSON.stringify(data));
     fs.writeFileSync(fname, beautify(data, null, 2, 40));
 
     return data;
@@ -181,6 +177,7 @@ const createExampleTests = function (directory) {
   // Create Test File
 
   function createTestFile (test, refs, commands) {
+    let scripts = [];
 
 
     function getModeValue(value) {
@@ -292,13 +289,13 @@ const createExampleTests = function (directory) {
             const lines = data.split(/\r?\n/);
             lines.forEach((line) => {
               if (line.trim().length)
-              script += '\t' + line.trim() + '\n';
+              script += '\t\t\t' + line.trim() + '\n';
             });
         } catch (err) {
             console.error(err);
         }
 
-        scripts.push(`\t${scriptName}: function(testPageDocument){\n${script}}`);
+        scripts.push(`\t\t${scriptName}: function(testPageDocument){\n${script}\t\t}`);
       }
 
       return script;
@@ -314,6 +311,13 @@ const createExampleTests = function (directory) {
       }
 
       return str;
+    }
+
+    function getScripts() {
+      let js = 'var scripts = {\n';
+      js += scripts.join(',\n');
+      js += '\n\t};';
+      return js;
     }
 
     let task = getTask(test.task);
@@ -368,23 +372,34 @@ const createExampleTests = function (directory) {
 
     fse.writeFileSync(testJSONFileAbsolute, JSON.stringify(testData, null, 2), 'utf8');
 
+    function getTestJson() {
+      return JSON.stringify(testData, null, 2);
+    }
+
+    function getCommandsJson() {
+      return beautify({[task]: commands[task]}, null, 2, 40);
+    }
+
     let testHTML = `
 <!DOCTYPE html>
 <meta charset="utf-8">
 <title>${test.title}</title>
 ${references}
-<script src="scripts.js"></script>
+<script>
+  ${getScripts()}
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["${testJSONFileName}", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = ${getTestJson()};
+    const commandJson = ${getCommandsJson()};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("${refs.reference}");
   });
 </script>
@@ -501,13 +516,6 @@ ${rows}
      fse.writeFileSync(indexFile, indexHTML, 'utf8');
   }
 
-  function createScriptsFile() {
-    let js = 'var scripts = {\n';
-    js += scripts.join(',\n');
-    js += '\n};';
-    fse.writeFileSync(scriptsFile, js, 'utf8');
-  }
-
   // Process CSV files
 
   var refs = {};
@@ -554,7 +562,6 @@ ${rows}
               console.log('Deleting current test files...')
               deleteFilesFromDirectory(testDirectory);
 
-              console.log('Creating AT commands file')
               atCommands = createATCommandFile(atCommands);
 
               console.log('Creating the following test files: ')
@@ -570,8 +577,6 @@ ${rows}
               });
 
               createIndexFile(indexOfURLs);
-
-              createScriptsFile();
 
               if (errorCount) {
                 console.log('\n\n*** ' + errorCount + ' Errors in tests and/or commands ***');

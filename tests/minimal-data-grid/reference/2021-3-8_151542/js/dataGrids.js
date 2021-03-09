@@ -18,7 +18,7 @@ window.addEventListener('load', function () {
   // Initialize Example 1 Grid (if it is present in the DOM)
   var ex1GridElement = document.getElementById('ex1-grid');
   if (ex1GridElement) {
-    new aria.Grid(ex1GridElement);
+    var ex1Grid = new aria.Grid(ex1GridElement);
   }
 
   // Initialize Example 2 Grid (if it is present in the DOM)

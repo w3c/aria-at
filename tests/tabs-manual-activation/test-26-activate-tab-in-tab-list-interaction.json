@@ -1,0 +1,16 @@
+{
+  "setup_script_description": "sets focus on the second tab",
+  "setupTestPage": "setFocusOnSecondTab",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "activate tab in tab list",
+  "specific_user_instruction": "With focus on the 'Agnes Obel' tab, activate the tab.",
+  "output_assertions": [
+    [
+      "1",
+      "State of the tab, 'selected', is conveyed"
+    ]
+  ]
+}

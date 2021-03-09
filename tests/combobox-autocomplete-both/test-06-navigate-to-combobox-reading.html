@@ -4,19 +4,94 @@
 <title>Navigate to filled, editable, collapsed  combobox in reading mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		comboboxValueSetCollapsedState: function(testPageDocument){
+			// Set focus on combobox
+			// Set value of 'combobox' to 'Alabama'
+			// Ensure in collapsed state.
+			var cb = testPageDocument.comboboxAutocomplete;
+			cb.comboboxNode.value = 'Alabama';
+			cb.comboboxNode.focus();
+			cb.filter = cb.comboboxNode.value;
+			cb.filterOptions();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-06-navigate-to-combobox-reading.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
-    displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "Set focus on combobox; set value of 'combobox' to 'Alabama'; ensure in collapsed state.",
+  "setupTestPage": "comboboxValueSetCollapsedState",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate to combobox",
+  "specific_user_instruction": "Navigate to the 'State' combobox",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'State' is conveyed"
+    ],
+    [
+      "1",
+      "Ability to enter text is conveyed"
+    ],
+    [
+      "1",
+      "Value 'Alabama' is conveyed."
+    ],
+    [
+      "2",
+      "Collapsed state is conveyed."
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to combobox": {
+    "reading": {
+      "jaws": [
+        [ "C_AND_SHIFT_C" ],
+        [ "E_AND_SHIFT_E" ],
+        [ "F_AND_SHIFT_F" ]
+      ],
+      "nvda": [
+        [ "C_AND_SHIFT_C" ],
+        [ "E_AND_SHIFT_E" ],
+        [ "F_AND_SHIFT_F" ]
+      ],
+      "voiceover_macos": [
+        [ "F_AND_SHIFT_F" ],
+        [ "LEFT_AND_RIGHT" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB_AND_SHIFT_TAB" ],
+        [
+          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+        ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175618/combobox-autocomplete-both.html");
   });
 </script>
   

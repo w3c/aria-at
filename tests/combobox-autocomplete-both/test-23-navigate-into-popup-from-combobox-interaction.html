@@ -4,19 +4,67 @@
 <title>Navigate into popup from empty combobox in interaction mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		comboboxFocusEmptyCollapsed: function(testPageDocument){
+			// Set focus on combobox
+			// Set value of 'combobox' is empty
+			// Ensure in collapsed state
+			var cb = testPageDocument.comboboxAutocomplete;
+			cb.comboboxNode.value = '';
+			cb.combobox.focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-23-navigate-into-popup-from-combobox-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
-    displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "Set focus on combobox; ensure it is empty.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate into popup from combobox",
+  "specific_user_instruction": "Navigate into the popup from the empty combobox",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'listbox' is conveyed for the popup."
+    ],
+    [
+      "2",
+      "Name 'States' is conveyed for the popup."
+    ],
+    [
+      "1",
+      "Name of focused option is conveyed; e.g.; 'Alabama' if first option; 'Wyoming' if last option."
+    ],
+    [
+      "1",
+      "Position in set of the focused option is conveyed; e.g.; 1 of 56 if first option; 56 of 56 if last option."
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate into popup from combobox": {
+    "interaction": {
+      "jaws": [ [ "DOWN" ], [ "UP" ] ],
+      "nvda": [ [ "DOWN" ], [ "UP" ] ],
+      "voiceover_macos": [ [ "DOWN" ], [ "UP" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175618/combobox-autocomplete-both.html");
   });
 </script>
   

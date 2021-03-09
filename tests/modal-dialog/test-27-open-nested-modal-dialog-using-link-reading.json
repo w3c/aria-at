@@ -1,0 +1,33 @@
+{
+  "setup_script_description": "opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'your profile' link inside the second dialog",
+  "setupTestPage": "openAddressAddedDialogAndFocusYourProfileLink",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "open nested modal dialog using link",
+  "specific_user_instruction": "With the reading cursor on the 'your profile' link inside a modal dialog, open the nested 'End of the Road!' dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'dialog' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'End of the Road!' is conveyed"
+    ],
+    [
+      "1",
+      "Description of the dialog ('You activated a fake link or button that goes nowhere! The link or button is present for demonstration purposes only.') is conveyed"
+    ],
+    [
+      "1",
+      "Role of the focused element ('button') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused element ('Close') is conveyed"
+    ]
+  ]
+}

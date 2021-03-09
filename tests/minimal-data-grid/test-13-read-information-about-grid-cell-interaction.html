@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read information about a grid cell in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/grid/dataGrids.html">
+
+<script>
+  var scripts = {
+		setFocusOnFirstDataCell: function(testPageDocument){
+			// sets focus on the first cell of the second row in the grid
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the first cell of the second row in the grid",
+  "setupTestPage": "setFocusOnFirstDataCell",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read information about grid cell",
+  "specific_user_instruction": "With focus on the first non-header cell in the grid, read information about the cell.",
+  "output_assertions": [
+    [
+      "1",
+      "Text of the first column header ('Date') is conveyed"
+    ],
+    [
+      "1",
+      "Text of the first cell ('01-Jan-16') is conveyed"
+    ],
+    [
+      "1",
+      "coordinates of the first cell (column 1, row 2) are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about grid cell": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-3-8_151542/dataGrids.html");
+  });
+</script>
+  

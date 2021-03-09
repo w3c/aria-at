@@ -1,0 +1,3946 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <title>Test plan review for pattern: minimal-data-grid</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 1em;
+      }
+
+      table, td, th {
+        border: 1px solid black;
+      }
+
+      td {
+        padding: .5em;
+      }
+
+    </style>
+    <script>
+      const filterATs = function(button) {
+        const val = button.value;
+
+        if (val === 'all') {
+          for (let at of document.querySelectorAll('input')) {
+            if (at.value !== 'all') {
+              for (let result of document.querySelectorAll(`.${at.value}`)) {
+                result.style.display = 'block';
+              }
+              at.checked = false;
+            }
+            else {
+              at.checked = true;
+            }
+          }
+        }
+        else {
+          for (let at of document.querySelectorAll('input')) {
+
+            if (at.value === val) {
+              at.checked = true;
+            }
+            else {
+              at.checked = false;
+            }
+
+            for (let result of document.querySelectorAll(`.${at.value}`)) {
+              result.style.display = 'none';
+            }
+            for (let result of document.querySelectorAll(`.${val}`)) {
+              result.style.display = 'block';
+            }
+
+          }
+        }
+      }
+
+      function executeScriptInTestPage(setupScriptName, testPageWindow) {
+        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
+            || testPageWindow.document.readyState !== 'complete'
+        ) {
+          window.setTimeout(() => {
+            executeScriptInTestPage(setupScriptName, testPageWindow);
+          }, 100);
+          return;
+        }
+
+        if (setupScriptName) {
+          var scripts = {
+            	checkFirstCheckbox: function(testPageDocument){
+	// Set aria-checked on first checkbox
+	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
+	// Move focus and set aria-checked on first checkbox
+	const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+	checkbox.focus();
+	checkbox.setAttribute('aria-checked', 'true');
+},	moveFocusToFirstCheckbox: function(testPageDocument){
+	// Move focus to first checkbox
+	testPageDocument.querySelector('[role="checkbox"]').focus();
+},	buttonFocusEmptyCollpased: function(testPageDocument){
+	// Set focus on button
+	// Ensure in collapsed state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.buttonNode.focus();
+},	buttonFocusEmptyExpanded: function(testPageDocument){
+	// Set focus on button
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.buttonNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	comboboxFocusEmptyCollapsed: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' is empty
+	// Ensure in collapsed state
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = '';
+	cb.combobox.focus();
+},	comboboxFocusEmptyExpanded: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'Alabama'
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = '';
+	cb.combobox.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	comboboxValueSetCollapsedState: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'Alabama'
+	// Ensure in collapsed state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = 'Alabama';
+	cb.comboboxNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+},	comboboxValueSetExpandedState: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'a'
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = 'a';
+	cb.comboboxNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	focusonfirstlink: function(testPageDocument){
+	// Move focus to the link just before the meunbar
+	testPageDocument.querySelector('a').focus();
+},	focusonfont: function(testPageDocument){
+	// Move focus to the "Font" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
+},	focusonsize: function(testPageDocument){
+	// Move focus to the "Size" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
+},	focusonstylecolor: function(testPageDocument){
+	// Move focus to the "Style/Color" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+},	focusontextalign: function(testPageDocument){
+	// Move focus to the "Text Align" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},	setFocusAfterGrid: function(testPageDocument){
+	// sets focus on a link after the grid
+},	setFocusBeforeGrid: function(testPageDocument){
+	// sets focus on a link before the grid
+},	setFocusOnFifthDataCell: function(testPageDocument){
+	// sets focus on the fifth cell of the second row in the grid
+},	setFocusOnFirstDataCell: function(testPageDocument){
+	// sets focus on the first cell of the second row in the grid
+},	setFocusOnFirstLinkedCell: function(testPageDocument){
+	// sets focus on the third cell of the second row in the grid
+},	setFocusOnFourthDataCell: function(testPageDocument){
+	// sets focus on the fourth cell of the second row in the grid
+},	setFocusOnLastDataCell: function(testPageDocument){
+	// sets focus on the fifth cell of the seventh row in the grid
+},	setFocusOnSecondDataCell: function(testPageDocument){
+	// sets focus on the second cell of the second row in the grid
+},	setFocusOnSecondLinkedCell: function(testPageDocument){
+	// sets focus on the third cell of the third row in the grid
+},	setFocusOnSixthDataCell: function(testPageDocument){
+	// sets focus on the first cell of the third row in the grid
+},	moveFocusToAddDeliveryAddressButton: function(testPageDocument){
+	// sets focus on the 'Add Delivery Address' button
+	testPageDocument.querySelector('#ex1 > button').focus();
+},	openAddDeliveryAddressDialogAndFocusAddButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+},	openAddDeliveryAddressDialogAndFocusCancelButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_cancel');
+},	openAddDeliveryAddressDialogAndFocusFirstInput: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the first input
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn);
+},	openAddressAddedDialogAndFocusYourProfileLink: function(testPageDocument){
+	// opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'your profile' link inside the second dialog
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+	testPageDocument.defaultView.replaceDialog('dialog3', undefined, 'dialog3_profile');
+},	openVerificationResultDialogAndFocusCloseButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+	testPageDocument.defaultView.openDialog('dialog2', 'dialog1_verify', 'dialog2_close_btn');
+},	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
+	// activates the third tab in the tab list, and sets focus on the tab panel
+	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
+	t.setAttribute('tabindex', '-1');
+	t.setAttribute('aria-selected', 'false');
+	});
+	testPageDocument.querySelectorAll('[role="tabpanel"]').forEach(p => {
+	p.classList.add('is-hidden');
+	});
+	let thirdTab = testPageDocument.querySelector('#complex');
+	let thirdPanel = testPageDocument.querySelector('#complex-complex');
+	thirdTab.removeAttribute('tabindex');
+	thirdTab.setAttribute('aria-selected', 'true');
+	thirdPanel.classList.remove('is-hidden');
+	thirdPanel.focus();
+},	setFocusAfterTabpanel: function(testPageDocument){
+	// sets focus on a link after the tab panel
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeTablist: function(testPageDocument){
+	// sets focus on a link before the tab list
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnFirstTab: function(testPageDocument){
+	// sets focus on the first tab
+	testPageDocument.querySelector('#nils').focus();
+},	setFocusOnSecondTab: function(testPageDocument){
+	// sets focus on the second tab
+	testPageDocument.querySelector('#agnes').focus();
+},	setFocusOnThirdTab: function(testPageDocument){
+	// sets focus on the third tab
+	testPageDocument.querySelector('#complex').focus();
+}
+          };
+
+          scripts[setupScriptName](testPageWindow.document);
+        }
+      }
+
+      function openTestPage(testPageUri, testNumber, setupScriptName) {
+        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
+
+        document.getElementById('open-test-page-' + testNumber).disabled = true;
+
+        // If the window is closed, re-enable open popup button
+        testPageWindow.onunload = function(event) {
+          window.setTimeout(() => {
+            if (testPageWindow.closed) {
+              testPageWindow = undefined;
+              document.getElementById('open-test-page-' + testNumber).disabled = false;
+            }
+          }, 100);
+
+        };
+
+        executeScriptInTestPage(setupScriptName, testPageWindow);
+      }
+    </script>
+  </head>
+  <body>
+
+    <h1>Test plan review for pattern: minimal-data-grid (55 tests)</h1>
+
+    <fieldset>
+      <legend>Filter tests by assistive technology</legend>
+      <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
+        <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
+        <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
+        <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
+    </fieldset>
+
+    <h2>Test 1: Navigate forwards to a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-01-navigate-forwards-to-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-01-navigate-forwards-to-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-1"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 1, 'setFocusBeforeGrid');">Open Test 1 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first column header in the grid. Note: you may need to press  certain commands (such as Down Arrow) multiple times to hear all information relating to the grid and the first column header. using the following commands:
+               <ul>
+                   <li>T followed by Down Arrow</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Coordinates of the column header (column 1, row 1) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the first column header in the grid. Note: you may need to press  certain commands (such as Down Arrow) multiple times to hear all information relating to the grid and the first column header. using the following commands:
+               <ul>
+                   <li>T</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Coordinates of the column header (column 1, row 1) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 2: Navigate backwards to a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-02-navigate-backwards-to-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-02-navigate-backwards-to-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-2"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 2, 'setFocusAfterGrid');">Open Test 2 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first column header in the grid. using the following commands:
+               <ul>
+                   <li>Shift+T followed by Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Coordinates of the column header (column 1, row 1) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the first column header in the grid. using the following commands:
+               <ul>
+                   <li>Shift+T</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Coordinates of the column header (column 1, row 1) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 3: Navigate forwards to a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-03-navigate-forwards-to-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-3"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 3, 'setFocusBeforeGrid');">Open Test 3 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the first column header in the grid. Note: you may need to press certain commands (such as Control+Option+Right) multiple times to hear all information relating to the grid and the first column header. using the following commands:
+               <ul>
+                   <li>Control+Option+Right</li>
+                   <li>Control+Option+Command+T</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Coordinates of the column header (column 1, row 1) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 4: Navigate into the end of a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-04-navigate-into-end-of-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-04-navigate-into-end-of-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-4"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 4, 'setFocusAfterGrid');">Open Test 4 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the last cell in the grid. Note: you may need to press certain commands (such as Up Arrow) multiple times to hear all information relating to the grid and the last cell. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Grid boundary is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>optional</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the last column header (&#39;Balance&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the last cell (&#39;$995,532.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Coordinates of the last cell (column 5, row 7) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the last cell in the grid. Note: you may need to press certain commands (such as Up Arrow) multiple times to hear all information relating to the grid and the last cell. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Grid boundary is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>optional</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the last column header (&#39;Balance&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the last cell (&#39;$995,532.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Coordinates of the last cell (column 5, row 7) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 5: Navigate into the end of a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-05-navigate-into-end-of-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-5"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 5, 'setFocusAfterGrid');">Open Test 5 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the last cell in the grid. Note: you may need to press certain commands (such as Control+Option+Left) multiple times to hear all information relating to the grid and the last cell. using the following commands:
+               <ul>
+                   <li>Ctrl+Option+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Grid boundary is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>optional</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the last column header (&#39;Balance&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the last cell (&#39;$995,532.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Coordinates of the last cell (column 5, row 7) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 6: Move focus forwards into a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-06-move-focus-forwards-into-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-06-move-focus-forwards-into-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-6"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 6, 'setFocusBeforeGrid');">Open Test 6 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Move keyboard focus onto the first non-header cell in the grid. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Move keyboard focus onto the first non-header cell in the grid. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 7: Move focus backwards into a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-07-move-focus-backwards-into-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-07-move-focus-backwards-into-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-7"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 7, 'setFocusAfterGrid');">Open Test 7 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Move keyboard focus onto the first non-header cell in the grid. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Move keyboard focus onto the first non-header cell in the grid. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 8: Move focus forwards into a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-08-move-focus-forwards-into-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-08-move-focus-forwards-into-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-8"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 8, 'setFocusBeforeGrid');">Open Test 8 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Move keyboard focus onto the first non-header cell in the grid. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Move keyboard focus onto the first non-header cell in the grid. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 9: Move focus backwards into a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-09-move-focus-backwards-into-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-09-move-focus-backwards-into-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-9"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 9, 'setFocusAfterGrid');">Open Test 9 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Move keyboard focus onto the first non-header cell in the grid. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Move keyboard focus onto the first non-header cell in the grid. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 10: Move focus forwards into a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-10-move-focus-forwards-into-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-10"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 10, 'setFocusBeforeGrid');">Open Test 10 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Move keyboard focus onto the first non-header cell in the grid. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 11: Move focus backwards into a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-11-move-focus-backwards-into-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#grid">ARIA specification: grid</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-11"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 11, 'setFocusAfterGrid');">Open Test 11 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Move keyboard focus onto the first non-header cell in the grid. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;grid&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Transactions January 1 through January 6&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Number of columns (5) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of rows (7) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 12: Read information about a grid cell in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-12-read-information-about-grid-cell-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-12-read-information-about-grid-cell-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-12"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 12, 'setFocusOnFirstDataCell');">Open Test 12 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With the reading cursor on the first non-header cell in the grid, read information about the cell. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>With the reading cursor on the first non-header cell in the grid, read information about the cell. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 13: Read information about a grid cell in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-13-read-information-about-grid-cell-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-13-read-information-about-grid-cell-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-13"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 13, 'setFocusOnFirstDataCell');">Open Test 13 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on the first non-header cell in the grid, read information about the cell. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on the first non-header cell in the grid, read information about the cell. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 14: Read information about a grid cell</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-14-read-information-about-grid-cell-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-14"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 14, 'setFocusOnFirstDataCell');">Open Test 14 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the first non-header cell in the grid, read information about the cell. using the following commands:
+               <ul>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the first column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the first cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the first cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 15: Read information about a grid cell containing a link in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-15-read-information-about-grid-cell-containing-link-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-15-read-information-about-grid-cell-containing-link-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-15"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 15, 'setFocusOnFirstLinkedCell');">Open Test 15 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With the reading cursor on a cell containing a link in the grid, read information about the cell. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>With the reading cursor on a cell containing a link in the grid, read information about the cell. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 16: Read information about a grid cell containing a link in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-16-read-information-about-grid-cell-containing-link-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-16-read-information-about-grid-cell-containing-link-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-16"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 16, 'setFocusOnFirstLinkedCell');">Open Test 16 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on a cell containing a link in the grid, read information about the cell. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on a cell containing a link in the grid, read information about the cell. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 17: Read information about a grid cell containing a link</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-17-read-information-about-grid-cell-containing-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-17"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 17, 'setFocusOnFirstLinkedCell');">Open Test 17 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on a cell containing a link in the grid, read information about the cell. using the following commands:
+               <ul>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 18: Navigate to the next colum in a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-18-navigate-to-next-colum-in-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-18-navigate-to-next-colum-in-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-18"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 18, 'setFocusOnFirstDataCell');">Open Test 18 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the next column in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Right</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Type&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;Deposit&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the next column in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Right</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Type&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;Deposit&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 19: Navigate to the next colum in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-19-navigate-to-next-colum-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-19-navigate-to-next-colum-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-19"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 19, 'setFocusOnFirstDataCell');">Open Test 19 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the next column in the grid. using the following commands:
+               <ul>
+                   <li>Right Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Type&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;Deposit&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the next column in the grid. using the following commands:
+               <ul>
+                   <li>Right Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Type&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;Deposit&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 20: Navigate to the next colum in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-20-navigate-to-next-colum-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-20"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 20, 'setFocusOnFirstDataCell');">Open Test 20 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the next column in the grid. using the following commands:
+               <ul>
+                   <li>Right Arrow</li>
+                   <li>Control+Option+Right</li>
+                   <li>Control+Option+Command+Y</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Type&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;Deposit&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 21: Navigate to the previous colum in a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-21-navigate-to-previous-colum-in-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-21-navigate-to-previous-colum-in-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-21"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 21, 'setFocusOnSecondDataCell');">Open Test 21 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the second cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the previous column in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the second cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the previous column in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 22: Navigate to the previous colum in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-22-navigate-to-previous-colum-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-22-navigate-to-previous-colum-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-22"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 22, 'setFocusOnSecondDataCell');">Open Test 22 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the second cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the previous column in the grid. using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the second cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the previous column in the grid. using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 23: Navigate to the previous colum in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-23-navigate-to-previous-colum-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-23"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 23, 'setFocusOnSecondDataCell');">Open Test 23 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the second cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the previous column in the grid. using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+                   <li>Ctrl+Option+Left</li>
+                   <li>Shift+Control+Option+Command+Y</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 24: Navigate to the next colum containing a link in a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-24-navigate-to-next-colum-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-24-navigate-to-next-colum-containing-link-in-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-24"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 24, 'setFocusOnSecondDataCell');">Open Test 24 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the second cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the next column containing a link in the grid. using the following commands:
+               <ul>
+                   <li>U</li>
+                   <li>Control+Alt+Right</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the second cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the next column containing a link in the grid. using the following commands:
+               <ul>
+                   <li>U</li>
+                   <li>K</li>
+                   <li>Control+Alt+Right</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 25: Navigate to the next colum containing a link in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-25-navigate-to-next-colum-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-25-navigate-to-next-colum-containing-link-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-25"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 25, 'setFocusOnSecondDataCell');">Open Test 25 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the second cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the next column containing a link in the grid. using the following commands:
+               <ul>
+                   <li>Right Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the second cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the next column containing a link in the grid. using the following commands:
+               <ul>
+                   <li>Right Arrow</li>
+                   <li>Control+Alt+Right</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 26: Navigate to the next colum containing a link in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-26-navigate-to-next-colum-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-26"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 26, 'setFocusOnSecondDataCell');">Open Test 26 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the second cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the next column containing a link in the grid. using the following commands:
+               <ul>
+                   <li>Right Arrow</li>
+                   <li>Control+Option+Right</li>
+                   <li>Control+Option+Command+Y</li>
+                   <li>Control+Option+Command+L</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 27: Navigate to the previous colum containing a link in a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-27-navigate-to-previous-colum-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-27-navigate-to-previous-colum-containing-link-in-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-27"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 27, 'setFocusOnFourthDataCell');">Open Test 27 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fourth cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the previous column containing a link in the grid. using the following commands:
+               <ul>
+                   <li>Shift+U</li>
+                   <li>Control+Alt+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fourth cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the previous column containing a link in the grid. using the following commands:
+               <ul>
+                   <li>Shift+U</li>
+                   <li>Shift+K</li>
+                   <li>Control+Alt+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 28: Navigate to the previous colum containing a link in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-28-navigate-to-previous-colum-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-28-navigate-to-previous-colum-containing-link-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-28"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 28, 'setFocusOnFourthDataCell');">Open Test 28 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fourth cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the previous column containing a link in the grid. using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fourth cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the previous column containing a link in the grid. using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 29: Navigate to the previous colum containing a link in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-29-navigate-to-previous-colum-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-29"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 29, 'setFocusOnFourthDataCell');">Open Test 29 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fourth cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the previous column containing a link in the grid. using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+                   <li>Ctrl+Option+Left</li>
+                   <li>Shift+Control+Option+Command+Y</li>
+                   <li>Shift+Control+Option+Command+L</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 30: Navigate to the next column from a cel containing a link in a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-30-navigate-to-next-column-from-cel-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-30-navigate-to-next-column-from-cel-containing-link-in-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-30"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 30, 'setFocusOnFirstLinkedCell');">Open Test 30 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>From a cell containing a link, navigate to the next column in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Right</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Amount&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$1,000,000.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 4, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>From a cell containing a link, navigate to the next column in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Right</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Amount&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$1,000,000.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 4, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 31: Navigate to the next column from a cel containing a link in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-31-navigate-to-next-column-from-cel-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-31-navigate-to-next-column-from-cel-containing-link-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-31"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 31, 'setFocusOnFirstLinkedCell');">Open Test 31 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>From a cell containing a link, navigate to the next column in the grid. using the following commands:
+               <ul>
+                   <li>Right Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Amount&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$1,000,000.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 4, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>From a cell containing a link, navigate to the next column in the grid. using the following commands:
+               <ul>
+                   <li>Right Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Amount&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$1,000,000.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 4, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 32: Navigate to the next column from a cel containing a link in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-32-navigate-to-next-column-from-cel-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-32"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 32, 'setFocusOnFirstLinkedCell');">Open Test 32 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>From a cell containing a link, navigate to the next column in the grid. using the following commands:
+               <ul>
+                   <li>Right Arrow</li>
+                   <li>Control+Option+Right</li>
+                   <li>Control+Option+Command+Y</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Amount&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$1,000,000.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 4, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 33: Navigate to the previous column from a cel containing a link in a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-33-navigate-to-previous-column-from-cel-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-33-navigate-to-previous-column-from-cel-containing-link-in-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-33"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 33, 'setFocusOnFirstLinkedCell');">Open Test 33 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>From a cell containing a link, navigate to the previous column in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Type&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;Deposit&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>From a cell containing a link, navigate to the previous column in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Type&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;Deposit&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 34: Navigate to the previous column from a cel containing a link in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-34-navigate-to-previous-column-from-cel-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-34-navigate-to-previous-column-from-cel-containing-link-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-34"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 34, 'setFocusOnFirstLinkedCell');">Open Test 34 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>From a cell containing a link, navigate to the previous column in the grid. using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Type&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;Deposit&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>From a cell containing a link, navigate to the previous column in the grid. using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Type&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;Deposit&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 35: Navigate to the previous column from a cel containing a link in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-35-navigate-to-previous-column-from-cel-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-35"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 35, 'setFocusOnFirstLinkedCell');">Open Test 35 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>From a cell containing a link, navigate to the previous column in the grid. using the following commands:
+               <ul>
+                   <li>Left Arrow</li>
+                   <li>Ctrl+Option+Left</li>
+                   <li>Shift+Control+Option+Command+Y</li>
+                   <li>Shift+Control+Option+Command+L</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Type&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;Deposit&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 36: Navigate to the next row in a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-36-navigate-to-next-row-in-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-36-navigate-to-next-row-in-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-36"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 36, 'setFocusOnFirstDataCell');">Open Test 36 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the next row in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Down</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;02-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 3) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the next row in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Down</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;02-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 3) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 37: Navigate to the next row in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-37-navigate-to-next-row-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-37-navigate-to-next-row-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-37"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 37, 'setFocusOnFirstDataCell');">Open Test 37 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the next row in the grid. using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;02-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 3) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the next row in the grid. using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;02-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 3) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 38: Navigate to the next row in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-38-navigate-to-next-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-38"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 38, 'setFocusOnFirstDataCell');">Open Test 38 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the next row in the grid. using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+                   <li>Control+Option+Down</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;02-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 3) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 39: Navigate to the previous row in a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-39-navigate-to-previous-row-in-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-39-navigate-to-previous-row-in-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-39"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 39, 'setFocusOnSixthDataCell');">Open Test 39 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the third row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the previous row in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the third row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the previous row in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 40: Navigate to the previous row in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-40-navigate-to-previous-row-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-40-navigate-to-previous-row-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-40"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 40, 'setFocusOnSixthDataCell');">Open Test 40 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the third row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the previous row in the grid. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the third row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the previous row in the grid. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 41: Navigate to the previous row in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-41-navigate-to-previous-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-41"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 41, 'setFocusOnSixthDataCell');">Open Test 41 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the third row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the previous row in the grid. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+                   <li>Control+Option+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 42: Navigate to a cell containing a link on the next row in a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-42-navigate-to-cell-containing-link-on-next-row-in-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-42-navigate-to-cell-containing-link-on-next-row-in-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-42"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 42, 'setFocusOnFirstLinkedCell');">Open Test 42 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>From a cell containing a link, navigate to the next row in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Down</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Down Town Grocery&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 3) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>From a cell containing a link, navigate to the next row in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Down</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Down Town Grocery&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 3) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 43: Navigate to a cell containing a link on the next row in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-43-navigate-to-cell-containing-link-on-next-row-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-43-navigate-to-cell-containing-link-on-next-row-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-43"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 43, 'setFocusOnFirstLinkedCell');">Open Test 43 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>From a cell containing a link, navigate to the next row in the grid. using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Down Town Grocery&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 3) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>From a cell containing a link, navigate to the next row in the grid. using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Down Town Grocery&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 3) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 44: Navigate to a cell containing a link on the next row in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-44-navigate-to-cell-containing-link-on-next-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-44"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 44, 'setFocusOnFirstLinkedCell');">Open Test 44 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>From a cell containing a link, navigate to the next row in the grid. using the following commands:
+               <ul>
+                   <li>Down Arrow</li>
+                   <li>Control+Option+Down</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Down Town Grocery&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 3) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 45: Navigate to a cell containing a link on the previous row in a grid in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-45-navigate-to-cell-containing-link-on-previous-row-in-grid-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-45-navigate-to-cell-containing-link-on-previous-row-in-grid-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-45"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 45, 'setFocusOnSecondLinkedCell');">Open Test 45 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the third row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>From a cell containing a link, navigate to the previous row in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the third row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>From a cell containing a link, navigate to the previous row in the grid. using the following commands:
+               <ul>
+                   <li>Control+Alt+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 46: Navigate to a cell containing a link on the previous row in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-46-navigate-to-cell-containing-link-on-previous-row-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-46-navigate-to-cell-containing-link-on-previous-row-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-46"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 46, 'setFocusOnSecondLinkedCell');">Open Test 46 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the third row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>From a cell containing a link, navigate to the previous row in the grid. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the third row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>From a cell containing a link, navigate to the previous row in the grid. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 47: Navigate to a cell containing a link on the previous row in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-47-navigate-to-cell-containing-link-on-previous-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-47"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 47, 'setFocusOnSecondLinkedCell');">Open Test 47 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the third cell of the third row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>From a cell containing a link, navigate to the previous row in the grid. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+                   <li>Control+Option+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 48: Navigate to the first cell of a row in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-48-navigate-to-first-cell-of-row-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-48-navigate-to-first-cell-of-row-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-48"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 48, 'setFocusOnFifthDataCell');">Open Test 48 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fifth cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first cell of the current row in the grid. using the following commands:
+               <ul>
+                   <li>Home</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fifth cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the first cell of the current row in the grid. using the following commands:
+               <ul>
+                   <li>Home</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 49: Navigate to the first cell of a row in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-49-navigate-to-first-cell-of-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-49"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 49, 'setFocusOnFifthDataCell');">Open Test 49 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fifth cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the first cell of the current row in the grid. using the following commands:
+               <ul>
+                   <li>Home</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 50: Navigate to the last cell of a row in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-50-navigate-to-last-cell-of-row-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-50-navigate-to-last-cell-of-row-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-50"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 50, 'setFocusOnFirstDataCell');">Open Test 50 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the last cell of the current row in the grid. using the following commands:
+               <ul>
+                   <li>End</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Balance&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$1,000,000.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 5, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the last cell of the current row in the grid. using the following commands:
+               <ul>
+                   <li>End</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Balance&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$1,000,000.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 5, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 51: Navigate to the last cell of a row in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-51-navigate-to-last-cell-of-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-51"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 51, 'setFocusOnFirstDataCell');">Open Test 51 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the last cell of the current row in the grid. using the following commands:
+               <ul>
+                   <li>End</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Balance&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$1,000,000.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 5, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 52: Navigate to the first cell in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-52-navigate-to-first-cell-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-52-navigate-to-first-cell-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-52"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 52, 'setFocusOnLastDataCell');">Open Test 52 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fifth cell of the seventh row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first cell in the grid. using the following commands:
+               <ul>
+                   <li>Control+Home</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fifth cell of the seventh row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the first cell in the grid. using the following commands:
+               <ul>
+                   <li>Control+Home</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 53: Navigate to the first cell in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-53-navigate-to-first-cell-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-53"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 53, 'setFocusOnLastDataCell');">Open Test 53 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the fifth cell of the seventh row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the first cell in the grid. using the following commands:
+               <ul>
+                   <li>Control+Home</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 54: Navigate to the last cell in a grid in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-54-navigate-to-last-cell-in-grid-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/minimal-data-grid/test-54-navigate-to-last-cell-in-grid-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-54"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 54, 'setFocusOnFirstDataCell');">Open Test 54 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the last cell in the grid. using the following commands:
+               <ul>
+                   <li>Control+End</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Balance&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$995,532.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 5, row 7) are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the last cell in the grid. using the following commands:
+               <ul>
+                   <li>Control+End</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Balance&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$995,532.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 5, row 7) are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 55: Navigate to the last cell in a grid</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/minimal-data-grid/test-55-navigate-to-last-cell-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;grid&#x2F;dataGrids.html">APG example: grid&#x2F;dataGrids.html</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-55"
+        onclick="openTestPage('../tests&#x2F;minimal-data-grid&#x2F;reference&#x2F;2021-3-8_151542&#x2F;dataGrids.html', 55, 'setFocusOnFirstDataCell');">Open Test 55 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first cell of the second row in the grid</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the last cell in the grid. using the following commands:
+               <ul>
+                   <li>Control+End</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Balance&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>Text of the cell (&#39;$995,532.00&#39;) is conveyed</td></tr>
+            <tr><td>required</td><td>coordinates of the cell (column 5, row 7) are conveyed</td></tr>
+        </table>
+      </div>
+
+  </body>
+</html>

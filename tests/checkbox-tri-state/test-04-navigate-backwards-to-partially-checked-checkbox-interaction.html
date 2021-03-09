@@ -6,18 +6,76 @@
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		moveFocusAfterFirstCheckbox: function(testPageDocument){
+			// sets focus on a link after the first checkbox
+			testPageDocument.querySelector('#afterlink').focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-04-navigate-backwards-to-partially-checked-checkbox-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link after the first checkbox",
+  "setupTestPage": "moveFocusAfterFirstCheckbox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to partially checked checkbox",
+  "specific_user_instruction": "Navigate to the first checkbox. Note: it should be in the partially checked state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'All condiments' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (partially checked) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to partially checked checkbox": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_X" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ]
+      ],
+      "nvda": [
+        [ "SHIFT_X" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/checkbox-tri-state.html");
   });
 </script>

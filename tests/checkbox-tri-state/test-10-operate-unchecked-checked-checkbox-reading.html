@@ -6,18 +6,59 @@
 <link rel="help" href="https://w3c.github.io/aria/#checkbox">
 <link rel="help" href="https://w3c.github.io/aria/#aria-checked">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		moveFocusToAndUncheckFirstCheckbox: function(testPageDocument){
+			// sets focus on the first checkbox and sets its state to unchecked
+			const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+			checkbox.setAttribute('aria-checked', 'false');
+			checkbox.focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-10-operate-unchecked-checked-checkbox-reading.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the first checkbox and sets its state to unchecked",
+  "setupTestPage": "moveFocusToAndUncheckFirstCheckbox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "operate unchecked checked checkbox",
+  "specific_user_instruction": "Partially check the first checkbox.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state (to partially checked) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "operate unchecked checked checkbox": {
+    "reading": {
+      "jaws": [ [ "SPACE" ] ],
+      "nvda": [ [ "SPACE" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ] ],
+      "nvda": [ [ "SPACE" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/checkbox-tri-state.html");
   });
 </script>

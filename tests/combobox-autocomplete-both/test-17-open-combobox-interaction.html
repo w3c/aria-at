@@ -4,19 +4,63 @@
 <title>Open combobox in interaction mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		comboboxFocusEmptyCollapsed: function(testPageDocument){
+			// Set focus on combobox
+			// Set value of 'combobox' is empty
+			// Ensure in collapsed state
+			var cb = testPageDocument.comboboxAutocomplete;
+			cb.comboboxNode.value = '';
+			cb.combobox.focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-17-open-combobox-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
-    displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "Set focus on combobox; ensure it is empty and collapsed.",
+  "setupTestPage": "comboboxFocusEmptyCollapsed",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "open combobox",
+  "specific_user_instruction": "Display the popup from empty combobox",
+  "output_assertions": [
+    [
+      "1",
+      "Expanded state of combobox is conveyed"
+    ],
+    [
+      "2",
+      "Name 'States' is conveyed for the popup."
+    ],
+    [
+      "2",
+      "Number of options available is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "open combobox": {
+    "interaction": {
+      "jaws": [ [ "ALT_DOWN" ] ],
+      "nvda": [ [ "ALT_DOWN" ] ],
+      "voiceover_macos": [ [ "ALT_DOWN" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175618/combobox-autocomplete-both.html");
   });
 </script>
   

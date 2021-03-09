@@ -4,19 +4,64 @@
 <title>Read empty, editable combobox in interaction mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-05-read-combobox-interaction.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
-    displayTestPageAndInstructions("reference/combobox-autocomplete-both.html");
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read combobox",
+  "specific_user_instruction": "With focus on the combobox; read the combobox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'State' is conveyed"
+    ],
+    [
+      "1",
+      "Ability to enter text is conveyed"
+    ],
+    [
+      "2",
+      "Collapsed state is conveyed."
+    ]
+  ]
+};
+    const commandJson = {
+  "read combobox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [ [ "CTRL_OPT_F4" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175618/combobox-autocomplete-both.html");
   });
 </script>
   

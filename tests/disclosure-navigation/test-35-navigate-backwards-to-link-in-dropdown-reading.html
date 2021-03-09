@@ -4,18 +4,82 @@
 <title>Navigate backwards to a link in a dropdown in reading mode</title>
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		moveFocusToSecondLinkInDropdown: function(testPageDocument){
+			// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
+			testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+			testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-35-navigate-backwards-to-link-in-dropdown-reading.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown",
+  "setupTestPage": "moveFocusToSecondLinkInDropdown",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate backwards to link in dropdown",
+  "specific_user_instruction": "With the reading cursor on a link in the first dropdown, navigate to the previous link.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Overview' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to link in dropdown": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_U" ],
+        [ "UP" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "nvda": [
+        [ "SHIFT_U" ],
+        [ "SHIFT_K" ],
+        [ "UP" ],
+        [ "SHIFT_TAB" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [
+        [ "UP" ],
+        [ "LEFT" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "nvda": [
+        [ "UP" ],
+        [ "LEFT" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_LEFT" ],
+        [ "UP" ],
+        [ "LEFT" ],
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_CTRL_OPT_CMD_L" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/disclosure-navigation.html");
   });
 </script>

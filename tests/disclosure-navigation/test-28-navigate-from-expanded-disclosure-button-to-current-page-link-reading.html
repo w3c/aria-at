@@ -5,18 +5,86 @@
 <link rel="help" href="https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html">
 <link rel="help" href="https://w3c.github.io/aria/#aria-current">
 
-<script src="scripts.js"></script>
+<script>
+  var scripts = {
+		moveFocusToAndExpandFirstDisclosureAndSetCurrentPage: function(testPageDocument){
+			// sets focus on the first disclosure button, sets its state to expanded, and marks the first link in the associated dropdown as being the current page
+			testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+			testPageDocument.querySelector('#id_about_menu a').setAttribute('aria-current', 'page');
+			testPageDocument.querySelector('button[aria-controls="id_about_menu"]').focus();
+		}
+	};
+</script>
 <script type="module">
   import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
 
-  Promise.all(["test-28-navigate-from-expanded-disclosure-button-to-current-page-link-reading.json", '../support.json', 'commands.json'].map(url =>
-    fetch(url)
-      .then(response => response.json()) // parse the JSON from the server
-  ))
-  .then(data => {
-    // do something with the data
-    initialize(data[1], data[2]);
-    verifyATBehavior(data[0]);
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the first disclosure button, sets its state to expanded, and marks the first link in the associated dropdown as being the current page",
+  "setupTestPage": "moveFocusToAndExpandFirstDisclosureAndSetCurrentPage",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate from expanded disclosure button to current page link",
+  "specific_user_instruction": "With the reading cursor on the first disclosure button in the navigation region, move into the button's associated list of links. Note: you may need to press certain commands (such as Down Arrow) multiple times to hear all information about the dropdown and link.",
+  "output_assertions": [
+    [
+      "1",
+      "Role of the dropdown ('list') is conveyed"
+    ],
+    [
+      "1",
+      "Number of items in the dropdown (4) is conveyed"
+    ],
+    [
+      "1",
+      "Role of the first item in the dropdown ('link') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the first item in the dropdown ('Overview') is conveyed"
+    ],
+    [
+      "1",
+      "State of the first item in the dropdown (as the current page) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate from expanded disclosure button to current page link": {
+    "reading": {
+      "jaws": [
+        [ "U" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ],
+      "nvda": [
+        [ "U" ],
+        [ "K" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ], [ "DOWN" ] ],
+      "nvda": [ [ "TAB" ], [ "DOWN" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "TAB" ],
+        [ "DOWN" ],
+        [ "CTRL_OPT_CMD_L" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
     displayTestPageAndInstructions("reference/disclosure-navigation.html");
   });
 </script>

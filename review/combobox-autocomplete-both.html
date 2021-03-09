@@ -128,34 +128,6 @@
 	cb.filter = cb.comboboxNode.value;
 	cb.filterOptions();
 	cb.open();
-},	moveFocusAfterCombobox: function(testPageDocument){
-	// sets focus on a link after the Combobox
-	testPageDocument.querySelector('#afterlink').focus();
-},	moveFocusBeforeCombobox: function(testPageDocument){
-	// sets focus on a link before the Combobox
-	testPageDocument.querySelector('#beforelink').focus();
-},	moveFocusToCombobox: function(testPageDocument){
-	// sets focus on the combobox
-	testPageDocument.querySelector('[role="combobox"]').focus();
-},	openListbox: function(testPageDocument){
-	// sets focus on and expands the Combobox
-	testPageDocument.querySelector('[role="combobox"]').focus();
-	testPageDocument.defaultView.selectController.updateMenuState(true);
-},	openListboxToApple: function(testPageDocument){
-	// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
-	testPageDocument.querySelector('[role="combobox"]').focus();
-	testPageDocument.defaultView.selectController.updateMenuState(true);
-	testPageDocument.defaultView.selectController.onOptionChange(1);
-},	openListboxToGuava: function(testPageDocument){
-	// sets focus on and expands the Combobox, and sets the focused option to 'Guave'
-	testPageDocument.querySelector('[role="combobox"]').focus();
-	testPageDocument.defaultView.selectController.updateMenuState(true);
-	testPageDocument.defaultView.selectController.onOptionChange(11);
-},	openListboxToHuckleberry: function(testPageDocument){
-	// sets focus on and expands the Combobox, and sets the focused option to 'Huckleberry'
-	testPageDocument.querySelector('[role="combobox"]').focus();
-	testPageDocument.defaultView.selectController.updateMenuState(true);
-	testPageDocument.defaultView.selectController.onOptionChange(12);
 },	focusonfirstlink: function(testPageDocument){
 	// Move focus to the link just before the meunbar
 	testPageDocument.querySelector('a').focus();
@@ -171,6 +143,61 @@
 },	focusontextalign: function(testPageDocument){
 	// Move focus to the "Text Align" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},	moveFocusToAddDeliveryAddressButton: function(testPageDocument){
+	// sets focus on the 'Add Delivery Address' button
+	testPageDocument.querySelector('#ex1 > button').focus();
+},	openAddDeliveryAddressDialogAndFocusAddButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+},	openAddDeliveryAddressDialogAndFocusCancelButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_cancel');
+},	openAddDeliveryAddressDialogAndFocusFirstInput: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the first input
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn);
+},	openAddressAddedDialogAndFocusYourProfileLink: function(testPageDocument){
+	// opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'your profile' link inside the second dialog
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+	testPageDocument.defaultView.replaceDialog('dialog3', undefined, 'dialog3_profile');
+},	openVerificationResultDialogAndFocusCloseButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+	testPageDocument.defaultView.openDialog('dialog2', 'dialog1_verify', 'dialog2_close_btn');
+},	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
+	// activates the third tab in the tab list, and sets focus on the tab panel
+	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
+	t.setAttribute('tabindex', '-1');
+	t.setAttribute('aria-selected', 'false');
+	});
+	testPageDocument.querySelectorAll('[role="tabpanel"]').forEach(p => {
+	p.classList.add('is-hidden');
+	});
+	let thirdTab = testPageDocument.querySelector('#complex');
+	let thirdPanel = testPageDocument.querySelector('#complex-complex');
+	thirdTab.removeAttribute('tabindex');
+	thirdTab.setAttribute('aria-selected', 'true');
+	thirdPanel.classList.remove('is-hidden');
+	thirdPanel.focus();
+},	setFocusAfterTabpanel: function(testPageDocument){
+	// sets focus on a link after the tab panel
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeTablist: function(testPageDocument){
+	// sets focus on a link before the tab list
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnFirstTab: function(testPageDocument){
+	// sets focus on the first tab
+	testPageDocument.querySelector('#nils').focus();
+},	setFocusOnSecondTab: function(testPageDocument){
+	// sets focus on the second tab
+	testPageDocument.querySelector('#agnes').focus();
+},	setFocusOnThirdTab: function(testPageDocument){
+	// sets focus on the third tab
+	testPageDocument.querySelector('#complex').focus();
 }
           };
 
@@ -215,7 +242,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-01-navigate-to-combobox-reading.html?at=jaws">jaws</a></li>
@@ -230,7 +257,7 @@
       </ul>
 
       <button id="open-test-page-1"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 1, '');">Open Test 1 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 1, '');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -285,7 +312,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-02-navigate-by-line-to-combobox-reading.html?at=jaws">jaws</a></li>
@@ -300,7 +327,7 @@
       </ul>
 
       <button id="open-test-page-2"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 2, '');">Open Test 2 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 2, '');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -351,7 +378,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-03-navigate-to-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -366,7 +393,7 @@
       </ul>
 
       <button id="open-test-page-3"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 3, '');">Open Test 3 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 3, '');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -417,7 +444,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-04-read-combobox-reading.html?at=jaws">jaws</a></li>
@@ -432,7 +459,7 @@
       </ul>
 
       <button id="open-test-page-4"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 4, '');">Open Test 4 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 4, '');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -483,7 +510,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-05-read-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -498,7 +525,7 @@
       </ul>
 
       <button id="open-test-page-5"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 5, '');">Open Test 5 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 5, '');">Open Test 5 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -549,7 +576,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-06-navigate-to-combobox-reading.html?at=jaws">jaws</a></li>
@@ -564,7 +591,7 @@
       </ul>
 
       <button id="open-test-page-6"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 6, 'comboboxValueSetCollapsedState');">Open Test 6 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 6, 'comboboxValueSetCollapsedState');">Open Test 6 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -631,7 +658,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-07-navigate-to-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -646,7 +673,7 @@
       </ul>
 
       <button id="open-test-page-7"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 7, 'comboboxValueSetCollapsedState');">Open Test 7 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 7, 'comboboxValueSetCollapsedState');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -709,7 +736,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-08-read-combobox-reading.html?at=jaws">jaws</a></li>
@@ -724,7 +751,7 @@
       </ul>
 
       <button id="open-test-page-8"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 8, 'comboboxValueSetCollapsedState');">Open Test 8 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 8, 'comboboxValueSetCollapsedState');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -787,7 +814,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-09-read-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -802,7 +829,7 @@
       </ul>
 
       <button id="open-test-page-9"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 9, 'comboboxValueSetCollapsedState');">Open Test 9 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 9, 'comboboxValueSetCollapsedState');">Open Test 9 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -865,7 +892,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-10-navigate-to-combobox-reading.html?at=jaws">jaws</a></li>
@@ -880,7 +907,7 @@
       </ul>
 
       <button id="open-test-page-10"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 10, 'comboboxValueSetExpandedState');">Open Test 10 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 10, 'comboboxValueSetExpandedState');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -947,7 +974,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-11-navigate-by-line-to-combobox-reading.html?at=jaws">jaws</a></li>
@@ -962,7 +989,7 @@
       </ul>
 
       <button id="open-test-page-11"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 11, '');">Open Test 11 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 11, '');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1015,7 +1042,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-12-navigate-to-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1030,7 +1057,7 @@
       </ul>
 
       <button id="open-test-page-12"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 12, 'comboboxValueSetExpandedState');">Open Test 12 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 12, 'comboboxValueSetExpandedState');">Open Test 12 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1093,7 +1120,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-13-read-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1108,7 +1135,7 @@
       </ul>
 
       <button id="open-test-page-13"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 13, 'comboboxValueSetExpandedState');">Open Test 13 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 13, 'comboboxValueSetExpandedState');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1171,7 +1198,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-14-read-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1186,7 +1213,7 @@
       </ul>
 
       <button id="open-test-page-14"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 14, 'comboboxValueSetExpandedState');">Open Test 14 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 14, 'comboboxValueSetExpandedState');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1249,7 +1276,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-15-navigate-to-combobox-with-keys-that-switch-modes-reading.html?at=jaws">jaws</a></li>
@@ -1264,7 +1291,7 @@
       </ul>
 
       <button id="open-test-page-15"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 15, '');">Open Test 15 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 15, '');">Open Test 15 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1309,7 +1336,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-16-activate-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1324,7 +1351,7 @@
       </ul>
 
       <button id="open-test-page-16"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 16, 'comboboxFocusEmptyCollapsed');">Open Test 16 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 16, 'comboboxFocusEmptyCollapsed');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1379,7 +1406,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-17-open-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1394,7 +1421,7 @@
       </ul>
 
       <button id="open-test-page-17"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 17, 'comboboxFocusEmptyCollapsed');">Open Test 17 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 17, 'comboboxFocusEmptyCollapsed');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1453,7 +1480,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-18-close-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1468,7 +1495,7 @@
       </ul>
 
       <button id="open-test-page-18"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 18, 'comboboxFocusEmptyExpanded');">Open Test 18 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 18, 'comboboxFocusEmptyExpanded');">Open Test 18 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1523,7 +1550,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-19-activate-states-button-reading.html?at=jaws">jaws</a></li>
@@ -1538,7 +1565,7 @@
       </ul>
 
       <button id="open-test-page-19"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 19, '');">Open Test 19 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 19, '');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1591,7 +1618,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-20-activate-states-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1605,7 +1632,7 @@
       </ul>
 
       <button id="open-test-page-20"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 20, '');">Open Test 20 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 20, '');">Open Test 20 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1634,7 +1661,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-21-activate-states-button-reading.html?at=jaws">jaws</a></li>
@@ -1649,7 +1676,7 @@
       </ul>
 
       <button id="open-test-page-21"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 21, 'buttonFocusEmptyExpanded');">Open Test 21 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 21, 'buttonFocusEmptyExpanded');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1706,7 +1733,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-22-activate-states-button-interaction.html?at=jaws">jaws</a></li>
@@ -1721,7 +1748,7 @@
       </ul>
 
       <button id="open-test-page-22"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 22, 'buttonFocusEmptyExpanded');">Open Test 22 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 22, 'buttonFocusEmptyExpanded');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1776,7 +1803,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-23-navigate-into-popup-from-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1791,7 +1818,7 @@
       </ul>
 
       <button id="open-test-page-23"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 23, 'comboboxFocusEmptyCollapsed');">Open Test 23 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 23, 'comboboxFocusEmptyCollapsed');">Open Test 23 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1854,7 +1881,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-24-type-in-empty-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1869,7 +1896,7 @@
       </ul>
 
       <button id="open-test-page-24"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 24, 'comboboxFocusEmptyCollapsed');">Open Test 24 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 24, 'comboboxFocusEmptyCollapsed');">Open Test 24 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1930,7 +1957,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-25-navigate-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -1945,7 +1972,7 @@
       </ul>
 
       <button id="open-test-page-25"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 25, 'comboboxFocusEmptyCollapsed');">Open Test 25 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 25, 'comboboxFocusEmptyCollapsed');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2006,7 +2033,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-26-read-option-in-listbox-popup-reading.html?at=jaws">jaws</a></li>
@@ -2021,7 +2048,7 @@
       </ul>
 
       <button id="open-test-page-26"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 26, 'comboboxFocusEmptyCollapsed');">Open Test 26 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 26, 'comboboxFocusEmptyCollapsed');">Open Test 26 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2081,7 +2108,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-27-read-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2096,7 +2123,7 @@
       </ul>
 
       <button id="open-test-page-27"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 27, 'comboboxFocusEmptyCollapsed');">Open Test 27 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 27, 'comboboxFocusEmptyCollapsed');">Open Test 27 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2156,7 +2183,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-28-choose-combobox-option-interaction.html?at=jaws">jaws</a></li>
@@ -2171,7 +2198,7 @@
       </ul>
 
       <button id="open-test-page-28"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 28, 'comboboxFocusEmptyCollapsed');">Open Test 28 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 28, 'comboboxFocusEmptyCollapsed');">Open Test 28 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2234,7 +2261,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-29-cancel-selection-interaction.html?at=jaws">jaws</a></li>
@@ -2249,7 +2276,7 @@
       </ul>
 
       <button id="open-test-page-29"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 29, 'comboboxFocusEmptyCollapsed');">Open Test 29 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 29, 'comboboxFocusEmptyCollapsed');">Open Test 29 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2312,7 +2339,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Dec 11 16:33:33 2020 -0600</li>
+        <li>Lasted edited: Mon Feb 15 17:25:34 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-30-initiate-caret-movement-from-listbox-interaction.html?at=jaws">jaws</a></li>
@@ -2327,7 +2354,7 @@
       </ul>
 
       <button id="open-test-page-30"
-        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;combobox-autocomplete-both.html', 30, 'comboboxFocusEmptyCollapsed');">Open Test 30 Page</button>
+        onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both&#x2F;reference&#x2F;2020-11-23_175618&#x2F;combobox-autocomplete-both.html', 30, 'comboboxFocusEmptyCollapsed');">Open Test 30 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>

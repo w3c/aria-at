@@ -1,0 +1,1989 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>
+    <title>Test plan review for pattern: menu-button-actions-active-descendant</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 1em;
+      }
+
+      table, td, th {
+        border: 1px solid black;
+      }
+
+      td {
+        padding: .5em;
+      }
+
+    </style>
+    <script>
+      const filterATs = function(button) {
+        const val = button.value;
+
+        if (val === 'all') {
+          for (let at of document.querySelectorAll('input')) {
+            if (at.value !== 'all') {
+              for (let result of document.querySelectorAll(`.${at.value}`)) {
+                result.style.display = 'block';
+              }
+              at.checked = false;
+            }
+            else {
+              at.checked = true;
+            }
+          }
+        }
+        else {
+          for (let at of document.querySelectorAll('input')) {
+
+            if (at.value === val) {
+              at.checked = true;
+            }
+            else {
+              at.checked = false;
+            }
+
+            for (let result of document.querySelectorAll(`.${at.value}`)) {
+              result.style.display = 'none';
+            }
+            for (let result of document.querySelectorAll(`.${val}`)) {
+              result.style.display = 'block';
+            }
+
+          }
+        }
+      }
+
+      function executeScriptInTestPage(setupScriptName, testPageWindow) {
+        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
+            || testPageWindow.document.readyState !== 'complete'
+        ) {
+          window.setTimeout(() => {
+            executeScriptInTestPage(setupScriptName, testPageWindow);
+          }, 100);
+          return;
+        }
+
+        if (setupScriptName) {
+          var scripts = {
+            	checkFirstCheckbox: function(testPageDocument){
+	// Set aria-checked on first checkbox
+	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
+	// Move focus and set aria-checked on first checkbox
+	const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+	checkbox.focus();
+	checkbox.setAttribute('aria-checked', 'true');
+},	moveFocusToFirstCheckbox: function(testPageDocument){
+	// Move focus to first checkbox
+	testPageDocument.querySelector('[role="checkbox"]').focus();
+},	buttonFocusEmptyCollpased: function(testPageDocument){
+	// Set focus on button
+	// Ensure in collapsed state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.buttonNode.focus();
+},	buttonFocusEmptyExpanded: function(testPageDocument){
+	// Set focus on button
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.buttonNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	comboboxFocusEmptyCollapsed: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' is empty
+	// Ensure in collapsed state
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = '';
+	cb.combobox.focus();
+},	comboboxFocusEmptyExpanded: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'Alabama'
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = '';
+	cb.combobox.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	comboboxValueSetCollapsedState: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'Alabama'
+	// Ensure in collapsed state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = 'Alabama';
+	cb.comboboxNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+},	comboboxValueSetExpandedState: function(testPageDocument){
+	// Set focus on combobox
+	// Set value of 'combobox' to 'a'
+	// Ensure in expanded state.
+	var cb = testPageDocument.comboboxAutocomplete;
+	cb.comboboxNode.value = 'a';
+	cb.comboboxNode.focus();
+	cb.filter = cb.comboboxNode.value;
+	cb.filterOptions();
+	cb.open();
+},	openMenuAndSetFocusToFirstItem: function(testPageDocument){
+	// opens the menu, and sets focus on 'Action 1'
+	testPageDocument.defaultView.menuController.openPopup();
+	testPageDocument.defaultView.menuController.setFocusToFirstMenuitem();
+},	openMenuAndSetFocusToLastItem: function(testPageDocument){
+	// opens the menu, and sets focus on 'Action 4'
+	testPageDocument.defaultView.menuController.openPopup();
+	testPageDocument.defaultView.menuController.setFocusToLastMenuitem();
+},	setFocusAfterMenuButton: function(testPageDocument){
+	// sets focus on a link after the menu button
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeMenuButton: function(testPageDocument){
+	// sets focus on a link before the menu button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnMenuButton: function(testPageDocument){
+	// sets focus on the menu button
+	testPageDocument.querySelector('#menubutton1').focus();
+},	focusonfirstlink: function(testPageDocument){
+	// Move focus to the link just before the meunbar
+	testPageDocument.querySelector('a').focus();
+},	focusonfont: function(testPageDocument){
+	// Move focus to the "Font" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[0].focus();
+},	focusonsize: function(testPageDocument){
+	// Move focus to the "Size" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
+},	focusonstylecolor: function(testPageDocument){
+	// Move focus to the "Style/Color" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+},	focusontextalign: function(testPageDocument){
+	// Move focus to the "Text Align" menu item
+	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},	moveFocusToAddDeliveryAddressButton: function(testPageDocument){
+	// sets focus on the 'Add Delivery Address' button
+	testPageDocument.querySelector('#ex1 > button').focus();
+},	openAddDeliveryAddressDialogAndFocusAddButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+},	openAddDeliveryAddressDialogAndFocusCancelButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_cancel');
+},	openAddDeliveryAddressDialogAndFocusFirstInput: function(testPageDocument){
+	// opens the 'Add Delivery Address' modal dialog, and sets focus on the first input
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn);
+},	openAddressAddedDialogAndFocusYourProfileLink: function(testPageDocument){
+	// opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'your profile' link inside the second dialog
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+	testPageDocument.defaultView.replaceDialog('dialog3', undefined, 'dialog3_profile');
+},	openVerificationResultDialogAndFocusCloseButton: function(testPageDocument){
+	// opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog
+	const btn = testPageDocument.querySelector('#ex1 > button');
+	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+	testPageDocument.defaultView.openDialog('dialog2', 'dialog1_verify', 'dialog2_close_btn');
+},	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
+	// activates the third tab in the tab list, and sets focus on the tab panel
+	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
+	t.setAttribute('tabindex', '-1');
+	t.setAttribute('aria-selected', 'false');
+	});
+	testPageDocument.querySelectorAll('[role="tabpanel"]').forEach(p => {
+	p.classList.add('is-hidden');
+	});
+	let thirdTab = testPageDocument.querySelector('#complex');
+	let thirdPanel = testPageDocument.querySelector('#complex-complex');
+	thirdTab.removeAttribute('tabindex');
+	thirdTab.setAttribute('aria-selected', 'true');
+	thirdPanel.classList.remove('is-hidden');
+	thirdPanel.focus();
+},	setFocusAfterTabpanel: function(testPageDocument){
+	// sets focus on a link after the tab panel
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeTablist: function(testPageDocument){
+	// sets focus on a link before the tab list
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnFirstTab: function(testPageDocument){
+	// sets focus on the first tab
+	testPageDocument.querySelector('#nils').focus();
+},	setFocusOnSecondTab: function(testPageDocument){
+	// sets focus on the second tab
+	testPageDocument.querySelector('#agnes').focus();
+},	setFocusOnThirdTab: function(testPageDocument){
+	// sets focus on the third tab
+	testPageDocument.querySelector('#complex').focus();
+}
+          };
+
+          scripts[setupScriptName](testPageWindow.document);
+        }
+      }
+
+      function openTestPage(testPageUri, testNumber, setupScriptName) {
+        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
+
+        document.getElementById('open-test-page-' + testNumber).disabled = true;
+
+        // If the window is closed, re-enable open popup button
+        testPageWindow.onunload = function(event) {
+          window.setTimeout(() => {
+            if (testPageWindow.closed) {
+              testPageWindow = undefined;
+              document.getElementById('open-test-page-' + testNumber).disabled = false;
+            }
+          }, 100);
+
+        };
+
+        executeScriptInTestPage(setupScriptName, testPageWindow);
+      }
+    </script>
+  </head>
+  <body>
+
+    <h1>Test plan review for pattern: menu-button-actions-active-descendant (26 tests)</h1>
+
+    <fieldset>
+      <legend>Filter tests by assistive technology</legend>
+      <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
+        <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
+        <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
+        <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
+    </fieldset>
+
+    <h2>Test 1: Navigate forwards to a menu button in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-01-navigate-forwards-to-menu-button-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-01-navigate-forwards-to-menu-button-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-1"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 1, 'setFocusBeforeMenuButton');">Open Test 1 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the menu button. using the following commands:
+               <ul>
+                   <li>B</li>
+                   <li>F</li>
+                   <li>Tab</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the menu button. using the following commands:
+               <ul>
+                   <li>B</li>
+                   <li>F</li>
+                   <li>Tab</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 2: Navigate backwards to a menu button in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-02-navigate-backwards-to-menu-button-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-02-navigate-backwards-to-menu-button-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-2"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 2, 'setFocusAfterMenuButton');">Open Test 2 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the menu button. using the following commands:
+               <ul>
+                   <li>Shift+B</li>
+                   <li>Shift+F</li>
+                   <li>Shift+Tab</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the menu button. using the following commands:
+               <ul>
+                   <li>Shift+B</li>
+                   <li>Shift+F</li>
+                   <li>Shift+Tab</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 3: Navigate forwards to a menu button in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-03-navigate-forwards-to-menu-button-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-03-navigate-forwards-to-menu-button-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-3"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 3, 'setFocusBeforeMenuButton');">Open Test 3 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the menu button. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the menu button. using the following commands:
+               <ul>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 4: Navigate backwards to a menu button in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-04-navigate-backwards-to-menu-button-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-04-navigate-backwards-to-menu-button-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-4"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 4, 'setFocusAfterMenuButton');">Open Test 4 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the menu button. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the menu button. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 5: Navigate forwards to a menu button</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-05-navigate-forwards-to-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-5"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 5, 'setFocusBeforeMenuButton');">Open Test 5 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the menu button. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Control+Option+Right</li>
+                   <li>Control+Option+Command+J</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 6: Navigate backwards to a menu button</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-06-navigate-backwards-to-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-6"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 6, 'setFocusAfterMenuButton');">Open Test 6 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the menu button. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+                   <li>Ctrl+Option+Left</li>
+                   <li>Shift+Control+Option+Command+J</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 7: Read information about a menu button in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-07-read-information-about-menu-button-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-07-read-information-about-menu-button-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-7"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 7, 'setFocusOnMenuButton');">Open Test 7 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With the reading cursor on the &#39;Actions&#39; menu button, read information about the menu button. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>With the reading cursor on the &#39;Actions&#39; menu button, read information about the menu button. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 8: Read information about a menu button in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-08-read-information-about-menu-button-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-08-read-information-about-menu-button-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-8"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 8, 'setFocusOnMenuButton');">Open Test 8 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on the &#39;Actions&#39; menu button, read information about the menu button. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on the &#39;Actions&#39; menu button, read information about the menu button. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 9: Read information about a menu button</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-09-read-information-about-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-9"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 9, 'setFocusOnMenuButton');">Open Test 9 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the &#39;Actions&#39; menu button, read information about the menu button. using the following commands:
+               <ul>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 10: Open a menu in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-10-open-menu-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-10-open-menu-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menu">ARIA specification: menu</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-10"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 10, 'setFocusOnMenuButton');">Open Test 10 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With the reading cursor on the &#39;Actions&#39; menu button, open the menu. using the following commands:
+               <ul>
+                   <li>Space</li>
+                   <li>Enter</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>With the reading cursor on the &#39;Actions&#39; menu button, open the menu. using the following commands:
+               <ul>
+                   <li>Space</li>
+                   <li>Enter</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 11: Open a menu in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-11-open-menu-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-11-open-menu-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menu">ARIA specification: menu</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-11"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 11, 'setFocusOnMenuButton');">Open Test 11 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on the &#39;Actions&#39; menu button, open the menu. using the following commands:
+               <ul>
+                   <li>Space</li>
+                   <li>Enter</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on the &#39;Actions&#39; menu button, open the menu. using the following commands:
+               <ul>
+                   <li>Space</li>
+                   <li>Enter</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 12: Open a menu</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-12-open-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menu">ARIA specification: menu</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-12"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 12, 'setFocusOnMenuButton');">Open Test 12 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the &#39;Actions&#39; menu button, open the menu. using the following commands:
+               <ul>
+                   <li>Control+Option+Space</li>
+                   <li>Space</li>
+                   <li>Enter</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 13: Open a menu to the last item in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-13-open-menu-to-last-item-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-13-open-menu-to-last-item-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menu">ARIA specification: menu</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-13"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 13, 'setFocusOnMenuButton');">Open Test 13 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on the &#39;Actions&#39; menu button, open the menu. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 4&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (4) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on the &#39;Actions&#39; menu button, open the menu. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 4&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (4) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 14: Open a menu to the last item</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-14-open-menu-to-last-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menu">ARIA specification: menu</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-14"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 14, 'setFocusOnMenuButton');">Open Test 14 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the menu button</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the &#39;Actions&#39; menu button, open the menu. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 4&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (4) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 15: Read information about a menu item in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-15-read-information-about-menu-item-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-15-read-information-about-menu-item-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-15"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 15, 'openMenuAndSetFocusToFirstItem');">Open Test 15 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, read information about the menu item. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, read information about the menu item. using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 16: Read information about a menu item</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-16-read-information-about-menu-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-16"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 16, 'openMenuAndSetFocusToFirstItem');">Open Test 16 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, read information about the menu item. using the following commands:
+               <ul>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 17: Navigate to the first item in a menu in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-17-navigate-to-first-item-in-menu-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-17-navigate-to-first-item-in-menu-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-17"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 17, 'openMenuAndSetFocusToLastItem');">Open Test 17 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 4&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on the &#39;Action 4&#39; menu item, navigate to the first menu item. using the following commands:
+               <ul>
+                   <li>Home</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 4&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on the &#39;Action 4&#39; menu item, navigate to the first menu item. using the following commands:
+               <ul>
+                   <li>Home</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 18: Navigate to the first item in a menu</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-18-navigate-to-first-item-in-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-18"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 18, 'openMenuAndSetFocusToLastItem');">Open Test 18 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 4&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the &#39;Action 4&#39; menu item, navigate to the first menu item. using the following commands:
+               <ul>
+                   <li>Home</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 1&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (1) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 19: Navigate to the last item in a menu in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-19-navigate-to-last-item-in-menu-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-19-navigate-to-last-item-in-menu-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-19"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 19, 'openMenuAndSetFocusToFirstItem');">Open Test 19 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, navigate to the last menu item. using the following commands:
+               <ul>
+                   <li>End</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 4&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (4) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, navigate to the last menu item. using the following commands:
+               <ul>
+                   <li>End</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 4&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (4) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 20: Navigate to the last item in a menu</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-20-navigate-to-last-item-in-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-20"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 20, 'openMenuAndSetFocusToFirstItem');">Open Test 20 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, navigate to the last menu item. using the following commands:
+               <ul>
+                   <li>End</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 4&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (4) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 21: Navigate to an item in a menu by typing a character in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-21-navigate-to-item-in-menu-by-typing-character-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-21-navigate-to-item-in-menu-by-typing-character-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-21"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 21, 'openMenuAndSetFocusToFirstItem');">Open Test 21 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, type a character to navigate to a different menu item. using the following commands:
+               <ul>
+                   <li>A</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 2&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (2) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, type a character to navigate to a different menu item. using the following commands:
+               <ul>
+                   <li>A</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 2&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (2) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 22: Navigate to an item in a menu by typing a character</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-22-navigate-to-item-in-menu-by-typing-character-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#menuitem">ARIA specification: menuitem</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-activedescendant">ARIA specification: aria-activedescendant</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-22"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 22, 'openMenuAndSetFocusToFirstItem');">Open Test 22 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, type a character to navigate to a different menu item. using the following commands:
+               <ul>
+                   <li>A</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role of the focused item, &#39;menu item&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Name of the focused item, &#39;Action 2&#39;, is conveyed</td></tr>
+            <tr><td>required</td><td>Position of the focused item in the menu (2) is conveyed</td></tr>
+            <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 23: Activate a menu item in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-23-activate-menu-item-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-23-activate-menu-item-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-23"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 23, 'openMenuAndSetFocusToFirstItem');">Open Test 23 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, activate the menu item. using the following commands:
+               <ul>
+                   <li>Enter</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, activate the menu item. using the following commands:
+               <ul>
+                   <li>Enter</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 24: Activate a menu item</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-24-activate-menu-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-24"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 24, 'openMenuAndSetFocusToFirstItem');">Open Test 24 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, activate the menu item. using the following commands:
+               <ul>
+                   <li>Control+Option+Space</li>
+                   <li>Enter</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 25: Close a menu in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-25-close-menu-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-25-close-menu-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-25"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 25, 'openMenuAndSetFocusToFirstItem');">Open Test 25 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, close the menu. using the following commands:
+               <ul>
+                   <li>Escape</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, close the menu. using the following commands:
+               <ul>
+                   <li>Escape</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 26: Close a menu</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Lasted edited: Tue Mar 9 17:49:35 2021 -0600</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/menu-button-actions-active-descendant/test-26-close-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;menu-button&#x2F;menu-button-actions-active-descendant.html">APG example: menu-button&#x2F;menu-button-actions-active-descendant.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-haspopup">ARIA specification: aria-haspopup</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-26"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 26, 'openMenuAndSetFocusToFirstItem');">Open Test 26 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>opens the menu, and sets focus on &#39;Action 1&#39;</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>With focus on the &#39;Action 1&#39; menu item, close the menu. using the following commands:
+               <ul>
+                   <li>Escape</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;menu button&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
+        </table>
+      </div>
+
+  </body>
+</html>

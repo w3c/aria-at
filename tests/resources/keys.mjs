@@ -1,5 +1,4 @@
 // Keys
-
 export const CTRL_HOME                       = "Control+Home";
 export const CTRL_OPT_HOME                       = "Control+Option+Home";
 export const CTRL_END                       = "Control+End";
@@ -59,6 +58,7 @@ export const UP_AND_DOWN                      = "Up Arrow / Down Arrow";
 export const SHIFT_X                          = "Shift+X";
 export const X_AND_SHIFT_X                    = "X / Shift+X";
 export const A                                = "A";
+export const SHIFT_A                                = "Shift+A";
 export const B                                = "B";
 export const SHIFT_B                          = "Shift+B";
 export const C                                = "C";
@@ -77,6 +77,7 @@ export const O                                = "O";
 export const P                                = "P";
 export const Q                                = "Q";
 export const R                                = "R";
+export const SHIFT_R                                = "Shift+R";
 export const S                                = "S";
 export const T                                = "T";
 export const U                                = "U";

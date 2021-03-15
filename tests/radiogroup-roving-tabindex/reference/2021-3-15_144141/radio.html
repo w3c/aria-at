@@ -13,7 +13,7 @@
       <h1>Radio Group Example Using Roving tabindex</h1>
       <p>
         This example implements the features of the <a href="https://w3c.github.io/aria-practices/#radiobutton">Radio Group Design Pattern</a>
-        for two radio groups -- one for choosing a pizza crust and another for choosing a delivery method.
+        for a radio group for choosing a pizza crust.
         This implementation uses a roving tabindex for managing focus within the radio group.
       </p>
       <section>
@@ -35,22 +35,6 @@
               Thin crust
             </div>
           </div>
-
-          <div  role="radiogroup" aria-labelledby="group_label_2" id="rg2">
-            <h3 id="group_label_2">Pizza Delivery</h3>
-            <div role="radio" aria-checked="false" tabindex="0">
-              Pickup
-            </div>
-
-            <div role="radio" aria-checked="false" tabindex="-1">
-              Home Delivery
-            </div>
-
-            <div role="radio" aria-checked="false" tabindex="-1">
-              Dine in
-            </div>
-          </div>
-
         </div>
         <div role="separator" id="ex_end_sep" aria-labelledby="ex_end_sep ex_label" aria-label="End of"></div>
       </section>

@@ -13,7 +13,7 @@
       <h1>Radio Group Example Using aria-activedescendant</h1>
       <p>
         This example implements the features of the <a href="https://w3c.github.io/aria-practices/#radiobutton">Radio Group Design Pattern</a>
-        for two radio groups -- one for choosing a pizza crust and another for choosing a delivery method.
+        for a radio group for choosing a pizza crust.
         This implementation uses <code>aria-activedescendant</code> for informing assistive technologies which radio button has visual focus.
       </p>
      <section>
@@ -45,31 +45,6 @@
             Thin crust
           </li>
         </ul>
-
-        <h3 id="group_label_2">Pizza Delivery</h3>
-
-        <ul class="radiogroup-activedescendant"
-            role="radiogroup"
-            aria-labelledby="group_label_2"
-            aria-activedescendant="rb21"
-            tabindex="0">
-          <li id="rb21"
-              role="radio"
-              aria-checked="false">
-            Pick up
-          </li>
-          <li id="rb22"
-              role="radio"
-              aria-checked="false">
-            Home Delivery
-          </li>
-          <li id="rb23"
-              role="radio"
-              aria-checked="false">
-            Dine in Restaurant
-          </li>
-        </ul>
-
       </div>
       <div role="separator" id="ex_end_sep" aria-labelledby="ex_end_sep ex_label" aria-label="End of"></div>
     </section>

@@ -6,5 +6,5 @@ radios.forEach(r => {
 });
 radios[0].setAttribute('aria-checked', 'true');
 radios[0].tabIndex = 0;
-testPageDocument.querySelector('#beforelink').focus();
 testPageDocument.querySelector('#group_label_1').style.display = 'none';
+testPageDocument.querySelector('#beforelink').focus();

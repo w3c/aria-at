@@ -1,0 +1,33 @@
+{
+  "setup_script_description": "sets focus on the first radio button",
+  "setupTestPage": "setFocusOnFirstRadioButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate to last radio button",
+  "specific_user_instruction": "With focus on the 'Regular crust' radio button, navigate to the last radio button.",
+  "output_assertions": [
+    [
+      "1",
+      "role 'radio button' is conveyed"
+    ],
+    [
+      "1",
+      "name 'Thin crust' is conveyed"
+    ],
+    [
+      "1",
+      "State of the radio button, 'checked', is conveyed"
+    ],
+    [
+      "1",
+      "Position of the radio button, 3, is conveyed"
+    ],
+    [
+      "1",
+      "Number of radio buttons in the group, 3, is conveyed"
+    ]
+  ]
+}

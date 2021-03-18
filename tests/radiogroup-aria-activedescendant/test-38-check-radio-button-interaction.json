@@ -1,0 +1,17 @@
+{
+  "setup_script_description": "sets focus on the first radio button",
+  "setupTestPage": "setFocusOnFirstRadioButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "check radio button",
+  "specific_user_instruction": "With focus on the 'Regular crust' radio button, check the radio button.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state, to 'checked', is conveyed"
+    ]
+  ]
+}

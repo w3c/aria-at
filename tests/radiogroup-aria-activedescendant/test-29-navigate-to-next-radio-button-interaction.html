@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the next radio button in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/radio/radio-activedescendant.html">
+<link rel="help" href="https://w3c.github.io/aria/#radio">
+<link rel="help" href="https://w3c.github.io/aria/#aria-activedescendant">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  var scripts = {
+		setFocusOnFirstRadioButton: function(testPageDocument){
+			// sets focus on the first radio button
+			let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+			let radios = testPageDocument.querySelectorAll('[role="radio"]');
+			radios.forEach(r => {
+			r.setAttribute('aria-checked', 'false');
+			r.classList.remove('focus');
+			});
+			radios[0].classList.add('focus');
+			radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+			radioGroup.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the first radio button",
+  "setupTestPage": "setFocusOnFirstRadioButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate to next radio button",
+  "specific_user_instruction": "With focus on the 'Regular crust' radio button, navigate to the next radio button.",
+  "output_assertions": [
+    [
+      "1",
+      "role 'radio button' is conveyed"
+    ],
+    [
+      "1",
+      "name 'Deep dish' is conveyed"
+    ],
+    [
+      "1",
+      "State of the radio button, 'checked', is conveyed"
+    ],
+    [
+      "1",
+      "Position of the radio button, 2, is conveyed"
+    ],
+    [
+      "1",
+      "Number of radio buttons in the group, 3, is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to next radio button": {
+    "interaction": {
+      "jaws": [ [ "DOWN" ], [ "RIGHT" ] ],
+      "nvda": [ [ "DOWN" ], [ "RIGHT" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "DOWN" ],
+        [ "RIGHT" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-3-17_161413/radio-activedescendant.html");
+  });
+</script>
+  

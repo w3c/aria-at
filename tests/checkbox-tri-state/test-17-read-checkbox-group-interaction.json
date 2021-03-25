@@ -1,0 +1,21 @@
+{
+  "setup_script_description": "sets focus on the first checkbox",
+  "setupTestPage": "moveFocusToFirstCheckbox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read checkbox group",
+  "specific_user_instruction": "When focus is on the first checkbox, read its grouping information.",
+  "output_assertions": [
+    [
+      "2",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ]
+  ]
+}

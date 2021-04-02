@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read information about a not pressed toggle button in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/button/button.html">
+<link rel="help" href="https://w3c.github.io/aria/#button">
+<link rel="help" href="https://w3c.github.io/aria/#aria-pressed">
+
+<script>
+  var scripts = {
+		setFocusOnButton: function(testPageDocument){
+			// sets focus on the button
+			testPageDocument.querySelector('#toggle').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the button",
+  "setupTestPage": "setFocusOnButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read information about not pressed toggle button",
+  "specific_user_instruction": "With the reading cursor on the 'Mute' button, read information about the button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Mute' is conveyed"
+    ],
+    [
+      "1",
+      "State 'not pressed' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about not pressed toggle button": {
+    "reading": {
+      "jaws": [
+        [ "INST_TAB" ],
+        [ "INST_UP" ]
+      ],
+      "nvda": [
+        [ "INST_TAB" ],
+        [ "INST_UP" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [
+        [ "INST_TAB" ],
+        [ "INST_UP" ]
+      ],
+      "nvda": [
+        [ "INST_TAB" ],
+        [ "INST_UP" ]
+      ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\2021-3-29_145942\button.html");
+  });
+</script>
+  

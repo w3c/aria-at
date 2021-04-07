@@ -93,55 +93,6 @@
 },	moveFocusToFirstCheckbox: function(testPageDocument){
 	// sets focus on the first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').focus();
-},	buttonFocusEmptyCollpased: function(testPageDocument){
-	// Set focus on button
-	// Ensure in collapsed state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.buttonNode.focus();
-},	buttonFocusEmptyExpanded: function(testPageDocument){
-	// Set focus on button
-	// Ensure in expanded state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.buttonNode.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-	cb.open();
-},	comboboxFocusEmptyCollapsed: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' is empty
-	// Ensure in collapsed state
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = '';
-	cb.combobox.focus();
-},	comboboxFocusEmptyExpanded: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' to 'Alabama'
-	// Ensure in expanded state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = '';
-	cb.combobox.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-	cb.open();
-},	comboboxValueSetCollapsedState: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' to 'Alabama'
-	// Ensure in collapsed state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = 'Alabama';
-	cb.comboboxNode.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-},	comboboxValueSetExpandedState: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' to 'a'
-	// Ensure in expanded state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = 'a';
-	cb.comboboxNode.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-	cb.open();
 },	moveFocusAfterCombobox: function(testPageDocument){
 	// sets focus on a link after the Combobox
 	testPageDocument.querySelector('#afterlink').focus();
@@ -301,7 +252,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-01-open-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -381,7 +332,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-02-open-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -461,7 +412,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-03-open-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -513,7 +464,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-04-close-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -585,7 +536,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-05-close-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -657,7 +608,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-06-close-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -703,7 +654,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-07-close-modal-dialog-using-button-reading.html?at=jaws">jaws</a></li>
@@ -777,7 +728,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-08-close-modal-dialog-using-button-interaction.html?at=jaws">jaws</a></li>
@@ -851,7 +802,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-09-close-modal-dialog-using-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -899,7 +850,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-10-navigate-to-last-focusable-element-in-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -971,7 +922,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-11-navigate-to-last-focusable-element-in-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1017,7 +968,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-12-navigate-to-first-focusable-element-in-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -1089,7 +1040,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-13-navigate-to-first-focusable-element-in-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1135,7 +1086,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-14-navigate-to-beginning-of-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -1209,7 +1160,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-15-navigate-to-beginning-of-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1256,7 +1207,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-16-navigate-to-end-of-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -1328,7 +1279,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-17-navigate-to-end-of-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1374,7 +1325,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-18-open-nested-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -1457,7 +1408,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-19-open-nested-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -1540,7 +1491,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-20-open-nested-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1594,7 +1545,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-21-close-nested-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -1672,7 +1623,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-22-close-nested-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -1750,7 +1701,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-23-close-nested-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1800,7 +1751,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-24-close-nested-modal-dialog-using-button-reading.html?at=jaws">jaws</a></li>
@@ -1880,7 +1831,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-25-close-nested-modal-dialog-using-button-interaction.html?at=jaws">jaws</a></li>
@@ -1960,7 +1911,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-26-close-nested-modal-dialog-using-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2012,7 +1963,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-27-open-nested-modal-dialog-using-link-reading.html?at=jaws">jaws</a></li>
@@ -2093,7 +2044,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-28-open-nested-modal-dialog-using-link-interaction.html?at=jaws">jaws</a></li>
@@ -2174,7 +2125,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Wed Apr 7 17:39:19 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-29-open-nested-modal-dialog-using-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

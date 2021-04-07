@@ -93,55 +93,6 @@
 },	moveFocusToFirstCheckbox: function(testPageDocument){
 	// sets focus on the first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').focus();
-},	buttonFocusEmptyCollpased: function(testPageDocument){
-	// Set focus on button
-	// Ensure in collapsed state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.buttonNode.focus();
-},	buttonFocusEmptyExpanded: function(testPageDocument){
-	// Set focus on button
-	// Ensure in expanded state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.buttonNode.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-	cb.open();
-},	comboboxFocusEmptyCollapsed: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' is empty
-	// Ensure in collapsed state
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = '';
-	cb.combobox.focus();
-},	comboboxFocusEmptyExpanded: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' to 'Alabama'
-	// Ensure in expanded state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = '';
-	cb.combobox.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-	cb.open();
-},	comboboxValueSetCollapsedState: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' to 'Alabama'
-	// Ensure in collapsed state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = 'Alabama';
-	cb.comboboxNode.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-},	comboboxValueSetExpandedState: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' to 'a'
-	// Ensure in expanded state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = 'a';
-	cb.comboboxNode.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-	cb.open();
 },	moveFocusAfterCombobox: function(testPageDocument){
 	// sets focus on a link after the Combobox
 	testPageDocument.querySelector('#afterlink').focus();
@@ -301,7 +252,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-01-navigate-forwards-to-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -390,7 +341,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-02-navigate-backwards-to-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -479,7 +430,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-03-navigate-forwards-to-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -566,7 +517,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-04-navigate-backwards-to-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -653,7 +604,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-05-navigate-forwards-to-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -711,7 +662,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-06-navigate-backwards-to-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -769,7 +720,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-07-read-information-about-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -852,7 +803,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-08-read-information-about-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -935,7 +886,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-09-read-information-about-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -988,7 +939,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-10-navigate-to-next-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1066,7 +1017,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-11-navigate-to-next-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1144,7 +1095,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-12-navigate-to-next-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1194,7 +1145,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-13-navigate-to-previous-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1275,7 +1226,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-14-navigate-to-previous-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1356,7 +1307,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-15-navigate-to-previous-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1408,7 +1359,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-16-navigate-to-first-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1489,7 +1440,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-17-navigate-to-first-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1541,7 +1492,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-18-navigate-to-last-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1619,7 +1570,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-19-navigate-to-last-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1669,7 +1620,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-20-navigate-forwards-to-tab-panel-interaction.html?at=jaws">jaws</a></li>
@@ -1745,7 +1696,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-21-navigate-backwards-to-tab-panel-interaction.html?at=jaws">jaws</a></li>
@@ -1821,7 +1772,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-22-navigate-forwards-to-tab-panel-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1871,7 +1822,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-23-navigate-backwards-to-tab-panel-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1921,7 +1872,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-24-activate-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1994,7 +1945,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-25-activate-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2067,7 +2018,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-26-activate-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2115,7 +2066,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-27-delete-tab-from-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -2196,7 +2147,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-28-delete-tab-from-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2277,7 +2228,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Sun Mar 7 23:36:55 2021 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-29-delete-tab-from-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

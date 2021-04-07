@@ -1,0 +1,20 @@
+{
+  "setup_script_description": "sets focus on a link before the button",
+  "setupTestPage": "setFocusBeforeButton",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to button",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Print Page' button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Print Page' is conveyed"
+    ]
+  ]
+}

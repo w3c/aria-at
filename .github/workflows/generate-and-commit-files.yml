@@ -25,6 +25,6 @@ jobs:
     - name: Generate review files
       run: npm run review-tests
 
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - uses: stefanzweifel/git-auto-commit-action@v4.11.0
       with:
         commit_message: Generate test and review files automatically

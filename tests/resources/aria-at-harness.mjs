@@ -1,20 +1,25 @@
-import {commandsAPI} from './at-commands.mjs';
+import {commandsAPI} from "./at-commands.mjs";
+import {element, fragment, property, attribute, className, style, focus, render} from "./vrender.mjs";
+import {
+  AssertionResultMap,
+  CommonResultMap,
+  createEnumMap,
+  HasUnexpectedBehaviorMap,
+  TestRun,
+  UserActionMap,
+  userCloseWindow,
+  userOpenWindow,
+  WhitespaceStyleMap,
+} from "./aria-at-test-run.mjs";
 
-const UNDESIRABLES = [
+const UNEXPECTED_BEHAVIORS = [
   "Output is excessively verbose, e.g., includes redundant and/or irrelevant speech",
   "Reading cursor position changed in an unexpected manner",
   "Screen reader became extremely sluggish",
   "Screen reader crashed",
-  "Browser crashed"
+  "Browser crashed",
 ];
 
-const TEST_HTML_OUTLINE = `
-<div>
-  <section id='errors' style='display:none'><h2>Test cannot be performed due to error(s)!</h2><ul></ul><hr></section>
-  <section id='instructions'></section>
-  <section id='record-results'></section>
-</div>
-`;
 const PAGE_STYLES = `
   table {
     border-collapse: collapse;
@@ -72,362 +77,171 @@ const PAGE_STYLES = `
   }
 `;
 
-let behavior;
-let behaviorResults;
-let overallStatus;
+/** @type {string[]} */
 const errors = [];
-let testPageUri;
-let testPageWindow;
 let showResults = true;
 let showSubmitButton = true;
 
+/** @type {AT} */
 let at;
-let commandsData;
+/** @type {CommandsAPI} */
 let commapi;
-let support;
+/** @type {Behavior} */
+let behavior;
+/** @type {TestRunState} */
+let firstState;
 
+/**
+ * @param {Support} newSupport
+ * @param {Commands} newCommandsData
+ */
 export function initialize(newSupport, newCommandsData) {
-  support = newSupport;
-  commandsData = newCommandsData;
-  commapi = new commandsAPI(commandsData, support);
+  commapi = new commandsAPI(newCommandsData, newSupport);
 
   // Get the AT under test from the URL search params
   // set the showResults flag from the URL search params
-  let params = (new URL(document.location)).searchParams;
-  at = support.ats[0];
+  let params = new URL(document.location).searchParams;
+  at = newSupport.ats[0];
   for (const [key, value] of params) {
-    if (key === 'at') {
+    if (key === "at") {
       let requestedAT = value;
       if (commapi.isKnownAT(requestedAT)) {
         at = commapi.isKnownAT(requestedAT);
-      }
-      else {
-        errors.push(`Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assistive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`);
+      } else {
+        errors.push(
+          `Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assistive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`
+        );
       }
     }
-    if (key === 'showResults') {
-      if (value === 'true') {
+    if (key === "showResults") {
+      if (value === "true") {
         showResults = true;
-      } else if (value === 'false') {
+      } else if (value === "false") {
         showResults = false;
       }
     }
-    if (key === 'showSubmitButton') {
-      if (value === 'true') {
+    if (key === "showSubmitButton") {
+      if (value === "true") {
         showSubmitButton = true;
-      } else if (value === 'false') {
+      } else if (value === "false") {
         showSubmitButton = false;
       }
     }
   }
 }
 
-function openTestPagePopup() {
-  testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-  document.getElementById('open-test-page').disabled = true;
-
-  // If the window is closed, re-enable open popup button
-  testPageWindow.onunload = function(event) {
-    window.setTimeout(() => {
-      if (testPageWindow.closed) {
-        testPageWindow = undefined;
-        document.getElementById('open-test-page').disabled = false;
-      }
-    }, 100);
-
-  };
-
-  executeScriptInTestPage();
-}
-
-function putTestPageWindowIntoCorrectState() {
-  // testPageWindow.location.reload(); // TODO: Address the race condition this causes with script execution.
-  executeScriptInTestPage();
-}
-
-function executeScriptInTestPage() {
-  let setupTestPage = behavior.setupTestPage;
-  if (setupTestPage) {
-    if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-        || testPageWindow.document.readyState !== 'complete'
-    ) {
-      window.setTimeout(() => {
-        executeScriptInTestPage();
-      }, 100);
-      return;
-    }
-
-    scripts[behavior.setupTestPage](testPageWindow.document);
-  }
-}
-
+/**
+ * @param {BehaviorJSON} atBehavior
+ */
 export function verifyATBehavior(atBehavior) {
   // This is temporary until transition is complete from multiple modes to one mode
-  let mode = typeof atBehavior.mode === 'string' ? atBehavior.mode : atBehavior.mode[0];
+  let mode = typeof atBehavior.mode === "string" ? atBehavior.mode : atBehavior.mode[0];
 
-  let newBehavior = Object.assign({}, atBehavior, { mode: mode });
-  newBehavior.commands = commapi.getATCommands(mode, atBehavior.task, at);
+  /** @type {Behavior} */
+  behavior = {
+    description: document.title,
+    task: atBehavior.task,
+    mode,
+    modeInstructions: commapi.getModeInstructions(mode, at),
+    appliesTo: atBehavior.applies_to,
+    specificUserInstruction: atBehavior.specific_user_instruction,
+    setupScriptDescription: atBehavior.setup_script_description,
+    setupTestPage: atBehavior.setupTestPage,
+    commands: commapi.getATCommands(mode, atBehavior.task, at),
+    outputAssertions: atBehavior.output_assertions ? atBehavior.output_assertions : [],
+    additionalAssertions: atBehavior.additional_assertions ? atBehavior.additional_assertions[at.key] || [] : [],
+    unexpectedBehaviors: [
+      ...UNEXPECTED_BEHAVIORS.map(content => ({content})),
+      {content: "Other", requireExplanation: true},
+    ],
+  };
 
-  newBehavior.output_assertions = newBehavior.output_assertions ? newBehavior.output_assertions : [];
-  newBehavior.additional_assertions = newBehavior.additional_assertions
-    ? atBehavior.additional_assertions[at.key] || []
-    : [];
-  if (!behavior && newBehavior.commands.length) {
-    behavior = newBehavior;
+  if (!firstState && behavior.commands.length) {
+    firstState = initializeTestRunState({
+      errors: errors.length ? errors : null,
+      test: behavior,
+      config: {at, displaySubmitButton: showSubmitButton, renderResultsAfterSubmit: showResults},
+    });
   } else {
-    throw new Error('Test files should only contain one verifyATBehavior call.');
+    throw new Error("Test files should only contain one verifyATBehavior call.");
   }
 }
 
 export function displayTestPageAndInstructions(testPage) {
-  testPageUri = testPage;
-
-  if (document.readyState !== 'complete') {
+  if (document.readyState !== "complete") {
     window.setTimeout(() => {
       displayTestPageAndInstructions(testPage);
     }, 100);
     return;
   }
 
-  document.querySelector('html').setAttribute('lang', 'en');
-  document.body.innerHTML = (TEST_HTML_OUTLINE);
-  var style = document.createElement('style');
+  document.querySelector("html").setAttribute("lang", "en");
+  var style = document.createElement("style");
   style.innerHTML = PAGE_STYLES;
   document.head.appendChild(style);
 
-  showUserError();
-
-  displayInstructionsForBehaviorTest();
+  displayInstructionsForBehaviorTest(testPage, behavior);
 }
 
-function displayInstructionsForBehaviorTest() {
-
-  function getSetupInstructions() {
-    let html = '';
-    for (let i = 0; i < (userInstructions.length - 1); i++) {
-      html += `<li><em>${userInstructions[i]}</em></li>`;
-    }
-    return html;
-  }
+/**
+ * @param {string} testPage
+ * @param {Behavior} behavior
+ */
+function displayInstructionsForBehaviorTest(testPage, behavior) {
+  const windowManager = new TestWindow({
+    pageUri: testPage,
+    setupScriptName: behavior.setupTestPage,
+    scripts: typeof scripts === "object" ? scripts : {},
+    hooks: {
+      windowOpened() {
+        app.dispatch(userOpenWindow());
+      },
+      windowClosed() {
+        app.dispatch(userCloseWindow());
+      },
+    },
+  });
 
   // First, execute necesary set up script in test page if the test page is open from a previous behavior test
-  if (testPageWindow) {
-    putTestPageWindowIntoCorrectState();
-  }
+  windowManager.prepare();
 
-  const mode = behavior.mode;
-  const modeInstructions = commapi.getModeInstructions(mode, at);
-  const userInstructions = behavior.specific_user_instruction.split('|');
-  const lastInstruction = userInstructions[userInstructions.length-1];
-  const commands = behavior.commands;
-  const assertions = behavior.output_assertions.map((a) => a[1]);
-  const additionalBehaviorAssertions = behavior.additional_assertions;
-  const setupScriptDescription = behavior.setup_script_description ? ` and runs a script that ${behavior.setup_script_description}.` : behavior.setup_script_description;
-  // As a hack, special case mode instructions for VoiceOver for macOS until we support modeless tests.
-  // ToDo: remove this when resolving issue #194
-  const modePhrase = at.name === "VoiceOver for macOS" ? "Describe " : `With ${at.name} in ${mode} mode, describe `;
-
-  let instructionsEl = document.getElementById('instructions');
-  instructionsEl.innerHTML = `
-<h1 id="behavior-header" tabindex="0">Testing task: ${document.title}</h1>
-<p>${modePhrase} how ${at.name} behaves when performing task "${lastInstruction}"</p>
-<h2>Test instructions</h2>
-<ol aria-label="Instructions">
-  <li>Restore default settings for ${at.name}. For help, read <a href="https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing">Configuring Screen Readers for Testing</a>.</li>
-  <li>Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}</li>
-  <li id="mode-instructions-li"><em>${modeInstructions}</em></li>
-  ${getSetupInstructions()}
-  <li>Using the following commands, ${lastInstruction}
-    <ul id='at_controls' aria-label='Commands'>
-    </ul>
-  </li>
-</ol>
-<h3>Success Criteria</h3>
-<p>To pass this test, ${at.name} needs to meet all the following assertions when each  specified command is executed:</p>
-<ul id='assertions' aria-label="Assertions">
-</ul>
-`;
-
-  // Hack to remove mode instructions for VoiceOver for macOS to get us by until we support modeless screen readers.
-  // ToDo: remove this when resolving issue #194
-  if (at.name === "VoiceOver for macOS") {
-    let modeInstructionsEl= document.getElementById('mode-instructions-li');
-    modeInstructionsEl.parentNode.removeChild(modeInstructionsEl);
-  }
-
-  for (let command of commands) {
-    let commandEl = document.createElement('li');
-    commandEl.innerHTML = `${command}`;
-    document.getElementById('at_controls').append(commandEl);
-  }
-
-  for (let assertion of assertions) {
-    let el = document.createElement('li');
-    el.innerHTML = `<em>${assertion}</em>`;
-    document.getElementById('assertions').append(el);
-  }
-
-  for (let additional of additionalBehaviorAssertions) {
-    let el = document.createElement('li');
-    el.innerHTML = `<em>${additional[1]}</em>`;
-    document.getElementById('assertions').append(el);
-  }
-
-  let openButton = document.createElement('button');
-  openButton.id = 'open-test-page';
-  openButton.innerText = "Open Test Page";
-  openButton.addEventListener('click', openTestPagePopup);
-  if (testPageWindow) {
-    openButton.disabled = true;
-  }
-  document.getElementById('instructions').append(openButton);
-
-  let recordResults = `<h2>Record Results</h2><p>${document.title}</p>`;
-
-  for (let c = 0; c < commands.length; c++) {
-    recordResults += `<section id="cmd-${c}-section"><h3 id="header-cmd-${c}">After '${commands[c]}'</h3>`;
-    recordResults += `
-<p id="cmd-${c}-output">
-  <label for="speechoutput-${c}">${at.name} output after ${commands[c]} <span class="required">(required)</span>:</label>
-    <textarea id="speechoutput-${c}"></textarea>
-</p>
-`;
-
-    recordResults += `<table id="cmd-${c}" class="record-results">
-<tr>
-  <th>Assertion</th>
-  <th>
-    Success case
-  </th>
-  <th>
-    Failure cases
-  </th>
-</tr>
-`;
-
-    for (let a = 0; a < assertions.length; a++) {
-      recordResults += `
-<tr>
-  <td id="assertion-${c}-${a}"><div class="assertion">${assertions[a]}</div><div class="required">(required: mark output)</div></td>
-  <td>
-      <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}" aria-labelledby="pass-${c}-${a}-label assertion-${c}-${a}">
-      <label id="pass-${c}-${a}-label">Good Output <span class="off-screen">for assertion</span></label>
-  </td>
-  <td>
-      <input type="radio" id="missing-${c}-${a}" class="missing" name="result-${c}-${a}" aria-labelledby="missing-${c}-${a}-label assertion-${c}-${a}">
-      <label id="missing-${c}-${a}-label">No Output <span class="off-screen">for assertion</span></label>
-      <input type="radio" id="fail-${c}-${a}" class="fail" name="result-${c}-${a}" aria-labelledby="fail-${c}-${a}-label assertion-${c}-${a}">
-      <label id="fail-${c}-${a}-label">Incorrect Output <span class="off-screen">for assertion</span></label>
-  </td>
-</tr>
-`;
-    }
-
-    for (let n = 0; n < additionalBehaviorAssertions.length; n++) {
-      let a = assertions.length + n;
-      recordResults += `
-<tr>
-  <td id="assertion-${c}-${a}"><div class="assertion">${additionalBehaviorAssertions[n][1]}</div><div class="required">(required: mark support)</div></td>
-  <td>
-      <input type="radio" id="pass-${c}-${a}" class="pass" name="result-${c}-${a}" aria-labelledby="pass-${c}-${a}-label assertion-${c}-${a}">
-      <label id="pass-${c}-${a}-label">Good Support <span class="off-screen">for assertion</span></label>
-  </td>
-  <td>
-      <input type="radio" id="fail-${c}-${a}" class="fail" name="result-${c}-${a}" aria-labelledby="fail-${c}-${a}-label assertion-${c}-${a}">
-      <label id="fail-${c}-${a}-label">No Support <span class="off-screen">for assertion</span></label>
-  </td>
-</tr>
-`;
-    }
-
-    recordResults += '</table>';
-
-    recordResults += `
-  <fieldset id="cmd-${c}-problem">
-Were there additional undesirable behaviors? <span class="required">(required)</span>
-<div>
-  <input type="radio" id="problem-${c}-false" class="pass" name="problem-${c}">
-  <label for="problem-${c}-false">No, there were no additional undesirable behaviors.</label>
-</div>
-<div>
-  <input type="radio" id="problem-${c}-true" class="fail" name="problem-${c}">
-  <label for="problem-${c}-true">Yes, there were additional undesirable behaviors</label>
-</div>
-  <fieldset class="problem-select" id="cmd-${c}-problem-checkboxes">
-  <legend>Undesirable behaviors<span class="required"> (required)<span></legend>
-`;
-
-  for (let undesirable of UNDESIRABLES) {
-    const string = `
-      <input type="checkbox" value="${undesirable}" id="${undesirable}-${c}" class="undesirable-${c}" tabindex="-1" disabled>
-      <label for="${undesirable}-${c}">${undesirable}</label>
-      <br>
-     `;
-    recordResults += string;
-  }
-
-  recordResults += `
-     <input type="checkbox" value="Other" id="undesirable-${c}-other" name="undesirable-${c}-other" class="undesirable-${c}" tabindex="-1">
-     <label for="undesirable-${c}-other">Other</label>
-     </br>
-     <div>
-       <label for="undesirable-${c}-other-input">If "other" selected, explain <span class="required-other">(required)</span>:</label>
-       <input type="text" name="undesirable-${c}-other-input" id="undesirable-${c}-other-input" class="undesirable-other-input" disabled>
-     </div>
-  </div>
-</fieldset>
-`;
-
-    recordResults += `</section>`;
-  }
-
-  let recordEl = document.getElementById('record-results');
-  recordEl.innerHTML = recordResults;
-
-  let radios = document.querySelectorAll('input[type="radio"]');
-  for (let radio of radios) {
-    radio.onclick = handleRadioClick;
-  }
-
-  let checkboxes = document.querySelectorAll('input[type=checkbox]');
-  for (let checkbox of checkboxes) {
-    checkbox.onchange = handleUndesirableSelect;
-    checkbox.addEventListener('keydown', handleUndesirableKeydown);
-  }
-
-  let otherUndesirableInput = document.querySelectorAll('.undesirable-other-input');
-  for (let otherInput of otherUndesirableInput) {
-    otherInput.addEventListener('change', handleOtherUndesirableInput);
-  }
-
-  if (showSubmitButton) {
-    // Submit button
-    let el = document.createElement('button');
-    el.id = 'submit-results';
-    el.innerText = 'Submit Results';
-    el.addEventListener('click', submitResult);
-    recordEl.append(el);
-  }
-
-  document.querySelector('#behavior-header').focus();
+  const app = new TestRunExport({
+    behavior,
+    hooks: {
+      openTestPage() {
+        windowManager.open();
+      },
+      closeTestPage() {
+        windowManager.close();
+      },
+      postResults: () => postResults(app),
+    },
+    state: firstState,
+  });
+  app.observe(() => {
+    render(document.body, renderVirtualTestPage(app.testPageAndResults()));
+  });
+  render(document.body, renderVirtualTestPage(app.testPageAndResults()));
 
   // if test is loaded in iFrame
   if (window.parent && window.parent.postMessage) {
     // results can be submitted by parent posting a message to the
     // iFrame with a data.type property of 'submit'
-    window.addEventListener('message', function(message) {
-      if (!validateMessage(message, 'submit')) return;
-      submitResult();
+    window.addEventListener("message", function (message) {
+      if (!validateMessage(message, "submit")) return;
+      app.hooks.submit();
     });
 
     // send message to parent that test has loaded
-    window.parent.postMessage({
-      type: 'loaded',
-      data: {
-        testPageUri: testPageUri
-      }
-    }, '*');
+    window.parent.postMessage(
+      {
+        type: "loaded",
+        data: {
+          testPageUri: windowManager.pageUri,
+        },
+      },
+      "*"
+    );
   }
 }
 
@@ -435,7 +249,7 @@ function validateMessage(message, type) {
   if (window.location.origin !== message.origin) {
     return false;
   }
-  if (!message.data || typeof message.data !== 'object') {
+  if (!message.data || typeof message.data !== "object") {
     return false;
   }
   if (message.data.type !== type) {
@@ -444,417 +258,850 @@ function validateMessage(message, type) {
   return true;
 }
 
-function handleUndesirableSelect(event) {
-  let radioId = event.target.id;
-  let cmdId, otherSelected;
-  if (radioId) {
-    cmdId = Number(radioId.split('-')[1]);
-    otherSelected = document.querySelector(`#undesirable-${cmdId}-other`);
-    if (otherSelected && otherSelected.checked == true) {
-      document.querySelector(`#undesirable-${cmdId}-other-input`).disabled = false;
-    } else {
-      document.querySelector(`#undesirable-${cmdId}-other-input`).disabled = true;
-      document.querySelector(`#undesirable-${cmdId}-other-input`).value = '';
-    }
-  }
-
-  // Handle any checkbox selected
-  let radioName = event.target.name;
-  if (radioName) {
-    cmdId = Number(radioName.split('-')[1]);
-    document.querySelector(`#problem-${cmdId}-true`).checked = true;
-  }
-}
-
-function handleOtherUndesirableInput(event) {
-  let inputId = event.target.id;
-  let cmd = inputId.split('-')[1];
-
-  let otherCheckbox = document.querySelector(`#undesirable-${cmd}-other`);
-  if (event.target.value) {
-    otherCheckbox.checked = true;
-  }
-  else {
-    otherCheckbox.checked = false;
-  }
-}
-
-function handleRadioClick(event) {
-  let radioId = event.target.id;
-  let cmdId = Number(radioId.split('-')[1]);
-
-  let markedAs = radioId.split('-')[2];
-  let checkboxes = document.querySelectorAll(`.undesirable-${cmdId}`);
-  let otherInput = document.querySelector(`#undesirable-${cmdId}-other-input`);
-  if (markedAs === 'true') {
-    checkboxes[0].tabIndex = 0;
-    for (let checkbox of checkboxes) {
-      checkbox.disabled = false;
-    }
-    otherInput.disabled = false;
-  } else {
-    for (let checkbox of checkboxes) {
-      checkbox.disabled = true;
-      checkbox.checked = false;
-    }
-    otherInput.disabled = true;
-    otherInput.value = '';
-  }
-}
-
-function handleUndesirableKeydown(event) {
-  var checkbox = event.currentTarget,
-    flag = false;
-
-  switch (event.key) {
-    case 'Up':
-    case 'ArrowUp':
-    case 'Left':
-    case 'ArrowLeft':
-      setFocusToPreviousItem(checkbox);
-      flag = true;
-      break;
-
-    case 'Down':
-    case 'ArrowDown':
-    case 'Right':
-    case 'ArrowRight':
-      setFocusToNextItem(checkbox);
-      flag = true;
-      break;
-
-    default:
-      break;
-  }
-
-  if (flag) {
-    event.stopPropagation();
-    event.preventDefault();
-  }
-}
-
-function setFocusToPreviousItem(checkbox) {
-  let cmd = checkbox.parentElement.id.split('-')[1];
-  let checkboxNodes = document.querySelectorAll(`#cmd-${cmd}-problem input[type=checkbox]`);
-  let checkboxes = Array.from(checkboxNodes);
-
-  let checkboxIds = checkboxes.map(c => c.id);
-  let index = checkboxIds.indexOf(checkbox.id);
-
-  checkboxNodes[index].tabIndex = -1;
-
-  if (index === 0) {
-    checkboxNodes[checkboxes.length - 1].tabIndex = 0;
-    checkboxNodes[checkboxes.length - 1].focus();
-  }
-  else {
-    checkboxNodes[index - 1].tabIndex = 0;
-    checkboxNodes[index - 1].focus();
-  }
-}
-
-function setFocusToNextItem(checkbox) {
-  let cmd = checkbox.parentElement.id.split('-')[1];
-  let checkboxNodes = document.querySelectorAll(`#cmd-${cmd}-problem input[type=checkbox]`);
-  let checkboxes = Array.from(checkboxNodes);
-
-  let checkboxIds = checkboxes.map(c => c.id);
-  let index = checkboxIds.indexOf(checkbox.id);
-
-  checkboxNodes[index].tabIndex = -1;
-  index++;
-
-  if (index === checkboxes.length) {
-    checkboxNodes[0].tabIndex = 0;
-    checkboxNodes[0].focus();
-  }
-  else {
-    checkboxNodes[index].tabIndex = 0;
-    checkboxNodes[index].focus();
-  }
-}
-
-function validateResults() {
-
-  let focusEl;
-  for (let c = 0; c < behavior.commands.length; c++) {
-
-    // If there is no output recorded, mark the screen reader output as required
-   let outputParagraph = document.getElementById(`cmd-${c}-output`);
-   let cmdInput = outputParagraph.querySelector('textarea');
-    if (!cmdInput.value) {
-      focusEl = focusEl || cmdInput;
-      outputParagraph.querySelector('.required').classList.add('highlight-required');
-    } else {
-      outputParagraph.querySelector('.required').classList.remove('highlight-required');
-    }
-
-    // If "all pass" is selected, remove "required" mark any remaining assertions (because they will
-    // all have been marked as passing, now) and move to the next command
-
-    let numAssertions = document.getElementById(`cmd-${c}`).rows.length - 1;
-    let undesirableFieldset = document.getElementById(`cmd-${c}-problem`);
-
-    // Otherwise, we must go though each assertion and add or remove the "required" mark
-    for (let a = 0; a < numAssertions; a++) {
-      let selectedRadio = document.querySelector(`input[name="result-${c}-${a}"]:checked`);
-      if (!selectedRadio) {
-        document.querySelector(`#assertion-${c}-${a} .required`).classList.add('highlight-required');
-        focusEl = focusEl || document.getElementById(`pass-${c}-${a}`);
-      }
-      else {
-        document.querySelector(`#assertion-${c}-${a} .required`).classList.remove('highlight-required');
-      }
-    }
-
-
-    // Check that the "unexpected/additional problems" fieldset is filled out
-    let problemRadio = document.querySelector(`input[name="problem-${c}"]:checked`);
-    let problemSelected = document.querySelectorAll(`.undesirable-${c}:checked`);
-    let otherSelected = document.querySelector(`#undesirable-${c}-other:checked`);
-    let otherText = document.querySelector(`#undesirable-${c}-other-input`).value;
-    if (!problemRadio || (problemRadio.classList.contains('fail') && problemSelected.length === 0 && !otherSelected)) {
-        undesirableFieldset.classList.add('highlight-required');
-    }
-    if (!problemRadio || (problemRadio.classList.contains('fail') && problemSelected.length === 0 && !otherSelected)) {
-      document.querySelector(`#cmd-${c}-problem legend .required`).classList.add('highlight-required');
-      focusEl = focusEl || document.querySelector(`#cmd-${c}-problem input[type="checkbox"]`);
-    }
-    else if (document.querySelector(`input#problem-${c}-false:checked`) || (problemRadio && problemSelected.length > 0) || (otherSelected && otherText)) {
-      document.querySelector(`#cmd-${c}-problem legend .required`).classList.remove('highlight-required');
-      undesirableFieldset.classList.remove('highlight-required');
-    }
-
-    if (otherSelected) {
-      if (!otherText) {
-        document.querySelector(`#cmd-${c}-problem .required-other`).classList.add('highlight-required');
-        undesirableFieldset.classList.add('highlight-required');
-        focusEl = focusEl || document.querySelector(`#undesirable-${c}-other-input`);
-      }
-      else {
-        document.querySelector(`#cmd-${c}-problem .required-other`).classList.remove('highlight-required');
-        undesirableFieldset.classList.remove('highlight-required');
-      }
-    }
-  }
-
-  if (focusEl) {
-    focusEl.focus();
-    return false;
-  }
-  return true;
-}
-
-
-function submitResult(event) {
-  if (!validateResults()) {
-    return;
-  }
-
-  const assertionPriority = {};
-  for (let a = 0; a < behavior.output_assertions.length; a++) {
-    const assertion = behavior.output_assertions[a];
-    assertionPriority[assertion[1]] = assertion[0];
-  }
-
-  for (let a = 0; a < behavior.additional_assertions.length; a++) {
-    const assertion = behavior.additional_assertions[a];
-    assertionPriority[assertion[1]] = assertion[0];
-  }
-
-  const summary = {
-    1: {pass: 0, fail: 0},
-    2: {pass: 0, fail: 0},
-    unexpectedCount: 0
-  };
-
-  overallStatus = 'PASS';
-
-  const commandResults = [];
-
-  for (let c = 0; c < behavior.commands.length; c++) {
-
-    let assertions = [];
-    let support = 'FULL';
-    let totalAssertions = document.querySelectorAll(`#cmd-${c} tr`).length - 1;
-
-    for (let a = 0; a < totalAssertions; a++) {
-      const assertion = document.querySelector(`#assertion-${c}-${a} .assertion`).innerHTML;
-      const resultEl = document.querySelector(`input[name="result-${c}-${a}"]:checked`);
-      const resultId = resultEl.id;
-      const pass = resultEl.classList.contains('pass');
-      const result = document.querySelector(`#${resultId}-label`).innerHTML.split('<span')[0];
-      const priority = assertionPriority[assertion];
-
-      let assertionResult = {
-        assertion,
-        priority
-      };
-
-      if (pass) {
-        assertionResult.pass = result;
-        summary[priority].pass++;
-      }
-      else {
-        assertionResult.fail = result;
-        summary[priority].fail++;
-
-        // If any priority 1 assertion fails, the test fails for this command
-        if (priority === 1) {
-          support = 'FAILING';
-          overallStatus = 'FAIL';
-        }
-        // If any only a priority >1 assertion fails, then this test meets the all required pass case
-        else if (support !== 'FAILING') {
-          support = 'ALL REQUIRED';
-        }
-      }
-
-      assertions.push(assertionResult);
-    }
-
-    const unexpected = [];
-    for (let problemEl of document.querySelectorAll(`#cmd-${c}-problem fieldset input:checked`)) {
-      support = 'FAILING';
-      overallStatus = 'FAIL';
-      summary.unexpectedCount++;
-      if (problemEl.value === 'Other') {
-        unexpected.push(document.querySelector(`#undesirable-${c}-other-input`).value);
-      }
-      else {
-        unexpected.push(problemEl.value);
-      }
-    }
-
-    commandResults.push({
-      command: behavior.commands[c],
-      output: document.querySelector(`#speechoutput-${c}`).value,
-      unexpected_behaviors: unexpected,
-      support,
-      assertions
-    });
-  }
-
-  behaviorResults = {
-    name: document.title,
-    specific_user_instruction: behavior.specific_user_instruction,
-    task: behavior.task,
-    commands: commandResults,
-    summary
-  };
-
-  let data = {
-    test: document.title,
-    details: behaviorResults,
-    status: overallStatus
-  };
-
+/**
+ * @param {TestRunExport} app
+ */
+function postResults(app) {
   // send message to parent if test is loaded in iFrame
   if (window.parent && window.parent.postMessage) {
-    window.parent.postMessage({
-      type: 'results',
-      data: data
-    }, '*');
+    window.parent.postMessage(
+      {
+        type: "results",
+        data: app.resultsJSON(),
+      },
+      "*"
+    );
   }
-
-  endTest();
-
-  if (showResults) {
-    showResultsTable();
-  }
-
-  appendJSONResults(data);
 }
 
+/** @typedef {ConstructorParameters<typeof TestRun>[0]} TestRunOptions */
+/**
+ * @typedef TestRunExportOptions
+ * @property {Behavior} behavior
+ */
 
-function showResultsTable() {
-  let resulthtml = `<h1>${document.title}</h1><h2 id=overallstatus></h2>`;
+class TestRunExport extends TestRun {
+  /**
+   * @param {TestRunOptions & TestRunExportOptions} options
+   */
+  constructor({behavior, ...parentOptions}) {
+    super(parentOptions);
 
-  resulthtml += `<table>
-    <tr>
-      <th>Command</th>
-      <th>Support</th>
-      <th>Details</th>
-    </tr>
-  `;
+    this.behavior = behavior;
+  }
 
-  for (let command of behaviorResults.commands) {
+  testPageAndResults() {
+    const testPage = this.testPage();
+    if ("results" in testPage) {
+      return {
+        ...testPage,
+        resultsJSON: this.resultsJSON(),
+      };
+    }
+    return {
+      ...testPage,
+      resultsJSON: this.state.currentUserAction === UserActionMap.CLOSE_TEST_WINDOW ? this.resultsJSON() : null,
+    };
+  }
 
-      let passingAssertions = '';
-      let failingAssertions = '';
-      for (let assertion of command.assertions) {
-        if (assertion.pass) {
-          passingAssertions += `<li>${assertion.assertion}</li>`;
+  resultsJSON() {
+    return toSubmitResultJSON(this.state, this.behavior);
+  }
+}
+
+class TestWindow {
+  /**
+   * @param {object} options
+   * @param {Window | null} [options.window]
+   * @param {string} options.pageUri
+   * @param {string} [options.setupScriptName]
+   * @param {TestWindowHooks} [options.hooks]
+   * @param {SetupScripts} [options.scripts]
+   */
+  constructor({window = null, pageUri, setupScriptName, hooks, scripts = {}}) {
+    /** @type {Window | null} */
+    this.window = window;
+
+    /** @type {string} */
+    this.pageUri = pageUri;
+
+    /** @type {string} */
+    this.setupScriptName = setupScriptName;
+
+    /** @type {TestWindowHooks} */
+    this.hooks = {
+      windowOpened: () => {},
+      windowClosed: () => {},
+      ...hooks,
+    };
+
+    /** @type {SetupScripts} */
+    this.scripts = scripts;
+  }
+
+  open() {
+    this.window = window.open(this.pageUri, "_blank", "toolbar=0,location=0,menubar=0,width=400,height=400");
+
+    this.hooks.windowOpened();
+
+    // If the window is closed, re-enable open popup button
+    this.window.onunload = () => {
+      window.setTimeout(() => {
+        if (this.window.closed) {
+          this.window = undefined;
+
+          this.hooks.windowClosed();
         }
-        if (assertion.fail) {
-          failingAssertions += `<li>${assertion.assertion}</li>`;
-        }
-      }
-      let unexpectedBehaviors = '';
-      for (let unexpected of command.unexpected_behaviors) {
-        unexpectedBehaviors += `<li>${unexpected}</li>`;
-      }
-      passingAssertions = passingAssertions === '' ? '<li>No passing assertions.</li>' : passingAssertions;
-      failingAssertions = failingAssertions === '' ? '<li>No failing assertions.</li>' : failingAssertions;
-      unexpectedBehaviors = unexpectedBehaviors === '' ? '<li>No unexpect behaviors.</li>' : unexpectedBehaviors;
+      }, 100);
+    };
 
+    this.prepare();
+  }
 
-      resulthtml+= `
-<tr>
-  <td>${command.command}</td>
-  <td>${command.support}</td>
-  <td>
-    <p>${at.name} output:<br> "${command.output.replace(/(?:\r\n|\r|\n)/g, '<br>')}"</p>
-    <div>Passing Assertions:
-      <ul>
-      ${passingAssertions}
-      </ul>
-    </div>
-    <div>Failing Assertions:
-      <ul>
-      ${failingAssertions}
-      </ul>
-    </div>
-    <div>Unexpected Behavior:
-      <ul>
-      ${unexpectedBehaviors}
-      </ul>
-    </div>
-  </td>
-</tr>
-`;
-
+  prepare() {
+    if (!this.window) {
+      return;
     }
 
-  resulthtml += `</table>`;
+    let setupScriptName = this.setupScriptName;
+    if (!setupScriptName) {
+      return;
+    }
+    if (
+      this.window.location.origin !== window.location.origin || // make sure the origin is the same, and prevent this from firing on an 'about' page
+      this.window.document.readyState !== "complete"
+    ) {
+      window.setTimeout(() => {
+        this.prepare();
+      }, 100);
+      return;
+    }
 
-  document.body.innerHTML = resulthtml;
-  document.querySelector('#overallstatus').innerHTML = `Test result: ${overallStatus}`;
-}
-
-function endTest() {
-  if (typeof testPageWindow !== 'undefined') {
-    testPageWindow.close();
+    this.scripts[setupScriptName](this.window.document);
   }
-}
 
-function showUserError() {
-  if (errors.length) {
-    document.getElementById('errors').style.display = "block";
-    let errorListEl = document.querySelector('#errors ul');
-    for (let error of errors) {
-      let errorMsgEl = document.createElement('li');
-      errorMsgEl.innerText = error;
-      errorListEl.append(errorMsgEl);
+  close() {
+    if (this.window) {
+      this.window.close();
     }
   }
 }
 
-function appendJSONResults(data) {
-  var results_element = document.createElement("script");
-  results_element.type = "text/json";
-  results_element.id = "__ariaatharness__results__";
-  results_element.textContent = JSON.stringify(data);
-
-  document.body.appendChild(results_element);
+function bind(fn, ...args) {
+  return (...moreArgs) => fn(...args, ...moreArgs);
 }
+
+/**
+ * @param {object} options
+ * @param {string[] | null} [options.errors]
+ * @param {Behavior} options.test
+ * @param {object} options.config
+ * @param {AT} options.config.at
+ * @param {boolean} [options.config.displaySubmitButton]
+ * @param {boolean} [options.config.renderResultsAfterSubmit]
+ * @returns {TestRunState}
+ */
+function initializeTestRunState({
+  errors = null,
+  test,
+  config: {at, displaySubmitButton = true, renderResultsAfterSubmit = true},
+}) {
+  return {
+    errors,
+    info: {
+      description: test.description,
+      task: test.task,
+      mode: test.mode,
+      modeInstructions: test.modeInstructions,
+      userInstructions: test.specificUserInstruction.split("|"),
+      setupScriptDescription: test.setupScriptDescription,
+    },
+    config: {
+      at,
+      displaySubmitButton,
+      renderResultsAfterSubmit,
+    },
+    currentUserAction: UserActionMap.LOAD_PAGE,
+    openTest: {
+      enabled: true,
+    },
+    commands: test.commands.map(
+      command =>
+        /** @type {TestRunCommand} */ ({
+          description: command,
+          atOutput: {
+            highlightRequired: false,
+            value: "",
+          },
+          assertions: test.outputAssertions.map(assertion => ({
+            description: assertion[1],
+            highlightRequired: false,
+            priority: Number(assertion[0]),
+            result: CommonResultMap.NOT_SET,
+          })),
+          additionalAssertions: test.additionalAssertions.map(assertion => ({
+            description: assertion[1],
+            highlightRequired: false,
+            priority: Number(assertion[0]),
+            result: CommonResultMap.NOT_SET,
+          })),
+          unexpected: {
+            highlightRequired: false,
+            hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
+            tabbedBehavior: 0,
+            behaviors: test.unexpectedBehaviors.map(({content: description, requireExplanation}) => ({
+              description,
+              checked: false,
+              more: requireExplanation ? {highlightRequired: false, value: ""} : null,
+            })),
+          },
+        })
+    ),
+  };
+}
+
+const a = bind(element, "a");
+const br = bind(element, "br");
+const button = bind(element, "button");
+const div = bind(element, "div");
+const em = bind(element, "em");
+const fieldset = bind(element, "fieldset");
+const h1 = bind(element, "h1");
+const h2 = bind(element, "h2");
+const h3 = bind(element, "h3");
+const hr = bind(element, "hr");
+const input = bind(element, "input");
+const label = bind(element, "label");
+const legend = bind(element, "legend");
+const li = bind(element, "li");
+const ol = bind(element, "ol");
+const p = bind(element, "p");
+const script = bind(element, "script");
+const section = bind(element, "section");
+const span = bind(element, "span");
+const table = bind(element, "table");
+const td = bind(element, "td");
+const textarea = bind(element, "textarea");
+const th = bind(element, "th");
+const tr = bind(element, "tr");
+const ul = bind(element, "ul");
+
+const forInput = bind(attribute, "for");
+const href = bind(attribute, "href");
+const id = bind(attribute, "id");
+const name = bind(attribute, "name");
+const tabIndex = bind(attribute, "tabindex");
+const textContent = bind(attribute, "textContent");
+const type = bind(attribute, "type");
+
+const value = bind(property, "value");
+const checked = bind(property, "checked");
+const disabled = bind(property, "disabled");
+
+/** @type {(cb: (ev: MouseEvent) => void) => any} */
+const onclick = bind(property, "onclick");
+/** @type {(cb: (ev: InputEvent) => void) => any} */
+const onchange = bind(property, "onchange");
+/** @type {(cb: (ev: KeyboardEvent) => void) => any} */
+const onkeydown = bind(property, "onkeydown");
+
+/**
+ * @param {Description} value
+ */
+function rich(value) {
+  if (typeof value === "string") {
+    return value;
+  } else if (Array.isArray(value)) {
+    return fragment(...value.map(rich));
+  } else {
+    if ("whitespace" in value) {
+      if (value.whitespace === WhitespaceStyleMap.LINE_BREAK) {
+        return br();
+      }
+      return null;
+    }
+    return (value.href ? a.bind(null, href(value.href)) : span)(
+      className([
+        value.offScreen ? "off-screen" : "",
+        value.required ? "required" : "",
+        value.highlightRequired ? "highlight-required" : "",
+      ]),
+      rich(value.description)
+    );
+  }
+}
+
+/**
+ * @param {TestPageAndResultsDocument} doc
+ */
+function renderVirtualTestPage(doc) {
+  return fragment(
+    "instructions" in doc
+      ? div(
+          section(
+            id("errors"),
+            style({display: doc.errors ? "block" : "none"}),
+            h2("Test cannot be performed due to error(s)!"),
+            ul(...(doc.errors ? doc.errors.map(error => li(error)) : [])),
+            hr()
+          ),
+          section(id("instructions"), renderVirtualInstructionDocument(doc.instructions)),
+          section(id("record-results"))
+        )
+      : null,
+    "results" in doc ? renderVirtualResultsTable(doc.results) : null,
+    doc.resultsJSON
+      ? script(type("text/json"), id("__ariaatharness__results__"), textContent(JSON.stringify(doc.resultsJSON)))
+      : null
+  );
+}
+
+/**
+ * @param doc {InstructionDocument}
+ */
+function renderVirtualInstructionDocument(doc) {
+  function compose(...fns) {
+    return around => fns.reduceRight((carry, fn) => fn(carry), around);
+  }
+
+  const map = (ary, el) => ary.map(item => el(item));
+
+  return div(
+    instructionHeader(doc.instructions),
+
+    instructCommands(doc.instructions.instructions),
+
+    instructAssertions(doc.instructions.assertions),
+
+    button(onclick(doc.instructions.openTestPage.click), rich(doc.instructions.openTestPage.button)),
+
+    resultHeader(doc.results.header),
+
+    section(...doc.results.commands.map(commandResult)),
+
+    doc.submit ? button(onclick(doc.submit.click), rich(doc.submit.button)) : null
+  );
+
+  /**
+   * @param {InstructionDocumentResultsHeader} param0
+   */
+  function resultHeader({header, description}) {
+    return fragment(h2(rich(header)), p(rich(description)));
+  }
+
+  /**
+   * @param {InstructionDocumentResultsCommand} command
+   * @param {number} commandIndex
+   */
+  function commandResult(command, commandIndex) {
+    return fragment(
+      h3(rich(command.header)),
+      p(
+        label(rich(command.atOutput.description)),
+        textarea(
+          value(command.atOutput.value),
+          focus(command.atOutput.focus),
+          onchange(ev => command.atOutput.change(/** @type {HTMLInputElement} */ (ev.currentTarget).value))
+        )
+      ),
+      table(
+        tr(
+          th(rich(command.assertionsHeader.descriptionHeader)),
+          th(rich(command.assertionsHeader.passHeader)),
+          th(rich(command.assertionsHeader.failHeader))
+        ),
+        ...command.assertions.map(bind(commandResultAssertion, commandIndex))
+      ),
+      ...[command.unexpectedBehaviors].map(bind(commandResultUnexpectedBehavior, commandIndex))
+    );
+  }
+
+  /**
+   * @param {number} commandIndex
+   * @param {InstructionDocumentResultsCommandsUnexpected} unexpected
+   */
+  function commandResultUnexpectedBehavior(commandIndex, unexpected) {
+    return fieldset(
+      id(`cmd-${commandIndex}-problem`),
+      rich(unexpected.description),
+      div(radioChoice(`problem-${commandIndex}-true`, `problem-${commandIndex}`, unexpected.passChoice)),
+      div(radioChoice(`problem-${commandIndex}-false`, `problem-${commandIndex}`, unexpected.failChoice)),
+      fieldset(
+        className(["problem-select"]),
+        id(`cmd-${commandIndex}-problem-checkboxes`),
+        legend(rich(unexpected.failChoice.options.header)),
+        ...unexpected.failChoice.options.options.map(failOption =>
+          fragment(
+            input(
+              type("checkbox"),
+              value(failOption.description),
+              id(`${failOption.description}-${commandIndex}`),
+              className([`undesirable-${commandIndex}`]),
+              tabIndex(failOption.tabbable ? "0" : "-1"),
+              disabled(!failOption.enabled),
+              checked(failOption.checked),
+              focus(failOption.focus),
+              onchange(ev => failOption.change(/** @type {HTMLInputElement} */ (ev.currentTarget).checked)),
+              onkeydown(ev => {
+                if (failOption.keydown(ev.key)) {
+                  ev.stopPropagation();
+                  ev.preventDefault();
+                }
+              })
+            ),
+            label(forInput(`${failOption.description}-${commandIndex}`), rich(failOption.description)),
+            br(),
+            failOption.more
+              ? div(
+                  label(forInput(`${failOption.description}-${commandIndex}-input`), rich(failOption.more.description)),
+                  input(
+                    type("text"),
+                    id(`${failOption.description}-${commandIndex}-input`),
+                    name(`${failOption.description}-${commandIndex}-input`),
+                    className(["undesirable-other-input"]),
+                    disabled(!failOption.more.enabled),
+                    value(failOption.more.value),
+                    onchange(ev => failOption.more.change(/** @type {HTMLInputElement} */ (ev.currentTarget).value))
+                  )
+                )
+              : fragment()
+          )
+        )
+      )
+    );
+  }
+
+  /**
+   * @param {number} commandIndex
+   * @param {InstructionDocumentResultsCommandsAssertion} assertion
+   * @param {number} assertionIndex
+   */
+  function commandResultAssertion(commandIndex, assertion, assertionIndex) {
+    return tr(
+      td(rich(assertion.description)),
+      td(
+        ...[assertion.passChoice].map(choice =>
+          radioChoice(`pass-${commandIndex}-${assertionIndex}`, `result-${commandIndex}-${assertionIndex}`, choice)
+        )
+      ),
+      td(
+        ...assertion.failChoices.map((choice, failIndex) =>
+          radioChoice(
+            `${failIndex === 0 ? "missing" : "fail"}-${commandIndex}-${assertionIndex}`,
+            `result-${commandIndex}-${assertionIndex}`,
+            choice
+          )
+        )
+      )
+    );
+  }
+
+  /**
+   * @param {string} idKey
+   * @param {string} nameKey
+   * @param {InstructionDocumentAssertionChoice} choice
+   */
+  function radioChoice(idKey, nameKey, choice) {
+    return fragment(
+      input(
+        type("radio"),
+        id(idKey),
+        name(nameKey),
+        checked(choice.checked),
+        focus(choice.focus),
+        onclick(choice.click)
+      ),
+      label(id(`${idKey}-label`), forInput(`${idKey}`), rich(choice.label))
+    );
+  }
+
+  /**
+   * @param {InstructionDocumentInstructionsInstructions} param0
+   * @returns
+   */
+  function instructCommands({header, instructions, strongInstructions: boldInstructions, commands}) {
+    return fragment(
+      h2(rich(header)),
+      ol(
+        ...map(instructions, compose(li, rich)),
+        ...map(boldInstructions, compose(li, em, rich)),
+        li(rich(commands.description), ul(...map(commands.commands, compose(li, em, rich))))
+      )
+    );
+  }
+
+  /**
+   * @param {InstructionDocumentInstructions} param0
+   */
+  function instructionHeader({header, description}) {
+    return fragment(
+      h1(id("behavior-header"), tabIndex("0"), focus(header.focus), rich(header.header)),
+      p(rich(description))
+    );
+  }
+
+  /**
+   * @param {InstructionDocumentInstructionsAssertions} param0
+   */
+  function instructAssertions({header, description, assertions}) {
+    return fragment(h2(rich(header)), p(rich(description)), ol(...map(assertions, compose(li, em, rich))));
+  }
+}
+
+/**
+ * @param {ResultsTableDocument} results
+ */
+function renderVirtualResultsTable(results) {
+  return fragment(
+    h1(rich(results.header)),
+    h2(id("overallstatus"), rich(results.status.header)),
+
+    table(
+      (({description, support, details}) => tr(th(description), th(support), th(details)))(results.table.headers),
+      results.table.commands.map(
+        ({description, support, details: {output, passingAssertions, failingAssertions, unexpectedBehaviors}}) =>
+          fragment(
+            tr(
+              td(rich(description)),
+              td(rich(support)),
+              td(
+                p(rich(output)),
+                commandDetailsList(passingAssertions),
+                commandDetailsList(failingAssertions),
+                commandDetailsList(unexpectedBehaviors)
+              )
+            )
+          )
+      )
+    )
+  );
+
+  /**
+   * @param {object} list
+   * @param {Description} list.description
+   * @param {Description[]} list.items
+   */
+  function commandDetailsList({description, items}) {
+    return div(description, ul(...items.map(description => li(rich(description)))));
+  }
+}
+
+/**
+ * @typedef SubmitResultDetailsCommandsAssertionsPass
+ * @property {string} assertion
+ * @property {string} priority
+ * @property {EnumValues<typeof AssertionPassJSONMap>} pass
+ */
+
+const AssertionPassJSONMap = createEnumMap({
+  GOOD_OUTPUT: "Good Output",
+});
+
+/**
+ * @typedef SubmitResultDetailsCommandsAssertionsFail
+ * @property {string} assertion
+ * @property {string} priority
+ * @property {EnumValues<typeof AssertionFailJSONMap>} fail
+ */
+
+const AssertionFailJSONMap = createEnumMap({
+  NO_OUTPUT: "No Output",
+  INCORRECT_OUTPUT: "Incorrect Output",
+  NO_SUPPORT: "No Support",
+});
+
+/** @typedef {SubmitResultDetailsCommandsAssertionsPass | SubmitResultDetailsCommandsAssertionsFail} SubmitResultAssertionsJSON */
+
+/** @typedef {EnumValues<typeof CommandSupportJSONMap>} CommandSupportJSON */
+
+const CommandSupportJSONMap = createEnumMap({
+  FULL: "FULL",
+  FAILING: "FAILING",
+  ALL_REQUIRED: "ALL REQUIRED",
+});
+
+/**
+ * @typedef {EnumValues<typeof StatusJSONMap>} SubmitResultStatusJSON
+ */
+
+const StatusJSONMap = createEnumMap({
+  PASS: "PASS",
+  FAIL: "FAIL",
+});
+
+/**
+ * @param {TestRunState} state
+ * @param {Behavior} behavior
+ * @returns {SubmitResultJSON}
+ */
+function toSubmitResultJSON(state, behavior) {
+  /** @type {SubmitResultDetailsJSON} */
+  const details = {
+    name: state.info.description,
+    task: state.info.task,
+    specific_user_instruction: behavior.specificUserInstruction,
+    summary: {
+      1: {
+        pass: countAssertions(({priority, result}) => priority === 1 && result === CommonResultMap.PASS),
+        fail: countAssertions(({priority, result}) => priority === 1 && result !== CommonResultMap.PASS),
+      },
+      2: {
+        pass: countAssertions(({priority, result}) => priority === 2 && result === CommonResultMap.PASS),
+        fail: countAssertions(({priority, result}) => priority === 2 && result !== CommonResultMap.PASS),
+      },
+      unexpectedCount: countUnexpectedBehaviors(({checked}) => checked),
+    },
+    commands: state.commands.map(command => ({
+      command: command.description,
+      output: command.atOutput.value,
+      support: commandSupport(command),
+      assertions: [...command.assertions, ...command.additionalAssertions].map(assertionToAssertion),
+      unexpected_behaviors: command.unexpected.behaviors
+        .filter(({checked}) => checked)
+        .map(({description, more}) => (more ? more.value : description)),
+    })),
+  };
+  /** @type {SubmitResultStatusJSON} */
+  const status = state.commands.map(commandSupport).some(support => support === CommandSupportJSONMap.FAILING)
+    ? StatusJSONMap.FAIL
+    : StatusJSONMap.PASS;
+  return {
+    test: state.info.description,
+    details,
+    status,
+  };
+
+  function commandSupport(command) {
+    const allAssertions = [...command.assertions, ...command.additionalAssertions];
+    return allAssertions.some(({priority, result}) => priority === 1 && result !== CommonResultMap.PASS) ||
+      command.unexpected.behaviors.some(({checked}) => checked)
+      ? CommandSupportJSONMap.FAILING
+      : allAssertions.some(({priority, result}) => priority === 2 && result !== CommonResultMap.PASS)
+      ? CommandSupportJSONMap.ALL_REQUIRED
+      : CommandSupportJSONMap.FULL;
+  }
+
+  /**
+   * @param {(assertion: TestRunAssertion | TestRunAdditionalAssertion) => boolean} filter
+   * @returns {number}
+   */
+  function countAssertions(filter) {
+    return state.commands.reduce(
+      (carry, command) => carry + [...command.assertions, ...command.additionalAssertions].filter(filter).length,
+      0
+    );
+  }
+
+  /**
+   * @param {(behavior: TestRunUnexpected) => boolean} filter
+   * @returns {number}
+   */
+  function countUnexpectedBehaviors(filter) {
+    return state.commands.reduce((carry, command) => carry + command.unexpected.behaviors.filter(filter).length, 0);
+  }
+
+  /**
+   * @param {TestRunAssertion | TestRunAdditionalAssertion} assertion
+   * @returns {SubmitResultAssertionsJSON}
+   */
+  function assertionToAssertion(assertion) {
+    return assertion.result === CommonResultMap.PASS
+      ? {
+          assertion: assertion.description,
+          priority: assertion.priority.toString(),
+          pass: AssertionPassJSONMap.GOOD_OUTPUT,
+        }
+      : {
+          assertion: assertion.description,
+          priority: assertion.priority.toString(),
+          fail:
+            assertion.result === AssertionResultMap.FAIL_MISSING
+              ? AssertionFailJSONMap.NO_OUTPUT
+              : assertion.result === AssertionResultMap.FAIL_INCORRECT
+              ? AssertionFailJSONMap.INCORRECT_OUTPUT
+              : AssertionFailJSONMap.NO_SUPPORT,
+        };
+  }
+}
+
+/**
+ * @typedef AT
+ * @property {string} name
+ * @property {string} key
+ */
+
+/**
+ * @typedef Support
+ * @property {AT[]} ats
+ * @property {{system: string[]}} applies_to
+ * @property {{directory: string, name: string}[]} examples
+ */
+
+/**
+ * @typedef {{[mode in ATMode]: {[atName: string]: string;};}} CommandsAPI_ModeInstructions
+ */
+
+/**
+ * @typedef {([string] | [string, string])[]} CommandAT
+ */
+
+/**
+ * @typedef {{[atMode: string]: CommandAT}} CommandMode
+ */
+
+/**
+ * @typedef Command
+ * @property {CommandMode} [reading]
+ * @property {CommandMode} [interaction]
+ */
+
+/**
+ * @typedef {{[commandDescription: string]: Command}} Commands
+ */
+
+/**
+ * @callback CommandsAPI_getATCommands
+ * @param {ATMode} mode
+ * @param {string} task
+ * @param {AT} assistiveTech
+ * @returns {string[]}
+ */
+
+/** @typedef {"reading" | "interaction"} ATMode */
+
+/**
+ * @callback CommandsAPI_getModeInstructions
+ * @param {ATMode} mode
+ * @param {AT} assistiveTech
+ * @returns {string}
+ */
+
+/**
+ * @callback CommandsAPI_isKnownAT
+ * @param {string} assistiveTech
+ * @returns {AT}
+ */
+
+/**
+ * @typedef CommandsAPI
+ * @property {Commands} AT_COMMAND_MAP
+ * @property {CommandsAPI_ModeInstructions} MODE_INSTRUCTIONS
+ * @property {Support} support
+ * @property {CommandsAPI_getATCommands} getATCommands
+ * @property {CommandsAPI_getModeInstructions} getModeInstructions
+ * @property {CommandsAPI_isKnownAT} isKnownAT
+ */
+
+/**
+ * @typedef BehaviorJSON
+ * @property {string} setup_script_description
+ * @property {string} setupTestPage
+ * @property {string[]} applies_to
+ * @property {ATMode | ATMode[]} mode
+ * @property {string} task
+ * @property {string} specific_user_instruction
+ * @property {[string, string][]} [output_assertions]
+ * @property {{[atKey: string]: [number, string][]}} [additional_assertions]
+ */
+
+/**
+ * @typedef Behavior
+ * @property {string} description
+ * @property {string} task
+ * @property {ATMode} mode
+ * @property {string} modeInstructions
+ * @property {string[]} appliesTo
+ * @property {string} specificUserInstruction
+ * @property {string} setupScriptDescription
+ * @property {string} setupTestPage
+ * @property {string[]} commands
+ * @property {[string, string][]} outputAssertions
+ * @property {[number, string][]} additionalAssertions
+ * @property {object[]} unexpectedBehaviors
+ * @property {string} unexpectedBehaviors[].content
+ * @property {boolean} [unexpectedBehaviors[].requireExplanation]
+ */
+
+/**
+ * @typedef SubmitResultJSON
+ * @property {string} test
+ * @property {SubmitResultDetailsJSON} details
+ * @property {SubmitResultStatusJSON} status
+ */
+
+/**
+ * @typedef SubmitResultSummaryPriorityJSON
+ * @property {number} pass
+ * @property {number} fail
+ */
+
+/**
+ * @typedef {{[key in "1" | "2"]: SubmitResultSummaryPriorityJSON}} SubmitResultSummaryPriorityMapJSON
+ */
+
+/**
+ * @typedef SubmitResultSummaryPropsJSON
+ * @property {number} unexpectedCount
+ */
+
+/**
+ * @typedef {SubmitResultSummaryPriorityMapJSON & SubmitResultSummaryPropsJSON} SubmitResultSummaryJSON
+ */
+
+/**
+ * @typedef SubmitResultDetailsJSON
+ * @property {string} name
+ * @property {string} specific_user_instruction
+ * @property {string} task
+ * @property {object[]} commands
+ * @property {string} commands[].command
+ * @property {string} commands[].output
+ * @property {string[]} commands[].unexpected_behaviors
+ * @property {CommandSupportJSON} commands[].support
+ * @property {SubmitResultAssertionsJSON[]} commands[].assertions
+ * @property {SubmitResultSummaryJSON} summary
+ */
+
+/**
+ * @typedef TestWindowHooks
+ * @property {() => void} windowOpened
+ * @property {() => void} windowClosed
+ */
+
+/** @typedef {{[key: string]: (document: Document) => void}} SetupScripts */
+
+/**
+ * @typedef ResultJSONDocument
+ * @property {SubmitResultJSON | null} resultsJSON
+ */
+
+/**
+ * @typedef {TestPageDocument & ResultJSONDocument} TestPageAndResultsDocument
+ */
+
+/**
+ * @typedef {import('./aria-at-test-run.js').EnumValues<T>} EnumValues<T>
+ * @template T
+ */
+
+/** @typedef {import('./aria-at-test-run.js').TestRunState} TestRunState */
+/** @typedef {import('./aria-at-test-run.js').TestRunAssertion} TestRunAssertion */
+/** @typedef {import('./aria-at-test-run.js').TestRunAdditionalAssertion} TestRunAdditionalAssertion */
+/** @typedef {import('./aria-at-test-run.js').TestRunCommand} TestRunCommand */
+/** @typedef {import("./aria-at-test-run.js").TestRunUnexpectedBehavior} TestRunUnexpected */
+
+/** @typedef {import('./aria-at-test-run.js').Description} Description */
+
+/** @typedef {import('./aria-at-test-run.js').TestPageDocument} TestPageDocument */
+
+/** @typedef {import('./aria-at-test-run.js').InstructionDocument} InstructionDocument */
+/** @typedef {import('./aria-at-test-run.js').InstructionDocumentInstructions} InstructionDocumentInstructions */
+/** @typedef {import('./aria-at-test-run.js').InstructionDocumentInstructionsAssertions} InstructionDocumentInstructionsAssertions */
+/** @typedef {import('./aria-at-test-run.js').InstructionDocumentResultsHeader} InstructionDocumentResultsHeader */
+/** @typedef {import('./aria-at-test-run.js').InstructionDocumentResultsCommand} InstructionDocumentResultsCommand */
+/** @typedef {import('./aria-at-test-run.js').InstructionDocumentResultsCommandsUnexpected} InstructionDocumentResultsCommandsUnexpected */
+/** @typedef {import("./aria-at-test-run.js").InstructionDocumentResultsCommandsAssertion} InstructionDocumentResultsCommandsAssertion */
+/** @typedef {import("./aria-at-test-run.js").InstructionDocumentAssertionChoice} InstructionDocumentAssertionChoice */
+/** @typedef {import("./aria-at-test-run.js").InstructionDocumentInstructionsInstructions} InstructionDocumentInstructionsInstructions */
+
+/** @typedef {import('./aria-at-test-run.js').ResultsTableDocument} ResultsTableDocument */

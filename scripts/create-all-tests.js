@@ -9,4 +9,4 @@ const p = path.join(rootDirectory, 'tests');
 
 fs.readdirSync(p)
   .filter(f => f !== 'resources' && fs.statSync(path.join(p, f)).isDirectory())
-  .forEach(d => createExampleTests(path.join('tests', d)));
+  .forEach((d, index, array) => createExampleTests(path.join('tests', d), index === array.length - 1));

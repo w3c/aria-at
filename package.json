@@ -5,8 +5,10 @@
   "private": true,
   "scripts": {
     "lint": "eslint .",
-    "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs",
+    "build": "npm run create-all-tests -- --build; npm run review-tests -- --build",
+    "build:dev": "npm run create-all-tests; npm run review-tests",
     "create-all-tests": "node ./scripts/create-all-tests.js",
+    "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs",
     "update-reference": "node ./scripts/update-reference.js"
   },
   "dependencies": {

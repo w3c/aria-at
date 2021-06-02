@@ -1,5 +1,12 @@
 /node_modules
-
 .#*
-
 .DS_*
+
+# Ignore locally generated files files
+/index.html
+/review
+/tests/*/*.html
+/tests/*/*.json
+
+# Preserve all the contents of /tests/resources
+!/tests/resources/*

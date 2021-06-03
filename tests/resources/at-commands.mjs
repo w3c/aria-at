@@ -75,7 +75,7 @@ constructor(commands, support) {
         command = furtherInstruction ? `${command} ${furtherInstruction}` : command;
         innerCommands.push(command);
       }
-      commands.push(innerCommands.join(' followed by '));
+      commands.push(innerCommands.join(", then "));
     }
 
     return commands;

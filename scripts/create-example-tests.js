@@ -5,31 +5,8 @@ const path = require('path');
 const csv = require('csv-parser');
 const beautify = require('json-beautify');
 
-const args = require('minimist')(process.argv.slice(2), {
-  alias: {
-    h: 'help',
-    v: 'verbose',
-    V: 'validate'
-  },
-});
-
-if (args.help) {
-  console.log(`Default use:
-  No arguments:
-    Generate tests and view report summary.
-  Arguments:
-    -h, --help
-       Show this message.
-    -v, --verbose
-       Generate tests and view a detailed report summary.
-    -V, --validate
-       Determine whether current test plans are valid (no errors present).
-`);
-  process.exit();
-}
-
-const VERBOSE_CHECK = !!args.verbose;
-const VALIDATE_CHECK = !!args.validate;
+let VERBOSE_CHECK = false;
+let VALIDATE_CHECK = false;
 
 let suppressedMessageCount = 0;
 let successRuns = 0;
@@ -53,11 +30,15 @@ const logger = (message, severe = false, force = false) => {
 /**
  * @param {string} directory - path to directory of data to be used to generate test
  * @param {boolean} isLast=false - indicates whether or not this is the last test being generated. used for report summary generation
+ * @param {object} args={}
  */
-const createExampleTests = function (directory, isLast) {
+const createExampleTests = function ({directory, isLast, args = {}}) {
+  // setup from arguments passed to npm script
+  VERBOSE_CHECK = !!args.verbose;
+  VALIDATE_CHECK = !!args.validate;
+
   const validModes = ['reading', 'interaction', 'item'];
 
-  // TODO: provide support for changing of source directories
   // cwd; @param rootDirectory is dependent on this file not moving from the scripts folder
   const scriptsDirectory = path.dirname(__filename);
   const rootDirectory = scriptsDirectory.split('scripts')[0];

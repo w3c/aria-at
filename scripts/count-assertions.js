@@ -128,7 +128,7 @@ if (args._.length) {
 // wait for all promises to complete, then read totals
 Promise.all(promises)
   .then(() => {
-    console.log(`${totalTestPlans} test plans, ${totalTests} tests, ${totalAssertions} assertions, ${totalCommandAssertions} command/assertions`);
+    console.log(`${totalTestPlans} test plans, ${totalTests} tests, ${totalAssertions} assertions, ${totalCommandAssertions} command/assertion pairs`);
     process.exit();
   })
   .catch((error) => {

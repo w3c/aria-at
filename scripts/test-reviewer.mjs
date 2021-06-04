@@ -9,7 +9,8 @@ import {commandsAPI} from '../tests/resources/at-commands.mjs';
 
 const args = minimist(process.argv.slice(2), {
     alias: {
-        h: 'help'
+        h: 'help',
+        d: 'directory'
     },
 });
 
@@ -20,9 +21,13 @@ if (args.help) {
   Arguments:
     -h, --help
        Show this message.
+    -d, --directory
+       Generate review page for an individual test plan directory. eg. --directory=checkbox
 `);
     process.exit();
 }
+
+const TARGET_DIRECTORY = args.directory; // individual test plan to generate review page assets for
 
 // folders and file paths setup
 const buildDirectory = path.resolve('.', 'build');

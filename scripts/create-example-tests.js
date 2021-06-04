@@ -8,8 +8,8 @@ const beautify = require('json-beautify');
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
     h: 'help',
-    b: 'build',
-    v: 'verbose'
+    v: 'verbose',
+    V: 'validate'
   },
 });
 
@@ -20,16 +20,16 @@ if (args.help) {
   Arguments:
     -h, --help
        Show this message.
-    -b, --build
-       Updates build folder with generated test files.
     -v, --verbose
        Generate tests and view a detailed report summary.
+    -V, --validate
+       Determine whether current test plans are valid (no errors present).
 `);
   process.exit();
 }
 
-const BUILD_CHECK = !!args.build;
 const VERBOSE_CHECK = !!args.verbose;
+const VALIDATE_CHECK = !!args.validate;
 
 let suppressedMessageCount = 0;
 let successRuns = 0;
@@ -68,36 +68,32 @@ const createExampleTests = function (directory, isLast) {
   const resourcesDirectory = path.join(testsDirectory, 'resources');
   const keysFilePath = path.join(resourcesDirectory, 'keys.mjs');
   const supportFilePath = path.join(testsDirectory, 'support.json');
-  const testsFilePath = path.join(testPlanDirectory, 'data', 'tests.csv');
-  const atCommandsFilePath = path.join(testPlanDirectory, 'data', 'commands.csv');
-  const referencesFilePath = path.join(testPlanDirectory, 'data', 'references.csv');
+  const testsCsvFilePath = path.join(testPlanDirectory, 'data', 'tests.csv');
+  const atCommandsCsvFilePath = path.join(testPlanDirectory, 'data', 'commands.csv');
+  const referencesCsvFilePath = path.join(testPlanDirectory, 'data', 'references.csv');
   const javascriptDirectory = path.join(testPlanDirectory, 'data', 'js');
 
   // build output folders and file paths setup
   const buildDirectory = path.join(rootDirectory, 'build');
   const testsBuildDirectory = path.join(buildDirectory, 'tests');
   const testPlanBuildDirectory = path.join(buildDirectory, directory);
-
-  const indexFileOutputPath = path.join(testPlanDirectory, 'index.html');
-  const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
-
   const resourcesBuildDirectory = path.join(testsBuildDirectory, 'resources');
+
+  const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
   const supportFileBuildPath = path.join(testsBuildDirectory, 'support.json');
 
-  if (BUILD_CHECK) {
-    // create build directories if not exists
-    fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
-    fs.existsSync(testsBuildDirectory) || fs.mkdirSync(testsBuildDirectory);
-    fs.existsSync(testPlanBuildDirectory) || fs.mkdirSync(testPlanBuildDirectory);
+  // create directories if not exists
+  fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
+  fs.existsSync(testsBuildDirectory) || fs.mkdirSync(testsBuildDirectory);
+  fs.existsSync(testPlanBuildDirectory) || fs.mkdirSync(testPlanBuildDirectory);
 
-    // need to ensure the build folder has the references it needs
-    fse.copySync(resourcesDirectory, resourcesBuildDirectory, {overwrite: true})
-    fse.copySync(supportFilePath, supportFileBuildPath, {overwrite: true})
-  }
+  // ensure the build folder has the reference files it needs for running local server
+  fse.copySync(resourcesDirectory, resourcesBuildDirectory, {overwrite: true})
+  fse.copySync(supportFilePath, supportFileBuildPath, {overwrite: true})
 
   const keyDefs = {};
-
   const support = JSON.parse(fse.readFileSync(supportFilePath));
+
   let allATKeys = [];
   let allATNames = [];
   support.ats.forEach(at => {
@@ -115,28 +111,27 @@ const createExampleTests = function (directory, isLast) {
   }
 
   try {
-    fse.statSync(testsFilePath);
+    fse.statSync(testsCsvFilePath);
   } catch (err) {
-    logger(`The tests.csv file does not exist. Please create '${testsFilePath}' file.`, true, true);
+    logger(`The tests.csv file does not exist. Please create '${testsCsvFilePath}' file.`, true, true);
     process.exit();
   }
 
   try {
-    fse.statSync(atCommandsFilePath);
+    fse.statSync(atCommandsCsvFilePath);
   } catch (err) {
-    logger(`The at-commands.csv file does not exist. Please create '${atCommandsFilePath}' file.`, true, true);
+    logger(`The at-commands.csv file does not exist. Please create '${atCommandsCsvFilePath}' file.`, true, true);
     process.exit();
   }
 
   try {
-    fse.statSync(referencesFilePath);
+    fse.statSync(referencesCsvFilePath);
   } catch (err) {
-    logger(`The references.csv file does not exist. Please create '${referencesFilePath}' file.`, true, true);
+    logger(`The references.csv file does not exist. Please create '${referencesCsvFilePath}' file.`, true, true);
     process.exit();
   }
 
   // get Keys that are defined
-
   try {
     // read contents of the file
     const keys = fs.readFileSync(keysFilePath, 'UTF-8');
@@ -153,14 +148,12 @@ const createExampleTests = function (directory, isLast) {
         let code = parts1[2].trim();
         keyDefs[code] = parts2[1].trim();
       }
-
     });
   } catch (err) {
     logger(err, true, true);
   }
 
   // delete test files
-
   var deleteFilesFromDirectory = function (dirPath) {
     try {
       var files = fs.readdirSync(dirPath);
@@ -181,11 +174,13 @@ const createExampleTests = function (directory, isLast) {
     return task.replace(/'/g, '').replace(/;/g, '').trim().toLowerCase()
   }
 
-  // Create AT commands file
-
-  function createATCommandFile(cmds) {
-    const fname = path.join(testPlanDirectory, 'commands.json');
-    const fnameBuild = path.join(testPlanBuildDirectory, 'commands.json');
+  /**
+   * Create AT commands file
+   * @param commands
+   * @returns {{}}
+   */
+  function createATCommandFile(commands) {
+    const testPlanAtCommandsJsonFilePath = path.join(testPlanBuildDirectory, 'commands.json');
     let data = {};
 
     function addCommand(task, mode, at, key) {
@@ -226,29 +221,29 @@ const createExampleTests = function (directory, isLast) {
       data[task][mode][at].push(items);
     }
 
-    cmds.forEach(function (cmd) {
-
-      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandA);
-      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandB);
-      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandC);
-      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandD);
-      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandE);
-      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandF);
-
+    commands.forEach(function (command) {
+      addCommand(command.task, command.mode, command.at, command.commandA);
+      addCommand(command.task, command.mode, command.at, command.commandB);
+      addCommand(command.task, command.mode, command.at, command.commandC);
+      addCommand(command.task, command.mode, command.at, command.commandD);
+      addCommand(command.task, command.mode, command.at, command.commandE);
+      addCommand(command.task, command.mode, command.at, command.commandF);
     });
 
-    fs.writeFileSync(fname, beautify(data, null, 2, 40));
-    if (BUILD_CHECK) fs.writeFileSync(fnameBuild, beautify(data, null, 2, 40));
+    if (!VALIDATE_CHECK) fs.writeFileSync(testPlanAtCommandsJsonFilePath, beautify(data, null, 2, 40));
 
     return data;
-
   }
 
-  // Create Test File
-
+  /**
+   * Create Test File
+   * @param test
+   * @param refs
+   * @param commands
+   * @returns {(string|*[])[]}
+   */
   function createTestFile(test, refs, commands) {
     let scripts = [];
-
 
     function getModeValue(value) {
       let v = value.trim().toLowerCase();
@@ -269,7 +264,6 @@ const createExampleTests = function (directory, isLast) {
     }
 
     function getAppliesToValues(values) {
-
       function checkValue(value) {
         let v1 = value.trim().toLowerCase();
         for (let i = 0; i < validAppliesTo.length; i++) {
@@ -340,20 +334,18 @@ const createExampleTests = function (directory, isLast) {
       return links;
     }
 
-    function addSetupScript(scriptName, fname) {
-
+    function addSetupScript(scriptName, filename) {
       let script = '';
-      if (fname.length) {
-
+      if (filename.length) {
         try {
-          fse.statSync(fname);
+          fse.statSync(filename);
         } catch (err) {
-          addTestError(test.testId, "Setup script does not exist: " + fname);
+          addTestError(test.testId, "Setup script does not exist: " + filename);
           return '';
         }
 
         try {
-          const data = fs.readFileSync(fname, 'UTF-8');
+          const data = fs.readFileSync(filename, 'UTF-8');
           const lines = data.split(/\r?\n/);
           lines.forEach((line) => {
             if (line.trim().length)
@@ -411,8 +403,6 @@ const createExampleTests = function (directory, isLast) {
     let testJSONFileName = 'test-' + id + '-' + cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim()
       .toLowerCase() + '.json';
 
-    let testPlanHtmlFilePath = path.join(testPlanDirectory, testFileName);
-    let testPlanJsonFilePath = path.join(testPlanDirectory, testJSONFileName);
     let testPlanHtmlFileBuildPath = path.join(testPlanBuildDirectory, testFileName);
     let testPlanJsonFileBuildPath = path.join(testPlanBuildDirectory, testJSONFileName);
 
@@ -443,8 +433,7 @@ const createExampleTests = function (directory, isLast) {
       output_assertions: assertions
     };
 
-    fse.writeFileSync(testPlanJsonFilePath, JSON.stringify(testData, null, 2), 'utf8');
-    if (BUILD_CHECK) fse.writeFileSync(testPlanJsonFileBuildPath, JSON.stringify(testData, null, 2), 'utf8');
+    if (!VALIDATE_CHECK) fse.writeFileSync(testPlanJsonFileBuildPath, JSON.stringify(testData, null, 2), 'utf8');
 
     function getTestJson() {
       return JSON.stringify(testData, null, 2);
@@ -479,8 +468,7 @@ ${references}
 </script>
   `;
 
-    fse.writeFileSync(testPlanHtmlFilePath, testHTML, 'utf8');
-    if (BUILD_CHECK) fse.writeFileSync(testPlanHtmlFileBuildPath, testHTML, 'utf8');
+    if (!VALIDATE_CHECK) fse.writeFileSync(testPlanHtmlFileBuildPath, testHTML, 'utf8');
 
     const applies_to_at = [];
 
@@ -489,10 +477,11 @@ ${references}
     return [testFileName, applies_to_at];
   }
 
-  // Create an index file for a local server
-
+  /**
+   * Create an index file for a local server
+   * @param tasks
+   */
   function createIndexFile(tasks) {
-
     let rows = '';
     let all_ats = '';
 
@@ -587,12 +576,10 @@ ${rows}
 </body>
 `;
 
-    fse.writeFileSync(indexFileOutputPath, indexHTML, 'utf8');
-    if (BUILD_CHECK) fse.writeFileSync(indexFileBuildOutputPath, indexHTML, 'utf8');
+    if (!VALIDATE_CHECK) fse.writeFileSync(indexFileBuildOutputPath, indexHTML, 'utf8');
   }
 
   // Process CSV files
-
   var refs = {};
   var atCommands = [];
   var tests = [];
@@ -610,29 +597,29 @@ ${rows}
     errors += '[Command]: The key reference "' + key + '" is invalid for the "' + task + '" task.\n';
   }
 
-  fs.createReadStream(referencesFilePath)
+  fs.createReadStream(referencesCsvFilePath)
     .pipe(csv())
     .on('data', (row) => {
       refs[row.refId] = row.value.trim();
     })
     .on('end', () => {
-      logger(`References CSV file successfully processed: ${referencesFilePath}`);
+      logger(`References CSV file successfully processed: ${referencesCsvFilePath}`);
 
-      fs.createReadStream(atCommandsFilePath)
+      fs.createReadStream(atCommandsCsvFilePath)
         .pipe(csv())
         .on('data', (row) => {
           atCommands.push(row);
         })
         .on('end', () => {
-          logger(`Commands CSV file successfully processed: ${atCommandsFilePath}`);
+          logger(`Commands CSV file successfully processed: ${atCommandsCsvFilePath}`);
 
-          fs.createReadStream(testsFilePath)
+          fs.createReadStream(testsCsvFilePath)
             .pipe(csv())
             .on('data', (row) => {
               tests.push(row);
             })
             .on('end', () => {
-              logger(`Test CSV file successfully processed: ${testsFilePath}`);
+              logger(`Test CSV file successfully processed: ${testsCsvFilePath}`);
 
               logger('Deleting current test files...')
               deleteFilesFromDirectory(testPlanDirectory);
@@ -659,7 +646,7 @@ ${rows}
               createIndexFile(indexOfURLs);
 
               if (errorCount) {
-                logger(`*** ${errorCount} Errors in tests and/or commands in file [${testsFilePath}] ***`, true, true);
+                logger(`*** ${errorCount} Errors in tests and/or commands in file [${testsCsvFilePath}] ***`, true, true);
                 logger(errors, true, true);
                 errorRuns += 1;
               } else {
@@ -669,7 +656,8 @@ ${rows}
             })
             .on('finish', () => {
               if (!VERBOSE_CHECK && isLast) {
-                logger(`(${successRuns}) out of (${successRuns + errorRuns}) Test Plans successfully processed and generated without any validation errors.\n`, false, true)
+                if (VALIDATE_CHECK) logger(`(${successRuns}) out of (${successRuns + errorRuns}) Test Plans successfully processed without any validation errors.\n`, false, true)
+                else logger(`(${successRuns}) out of (${successRuns + errorRuns}) Test Plans successfully processed and generated without any validation errors.\n`, false, true)
                 logger(`NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`, false, true)
               }
             });

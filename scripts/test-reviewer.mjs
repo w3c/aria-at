@@ -9,42 +9,44 @@ import {commandsAPI} from '../tests/resources/at-commands.mjs';
 
 const args = minimist(process.argv.slice(2), {
     alias: {
-        h: 'help',
-        b: 'build'
+        h: 'help'
     },
 });
 
 if (args.help) {
     console.log(`Default use:
   No arguments:
-    Generate tests and view report summary.
+    Generate review pages.
   Arguments:
     -h, --help
        Show this message.
-    -b, --build
-       Updates build folder with generated review pages.
 `);
     process.exit();
 }
 
-const BUILD_CHECK = !!args.build;
-
+// folders and file paths setup
+const buildDirectory = path.resolve('.', 'build');
 const testsDirectory = path.resolve('.', 'tests');
 const scriptsDirectory = path.resolve('.', 'scripts');
-const reviewDirectory = path.resolve('.', 'review');
-const reviewBuildDirectory = path.resolve('build', 'review');
+const testsBuildDirectory = path.resolve(buildDirectory, 'tests');
+const reviewBuildDirectory = path.resolve(buildDirectory, 'review');
 
+const indexFileBuildOutputPath = path.resolve(buildDirectory, 'index.html');
 const supportFilePath = path.join(testsDirectory, 'support.json');
 const reviewTemplateFilePath = path.resolve(scriptsDirectory, 'review-template.mustache');
 const reviewIndexTemplateFilePath = path.resolve(scriptsDirectory, 'review-index-template.mustache');
 
-const allTestsForPattern = {};
+// create directories if not exists
+fs.existsSync(reviewBuildDirectory) || fs.mkdirSync(reviewBuildDirectory);
 
+const allTestsForPattern = {};
 const support = JSON.parse(fse.readFileSync(supportFilePath));
+
 let allATKeys = [];
 support.ats.forEach(at => {
     allATKeys.push(at.key);
 });
+
 const scripts = [];
 
 const getPriorityString = function (priority) {
@@ -57,25 +59,23 @@ const getPriorityString = function (priority) {
     return '';
 }
 
-fse.readdirSync(testsDirectory).forEach(function (subDir) {
-    const subDirFullPath = path.join(testsDirectory, subDir);
-    const stat = fse.statSync(subDirFullPath);
-    if (
-        stat.isDirectory() &&
-        subDir !== 'resources'
-    ) {
+fse.readdirSync(testsDirectory).forEach(function (directory) {
+    const testPlanDirectory = path.join(testsDirectory, directory);
+    const testPlanBuildDirectory = path.join(testsBuildDirectory, directory);
+    const stat = fse.statSync(testPlanDirectory);
 
+    if (stat.isDirectory() && directory !== 'resources') {
         // Initialize the commands API
-        const commandsJSONFile = path.join(subDirFullPath, 'commands.json');
+        const commandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
         const commands = JSON.parse(fse.readFileSync(commandsJSONFile));
         const commAPI = new commandsAPI(commands, support);
 
         const tests = [];
 
-        const referencesCsv = fs.readFileSync(path.join(subDirFullPath, 'data', 'references.csv'), 'UTF-8');
+        const referencesCsv = fs.readFileSync(path.join(testPlanDirectory, 'data', 'references.csv'), 'UTF-8');
         const reference = referencesCsv.split(/\r?\n/).find(s => s.startsWith('reference,')).split(',')[1];
 
-        const scriptsPath = path.join(subDirFullPath, 'data', 'js');
+        const scriptsPath = path.join(testPlanDirectory, 'data', 'js');
         fse.readdirSync(scriptsPath).forEach(function (scriptFile) {
             let script = '';
             try {
@@ -91,10 +91,9 @@ fse.readdirSync(testsDirectory).forEach(function (subDir) {
             scripts.push(`\t${scriptFile.split('.js')[0]}: function(testPageDocument){\n${script}}`);
         });
 
-        fse.readdirSync(subDirFullPath).forEach(function (test) {
+        fse.readdirSync(testPlanBuildDirectory).forEach(function (test) {
             if (path.extname(test) === '.html' && path.basename(test) !== 'index.html') {
-
-                const testFile = path.join(testsDirectory, subDir, test);
+                const testFile = path.join(testsBuildDirectory, directory, test);
                 const root = np.parse(fse.readFileSync(testFile, 'utf8'), {script: true});
 
                 // Get metadata
@@ -117,7 +116,7 @@ fse.readdirSync(testsDirectory).forEach(function (subDir) {
                     }
                 }
 
-                let testData = JSON.parse(fse.readFileSync(path.join(subDirFullPath, path.parse(test).name + '.json'), 'utf8'));
+                let testData = JSON.parse(fse.readFileSync(path.join(testPlanBuildDirectory, path.parse(test).name + '.json'), 'utf8'));
 
                 const userInstruction = testData.specific_user_instruction;
                 const task = testData.task;
@@ -127,25 +126,25 @@ fse.readdirSync(testsDirectory).forEach(function (subDir) {
 
                 const ATTests = [];
 
-                // TODO: These apply_to strings are not standarized yet.
-                let allReleventATs = [];
+                // TODO: These apply_to strings are not standardized yet.
+                let allRelevantATs = [];
                 if (
                     testData.applies_to[0].toLowerCase() === "desktop screen readers"
                     || testData.applies_to[0].toLowerCase() === "screen readers"
                 ) {
-                    allReleventATs = allATKeys;
+                    allRelevantATs = allATKeys;
                 } else {
-                    allReleventATs = testData.applies_to;
+                    allRelevantATs = testData.applies_to;
                 }
 
-                for (const atKey of allReleventATs.map((a) => a.toLowerCase())) {
+                for (const atKey of allRelevantATs.map((a) => a.toLowerCase())) {
                     let commands, assertions;
                     let at = commAPI.isKnownAT(atKey);
 
                     try {
                         commands = commAPI.getATCommands(mode, task, at);
-                    } catch (error) {
-                    } // An error will occur if there is no data for a screen reader, ignore it
+                    } catch (error) { // An error will occur if there is no data for a screen reader, ignore it
+                    }
 
                     if (testData.additional_assertions && testData.additional_assertions[at.key]) {
                         assertions = testData.additional_assertions[at.key];
@@ -168,17 +167,17 @@ fse.readdirSync(testsDirectory).forEach(function (subDir) {
                 }
 
                 // Create the test review pages
-                const testFilePath = path.join('.', 'tests', subDir, test);
+                const testFilePath = path.join('.', 'tests', directory, test);
                 const output = spawnSync('git', ['log', '-1', '--format="%ad"', testFilePath]);
                 const lastEdited = output.stdout.toString().replace(/"/gi, '').replace('\n', '');
 
                 tests.push({
                     testNumber: tests.length + 1,
                     name: testFullName,
-                    location: `/${subDir}/${test}`,
-                    reference: `/${subDir}/${reference}`,
-                    allReleventATsFormatted: testData.applies_to.join(', '),
-                    allReleventATs: testData.applies_to,
+                    location: `/${directory}/${test}`,
+                    reference: `/${directory}/${reference}`,
+                    allRelevantATsFormatted: testData.applies_to.join(', '),
+                    allRelevantATs: testData.applies_to,
                     setupScriptName: testData.setupTestPage,
                     task,
                     mode,
@@ -190,22 +189,15 @@ fse.readdirSync(testsDirectory).forEach(function (subDir) {
         });
 
         if (tests.length) {
-            allTestsForPattern[subDir] = tests;
+            allTestsForPattern[directory] = tests;
         }
     }
 });
 
 let template = fse.readFileSync(reviewTemplateFilePath, 'utf8');
-
-fs.existsSync(reviewDirectory) || fs.mkdirSync(reviewDirectory);
-if (BUILD_CHECK) fs.existsSync(reviewBuildDirectory) || fs.mkdirSync(reviewBuildDirectory);
-
 let indexTemplate = fse.readFileSync(reviewIndexTemplateFilePath, 'utf8');
 
-console.log("\n");
-
 for (let pattern in allTestsForPattern) {
-
     let rendered = mustache.render(template, {
         pattern: pattern,
         totalTests: allTestsForPattern[pattern].length,
@@ -214,13 +206,10 @@ for (let pattern in allTestsForPattern) {
         setupScripts: scripts
     });
 
-    let summaryFile = path.resolve(reviewDirectory, `${pattern}.html`);
     let summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
+    fse.writeFileSync(summaryBuildFile, rendered);
 
-    fse.writeFileSync(summaryFile, rendered);
-    if (BUILD_CHECK) fse.writeFileSync(summaryBuildFile, rendered);
-
-    console.log(`Summarized ${pattern} tests: ${summaryFile}`);
+    console.log(`Summarized ${pattern} tests: ${summaryBuildFile}`);
 }
 
 const renderedIndex = mustache.render(indexTemplate, {
@@ -237,12 +226,7 @@ const renderedIndex = mustache.render(indexTemplate, {
     })
 });
 
-const indexFileOutputPath = path.resolve('.', 'index.html');
-const indexFileBuildOutputPath = path.resolve('build', 'index.html');
+fse.writeFileSync(indexFileBuildOutputPath, renderedIndex);
 
-fse.writeFileSync(indexFileOutputPath, renderedIndex);
-if (BUILD_CHECK) fse.writeFileSync(indexFileBuildOutputPath, renderedIndex);
-
-console.log(`Generated: ${indexFileOutputPath}`);
-
-console.log("\n\nDone.");
+console.log(`\nGenerated index.html: ${indexFileBuildOutputPath}`);
+console.log("\nDone.");

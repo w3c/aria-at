@@ -41,7 +41,7 @@ const filteredTestPlans = fs.readdirSync(testsDirectory)
   )
 
 if (!filteredTestPlans.length) { // most likely to happen if incorrect directory specified
-  console.error(`ERROR: Unable to find any valid test plans.`);
+  console.error('ERROR: Unable to find any valid test plan(s).');
   process.exit();
 }
 

@@ -202,19 +202,39 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
 let template = fse.readFileSync(reviewTemplateFilePath, 'utf8');
 let indexTemplate = fse.readFileSync(reviewIndexTemplateFilePath, 'utf8');
 
-for (let pattern in allTestsForPattern) {
-    let rendered = mustache.render(template, {
-        pattern: pattern,
-        totalTests: allTestsForPattern[pattern].length,
-        tests: allTestsForPattern[pattern],
-        AToptions: support.ats,
-        setupScripts: scripts
-    });
+if (TARGET_DIRECTORY) {
+    if (allTestsForPattern[TARGET_DIRECTORY]) {
+        let rendered = mustache.render(template, {
+            pattern: TARGET_DIRECTORY,
+            totalTests: allTestsForPattern[TARGET_DIRECTORY].length,
+            tests: allTestsForPattern[TARGET_DIRECTORY],
+            AToptions: support.ats,
+            setupScripts: scripts
+        });
 
-    let summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
-    fse.writeFileSync(summaryBuildFile, rendered);
+        let summaryBuildFile = path.resolve(reviewBuildDirectory, `${TARGET_DIRECTORY}.html`);
+        fse.writeFileSync(summaryBuildFile, rendered);
 
-    console.log(`Summarized ${pattern} tests: ${summaryBuildFile}`);
+        console.log(`Summarized ${TARGET_DIRECTORY} tests: ${summaryBuildFile}`);
+    } else { // most likely to happen if incorrect directory specified
+        console.error('ERROR: Unable to find any valid test plan(s).');
+        process.exit();
+    }
+} else {
+    for (let pattern in allTestsForPattern) {
+        let rendered = mustache.render(template, {
+            pattern: pattern,
+            totalTests: allTestsForPattern[pattern].length,
+            tests: allTestsForPattern[pattern],
+            AToptions: support.ats,
+            setupScripts: scripts
+        });
+
+        let summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
+        fse.writeFileSync(summaryBuildFile, rendered);
+
+        console.log(`Summarized ${pattern} tests: ${summaryBuildFile}`);
+    }
 }
 
 const renderedIndex = mustache.render(indexTemplate, {

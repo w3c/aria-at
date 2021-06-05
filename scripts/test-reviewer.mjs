@@ -172,7 +172,8 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
                 }
 
                 // Create the test review pages
-                const testFilePath = path.join('.', 'tests', directory, test);
+                const testFilePath = path.join(testsBuildDirectory, directory, test);
+                // TODO: useful for determining smart-diffs
                 const output = spawnSync('git', ['log', '-1', '--format="%ad"', testFilePath]);
                 const lastEdited = output.stdout.toString().replace(/"/gi, '').replace('\n', '');
 
@@ -217,7 +218,7 @@ if (TARGET_DIRECTORY) {
 
         console.log(`Summarized ${TARGET_DIRECTORY} tests: ${summaryBuildFile}`);
     } else { // most likely to happen if incorrect directory specified
-        console.error('ERROR: Unable to find any valid test plan(s).');
+        console.error('ERROR: Unable to find valid test plan(s).');
         process.exit();
     }
 } else {
@@ -239,6 +240,7 @@ if (TARGET_DIRECTORY) {
 
 const renderedIndex = mustache.render(indexTemplate, {
     patterns: Object.keys(allTestsForPattern).map(pattern => {
+        // TODO: useful for determining smart-diffs; this has to continue generating for all patterns until smart-diffs come into play
         const lastCommit = spawnSync('git', ['log', '-n1', '--oneline', path.join('.', 'tests', pattern)])
             .stdout
             .toString();

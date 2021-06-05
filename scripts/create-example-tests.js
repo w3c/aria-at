@@ -49,16 +49,18 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
   const resourcesDirectory = path.join(testsDirectory, 'resources');
   const keysFilePath = path.join(resourcesDirectory, 'keys.mjs');
   const supportFilePath = path.join(testsDirectory, 'support.json');
+  const javascriptDirectory = path.join(testPlanDirectory, 'data', 'js');
   const testsCsvFilePath = path.join(testPlanDirectory, 'data', 'tests.csv');
   const atCommandsCsvFilePath = path.join(testPlanDirectory, 'data', 'commands.csv');
   const referencesCsvFilePath = path.join(testPlanDirectory, 'data', 'references.csv');
-  const javascriptDirectory = path.join(testPlanDirectory, 'data', 'js');
+  const referenceDirectory = path.join(testPlanDirectory, 'reference')
 
   // build output folders and file paths setup
   const buildDirectory = path.join(rootDirectory, 'build');
   const testsBuildDirectory = path.join(buildDirectory, 'tests');
   const testPlanBuildDirectory = path.join(buildDirectory, directory);
   const resourcesBuildDirectory = path.join(testsBuildDirectory, 'resources');
+  const referenceBuildDirectory = path.join(testPlanBuildDirectory, 'reference');
 
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
   const supportFileBuildPath = path.join(testsBuildDirectory, 'support.json');
@@ -68,9 +70,10 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
   fs.existsSync(testsBuildDirectory) || fs.mkdirSync(testsBuildDirectory);
   fs.existsSync(testPlanBuildDirectory) || fs.mkdirSync(testPlanBuildDirectory);
 
-  // ensure the build folder has the reference files it needs for running local server
-  fse.copySync(resourcesDirectory, resourcesBuildDirectory, {overwrite: true})
-  fse.copySync(supportFilePath, supportFileBuildPath, {overwrite: true})
+  // ensure the build folder has the files it needs for running local server
+  fse.copySync(resourcesDirectory, resourcesBuildDirectory, {overwrite: true});
+  fse.copySync(supportFilePath, supportFileBuildPath, {overwrite: true});
+  fse.copySync(referenceDirectory, referenceBuildDirectory, {overwrite: true});
 
   const keyDefs = {};
   const support = JSON.parse(fse.readFileSync(supportFilePath));
@@ -637,8 +640,8 @@ ${rows}
             })
             .on('finish', () => {
               if (!VERBOSE_CHECK && isLast) {
-                if (VALIDATE_CHECK) logger(`(${successRuns}) out of (${successRuns + errorRuns}) Test Plans successfully processed without any validation errors.\n`, false, true)
-                else logger(`(${successRuns}) out of (${successRuns + errorRuns}) Test Plans successfully processed and generated without any validation errors.\n`, false, true)
+                if (VALIDATE_CHECK) logger(`(${successRuns}) out of (${successRuns + errorRuns}) test plan(s) successfully processed without any validation errors.\n`, false, true)
+                else logger(`(${successRuns}) out of (${successRuns + errorRuns}) test plan(s) successfully processed and generated without any validation errors.\n`, false, true)
                 logger(`NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`, false, true)
               }
             });

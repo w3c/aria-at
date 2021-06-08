@@ -144,6 +144,87 @@
 	cb.open();
 },	moveFocusAfterCombobox: function(testPageDocument){
 	// sets focus on a link after the Combobox
+	testPageDocument.querySelector('#cb1-button').style.display = 'none';
+	testPageDocument.querySelector('#afterlink').focus();
+},	moveFocusAfterComboboxAndSetValueToAlabama: function(testPageDocument){
+	// sets focus on a link after the Combobox, and sets the combobox value to 'Alabama'
+	testPageDocument.querySelector('#cb1-button').style.display = 'none';
+	testPageDocument.defaultView.comboboxController.setValue('Alabama');
+	testPageDocument.querySelector('#afterlink').focus();
+},	moveFocusBeforeCombobox: function(testPageDocument){
+	// sets focus on a link before the Combobox
+	testPageDocument.querySelector('#beforelink').focus();
+},	moveFocusBeforeComboboxAndSetValueToAlabama: function(testPageDocument){
+	// sets focus on a link before the Combobox, and sets the combobox value to 'Alabama'
+	testPageDocument.defaultView.comboboxController.setValue('Alabama');
+	testPageDocument.querySelector('#beforelink').focus();
+},	moveFocusToAlabamaInListbox: function(testPageDocument){
+	// expands the Combobox and places focus on 'Alabama' in the listbox popup
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+	let opt = testPageDocument.querySelector('#lb1-al');
+	testPageDocument.defaultView.comboboxController.setOption(opt, true);
+},	moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning: function(testPageDocument){
+	// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the beginning of the textbox
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+	let opt = testPageDocument.querySelector('#lb1-al');
+	testPageDocument.defaultView.comboboxController.setOption(opt, true);
+	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(0, 0);
+},	moveFocusToAlabamaInListboxAndSetInputCursorAtEnd: function(testPageDocument){
+	// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the end of the textbox
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+	let opt = testPageDocument.querySelector('#lb1-al');
+	let optTextLength = opt.textContent.length;
+	testPageDocument.defaultView.comboboxController.setOption(opt, true);
+	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);
+},	moveFocusToAlaskaInListbox: function(testPageDocument){
+	// expands the combobox, sets the combobox value to 'Alaska' and places focus on that option in the listbox popup
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+	let opt = testPageDocument.querySelector('#lb1-ak');
+	testPageDocument.defaultView.comboboxController.setOption(opt, true);
+},	moveFocusToAndExpandCombobox: function(testPageDocument){
+	// sets focus on and expands the combobox
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToAndExpandComboboxAndSetValueToA: function(testPageDocument){
+	// sets focus on and expands the combobox, and sets the combobox value to 'a'
+	testPageDocument.defaultView.comboboxController.setValue('a');
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.select();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected: function(testPageDocument){
+	// sets focus on and expands the combobox, sets the combobox value to 'a', and de-selects all text in the input
+	testPageDocument.defaultView.comboboxController.setValue('a');
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToAndExpandComboboxAndSetValueToAlabama: function(testPageDocument){
+	// sets focus on and expands the combobox, and sets the combobox value to 'Alabama'
+	testPageDocument.defaultView.comboboxController.setValue('Alabama');
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.select();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToCombobox: function(testPageDocument){
+	// sets focus on the combobox
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToComboboxAndSetValueToA: function(testPageDocument){
+	// sets focus on the combobox, and sets the combobox value to 'a'
+	testPageDocument.defaultView.comboboxController.setValue('a');
+	testPageDocument.defaultView.comboboxController.comboboxNode.select();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToComboboxAndSetValueToAlabama: function(testPageDocument){
+	// sets focus on the combobox, and sets the combobox value to 'Alabama'
+	testPageDocument.defaultView.comboboxController.setValue('Alabama');
+	testPageDocument.defaultView.comboboxController.comboboxNode.select();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusAfterCombobox: function(testPageDocument){
+	// sets focus on a link after the Combobox
 	testPageDocument.querySelector('#afterlink').focus();
 },	moveFocusBeforeCombobox: function(testPageDocument){
 	// sets focus on a link before the Combobox
@@ -301,7 +382,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-01-navigate-forwards-to-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -390,7 +471,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-02-navigate-backwards-to-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -479,7 +560,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-03-navigate-forwards-to-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -566,7 +647,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-04-navigate-backwards-to-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -653,7 +734,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-05-navigate-forwards-to-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -711,7 +792,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-06-navigate-backwards-to-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -769,7 +850,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-07-read-information-about-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -852,7 +933,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-08-read-information-about-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -935,7 +1016,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-09-read-information-about-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -988,7 +1069,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-10-navigate-to-next-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1066,7 +1147,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-11-navigate-to-next-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1144,7 +1225,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-12-navigate-to-next-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1194,7 +1275,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-13-navigate-to-previous-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1275,7 +1356,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-14-navigate-to-previous-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1356,7 +1437,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-15-navigate-to-previous-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1408,7 +1489,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-16-navigate-to-first-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1489,7 +1570,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-17-navigate-to-first-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1541,7 +1622,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-18-navigate-to-last-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1619,7 +1700,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-19-navigate-to-last-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1669,7 +1750,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-20-navigate-forwards-to-tab-panel-interaction.html?at=jaws">jaws</a></li>
@@ -1745,7 +1826,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-21-navigate-backwards-to-tab-panel-interaction.html?at=jaws">jaws</a></li>
@@ -1821,7 +1902,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-22-navigate-forwards-to-tab-panel-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1871,7 +1952,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-23-navigate-backwards-to-tab-panel-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1921,7 +2002,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-24-activate-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1994,7 +2075,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-25-activate-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2067,7 +2148,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-26-activate-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2115,7 +2196,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-27-delete-tab-from-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -2196,7 +2277,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-28-delete-tab-from-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2277,7 +2358,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Wed Mar 24 23:33:00 2021 -0700</li>
+        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-29-delete-tab-from-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

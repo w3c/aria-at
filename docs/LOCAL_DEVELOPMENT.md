@@ -19,7 +19,7 @@
 1. Create a Pull Request with the changes from your branch with relevant details associated with it. Ensure the base branch is `master`. GitHub Actions should then generate review pages and append a 'Preview Link' to your Pull Request's description, so it may be properly reviewed.
 1. **NOTE: If any changes were committed to `master` after branching off to a contribution branch, be sure to merge those changes back into your branch before submitting your Pull Request for review.**
 
-### Local Development
+### Scripts
 
 Scripts and commands available to help with your workflow.
 

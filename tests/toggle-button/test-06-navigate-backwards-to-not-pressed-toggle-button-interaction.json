@@ -1,0 +1,24 @@
+{
+  "setup_script_description": "sets focus on a link after the button",
+  "setupTestPage": "setFocusAfterButton",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to not pressed toggle button",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Mute' button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Mute' is conveyed"
+    ],
+    [
+      "1",
+      "State 'not pressed' is conveyed"
+    ]
+  ]
+}

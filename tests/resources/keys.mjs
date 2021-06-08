@@ -70,7 +70,6 @@ export const A                                = "A";
 export const B                                = "B";
 export const SHIFT_B                          = "Shift+B";
 export const C                                = "C";
-export const SHIFT_C                                = "Shift+C";
 export const D                                = "D";
 export const E                                = "E";
 export const SHIFT_E                                = "Shift+E";

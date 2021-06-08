@@ -32,13 +32,13 @@ Generate review pages based on the previously generated tests' html and json fil
 #### `npm run build`
 Creates or updates the `/build` folder. Runs `npm run create-all-tests` and `npm run review-tests`.
 
-#### `npm run build <test_plan_module>`
+#### `npm run build --directory=<test_plan_module>`
 Creates or updates the `/build` folder for a specific test plan. Runs `npm run create-all-tests` and `npm run review-tests` for a specific test plan.
 
 #### `npm run validate`
 Run to confirm that the test plans currently drafted within the project have no validation errors.
 
-#### `npm run validate <test_plan_module>`
+#### `npm run validate --directory=<test_plan_module>`
 Run to confirm that a specific test plan currently drafted within the project has no validation errors.
 
 #### `npm run cleanup`

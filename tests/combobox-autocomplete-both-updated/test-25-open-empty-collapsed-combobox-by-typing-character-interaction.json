@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "sets focus on the combobox",
+  "setupTestPage": "moveFocusToCombobox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "open empty collapsed combobox by typing character",
+  "specific_user_instruction": "With focus on the combobox, open the combobox without moving into the listbox popup.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state (to expanded) is conveyed"
+    ],
+    [
+      "1",
+      "Text of the automatically completed option ('Alabama') is conveyed"
+    ],
+    [
+      "1",
+      "State of the text in the input (selected) is conveyed"
+    ]
+  ]
+}

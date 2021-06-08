@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate out of a listbox popup by moving the editing cursor to the left in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+<link rel="help" href="https://w3c.github.io/aria/#combobox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+<link rel="help" href="https://w3c.github.io/aria/#aria-autocomplete">
+
+<script>
+  var scripts = {
+		moveFocusToAlabamaInListboxAndSetInputCursorAtEnd: function(testPageDocument){
+			// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the end of the textbox
+			testPageDocument.defaultView.comboboxController.open();
+			testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+			testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+			let opt = testPageDocument.querySelector('#lb1-al');
+			let optTextLength = opt.textContent.length;
+			testPageDocument.defaultView.comboboxController.setOption(opt, true);
+			testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the end of the textbox",
+  "setupTestPage": "moveFocusToAlabamaInListboxAndSetInputCursorAtEnd",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate out of listbox popup by moving editing cursor to left",
+  "specific_user_instruction": "With focus on an option in the listbox popup, navigate back to the textbox by moving the editing cursor to the left.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the combobox ('State') is conveyed"
+    ],
+    [
+      "1",
+      "State of the combobox (expanded) is conveyed"
+    ],
+    [
+      "1",
+      "Text of the selected option ('Alabama') is conveyed"
+    ],
+    [
+      "1",
+      "The ability to enter or edit text is conveyed"
+    ],
+    [
+      "1",
+      "The presence of autocomplete behavior is conveyed"
+    ],
+    [
+      "1",
+      "Cursor position (on the character 'a') is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate out of listbox popup by moving editing cursor to left": {
+    "interaction": {
+      "jaws": [ [ "LEFT" ] ],
+      "nvda": [ [ "LEFT" ] ],
+      "voiceover_macos": [ [ "LEFT" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-11_16649/combobox-autocomplete-both.html");
+  });
+</script>
+  

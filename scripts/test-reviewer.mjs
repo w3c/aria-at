@@ -37,6 +37,7 @@ const testsBuildDirectory = path.resolve(buildDirectory, 'tests');
 const reviewBuildDirectory = path.resolve(buildDirectory, 'review');
 
 const indexFileBuildOutputPath = path.resolve(buildDirectory, 'index.html');
+const metaOutputFilePath = path.resolve(buildDirectory, 'meta.json');
 const supportFilePath = path.join(testsDirectory, 'support.json');
 const reviewTemplateFilePath = path.resolve(scriptsDirectory, 'review-template.mustache');
 const reviewIndexTemplateFilePath = path.resolve(scriptsDirectory, 'review-index-template.mustache');
@@ -46,6 +47,7 @@ fs.existsSync(reviewBuildDirectory) || fs.mkdirSync(reviewBuildDirectory);
 
 const allTestsForPattern = {};
 const support = JSON.parse(fse.readFileSync(supportFilePath));
+const meta = fse.existsSync(metaOutputFilePath) ? JSON.parse(fse.readFileSync(metaOutputFilePath)) : []; // default to empty array if not exists
 
 let allATKeys = [];
 support.ats.forEach(at => {
@@ -244,16 +246,34 @@ const renderedIndex = mustache.render(indexTemplate, {
         const lastCommit = spawnSync('git', ['log', '-n1', '--oneline', path.join('.', 'tests', pattern)])
             .stdout
             .toString();
-        return {
+
+        const result = {
             name: pattern,
             numberOfTests: allTestsForPattern[pattern].length,
             commit: lastCommit.split(' ')[0],
             commitDescription: lastCommit
+        };
+
+        if (TARGET_DIRECTORY) {
+            // check to see if exists in the meta history
+            const targetIndex = meta.findIndex(testPlan => testPlan.name === result.name && testPlan.name === TARGET_DIRECTORY);
+            if (targetIndex >= 0) meta[targetIndex] = {...result};
+            else { // account for any possible upserts
+                const testPlanFound = meta.findIndex(testPlan => testPlan.name === result.name);
+                if (testPlanFound < 0) meta.push(result);
+            }
+        } else {
+            const testPlanIndex = meta.findIndex(testPlan => testPlan.name === result.name);
+            if (testPlanIndex >= 0) meta[testPlanIndex] = {...result};
+            else meta.push(result);
         }
+
+        return result;
     })
 });
 
 fse.writeFileSync(indexFileBuildOutputPath, renderedIndex);
+fse.writeFileSync(metaOutputFilePath, JSON.stringify(meta), 'utf8');
 
 console.log(`\nGenerated index.html: ${indexFileBuildOutputPath}`);
 console.log("\nDone.");

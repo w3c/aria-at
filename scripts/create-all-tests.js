@@ -34,6 +34,7 @@ const scriptsDirectory = path.dirname(__filename);
 const rootDirectory = scriptsDirectory.split('scripts')[0];
 const testsDirectory = path.join(rootDirectory, 'tests');
 
+// TODO: Check if directory changed with git diff; forego it otherwise
 const filteredTestPlans = fs.readdirSync(testsDirectory)
   .filter(f => TARGET_DIRECTORY ?
     f !== 'resources' && f === TARGET_DIRECTORY && fs.statSync(path.join(testsDirectory, f)).isDirectory() : // checking to see if individual test plan has been specified

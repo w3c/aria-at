@@ -21,7 +21,7 @@
 
 ### Local Development
 
-There is a number of scripts and utility methods present to help you with your various tests' contribution efforts.
+Scripts and commands available to help with your workflow.
 
 #### `npm run create-all-tests`
 Generate tests' html and json files as determined by using the files in `/tests/<test_plan_module>/`. The output is written to `/build/tests/<test_plan_module>/`.

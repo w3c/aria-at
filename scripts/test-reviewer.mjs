@@ -10,7 +10,7 @@ import {commandsAPI} from '../tests/resources/at-commands.mjs';
 const args = minimist(process.argv.slice(2), {
     alias: {
         h: 'help',
-        d: 'directory'
+        t: 'testplan'
     },
 });
 
@@ -21,13 +21,13 @@ if (args.help) {
   Arguments:
     -h, --help
        Show this message.
-    -d, --directory
-       Generate review page for an individual test plan directory. eg. --directory=checkbox
+    -t, --testplan
+       Generate review page for an individual test plan directory. eg. --testplan=checkbox
 `);
     process.exit();
 }
 
-const TARGET_DIRECTORY = args.directory; // individual test plan to generate review page assets for
+const TARGET_TEST_PLAN = args.testplan; // individual test plan to generate review page assets for
 
 // folders and file paths setup
 const buildDirectory = path.resolve('.', 'build');
@@ -203,20 +203,20 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
 let template = fse.readFileSync(reviewTemplateFilePath, 'utf8');
 let indexTemplate = fse.readFileSync(reviewIndexTemplateFilePath, 'utf8');
 
-if (TARGET_DIRECTORY) {
-    if (allTestsForPattern[TARGET_DIRECTORY]) {
+if (TARGET_TEST_PLAN) {
+    if (allTestsForPattern[TARGET_TEST_PLAN]) {
         let rendered = mustache.render(template, {
-            pattern: TARGET_DIRECTORY,
-            totalTests: allTestsForPattern[TARGET_DIRECTORY].length,
-            tests: allTestsForPattern[TARGET_DIRECTORY],
+            pattern: TARGET_TEST_PLAN,
+            totalTests: allTestsForPattern[TARGET_TEST_PLAN].length,
+            tests: allTestsForPattern[TARGET_TEST_PLAN],
             AToptions: support.ats,
             setupScripts: scripts
         });
 
-        let summaryBuildFile = path.resolve(reviewBuildDirectory, `${TARGET_DIRECTORY}.html`);
+        let summaryBuildFile = path.resolve(reviewBuildDirectory, `${TARGET_TEST_PLAN}.html`);
         fse.writeFileSync(summaryBuildFile, rendered);
 
-        console.log(`Summarized ${TARGET_DIRECTORY} tests: ${summaryBuildFile}`);
+        console.log(`Summarized ${TARGET_TEST_PLAN} tests: ${summaryBuildFile}`);
     } else { // most likely to happen if incorrect directory specified
         console.error('ERROR: Unable to find valid test plan(s).');
         process.exit();

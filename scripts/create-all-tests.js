@@ -5,7 +5,7 @@ const {createExampleTests} = require('./create-example-tests');
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
     h: 'help',
-    d: 'directory',
+    t: 'testplan',
     v: 'verbose',
     V: 'validate'
   },
@@ -18,8 +18,8 @@ if (args.help) {
   Arguments:
     -h, --help
        Show this message.
-    -d, --directory
-       Generate tests and view a detailed report summary for an individual test plan directory. eg. --directory=checkbox
+    -t, --testplan
+       Generate tests and view a detailed report summary for an individual test plan directory. eg. --testplan=checkbox
     -v, --verbose
        Generate tests and view a detailed report summary.
     -V, --validate
@@ -28,19 +28,19 @@ if (args.help) {
   process.exit();
 }
 
-const TARGET_DIRECTORY = args.directory; // individual test plan to generate test assets for
+const TARGET_TEST_PLAN = args.testplan; // individual test plan to generate test assets for
 
 const scriptsDirectory = path.dirname(__filename);
 const rootDirectory = scriptsDirectory.split('scripts')[0];
 const testsDirectory = path.join(rootDirectory, 'tests');
 
 const filteredTestPlans = fs.readdirSync(testsDirectory)
-  .filter(f => TARGET_DIRECTORY ?
-    f !== 'resources' && f === TARGET_DIRECTORY && fs.statSync(path.join(testsDirectory, f)).isDirectory() : // checking to see if individual test plan has been specified
+  .filter(f => TARGET_TEST_PLAN ?
+    f !== 'resources' && f === TARGET_TEST_PLAN && fs.statSync(path.join(testsDirectory, f)).isDirectory() : // checking to see if individual test plan has been specified
     f !== 'resources' && fs.statSync(path.join(testsDirectory, f)).isDirectory()
   )
 
-if (!filteredTestPlans.length) { // most likely to happen if incorrect directory specified
+if (!filteredTestPlans.length) { // most likely to happen if incorrect testPlan specified
   console.error('ERROR: Unable to find valid test plan(s).');
   process.exit();
 }

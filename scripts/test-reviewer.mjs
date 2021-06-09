@@ -175,7 +175,6 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
 
                 // Create the test review pages
                 const testFilePath = path.join(testsBuildDirectory, directory, test);
-                // TODO: useful for determining smart-diffs
                 const output = spawnSync('git', ['log', '-1', '--format="%ad"', testFilePath]);
                 const lastEdited = output.stdout.toString().replace(/"/gi, '').replace('\n', '');
 
@@ -205,44 +204,33 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
 let template = fse.readFileSync(reviewTemplateFilePath, 'utf8');
 let indexTemplate = fse.readFileSync(reviewIndexTemplateFilePath, 'utf8');
 
+const generateTestPlanReviewIndex = pattern => {
+    let rendered = mustache.render(template, {
+        pattern: pattern,
+        totalTests: allTestsForPattern[pattern].length,
+        tests: allTestsForPattern[pattern],
+        AToptions: support.ats,
+        setupScripts: scripts
+    });
+
+    let summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
+    fse.writeFileSync(summaryBuildFile, rendered);
+
+    console.log(`Summarized ${pattern} tests: ${summaryBuildFile}`);
+}
+
 if (TARGET_DIRECTORY) {
-    if (allTestsForPattern[TARGET_DIRECTORY]) {
-        let rendered = mustache.render(template, {
-            pattern: TARGET_DIRECTORY,
-            totalTests: allTestsForPattern[TARGET_DIRECTORY].length,
-            tests: allTestsForPattern[TARGET_DIRECTORY],
-            AToptions: support.ats,
-            setupScripts: scripts
-        });
-
-        let summaryBuildFile = path.resolve(reviewBuildDirectory, `${TARGET_DIRECTORY}.html`);
-        fse.writeFileSync(summaryBuildFile, rendered);
-
-        console.log(`Summarized ${TARGET_DIRECTORY} tests: ${summaryBuildFile}`);
-    } else { // most likely to happen if incorrect directory specified
+    if (allTestsForPattern[TARGET_DIRECTORY]) generateTestPlanReviewIndex(TARGET_DIRECTORY);
+    else { // most likely to happen if incorrect directory specified
         console.error('ERROR: Unable to find valid test plan(s).');
         process.exit();
     }
 } else {
-    for (let pattern in allTestsForPattern) {
-        let rendered = mustache.render(template, {
-            pattern: pattern,
-            totalTests: allTestsForPattern[pattern].length,
-            tests: allTestsForPattern[pattern],
-            AToptions: support.ats,
-            setupScripts: scripts
-        });
-
-        let summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
-        fse.writeFileSync(summaryBuildFile, rendered);
-
-        console.log(`Summarized ${pattern} tests: ${summaryBuildFile}`);
-    }
+    for (let pattern in allTestsForPattern) generateTestPlanReviewIndex(pattern);
 }
 
 const renderedIndex = mustache.render(indexTemplate, {
     patterns: Object.keys(allTestsForPattern).map(pattern => {
-        // TODO: useful for determining smart-diffs; this has to continue generating for all patterns until smart-diffs come into play
         const lastCommit = spawnSync('git', ['log', '-n1', '--oneline', path.join('.', 'tests', pattern)])
             .stdout
             .toString();
@@ -256,16 +244,22 @@ const renderedIndex = mustache.render(indexTemplate, {
 
         if (TARGET_DIRECTORY) {
             // check to see if exists in the meta history
-            const targetIndex = meta.findIndex(testPlan => testPlan.name === result.name && testPlan.name === TARGET_DIRECTORY);
-            if (targetIndex >= 0) meta[targetIndex] = {...result};
-            else { // account for any possible upserts
-                const testPlanFound = meta.findIndex(testPlan => testPlan.name === result.name);
-                if (testPlanFound < 0) meta.push(result);
+            const targetTestPlanIndex = meta.findIndex(metaTestPlan => metaTestPlan.name === result.name && metaTestPlan.name === TARGET_DIRECTORY);
+            if (targetTestPlanIndex >= 0) {
+                if (meta[targetTestPlanIndex].commit === result.commit) {
+                    // Do nothing because version of test plan is unchanged
+                } else meta[targetTestPlanIndex] = {...result};
+            } else { // account for any possible upserts
+                const testPlanFound = meta.some(testPlan => testPlan.name === result.name && testPlan.commit === result.commit);
+                if (!testPlanFound) meta.push(result);
             }
         } else {
-            const testPlanIndex = meta.findIndex(testPlan => testPlan.name === result.name);
-            if (testPlanIndex >= 0) meta[testPlanIndex] = {...result};
-            else meta.push(result);
+            const testPlanIndex = meta.findIndex(metaTestPlan => metaTestPlan.name === result.name && metaTestPlan.commit === result.commit);
+            if (testPlanIndex >= 0) {
+                if (meta[testPlanIndex].commit === result.commit) {
+                    // Do nothing because version of test plan is unchanged
+                } else meta[testPlanIndex] = {...result};
+            } else meta.push(result);
         }
 
         return result;
@@ -273,7 +267,7 @@ const renderedIndex = mustache.render(indexTemplate, {
 });
 
 fse.writeFileSync(indexFileBuildOutputPath, renderedIndex);
-fse.writeFileSync(metaOutputFilePath, JSON.stringify(meta), 'utf8');
+fse.writeFileSync(metaOutputFilePath, JSON.stringify(meta, null, 2), 'utf8');
 
 console.log(`\nGenerated index.html: ${indexFileBuildOutputPath}`);
 console.log("\nDone.");

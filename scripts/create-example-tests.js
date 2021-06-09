@@ -9,8 +9,8 @@ let VERBOSE_CHECK = false;
 let VALIDATE_CHECK = false;
 
 let suppressedMessageCount = 0;
-let successRuns = 0;
-let errorRuns = 0;
+let successRunsCount = 0;
+let errorRunsCount = 0;
 
 /**
  * @param {string} message - message to be logged
@@ -632,16 +632,16 @@ ${rows}
               if (errorCount) {
                 logger(`*** ${errorCount} Errors in tests and/or commands in file [${testsCsvFilePath}] ***`, true, true);
                 logger(errors, true, true);
-                errorRuns += 1;
+                errorRunsCount += 1;
               } else {
                 logger('No validation errors detected\n');
-                successRuns += 1;
+                successRunsCount += 1;
               }
             })
             .on('finish', () => {
               if (!VERBOSE_CHECK && isLast) {
-                if (VALIDATE_CHECK) logger(`(${successRuns}) out of (${successRuns + errorRuns}) test plan(s) successfully processed without any validation errors.\n`, false, true)
-                else logger(`(${successRuns}) out of (${successRuns + errorRuns}) test plan(s) successfully processed and generated without any validation errors.\n`, false, true)
+                if (VALIDATE_CHECK) logger(`(${successRunsCount}) out of (${successRunsCount + errorRunsCount}) test plan(s) successfully processed without any validation errors.\n`, false, true)
+                else logger(`(${successRunsCount}) out of (${successRunsCount + errorRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`, false, true)
                 logger(`NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`, false, true)
               }
             });

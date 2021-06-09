@@ -1,5 +1,7 @@
 const path = require('path');
 const fs = require('fs');
+const {spawnSync} = require('child_process');
+
 const {createExampleTests} = require('./create-example-tests');
 
 const args = require('minimist')(process.argv.slice(2), {
@@ -30,19 +32,30 @@ if (args.help) {
 
 const TARGET_DIRECTORY = args.directory; // individual test plan to generate test assets for
 
+let skippedTestPlansCount = 0;
+
 const scriptsDirectory = path.dirname(__filename);
 const rootDirectory = scriptsDirectory.split('scripts')[0];
 const testsDirectory = path.join(rootDirectory, 'tests');
 
-// TODO: Check if directory changed with git diff; forego it otherwise
+const checkTestPlanChanged = directory => {
+  // may want to be more direct with which files to be looking for in each test plan directory?
+  const diffResult = spawnSync('git', ['diff', '--shortstat', path.join(testsDirectory, directory)]).stdout.toString();
+  if (!diffResult) skippedTestPlansCount += 1;
+  return diffResult
+}
+
 const filteredTestPlans = fs.readdirSync(testsDirectory)
   .filter(f => TARGET_DIRECTORY ?
-    f !== 'resources' && f === TARGET_DIRECTORY && fs.statSync(path.join(testsDirectory, f)).isDirectory() : // checking to see if individual test plan has been specified
-    f !== 'resources' && fs.statSync(path.join(testsDirectory, f)).isDirectory()
+    f !== 'resources' && f === TARGET_DIRECTORY && fs.statSync(path.join(testsDirectory, f))
+      .isDirectory() && checkTestPlanChanged(f) : // checking to see if individual test plan has been specified
+    f !== 'resources' && fs.statSync(path.join(testsDirectory, f)).isDirectory() && checkTestPlanChanged(f)
   )
 
+if (skippedTestPlansCount || !filteredTestPlans.length) console.log(`${skippedTestPlansCount} test plan(s) skipped. No changes found.`);
+
 if (!filteredTestPlans.length) { // most likely to happen if incorrect directory specified
-  console.error('ERROR: Unable to find valid test plan(s).');
+  console.error('ERROR: Unable to find valid or updated test plan(s) to process.');
   process.exit();
 }
 

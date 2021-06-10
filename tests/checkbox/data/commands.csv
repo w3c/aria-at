@@ -1,8 +1,13 @@
 testId,task,mode,at,commandA,commandB,commandC,commandD,commandE,commandF
-1,navigate to unchecked checkbox,reading,JAWS,X_AND_SHIFT_X,F_AND_SHIFT_F,TAB_AND_SHIFT_TAB,UP_AND_DOWN,LEFT_AND_RIGHT(with Smart Navigation on),
-1,navigate to unchecked checkbox,reading,NVDA,X_AND_SHIFT_X,F_AND_SHIFT_F,TAB_AND_SHIFT_TAB,UP_AND_DOWN,,
-2,navigate to unchecked checkbox,interaction,JAWS,TAB_AND_SHIFT_TAB,,,,,
-2,navigate to unchecked checkbox,interaction,NVDA,TAB_AND_SHIFT_TAB,,,,,
+1,navigate forwards to checkbox,reading,JAWS,X,F,TAB,DOWN,RIGHT(with Smart Navigation on),
+1,navigate forwards to checkbox,reading,NVDA,X,F,TAB,DOWN,,
+2,navigate backwards to checkbox,reading,JAWS,SHIFT_X,SHIFT_F,SHIFT_TAB,UP,LEFT(with Smart Navigation on),
+2,navigate backwards to checkbox,reading,NVDA,SHIFT_X,SHIFT_F,SHIFT_TAB,UP,,
+3,navigate forwards to checkbox,interaction,JAWS,TAB,,,,,
+3,navigate forwards to checkbox,interaction,NVDA,TAB,,,,,
+4,navigate backwards to checkbox,interaction,JAWS,SHIFT_TAB,,,,,
+4,navigate backwards to checkbox,interaction,NVDA,SHIFT_TAB,,,,,
+TODO: fix remaining below
 3,navigate to unchecked checkbox,interaction,voiceover_macos,TAB_AND_SHIFT_TAB,CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT,CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J,,,
 4,navigate to checked checkbox,reading,JAWS,X_AND_SHIFT_X,F_AND_SHIFT_F,TAB_AND_SHIFT_TAB,UP_AND_DOWN,LEFT_AND_RIGHT(with Smart Navigation on),
 4,navigate to checked checkbox,reading,NVDA,X_AND_SHIFT_X,F_AND_SHIFT_F,TAB_AND_SHIFT_TAB,UP_AND_DOWN,,

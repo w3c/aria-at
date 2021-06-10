@@ -5,7 +5,7 @@ import {spawnSync} from 'child_process';
 import np from 'node-html-parser';
 import mustache from 'mustache';
 import minimist from 'minimist';
-import {commandsAPI} from '../tests/resources/at-commands.mjs';
+import {commandsAPI as CommandsAPI} from '../tests/resources/at-commands.mjs';
 
 const args = minimist(process.argv.slice(2), {
     alias: {
@@ -73,7 +73,7 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
         // Initialize the commands API
         const commandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
         const commands = JSON.parse(fse.readFileSync(commandsJSONFile));
-        const commAPI = new commandsAPI(commands, support);
+        const commandsAPI = new CommandsAPI(commands, support);
 
         const tests = [];
 
@@ -144,10 +144,10 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
 
                 for (const atKey of allRelevantATs.map((a) => a.toLowerCase())) {
                     let commands, assertions;
-                    let at = commAPI.isKnownAT(atKey);
+                    let at = commandsAPI.isKnownAT(atKey);
 
                     try {
-                        commands = commAPI.getATCommands(mode, task, at);
+                        commands = commandsAPI.getATCommands(mode, task, at);
                     } catch (error) { // An error will occur if there is no data for a screen reader, ignore it
                     }
 
@@ -166,7 +166,7 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
                             description: a[1]
                         })) : undefined,
                         userInstruction,
-                        modeInstruction: commAPI.getModeInstructions(mode, at),
+                        modeInstruction: commandsAPI.getModeInstructions(mode, at),
                         setupScriptDescription: testData.setup_script_description,
                     });
                 }

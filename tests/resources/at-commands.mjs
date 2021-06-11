@@ -63,14 +63,19 @@ constructor(commands, support) {
     let commands = [];
 
     for (let c of commandsData) {
-      let command = keys[c[0]];
-      if (typeof command === 'undefined') {
-        throw new Error(`Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`);
-      }
+      let innerCommands = [];
+      let commandSequence = c[0].split(',');
+      for (let command of commandSequence) {
+        command = keys[command];
+        if (typeof command === 'undefined') {
+          throw new Error(`Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`);
+        }
 
-      let furtherInstruction = c[1];
-      command = furtherInstruction ? `${command} ${furtherInstruction}` : command;
-      commands.push(command);
+        let furtherInstruction = c[1];
+        command = furtherInstruction ? `${command} ${furtherInstruction}` : command;
+        innerCommands.push(command);
+      }
+      commands.push(innerCommands.join(", then "));
     }
 
     return commands;

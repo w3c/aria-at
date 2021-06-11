@@ -573,7 +573,11 @@ function renderVirtualInstructionDocument(doc) {
 
     instructAssertions(doc.instructions.assertions),
 
-    button(onclick(doc.instructions.openTestPage.click), rich(doc.instructions.openTestPage.button)),
+    button(
+      disabled(!doc.instructions.openTestPage.enabled),
+      onclick(doc.instructions.openTestPage.click),
+      rich(doc.instructions.openTestPage.button)
+    ),
 
     resultHeader(doc.results.header),
 

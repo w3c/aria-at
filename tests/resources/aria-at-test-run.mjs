@@ -1190,7 +1190,7 @@ export function userValidateState() {
  * @typedef TestRunState
  * This state contains all the serializable values that are needed to render any
  * of the documents (InstructionDocument, ResultsTableDocument, and
- * TestPageDocuement) from this module.
+ * TestPageDocument) from this module.
  *
  * @property {string[] | null} errors
  * @property {object} info

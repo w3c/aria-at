@@ -5,8 +5,11 @@
   "private": true,
   "scripts": {
     "lint": "eslint .",
-    "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs",
+    "build": "npm run create-all-tests -- --testplan=$npm_config_testplan; npm run review-tests  -- --testplan=$npm_config_testplan",
+    "validate": "npm run create-all-tests -- --validate --testplan=$npm_config_testplan",
+    "cleanup": "rm -fr ./build",
     "create-all-tests": "node ./scripts/create-all-tests.js",
+    "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs",
     "update-reference": "node ./scripts/update-reference.js"
   },
   "dependencies": {

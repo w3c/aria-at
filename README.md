@@ -15,7 +15,6 @@ The initial scope of this test suite is manual testing of a select set of deskto
 You can participate by:
 
 * Joining the [community group](https://www.w3.org/community/aria-at/)
-* [Signing up as a tester](https://github.com/w3c/aria-at/issues/162) for the Pilot Test (May 27 - June 2)
 * [Reviewing assertions of existing test plans](https://w3c.github.io/aria-at/review-test-plans/)
 * [Writing more tests](https://github.com/w3c/aria-at/wiki/How-to-contribute-tests)
 * Fixing a [good first issue](https://github.com/w3c/aria-at/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)

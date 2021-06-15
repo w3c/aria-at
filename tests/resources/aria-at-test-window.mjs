@@ -28,23 +28,27 @@ export class TestWindow {
     this.scripts = scripts;
   }
 
+  /** If the window is closed, re-enable open popup button. */
+  windowOnUnload() {
+    window.setTimeout(() => {
+      if (this.window.closed) {
+        this.window = undefined;
+
+        this.hooks.windowClosed();
+      } else {
+        // If the window is open (after a location.reload()) rerun the setupTestPage script.
+        this.prepare();
+      }
+    }, 100);
+  }
+
   open() {
     this.window = window.open(this.pageUri, "_blank", "toolbar=0,location=0,menubar=0,width=400,height=400");
 
     this.hooks.windowOpened();
 
     // If the window is closed, re-enable open popup button
-    this.window.onunload = () => {
-      window.setTimeout(() => {
-        if (this.window.closed) {
-          this.window = undefined;
-
-          this.hooks.windowClosed();
-        }
-      }, 100);
-    };
-
-    this.prepare();
+    this.window.onunload = this.windowOnUnload.bind(this);
   }
 
   prepare() {
@@ -56,8 +60,10 @@ export class TestWindow {
     if (!setupScriptName) {
       return;
     }
+
+    // make sure the origin is the same, and prevent this from firing on an 'about' page
     if (
-      this.window.location.origin !== window.location.origin || // make sure the origin is the same, and prevent this from firing on an 'about' page
+      this.window.location.origin !== window.location.origin ||
       this.window.document.readyState !== "complete"
     ) {
       window.setTimeout(() => {

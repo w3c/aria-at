@@ -1,83 +1,33 @@
 'use strict';
-const fs = require('fs');
-const fse = require('fs-extra');
 const path = require('path');
+const fse = require('fs-extra');
+const inquirer = require('inquirer');
+const util = require('util');
 const csv = require('csv-parser');
-const beautify = require('json-beautify');
+const readline = require('readline');
+const fs = require('fs');
+const beautify = require("json-beautify");
 
-let VERBOSE_CHECK = false;
-let VALIDATE_CHECK = false;
 
-let suppressedMessageCount = 0;
-let successRuns = 0;
-let errorRuns = 0;
-
-/**
- * @param {string} message - message to be logged
- * @param {boolean} severe=false - indicates whether the message should be viewed as an error or not
- * @param {boolean} force=false - indicates whether this message should be forced to be outputted regardless of verbosity level
- */
-const logger = (message, severe = false, force = false) => {
-  if (VERBOSE_CHECK || force) {
-    if (severe) console.error(message)
-    else console.log(message)
-  } else {
-    // Output no logs
-    suppressedMessageCount += 1; // counter to indicate how many messages were hidden
-  }
-}
-
-/**
- * @param {string} directory - path to directory of data to be used to generate test
- * @param {boolean} isLast=false - indicates whether or not this is the last test being generated. used for report summary generation
- * @param {object} args={}
- */
-const createExampleTests = function ({directory, isLast, args = {}}) {
-  // setup from arguments passed to npm script
-  VERBOSE_CHECK = !!args.verbose;
-  VALIDATE_CHECK = !!args.validate;
-
+const createExampleTests = function (directory) {
   const validModes = ['reading', 'interaction', 'item'];
 
-  // cwd; @param rootDirectory is dependent on this file not moving from the scripts folder
-  const scriptsDirectory = path.dirname(__filename);
-  const rootDirectory = scriptsDirectory.split('scripts')[0];
+  const scriptDirectory = path.dirname(__filename);
+  const rootDirectory = scriptDirectory.split('scripts')[0];
+  const testDirectory = path.join(rootDirectory, directory);
+  const testDirectoryRelative = directory;
 
-  const testsDirectory = path.join(rootDirectory, 'tests');
-  const testPlanDirectory = path.join(rootDirectory, directory);
+  const keysFile = path.join(rootDirectory, 'tests', 'resources', 'keys.mjs');
 
-  const resourcesDirectory = path.join(testsDirectory, 'resources');
-  const keysFilePath = path.join(resourcesDirectory, 'keys.mjs');
-  const supportFilePath = path.join(testsDirectory, 'support.json');
-  const javascriptDirectory = path.join(testPlanDirectory, 'data', 'js');
-  const testsCsvFilePath = path.join(testPlanDirectory, 'data', 'tests.csv');
-  const atCommandsCsvFilePath = path.join(testPlanDirectory, 'data', 'commands.csv');
-  const referencesCsvFilePath = path.join(testPlanDirectory, 'data', 'references.csv');
-  const referenceDirectory = path.join(testPlanDirectory, 'reference')
-
-  // build output folders and file paths setup
-  const buildDirectory = path.join(rootDirectory, 'build');
-  const testsBuildDirectory = path.join(buildDirectory, 'tests');
-  const testPlanBuildDirectory = path.join(buildDirectory, directory);
-  const resourcesBuildDirectory = path.join(testsBuildDirectory, 'resources');
-  const referenceBuildDirectory = path.join(testPlanBuildDirectory, 'reference');
-
-  const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
-  const supportFileBuildPath = path.join(testsBuildDirectory, 'support.json');
-
-  // create directories if not exists
-  fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
-  fs.existsSync(testsBuildDirectory) || fs.mkdirSync(testsBuildDirectory);
-  fs.existsSync(testPlanBuildDirectory) || fs.mkdirSync(testPlanBuildDirectory);
-
-  // ensure the build folder has the files it needs for running local server
-  fse.copySync(resourcesDirectory, resourcesBuildDirectory, {overwrite: true});
-  fse.copySync(supportFilePath, supportFileBuildPath, {overwrite: true});
-  fse.copySync(referenceDirectory, referenceBuildDirectory, {overwrite: true});
+  const testsFile = path.join(testDirectory, 'data', 'tests.csv');
+  const atCommandsFile = path.join(testDirectory, 'data', 'commands.csv');
+  const referencesFile = path.join(testDirectory, 'data', 'references.csv');
+  const javascriptDirectory = path.join(testDirectory, 'data', 'js');
+  const indexFile = path.join(testDirectory,'index.html');
 
   const keyDefs = {};
-  const support = JSON.parse(fse.readFileSync(supportFilePath));
 
+  const support = JSON.parse(fse.readFileSync(path.join(rootDirectory, 'tests', 'support.json')));
   let allATKeys = [];
   let allATNames = [];
   support.ats.forEach(at => {
@@ -88,62 +38,66 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
   const validAppliesTo = ['Screen Readers', 'Desktop Screen Readers'].concat(allATKeys);
 
   try {
-    fse.statSync(testPlanDirectory);
-  } catch (err) {
-    logger(`The test directory '${testPlanDirectory}' does not exist. Check the path to tests.`, true, true);
+    fse.statSync(testDirectory);
+  }
+  catch (err) {
+    console.log("The test directory '" + testDirectory + "' does not exist. Check the path to tests.");
     process.exit();
   }
 
   try {
-    fse.statSync(testsCsvFilePath);
-  } catch (err) {
-    logger(`The tests.csv file does not exist. Please create '${testsCsvFilePath}' file.`, true, true);
+    fse.statSync(testsFile);
+  }
+  catch (err) {
+    console.log("The tests.csv file does not exist. Please create '" + testsFile + "' file.");
     process.exit();
   }
 
   try {
-    fse.statSync(atCommandsCsvFilePath);
-  } catch (err) {
-    logger(`The at-commands.csv file does not exist. Please create '${atCommandsCsvFilePath}' file.`, true, true);
+    fse.statSync(atCommandsFile);
+  }
+  catch (err) {
+    console.log("The at-commands.csv file does not exist. Please create '" + atCommandsFile + "' file.");
     process.exit();
   }
 
   try {
-    fse.statSync(referencesCsvFilePath);
-  } catch (err) {
-    logger(`The references.csv file does not exist. Please create '${referencesCsvFilePath}' file.`, true, true);
+    fse.statSync(referencesFile);
+  }
+  catch (err) {
+    console.log("The references.csv file does not exist. Please create '" + referencesFile + "' file.");
     process.exit();
   }
 
   // get Keys that are defined
+
   try {
-    // read contents of the file
-    const keys = fs.readFileSync(keysFilePath, 'UTF-8');
+      // read contents of the file
+      const keys = fs.readFileSync(keysFile, 'UTF-8');
 
-    // split the contents by new line
-    const lines = keys.split(/\r?\n/);
+      // split the contents by new line
+      const lines = keys.split(/\r?\n/);
 
-    // print all lines
-    lines.forEach((line) => {
-      let parts1 = line.split(' ');
-      let parts2 = line.split('"');
+      // print all lines
+      lines.forEach((line) => {
+        let parts1 = line.split(' ');
+        let parts2 = line.split('"');
 
-      if (parts1.length > 3) {
-        let code = parts1[2].trim();
-        keyDefs[code] = parts2[1].trim();
-      }
-    });
+        if (parts1.length > 3) {
+          let code = parts1[2].trim();
+          keyDefs[code] = parts2[1].trim();
+        }
+
+      });
   } catch (err) {
-    logger(err, true, true);
+      console.error(err);
   }
 
   // delete test files
-  var deleteFilesFromDirectory = function (dirPath) {
-    try {
-      var files = fs.readdirSync(dirPath);
-    } catch (e) {
-      return;
-    }
+
+  var deleteFilesFromDirectory = function(dirPath) {
+    try { var files = fs.readdirSync(dirPath); }
+    catch(e) { return; }
     if (files.length > 0) {
       for (var i = 0; i < files.length; i++) {
         var filePath = dirPath + '/' + files[i];
@@ -158,13 +112,11 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
     return task.replace(/'/g, '').replace(/;/g, '').trim().toLowerCase()
   }
 
-  /**
-   * Create AT commands file
-   * @param commands
-   * @returns {{}}
-   */
-  function createATCommandFile(commands) {
-    const testPlanAtCommandsJsonFilePath = path.join(testPlanBuildDirectory, 'commands.json');
+  // Create AT commands file
+
+  function createATCommandFile(cmds) {
+
+    const fname = path.join(testDirectory, 'commands.json');
     let data = {};
 
     function addCommand(task, mode, at, key) {
@@ -186,7 +138,7 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
         data[task][mode] = {};
       }
 
-      if (typeof data[task][mode][at] !== 'object') {
+      if (typeof data[task][mode][at] !== 'object' ) {
         data[task][mode][at] = [];
       }
 
@@ -205,34 +157,33 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
       data[task][mode][at].push(items);
     }
 
-    commands.forEach(function (command) {
-      addCommand(command.task, command.mode, command.at, command.commandA);
-      addCommand(command.task, command.mode, command.at, command.commandB);
-      addCommand(command.task, command.mode, command.at, command.commandC);
-      addCommand(command.task, command.mode, command.at, command.commandD);
-      addCommand(command.task, command.mode, command.at, command.commandE);
-      addCommand(command.task, command.mode, command.at, command.commandF);
+    cmds.forEach(function(cmd) {
+
+      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandA);
+      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandB);
+      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandC);
+      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandD);
+      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandE);
+      addCommand(cmd.task, cmd.mode, cmd.at, cmd.commandF);
+
     });
 
-    if (!VALIDATE_CHECK) fs.writeFileSync(testPlanAtCommandsJsonFilePath, beautify(data, null, 2, 40));
+    fs.writeFileSync(fname, beautify(data, null, 2, 40));
 
     return data;
+
   }
 
-  /**
-   * Create Test File
-   * @param test
-   * @param refs
-   * @param commands
-   * @returns {(string|*[])[]}
-   */
-  function createTestFile(test, refs, commands) {
+  // Create Test File
+
+  function createTestFile (test, refs, commands) {
     let scripts = [];
+
 
     function getModeValue(value) {
       let v = value.trim().toLowerCase();
       if (!validModes.includes(v)) {
-        addTestError(test.testId, '"' + value + '" is not valid value for "mode" property.')
+          addTestError(test.testId, '"' + value + '" is not valid value for "mode" property.')
       }
       return v;
     }
@@ -248,9 +199,10 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
     }
 
     function getAppliesToValues(values) {
+
       function checkValue(value) {
         let v1 = value.trim().toLowerCase();
-        for (let i = 0; i < validAppliesTo.length; i++) {
+        for (let i=0; i < validAppliesTo.length; i++) {
           let v2 = validAppliesTo[i];
           if (v1 === v2.toLowerCase()) {
             return v2;
@@ -295,7 +247,7 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
       }
     }
 
-    function getReferences(example, testRefs) {
+    function getReferences (example, testRefs) {
       let links = '';
 
       if (typeof example === 'string' && example.length) {
@@ -303,13 +255,14 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
       }
 
       let items = test.refs.split(' ');
-      items.forEach(function (item) {
+      items.forEach(function(item) {
         item = item.trim();
 
         if (item.length) {
           if (typeof refs[item] === 'string') {
             links += `<link rel="help" href="${refs[item]}">\n`;
-          } else {
+          }
+          else {
             addTestError(test.testId, "Reference does not exist: " + item);
           }
         }
@@ -318,25 +271,28 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
       return links;
     }
 
-    function addSetupScript(scriptName, filename) {
+    function addSetupScript (scriptName, fname) {
+
       let script = '';
-      if (filename.length) {
+      if (fname.length) {
+
         try {
-          fse.statSync(filename);
-        } catch (err) {
-          addTestError(test.testId, "Setup script does not exist: " + filename);
+          fse.statSync(fname);
+        }
+        catch (err) {
+          addTestError(test.testId, "Setup script does not exist: " + fname);
           return '';
         }
 
         try {
-          const data = fs.readFileSync(filename, 'UTF-8');
-          const lines = data.split(/\r?\n/);
-          lines.forEach((line) => {
-            if (line.trim().length)
+            const data = fs.readFileSync(fname, 'UTF-8');
+            const lines = data.split(/\r?\n/);
+            lines.forEach((line) => {
+              if (line.trim().length)
               script += '\t\t\t' + line.trim() + '\n';
-          });
+            });
         } catch (err) {
-          logger(err, true, true);
+            console.error(err);
         }
 
         scripts.push(`\t\t${scriptName}: function(testPageDocument){\n${script}\t\t}`);
@@ -371,7 +327,7 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
     appliesTo.forEach(at => {
       if (commands[task]) {
         if (!commands[task][mode][at.toLowerCase()]) {
-          addTestError(test.testId, 'command is missing for the combination of task: "' + task + '", mode: "' + mode + '", and AT: "' + at.toLowerCase() + '" ');
+          addTestError(test.testId, 'command is missing for the combination of task: "' + task + '", mode: "'+mode+'", and AT: "'+at.toLowerCase()+'" ');
         }
       }
     });
@@ -382,13 +338,10 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
     if (parseInt(test.testId) < 10) {
       id = '0' + id;
     }
-    let testFileName = 'test-' + id + '-' + cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim()
-      .toLowerCase() + '.html';
-    let testJSONFileName = 'test-' + id + '-' + cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim()
-      .toLowerCase() + '.json';
-
-    let testPlanHtmlFileBuildPath = path.join(testPlanBuildDirectory, testFileName);
-    let testPlanJsonFileBuildPath = path.join(testPlanBuildDirectory, testJSONFileName);
+    let testFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.html';
+    let testJSONFileName = 'test-' + id + '-' +cleanTask(test.task).replace(/\s+/g, '-') + '-' + test.mode.trim().toLowerCase() + '.json';
+    let testFileAbsolute = path.join(testDirectory, testFileName);
+    let testJSONFileAbsolute = path.join(testDirectory, testJSONFileName);
 
     if (typeof test.setupScript === 'string') {
       let setupScript = test.setupScript.trim();
@@ -397,14 +350,14 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
       }
     }
 
-    let references = getReferences(refs.example, test.refs);
+    let references  = getReferences(refs.example, test.refs);
     addSetupScript(test.setupScript, setupFileName);
 
-    for (let i = 1; i < 31; i++) {
-      if (!test["assertion" + i]) {
+    for (let i=1; i<31; i++) {
+      if (!test["assertion"+i]) {
         continue;
       }
-      addAssertion(test["assertion" + i]);
+      addAssertion(test["assertion"+i]);
     }
 
     let testData = {
@@ -417,7 +370,7 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
       output_assertions: assertions
     };
 
-    if (!VALIDATE_CHECK) fse.writeFileSync(testPlanJsonFileBuildPath, JSON.stringify(testData, null, 2), 'utf8');
+    fse.writeFileSync(testJSONFileAbsolute, JSON.stringify(testData, null, 2), 'utf8');
 
     function getTestJson() {
       return JSON.stringify(testData, null, 2);
@@ -452,32 +405,32 @@ ${references}
 </script>
   `;
 
-    if (!VALIDATE_CHECK) fse.writeFileSync(testPlanHtmlFileBuildPath, testHTML, 'utf8');
+    fse.writeFileSync(testFileAbsolute, testHTML, 'utf8');
 
     const applies_to_at = [];
 
-    allATKeys.forEach(at => applies_to_at.push(testData.applies_to.indexOf(at) >= 0));
+    allATKeys.forEach( at => applies_to_at.push(testData.applies_to.indexOf(at) >= 0));
 
     return [testFileName, applies_to_at];
   }
 
-  /**
-   * Create an index file for a local server
-   * @param tasks
-   */
+  // Create an index file for a local server
+
   function createIndexFile(tasks) {
+
     let rows = '';
     let all_ats = '';
 
-    allATNames.forEach(at => all_ats += '<th>' + at + '</th>\n');
+    allATNames.forEach( at => all_ats += '<th>' + at + '</th>\n');
 
-    tasks.forEach(function (task) {
+    tasks.forEach( function (task) {
       rows += `<tr><td>${task.id}</td>`;
       rows += `<td scope="row">${task.title}</td>`;
-      for (let i = 0; i < allATKeys.length; i++) {
+      for (let i = 0; i < allATKeys.length; i++ ) {
         if (task.applies_to_at[i]) {
           rows += `<td class="test"><a href="${task.href}?at=${allATKeys[i]}" aria-label="${allATNames[i]} test for task ${task.id}">${allATNames[i]}</a></td>`;
-        } else {
+        }
+        else {
           rows += `<td class="test none">not included</td>`;
         }
       }
@@ -560,10 +513,11 @@ ${rows}
 </body>
 `;
 
-    if (!VALIDATE_CHECK) fse.writeFileSync(indexFileBuildOutputPath, indexHTML, 'utf8');
+     fse.writeFileSync(indexFile, indexHTML, 'utf8');
   }
 
   // Process CSV files
+
   var refs = {};
   var atCommands = [];
   var tests = [];
@@ -581,72 +535,59 @@ ${rows}
     errors += '[Command]: The key reference "' + key + '" is invalid for the "' + task + '" task.\n';
   }
 
-  fs.createReadStream(referencesCsvFilePath)
+  fs.createReadStream(referencesFile)
     .pipe(csv())
     .on('data', (row) => {
       refs[row.refId] = row.value.trim();
     })
     .on('end', () => {
-      logger(`References CSV file successfully processed: ${referencesCsvFilePath}`);
+      console.log('References CSV file successfully processed');
 
-      fs.createReadStream(atCommandsCsvFilePath)
+      fs.createReadStream(atCommandsFile)
         .pipe(csv())
         .on('data', (row) => {
           atCommands.push(row);
         })
         .on('end', () => {
-          logger(`Commands CSV file successfully processed: ${atCommandsCsvFilePath}`);
+          console.log('Commands CSV file successfully processed');
 
-          fs.createReadStream(testsCsvFilePath)
+          fs.createReadStream(testsFile)
             .pipe(csv())
             .on('data', (row) => {
               tests.push(row);
             })
             .on('end', () => {
-              logger(`Test CSV file successfully processed: ${testsCsvFilePath}`);
+              console.log('Test CSV file successfully processed');
 
-              logger('Deleting current test files...')
-              deleteFilesFromDirectory(testPlanDirectory);
+              console.log('Deleting current test files...')
+              deleteFilesFromDirectory(testDirectory);
 
               atCommands = createATCommandFile(atCommands);
 
-              logger('Creating the following test files: ')
-              tests.forEach(function (test) {
+              console.log('Creating the following test files: ')
+              tests.forEach(function(test) {
                 try {
                   let [url, applies_to_at] = createTestFile(test, refs, atCommands);
-                  indexOfURLs.push({
-                    id: test.testId,
-                    title: test.title,
-                    href: url,
-                    script: test.setupScript,
-                    applies_to_at: applies_to_at
-                  });
-                  logger('[Test ' + test.testId + ']: ' + url);
-                } catch (err) {
-                  logger(err, true, true);
+                  indexOfURLs.push({ id: test.testId, title: test.title, href: url, script: test.setupScript, applies_to_at: applies_to_at});
+                  console.log('[Test ' + test.testId + ']: ' + url);
+                }
+                catch (err) {
+                  console.error(err);
                 }
               });
 
               createIndexFile(indexOfURLs);
 
               if (errorCount) {
-                logger(`*** ${errorCount} Errors in tests and/or commands in file [${testsCsvFilePath}] ***`, true, true);
-                logger(errors, true, true);
-                errorRuns += 1;
-              } else {
-                logger('No validation errors detected\n');
-                successRuns += 1;
+                console.log('\n\n*** ' + errorCount + ' Errors in tests and/or commands ***');
+                console.log(errors);
               }
-            })
-            .on('finish', () => {
-              if (!VERBOSE_CHECK && isLast) {
-                if (VALIDATE_CHECK) logger(`(${successRuns}) out of (${successRuns + errorRuns}) test plan(s) successfully processed without any validation errors.\n`, false, true)
-                else logger(`(${successRuns}) out of (${successRuns + errorRuns}) test plan(s) successfully processed and generated without any validation errors.\n`, false, true)
-                logger(`NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`, false, true)
+              else {
+                console.log('No validation errors detected');
               }
             });
-        })
-    })
+        });
+    });
 }
 
 exports.createExampleTests = createExampleTests

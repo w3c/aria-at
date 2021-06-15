@@ -127,17 +127,6 @@ function openTestPagePopup() {
 
   document.getElementById('open-test-page').disabled = true;
 
-  // If the window is closed, re-enable open popup button
-  testPageWindow.onunload = function(event) {
-    window.setTimeout(() => {
-      if (testPageWindow.closed) {
-        testPageWindow = undefined;
-        document.getElementById('open-test-page').disabled = false;
-      }
-    }, 100);
-
-  };
-
   executeScriptInTestPage();
 }
 
@@ -147,17 +136,33 @@ function putTestPageWindowIntoCorrectState() {
 }
 
 function executeScriptInTestPage() {
+  if (!testPageWindow.onunload) {
+    // If the window is closed, re-enable open popup button
+    testPageWindow.onunload = function(event) {
+      window.setTimeout(() => {
+        if (testPageWindow.closed) {
+          testPageWindow = undefined;
+          document.getElementById('open-test-page').disabled = false;
+        } else {
+          // If the window is open (after a location.reload()) rerun the
+          // setupTestPage script.
+          executeScriptInTestPage();
+        }
+      }, 100);
+    };
+  }
+
+  if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
+    || testPageWindow.document.readyState !== 'complete'
+  ) {
+    window.setTimeout(() => {
+      executeScriptInTestPage();
+    }, 100);
+    return;
+  }
+
   let setupTestPage = behavior.setupTestPage;
   if (setupTestPage) {
-    if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-        || testPageWindow.document.readyState !== 'complete'
-    ) {
-      window.setTimeout(() => {
-        executeScriptInTestPage();
-      }, 100);
-      return;
-    }
-
     scripts[behavior.setupTestPage](testPageWindow.document);
   }
 }

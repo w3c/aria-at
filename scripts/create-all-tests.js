@@ -2,6 +2,10 @@ const path = require('path');
 const fs = require('fs');
 const {createExampleTests} = require('./create-example-tests');
 
+let successRunsCount = 0;
+let errorRunsCount = 0;
+let suppressedMessageCount = 0;
+
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
     h: 'help',
@@ -30,6 +34,8 @@ if (args.help) {
 
 // on some OSes, it seems the the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
 const TARGET_TEST_PLAN = args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate test assets for
+const VERBOSE_CHECK = !!args.verbose;
+const VALIDATE_CHECK = !!args.validate;
 
 const scriptsDirectory = path.dirname(__filename);
 const rootDirectory = scriptsDirectory.split('scripts')[0];
@@ -46,9 +52,20 @@ if (!filteredTestPlans.length) { // most likely to happen if incorrect testPlan 
   process.exit();
 }
 
-filteredTestPlans.forEach((directory, index, array) => createExampleTests({
-    directory: path.join('tests', directory),
-    isLast: index === array.length - 1,
-    args
-  })
+filteredTestPlans.forEach(async (directory, index, array) => {
+    const {isSuccessfulRun, suppressedMessages} = await createExampleTests({
+      directory: path.join('tests', directory),
+      args
+    });
+    if (isSuccessfulRun) successRunsCount++;
+    else errorRunsCount++;
+    suppressedMessageCount = suppressedMessages;
+
+    if (index === array.length - 1) { // last test plan has been ran
+      if (VALIDATE_CHECK) console.log(`(${successRunsCount}) out of (${successRunsCount + errorRunsCount}) test plan(s) successfully processed without any validation errors.\n`);
+      else console.log(`(${successRunsCount}) out of (${successRunsCount + errorRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`);
+
+      if (!VERBOSE_CHECK) console.log(`NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`)
+    }
+  }
 );

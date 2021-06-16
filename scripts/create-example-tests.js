@@ -44,6 +44,8 @@ const createExampleTests = ({directory, args = {}}) => new Promise(resolve => {
   const testPlanDirectory = path.join(rootDirectory, directory);
 
   const resourcesDirectory = path.join(testsDirectory, 'resources');
+  const ariaAtHarnessFilePath = path.join(resourcesDirectory, 'aria-at-harness.mjs');
+  const atCommandsFilePath = path.join(resourcesDirectory, 'at-commands.mjs');
   const keysFilePath = path.join(resourcesDirectory, 'keys.mjs');
   const supportFilePath = path.join(testsDirectory, 'support.json');
   const javascriptDirectory = path.join(testPlanDirectory, 'data', 'js');
@@ -61,15 +63,21 @@ const createExampleTests = ({directory, args = {}}) => new Promise(resolve => {
 
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
   const supportFileBuildPath = path.join(testsBuildDirectory, 'support.json');
+  const ariaAtHarnessFileBuildPath = path.join(resourcesBuildDirectory, 'aria-at-harness.mjs');
+  const atCommandsFileBuildPath = path.join(resourcesBuildDirectory, 'at-commands.mjs');
+  const keysFileBuildPath = path.join(resourcesBuildDirectory, 'keys.mjs');
 
   // create directories if not exists
   fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
   fs.existsSync(testsBuildDirectory) || fs.mkdirSync(testsBuildDirectory);
   fs.existsSync(testPlanBuildDirectory) || fs.mkdirSync(testPlanBuildDirectory);
+  fs.existsSync(resourcesBuildDirectory) || fs.mkdirSync(resourcesBuildDirectory);
 
   // ensure the build folder has the files it needs for running local server
-  fse.copySync(resourcesDirectory, resourcesBuildDirectory, {overwrite: true});
   fse.copySync(supportFilePath, supportFileBuildPath, {overwrite: true});
+  fse.copySync(ariaAtHarnessFilePath, ariaAtHarnessFileBuildPath, {overwrite: true});
+  fse.copySync(atCommandsFilePath, atCommandsFileBuildPath, {overwrite: true});
+  fse.copySync(keysFilePath, keysFileBuildPath, {overwrite: true});
   fse.copySync(referenceDirectory, referenceBuildDirectory, {overwrite: true});
 
   const keyDefs = {};

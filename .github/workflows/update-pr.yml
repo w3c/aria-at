@@ -11,6 +11,6 @@ jobs:
         repo-token: "${{ secrets.GITHUB_TOKEN }}"
         head-branch-regex: '.*'
         title-template: ''
-        body-template: '[Preview Tests](https://raw.githack.com/w3c/aria-at/%headbranch%/build/index.html)'
+        body-template: '[Preview Tests](https://raw.githack.com/w3c/aria-at/%headbranch%/index.html)'
         body-update-action: prefix
         body-uppercase-head-match: false

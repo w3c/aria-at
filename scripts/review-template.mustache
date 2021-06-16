@@ -112,13 +112,13 @@
     <p>
       <ul>
         <li>Mode: {{mode}}</li>
-        <li>Applies to: {{allReleventATsFormatted}}</li>
+        <li>Applies to: {{allRelevantATsFormatted}}</li>
         <li>Lasted edited: {{lastEdited}}</li>
         <li>Tests:
           <ul>
-            {{#allReleventATs}}
+            {{#allRelevantATs}}
               <li><a href="../tests{{{location}}}?at={{{.}}}">{{{.}}}</a></li>
-            {{/allReleventATs}}
+            {{/allRelevantATs}}
           </ul>
         </li>
         <li>Relevant Specifications:
@@ -166,7 +166,7 @@
             <tr><td>{{priority}}</td><td>{{description}}</td></tr>
           {{/assertions}}
           {{^assertions}}
-            <tr><td colspan="2">No assertions have been listed for {{atName}}. Add assertion or update the "applies_to" to list only the relevent assistive technologies.</td></tr>
+            <tr><td colspan="2">No assertions have been listed for {{atName}}. Add assertion or update the "applies_to" to list only the relevant assistive technologies.</td></tr>
           {{/assertions}}
         </table>
       </div>

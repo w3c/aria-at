@@ -171,12 +171,12 @@ function executeScriptInTestPage() {
   const button = buttonDiv.querySelector('button');
 
   /** @type {'setup' | 'reload'} */
-  let runSetupOrRelad = 'setup';
+  let runSetupOrReload = 'setup';
 
   button.onclick = function() {
     try {
-      if (runSetupOrRelad === 'setup') {
-        runSetupOrRelad = 'reload';
+      if (runSetupOrReload === 'setup') {
+        runSetupOrReload = 'reload';
         button.innerText = 'Reload Test';
 
         let setupTestPage = behavior.setupTestPage;

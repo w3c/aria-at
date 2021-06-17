@@ -29,7 +29,7 @@ export class TestWindow {
   }
 
   /** If the window is closed, re-enable open popup button. */
-  windowOnUnload() {
+  windowOnBeforeUnload() {
     window.setTimeout(() => {
       if (this.window.closed) {
         this.window = undefined;
@@ -42,22 +42,53 @@ export class TestWindow {
     }, 100);
   }
 
+  injectSetupResetButton(testPageWindow) {
+    const buttonDiv = testPageWindow.document.createElement('div');
+    buttonDiv.innerHTML = `
+      <div style="position: relative; left: 0; right: 0; height: 2rem;">
+        <button style="height: 100%; width: 100%;">Run Test Setup</button>
+      </div>
+    `;
+    const buttonButton = buttonDiv.querySelector('button');
+
+    /** @type {'setup' | 'reload'} */
+    let runSetupOrRelad = 'setup';
+
+    const setupScriptName = this.setupScriptName;
+
+    buttonButton.onclick = function() {
+      try {
+        if (runSetupOrRelad === 'setup') {
+          runSetupOrRelad = 'reload';
+          buttonButton.innerText = 'Reload Test';
+
+          if (setupScriptName) {
+            scripts[behavior.setupScriptName](testPageWindow.document);
+          }
+        } else {
+          testPageWindow.location.reload();
+          buttonButton.disabled = true;
+        }
+      } catch (error) {
+        window.console.error(error);
+        throw error;
+      }
+    };
+
+    testPageWindow.document.body.insertBefore(buttonDiv.children[0], testPageWindow.document.body.children[0]);
+  }
+
   open() {
     this.window = window.open(this.pageUri, "_blank", "toolbar=0,location=0,menubar=0,width=400,height=400");
 
     this.hooks.windowOpened();
 
     // If the window is closed, re-enable open popup button
-    this.window.onunload = this.windowOnUnload.bind(this);
+    this.window.onbeforeunload = this.windowOnBeforeUnload.bind(this);
   }
 
   prepare() {
     if (!this.window) {
-      return;
-    }
-
-    let setupScriptName = this.setupScriptName;
-    if (!setupScriptName) {
       return;
     }
 
@@ -72,7 +103,7 @@ export class TestWindow {
       return;
     }
 
-    this.scripts[setupScriptName](this.window.document);
+    this.injectSetupResetButton(this.window);
   }
 
   close() {

@@ -77,6 +77,7 @@ let behaviorResults;
 let overallStatus;
 const errors = [];
 let testPageUri;
+/** @type {Window} */
 let testPageWindow;
 let showResults = true;
 let showSubmitButton = true;
@@ -136,9 +137,9 @@ function putTestPageWindowIntoCorrectState() {
 }
 
 function executeScriptInTestPage() {
-  if (!testPageWindow.onunload) {
+  if (!testPageWindow.onbeforeunload) {
     // If the window is closed, re-enable open popup button
-    testPageWindow.onunload = function(event) {
+    testPageWindow.onbeforeunload = function(event) {
       window.setTimeout(() => {
         if (testPageWindow.closed) {
           testPageWindow = undefined;
@@ -161,10 +162,38 @@ function executeScriptInTestPage() {
     return;
   }
 
-  let setupTestPage = behavior.setupTestPage;
-  if (setupTestPage) {
-    scripts[behavior.setupTestPage](testPageWindow.document);
-  }
+  const buttonDiv = testPageWindow.document.createElement('div');
+  buttonDiv.innerHTML = `
+    <div style="position: relative; left: 0; right: 0; height: 2rem;">
+      <button style="height: 100%; width: 100%;">Run Test Setup</button>
+    </div>
+  `;
+  const button = buttonDiv.querySelector('button');
+
+  /** @type {'setup' | 'reload'} */
+  let runSetupOrRelad = 'setup';
+
+  button.onclick = function() {
+    try {
+      if (runSetupOrRelad === 'setup') {
+        runSetupOrRelad = 'reload';
+        button.innerText = 'Reload Test';
+
+        let setupTestPage = behavior.setupTestPage;
+        if (setupTestPage) {
+          scripts[behavior.setupTestPage](testPageWindow.document);
+        }
+      } else {
+        testPageWindow.location.reload();
+        button.disabled = true;
+      }
+    } catch (error) {
+      window.console.error(error);
+      throw error;
+    }
+  };
+
+  testPageWindow.document.body.insertBefore(buttonDiv.children[0], testPageWindow.document.body.children[0]);
 }
 
 export function verifyATBehavior(atBehavior) {

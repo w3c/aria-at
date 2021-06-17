@@ -77,6 +77,7 @@ let behaviorResults;
 let overallStatus;
 const errors = [];
 let testPageUri;
+/** @type {Window} */
 let testPageWindow;
 let showResults = true;
 let showSubmitButton = true;
@@ -127,17 +128,6 @@ function openTestPagePopup() {
 
   document.getElementById('open-test-page').disabled = true;
 
-  // If the window is closed, re-enable open popup button
-  testPageWindow.onunload = function(event) {
-    window.setTimeout(() => {
-      if (testPageWindow.closed) {
-        testPageWindow = undefined;
-        document.getElementById('open-test-page').disabled = false;
-      }
-    }, 100);
-
-  };
-
   executeScriptInTestPage();
 }
 
@@ -147,19 +137,63 @@ function putTestPageWindowIntoCorrectState() {
 }
 
 function executeScriptInTestPage() {
-  let setupTestPage = behavior.setupTestPage;
-  if (setupTestPage) {
-    if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-        || testPageWindow.document.readyState !== 'complete'
-    ) {
+  if (!testPageWindow.onbeforeunload) {
+    // If the window is closed, re-enable open popup button
+    testPageWindow.onbeforeunload = function(event) {
       window.setTimeout(() => {
-        executeScriptInTestPage();
+        if (testPageWindow.closed) {
+          testPageWindow = undefined;
+          document.getElementById('open-test-page').disabled = false;
+        } else {
+          // If the window is open (after a location.reload()) rerun the
+          // setupTestPage script.
+          executeScriptInTestPage();
+        }
       }, 100);
-      return;
-    }
-
-    scripts[behavior.setupTestPage](testPageWindow.document);
+    };
   }
+
+  if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
+    || testPageWindow.document.readyState !== 'complete'
+  ) {
+    window.setTimeout(() => {
+      executeScriptInTestPage();
+    }, 100);
+    return;
+  }
+
+  const buttonDiv = testPageWindow.document.createElement('div');
+  buttonDiv.innerHTML = `
+    <div style="position: relative; left: 0; right: 0; height: 2rem;">
+      <button style="height: 100%; width: 100%;">Run Test Setup</button>
+    </div>
+  `;
+  const button = buttonDiv.querySelector('button');
+
+  /** @type {'setup' | 'reload'} */
+  let runSetupOrReload = 'setup';
+
+  button.onclick = function() {
+    try {
+      if (runSetupOrReload === 'setup') {
+        runSetupOrReload = 'reload';
+        button.innerText = 'Reload Test';
+
+        let setupTestPage = behavior.setupTestPage;
+        if (setupTestPage) {
+          scripts[behavior.setupTestPage](testPageWindow.document);
+        }
+      } else {
+        testPageWindow.location.reload();
+        button.disabled = true;
+      }
+    } catch (error) {
+      window.console.error(error);
+      throw error;
+    }
+  };
+
+  testPageWindow.document.body.insertBefore(buttonDiv.children[0], testPageWindow.document.body.children[0]);
 }
 
 export function verifyATBehavior(atBehavior) {

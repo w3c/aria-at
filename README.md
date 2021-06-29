@@ -21,6 +21,9 @@ You can participate by:
 
 This project is managed by the [Authoring Practices Task Force](https://www.w3.org/WAI/ARIA/task-forces/practices/) of the [ARIA Working Group](http://www.w3.org/WAI/ARIA/). The W3C staff contact is [Michael Cooper](http://www.w3.org/People/cooper/).
 
+## Running Locally
+Documentation for running this locally is available at [docs/LOCAL_DEVELOPMENT.md](docs/LOCAL_DEVELOPMENT.md).
+
 ## Conduct
 
 All contributors to this project are expected to adhere to the [W3C Code of Ethics and Professional Conduct](https://www.w3.org/Consortium/cepc/).

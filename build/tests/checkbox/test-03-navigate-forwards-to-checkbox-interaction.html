@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards to checkbox in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  var scripts = {
+		moveFocusBeforeFirstCheckbox: function(testPageDocument){
+			// Move focus to link before first checkbox
+			testPageDocument.querySelector('#beforelink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link before the first checkbox",
+  "setupTestPage": "moveFocusBeforeFirstCheckbox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to checkbox",
+  "specific_user_instruction": "Navigate forwards to the first checkbox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Lettuce' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (not checked) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards to checkbox": {
+    "reading": {
+      "jaws": [
+        [ "X" ],
+        [ "F" ],
+        [ "TAB" ],
+        [ "DOWN" ],
+        [
+          "RIGHT",
+          "(with Smart Navigation on)"
+        ]
+      ],
+      "nvda": [
+        [ "X" ],
+        [ "F" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ], [ "TAB" ] ],
+      "nvda": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_J" ],
+        [ "TAB" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175030/checkbox-1/checkbox-1.html");
+  });
+</script>
+  

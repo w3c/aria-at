@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate out of checkbox group",
+  "specific_user_instruction": "Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start.",
+  "output_assertions": [
+    [
+      "2",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "2",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ],
+    [
+      "2",
+      "The group boundary is conveyed"
+    ]
+  ]
+}

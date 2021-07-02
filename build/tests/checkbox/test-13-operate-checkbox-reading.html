@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Operate a checkbox in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  var scripts = {
+		moveFocusToFirstCheckbox: function(testPageDocument){
+			// Move focus to first checkbox
+			testPageDocument.querySelector('[role="checkbox"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the first checkbox",
+  "setupTestPage": "moveFocusToFirstCheckbox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "operate checkbox",
+  "specific_user_instruction": "Check and uncheck the first checkbox.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "operate checkbox": {
+    "reading": {
+      "jaws": [ [ "ENTER" ], [ "SPACE" ] ],
+      "nvda": [ [ "ENTER" ], [ "SPACE" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ] ],
+      "nvda": [ [ "SPACE" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175030/checkbox-1/checkbox-1.html");
+  });
+</script>
+  

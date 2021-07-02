@@ -1,0 +1,29 @@
+{
+  "setup_script_description": "sets focus on the first checkbox",
+  "setupTestPage": "moveFocusToFirstCheckbox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read unchecked checkbox",
+  "specific_user_instruction": "When the focus is on the first checkbox",
+  "output_assertions": [
+    [
+      "1",
+      " read the first checkbox"
+    ],
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Lettuce' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (not checked) is conveyed"
+    ]
+  ]
+}

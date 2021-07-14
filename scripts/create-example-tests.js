@@ -8,9 +8,7 @@ const beautify = require('json-beautify');
 let VERBOSE_CHECK = false;
 let VALIDATE_CHECK = false;
 
-let suppressedMessageCount = 0;
-let successRuns = 0;
-let errorRuns = 0;
+let suppressedMessages = 0;
 
 /**
  * @param {string} message - message to be logged
@@ -23,16 +21,15 @@ const logger = (message, severe = false, force = false) => {
     else console.log(message)
   } else {
     // Output no logs
-    suppressedMessageCount += 1; // counter to indicate how many messages were hidden
+    suppressedMessages += 1; // counter to indicate how many messages were hidden
   }
 }
 
 /**
  * @param {string} directory - path to directory of data to be used to generate test
- * @param {boolean} isLast=false - indicates whether or not this is the last test being generated. used for report summary generation
  * @param {object} args={}
  */
-const createExampleTests = function ({directory, isLast, args = {}}) {
+const createExampleTests = ({directory, args = {}}) => new Promise(resolve => {
   // setup from arguments passed to npm script
   VERBOSE_CHECK = !!args.verbose;
   VALIDATE_CHECK = !!args.validate;
@@ -47,6 +44,8 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
   const testPlanDirectory = path.join(rootDirectory, directory);
 
   const resourcesDirectory = path.join(testsDirectory, 'resources');
+  const ariaAtHarnessFilePath = path.join(resourcesDirectory, 'aria-at-harness.mjs');
+  const atCommandsFilePath = path.join(resourcesDirectory, 'at-commands.mjs');
   const keysFilePath = path.join(resourcesDirectory, 'keys.mjs');
   const supportFilePath = path.join(testsDirectory, 'support.json');
   const javascriptDirectory = path.join(testPlanDirectory, 'data', 'js');
@@ -64,15 +63,21 @@ const createExampleTests = function ({directory, isLast, args = {}}) {
 
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
   const supportFileBuildPath = path.join(testsBuildDirectory, 'support.json');
+  const ariaAtHarnessFileBuildPath = path.join(resourcesBuildDirectory, 'aria-at-harness.mjs');
+  const atCommandsFileBuildPath = path.join(resourcesBuildDirectory, 'at-commands.mjs');
+  const keysFileBuildPath = path.join(resourcesBuildDirectory, 'keys.mjs');
 
   // create directories if not exists
   fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
   fs.existsSync(testsBuildDirectory) || fs.mkdirSync(testsBuildDirectory);
   fs.existsSync(testPlanBuildDirectory) || fs.mkdirSync(testPlanBuildDirectory);
+  fs.existsSync(resourcesBuildDirectory) || fs.mkdirSync(resourcesBuildDirectory);
 
   // ensure the build folder has the files it needs for running local server
-  fse.copySync(resourcesDirectory, resourcesBuildDirectory, {overwrite: true});
   fse.copySync(supportFilePath, supportFileBuildPath, {overwrite: true});
+  fse.copySync(ariaAtHarnessFilePath, ariaAtHarnessFileBuildPath, {overwrite: true});
+  fse.copySync(atCommandsFilePath, atCommandsFileBuildPath, {overwrite: true});
+  fse.copySync(keysFilePath, keysFileBuildPath, {overwrite: true});
   fse.copySync(referenceDirectory, referenceBuildDirectory, {overwrite: true});
 
   const keyDefs = {};
@@ -632,21 +637,14 @@ ${rows}
               if (errorCount) {
                 logger(`*** ${errorCount} Errors in tests and/or commands in file [${testsCsvFilePath}] ***`, true, true);
                 logger(errors, true, true);
-                errorRuns += 1;
+                resolve({isSuccessfulRun: false, suppressedMessages});
               } else {
                 logger('No validation errors detected\n');
-                successRuns += 1;
+                resolve({isSuccessfulRun: true, suppressedMessages});
               }
             })
-            .on('finish', () => {
-              if (!VERBOSE_CHECK && isLast) {
-                if (VALIDATE_CHECK) logger(`(${successRuns}) out of (${successRuns + errorRuns}) test plan(s) successfully processed without any validation errors.\n`, false, true)
-                else logger(`(${successRuns}) out of (${successRuns + errorRuns}) test plan(s) successfully processed and generated without any validation errors.\n`, false, true)
-                logger(`NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`, false, true)
-              }
-            });
         })
     })
-}
+});
 
 exports.createExampleTests = createExampleTests

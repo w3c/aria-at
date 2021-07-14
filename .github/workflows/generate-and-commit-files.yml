@@ -7,27 +7,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-      with:
-        ref: ${{ github.head_ref }}
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
 
-    - name: Use Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    # - name: Generate test files
-    #   run: npm run create-all-tests
+      # - name: Generate test files
+      #   run: npm run create-all-tests
 
-    # - name: Generate review files
-    #   run: npm run review-tests
+      # - name: Generate review files
+      #   run: npm run review-tests
 
-    - name: Generate test and review files
-      run: npm run build
+      - name: Generate test and review files
+        run: npm run build
 
-    - uses: stefanzweifel/git-auto-commit-action@v4
-      with:
-        commit_message: Generate test and review files automatically
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Generate test and review files automatically

@@ -5,14 +5,15 @@
   "private": true,
   "scripts": {
     "lint": "eslint .",
-    "build": "npm run create-all-tests -- --testplan=$npm_config_testplan; npm run review-tests  -- --testplan=$npm_config_testplan",
-    "validate": "npm run create-all-tests -- --validate --testplan=$npm_config_testplan",
-    "cleanup": "rm -fr ./build",
-    "create-all-tests": "node ./scripts/create-all-tests.js",
-    "review-tests": "node --experimental-modules ./scripts/test-reviewer.mjs",
-    "update-reference": "node ./scripts/update-reference.js"
+    "build": "npm run create-all-tests && npm run review-tests",
+    "validate": "npm run create-all-tests -- --validate",
+    "cleanup": "rimraf build",
+    "create-all-tests": "cross-var node scripts/create-all-tests.js --testplan=$npm_config_testplan",
+    "review-tests": "cross-var node --experimental-modules scripts/test-reviewer.mjs --testplan=$npm_config_testplan",
+    "update-reference": "node scripts/update-reference.js"
   },
   "dependencies": {
+    "cross-var": "^1.1.0",
     "csv-parser": "^2.3.2",
     "fs-extra": "^8.1.0",
     "htmlparser2": "^5.0.1",
@@ -21,7 +22,8 @@
     "minimist": "^1.2.3",
     "mustache": "^4.0.0",
     "node-html-parser": "^1.1.16",
-    "nodegit": "^0.27.0"
+    "nodegit": "^0.27.0",
+    "rimraf": "^3.0.2"
   },
   "devDependencies": {
     "eslint": "^6.1.0",

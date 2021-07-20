@@ -1,0 +1,17 @@
+{
+  "setup_script_description": "sets focus on the first checkbox and sets its state to unchecked",
+  "setupTestPage": "moveFocusToAndUncheckFirstCheckbox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "operate unchecked checked checkbox",
+  "specific_user_instruction": "Partially check the first checkbox.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state (to partially checked) is conveyed"
+    ]
+  ]
+}

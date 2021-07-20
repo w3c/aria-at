@@ -15,12 +15,14 @@ The initial scope of this test suite is manual testing of a select set of deskto
 You can participate by:
 
 * Joining the [community group](https://www.w3.org/community/aria-at/)
-* [Signing up as a tester](https://github.com/w3c/aria-at/issues/162) for the Pilot Test (May 27 - June 2)
 * [Reviewing assertions of existing test plans](https://w3c.github.io/aria-at/review-test-plans/)
 * [Writing more tests](https://github.com/w3c/aria-at/wiki/How-to-contribute-tests)
 * Fixing a [good first issue](https://github.com/w3c/aria-at/issues?q=is%3Aopen+is%3Aissue+label%3A%22good+first+issue%22)
 
 This project is managed by the [Authoring Practices Task Force](https://www.w3.org/WAI/ARIA/task-forces/practices/) of the [ARIA Working Group](http://www.w3.org/WAI/ARIA/). The W3C staff contact is [Michael Cooper](http://www.w3.org/People/cooper/).
+
+## Running Locally
+Documentation for running this locally is available at [docs/LOCAL_DEVELOPMENT.md](docs/LOCAL_DEVELOPMENT.md).
 
 ## Conduct
 

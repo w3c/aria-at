@@ -144,87 +144,6 @@
 	cb.open();
 },	moveFocusAfterCombobox: function(testPageDocument){
 	// sets focus on a link after the Combobox
-	testPageDocument.querySelector('#cb1-button').style.display = 'none';
-	testPageDocument.querySelector('#afterlink').focus();
-},	moveFocusAfterComboboxAndSetValueToAlabama: function(testPageDocument){
-	// sets focus on a link after the Combobox, and sets the combobox value to 'Alabama'
-	testPageDocument.querySelector('#cb1-button').style.display = 'none';
-	testPageDocument.defaultView.comboboxController.setValue('Alabama');
-	testPageDocument.querySelector('#afterlink').focus();
-},	moveFocusBeforeCombobox: function(testPageDocument){
-	// sets focus on a link before the Combobox
-	testPageDocument.querySelector('#beforelink').focus();
-},	moveFocusBeforeComboboxAndSetValueToAlabama: function(testPageDocument){
-	// sets focus on a link before the Combobox, and sets the combobox value to 'Alabama'
-	testPageDocument.defaultView.comboboxController.setValue('Alabama');
-	testPageDocument.querySelector('#beforelink').focus();
-},	moveFocusToAlabamaInListbox: function(testPageDocument){
-	// expands the Combobox and places focus on 'Alabama' in the listbox popup
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
-	let opt = testPageDocument.querySelector('#lb1-al');
-	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-},	moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning: function(testPageDocument){
-	// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the beginning of the textbox
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
-	let opt = testPageDocument.querySelector('#lb1-al');
-	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(0, 0);
-},	moveFocusToAlabamaInListboxAndSetInputCursorAtEnd: function(testPageDocument){
-	// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the end of the textbox
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
-	let opt = testPageDocument.querySelector('#lb1-al');
-	let optTextLength = opt.textContent.length;
-	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);
-},	moveFocusToAlaskaInListbox: function(testPageDocument){
-	// expands the combobox, sets the combobox value to 'Alaska' and places focus on that option in the listbox popup
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
-	let opt = testPageDocument.querySelector('#lb1-ak');
-	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-},	moveFocusToAndExpandCombobox: function(testPageDocument){
-	// sets focus on and expands the combobox
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToAndExpandComboboxAndSetValueToA: function(testPageDocument){
-	// sets focus on and expands the combobox, and sets the combobox value to 'a'
-	testPageDocument.defaultView.comboboxController.setValue('a');
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.select();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected: function(testPageDocument){
-	// sets focus on and expands the combobox, sets the combobox value to 'a', and de-selects all text in the input
-	testPageDocument.defaultView.comboboxController.setValue('a');
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToAndExpandComboboxAndSetValueToAlabama: function(testPageDocument){
-	// sets focus on and expands the combobox, and sets the combobox value to 'Alabama'
-	testPageDocument.defaultView.comboboxController.setValue('Alabama');
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.select();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToCombobox: function(testPageDocument){
-	// sets focus on the combobox
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToComboboxAndSetValueToA: function(testPageDocument){
-	// sets focus on the combobox, and sets the combobox value to 'a'
-	testPageDocument.defaultView.comboboxController.setValue('a');
-	testPageDocument.defaultView.comboboxController.comboboxNode.select();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToComboboxAndSetValueToAlabama: function(testPageDocument){
-	// sets focus on the combobox, and sets the combobox value to 'Alabama'
-	testPageDocument.defaultView.comboboxController.setValue('Alabama');
-	testPageDocument.defaultView.comboboxController.comboboxNode.select();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusAfterCombobox: function(testPageDocument){
-	// sets focus on a link after the Combobox
 	testPageDocument.querySelector('#afterlink').focus();
 },	moveFocusBeforeCombobox: function(testPageDocument){
 	// sets focus on a link before the Combobox
@@ -382,7 +301,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-01-navigate-forwards-to-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -467,7 +386,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-02-navigate-backwards-to-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -552,7 +471,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-03-navigate-forwards-to-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -631,7 +550,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-04-navigate-backwards-to-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -710,7 +629,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-05-navigate-forwards-to-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -763,7 +682,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-06-navigate-backwards-to-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -816,7 +735,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-07-read-information-about-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -897,7 +816,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-08-read-information-about-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -976,7 +895,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-09-read-information-about-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1028,7 +947,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-10-open-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1115,7 +1034,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-11-open-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1210,7 +1129,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-12-open-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1271,7 +1190,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-13-open-collapsed-select-only-combobox-to-first-option-interaction.html?at=jaws">jaws</a></li>
@@ -1358,7 +1277,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-14-open-collapsed-select-only-combobox-to-first-option-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1414,7 +1333,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-15-open-collapsed-select-only-combobox-to-specific-option-interaction.html?at=jaws">jaws</a></li>
@@ -1501,7 +1420,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-16-open-collapsed-select-only-combobox-to-specific-option-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1557,7 +1476,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-17-open-collapsed-select-only-combobox-to-last-option-interaction.html?at=jaws">jaws</a></li>
@@ -1644,7 +1563,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-18-open-collapsed-select-only-combobox-to-last-option-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1700,7 +1619,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-19-read-information-about-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -1784,7 +1703,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-20-read-information-about-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1839,7 +1758,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-21-navigate-forwards-to-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -1917,7 +1836,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-22-navigate-backwards-to-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -1995,7 +1914,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-23-navigate-forwards-to-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2047,7 +1966,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-24-navigate-backwards-to-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2099,7 +2018,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-25-navigate-to-specific-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2177,7 +2096,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-26-navigate-to-specific-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2227,7 +2146,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-27-navigate-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2305,7 +2224,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-28-navigate-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2383,7 +2302,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-29-navigate-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2433,7 +2352,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-30-navigate-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2483,7 +2402,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-31-navigate-forwards-by-ten-options-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2561,7 +2480,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-32-navigate-backwards-by-ten-options-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2639,7 +2558,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-33-navigate-forwards-by-ten-options-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2689,7 +2608,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-34-navigate-backwards-by-ten-options-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2739,7 +2658,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-35-select-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2822,7 +2741,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-36-select-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2876,7 +2795,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-37-close-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2955,7 +2874,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Tue Jun 8 14:12:40 2021 +0200</li>
+        <li>Last edited: Wed Jun 16 13:18:42 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-38-close-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

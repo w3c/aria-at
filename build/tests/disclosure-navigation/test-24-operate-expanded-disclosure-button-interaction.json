@@ -1,0 +1,16 @@
+{
+  "setup_script_description": "sets focus on the first disclosure button, and sets its state to expanded",
+  "setupTestPage": "moveFocusToAndExpandFirstDisclosure",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "operate expanded disclosure button",
+  "specific_user_instruction": "With focus on the first disclosure button in the navigation region, set the state of the button to collapsed.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state (to collapsed) is conveyed"
+    ]
+  ]
+}

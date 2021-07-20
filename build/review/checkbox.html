@@ -170,6 +170,68 @@
 	testPageDocument.querySelector('[role="combobox"]').focus();
 	testPageDocument.defaultView.selectController.updateMenuState(true);
 	testPageDocument.defaultView.selectController.onOptionChange(12);
+},	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
+	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
+	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
+	const answer = testPageDocument.querySelector('#faq1_desc');
+	btn.setAttribute('aria-expanded', 'true');
+	answer.style.display = 'block';
+	testPageDocument.querySelector('#afterlink').focus();
+},	moveFocusAfterFirstDisclosure: function(testPageDocument){
+	// sets focus on a link after the first disclosure button
+	testPageDocument.querySelector('#afterlink').focus();
+},	moveFocusBeforeAndExpandFirstDisclosure: function(testPageDocument){
+	// sets focus on a link before the first disclosure button, and sets the state of the first button to expanded
+	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
+	const answer = testPageDocument.querySelector('#faq1_desc');
+	btn.setAttribute('aria-expanded', 'true');
+	answer.style.display = 'block';
+	testPageDocument.querySelector('#beforelink').focus();
+},	moveFocusBeforeFirstDisclosure: function(testPageDocument){
+	// sets focus on a link before the first disclosure button
+	testPageDocument.querySelector('#beforelink').focus();
+},	moveFocusToAndExpandFirstDisclosure: function(testPageDocument){
+	// sets focus on the first disclosure button, and sets its state to expanded
+	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
+	const answer = testPageDocument.querySelector('#faq1_desc');
+	btn.setAttribute('aria-expanded', 'true');
+	answer.style.display = 'block';
+	// Hide the link after the button so it doesn't get in the way
+	testPageDocument.querySelector('#afterlink').style.display = 'none';
+	btn.focus();
+},	moveFocusToFirstDisclosure: function(testPageDocument){
+	// sets focus on the first disclosure button
+	testPageDocument.querySelector('button[aria-controls="faq1_desc"]').focus();
+},	moveFocusBeforeAndExpandFirstDisclosure: function(testPageDocument){
+	// sets focus on a link before the first disclosure button, and sets the state of the first button to expanded
+	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+	testPageDocument.querySelector('#beforelink').focus();
+},	moveFocusBeforeFirstDisclosure: function(testPageDocument){
+	// sets focus on a link before the first disclosure button
+	testPageDocument.querySelector('#beforelink').focus();
+},	moveFocusToAndExpandFirstDisclosure: function(testPageDocument){
+	// sets focus on the first disclosure button, and sets its state to expanded
+	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+	testPageDocument.querySelector('button[aria-controls="id_about_menu"]').focus();
+},	moveFocusToAndExpandFirstDisclosureAndSetCurrentPage: function(testPageDocument){
+	// sets focus on the first disclosure button, sets its state to expanded, and marks the first link in the associated dropdown as being the current page
+	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+	testPageDocument.querySelector('#id_about_menu a').setAttribute('aria-current', 'page');
+	testPageDocument.querySelector('button[aria-controls="id_about_menu"]').focus();
+},	moveFocusToFirstDisclosure: function(testPageDocument){
+	// sets focus on the first disclosure button
+	testPageDocument.querySelector('button[aria-controls="id_about_menu"]').focus();
+},	moveFocusToFirstLinkInDropdown: function(testPageDocument){
+	// sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown
+	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+	testPageDocument.querySelector('#id_about_menu a').focus();
+},	moveFocusToSecondDisclosure: function(testPageDocument){
+	// sets focus on the second disclosure button in the navigation region
+	testPageDocument.querySelector('button[aria-controls="id_admissions_menu"]').focus();
+},	moveFocusToSecondLinkInDropdown: function(testPageDocument){
+	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
+	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
 },	openMenuAndSetFocusToFirstItem: function(testPageDocument){
 	// opens the menu, and sets focus on 'Action 1'
 	testPageDocument.defaultView.menuController.openPopup();
@@ -301,7 +363,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-01-navigate-to-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -374,7 +436,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-02-navigate-to-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -440,7 +502,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-03-navigate-to-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -486,7 +548,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-04-navigate-to-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -569,7 +631,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-05-navigate-to-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -645,7 +707,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-06-navigate-to-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -696,7 +758,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-07-operate-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -759,7 +821,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-08-operate-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -820,7 +882,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-09-operate-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -862,7 +924,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-10-read-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -940,7 +1002,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-11-read-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1018,7 +1080,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-12-read-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1068,7 +1130,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-13-read-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1146,7 +1208,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-14-read-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1224,7 +1286,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-15-read-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1274,7 +1336,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1338,7 +1400,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1402,7 +1464,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1446,7 +1508,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-19-navigate-sequentially-through-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1515,7 +1577,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-20-navigate-sequentially-through-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1561,7 +1623,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-21-navigate-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1638,7 +1700,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-22-navigate-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1707,7 +1769,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-23-navigate-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1757,7 +1819,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-24-navigate-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1826,7 +1888,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-25-navigate-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1895,7 +1957,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Lasted edited: Fri Jul 16 09:32:37 2021 -0500</li>
+        <li>Last edited: Tue Jul 20 13:29:11 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-26-navigate-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

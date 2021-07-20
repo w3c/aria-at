@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Index of Assistive Technology Test Files</title>
+  <style>
+    table {
+      display: table;
+      border-collapse: collapse;
+      border-spacing: 2px;
+      border-color: gray;
+    }
+
+    thead {
+      display: table-row-group;
+      vertical-align: middle;
+      border-bottom: black solid 2px;
+    }
+
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: gray;
+    }
+
+    tr:nth-child(even) {background: #DDD}
+    tr:nth-child(odd) {background: #FFF}
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: gray;
+    }
+
+    td {
+      padding: 3px;
+      display: table-cell;
+    }
+
+    td.test {
+      text-align: center;
+    }
+
+    td.none {
+      color: #333;
+    }
+
+    th {
+      padding: 3px;
+      font-weight: bold;
+      display: table-cell;
+    }
+  </style>
+</head>
+<body>
+ <main>
+  <h1>Index of Assistive Technology Test Files</h1>
+  <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
+  test runner is being executed, using <code>npm run start</code> from the root directory: <code>/home/runner/work/aria-at/aria-at/</code>.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Task ID</th>
+        <th>Testing Task</th>
+        <th>JAWS</th>
+<th>NVDA</th>
+<th>VoiceOver for macOS</th>
+
+        <th>Setup Script Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td>1</td><td scope="row">Navigate forwards to a collapsed select-only combobox in reading mode</td><td class="test"><a href="test-01-navigate-forwards-to-collapsed-select-only-combobox-reading.html?at=jaws" aria-label="JAWS test for task 1">JAWS</a></td><td class="test"><a href="test-01-navigate-forwards-to-collapsed-select-only-combobox-reading.html?at=nvda" aria-label="NVDA test for task 1">NVDA</a></td><td class="test none">not included</td><td>moveFocusBeforeCombobox</td></tr>
+<tr><td>2</td><td scope="row">Navigate backwards to a collapsed select-only combobox in reading mode</td><td class="test"><a href="test-02-navigate-backwards-to-collapsed-select-only-combobox-reading.html?at=jaws" aria-label="JAWS test for task 2">JAWS</a></td><td class="test"><a href="test-02-navigate-backwards-to-collapsed-select-only-combobox-reading.html?at=nvda" aria-label="NVDA test for task 2">NVDA</a></td><td class="test none">not included</td><td>moveFocusAfterCombobox</td></tr>
+<tr><td>3</td><td scope="row">Navigate forwards to a collapsed select-only combobox in interaction mode</td><td class="test"><a href="test-03-navigate-forwards-to-collapsed-select-only-combobox-interaction.html?at=jaws" aria-label="JAWS test for task 3">JAWS</a></td><td class="test"><a href="test-03-navigate-forwards-to-collapsed-select-only-combobox-interaction.html?at=nvda" aria-label="NVDA test for task 3">NVDA</a></td><td class="test none">not included</td><td>moveFocusBeforeCombobox</td></tr>
+<tr><td>4</td><td scope="row">Navigate backwards to a collapsed select-only combobox in interaction mode</td><td class="test"><a href="test-04-navigate-backwards-to-collapsed-select-only-combobox-interaction.html?at=jaws" aria-label="JAWS test for task 4">JAWS</a></td><td class="test"><a href="test-04-navigate-backwards-to-collapsed-select-only-combobox-interaction.html?at=nvda" aria-label="NVDA test for task 4">NVDA</a></td><td class="test none">not included</td><td>moveFocusAfterCombobox</td></tr>
+<tr><td>5</td><td scope="row">Navigate forwards to a collapsed select-only combobox</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-05-navigate-forwards-to-collapsed-select-only-combobox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 5">VoiceOver for macOS</a></td><td>moveFocusBeforeCombobox</td></tr>
+<tr><td>6</td><td scope="row">Navigate backwards to a collapsed select-only combobox</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-06-navigate-backwards-to-collapsed-select-only-combobox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 6">VoiceOver for macOS</a></td><td>moveFocusAfterCombobox</td></tr>
+<tr><td>7</td><td scope="row">Read information about a collapsed select-only combobox in reading mode</td><td class="test"><a href="test-07-read-information-about-collapsed-select-only-combobox-reading.html?at=jaws" aria-label="JAWS test for task 7">JAWS</a></td><td class="test"><a href="test-07-read-information-about-collapsed-select-only-combobox-reading.html?at=nvda" aria-label="NVDA test for task 7">NVDA</a></td><td class="test none">not included</td><td>moveFocusToCombobox</td></tr>
+<tr><td>8</td><td scope="row">Read information about a collapsed select-only combobox in interaction mode</td><td class="test"><a href="test-08-read-information-about-collapsed-select-only-combobox-interaction.html?at=jaws" aria-label="JAWS test for task 8">JAWS</a></td><td class="test"><a href="test-08-read-information-about-collapsed-select-only-combobox-interaction.html?at=nvda" aria-label="NVDA test for task 8">NVDA</a></td><td class="test none">not included</td><td>moveFocusToCombobox</td></tr>
+<tr><td>9</td><td scope="row">Read information about a collapsed select-only combobox</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-09-read-information-about-collapsed-select-only-combobox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 9">VoiceOver for macOS</a></td><td>moveFocusToCombobox</td></tr>
+<tr><td>10</td><td scope="row">Open a collapsed select-only combobox in reading mode</td><td class="test"><a href="test-10-open-collapsed-select-only-combobox-reading.html?at=jaws" aria-label="JAWS test for task 10">JAWS</a></td><td class="test"><a href="test-10-open-collapsed-select-only-combobox-reading.html?at=nvda" aria-label="NVDA test for task 10">NVDA</a></td><td class="test none">not included</td><td>moveFocusToCombobox</td></tr>
+<tr><td>11</td><td scope="row">Open a collapsed select-only combobox in interaction mode</td><td class="test"><a href="test-11-open-collapsed-select-only-combobox-interaction.html?at=jaws" aria-label="JAWS test for task 11">JAWS</a></td><td class="test"><a href="test-11-open-collapsed-select-only-combobox-interaction.html?at=nvda" aria-label="NVDA test for task 11">NVDA</a></td><td class="test none">not included</td><td>moveFocusToCombobox</td></tr>
+<tr><td>12</td><td scope="row">Open a collapsed select-only combobox</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-12-open-collapsed-select-only-combobox-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 12">VoiceOver for macOS</a></td><td>moveFocusToCombobox</td></tr>
+<tr><td>13</td><td scope="row">Open a collapsed select-only combobox to the first option in interaction mode</td><td class="test"><a href="test-13-open-collapsed-select-only-combobox-to-first-option-interaction.html?at=jaws" aria-label="JAWS test for task 13">JAWS</a></td><td class="test"><a href="test-13-open-collapsed-select-only-combobox-to-first-option-interaction.html?at=nvda" aria-label="NVDA test for task 13">NVDA</a></td><td class="test none">not included</td><td>moveFocusToCombobox</td></tr>
+<tr><td>14</td><td scope="row">Open a collapsed select-only combobox to the first option</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-14-open-collapsed-select-only-combobox-to-first-option-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 14">VoiceOver for macOS</a></td><td>moveFocusToCombobox</td></tr>
+<tr><td>15</td><td scope="row">Open a collapsed select-only combobox to a specific option in interaction mode</td><td class="test"><a href="test-15-open-collapsed-select-only-combobox-to-specific-option-interaction.html?at=jaws" aria-label="JAWS test for task 15">JAWS</a></td><td class="test"><a href="test-15-open-collapsed-select-only-combobox-to-specific-option-interaction.html?at=nvda" aria-label="NVDA test for task 15">NVDA</a></td><td class="test none">not included</td><td>moveFocusToCombobox</td></tr>
+<tr><td>16</td><td scope="row">Open a collapsed select-only combobox to a specific option</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-16-open-collapsed-select-only-combobox-to-specific-option-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 16">VoiceOver for macOS</a></td><td>moveFocusToCombobox</td></tr>
+<tr><td>17</td><td scope="row">Open a collapsed select-only combobox to the last option in interaction mode</td><td class="test"><a href="test-17-open-collapsed-select-only-combobox-to-last-option-interaction.html?at=jaws" aria-label="JAWS test for task 17">JAWS</a></td><td class="test"><a href="test-17-open-collapsed-select-only-combobox-to-last-option-interaction.html?at=nvda" aria-label="NVDA test for task 17">NVDA</a></td><td class="test none">not included</td><td>moveFocusToCombobox</td></tr>
+<tr><td>18</td><td scope="row">Open a collapsed select-only combobox to the last option</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-18-open-collapsed-select-only-combobox-to-last-option-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 18">VoiceOver for macOS</a></td><td>moveFocusToCombobox</td></tr>
+<tr><td>19</td><td scope="row">Read information about a listbox popup in interaction mode</td><td class="test"><a href="test-19-read-information-about-listbox-popup-interaction.html?at=jaws" aria-label="JAWS test for task 19">JAWS</a></td><td class="test"><a href="test-19-read-information-about-listbox-popup-interaction.html?at=nvda" aria-label="NVDA test for task 19">NVDA</a></td><td class="test none">not included</td><td>openListbox</td></tr>
+<tr><td>20</td><td scope="row">Read information about a listbox popup</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-20-read-information-about-listbox-popup-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 20">VoiceOver for macOS</a></td><td>openListbox</td></tr>
+<tr><td>21</td><td scope="row">Navigate forwards to an option in a listbox popup in interaction mode</td><td class="test"><a href="test-21-navigate-forwards-to-option-in-listbox-popup-interaction.html?at=jaws" aria-label="JAWS test for task 21">JAWS</a></td><td class="test"><a href="test-21-navigate-forwards-to-option-in-listbox-popup-interaction.html?at=nvda" aria-label="NVDA test for task 21">NVDA</a></td><td class="test none">not included</td><td>openListbox</td></tr>
+<tr><td>22</td><td scope="row">Navigate backwards to an option in a listbox popup in interaction mode</td><td class="test"><a href="test-22-navigate-backwards-to-option-in-listbox-popup-interaction.html?at=jaws" aria-label="JAWS test for task 22">JAWS</a></td><td class="test"><a href="test-22-navigate-backwards-to-option-in-listbox-popup-interaction.html?at=nvda" aria-label="NVDA test for task 22">NVDA</a></td><td class="test none">not included</td><td>openListboxToApple</td></tr>
+<tr><td>23</td><td scope="row">Navigate forwards to an option in a listbox popup</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-23-navigate-forwards-to-option-in-listbox-popup-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 23">VoiceOver for macOS</a></td><td>openListbox</td></tr>
+<tr><td>24</td><td scope="row">Navigate backwards to an option in a listbox popup</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-24-navigate-backwards-to-option-in-listbox-popup-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 24">VoiceOver for macOS</a></td><td>openListboxToApple</td></tr>
+<tr><td>25</td><td scope="row">Navigate to a specific option in a listbox popup in interaction mode</td><td class="test"><a href="test-25-navigate-to-specific-option-in-listbox-popup-interaction.html?at=jaws" aria-label="JAWS test for task 25">JAWS</a></td><td class="test"><a href="test-25-navigate-to-specific-option-in-listbox-popup-interaction.html?at=nvda" aria-label="NVDA test for task 25">NVDA</a></td><td class="test none">not included</td><td>openListbox</td></tr>
+<tr><td>26</td><td scope="row">Navigate to a specific option in a listbox popup</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-26-navigate-to-specific-option-in-listbox-popup-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 26">VoiceOver for macOS</a></td><td>openListbox</td></tr>
+<tr><td>27</td><td scope="row">Navigate to the first option in a listbox popup in interaction mode</td><td class="test"><a href="test-27-navigate-to-first-option-in-listbox-popup-interaction.html?at=jaws" aria-label="JAWS test for task 27">JAWS</a></td><td class="test"><a href="test-27-navigate-to-first-option-in-listbox-popup-interaction.html?at=nvda" aria-label="NVDA test for task 27">NVDA</a></td><td class="test none">not included</td><td>openListboxToApple</td></tr>
+<tr><td>28</td><td scope="row">Navigate to the last option in a listbox popup in interaction mode</td><td class="test"><a href="test-28-navigate-to-last-option-in-listbox-popup-interaction.html?at=jaws" aria-label="JAWS test for task 28">JAWS</a></td><td class="test"><a href="test-28-navigate-to-last-option-in-listbox-popup-interaction.html?at=nvda" aria-label="NVDA test for task 28">NVDA</a></td><td class="test none">not included</td><td>openListboxToGuava</td></tr>
+<tr><td>29</td><td scope="row">Navigate to the first option in a listbox popup</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-29-navigate-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 29">VoiceOver for macOS</a></td><td>openListboxToApple</td></tr>
+<tr><td>30</td><td scope="row">Navigate to the last option in a listbox popup</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-30-navigate-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 30">VoiceOver for macOS</a></td><td>openListboxToGuava</td></tr>
+<tr><td>31</td><td scope="row">Navigate forwards by ten options in a listbox popup in interaction mode</td><td class="test"><a href="test-31-navigate-forwards-by-ten-options-in-listbox-popup-interaction.html?at=jaws" aria-label="JAWS test for task 31">JAWS</a></td><td class="test"><a href="test-31-navigate-forwards-by-ten-options-in-listbox-popup-interaction.html?at=nvda" aria-label="NVDA test for task 31">NVDA</a></td><td class="test none">not included</td><td>openListbox</td></tr>
+<tr><td>32</td><td scope="row">Navigate backwards by ten options in a listbox popup in interaction mode</td><td class="test"><a href="test-32-navigate-backwards-by-ten-options-in-listbox-popup-interaction.html?at=jaws" aria-label="JAWS test for task 32">JAWS</a></td><td class="test"><a href="test-32-navigate-backwards-by-ten-options-in-listbox-popup-interaction.html?at=nvda" aria-label="NVDA test for task 32">NVDA</a></td><td class="test none">not included</td><td>openListboxToHuckleberry</td></tr>
+<tr><td>33</td><td scope="row">Navigate forwards by ten options in a listbox popup</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-33-navigate-forwards-by-ten-options-in-listbox-popup-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 33">VoiceOver for macOS</a></td><td>openListbox</td></tr>
+<tr><td>34</td><td scope="row">Navigate backwards by ten options in a listbox popup</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-34-navigate-backwards-by-ten-options-in-listbox-popup-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 34">VoiceOver for macOS</a></td><td>openListboxToHuckleberry</td></tr>
+<tr><td>35</td><td scope="row">Select an option in a listbox popup in interaction mode</td><td class="test"><a href="test-35-select-option-in-listbox-popup-interaction.html?at=jaws" aria-label="JAWS test for task 35">JAWS</a></td><td class="test"><a href="test-35-select-option-in-listbox-popup-interaction.html?at=nvda" aria-label="NVDA test for task 35">NVDA</a></td><td class="test none">not included</td><td>openListboxToApple</td></tr>
+<tr><td>36</td><td scope="row">Select an option in a listbox popup</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-36-select-option-in-listbox-popup-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 36">VoiceOver for macOS</a></td><td>openListboxToApple</td></tr>
+<tr><td>37</td><td scope="row">Close a listbox popup in interaction mode</td><td class="test"><a href="test-37-close-listbox-popup-interaction.html?at=jaws" aria-label="JAWS test for task 37">JAWS</a></td><td class="test"><a href="test-37-close-listbox-popup-interaction.html?at=nvda" aria-label="NVDA test for task 37">NVDA</a></td><td class="test none">not included</td><td>openListboxToApple</td></tr>
+<tr><td>38</td><td scope="row">Close a listbox popup</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-38-close-listbox-popup-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 38">VoiceOver for macOS</a></td><td>openListboxToApple</td></tr>
+
+    </tbody>
+  </table>
+  </main>
+</body>

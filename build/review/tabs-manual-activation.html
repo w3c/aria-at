@@ -93,55 +93,87 @@
 },	moveFocusToFirstCheckbox: function(testPageDocument){
 	// sets focus on the first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').focus();
-},	buttonFocusEmptyCollpased: function(testPageDocument){
-	// Set focus on button
-	// Ensure in collapsed state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.buttonNode.focus();
-},	buttonFocusEmptyExpanded: function(testPageDocument){
-	// Set focus on button
-	// Ensure in expanded state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.buttonNode.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-	cb.open();
-},	comboboxFocusEmptyCollapsed: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' is empty
-	// Ensure in collapsed state
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = '';
-	cb.combobox.focus();
-},	comboboxFocusEmptyExpanded: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' to 'Alabama'
-	// Ensure in expanded state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = '';
-	cb.combobox.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-	cb.open();
-},	comboboxValueSetCollapsedState: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' to 'Alabama'
-	// Ensure in collapsed state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = 'Alabama';
-	cb.comboboxNode.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-},	comboboxValueSetExpandedState: function(testPageDocument){
-	// Set focus on combobox
-	// Set value of 'combobox' to 'a'
-	// Ensure in expanded state.
-	var cb = testPageDocument.comboboxAutocomplete;
-	cb.comboboxNode.value = 'a';
-	cb.comboboxNode.focus();
-	cb.filter = cb.comboboxNode.value;
-	cb.filterOptions();
-	cb.open();
+},	moveFocusAfterCombobox: function(testPageDocument){
+	// sets focus on a link after the Combobox
+	testPageDocument.querySelector('#cb1-button').style.display = 'none';
+	testPageDocument.querySelector('#afterlink').focus();
+},	moveFocusAfterComboboxAndSetValueToAlabama: function(testPageDocument){
+	// sets focus on a link after the Combobox, and sets the combobox value to 'Alabama'
+	testPageDocument.querySelector('#cb1-button').style.display = 'none';
+	testPageDocument.defaultView.comboboxController.setValue('Alabama');
+	testPageDocument.querySelector('#afterlink').focus();
+},	moveFocusBeforeCombobox: function(testPageDocument){
+	// sets focus on a link before the Combobox
+	testPageDocument.querySelector('#beforelink').focus();
+},	moveFocusBeforeComboboxAndSetValueToAlabama: function(testPageDocument){
+	// sets focus on a link before the Combobox, and sets the combobox value to 'Alabama'
+	testPageDocument.defaultView.comboboxController.setValue('Alabama');
+	testPageDocument.querySelector('#beforelink').focus();
+},	moveFocusToAlabamaInListbox: function(testPageDocument){
+	// expands the Combobox and places focus on 'Alabama' in the listbox popup
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+	let opt = testPageDocument.querySelector('#lb1-al');
+	testPageDocument.defaultView.comboboxController.setOption(opt, true);
+},	moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning: function(testPageDocument){
+	// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the beginning of the textbox
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+	let opt = testPageDocument.querySelector('#lb1-al');
+	testPageDocument.defaultView.comboboxController.setOption(opt, true);
+	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(0, 0);
+},	moveFocusToAlabamaInListboxAndSetInputCursorAtEnd: function(testPageDocument){
+	// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the end of the textbox
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+	let opt = testPageDocument.querySelector('#lb1-al');
+	let optTextLength = opt.textContent.length;
+	testPageDocument.defaultView.comboboxController.setOption(opt, true);
+	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);
+},	moveFocusToAlaskaInListbox: function(testPageDocument){
+	// expands the combobox, sets the combobox value to 'Alaska' and places focus on that option in the listbox popup
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+	let opt = testPageDocument.querySelector('#lb1-ak');
+	testPageDocument.defaultView.comboboxController.setOption(opt, true);
+},	moveFocusToAndExpandCombobox: function(testPageDocument){
+	// sets focus on and expands the combobox
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToAndExpandComboboxAndSetValueToA: function(testPageDocument){
+	// sets focus on and expands the combobox, and sets the combobox value to 'a'
+	testPageDocument.defaultView.comboboxController.setValue('a');
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.select();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected: function(testPageDocument){
+	// sets focus on and expands the combobox, sets the combobox value to 'a', and de-selects all text in the input
+	testPageDocument.defaultView.comboboxController.setValue('a');
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToAndExpandComboboxAndSetValueToAlabama: function(testPageDocument){
+	// sets focus on and expands the combobox, and sets the combobox value to 'Alabama'
+	testPageDocument.defaultView.comboboxController.setValue('Alabama');
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.select();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToCombobox: function(testPageDocument){
+	// sets focus on the combobox
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToComboboxAndSetValueToA: function(testPageDocument){
+	// sets focus on the combobox, and sets the combobox value to 'a'
+	testPageDocument.defaultView.comboboxController.setValue('a');
+	testPageDocument.defaultView.comboboxController.comboboxNode.select();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToComboboxAndSetValueToAlabama: function(testPageDocument){
+	// sets focus on the combobox, and sets the combobox value to 'Alabama'
+	testPageDocument.defaultView.comboboxController.setValue('Alabama');
+	testPageDocument.defaultView.comboboxController.comboboxNode.select();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
 },	moveFocusAfterCombobox: function(testPageDocument){
 	// sets focus on a link after the Combobox
 	testPageDocument.querySelector('#afterlink').focus();
@@ -170,6 +202,15 @@
 	testPageDocument.querySelector('[role="combobox"]').focus();
 	testPageDocument.defaultView.selectController.updateMenuState(true);
 	testPageDocument.defaultView.selectController.onOptionChange(12);
+},	setFocusAfterButton: function(testPageDocument){
+	// sets focus on a link after the button
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeButton: function(testPageDocument){
+	// sets focus on a link before the button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnButton: function(testPageDocument){
+	// sets focus on the button
+	testPageDocument.querySelector('#action').focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
 	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
@@ -232,6 +273,23 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	openMenuAndSetFocusToFirstItem: function(testPageDocument){
+	// opens the menu, and sets focus on 'Action 1'
+	testPageDocument.defaultView.menuController.openPopup();
+	testPageDocument.defaultView.menuController.setFocusToFirstMenuitem();
+},	openMenuAndSetFocusToLastItem: function(testPageDocument){
+	// opens the menu, and sets focus on 'Action 4'
+	testPageDocument.defaultView.menuController.openPopup();
+	testPageDocument.defaultView.menuController.setFocusToLastMenuitem();
+},	setFocusAfterMenuButton: function(testPageDocument){
+	// sets focus on a link after the menu button
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeMenuButton: function(testPageDocument){
+	// sets focus on a link before the menu button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnMenuButton: function(testPageDocument){
+	// sets focus on the menu button
+	testPageDocument.querySelector('#menubutton1').focus();
 },	openMenuAndSetFocusToFirstItem: function(testPageDocument){
 	// opens the menu, and sets focus on 'Action 1'
 	testPageDocument.defaultView.menuController.openPopup();
@@ -327,6 +385,172 @@
 	const btn = testPageDocument.querySelector('#ex1 > button');
 	testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
 	testPageDocument.defaultView.openDialog('dialog2', 'dialog1_verify', 'dialog2_close_btn');
+},	checkFirstRadioButtonAndSetFocusAfterRadioGroup: function(testPageDocument){
+	// sets the state of the first radio button to checked, and sets focus on a link after the radio group
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[0].classList.add('focus');
+	radios[0].setAttribute('aria-checked', 'true');
+	radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+	testPageDocument.querySelector('#afterlink').focus();
+},	checkFirstRadioButtonAndSetFocusBeforeRadioGroup: function(testPageDocument){
+	// sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[0].classList.add('focus');
+	radios[0].setAttribute('aria-checked', 'true');
+	radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+	testPageDocument.querySelector('#beforelink').focus();
+	testPageDocument.querySelector('#group_label_1').style.display = 'none';
+},	checkThirdRadioButtonAndSetFocusAfterRadioGroup: function(testPageDocument){
+	// sets the state of the third radio button to checked, and sets focus on a link after the radio group
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[2].classList.add('focus');
+	radios[2].setAttribute('aria-checked', 'true');
+	radioGroup.setAttribute('aria-activedescendant', radios[2].id);
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusAfterRadioGroup: function(testPageDocument){
+	// sets focus on a link after the radio group
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRadioGroup: function(testPageDocument){
+	// sets focus on a link before the radio group, and hides the group heading
+	testPageDocument.querySelector('#beforelink').focus();
+	testPageDocument.querySelector('#group_label_1').style.display = 'none';
+},	setFocusOnAndCheckFirstRadioButton: function(testPageDocument){
+	// sets focus on the first radio button, and sets its state to checked
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[0].classList.add('focus');
+	radios[0].setAttribute('aria-checked', 'true');
+	radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+	radioGroup.focus();
+},	setFocusOnFirstRadioButton: function(testPageDocument){
+	// sets focus on the first radio button
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[0].classList.add('focus');
+	radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+	radioGroup.focus();
+},	setFocusOnSecondRadioButton: function(testPageDocument){
+	// sets focus on the second radio button
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[1].classList.add('focus');
+	radioGroup.setAttribute('aria-activedescendant', radios[1].id);
+	radioGroup.focus();
+},	setFocusOnThirdRadioButton: function(testPageDocument){
+	// sets focus on the third radio button
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[2].classList.add('focus');
+	radioGroup.setAttribute('aria-activedescendant', radios[2].id);
+	radioGroup.focus();
+},	checkFirstRadioButtonAndSetFocusAfterRadioGroup: function(testPageDocument){
+	// sets the state of the first radio button to checked, and sets focus on a link after the radio group
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.tabIndex = -1;
+	});
+	radios[0].setAttribute('aria-checked', 'true');
+	radios[0].tabIndex = 0;
+	testPageDocument.querySelector('#afterlink').focus();
+},	checkFirstRadioButtonAndSetFocusBeforeRadioGroup: function(testPageDocument){
+	// sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.tabIndex = -1;
+	});
+	radios[0].setAttribute('aria-checked', 'true');
+	radios[0].tabIndex = 0;
+	testPageDocument.querySelector('#group_label_1').style.display = 'none';
+	testPageDocument.querySelector('#beforelink').focus();
+},	checkThirdRadioButtonAndSetFocusAfterRadioGroup: function(testPageDocument){
+	// sets the state of the third radio button to checked, and sets focus on a link after the radio group
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.tabIndex = -1;
+	});
+	let lastRadio = radios[radios.length - 1];
+	lastRadio.setAttribute('aria-checked', 'true');
+	lastRadio.tabIndex = 0;
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusAfterRadioGroup: function(testPageDocument){
+	// sets focus on a link after the radio group
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRadioGroup: function(testPageDocument){
+	// sets focus on a link before the radio group, and hides the group heading
+	testPageDocument.querySelector('#beforelink').focus();
+	testPageDocument.querySelector('#group_label_1').style.display = 'none';
+},	setFocusOnAndCheckFirstRadioButton: function(testPageDocument){
+	// sets focus on the first radio button, and sets its state to checked
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.tabIndex = -1;
+	});
+	radios[0].setAttribute('aria-checked', 'true');
+	radios[0].tabIndex = 0;
+	radios[0].focus();
+},	setFocusOnFirstRadioButton: function(testPageDocument){
+	// sets focus on the first radio button
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.tabIndex = -1;
+	});
+	radios[0].tabIndex = 0;
+	radios[0].focus();
+},	setFocusOnSecondRadioButton: function(testPageDocument){
+	// sets focus on the second radio button
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.tabIndex = -1;
+	});
+	radios[1].tabIndex = 0;
+	radios[1].focus();
+},	setFocusOnThirdRadioButton: function(testPageDocument){
+	// sets focus on the third radio button
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.tabIndex = -1;
+	});
+	let lastRadio = radios[radios.length - 1];
+	lastRadio.tabIndex = 0;
+	lastRadio.focus();
 },	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
 	// activates the third tab in the tab list, and sets focus on the tab panel
 	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
@@ -357,6 +581,21 @@
 },	setFocusOnThirdTab: function(testPageDocument){
 	// sets focus on the third tab
 	testPageDocument.querySelector('#complex').focus();
+},	setFocusAfterButton: function(testPageDocument){
+	// sets focus on a link after the button
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeButton: function(testPageDocument){
+	// sets focus on a link before the button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnButton: function(testPageDocument){
+	// sets focus on the button
+	testPageDocument.querySelector('#toggle').focus();
+},	setFocusOnButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on the button, and sets its state to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
+	button.focus();
 }
           };
 
@@ -401,7 +640,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-01-navigate-forwards-to-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -490,7 +729,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-02-navigate-backwards-to-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -579,7 +818,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-03-navigate-forwards-to-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -666,7 +905,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-04-navigate-backwards-to-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -753,7 +992,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-05-navigate-forwards-to-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -811,7 +1050,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-06-navigate-backwards-to-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -869,7 +1108,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-07-read-information-about-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -952,7 +1191,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-08-read-information-about-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1035,7 +1274,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-09-read-information-about-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1088,7 +1327,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-10-navigate-to-next-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1166,7 +1405,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-11-navigate-to-next-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1244,7 +1483,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-12-navigate-to-next-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1294,7 +1533,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-13-navigate-to-previous-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1375,7 +1614,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-14-navigate-to-previous-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1456,7 +1695,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-15-navigate-to-previous-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1508,7 +1747,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-16-navigate-to-first-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1589,7 +1828,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-17-navigate-to-first-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1641,7 +1880,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-18-navigate-to-last-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1719,7 +1958,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-19-navigate-to-last-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1769,7 +2008,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-20-navigate-forwards-to-tab-panel-interaction.html?at=jaws">jaws</a></li>
@@ -1845,7 +2084,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-21-navigate-backwards-to-tab-panel-interaction.html?at=jaws">jaws</a></li>
@@ -1921,7 +2160,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-22-navigate-forwards-to-tab-panel-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1971,7 +2210,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-23-navigate-backwards-to-tab-panel-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2021,7 +2260,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-24-activate-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -2094,7 +2333,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-25-activate-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2167,7 +2406,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-26-activate-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2215,7 +2454,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-27-delete-tab-from-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -2296,7 +2535,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-28-delete-tab-from-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2377,7 +2616,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:19:41 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:56:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-29-delete-tab-from-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

@@ -1,0 +1,40 @@
+{
+  "setup_script_description": "expands the combobox, sets the combobox value to 'Alaska' and places focus on that option in the listbox popup",
+  "setupTestPage": "moveFocusToAlaskaInListbox",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to previous option in listbox popup",
+  "specific_user_instruction": "With focus on an option in the listbox popup, navigate backwards to the previous option.",
+  "output_assertions": [
+    [
+      "1",
+      "State of the combobox (expanded) is conveyed"
+    ],
+    [
+      "1",
+      "Role of the popup ('listbox') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the popup ('States') is conveyed"
+    ],
+    [
+      "1",
+      "Text of the focused option in the popup ('Alabama') is conveyed"
+    ],
+    [
+      "2",
+      "State of the focused option in the popup (selected) is conveyed"
+    ],
+    [
+      "1",
+      "Position of the focused option in the popup (1) is conveyed"
+    ],
+    [
+      "1",
+      "Number of options in the popup (56) is conveyed"
+    ]
+  ]
+}

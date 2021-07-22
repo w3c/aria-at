@@ -1,0 +1,24 @@
+{
+  "setup_script_description": "sets focus on the first cell of the second row in the grid",
+  "setupTestPage": "setFocusOnFirstDataCell",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to next row in grid",
+  "specific_user_instruction": "Navigate to the next row in the grid.",
+  "output_assertions": [
+    [
+      "1",
+      "Text of the column header ('Date') is conveyed"
+    ],
+    [
+      "1",
+      "Text of the cell ('02-Jan-16') is conveyed"
+    ],
+    [
+      "1",
+      "coordinates of the cell (column 1, row 3) are conveyed"
+    ]
+  ]
+}

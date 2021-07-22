@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read information about a checked radio button</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/radio/radio.html">
+<link rel="help" href="https://w3c.github.io/aria/#radio">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  var scripts = {
+		setFocusOnAndCheckFirstRadioButton: function(testPageDocument){
+			// sets focus on the first radio button, and sets its state to checked
+			let radios = testPageDocument.querySelectorAll('[role="radio"]');
+			radios.forEach(r => {
+			r.setAttribute('aria-checked', 'false');
+			r.tabIndex = -1;
+			});
+			radios[0].setAttribute('aria-checked', 'true');
+			radios[0].tabIndex = 0;
+			radios[0].focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the first radio button, and sets its state to checked",
+  "setupTestPage": "setFocusOnAndCheckFirstRadioButton",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "read information about checked radio button",
+  "specific_user_instruction": "With focus on the 'Regular crust' radio button, read information about the radio button",
+  "output_assertions": [
+    [
+      "1",
+      "role 'radio button' is conveyed"
+    ],
+    [
+      "1",
+      "name 'Regular crust' is conveyed"
+    ],
+    [
+      "1",
+      "State of the radio button, 'checked', is conveyed"
+    ],
+    [
+      "1",
+      "Position of the radio button, 1, is conveyed"
+    ],
+    [
+      "1",
+      "Number of radio buttons in the group, 3, is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about checked radio button": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-3-15_144141/radio.html");
+  });
+</script>
+  

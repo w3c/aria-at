@@ -144,87 +144,6 @@
 	cb.open();
 },	moveFocusAfterCombobox: function(testPageDocument){
 	// sets focus on a link after the Combobox
-	testPageDocument.querySelector('#cb1-button').style.display = 'none';
-	testPageDocument.querySelector('#afterlink').focus();
-},	moveFocusAfterComboboxAndSetValueToAlabama: function(testPageDocument){
-	// sets focus on a link after the Combobox, and sets the combobox value to 'Alabama'
-	testPageDocument.querySelector('#cb1-button').style.display = 'none';
-	testPageDocument.defaultView.comboboxController.setValue('Alabama');
-	testPageDocument.querySelector('#afterlink').focus();
-},	moveFocusBeforeCombobox: function(testPageDocument){
-	// sets focus on a link before the Combobox
-	testPageDocument.querySelector('#beforelink').focus();
-},	moveFocusBeforeComboboxAndSetValueToAlabama: function(testPageDocument){
-	// sets focus on a link before the Combobox, and sets the combobox value to 'Alabama'
-	testPageDocument.defaultView.comboboxController.setValue('Alabama');
-	testPageDocument.querySelector('#beforelink').focus();
-},	moveFocusToAlabamaInListbox: function(testPageDocument){
-	// expands the Combobox and places focus on 'Alabama' in the listbox popup
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
-	let opt = testPageDocument.querySelector('#lb1-al');
-	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-},	moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning: function(testPageDocument){
-	// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the beginning of the textbox
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
-	let opt = testPageDocument.querySelector('#lb1-al');
-	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(0, 0);
-},	moveFocusToAlabamaInListboxAndSetInputCursorAtEnd: function(testPageDocument){
-	// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the end of the textbox
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
-	let opt = testPageDocument.querySelector('#lb1-al');
-	let optTextLength = opt.textContent.length;
-	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);
-},	moveFocusToAlaskaInListbox: function(testPageDocument){
-	// expands the combobox, sets the combobox value to 'Alaska' and places focus on that option in the listbox popup
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-	testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
-	let opt = testPageDocument.querySelector('#lb1-ak');
-	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-},	moveFocusToAndExpandCombobox: function(testPageDocument){
-	// sets focus on and expands the combobox
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToAndExpandComboboxAndSetValueToA: function(testPageDocument){
-	// sets focus on and expands the combobox, and sets the combobox value to 'a'
-	testPageDocument.defaultView.comboboxController.setValue('a');
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.select();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected: function(testPageDocument){
-	// sets focus on and expands the combobox, sets the combobox value to 'a', and de-selects all text in the input
-	testPageDocument.defaultView.comboboxController.setValue('a');
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToAndExpandComboboxAndSetValueToAlabama: function(testPageDocument){
-	// sets focus on and expands the combobox, and sets the combobox value to 'Alabama'
-	testPageDocument.defaultView.comboboxController.setValue('Alabama');
-	testPageDocument.defaultView.comboboxController.open();
-	testPageDocument.defaultView.comboboxController.comboboxNode.select();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToCombobox: function(testPageDocument){
-	// sets focus on the combobox
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToComboboxAndSetValueToA: function(testPageDocument){
-	// sets focus on the combobox, and sets the combobox value to 'a'
-	testPageDocument.defaultView.comboboxController.setValue('a');
-	testPageDocument.defaultView.comboboxController.comboboxNode.select();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToComboboxAndSetValueToAlabama: function(testPageDocument){
-	// sets focus on the combobox, and sets the combobox value to 'Alabama'
-	testPageDocument.defaultView.comboboxController.setValue('Alabama');
-	testPageDocument.defaultView.comboboxController.comboboxNode.select();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusAfterCombobox: function(testPageDocument){
-	// sets focus on a link after the Combobox
 	testPageDocument.querySelector('#afterlink').focus();
 },	moveFocusBeforeCombobox: function(testPageDocument){
 	// sets focus on a link before the Combobox
@@ -345,6 +264,44 @@
 },	focusontextalign: function(testPageDocument){
 	// Move focus to the "Text Align" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},	setFocusAfterGrid: function(testPageDocument){
+	// sets focus on a link after the grid
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeGrid: function(testPageDocument){
+	// sets focus on a link before the grid
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnFifthDataCell: function(testPageDocument){
+	// sets focus on the fifth cell of the second row in the grid
+	testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 4);
+	testPageDocument.defaultView.ex1Grid.focusCell(0, 4);
+},	setFocusOnFirstDataCell: function(testPageDocument){
+	// sets focus on the first cell of the second row in the grid
+	testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 0);
+	testPageDocument.defaultView.ex1Grid.focusCell(0, 0);
+},	setFocusOnFirstLinkedCell: function(testPageDocument){
+	// sets focus on the third cell of the second row in the grid
+	testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 2);
+	testPageDocument.defaultView.ex1Grid.focusCell(0, 2);
+},	setFocusOnFourthDataCell: function(testPageDocument){
+	// sets focus on the fourth cell of the second row in the grid
+	testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 3);
+	testPageDocument.defaultView.ex1Grid.focusCell(0, 3);
+},	setFocusOnLastDataCell: function(testPageDocument){
+	// sets focus on the fifth cell of the seventh row in the grid
+	testPageDocument.defaultView.ex1Grid.setFocusPointer(5, 4);
+	testPageDocument.defaultView.ex1Grid.focusCell(5, 4);
+},	setFocusOnSecondDataCell: function(testPageDocument){
+	// sets focus on the second cell of the second row in the grid
+	testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 1);
+	testPageDocument.defaultView.ex1Grid.focusCell(0, 1);
+},	setFocusOnSecondLinkedCell: function(testPageDocument){
+	// sets focus on the third cell of the third row in the grid
+	testPageDocument.defaultView.ex1Grid.setFocusPointer(1, 2);
+	testPageDocument.defaultView.ex1Grid.focusCell(1, 2);
+},	setFocusOnSixthDataCell: function(testPageDocument){
+	// sets focus on the first cell of the third row in the grid
+	testPageDocument.defaultView.ex1Grid.setFocusPointer(1, 0);
+	testPageDocument.defaultView.ex1Grid.focusCell(1, 0);
 },	moveFocusToAddDeliveryAddressButton: function(testPageDocument){
 	// sets focus on the 'Add Delivery Address' button
 	testPageDocument.querySelector('#ex1 > button').focus();
@@ -444,7 +401,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-01-navigate-forwards-to-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -526,7 +483,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-02-navigate-backwards-to-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -608,7 +565,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-03-navigate-forwards-to-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -684,7 +641,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-04-navigate-backwards-to-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -760,7 +717,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-05-navigate-forwards-to-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -811,7 +768,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-06-navigate-backwards-to-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -862,7 +819,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-07-operate-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -933,7 +890,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-08-operate-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1004,7 +961,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-09-operate-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1051,7 +1008,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-10-operate-unchecked-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1123,7 +1080,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-11-operate-unchecked-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1195,7 +1152,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-12-operate-unchecked-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1243,7 +1200,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-13-read-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1321,7 +1278,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-14-read-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1399,7 +1356,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-15-read-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1449,7 +1406,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1521,7 +1478,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1593,7 +1550,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1640,7 +1597,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-19-navigate-forwards-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1718,7 +1675,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-20-navigate-backwards-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1792,7 +1749,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-21-navigate-forwards-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1866,7 +1823,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-22-navigate-backwards-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1940,7 +1897,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-23-navigate-forwards-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1987,7 +1944,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jul 20 19:06:05 2021 +0000</li>
+        <li>Last edited: Thu Jul 22 13:11:28 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-24-navigate-backwards-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

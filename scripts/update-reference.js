@@ -54,6 +54,15 @@ function locateFile(startPath, fileToFind) {
     }
 }
 
+/**
+ * Zero dependency path normalizer that uses 'path' to return a path string which only uses 'forward' slashes
+ * @param {string} pathString - path string to be converted if required
+ * @returns {string} - a path string that prioritises the use of path separators being a 'forward' slash instead of a 'backward' slash
+ */
+function posixPath(pathString) {
+    return pathString.split(path.sep).join(path.posix.sep)
+}
+
 async function copyExampleToRepo(exampleName) {
   try {
     const testDirectory = path.join('tests', exampleName);
@@ -61,7 +70,7 @@ async function copyExampleToRepo(exampleName) {
       fse.statSync(testDirectory);
     }
     catch (err) {
-      console.log("The test directory '" + testDirectory + "' does not exist. Please enure the provide path name was correct.");
+      console.log(`The test directory '${posixPath(testDirectory)}' does not exist. Please enure the provide path name was correct.`);
       process.exit();
     }
 
@@ -97,12 +106,12 @@ async function copyExampleToRepo(exampleName) {
     }
 
     const htmlFileAbsolute = path.join(repoBasePath, examplePath);
-    console.log(`Locating the matching example file ${htmlFileAbsolute}.`);
+    console.log(`Locating the matching example file ${posixPath(htmlFileAbsolute)}.`);
     try {
       fse.statSync(htmlFileAbsolute);
     }
     catch (err) {
-      console.log("The example html '" + htmlFileAbsolute + "' does not exist. Please enure the current example html utl is in the references.csv file.");
+      console.log(`The example html '${posixPath(htmlFileAbsolute)}' does not exist. Please enure the current example html utl is in the references.csv file.`);
       process.exit();
     }
 
@@ -110,12 +119,16 @@ async function copyExampleToRepo(exampleName) {
     const formattedDateTime = currentDateTime.getFullYear() + "-" + (currentDateTime.getMonth() + 1) + "-" + currentDateTime.getDate() + "_" + currentDateTime.getHours() + + currentDateTime.getMinutes() + currentDateTime.getSeconds();
     const referenceDir = path.join(tmpPath, '..', '..', 'tests', exampleName, 'reference', formattedDateTime);
     await fse.ensureDir(referenceDir);
-    const filterFunc = (src) => { return (src.indexOf('.html') == -1 || src == htmlFileAbsolute) };
-    console.log('Coping assets to timestamped local directory.\n\n');
-    await fse.copy(path.join(repoBasePath, 'examples', htmlFileAbsolute.split('examples' + path.sep)[1].split(path.sep)[0]), referenceDir, { filter: filterFunc});
+    const filterFunc = (src) => { return (src.indexOf('.html') === -1 || src === htmlFileAbsolute) };
+    console.log('Copying assets to timestamped local directory.\n\n');
+    await fse.copy(path.join(repoBasePath, 'examples', htmlFileAbsolute.split(`examples${path.sep}`)[1].split(path.sep)[0]), referenceDir, { filter: filterFunc});
     const referenceHtml = locateFile(referenceDir, path.basename(examplePath));
-    const referenceHtmlPath = path.join('reference', referenceHtml.split('reference' + path.sep)[1]);
-    console.log(`Reference file created at tests/${exampleName}/${referenceHtmlPath}.\nTo switch the test to run the updated reference:\n\t1. Commit this change\n\t2. Update ${path.join('tests', exampleName, 'data', 'reference.csv')} with the reference ${referenceHtmlPath}\n\t3. Open the html file and edit it to only include the example. The title, imported assets, h1 with the example name, and the div with the actual example (Usually #ex1) need to be preserved, but everything else can be removed.`);
+    const referenceHtmlPath = path.join('reference', referenceHtml.split(`reference${path.sep}`)[1]);
+    console.log(`Reference file created at ${posixPath(`tests/${exampleName}/${referenceHtmlPath}`)}.
+To switch the test to run the updated reference:
+\t1. Commit this change
+\t2. Update ${posixPath(path.join('tests', exampleName, 'data', 'reference.csv'))} with the reference ${posixPath(referenceHtmlPath)}
+\t3. Open the html file and edit it to only include the example. The title, imported assets, h1 with the example name, and the div with the actual example (Usually #ex1) need to be preserved, but everything else can be removed.`);
   } finally {
     await fse.remove(tmpPath);
   }

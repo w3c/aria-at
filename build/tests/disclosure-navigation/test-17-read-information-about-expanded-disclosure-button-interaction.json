@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "sets focus on the first disclosure button, and sets its state to expanded",
+  "setupTestPage": "moveFocusToAndExpandFirstDisclosure",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read information about expanded disclosure button",
+  "specific_user_instruction": "With focus on the first disclosure button in the navigation region, read information about the button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'About' is conveyed"
+    ],
+    [
+      "1",
+      "State of the button (expanded) is conveyed"
+    ]
+  ]
+}

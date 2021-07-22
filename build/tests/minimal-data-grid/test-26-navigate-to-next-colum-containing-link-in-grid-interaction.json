@@ -1,0 +1,28 @@
+{
+  "setup_script_description": "sets focus on the second cell of the second row in the grid",
+  "setupTestPage": "setFocusOnSecondDataCell",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to next colum containing link in grid",
+  "specific_user_instruction": "Navigate to the next column containing a link in the grid.",
+  "output_assertions": [
+    [
+      "1",
+      "Text of the column header ('Description') is conveyed"
+    ],
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Cash Deposit' is conveyed"
+    ],
+    [
+      "1",
+      "coordinates of the cell (column 3, row 2) are conveyed"
+    ]
+  ]
+}

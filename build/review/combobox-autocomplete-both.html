@@ -427,6 +427,95 @@
 	testPageDocument.defaultView.openDialog('dialog2', 'dialog1_verify', 'dialog2_close_btn');
 },	checkFirstRadioButtonAndSetFocusAfterRadioGroup: function(testPageDocument){
 	// sets the state of the first radio button to checked, and sets focus on a link after the radio group
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[0].classList.add('focus');
+	radios[0].setAttribute('aria-checked', 'true');
+	radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+	testPageDocument.querySelector('#afterlink').focus();
+},	checkFirstRadioButtonAndSetFocusBeforeRadioGroup: function(testPageDocument){
+	// sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[0].classList.add('focus');
+	radios[0].setAttribute('aria-checked', 'true');
+	radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+	testPageDocument.querySelector('#beforelink').focus();
+	testPageDocument.querySelector('#group_label_1').style.display = 'none';
+},	checkThirdRadioButtonAndSetFocusAfterRadioGroup: function(testPageDocument){
+	// sets the state of the third radio button to checked, and sets focus on a link after the radio group
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[2].classList.add('focus');
+	radios[2].setAttribute('aria-checked', 'true');
+	radioGroup.setAttribute('aria-activedescendant', radios[2].id);
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusAfterRadioGroup: function(testPageDocument){
+	// sets focus on a link after the radio group
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRadioGroup: function(testPageDocument){
+	// sets focus on a link before the radio group, and hides the group heading
+	testPageDocument.querySelector('#beforelink').focus();
+	testPageDocument.querySelector('#group_label_1').style.display = 'none';
+},	setFocusOnAndCheckFirstRadioButton: function(testPageDocument){
+	// sets focus on the first radio button, and sets its state to checked
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[0].classList.add('focus');
+	radios[0].setAttribute('aria-checked', 'true');
+	radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+	radioGroup.focus();
+},	setFocusOnFirstRadioButton: function(testPageDocument){
+	// sets focus on the first radio button
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[0].classList.add('focus');
+	radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+	radioGroup.focus();
+},	setFocusOnSecondRadioButton: function(testPageDocument){
+	// sets focus on the second radio button
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[1].classList.add('focus');
+	radioGroup.setAttribute('aria-activedescendant', radios[1].id);
+	radioGroup.focus();
+},	setFocusOnThirdRadioButton: function(testPageDocument){
+	// sets focus on the third radio button
+	let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+	let radios = testPageDocument.querySelectorAll('[role="radio"]');
+	radios.forEach(r => {
+	r.setAttribute('aria-checked', 'false');
+	r.classList.remove('focus');
+	});
+	radios[2].classList.add('focus');
+	radioGroup.setAttribute('aria-activedescendant', radios[2].id);
+	radioGroup.focus();
+},	checkFirstRadioButtonAndSetFocusAfterRadioGroup: function(testPageDocument){
+	// sets the state of the first radio button to checked, and sets focus on a link after the radio group
 	let radios = testPageDocument.querySelectorAll('[role="radio"]');
 	radios.forEach(r => {
 	r.setAttribute('aria-checked', 'false');
@@ -576,7 +665,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-01-navigate-to-combobox-reading.html?at=jaws">jaws</a></li>
@@ -646,7 +735,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-02-navigate-by-line-to-combobox-reading.html?at=jaws">jaws</a></li>
@@ -712,7 +801,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-03-navigate-to-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -778,7 +867,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-04-read-combobox-reading.html?at=jaws">jaws</a></li>
@@ -844,7 +933,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-05-read-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -910,7 +999,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-06-navigate-to-combobox-reading.html?at=jaws">jaws</a></li>
@@ -992,7 +1081,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-07-navigate-to-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1070,7 +1159,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-08-read-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1148,7 +1237,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-09-read-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1226,7 +1315,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-10-navigate-to-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1308,7 +1397,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-11-navigate-by-line-to-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1376,7 +1465,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-12-navigate-to-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1454,7 +1543,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-13-read-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1532,7 +1621,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-14-read-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1610,7 +1699,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-15-navigate-to-combobox-with-keys-that-switch-modes-reading.html?at=jaws">jaws</a></li>
@@ -1670,7 +1759,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-16-activate-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1740,7 +1829,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-17-open-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1814,7 +1903,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-18-close-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1884,7 +1973,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-19-activate-states-button-reading.html?at=jaws">jaws</a></li>
@@ -1952,7 +2041,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-20-activate-states-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1995,7 +2084,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-21-activate-states-button-reading.html?at=jaws">jaws</a></li>
@@ -2067,7 +2156,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-22-activate-states-button-interaction.html?at=jaws">jaws</a></li>
@@ -2137,7 +2226,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-23-navigate-into-popup-from-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -2215,7 +2304,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-24-type-in-empty-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -2291,7 +2380,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-25-navigate-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2367,7 +2456,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-26-read-option-in-listbox-popup-reading.html?at=jaws">jaws</a></li>
@@ -2442,7 +2531,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-27-read-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2517,7 +2606,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-28-choose-combobox-option-interaction.html?at=jaws">jaws</a></li>
@@ -2595,7 +2684,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-29-cancel-selection-interaction.html?at=jaws">jaws</a></li>
@@ -2673,7 +2762,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jul 22 13:36:14 2021 -0500</li>
+        <li>Last edited: Thu Jul 22 13:42:09 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both/test-30-initiate-caret-movement-from-listbox-interaction.html?at=jaws">jaws</a></li>

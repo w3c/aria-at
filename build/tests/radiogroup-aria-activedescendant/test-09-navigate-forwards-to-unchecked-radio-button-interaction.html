@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards to an unchecked radio button in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/radio/radio-activedescendant.html">
+<link rel="help" href="https://w3c.github.io/aria/#radiogroup">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#radio">
+<link rel="help" href="https://w3c.github.io/aria/#aria-activedescendant">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  var scripts = {
+		setFocusBeforeRadioGroup: function(testPageDocument){
+			// sets focus on a link before the radio group, and hides the group heading
+			testPageDocument.querySelector('#beforelink').focus();
+			testPageDocument.querySelector('#group_label_1').style.display = 'none';
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link before the radio group, and hides the group heading",
+  "setupTestPage": "setFocusBeforeRadioGroup",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to unchecked radio button",
+  "specific_user_instruction": "Navigate to the first radio button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the group, 'Pizza Crust', is conveyed"
+    ],
+    [
+      "1",
+      "role 'radio button' is conveyed"
+    ],
+    [
+      "1",
+      "name of the radio button, 'Regular crust', is conveyed"
+    ],
+    [
+      "1",
+      "State of the radio button, 'unchecked', is conveyed"
+    ],
+    [
+      "1",
+      "Position of the radio button, 1, is conveyed"
+    ],
+    [
+      "1",
+      "Number of radio buttons in the group, 3, is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards to unchecked radio button": {
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [ [ "TAB" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-3-17_161413/radio-activedescendant.html");
+  });
+</script>
+  

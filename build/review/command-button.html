@@ -630,6 +630,21 @@
 },	setFocusOnThirdTab: function(testPageDocument){
 	// sets focus on the third tab
 	testPageDocument.querySelector('#complex').focus();
+},	setFocusAfterButton: function(testPageDocument){
+	// sets focus on a link after the button
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeButton: function(testPageDocument){
+	// sets focus on a link before the button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnButton: function(testPageDocument){
+	// sets focus on the button
+	testPageDocument.querySelector('#toggle').focus();
+},	setFocusOnButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on the button, and sets its state to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
+	button.focus();
 }
           };
 
@@ -674,7 +689,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Thu Jul 22 13:49:49 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-01-navigate-forwards-to-button-reading.html?at=jaws">jaws</a></li>
@@ -753,7 +768,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Thu Jul 22 13:49:49 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-02-navigate-backwards-to-button-reading.html?at=jaws">jaws</a></li>
@@ -832,7 +847,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Thu Jul 22 13:49:49 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-03-navigate-forwards-to-button-interaction.html?at=jaws">jaws</a></li>
@@ -905,7 +920,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Thu Jul 22 13:49:49 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-04-navigate-backwards-to-button-interaction.html?at=jaws">jaws</a></li>
@@ -978,7 +993,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: </li>
+        <li>Last edited: Thu Jul 22 13:49:49 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-05-navigate-forwards-to-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1027,7 +1042,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: </li>
+        <li>Last edited: Thu Jul 22 13:49:49 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-06-navigate-backwards-to-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1076,7 +1091,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Thu Jul 22 13:49:49 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-07-read-information-about-button-reading.html?at=jaws">jaws</a></li>
@@ -1151,7 +1166,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Thu Jul 22 13:49:49 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-08-read-information-about-button-interaction.html?at=jaws">jaws</a></li>
@@ -1226,7 +1241,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: </li>
+        <li>Last edited: Thu Jul 22 13:49:49 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-09-read-information-about-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

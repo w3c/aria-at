@@ -791,14 +791,17 @@ function renderVirtualResultsTable(results) {
 }
 
 /**
- * Passing assertion values submitted from the tester result form.
- *
- * In the submitted json object the values contain spaces and are title cased.
- *
  * @typedef SubmitResultDetailsCommandsAssertionsPass
  * @property {string} assertion
  * @property {string} priority
- * @property {EnumValues<typeof AssertionPassJSONMap>} pass
+ * @property {AssertionPassJSON} pass
+ */
+
+/**
+ * Passing assertion values submitted from the tester result form.
+ *
+ * In the submitted json object the values contain spaces and are title cased.
+ * @typedef {EnumValues<typeof AssertionPassJSONMap>} AssertionPassJSON
  */
 
 const AssertionPassJSONMap = createEnumMap({
@@ -806,15 +809,18 @@ const AssertionPassJSONMap = createEnumMap({
 });
 
 /**
+ * @typedef SubmitResultDetailsCommandsAssertionsFail
+ * @property {string} assertion
+ * @property {string} priority
+ * @property {AssertionFailJSON} fail
+ */
+
+/**
  * Failing assertion values from the tester result form as are submitted in the
  * JSON result object.
  *
  * In the submitted json object the values contain spaces and are title cased.
- *
- * @typedef SubmitResultDetailsCommandsAssertionsFail
- * @property {string} assertion
- * @property {string} priority
- * @property {EnumValues<typeof AssertionFailJSONMap>} fail
+ * @typedef {EnumValues<typeof AssertionFailJSONMap>} AssertionFailJSON
  */
 
 const AssertionFailJSONMap = createEnumMap({

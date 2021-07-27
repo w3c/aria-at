@@ -243,7 +243,7 @@ const ElementType = {
 const FragmentType = {
   name: FRAGMENT_TYPE_NAME,
   diffEntry: /** @type {DiffEntryFunction} */ (diffChildEntry),
-  init(queue, parent, after, node) {
+  init(queue, parent, after) {
     return {
       type: FragmentType,
       parent,

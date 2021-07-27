@@ -791,6 +791,10 @@ function renderVirtualResultsTable(results) {
 }
 
 /**
+ * Passing assertion values submitted from the tester result form.
+ *
+ * In the submitted json object the values contain spaces and are title cased.
+ *
  * @typedef SubmitResultDetailsCommandsAssertionsPass
  * @property {string} assertion
  * @property {string} priority
@@ -802,6 +806,11 @@ const AssertionPassJSONMap = createEnumMap({
 });
 
 /**
+ * Failing assertion values from the tester result form as are submitted in the
+ * JSON result object.
+ *
+ * In the submitted json object the values contain spaces and are title cased.
+ *
  * @typedef SubmitResultDetailsCommandsAssertionsFail
  * @property {string} assertion
  * @property {string} priority
@@ -816,7 +825,16 @@ const AssertionFailJSONMap = createEnumMap({
 
 /** @typedef {SubmitResultDetailsCommandsAssertionsPass | SubmitResultDetailsCommandsAssertionsFail} SubmitResultAssertionsJSON */
 
-/** @typedef {EnumValues<typeof CommandSupportJSONMap>} CommandSupportJSON */
+/**
+ * Command result derived from priority 1 and 2 assertions.
+ *
+ * Support is "FAILING" is priority 1 assertions fail. Support is "ALL REQUIRED"
+ * if priority 2 assertions fail.
+ *
+ * In the submitted json object values may contain spaces and are in ALL CAPS.
+ *
+ * @typedef {EnumValues<typeof CommandSupportJSONMap>} CommandSupportJSON
+ */
 
 const CommandSupportJSONMap = createEnumMap({
   FULL: "FULL",
@@ -825,6 +843,10 @@ const CommandSupportJSONMap = createEnumMap({
 });
 
 /**
+ * Highest level status submitted from test result.
+ *
+ * In the submitted json object values are in ALL CAPS.
+ *
  * @typedef {EnumValues<typeof StatusJSONMap>} SubmitResultStatusJSON
  */
 

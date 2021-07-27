@@ -1,10 +1,10 @@
-/** @deprecated See aria-at-test-io.mjs */
+/** @deprecated See aria-at-test-io-format.mjs */
 
 import * as keys from './keys.mjs';
 
 /**
  * Class for getting AT-specific instructions for a test against a design pattern.
- * @deprecated See aria-at-test-io.mjs:CommandsInput
+ * @deprecated See aria-at-test-io-format.mjs:CommandsInput
  */
 export class commandsAPI {
   /**

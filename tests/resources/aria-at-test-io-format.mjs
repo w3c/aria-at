@@ -23,7 +23,7 @@ class KeysInput {
    * @param {string} value.origin
    * @param {{[KEY_ID: string]: string}} value.keys
    * @param {ATJSON} value.at
-   * @param {{[atMode in ATMode]: {[atKey: string]: string}}} value.modeInstructions
+   * @param {{[atMode in ATMode]: string}} value.modeInstructions
    * @private
    */
   constructor(value) {
@@ -49,9 +49,8 @@ class KeysInput {
    * @param {ATMode} atMode
    */
   modeInstructions(atMode) {
-    const atKey = this._value.at.key;
-    if (this._value.modeInstructions[atMode] && this._value.modeInstructions[atMode][atKey]) {
-      return this._value.modeInstructions[atMode][atKey];
+    if (this._value.modeInstructions[atMode]) {
+      return this._value.modeInstructions[atMode];
     }
     return "";
   }
@@ -62,22 +61,28 @@ class KeysInput {
    */
   static fromBuiltinAndConfig({configInput}) {
     const keys = keysModule;
+    const atKey = configInput.at().key;
+
+    invariant(
+      ['jaws', 'nvda', 'voiceover_macos'].includes(atKey),
+      '%s is one of "jaws", "nvda", or "voiceover_macos"', atKey
+    );
 
     return new KeysInput({
       origin: "resources/keys.mjs",
       keys,
-      at: configInput.at(),
+      at: atKey,
       modeInstructions: {
         reading: {
           jaws: `Verify the Virtual Cursor is active by pressing ${keys.ALT_DELETE}. If it is not, turn on the Virtual Cursor by pressing ${keys.INS_Z}.`,
           nvda: `Insure NVDA is in browse mode by pressing ${keys.ESC}. Note: This command has no effect if NVDA is already in browse mode.`,
           voiceover_macos: `Toggle Quick Nav ON by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`,
-        },
+        }[atKey],
         interaction: {
           jaws: `Verify the PC Cursor is active by pressing ${keys.ALT_DELETE}. If it is not, turn off the Virtual Cursor by pressing ${keys.INS_Z}.`,
           nvda: `If NVDA did not make the focus mode sound when the test page loaded, press ${keys.INS_SPACE} to turn focus mode on.`,
           voiceover_macos: `Toggle Quick Nav OFF by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`,
-        },
+        }[atKey],
       },
     });
   }

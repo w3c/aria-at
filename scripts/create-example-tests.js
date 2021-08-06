@@ -290,17 +290,23 @@ const createExampleTests = ({directory, args = {}}) => new Promise(resolve => {
       return newValues;
     }
 
+    /**
+     * Determines priority level (default is 1) of assertion string, then adds it to the collection of assertions for
+     * the test plan
+     * @param {string} a - Assertion string to be evaluated
+     */
     function addAssertion(a) {
       let level = '1';
       let str = a;
       a = a.trim();
 
-      let parts = a.split(':');
+      // matches a 'colon' when preceded by either of the digits 1 OR 2 (SINGLE CHARACTER), at the start of the string
+      let parts = a.split(/(?<=^[1-2]):/g);
 
       if (parts.length === 2) {
         level = parts[0];
         str = parts[1].substring(0);
-        if ((level != '1') && (level != '2')) {
+        if ((level !== '1') && (level !== '2')) {
           addTestError(test.testId, "Level value must be 1 or 2, value found was '" + level + "' for assertion '" + str + "' (NOTE: level 2 defined for this assertion).");
           level = '2';
         }

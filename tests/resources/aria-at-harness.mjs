@@ -274,9 +274,9 @@ function renderVirtualTestPage(doc) {
       ? div(
           section(
             id("errors"),
-            style({display: doc.errors.visible ? "block" : "none"}),
+            style({display: doc.errors && doc.errors.visible ? "block" : "none"}),
             h2("Test cannot be performed due to error(s)!"),
-            ul(...(doc.errors.errors ? doc.errors.errors.map(error => li(error)) : [])),
+            ul(...(doc.errors && doc.errors.errors ? doc.errors.errors.map(error => li(error)) : [])),
             hr()
           ),
           section(id("instructions"), renderVirtualInstructionDocument(doc.instructions)),

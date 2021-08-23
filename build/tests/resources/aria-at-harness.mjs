@@ -274,9 +274,9 @@ function renderVirtualTestPage(doc) {
       ? div(
           section(
             id("errors"),
-            style({display: doc.errors ? "block" : "none"}),
+            style({display: doc.errors && doc.errors.visible ? "block" : "none"}),
             h2("Test cannot be performed due to error(s)!"),
-            ul(...(doc.errors ? doc.errors.map(error => li(error)) : [])),
+            ul(...(doc.errors && doc.errors.errors ? doc.errors.errors.map(error => li(error)) : [])),
             hr()
           ),
           section(id("instructions"), renderVirtualInstructionDocument(doc.instructions)),
@@ -524,9 +524,9 @@ function renderVirtualResultsTable(results) {
   }
 }
 
-/** @typedef {import('./aria-at-test-io-format.js').SupportJSON} SupportJSON */
-/** @typedef {import('./aria-at-test-io-format.js').CommandsJSON} CommandsJSON */
-/** @typedef {import('./aria-at-test-io-format.js').BehaviorJSON} BehaviorJSON */
+/** @typedef {import('./aria-at-test-io-format.mjs').SupportJSON} SupportJSON */
+/** @typedef {import('./aria-at-test-io-format.mjs').CommandsJSON} CommandsJSON */
+/** @typedef {import('./aria-at-test-io-format.mjs').BehaviorJSON} BehaviorJSON */
 
 /** @typedef {import('./aria-at-test-run.mjs').TestRunState} TestRunState */
 
@@ -545,5 +545,5 @@ function renderVirtualResultsTable(results) {
 /** @typedef {import('./aria-at-test-run.mjs').ResultsTableDocument} ResultsTableDocument */
 
 /**
- * @typedef {import('./aria-at-test-io-format.js').TestPageAndResultsDocument} TestPageAndResultsDocument
+ * @typedef {import('./aria-at-test-io-format.mjs').TestPageAndResultsDocument} TestPageAndResultsDocument
  */

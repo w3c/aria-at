@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to checkbox</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  var scripts = {
+		moveFocusAfterAndCheckFirstCheckbox: function(testPageDocument){
+			// Move focus to link after first checkbox and set aria-checked on first checkbox
+			testPageDocument.querySelector('#afterlink').focus();
+			testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link after the first checkbox and sets the state of the first checkbox to checked",
+  "setupTestPage": "moveFocusAfterAndCheckFirstCheckbox",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to checkbox",
+  "specific_user_instruction": "Navigate to the first checkbox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Lettuce' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (checked) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to checkbox": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_X" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ],
+        [
+          "LEFT",
+          "(with Smart Navigation on)"
+        ]
+      ],
+      "nvda": [
+        [ "SHIFT_X" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ], [ "TAB" ] ],
+      "nvda": [
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "voiceover_macos": [
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ],
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175030/checkbox-1/checkbox-1.html");
+  });
+</script>
+  

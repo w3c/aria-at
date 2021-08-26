@@ -71,11 +71,25 @@
             	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusAfterAndCheckFirstCheckbox: function(testPageDocument){
+	// Move focus to link after first checkbox and set aria-checked on first checkbox
+	testPageDocument.querySelector('#afterlink').focus();
+	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusAfterFirstCheckbox: function(testPageDocument){
+	// Move focus to link after first checkbox
+	testPageDocument.querySelector('#afterlink').focus();
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
 	// Move focus and set aria-checked on first checkbox
 	const checkbox = testPageDocument.querySelector('[role="checkbox"]');
 	checkbox.focus();
 	checkbox.setAttribute('aria-checked', 'true');
+},	moveFocusBeforeAndCheckFirstCheckbox: function(testPageDocument){
+	// Move focus to link before first checkbox and set aria-checked on first checkbox
+	testPageDocument.querySelector('#beforelink').focus();
+	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusBeforeFirstCheckbox: function(testPageDocument){
+	// Move focus to link before first checkbox
+	testPageDocument.querySelector('#beforelink').focus();
 },	moveFocusToFirstCheckbox: function(testPageDocument){
 	// Move focus to first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').focus();
@@ -640,7 +654,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-01-navigate-forwards-to-menu-button-reading.html?at=jaws">jaws</a></li>
@@ -719,7 +733,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-02-navigate-backwards-to-menu-button-reading.html?at=jaws">jaws</a></li>
@@ -798,7 +812,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-03-navigate-forwards-to-menu-button-interaction.html?at=jaws">jaws</a></li>
@@ -871,7 +885,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-04-navigate-backwards-to-menu-button-interaction.html?at=jaws">jaws</a></li>
@@ -944,7 +958,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-05-navigate-forwards-to-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -993,7 +1007,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-06-navigate-backwards-to-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1042,7 +1056,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-07-read-information-about-menu-button-reading.html?at=jaws">jaws</a></li>
@@ -1117,7 +1131,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-08-read-information-about-menu-button-interaction.html?at=jaws">jaws</a></li>
@@ -1192,7 +1206,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-09-read-information-about-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1240,7 +1254,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-10-open-menu-reading.html?at=jaws">jaws</a></li>
@@ -1325,7 +1339,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-11-open-menu-interaction.html?at=jaws">jaws</a></li>
@@ -1412,7 +1426,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-12-open-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1468,7 +1482,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-13-open-menu-to-last-item-interaction.html?at=jaws">jaws</a></li>
@@ -1551,7 +1565,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-14-open-menu-to-last-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1604,7 +1618,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-15-read-information-about-menu-item-interaction.html?at=jaws">jaws</a></li>
@@ -1683,7 +1697,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-16-read-information-about-menu-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1733,7 +1747,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-17-navigate-to-first-item-in-menu-interaction.html?at=jaws">jaws</a></li>
@@ -1812,7 +1826,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-18-navigate-to-first-item-in-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1862,7 +1876,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-19-navigate-to-last-item-in-menu-interaction.html?at=jaws">jaws</a></li>
@@ -1941,7 +1955,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-20-navigate-to-last-item-in-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1991,7 +2005,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-21-navigate-to-item-in-menu-by-typing-character-interaction.html?at=jaws">jaws</a></li>
@@ -2068,7 +2082,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-22-navigate-to-item-in-menu-by-typing-character-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2117,7 +2131,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-23-activate-menu-item-interaction.html?at=jaws">jaws</a></li>
@@ -2190,7 +2204,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-24-activate-menu-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2238,7 +2252,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-25-close-menu-interaction.html?at=jaws">jaws</a></li>
@@ -2311,7 +2325,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-26-close-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

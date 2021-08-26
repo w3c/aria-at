@@ -1,67 +1,108 @@
 {
-  "navigate to unchecked checkbox": {
+  "navigate forwards to checkbox": {
     "reading": {
       "jaws": [
-        [ "X_AND_SHIFT_X" ],
-        [ "F_AND_SHIFT_F" ],
-        [ "TAB_AND_SHIFT_TAB" ],
-        [ "UP_AND_DOWN" ],
+        [ "X" ],
+        [ "F" ],
+        [ "TAB" ],
+        [ "DOWN" ],
         [
-          "LEFT_AND_RIGHT",
+          "RIGHT",
           "(with Smart Navigation on)"
         ]
       ],
       "nvda": [
-        [ "X_AND_SHIFT_X" ],
-        [ "F_AND_SHIFT_F" ],
-        [ "TAB_AND_SHIFT_TAB" ],
-        [ "UP_AND_DOWN" ]
+        [ "X" ],
+        [ "F" ],
+        [ "TAB" ],
+        [ "DOWN" ]
       ]
     },
     "interaction": {
-      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
-      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "jaws": [ [ "TAB" ], [ "TAB" ] ],
+      "nvda": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
       "voiceover_macos": [
-        [ "TAB_AND_SHIFT_TAB" ],
-        [
-          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
-        ],
-        [
-          "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
-        ]
+        [ "TAB" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_J" ],
+        [ "TAB" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_J" ]
       ]
     }
   },
-  "navigate to checked checkbox": {
+  "navigate backwards to checkbox": {
     "reading": {
       "jaws": [
-        [ "X_AND_SHIFT_X" ],
-        [ "F_AND_SHIFT_F" ],
-        [ "TAB_AND_SHIFT_TAB" ],
-        [ "UP_AND_DOWN" ],
+        [ "SHIFT_X" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ],
         [
-          "LEFT_AND_RIGHT",
+          "LEFT",
           "(with Smart Navigation on)"
         ]
       ],
       "nvda": [
-        [ "X_AND_SHIFT_X" ],
-        [ "F_AND_SHIFT_F" ],
-        [ "TAB_AND_SHIFT_TAB" ],
-        [ "UP_AND_DOWN" ]
+        [ "SHIFT_X" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ]
       ]
     },
     "interaction": {
-      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
-      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "jaws": [ [ "SHIFT_TAB" ], [ "TAB" ] ],
+      "nvda": [
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_TAB" ]
+      ],
       "voiceover_macos": [
-        [ "TAB_AND_SHIFT_TAB" ],
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ],
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  },
+  "navigate forwards to checked checkbox": {
+    "reading": {
+      "jaws": [
+        [ "X" ],
+        [ "F" ],
+        [ "TAB" ],
+        [ "DOWN" ],
         [
-          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
-        ],
-        [
-          "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
+          "RIGHT",
+          "(with Smart Navigation on)"
         ]
+      ],
+      "nvda": [
+        [ "X" ],
+        [ "F" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ]
+    }
+  },
+  "navigate backwards to checked checkbox": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_X" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ],
+        [
+          "LEFT",
+          "(with Smart Navigation on)"
+        ]
+      ],
+      "nvda": [
+        [ "SHIFT_X" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "DOWN" ]
       ]
     }
   },

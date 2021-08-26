@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "",
+  "setupTestPage": "",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read checkbox group",
+  "specific_user_instruction": "When reading cursor is on a checkbox",
+  "output_assertions": [
+    [
+      "1",
+      " read its grouping information"
+    ],
+    [
+      "2",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ]
+  ]
+}

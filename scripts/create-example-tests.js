@@ -1,9 +1,17 @@
+/// <reference path="../types/aria-at-csv.js" />
+/// <reference path="../types/aria-at-parsed.js" />
+/// <reference path="../types/aria-at-validated.js" />
+/// <reference path="../types/aria-at-file.js" />
+
 'use strict';
 const fs = require('fs');
 const fse = require('fs-extra');
 const path = require('path');
 const csv = require('csv-parser');
 const beautify = require('json-beautify');
+
+const {reindent} = require('../lib/lines');
+const {Queryable} = require('../lib/queryable');
 
 let VERBOSE_CHECK = false;
 let VALIDATE_CHECK = false;
@@ -435,6 +443,7 @@ const createExampleTests = ({directory, args = {}}) => new Promise(resolve => {
       addAssertion(test["assertion" + i]);
     }
 
+    /** @type {AriaATFile.Behavior} */
     let testData = {
       setup_script_description: getSetupScriptDescription(test.setupScriptDescription),
       setupTestPage: test.setupScript,
@@ -481,6 +490,9 @@ ${references}
   `;
 
     if (!VALIDATE_CHECK) fse.writeFileSync(testPlanHtmlFileBuildPath, testHTML, 'utf8');
+
+    /** @type {AriaATFile.CollectedTest} */
+    const collectedTest = {};
 
     const applies_to_at = [];
 
@@ -609,9 +621,12 @@ ${rows}
     errors += '[Command]: The key reference "' + key + '" is invalid for the "' + task + '" task.\n';
   }
 
+  const refRows = [];
+
   fs.createReadStream(referencesCsvFilePath)
     .pipe(csv())
     .on('data', (row) => {
+      refRows.push(row);
       refs[row.refId] = row.value.trim();
     })
     .on('end', () => {
@@ -635,6 +650,59 @@ ${rows}
 
               logger('Deleting current test files...')
               deleteFilesFromDirectory(testPlanDirectory);
+
+              const scripts = loadScripts(path.join(testPlanDirectory, 'data', 'js'));
+
+              const commandsParsed = atCommands.map(parseCommandCSVRow);
+              const testsParsed = tests.map(parseTestCSVRow);
+              const referencesParsed = parseRefencesCSV(refRows);
+              const keysParsed = parseKeyMap(keyDefs);
+              const supportParsed = parseSupport(support);
+
+              const supportQueryables = {
+                at: Queryable.from('at', supportParsed.ats),
+                atGroup: Queryable.from('atGroup', supportParsed.atGroups),
+              };
+              const commandLookups = {
+                key: Queryable.from('key', keysParsed),
+                support: supportQueryables,
+              };
+              const commandsValidated = commandsParsed.map(command => validateCommand(command, commandLookups, {addCommandError}));
+
+              const referenceQueryable = Queryable.from('reference', referencesParsed);
+              const testLookups = {
+                command: Queryable.from('command', commandsValidated),
+                mode: Queryable.from('mode', validModes),
+                reference: referenceQueryable,
+                script: Queryable.from('script', scripts),
+                support: supportQueryables,
+              };
+              const testsValidated = testsParsed.map((test) =>
+                validateTest(test, testLookups, {
+                  addTestError: addTestError.bind(null, test.testId),
+                })
+              );
+
+              const testQueryable = Queryable.from('test', testsValidated);
+              const testsCollected = commandsValidated.map(command => collectTestData({
+                command,
+                test: testQueryable.where({testId: command.testId}),
+                reference: referenceQueryable,
+              }));
+
+              const files = [
+                ...createScriptFiles(scripts, testPlanBuildDirectory),
+                ...testsCollected.map(collectedTest => (
+                  createCollectedTestFile(collectedTest, testPlanBuildDirectory)
+                ))
+              ];
+
+              if (!VALIDATE_CHECK) {
+                files.forEach(file => {
+                  fs.mkdirSync(path.dirname(file.path), {recursive: true});
+                  fs.writeFileSync(file.path, file.content);
+                });
+              }
 
               atCommands = createATCommandFile(atCommands);
 
@@ -669,5 +737,485 @@ ${rows}
         })
     })
 });
+
+/**
+ * @param {string} testPlanJsDirectory
+ * @returns {AriaATFile.ScriptSource[]}
+ */
+function loadScripts(testPlanJsDirectory) {
+  return fs.readdirSync(testPlanJsDirectory)
+    .map((scriptFileName) => {
+      const name = path.basename(scriptFileName, '.js');
+      const source = fs.readFileSync(path.join(testPlanJsDirectory, scriptFileName), 'utf-8');
+      const modulePath = path.posix.join('scripts', `${name}.module.js`);
+      const jsonpPath = path.posix.join('scripts', `${name}.jsonp.js`);
+
+      /** @type {AriaATFile.ScriptSource} */
+      return {
+        name,
+        source,
+        modulePath,
+        jsonpPath,
+      };
+    });
+}
+
+/**
+ * @param {AriaATFile.ScriptSource[]} scripts
+ * @param {string} testPlanBuildDirectory
+ * @returns {{path: string, content: string}[]}
+ */
+function createScriptFiles(scripts, testPlanBuildDirectory) {
+  const scriptJsonpFunction = 'scriptJsonpLoaded';
+
+  return [
+    ...scripts.reduce((files, script) => {
+      const {modulePath, jsonpPath} = script;
+      const oneScript = [script];
+
+      return [...files, ...renderFileVariants(oneScript, modulePath, jsonpPath)];
+    }, []),
+    ...renderFileVariants(
+      scripts,
+      'scripts.module.js',
+      'scripts.jsonp.js'
+    ),
+  ];
+
+  function renderFileVariants(scripts, modulePath, jsonpPath) {
+    return [{
+      path: path.join(testPlanBuildDirectory, modulePath),
+      content: renderModule(scripts).toString(),
+    }, {
+      path: path.join(testPlanBuildDirectory, jsonpPath),
+      content: renderJsonp(scripts).toString(),
+    }];
+  }
+
+  function renderJsonp(scripts) {
+    return reindent`${scriptJsonpFunction}({
+  ${scripts.map(renderJsonpExport).join(',\n')}
+});
+`;
+  }
+
+  function renderJsonpExport({name, source}) {
+    return reindent`${name}(testPageDocument) {
+  ${source.trim()}
+}`;
+  }
+
+  function renderModule(scripts) {
+    return reindent`${scripts.map(renderModuleExport).join('\n\n')}
+`;
+  }
+
+  function renderModuleExport({name, source}) {
+    return reindent`export function ${name}(testPageDocument) {
+  ${source.trim()}
+}`;
+  }
+}
+
+/**
+ * @param {AriaATCSV.Command} commandRow
+ * @returns {AriaATParsed.Command}
+ */
+function parseCommandCSVRow(commandRow) {
+  return {
+    testId: Number(commandRow.testId),
+    task: commandRow.task.replace(/[';]/g, '').trim().toLowerCase(),
+    target: {
+      at: {
+        key: commandRow.at.trim().toLowerCase(),
+        raw: commandRow.at,
+      },
+      mode: commandRow.mode.trim().toLowerCase(),
+    },
+    commands: [
+      commandRow.commandA,
+      commandRow.commandB,
+      commandRow.commandC,
+      commandRow.commandD,
+      commandRow.commandE,
+      commandRow.commandF,
+    ]
+      .filter(Boolean)
+      .map(command => {
+        const paranIndex = command.indexOf('(');
+        if (paranIndex >= 0) {
+          return {
+            id: command.substring(0, paranIndex).trim(),
+            extraInstruction: command.substring(paranIndex).trim(),
+          };
+        }
+        return {
+          id: command.trim(),
+        };
+      }),
+  }
+}
+
+/**
+ * @param {Object<string, string>} keyLines
+ * @returns {AriaATParsed.KeyMap}
+ */
+function parseKeyMap(keyDefs) {
+  const keyMap = {};
+  for (const id in keyDefs) {
+    keyMap[id] = {id, keystroke: keyDefs[id]};
+  }
+  return keyMap;
+}
+
+/**
+ * @param {AriaATCSV.Reference[]} referenceRows
+ * @returns {AriaATParsed.ReferenceMap}
+ */
+function parseRefencesCSV(referenceRows) {
+  const refMap = {};
+  for (const {refId, value} of referenceRows) {
+    refMap[refId] = ({refId, value: value.trim()});
+  }
+  return refMap;
+}
+
+/**
+ * @param {AriaATCSV.Support} supportRaw
+ * @returns {AriaATParsed.Support}
+ */
+function parseSupport(supportRaw) {
+  return {
+    ats: supportRaw.ats,
+    atGroups: [
+      ...Object.entries(supportRaw.applies_to).map(([name, value]) => (
+        {
+          key: name.toLowerCase(),
+          name,
+          ats: value.map(key => supportRaw.ats.find(at => at.key === key) || {key})
+        }
+      )),
+      ...supportRaw.ats.map(at => ({key: at.key, name: at.name, ats: [at]})),
+    ],
+  };
+}
+
+/**
+ * @param {AriaATCSV.Test} testRow
+ * @returns {AriaATParsed.Test}
+ */
+function parseTestCSVRow(testRow) {
+  return {
+    testId: Number(testRow.testId),
+    task: testRow.task.replace(/[';]/g, "").trim().toLowerCase(),
+    title: testRow.title,
+    references: testRow.refs
+      .split(" ")
+      .map((raw) => raw.trim().toLowerCase())
+      .filter(Boolean)
+      .map((refId) => ({ refId })),
+    target: {
+      at: testRow.appliesTo
+        .split(",")
+        .map((raw) => ({
+          key: raw.trim().toLowerCase().replace(" ", "_"),
+          raw,
+        })),
+      mode: testRow.mode.trim().toLowerCase(),
+    },
+    setupScript: testRow.setupScript
+      ? {
+          name: testRow.setupScript,
+          description: testRow.setupScriptDescription,
+        }
+      : undefined,
+    instructions: {
+      user: testRow.instructions
+        .split("|")
+        .map((instruction) => instruction.trim()),
+      raw: testRow.instructions,
+    },
+    assertions: [
+      testRow.assertion1,
+      testRow.assertion2,
+      testRow.assertion3,
+      testRow.assertion4,
+      testRow.assertion5,
+      testRow.assertion6,
+      testRow.assertion7,
+      testRow.assertion8,
+      testRow.assertion9,
+      testRow.assertion10,
+      testRow.assertion11,
+      testRow.assertion12,
+      testRow.assertion13,
+      testRow.assertion14,
+      testRow.assertion15,
+      testRow.assertion16,
+      testRow.assertion17,
+      testRow.assertion18,
+      testRow.assertion19,
+      testRow.assertion20,
+      testRow.assertion21,
+      testRow.assertion22,
+      testRow.assertion23,
+      testRow.assertion24,
+      testRow.assertion25,
+      testRow.assertion26,
+      testRow.assertion27,
+      testRow.assertion28,
+      testRow.assertion29,
+      testRow.assertion30,
+    ]
+      .filter(Boolean)
+      .map((assertion) => {
+        const colonMatch = /^([12]):/.exec(assertion);
+        if (colonMatch) {
+          const priority = Number(colonMatch[1]);
+          return {
+            priority: Number.isNaN(priority) ? colonMatch[1] : priority,
+            expectation: assertion.substring(assertion.indexOf(":") + 1).trim(),
+          };
+        }
+        return {
+          priority: 1,
+          expectation: assertion.trim(),
+        };
+      }),
+  };
+}
+
+/**
+ * @param {AriaATParsed.Command} commandParsed
+ * @param {object} data
+ * @param {Queryable<AriaATParsed.Key>} data.key
+ * @param {object} [options]
+ * @param {function(string, string): void} [options.addCommandError]
+ * @returns {AriaATValidated.Command}
+ */
+function validateCommand(commandParsed, data, {addCommandError = () => {}} = {}) {
+  return {
+    ...commandParsed,
+    target: {
+      ...commandParsed.target,
+      at: {
+        ...commandParsed.target.at,
+        ...map(data.support.at.where({key: commandParsed.target.at.key}), ({name}) => ({name})),
+      }
+    },
+    commands: commandParsed.commands.map(command => {
+      const key = data.key.where({id: command.id});
+      if (!key) {
+        addCommandError(commandParsed.task, command.id);
+      }
+      return {
+        ...key,
+        ...command,
+      };
+    }),
+  }
+}
+
+function where(goal, value) {
+  if (typeof goal === 'object') {
+    if (Array.isArray(goal)) {
+
+    }
+    for (const key of Object.keys(goal)) {
+
+    }
+  }
+}
+
+/**
+ *
+ * @param {*} goal
+ * @returns {function(*): boolean}
+ */
+function where2(goal) {
+  if (typeof goal === 'object' && goal !== null) {
+    if (Array.isArray(goal)) {
+      throw new Error();
+    }
+    const keyChecks = Object.entries(goal).map(([key, value]) => {
+      const check = where2(value);
+      const get = target => target[key];
+      return target => check(get(target));
+    });
+    const isObject = target => typeof target === 'object' && !Array.isArray(target);
+    const allChecks = [isObject, ...keyChecks];
+    return target => allChecks.every(check => check(target));
+  } else if (typeof goal === 'function') {
+    throw new Error();
+  }
+  return target => target === goal;
+}
+
+// function extract(goal, target) {
+//   if (typeof goal !== 'object' || goal === null) {
+//     throw new Error();
+//   } else if (!Array.isArray(goal)) {
+//     throw new Error();
+//   }
+//   const obj = {};
+//   for (const key of goal) {
+//     if (typeof key === 'object') {
+//       if (!Array.isArray(key)) {
+//         throw new Error();
+//       } else if (key.length !== 2) {
+//         throw new Error();
+//       } else if (typeof key[0] !== 'string') {
+//         throw new Error();
+//       }
+//       obj[key[0]] = extract(key[1], target[key[0]]);
+//     } else if (typeof key === 'string') {
+//       obj[key] = target[key];
+//     } else {
+//       throw new Error();
+//     }
+//   }
+//   return obj;
+// }
+
+/**
+ * @param {T} value
+ * @param {function(T): U} goal
+ * @returns {T}
+ * @template T
+ * @template {T} U
+ */
+function map(value, goal) {
+  if (value) {
+    return goal(value);
+  }
+  return value;
+}
+
+/**
+ * @param {AriaATParsed.Test} testParsed
+ * @param {object} data
+ * @param {Queryable<AriaATParsed.Command>} data.command
+ * @param {Queryable<string>} data.mode
+ * @param {Queryable<AriaATParsed.Reference>} data.reference
+ * @param {Queryable<AriaATParsed.ScriptSource>} data.script
+ * @param {object} data.support
+ * @param {Queryable<{key: string, name: string}>} data.support.at
+ * @param {Queryable<{key: string, name: string}>} data.support.atGroup
+ * @param {object} [options]
+ * @param {function(string): void} [options.addTestError]
+ * @returns {AriaATValidated.Test}
+ */
+function validateTest(testParsed, data, {addTestError = () => {}} = {}) {
+  if (!data.command.where({task: testParsed.task})) {
+    addTestError(`"${testParsed.task}" does not exist in commands.csv file.`);
+  }
+
+  testParsed.target.at
+    .forEach(at => {
+      if (!data.support.atGroup.where({key: at.key})) {
+        addTestError(`"${at.key}" is not valid value for "appliesTo" property.`);
+      }
+
+      if (!data.command.where({
+        task: testParsed.task,
+        target: {
+          at: {key: at.key},
+          mode: testParsed.target.mode
+        }
+      })) {
+        addTestError(`command is missing for the combination of task: "${testParsed.task}", mode: "${testParsed.target.mode}", and AT: "${at.key}"`);
+      }
+    });
+
+  if (!data.mode.where(testParsed.target.mode)) {
+    addTestError(`"${testParsed.target.mode}" is not valid value for "mode" property.`);
+  }
+
+  const references = testParsed.references
+    .filter(({refId}) => {
+      if (!data.reference.where({refId})) {
+        addTestError(`Reference does not exist: ${refId}`);
+        return false;
+      }
+      return true;
+    });
+
+  if (testParsed.setupScript && !data.script.where({name: testParsed.setupScript.name})) {
+    addTestError(`Setup script does not exist: ${testParsed.setupScript.name}`);
+  }
+
+  const assertions = testParsed.assertions
+    .map(assertion => {
+      if (typeof assertion.priority === 'string' || assertion.priority !== 1 && assertion.priority !== 2) {
+        addTestError(`Level value must be 1 or 2, value found was "${assertion.priority}" for assertion "${assertion.expectation}" (NOTE: level 2 defined for this assertion).`);
+        return {
+          priority: 2,
+          expectation: assertion.expectation,
+        };
+      }
+      return assertion;
+    });
+
+  return {
+    ...testParsed,
+    references: [
+      ...[data.reference.where({refId: 'example'})].filter(Boolean),
+      ...references,
+    ]
+      .map(ref => ({
+        ...ref,
+        ...data.reference.where({refId: ref.refId}),
+      })),
+    target: {
+      at: testParsed.target.at.map(at => ({
+        ...at,
+        ...map(data.support.at.where({key: at.key}), ({name}) => ({name})),
+      })),
+      mode: testParsed.target.mode,
+    },
+    setupScript: testParsed.setupScript ? {
+      ...testParsed.setupScript,
+      ...data.script.where({name: testParsed.setupScript.name}),
+    } : undefined,
+    assertions,
+  };
+}
+
+/**
+ * @param {object} data
+ * @param {AriaATValidated.Test} data.test
+ * @param {AriaATValidated.Command} data.command
+ * @param {Queryable<AriaATCSV.Reference>} data.reference
+ * @returns {AriaATFile.CollectedTest}
+ */
+function collectTestData({test, command, reference}) {
+  return {
+    info: {
+      testId: test.testId,
+      task: test.task,
+      title: test.title,
+      references: test.references,
+    },
+    target: {
+      ...test.target,
+      at: command.target.at,
+      referencePage: reference.where({refId: 'reference'}).value,
+      setupScript: test.setupScript,
+    },
+    instructions: test.instructions,
+    commands: command.commands,
+    assertions: test.assertions,
+  };
+}
+
+/**
+ * @param {AriaATFile.CollectedTest} test
+ */
+function createCollectedTestFile(test, testPlanBuildDirectory) {
+  return {
+    path: path.join(testPlanBuildDirectory, `test-${test.info.testId.toString().padStart(2, '0')}-${test.info.task.replace(/\s+/g, '-')}-${test.target.mode}-${test.target.at.key}.collected.json`),
+    content: beautify(test, null, 2, 40)
+  };
+}
 
 exports.createExampleTests = createExampleTests

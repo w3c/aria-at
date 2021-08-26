@@ -29,4 +29,4 @@ if (args._.length !== 1) {
   process.exit();
 }
 
-createExampleTests(args._[0]);
+createExampleTests({directory: args._[0]});

@@ -71,11 +71,25 @@
             	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusAfterAndCheckFirstCheckbox: function(testPageDocument){
+	// Move focus to link after first checkbox and set aria-checked on first checkbox
+	testPageDocument.querySelector('#afterlink').focus();
+	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusAfterFirstCheckbox: function(testPageDocument){
+	// Move focus to link after first checkbox
+	testPageDocument.querySelector('#afterlink').focus();
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
 	// Move focus and set aria-checked on first checkbox
 	const checkbox = testPageDocument.querySelector('[role="checkbox"]');
 	checkbox.focus();
 	checkbox.setAttribute('aria-checked', 'true');
+},	moveFocusBeforeAndCheckFirstCheckbox: function(testPageDocument){
+	// Move focus to link before first checkbox and set aria-checked on first checkbox
+	testPageDocument.querySelector('#beforelink').focus();
+	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
+},	moveFocusBeforeFirstCheckbox: function(testPageDocument){
+	// Move focus to link before first checkbox
+	testPageDocument.querySelector('#beforelink').focus();
 },	moveFocusToFirstCheckbox: function(testPageDocument){
 	// Move focus to first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').focus();
@@ -625,7 +639,7 @@
   </head>
   <body>
 
-    <h1>Test plan review for pattern: checkbox (26 tests)</h1>
+    <h1>Test plan review for pattern: checkbox (58 tests)</h1>
 
     <fieldset>
       <legend>Filter tests by assistive technology</legend>
@@ -635,16 +649,16 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate to an unchecked checkbox in reading mode</h2>
+    <h2>Test 1: Navigate forwards to checkbox in reading mode</h2>
     <p>
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: </li>
         <li>Tests:
           <ul>
-              <li><a href="../tests/checkbox/test-01-navigate-to-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
-              <li><a href="../tests/checkbox/test-01-navigate-to-unchecked-checkbox-reading.html?at=nvda">nvda</a></li>
+              <li><a href="../tests/checkbox/test-01-navigate-forwards-to-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-01-navigate-forwards-to-checkbox-reading.html?at=nvda">nvda</a></li>
           </ul>
         </li>
         <li>Relevant Specifications:
@@ -657,21 +671,26 @@
       </ul>
 
       <button id="open-test-page-1"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 1, '');">Open Test 1 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 1, 'moveFocusBeforeFirstCheckbox');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
              <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
-             <li>Navigate to the first checkbox. Note: it should be in the unchecked state. using the following commands:
+             <li>Navigate forwards to the first checkbox. using the following commands:
                <ul>
-                   <li>X &#x2F; Shift+X</li>
-                   <li>F &#x2F; Shift+F</li>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Up Arrow &#x2F; Down Arrow</li>
-                   <li>Left Arrow &#x2F; Right Arrow (with Smart Navigation on)</li>
+                   <li>X</li>
+                   <li>F</li>
+                   <li>Tab</li>
+                   <li>Down Arrow</li>
+                   <li>Right Arrow (with Smart Navigation on)</li>
                </ul>
              </li>
           </ol>
@@ -686,16 +705,21 @@
       </div>
       <div class="nvda">
         <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
         <h4>Tester Instructions</h4>
         <p>
           <ol>
              <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
-             <li>Navigate to the first checkbox. Note: it should be in the unchecked state. using the following commands:
+             <li>Navigate forwards to the first checkbox. using the following commands:
                <ul>
-                   <li>X &#x2F; Shift+X</li>
-                   <li>F &#x2F; Shift+F</li>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Up Arrow &#x2F; Down Arrow</li>
+                   <li>X</li>
+                   <li>F</li>
+                   <li>Tab</li>
+                   <li>Down Arrow</li>
                </ul>
              </li>
           </ol>
@@ -708,16 +732,16 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate to an unchecked checkbox in interaction mode</h2>
+    <h2>Test 2: Navigate to an unchecked checkbox in reading mode</h2>
     <p>
       <ul>
-        <li>Mode: interaction</li>
+        <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
-              <li><a href="../tests/checkbox/test-02-navigate-to-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
-              <li><a href="../tests/checkbox/test-02-navigate-to-unchecked-checkbox-interaction.html?at=nvda">nvda</a></li>
+              <li><a href="../tests/checkbox/test-01-navigate-to-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-01-navigate-to-unchecked-checkbox-reading.html?at=nvda">nvda</a></li>
           </ul>
         </li>
         <li>Relevant Specifications:
@@ -737,10 +761,159 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the unchecked state. using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the first checkbox. Note: it should be in the unchecked state. using the following commands:
+               <ul>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 3: Navigate backwards to checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-02-navigate-backwards-to-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-02-navigate-backwards-to-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-3"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 3, 'moveFocusAfterFirstCheckbox');">Open Test 3 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate backwards to the first checkbox. using the following commands:
+               <ul>
+                   <li>Shift+X</li>
+                   <li>Shift+F</li>
+                   <li>Shift+Tab</li>
+                   <li>Up Arrow</li>
+                   <li>Left Arrow (with Smart Navigation on)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate backwards to the first checkbox. using the following commands:
+               <ul>
+                   <li>Shift+X</li>
+                   <li>Shift+F</li>
+                   <li>Shift+Tab</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 4: Navigate to an unchecked checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-02-navigate-to-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-02-navigate-to-unchecked-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-4"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 4, '');">Open Test 4 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
              <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
              <li>Navigate to the first checkbox. Note: it should be in the unchecked state. using the following commands:
                <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
                </ul>
              </li>
           </ol>
@@ -761,7 +934,7 @@
              <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
              <li>Navigate to the first checkbox. Note: it should be in the unchecked state. using the following commands:
                <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
                </ul>
              </li>
           </ol>
@@ -774,12 +947,90 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Navigate to an unchecked checkbox</h2>
+    <h2>Test 5: Navigate forwards to checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-03-navigate-forwards-to-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-03-navigate-forwards-to-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-5"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 5, 'moveFocusBeforeFirstCheckbox');">Open Test 5 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate forwards to the first checkbox. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate forwards to the first checkbox. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 6: Navigate to an unchecked checkbox</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-03-navigate-to-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -794,8 +1045,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 3, '');">Open Test 3 Page</button>
+      <button id="open-test-page-6"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 6, '');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -805,9 +1056,7 @@
              <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
              <li>Navigate to the first checkbox. Note: it should be in the unchecked state. using the following commands:
                <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
-                   <li>Control+Option+Command+J &#x2F; Shift+Control+Option+Command+J</li>
+                   <li>No commands have been added for this test for VoiceOver for macOS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
                </ul>
              </li>
           </ol>
@@ -820,12 +1069,90 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate to a checked checkbox in reading mode</h2>
+    <h2>Test 7: Navigate backwards to checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-04-navigate-backwards-to-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-04-navigate-backwards-to-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-7"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 7, 'moveFocusAfterFirstCheckbox');">Open Test 7 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate backwards to the first checkbox. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate backwards to the first checkbox. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 8: Navigate to a checked checkbox in reading mode</h2>
     <p>
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-04-navigate-to-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -841,8 +1168,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 4, 'checkFirstCheckbox');">Open Test 4 Page</button>
+      <button id="open-test-page-8"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 8, 'checkFirstCheckbox');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -857,11 +1184,7 @@
              <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
              <li>Navigate to the first checkbox. Note: it should be in the checked state. using the following commands:
                <ul>
-                   <li>X &#x2F; Shift+X</li>
-                   <li>F &#x2F; Shift+F</li>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Up Arrow &#x2F; Down Arrow</li>
-                   <li>Left Arrow &#x2F; Right Arrow (with Smart Navigation on)</li>
+                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
                </ul>
              </li>
           </ol>
@@ -887,10 +1210,7 @@
              <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the first checkbox. Note: it should be in the checked state. using the following commands:
                <ul>
-                   <li>X &#x2F; Shift+X</li>
-                   <li>F &#x2F; Shift+F</li>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Up Arrow &#x2F; Down Arrow</li>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
                </ul>
              </li>
           </ol>
@@ -903,12 +1223,66 @@
             <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate to a checked checkbox in interaction mode</h2>
+    <h2>Test 9: Navigate forwards to checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-05-navigate-forwards-to-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-9"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 9, 'moveFocusBeforeFirstCheckbox');">Open Test 9 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate forwards to the first checkbox. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Control+Option+Right</li>
+                   <li>Control+Option+Command+J</li>
+                   <li>Tab</li>
+                   <li>Control+Option+Right</li>
+                   <li>Control+Option+Command+J</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 10: Navigate to a checked checkbox in interaction mode</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-05-navigate-to-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -924,8 +1298,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 5, 'checkFirstCheckbox');">Open Test 5 Page</button>
+      <button id="open-test-page-10"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 10, 'checkFirstCheckbox');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -940,7 +1314,7 @@
              <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
              <li>Navigate to the first checkbox. Note: it should be in the checked state. using the following commands:
                <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
                </ul>
              </li>
           </ol>
@@ -966,7 +1340,7 @@
              <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
              <li>Navigate to the first checkbox. Note: it should be in the checked state. using the following commands:
                <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
+                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
                </ul>
              </li>
           </ol>
@@ -979,12 +1353,66 @@
             <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate to a checked checkbox</h2>
+    <h2>Test 11: Navigate backwards to checkbox</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-06-navigate-backwards-to-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-11"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 11, 'moveFocusAfterFirstCheckbox');">Open Test 11 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate backwards to the first checkbox. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+                   <li>Ctrl+Option+Left</li>
+                   <li>Shift+Control+Option+Command+J</li>
+                   <li>Shift+Tab</li>
+                   <li>Ctrl+Option+Left</li>
+                   <li>Shift+Control+Option+Command+J</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 12: Navigate to a checked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-06-navigate-to-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -999,8 +1427,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 6, 'checkFirstCheckbox');">Open Test 6 Page</button>
+      <button id="open-test-page-12"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 12, 'checkFirstCheckbox');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1015,9 +1443,7 @@
              <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
              <li>Navigate to the first checkbox. Note: it should be in the checked state. using the following commands:
                <ul>
-                   <li>Tab &#x2F; Shift+Tab</li>
-                   <li>Control+Option+Right &#x2F; Ctrl+Option+Left</li>
-                   <li>Control+Option+Command+J &#x2F; Shift+Control+Option+Command+J</li>
+                   <li>No commands have been added for this test for VoiceOver for macOS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
                </ul>
              </li>
           </ol>
@@ -1030,12 +1456,95 @@
             <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Operate a checkbox in reading mode</h2>
+    <h2>Test 13: Navigate forwards to checkbox in reading mode</h2>
     <p>
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-07-navigate-forwards-to-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-07-navigate-forwards-to-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-13"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 13, 'moveFocusBeforeAndCheckFirstCheckbox');">Open Test 13 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox and sets the state of the first checkbox to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first checkbox. using the following commands:
+               <ul>
+                   <li>X</li>
+                   <li>F</li>
+                   <li>Tab</li>
+                   <li>Down Arrow</li>
+                   <li>Right Arrow (with Smart Navigation on)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox and sets the state of the first checkbox to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the first checkbox. using the following commands:
+               <ul>
+                   <li>X</li>
+                   <li>F</li>
+                   <li>Tab</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 14: Operate a checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-07-operate-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1050,8 +1559,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 7, '');">Open Test 7 Page</button>
+      <button id="open-test-page-14"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 14, '');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1093,12 +1602,95 @@
             <tr><td>required</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Operate a checkbox in interaction mode</h2>
+    <h2>Test 15: Navigate backwards to checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-08-navigate-backwards-to-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-08-navigate-backwards-to-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-15"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 15, 'moveFocusAfterAndCheckFirstCheckbox');">Open Test 15 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox and sets the state of the first checkbox to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first checkbox. using the following commands:
+               <ul>
+                   <li>Shift+X</li>
+                   <li>Shift+F</li>
+                   <li>Shift+Tab</li>
+                   <li>Up Arrow</li>
+                   <li>Left Arrow (with Smart Navigation on)</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox and sets the state of the first checkbox to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate to the first checkbox. using the following commands:
+               <ul>
+                   <li>Shift+X</li>
+                   <li>Shift+F</li>
+                   <li>Shift+Tab</li>
+                   <li>Up Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 16: Operate a checkbox in interaction mode</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-08-operate-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1113,8 +1705,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 8, '');">Open Test 8 Page</button>
+      <button id="open-test-page-16"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 16, '');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1154,12 +1746,90 @@
             <tr><td>required</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Operate a checkbox</h2>
+    <h2>Test 17: Navigate forwards to checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-09-navigate-forwards-to-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-09-navigate-forwards-to-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-17"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 17, 'moveFocusBeforeAndCheckFirstCheckbox');">Open Test 17 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox and sets the state of the first checkbox to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first checkbox. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox and sets the state of the first checkbox to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the first checkbox. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 18: Operate a checkbox</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-09-operate-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1173,8 +1843,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 9, '');">Open Test 9 Page</button>
+      <button id="open-test-page-18"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 18, '');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1196,12 +1866,90 @@
             <tr><td>required</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 10: Read an unchecked checkbox in reading mode</h2>
+    <h2>Test 19: Navigate backwards to checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-10-navigate-backwards-to-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-10-navigate-backwards-to-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-19"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 19, 'moveFocusAfterAndCheckFirstCheckbox');">Open Test 19 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox and sets the state of the first checkbox to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate to the first checkbox. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+                   <li>Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox and sets the state of the first checkbox to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate to the first checkbox. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 20: Read an unchecked checkbox in reading mode</h2>
     <p>
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-10-read-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1217,8 +1965,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 10, 'moveFocusToFirstCheckbox');">Open Test 10 Page</button>
+      <button id="open-test-page-20"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 20, 'moveFocusToFirstCheckbox');">Open Test 20 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1274,12 +2022,66 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 11: Read an unchecked checkbox in interaction mode</h2>
+    <h2>Test 21: Navigate forwards to checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-11-navigate-forwards-to-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-21"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 21, 'moveFocusBeforeAndCheckFirstCheckbox');">Open Test 21 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link before the first checkbox and sets the state of the first checkbox to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the first checkbox. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Control+Option+Right</li>
+                   <li>Control+Option+Command+J</li>
+                   <li>Tab</li>
+                   <li>Control+Option+Right</li>
+                   <li>Control+Option+Command+J</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 22: Read an unchecked checkbox in interaction mode</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-11-read-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1295,8 +2097,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 11, 'moveFocusToFirstCheckbox');">Open Test 11 Page</button>
+      <button id="open-test-page-22"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 22, 'moveFocusToFirstCheckbox');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1352,12 +2154,66 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Read an unchecked checkbox</h2>
+    <h2>Test 23: Navigate backwards to checkbox</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-12-navigate-backwards-to-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-23"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 23, 'moveFocusAfterAndCheckFirstCheckbox');">Open Test 23 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on a link after the first checkbox and sets the state of the first checkbox to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate to the first checkbox. using the following commands:
+               <ul>
+                   <li>Shift+Tab</li>
+                   <li>Ctrl+Option+Left</li>
+                   <li>Shift+Control+Option+Command+J</li>
+                   <li>Shift+Tab</li>
+                   <li>Ctrl+Option+Left</li>
+                   <li>Shift+Control+Option+Command+J</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 24: Read an unchecked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-12-read-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1372,8 +2228,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 12, 'moveFocusToFirstCheckbox');">Open Test 12 Page</button>
+      <button id="open-test-page-24"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 24, 'moveFocusToFirstCheckbox');">Open Test 24 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1402,12 +2258,85 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 13: Read a checked checkbox in reading mode</h2>
+    <h2>Test 25: Operate a checkbox in reading mode</h2>
     <p>
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-13-operate-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-13-operate-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-25"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 25, 'moveFocusToFirstCheckbox');">Open Test 25 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Check and uncheck the first checkbox. using the following commands:
+               <ul>
+                   <li>Enter</li>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Check and uncheck the first checkbox. using the following commands:
+               <ul>
+                   <li>Enter</li>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 26: Read a checked checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-13-read-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1423,8 +2352,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 13, 'moveFocusAndCheckFirstCheckbox');">Open Test 13 Page</button>
+      <button id="open-test-page-26"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 26, 'moveFocusAndCheckFirstCheckbox');">Open Test 26 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1480,12 +2409,83 @@
             <tr><td>required</td><td>State of the checkbox ( checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 14: Read a checked checkbox in interaction mode</h2>
+    <h2>Test 27: Operate a checkbox in interaction mode</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-14-operate-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-14-operate-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-27"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 27, 'moveFocusToFirstCheckbox');">Open Test 27 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Check and uncheck the first checkbox. using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Check and uncheck the first checkbox. using the following commands:
+               <ul>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 28: Read a checked checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-14-read-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1501,8 +2501,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 14, 'moveFocusAndCheckFirstCheckbox');">Open Test 14 Page</button>
+      <button id="open-test-page-28"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 28, 'moveFocusAndCheckFirstCheckbox');">Open Test 28 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1558,12 +2558,59 @@
             <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 15: Read a checked checkbox</h2>
+    <h2>Test 29: Operate a checkbox</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-15-operate-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-29"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 29, 'moveFocusToFirstCheckbox');">Open Test 29 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Check and uncheck the first checkbox. using the following commands:
+               <ul>
+                   <li>Control+Option+Space</li>
+                   <li>Space</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Change in state is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 30: Read a checked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-15-read-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1578,8 +2625,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 15, 'moveFocusAndCheckFirstCheckbox');">Open Test 15 Page</button>
+      <button id="open-test-page-30"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 30, 'moveFocusAndCheckFirstCheckbox');">Open Test 30 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1608,12 +2655,12 @@
             <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Read grouping information of a grouped checkbox in reading mode</h2>
+    <h2>Test 31: Read grouping information of a grouped checkbox in reading mode</h2>
     <p>
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1629,8 +2676,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 16, '');">Open Test 16 Page</button>
+      <button id="open-test-page-31"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 31, '');">Open Test 31 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1672,12 +2719,92 @@
             <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 17: Read grouping information of a grouped checkbox in interaction mode</h2>
+    <h2>Test 32: Read an unchecked checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-16-read-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-16-read-unchecked-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-32"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 32, 'moveFocusToFirstCheckbox');">Open Test 32 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>When the reading cursor is on the first checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read the first checkbox</td></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>When the reading cursor is on the first checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read the first checkbox</td></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 33: Read grouping information of a grouped checkbox in interaction mode</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1693,8 +2820,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 17, '');">Open Test 17 Page</button>
+      <button id="open-test-page-33"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 33, '');">Open Test 33 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1736,12 +2863,92 @@
             <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 18: Read grouping information of a grouped checkbox</h2>
+    <h2>Test 34: Read an unchecked checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-17-read-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-17-read-unchecked-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-34"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 34, 'moveFocusToFirstCheckbox');">Open Test 34 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>When the focus is on the first checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read the first checkbox</td></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>When the focus is on the first checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read the first checkbox</td></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 35: Read grouping information of a grouped checkbox</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1756,8 +2963,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 18, '');">Open Test 18 Page</button>
+      <button id="open-test-page-35"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 35, '');">Open Test 35 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1780,12 +2987,63 @@
             <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 19: Navigate sequentially through a checkbox group in reading mode</h2>
+    <h2>Test 36: Read an unchecked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-18-read-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-36"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 36, 'moveFocusToFirstCheckbox');">Open Test 36 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>When the focus is on the first checkbox using the following commands:
+               <ul>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read the first checkbox</td></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 37: Navigate sequentially through a checkbox group in reading mode</h2>
     <p>
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-19-navigate-sequentially-through-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1802,8 +3060,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 19, '');">Open Test 19 Page</button>
+      <button id="open-test-page-37"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 37, '');">Open Test 37 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1849,12 +3107,92 @@
             <tr><td>required</td><td>Group boundaries at start and end of group are conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 20: Navigate sequentially through a checkbox group</h2>
+    <h2>Test 38: Read a checked checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-19-read-checked-checkbox-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-19-read-checked-checkbox-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-38"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 38, 'moveFocusAndCheckFirstCheckbox');">Open Test 38 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox and sets its state to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>When the reading cursor is on the first checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read the first checkbox.</td></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox ( checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox and sets its state to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>When the reading cursor is on the first checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read the first checkbox.</td></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox ( checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 39: Navigate sequentially through a checkbox group</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-20-navigate-sequentially-through-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1870,8 +3208,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 20, '');">Open Test 20 Page</button>
+      <button id="open-test-page-39"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 39, '');">Open Test 39 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1895,12 +3233,92 @@
             <tr><td>required</td><td>Group boundaries at start and end of group are conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 21: Navigate into a checkbox group in reading mode</h2>
+    <h2>Test 40: Read a checked checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-20-read-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-20-read-checked-checkbox-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-40"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 40, 'moveFocusAndCheckFirstCheckbox');">Open Test 40 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox and sets its state to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>When the focus is on the first checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read the first checkbox.</td></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox and sets its state to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>When the focus is on the first checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+                   <li>Insert+Up</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read the first checkbox.</td></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 41: Navigate into a checkbox group in reading mode</h2>
     <p>
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-21-navigate-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1917,8 +3335,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 21, '');">Open Test 21 Page</button>
+      <button id="open-test-page-41"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 41, '');">Open Test 41 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1972,12 +3390,63 @@
             <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 22: Navigate into a checkbox group in interaction mode</h2>
+    <h2>Test 42: Read a checked checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-21-read-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-42"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 42, 'moveFocusAndCheckFirstCheckbox');">Open Test 42 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Scripted Instructions</h4>
+        The following instructions are executed by a script in the test page to initialize the widget:
+        <ol>
+        <li>sets focus on the first checkbox and sets its state to checked</li>
+        </ol>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>When the focus is on the first checkbox using the following commands:
+               <ul>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read the first checkbox.</td></tr>
+            <tr><td>required</td><td>Role &#39;checkbox&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Name &#39;Lettuce&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 43: Navigate into a checkbox group in interaction mode</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-22-navigate-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1994,8 +3463,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 22, '');">Open Test 22 Page</button>
+      <button id="open-test-page-43"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 43, '');">Open Test 43 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2041,12 +3510,78 @@
             <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 23: Navigate into a checkbox group</h2>
+    <h2>Test 44: Read grouping information of a grouped checkbox in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-22-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-22-read-checkbox-group-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-44"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 44, '');">Open Test 44 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>When reading cursor is on a checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read its grouping information</td></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>When reading cursor is on a checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read its grouping information</td></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 45: Navigate into a checkbox group</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-23-navigate-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2062,8 +3597,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 23, '');">Open Test 23 Page</button>
+      <button id="open-test-page-45"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 45, '');">Open Test 45 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2091,12 +3626,78 @@
             <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 24: Navigate out of a checkbox group  in reading mode</h2>
+    <h2>Test 46: Read grouping information of a grouped checkbox in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-23-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-23-read-checkbox-group-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-46"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 46, '');">Open Test 46 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>When focus is on a checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read its grouping information</td></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>When focus is on a checkbox using the following commands:
+               <ul>
+                   <li>Insert+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read its grouping information</td></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 47: Navigate out of a checkbox group  in reading mode</h2>
     <p>
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-24-navigate-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -2113,8 +3714,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 24, '');">Open Test 24 Page</button>
+      <button id="open-test-page-47"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 47, '');">Open Test 47 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2160,12 +3761,57 @@
             <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 25: Navigate out of a checkbox group in interaction mode</h2>
+    <h2>Test 48: Read grouping information of a grouped checkbox</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-24-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-labelledby">ARIA specification: aria-labelledby</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-48"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 48, '');">Open Test 48 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>When focus is on a checkbox using the following commands:
+               <ul>
+                   <li>Control+Option+F3</li>
+                   <li>Control+Option+F4</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td> read its grouping information</td></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 49: Navigate out of a checkbox group in interaction mode</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-25-navigate-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2182,8 +3828,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-25"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 25, '');">Open Test 25 Page</button>
+      <button id="open-test-page-49"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 49, '');">Open Test 49 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2229,12 +3875,81 @@
             <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 26: Navigate out of a checkbox group</h2>
+    <h2>Test 50: Navigate sequentially through a checkbox group in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-25-navigate-sequentially-through-checkbox-group-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-25-navigate-sequentially-through-checkbox-group-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-50"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 50, '');">Open Test 50 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate both forward and backward into and out of the checkbox group. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group boundaries at start and end of group are conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate both forward and backward into and out of the checkbox group. using the following commands:
+               <ul>
+                   <li>Up Arrow</li>
+                   <li>Down Arrow</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group boundaries at start and end of group are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 51: Navigate out of a checkbox group</h2>
     <p>
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Aug 6 10:28:02 2021 -0500</li>
+        <li>Last edited: Thu Aug 26 15:56:59 2021 +0200</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-26-navigate-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2250,8 +3965,436 @@
         </li>
       </ul>
 
-      <button id="open-test-page-26"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 26, '');">Open Test 26 Page</button>
+      <button id="open-test-page-51"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 51, '');">Open Test 51 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+                   <li>Control+Option+Right</li>
+                   <li>Ctrl+Option+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 52: Navigate sequentially through a checkbox group</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-26-navigate-sequentially-through-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-52"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 52, '');">Open Test 52 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate both forward and backward into and out of the checkbox group. using the following commands:
+               <ul>
+                   <li>Control+Option+Right</li>
+                   <li>Ctrl+Option+Left</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group boundaries at start and end of group are conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 53: Navigate into a checkbox group in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-27-navigate-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-27-navigate-into-checkbox-group-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-53"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 53, '');">Open Test 53 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate from outside the checkbox group to a checkbox inside the group. Test both navigating forward into the start and backward into the end. using the following commands:
+               <ul>
+                   <li>X</li>
+                   <li>Shift+X</li>
+                   <li>F</li>
+                   <li>Shift+F</li>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate from outside the checkbox group to a checkbox inside the group. Test both navigating forward into the start and backward into the end. using the following commands:
+               <ul>
+                   <li>X</li>
+                   <li>Shift+X</li>
+                   <li>F</li>
+                   <li>Shift+F</li>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 54: Navigate into a checkbox group in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-28-navigate-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-28-navigate-into-checkbox-group-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-54"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 54, '');">Open Test 54 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate from outside the checkbox group to a checkbox inside the group. Test both navigating forward into the start and backward into the end. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate from outside the checkbox group to a checkbox inside the group. Test both navigating forward into the start and backward into the end. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 55: Navigate into a checkbox group</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-29-navigate-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-55"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 55, '');">Open Test 55 Page</button>
+    </p>
+      <div class="voiceover_macos">
+        <h3>VoiceOver for macOS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
+             <li>Navigate from outside the checkbox group to a checkbox inside the group. Test both navigating forward into the start and backward into the end. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+                   <li>Control+Option+Right</li>
+                   <li>Ctrl+Option+Left</li>
+                   <li>Control+Option+Command+J</li>
+                   <li>Shift+Control+Option+Command+J</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 56: Navigate out of a checkbox group in reading mode</h2>
+    <p>
+      <ul>
+        <li>Mode: reading</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-30-navigate-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-30-navigate-out-of-checkbox-group-reading.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-56"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 56, '');">Open Test 56 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 57: Navigate out of a checkbox group in interaction mode</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: jaws, nvda</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-31-navigate-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/checkbox/test-31-navigate-out-of-checkbox-group-interaction.html?at=nvda">nvda</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-57"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 57, '');">Open Test 57 Page</button>
+    </p>
+      <div class="jaws">
+        <h3>JAWS</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
+             <li>Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+      <div class="nvda">
+        <h3>NVDA</h3>
+        <h4>Tester Instructions</h4>
+        <p>
+          <ol>
+             <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
+             <li>Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start. using the following commands:
+               <ul>
+                   <li>Tab</li>
+                   <li>Shift+Tab</li>
+               </ul>
+             </li>
+          </ol>
+        </p>
+        <h4>Assertions</h4>
+        <table>
+          <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>optional</td><td>Role &#39;group&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
+            <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
+        </table>
+      </div>
+    <h2>Test 58: Navigate out of a checkbox group</h2>
+    <p>
+      <ul>
+        <li>Mode: interaction</li>
+        <li>Applies to: voiceover_macos</li>
+        <li>Last edited: </li>
+        <li>Tests:
+          <ul>
+              <li><a href="../tests/checkbox/test-32-navigate-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
+          </ul>
+        </li>
+        <li>Relevant Specifications:
+          <ul>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria-practices&#x2F;examples&#x2F;checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html">APG example: checkbox&#x2F;checkbox-1&#x2F;checkbox-1.html</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#checkbox">ARIA specification: checkbox</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#group">ARIA specification: group</a></li>
+              <li><a href="https:&#x2F;&#x2F;w3c.github.io&#x2F;aria&#x2F;#aria-checked">ARIA specification: aria-checked</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <button id="open-test-page-58"
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 58, '');">Open Test 58 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>

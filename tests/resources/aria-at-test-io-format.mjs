@@ -1,3 +1,5 @@
+/// <reference path="../../types/aria-at-file.js" />
+
 import {
   HasUnexpectedBehaviorMap,
   createEnumMap,
@@ -84,6 +86,19 @@ class KeysInput {
           voiceover_macos: `Toggle Quick Nav OFF by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`,
         }[atKey],
       },
+    });
+  }
+
+  /** @param {AriaATFile.CollectedTest} collectedTest */
+  static fromCollectedTest(collectedTest) {
+    return new KeysInput({
+      origin: "test.collected.json",
+      keys: collectedTest.commands.reduce((carry, {id, keystroke}) => {
+        carry[id] = keystroke;
+        return carry;
+      }, {}),
+      at: collectedTest.target.at.key,
+      modeInstructions: collectedTest.instructions.mode,
     });
   }
 }
@@ -188,6 +203,18 @@ class CommandsInput {
    */
   static fromJSONAndConfigKeys(json, {configInput, keysInput}) {
     return new CommandsInput({commands: json, at: configInput.at()}, keysInput);
+  }
+
+  /**
+   * @param {AriaATFile.CollectedTest} collectedTest
+   * @param {object} data
+   * @param {KeysInput} data.keysInput
+   */
+  static fromCollectedTestKeys(collectedTest, {keysInput}) {
+    return new CommandsInput({commands: {
+      [collectedTest.info.task]: {
+      }
+    }, at: collectedTest.target.at, keysInput});
   }
 }
 
@@ -297,6 +324,41 @@ class ScriptsInput {
   static fromScriptsMap(scripts) {
     return new ScriptsInput({scripts});
   }
+
+  /**
+   * @param {AriaATFile.CollectedTest} collectedAsync
+   * @param {string} dataUrl url to directory where CollectedTest was loaded from
+   */
+  static async fromCollectedTestAsync({target: {setupScript}}, dataUrl) {
+    if (!setupScript) {
+      return new ScriptsInput({});
+    }
+    try {
+      return new ScriptsInput({[setupScript.name]: new Function('testPageDocument', setupScript.source)});
+    } catch (error) {
+      try {
+        return new ScriptsInput(await import(`${dataUrl}/${setupScript.modulePath}`));
+      } catch (error2) {
+        try {
+          const scriptsLoaded = Promise.race([
+            new Promise((resolve) => {
+              window.scriptsJsonpLoaded = resolve;
+              const scriptTag = document.createElement('script');
+              scriptTag.src = setupScript.jsonpPath;
+            }),
+            new Promise((_, reject) => setTimeout(() => reject(new Error('Loading scripts timeout error')), 10000))
+          ]);
+          return new ScriptsInput(await scriptsLoaded);
+        } catch (error3) {
+          throw new Error([
+            error.stack || error.message,
+            error2.stack || error2.message,
+            error3.stack || error3.message
+          ].join('\n\n'));
+        }
+      }
+    }
+  }
 }
 
 class UnexpectedInput {
@@ -379,7 +441,7 @@ class BehaviorInput {
    */
   static fromJSONCommandsConfigKeysTitleUnexpected(
     json,
-    {commandsInput, configInput, keysInput, titleInput, unexpectedInput}
+    { commandsInput, configInput, keysInput, titleInput, unexpectedInput }
   ) {
     const mode = Array.isArray(json.mode) ? json.mode[0] : json.mode;
     const at = configInput.at();
@@ -395,16 +457,53 @@ class BehaviorInput {
         setupScriptDescription: json.setup_script_description,
         setupTestPage: json.setupTestPage,
         commands: commandsInput.getCommands(json.task, mode),
-        assertions: (json.output_assertions ? json.output_assertions : []).map(assertionTuple => ({
-          priority: Number(assertionTuple[0]),
-          assertion: assertionTuple[1],
-        })),
-        additionalAssertions: (json.additional_assertions ? json.additional_assertions[at.key] || [] : []).map(
-          assertionTuple => ({
+        assertions: (json.output_assertions ? json.output_assertions : []).map(
+          (assertionTuple) => ({
             priority: Number(assertionTuple[0]),
             assertion: assertionTuple[1],
           })
         ),
+        additionalAssertions: (json.additional_assertions
+          ? json.additional_assertions[at.key] || []
+          : []
+        ).map((assertionTuple) => ({
+          priority: Number(assertionTuple[0]),
+          assertion: assertionTuple[1],
+        })),
+        unexpectedBehaviors: unexpectedInput.behaviors(),
+      },
+    });
+  }
+
+  /**
+   * @param {AriaATFile.CollectedTest} collectedTest
+   * @param {object} data
+   * @param {CommandsInput} data.commandsInput
+   * @param {KeysInput} data.keysInput
+   * @param {UnexpectedInput} data.unexpectedInput
+   */
+  static fromCollectedTestCommandsKeysUnexpected(
+    { info, target, instructions, assertions },
+    { commandsInput, keysInput, unexpectedInput }
+  ) {
+    return new BehaviorInput({
+      behavior: {
+        description: info.title,
+        task: info.task,
+        mode: info.mode,
+        modeInstructions: keysInput.modeInstructions(mode),
+        appliesTo: [target.at.name],
+        specificUserInstruction: instructions.raw,
+        setupScriptDescription: target.setupScript
+          ? target.setupScript.description
+          : undefined,
+        setupTestPage: target.setupScript ? target.setupScript.name : undefined,
+        commands: commandsInput.getCommands(info.task, collectedTest.info.mode),
+        assertions: assertions.map(({ priority, expectation: assertion }) => ({
+          priority,
+          assertion,
+        })),
+        additionalAssertions: [],
         unexpectedBehaviors: unexpectedInput.behaviors(),
       },
     });
@@ -508,6 +607,21 @@ export class TestRunInputOutput {
         unexpectedInput: this.unexpectedInput,
       })
     );
+  }
+
+  /** @param {AriaATFile.CollectedTest} collectedTest */
+  async setInputsFromCollectedTestAsync(collectedTest) {
+    const unexpectedInput = UnexpectedInput.fromBuiltin();
+    const keysInput = KeysInput.fromCollectedTest(collectedTest);
+    const commandsInput = CommandsInput.fromCollectedTestKeys(collectedTest, {keysInput});
+    const behaviorInput = BehaviorInput.fromCollectedTestCommandsKeysUnexpected(collectedTest, {commandsInput, keysInput, unexpectedInput})
+    const scriptsInput = await ScriptsInput.fromCollectedTestAsync(collectedTest);
+
+    this.setUnexpectedInput(unexpectedInput);
+    this.setKeysInput(keysInput);
+    this.setCommandsInput(commandsInput);
+    this.setBehaviorInput(behaviorInput);
+    this.setScriptsInput(scriptsInput);
   }
 
   /** @param {CommandsInput} commandsInput */

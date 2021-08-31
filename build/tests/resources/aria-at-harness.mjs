@@ -1,24 +1,7 @@
-import {commandsAPI} from "./at-commands.mjs";
 import {element, fragment, property, attribute, className, style, focus, render} from "./vrender.mjs";
-import {
-  AssertionResultMap,
-  CommonResultMap,
-  createEnumMap,
-  HasUnexpectedBehaviorMap,
-  TestRun,
-  UserActionMap,
-  userCloseWindow,
-  userOpenWindow,
-  WhitespaceStyleMap,
-} from "./aria-at-test-run.mjs";
-
-const UNEXPECTED_BEHAVIORS = [
-  "Output is excessively verbose, e.g., includes redundant and/or irrelevant speech",
-  "Reading cursor position changed in an unexpected manner",
-  "Screen reader became extremely sluggish",
-  "Screen reader crashed",
-  "Browser crashed",
-];
+import {userCloseWindow, userOpenWindow, WhitespaceStyleMap} from "./aria-at-test-run.mjs";
+import {TestRunExport, TestRunInputOutput} from "./aria-at-test-io-format.mjs";
+import {TestWindow} from "./aria-at-test-window.mjs";
 
 const PAGE_STYLES = `
   table {
@@ -77,94 +60,31 @@ const PAGE_STYLES = `
   }
 `;
 
-/** @type {string[]} */
-const errors = [];
-let showResults = true;
-let showSubmitButton = true;
-
-/** @type {AT} */
-let at;
-/** @type {CommandsAPI} */
-let commapi;
-/** @type {Behavior} */
-let behavior;
-/** @type {TestRunState} */
-let firstState;
+let testRunIO = new TestRunInputOutput();
+testRunIO.setTitleInputFromTitle(document.title);
+testRunIO.setUnexpectedInputFromBuiltin();
+testRunIO.setScriptsInputFromMap(typeof scripts === "object" ? scripts : {});
 
 /**
- * @param {Support} newSupport
- * @param {Commands} newCommandsData
+ * @param {SupportJSON} newSupport
+ * @param {CommandsJSON} newCommandsData
  */
 export function initialize(newSupport, newCommandsData) {
-  commapi = new commandsAPI(newCommandsData, newSupport);
-
-  // Get the AT under test from the URL search params
-  // set the showResults flag from the URL search params
-  let params = new URL(document.location).searchParams;
-  at = newSupport.ats[0];
-  for (const [key, value] of params) {
-    if (key === "at") {
-      let requestedAT = value;
-      if (commapi.isKnownAT(requestedAT)) {
-        at = commapi.isKnownAT(requestedAT);
-      } else {
-        errors.push(
-          `Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assistive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`
-        );
-      }
-    }
-    if (key === "showResults") {
-      if (value === "true") {
-        showResults = true;
-      } else if (value === "false") {
-        showResults = false;
-      }
-    }
-    if (key === "showSubmitButton") {
-      if (value === "true") {
-        showSubmitButton = true;
-      } else if (value === "false") {
-        showSubmitButton = false;
-      }
-    }
-  }
+  testRunIO.setSupportInputFromJSON(newSupport);
+  testRunIO.setConfigInputFromQueryParamsAndSupport(Array.from(new URL(document.location).searchParams));
+  testRunIO.setKeysInputFromBuiltinAndConfig();
+  testRunIO.setCommandsInputFromJSONAndConfigKeys(newCommandsData);
 }
 
 /**
  * @param {BehaviorJSON} atBehavior
  */
 export function verifyATBehavior(atBehavior) {
-  // This is temporary until transition is complete from multiple modes to one mode
-  let mode = typeof atBehavior.mode === "string" ? atBehavior.mode : atBehavior.mode[0];
-
-  /** @type {Behavior} */
-  behavior = {
-    description: document.title,
-    task: atBehavior.task,
-    mode,
-    modeInstructions: commapi.getModeInstructions(mode, at),
-    appliesTo: atBehavior.applies_to,
-    specificUserInstruction: atBehavior.specific_user_instruction,
-    setupScriptDescription: atBehavior.setup_script_description,
-    setupTestPage: atBehavior.setupTestPage,
-    commands: commapi.getATCommands(mode, atBehavior.task, at),
-    outputAssertions: atBehavior.output_assertions ? atBehavior.output_assertions : [],
-    additionalAssertions: atBehavior.additional_assertions ? atBehavior.additional_assertions[at.key] || [] : [],
-    unexpectedBehaviors: [
-      ...UNEXPECTED_BEHAVIORS.map(content => ({content})),
-      {content: "Other", requireExplanation: true},
-    ],
-  };
-
-  if (!firstState && behavior.commands.length) {
-    firstState = initializeTestRunState({
-      errors: errors.length ? errors : null,
-      test: behavior,
-      config: {at, displaySubmitButton: showSubmitButton, renderResultsAfterSubmit: showResults},
-    });
-  } else {
+  if (testRunIO.behaviorInput !== null) {
     throw new Error("Test files should only contain one verifyATBehavior call.");
   }
+
+  testRunIO.setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected(atBehavior);
 }
 
 export function displayTestPageAndInstructions(testPage) {
@@ -175,23 +95,19 @@ export function displayTestPageAndInstructions(testPage) {
     return;
   }
 
+  testRunIO.setPageUriInputFromPageUri(testPage);
+
   document.querySelector("html").setAttribute("lang", "en");
   var style = document.createElement("style");
   style.innerHTML = PAGE_STYLES;
   document.head.appendChild(style);
 
-  displayInstructionsForBehaviorTest(testPage, behavior);
+  displayInstructionsForBehaviorTest();
 }
 
-/**
- * @param {string} testPage
- * @param {Behavior} behavior
- */
-function displayInstructionsForBehaviorTest(testPage, behavior) {
+function displayInstructionsForBehaviorTest() {
   const windowManager = new TestWindow({
-    pageUri: testPage,
-    setupScriptName: behavior.setupTestPage,
-    scripts: typeof scripts === "object" ? scripts : {},
+    ...testRunIO.testWindowOptions(),
     hooks: {
       windowOpened() {
         app.dispatch(userOpenWindow());
@@ -206,7 +122,6 @@ function displayInstructionsForBehaviorTest(testPage, behavior) {
   windowManager.prepare();
 
   const app = new TestRunExport({
-    behavior,
     hooks: {
       openTestPage() {
         windowManager.open();
@@ -214,9 +129,10 @@ function displayInstructionsForBehaviorTest(testPage, behavior) {
       closeTestPage() {
         windowManager.close();
       },
-      postResults: () => postResults(app),
+      postResults: () => postResults(testRunIO.submitResultsJSON(app.state)),
     },
-    state: firstState,
+    state: testRunIO.testRunState(),
+    resultsJSON: state => testRunIO.submitResultsJSON(state),
   });
   app.observe(() => {
     render(document.body, renderVirtualTestPage(app.testPageAndResults()));
@@ -259,205 +175,23 @@ function validateMessage(message, type) {
 }
 
 /**
- * @param {TestRunExport} app
+ * @param {resultsJSON} resultsJSON
  */
-function postResults(app) {
+function postResults(resultsJSON) {
   // send message to parent if test is loaded in iFrame
   if (window.parent && window.parent.postMessage) {
     window.parent.postMessage(
       {
         type: "results",
-        data: app.resultsJSON(),
+        data: resultsJSON,
       },
       "*"
     );
   }
 }
 
-/** @typedef {ConstructorParameters<typeof TestRun>[0]} TestRunOptions */
-/**
- * @typedef TestRunExportOptions
- * @property {Behavior} behavior
- */
-
-class TestRunExport extends TestRun {
-  /**
-   * @param {TestRunOptions & TestRunExportOptions} options
-   */
-  constructor({behavior, ...parentOptions}) {
-    super(parentOptions);
-
-    this.behavior = behavior;
-  }
-
-  testPageAndResults() {
-    const testPage = this.testPage();
-    if ("results" in testPage) {
-      return {
-        ...testPage,
-        resultsJSON: this.resultsJSON(),
-      };
-    }
-    return {
-      ...testPage,
-      resultsJSON: this.state.currentUserAction === UserActionMap.CLOSE_TEST_WINDOW ? this.resultsJSON() : null,
-    };
-  }
-
-  resultsJSON() {
-    return toSubmitResultJSON(this.state, this.behavior);
-  }
-}
-
-class TestWindow {
-  /**
-   * @param {object} options
-   * @param {Window | null} [options.window]
-   * @param {string} options.pageUri
-   * @param {string} [options.setupScriptName]
-   * @param {TestWindowHooks} [options.hooks]
-   * @param {SetupScripts} [options.scripts]
-   */
-  constructor({window = null, pageUri, setupScriptName, hooks, scripts = {}}) {
-    /** @type {Window | null} */
-    this.window = window;
-
-    /** @type {string} */
-    this.pageUri = pageUri;
-
-    /** @type {string} */
-    this.setupScriptName = setupScriptName;
-
-    /** @type {TestWindowHooks} */
-    this.hooks = {
-      windowOpened: () => {},
-      windowClosed: () => {},
-      ...hooks,
-    };
-
-    /** @type {SetupScripts} */
-    this.scripts = scripts;
-  }
-
-  open() {
-    this.window = window.open(this.pageUri, "_blank", "toolbar=0,location=0,menubar=0,width=400,height=400");
-
-    this.hooks.windowOpened();
-
-    // If the window is closed, re-enable open popup button
-    this.window.onunload = () => {
-      window.setTimeout(() => {
-        if (this.window.closed) {
-          this.window = undefined;
-
-          this.hooks.windowClosed();
-        }
-      }, 100);
-    };
-
-    this.prepare();
-  }
-
-  prepare() {
-    if (!this.window) {
-      return;
-    }
-
-    let setupScriptName = this.setupScriptName;
-    if (!setupScriptName) {
-      return;
-    }
-    if (
-      this.window.location.origin !== window.location.origin || // make sure the origin is the same, and prevent this from firing on an 'about' page
-      this.window.document.readyState !== "complete"
-    ) {
-      window.setTimeout(() => {
-        this.prepare();
-      }, 100);
-      return;
-    }
-
-    this.scripts[setupScriptName](this.window.document);
-  }
-
-  close() {
-    if (this.window) {
-      this.window.close();
-    }
-  }
-}
-
 function bind(fn, ...args) {
   return (...moreArgs) => fn(...args, ...moreArgs);
-}
-
-/**
- * @param {object} options
- * @param {string[] | null} [options.errors]
- * @param {Behavior} options.test
- * @param {object} options.config
- * @param {AT} options.config.at
- * @param {boolean} [options.config.displaySubmitButton]
- * @param {boolean} [options.config.renderResultsAfterSubmit]
- * @returns {TestRunState}
- */
-function initializeTestRunState({
-  errors = null,
-  test,
-  config: {at, displaySubmitButton = true, renderResultsAfterSubmit = true},
-}) {
-  return {
-    errors,
-    info: {
-      description: test.description,
-      task: test.task,
-      mode: test.mode,
-      modeInstructions: test.modeInstructions,
-      userInstructions: test.specificUserInstruction.split("|"),
-      setupScriptDescription: test.setupScriptDescription,
-    },
-    config: {
-      at,
-      displaySubmitButton,
-      renderResultsAfterSubmit,
-    },
-    currentUserAction: UserActionMap.LOAD_PAGE,
-    openTest: {
-      enabled: true,
-    },
-    commands: test.commands.map(
-      command =>
-        /** @type {TestRunCommand} */ ({
-          description: command,
-          atOutput: {
-            highlightRequired: false,
-            value: "",
-          },
-          assertions: test.outputAssertions.map(assertion => ({
-            description: assertion[1],
-            highlightRequired: false,
-            priority: Number(assertion[0]),
-            result: CommonResultMap.NOT_SET,
-          })),
-          additionalAssertions: test.additionalAssertions.map(assertion => ({
-            description: assertion[1],
-            highlightRequired: false,
-            priority: Number(assertion[0]),
-            result: CommonResultMap.NOT_SET,
-          })),
-          unexpected: {
-            highlightRequired: false,
-            hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
-            tabbedBehavior: 0,
-            behaviors: test.unexpectedBehaviors.map(({content: description, requireExplanation}) => ({
-              description,
-              checked: false,
-              more: requireExplanation ? {highlightRequired: false, value: ""} : null,
-            })),
-          },
-        })
-    ),
-  };
 }
 
 const a = bind(element, "a");
@@ -540,9 +274,9 @@ function renderVirtualTestPage(doc) {
       ? div(
           section(
             id("errors"),
-            style({display: doc.errors ? "block" : "none"}),
+            style({display: doc.errors && doc.errors.visible ? "block" : "none"}),
             h2("Test cannot be performed due to error(s)!"),
-            ul(...(doc.errors ? doc.errors.map(error => li(error)) : [])),
+            ul(...(doc.errors && doc.errors.errors ? doc.errors.errors.map(error => li(error)) : [])),
             hr()
           ),
           section(id("instructions"), renderVirtualInstructionDocument(doc.instructions)),
@@ -790,350 +524,26 @@ function renderVirtualResultsTable(results) {
   }
 }
 
-/**
- * @typedef SubmitResultDetailsCommandsAssertionsPass
- * @property {string} assertion
- * @property {string} priority
- * @property {AssertionPassJSON} pass
- */
+/** @typedef {import('./aria-at-test-io-format.mjs').SupportJSON} SupportJSON */
+/** @typedef {import('./aria-at-test-io-format.mjs').CommandsJSON} CommandsJSON */
+/** @typedef {import('./aria-at-test-io-format.mjs').BehaviorJSON} BehaviorJSON */
+
+/** @typedef {import('./aria-at-test-run.mjs').TestRunState} TestRunState */
+
+/** @typedef {import('./aria-at-test-run.mjs').Description} Description */
+
+/** @typedef {import('./aria-at-test-run.mjs').InstructionDocument} InstructionDocument */
+/** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentInstructions} InstructionDocumentInstructions */
+/** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentInstructionsAssertions} InstructionDocumentInstructionsAssertions */
+/** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentResultsHeader} InstructionDocumentResultsHeader */
+/** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentResultsCommand} InstructionDocumentResultsCommand */
+/** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentResultsCommandsUnexpected} InstructionDocumentResultsCommandsUnexpected */
+/** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentResultsCommandsAssertion} InstructionDocumentResultsCommandsAssertion */
+/** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentAssertionChoice} InstructionDocumentAssertionChoice */
+/** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentInstructionsInstructions} InstructionDocumentInstructionsInstructions */
+
+/** @typedef {import('./aria-at-test-run.mjs').ResultsTableDocument} ResultsTableDocument */
 
 /**
- * Passing assertion values submitted from the tester result form.
- *
- * In the submitted json object the values contain spaces and are title cased.
- * @typedef {EnumValues<typeof AssertionPassJSONMap>} AssertionPassJSON
+ * @typedef {import('./aria-at-test-io-format.mjs').TestPageAndResultsDocument} TestPageAndResultsDocument
  */
-
-const AssertionPassJSONMap = createEnumMap({
-  GOOD_OUTPUT: "Good Output",
-});
-
-/**
- * @typedef SubmitResultDetailsCommandsAssertionsFail
- * @property {string} assertion
- * @property {string} priority
- * @property {AssertionFailJSON} fail
- */
-
-/**
- * Failing assertion values from the tester result form as are submitted in the
- * JSON result object.
- *
- * In the submitted json object the values contain spaces and are title cased.
- * @typedef {EnumValues<typeof AssertionFailJSONMap>} AssertionFailJSON
- */
-
-const AssertionFailJSONMap = createEnumMap({
-  NO_OUTPUT: "No Output",
-  INCORRECT_OUTPUT: "Incorrect Output",
-  NO_SUPPORT: "No Support",
-});
-
-/** @typedef {SubmitResultDetailsCommandsAssertionsPass | SubmitResultDetailsCommandsAssertionsFail} SubmitResultAssertionsJSON */
-
-/**
- * Command result derived from priority 1 and 2 assertions.
- *
- * Support is "FAILING" is priority 1 assertions fail. Support is "ALL REQUIRED"
- * if priority 2 assertions fail.
- *
- * In the submitted json object values may contain spaces and are in ALL CAPS.
- *
- * @typedef {EnumValues<typeof CommandSupportJSONMap>} CommandSupportJSON
- */
-
-const CommandSupportJSONMap = createEnumMap({
-  FULL: "FULL",
-  FAILING: "FAILING",
-  ALL_REQUIRED: "ALL REQUIRED",
-});
-
-/**
- * Highest level status submitted from test result.
- *
- * In the submitted json object values are in ALL CAPS.
- *
- * @typedef {EnumValues<typeof StatusJSONMap>} SubmitResultStatusJSON
- */
-
-const StatusJSONMap = createEnumMap({
-  PASS: "PASS",
-  FAIL: "FAIL",
-});
-
-/**
- * @param {TestRunState} state
- * @param {Behavior} behavior
- * @returns {SubmitResultJSON}
- */
-function toSubmitResultJSON(state, behavior) {
-  /** @type {SubmitResultDetailsJSON} */
-  const details = {
-    name: state.info.description,
-    task: state.info.task,
-    specific_user_instruction: behavior.specificUserInstruction,
-    summary: {
-      1: {
-        pass: countAssertions(({priority, result}) => priority === 1 && result === CommonResultMap.PASS),
-        fail: countAssertions(({priority, result}) => priority === 1 && result !== CommonResultMap.PASS),
-      },
-      2: {
-        pass: countAssertions(({priority, result}) => priority === 2 && result === CommonResultMap.PASS),
-        fail: countAssertions(({priority, result}) => priority === 2 && result !== CommonResultMap.PASS),
-      },
-      unexpectedCount: countUnexpectedBehaviors(({checked}) => checked),
-    },
-    commands: state.commands.map(command => ({
-      command: command.description,
-      output: command.atOutput.value,
-      support: commandSupport(command),
-      assertions: [...command.assertions, ...command.additionalAssertions].map(assertionToAssertion),
-      unexpected_behaviors: command.unexpected.behaviors
-        .filter(({checked}) => checked)
-        .map(({description, more}) => (more ? more.value : description)),
-    })),
-  };
-  /** @type {SubmitResultStatusJSON} */
-  const status = state.commands.map(commandSupport).some(support => support === CommandSupportJSONMap.FAILING)
-    ? StatusJSONMap.FAIL
-    : StatusJSONMap.PASS;
-  return {
-    test: state.info.description,
-    details,
-    status,
-  };
-
-  function commandSupport(command) {
-    const allAssertions = [...command.assertions, ...command.additionalAssertions];
-    return allAssertions.some(({priority, result}) => priority === 1 && result !== CommonResultMap.PASS) ||
-      command.unexpected.behaviors.some(({checked}) => checked)
-      ? CommandSupportJSONMap.FAILING
-      : allAssertions.some(({priority, result}) => priority === 2 && result !== CommonResultMap.PASS)
-      ? CommandSupportJSONMap.ALL_REQUIRED
-      : CommandSupportJSONMap.FULL;
-  }
-
-  /**
-   * @param {(assertion: TestRunAssertion | TestRunAdditionalAssertion) => boolean} filter
-   * @returns {number}
-   */
-  function countAssertions(filter) {
-    return state.commands.reduce(
-      (carry, command) => carry + [...command.assertions, ...command.additionalAssertions].filter(filter).length,
-      0
-    );
-  }
-
-  /**
-   * @param {(behavior: TestRunUnexpected) => boolean} filter
-   * @returns {number}
-   */
-  function countUnexpectedBehaviors(filter) {
-    return state.commands.reduce((carry, command) => carry + command.unexpected.behaviors.filter(filter).length, 0);
-  }
-
-  /**
-   * @param {TestRunAssertion | TestRunAdditionalAssertion} assertion
-   * @returns {SubmitResultAssertionsJSON}
-   */
-  function assertionToAssertion(assertion) {
-    return assertion.result === CommonResultMap.PASS
-      ? {
-          assertion: assertion.description,
-          priority: assertion.priority.toString(),
-          pass: AssertionPassJSONMap.GOOD_OUTPUT,
-        }
-      : {
-          assertion: assertion.description,
-          priority: assertion.priority.toString(),
-          fail:
-            assertion.result === AssertionResultMap.FAIL_MISSING
-              ? AssertionFailJSONMap.NO_OUTPUT
-              : assertion.result === AssertionResultMap.FAIL_INCORRECT
-              ? AssertionFailJSONMap.INCORRECT_OUTPUT
-              : AssertionFailJSONMap.NO_SUPPORT,
-        };
-  }
-}
-
-/**
- * @typedef AT
- * @property {string} name
- * @property {string} key
- */
-
-/**
- * @typedef Support
- * @property {AT[]} ats
- * @property {{system: string[]}} applies_to
- * @property {{directory: string, name: string}[]} examples
- */
-
-/**
- * @typedef {{[mode in ATMode]: {[atName: string]: string;};}} CommandsAPI_ModeInstructions
- */
-
-/**
- * @typedef {([string] | [string, string])[]} CommandAT
- */
-
-/**
- * @typedef {{[atMode: string]: CommandAT}} CommandMode
- */
-
-/**
- * @typedef Command
- * @property {CommandMode} [reading]
- * @property {CommandMode} [interaction]
- */
-
-/**
- * @typedef {{[commandDescription: string]: Command}} Commands
- */
-
-/**
- * @callback CommandsAPI_getATCommands
- * @param {ATMode} mode
- * @param {string} task
- * @param {AT} assistiveTech
- * @returns {string[]}
- */
-
-/** @typedef {"reading" | "interaction"} ATMode */
-
-/**
- * @callback CommandsAPI_getModeInstructions
- * @param {ATMode} mode
- * @param {AT} assistiveTech
- * @returns {string}
- */
-
-/**
- * @callback CommandsAPI_isKnownAT
- * @param {string} assistiveTech
- * @returns {AT}
- */
-
-/**
- * @typedef CommandsAPI
- * @property {Commands} AT_COMMAND_MAP
- * @property {CommandsAPI_ModeInstructions} MODE_INSTRUCTIONS
- * @property {Support} support
- * @property {CommandsAPI_getATCommands} getATCommands
- * @property {CommandsAPI_getModeInstructions} getModeInstructions
- * @property {CommandsAPI_isKnownAT} isKnownAT
- */
-
-/**
- * @typedef BehaviorJSON
- * @property {string} setup_script_description
- * @property {string} setupTestPage
- * @property {string[]} applies_to
- * @property {ATMode | ATMode[]} mode
- * @property {string} task
- * @property {string} specific_user_instruction
- * @property {[string, string][]} [output_assertions]
- * @property {{[atKey: string]: [number, string][]}} [additional_assertions]
- */
-
-/**
- * @typedef Behavior
- * @property {string} description
- * @property {string} task
- * @property {ATMode} mode
- * @property {string} modeInstructions
- * @property {string[]} appliesTo
- * @property {string} specificUserInstruction
- * @property {string} setupScriptDescription
- * @property {string} setupTestPage
- * @property {string[]} commands
- * @property {[string, string][]} outputAssertions
- * @property {[number, string][]} additionalAssertions
- * @property {object[]} unexpectedBehaviors
- * @property {string} unexpectedBehaviors[].content
- * @property {boolean} [unexpectedBehaviors[].requireExplanation]
- */
-
-/**
- * @typedef SubmitResultJSON
- * @property {string} test
- * @property {SubmitResultDetailsJSON} details
- * @property {SubmitResultStatusJSON} status
- */
-
-/**
- * @typedef SubmitResultSummaryPriorityJSON
- * @property {number} pass
- * @property {number} fail
- */
-
-/**
- * @typedef {{[key in "1" | "2"]: SubmitResultSummaryPriorityJSON}} SubmitResultSummaryPriorityMapJSON
- */
-
-/**
- * @typedef SubmitResultSummaryPropsJSON
- * @property {number} unexpectedCount
- */
-
-/**
- * @typedef {SubmitResultSummaryPriorityMapJSON & SubmitResultSummaryPropsJSON} SubmitResultSummaryJSON
- */
-
-/**
- * @typedef SubmitResultDetailsJSON
- * @property {string} name
- * @property {string} specific_user_instruction
- * @property {string} task
- * @property {object[]} commands
- * @property {string} commands[].command
- * @property {string} commands[].output
- * @property {string[]} commands[].unexpected_behaviors
- * @property {CommandSupportJSON} commands[].support
- * @property {SubmitResultAssertionsJSON[]} commands[].assertions
- * @property {SubmitResultSummaryJSON} summary
- */
-
-/**
- * @typedef TestWindowHooks
- * @property {() => void} windowOpened
- * @property {() => void} windowClosed
- */
-
-/** @typedef {{[key: string]: (document: Document) => void}} SetupScripts */
-
-/**
- * @typedef ResultJSONDocument
- * @property {SubmitResultJSON | null} resultsJSON
- */
-
-/**
- * @typedef {TestPageDocument & ResultJSONDocument} TestPageAndResultsDocument
- */
-
-/**
- * @typedef {import('./aria-at-test-run.js').EnumValues<T>} EnumValues<T>
- * @template T
- */
-
-/** @typedef {import('./aria-at-test-run.js').TestRunState} TestRunState */
-/** @typedef {import('./aria-at-test-run.js').TestRunAssertion} TestRunAssertion */
-/** @typedef {import('./aria-at-test-run.js').TestRunAdditionalAssertion} TestRunAdditionalAssertion */
-/** @typedef {import('./aria-at-test-run.js').TestRunCommand} TestRunCommand */
-/** @typedef {import("./aria-at-test-run.js").TestRunUnexpectedBehavior} TestRunUnexpected */
-
-/** @typedef {import('./aria-at-test-run.js').Description} Description */
-
-/** @typedef {import('./aria-at-test-run.js').TestPageDocument} TestPageDocument */
-
-/** @typedef {import('./aria-at-test-run.js').InstructionDocument} InstructionDocument */
-/** @typedef {import('./aria-at-test-run.js').InstructionDocumentInstructions} InstructionDocumentInstructions */
-/** @typedef {import('./aria-at-test-run.js').InstructionDocumentInstructionsAssertions} InstructionDocumentInstructionsAssertions */
-/** @typedef {import('./aria-at-test-run.js').InstructionDocumentResultsHeader} InstructionDocumentResultsHeader */
-/** @typedef {import('./aria-at-test-run.js').InstructionDocumentResultsCommand} InstructionDocumentResultsCommand */
-/** @typedef {import('./aria-at-test-run.js').InstructionDocumentResultsCommandsUnexpected} InstructionDocumentResultsCommandsUnexpected */
-/** @typedef {import("./aria-at-test-run.js").InstructionDocumentResultsCommandsAssertion} InstructionDocumentResultsCommandsAssertion */
-/** @typedef {import("./aria-at-test-run.js").InstructionDocumentAssertionChoice} InstructionDocumentAssertionChoice */
-/** @typedef {import("./aria-at-test-run.js").InstructionDocumentInstructionsInstructions} InstructionDocumentInstructionsInstructions */
-
-/** @typedef {import('./aria-at-test-run.js').ResultsTableDocument} ResultsTableDocument */

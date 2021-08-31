@@ -46,7 +46,9 @@ const createExampleTests = ({directory, args = {}}) => new Promise(resolve => {
   const resourcesDirectory = path.join(testsDirectory, 'resources');
 
   const ariaAtHarnessFilePath = path.join(resourcesDirectory, 'aria-at-harness.mjs');
+  const ariaAtTestIoFormatFilePath = path.join(resourcesDirectory, 'aria-at-test-io-format.mjs');
   const ariaAtTestRunFilePath = path.join(resourcesDirectory, 'aria-at-test-run.mjs');
+  const ariaAtTestWindowFilePath = path.join(resourcesDirectory, 'aria-at-test-window.mjs');
   const atCommandsFilePath = path.join(resourcesDirectory, 'at-commands.mjs');
   const keysFilePath = path.join(resourcesDirectory, 'keys.mjs');
   const vrenderFilePath = path.join(resourcesDirectory, 'vrender.mjs');
@@ -69,7 +71,9 @@ const createExampleTests = ({directory, args = {}}) => new Promise(resolve => {
   const supportFileBuildPath = path.join(testsBuildDirectory, 'support.json');
 
   const ariaAtHarnessFileBuildPath = path.join(resourcesBuildDirectory, 'aria-at-harness.mjs');
+  const ariaAtTestIoFormatFileBuildPath = path.join(resourcesBuildDirectory, 'aria-at-test-io-format.mjs');
   const ariaAtTestRunFileBuildPath = path.join(resourcesBuildDirectory, 'aria-at-test-run.mjs');
+  const ariaAtTestWindowFileBuildPath = path.join(resourcesBuildDirectory, 'aria-at-test-window.mjs');
   const atCommandsFileBuildPath = path.join(resourcesBuildDirectory, 'at-commands.mjs');
   const keysFileBuildPath = path.join(resourcesBuildDirectory, 'keys.mjs');
   const vrenderFileBuildPath = path.join(resourcesBuildDirectory, 'vrender.mjs');
@@ -84,7 +88,9 @@ const createExampleTests = ({directory, args = {}}) => new Promise(resolve => {
   fse.copySync(supportFilePath, supportFileBuildPath, {overwrite: true});
 
   fse.copySync(ariaAtHarnessFilePath, ariaAtHarnessFileBuildPath, {overwrite: true});
+  fse.copySync(ariaAtTestIoFormatFilePath, ariaAtTestIoFormatFileBuildPath, {overwrite: true});
   fse.copySync(ariaAtTestRunFilePath, ariaAtTestRunFileBuildPath, {overwrite: true});
+  fse.copySync(ariaAtTestWindowFilePath, ariaAtTestWindowFileBuildPath, {overwrite: true});
   fse.copySync(atCommandsFilePath, atCommandsFileBuildPath, {overwrite: true});
   fse.copySync(keysFilePath, keysFileBuildPath, {overwrite: true});
   fse.copySync(vrenderFilePath, vrenderFileBuildPath, {overwrite: true});

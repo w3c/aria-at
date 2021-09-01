@@ -66,8 +66,9 @@ class KeysInput {
     const atKey = configInput.at().key;
 
     invariant(
-      ['jaws', 'nvda', 'voiceover_macos'].includes(atKey),
-      '%s is one of "jaws", "nvda", or "voiceover_macos"', atKey
+      ["jaws", "nvda", "voiceover_macos"].includes(atKey),
+      '%s is one of "jaws", "nvda", or "voiceover_macos"',
+      atKey
     );
 
     return new KeysInput({
@@ -133,6 +134,17 @@ class SupportInput {
    */
   static fromJSON(json) {
     return new SupportInput(json);
+  }
+
+  /**
+   * @param {AriaATFile.CollectedTest} collectedTest
+   */
+  static fromCollectedTest(collectedTest) {
+    return new SupportInput({
+      ats: [{key: collectedTest.target.at.key, name: collectedTest.target.at.name}],
+      applies_to: {},
+      examples: [],
+    });
   }
 }
 
@@ -211,10 +223,21 @@ class CommandsInput {
    * @param {KeysInput} data.keysInput
    */
   static fromCollectedTestKeys(collectedTest, {keysInput}) {
-    return new CommandsInput({commands: {
-      [collectedTest.info.task]: {
-      }
-    }, at: collectedTest.target.at, keysInput});
+    return new CommandsInput(
+      {
+        commands: {
+          [collectedTest.info.task]: {
+            [collectedTest.target.mode]: {
+              [collectedTest.target.at.key]: collectedTest.commands.map(({id, extraInstruction}) =>
+                extraInstruction ? [id] : [id, extraInstruction]
+              ),
+            },
+          },
+        },
+        at: collectedTest.target.at,
+      },
+      keysInput
+    );
   }
 }
 
@@ -326,6 +349,39 @@ class ScriptsInput {
   }
 
   /**
+   * @param {AriaATFile.CollectedTest} script
+   * @private
+   */
+  static scriptsFromSource(script) {
+    return {[script.name]: new Function("testPageDocument", script.source)};
+  }
+
+  /**
+   * @param {AriaATFile.CollectedTest} script
+   * @param {string} dataUrl
+   * @private
+   */
+  static async scriptsFromModuleAsync(script, dataUrl) {
+    return await import(`${dataUrl}/${script.modulePath}`);
+  }
+
+  /**
+   * @param {AriaATFile.CollectedTest} script
+   * @param {string} dataUrl
+   * @private
+   */
+  static async scriptsFromJsonpAsync(script, dataUrl) {
+    return await Promise.race([
+      new Promise(resolve => {
+        window.scriptsJsonpLoaded = resolve;
+        const scriptTag = document.createElement("script");
+        scriptTag.src = setupScript.jsonpPath;
+      }),
+      new Promise((_, reject) => setTimeout(() => reject(new Error("Loading scripts timeout error")), 10000)),
+    ]);
+  }
+
+  /**
    * @param {AriaATFile.CollectedTest} collectedAsync
    * @param {string} dataUrl url to directory where CollectedTest was loaded from
    */
@@ -334,27 +390,15 @@ class ScriptsInput {
       return new ScriptsInput({});
     }
     try {
-      return new ScriptsInput({[setupScript.name]: new Function('testPageDocument', setupScript.source)});
+      return new ScriptsInput(ScriptsInput.scriptsFromSource(setupScript));
     } catch (error) {
       try {
-        return new ScriptsInput(await import(`${dataUrl}/${setupScript.modulePath}`));
+        return new ScriptsInput(await ScriptsInput.scriptsFromModuleAsync(setupScript, dataUrl));
       } catch (error2) {
         try {
-          const scriptsLoaded = Promise.race([
-            new Promise((resolve) => {
-              window.scriptsJsonpLoaded = resolve;
-              const scriptTag = document.createElement('script');
-              scriptTag.src = setupScript.jsonpPath;
-            }),
-            new Promise((_, reject) => setTimeout(() => reject(new Error('Loading scripts timeout error')), 10000))
-          ]);
-          return new ScriptsInput(await scriptsLoaded);
+          return new ScriptsInput(await ScriptsInput.scriptsFromJsonpAsync(setupScript, dataUrl));
         } catch (error3) {
-          throw new Error([
-            error.stack || error.message,
-            error2.stack || error2.message,
-            error3.stack || error3.message
-          ].join('\n\n'));
+          throw new Error([error, error2, error3].map(error => error.stack || error.message).join("\n\n"));
         }
       }
     }
@@ -441,7 +485,7 @@ class BehaviorInput {
    */
   static fromJSONCommandsConfigKeysTitleUnexpected(
     json,
-    { commandsInput, configInput, keysInput, titleInput, unexpectedInput }
+    {commandsInput, configInput, keysInput, titleInput, unexpectedInput}
   ) {
     const mode = Array.isArray(json.mode) ? json.mode[0] : json.mode;
     const at = configInput.at();
@@ -457,19 +501,16 @@ class BehaviorInput {
         setupScriptDescription: json.setup_script_description,
         setupTestPage: json.setupTestPage,
         commands: commandsInput.getCommands(json.task, mode),
-        assertions: (json.output_assertions ? json.output_assertions : []).map(
-          (assertionTuple) => ({
+        assertions: (json.output_assertions ? json.output_assertions : []).map(assertionTuple => ({
+          priority: Number(assertionTuple[0]),
+          assertion: assertionTuple[1],
+        })),
+        additionalAssertions: (json.additional_assertions ? json.additional_assertions[at.key] || [] : []).map(
+          assertionTuple => ({
             priority: Number(assertionTuple[0]),
             assertion: assertionTuple[1],
           })
         ),
-        additionalAssertions: (json.additional_assertions
-          ? json.additional_assertions[at.key] || []
-          : []
-        ).map((assertionTuple) => ({
-          priority: Number(assertionTuple[0]),
-          assertion: assertionTuple[1],
-        })),
         unexpectedBehaviors: unexpectedInput.behaviors(),
       },
     });
@@ -483,8 +524,8 @@ class BehaviorInput {
    * @param {UnexpectedInput} data.unexpectedInput
    */
   static fromCollectedTestCommandsKeysUnexpected(
-    { info, target, instructions, assertions },
-    { commandsInput, keysInput, unexpectedInput }
+    {info, target, instructions, assertions},
+    {commandsInput, keysInput, unexpectedInput}
   ) {
     return new BehaviorInput({
       behavior: {
@@ -494,12 +535,10 @@ class BehaviorInput {
         modeInstructions: keysInput.modeInstructions(mode),
         appliesTo: [target.at.name],
         specificUserInstruction: instructions.raw,
-        setupScriptDescription: target.setupScript
-          ? target.setupScript.description
-          : undefined,
+        setupScriptDescription: target.setupScript ? target.setupScript.description : undefined,
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
         commands: commandsInput.getCommands(info.task, collectedTest.info.mode),
-        assertions: assertions.map(({ priority, expectation: assertion }) => ({
+        assertions: assertions.map(({priority, expectation: assertion}) => ({
           priority,
           assertion,
         })),
@@ -609,19 +648,35 @@ export class TestRunInputOutput {
     );
   }
 
-  /** @param {AriaATFile.CollectedTest} collectedTest */
-  async setInputsFromCollectedTestAsync(collectedTest) {
+  /**
+   * Set all inputs but ConfigInput.
+   * @param {AriaATFile.CollectedTest} collectedTest
+   * @param {string} dataUrl url to directory where CollectedTest was loaded from
+   */
+  async setInputsFromCollectedTestAsync(collectedTest, dataUrl) {
+    const pageUriInput = PageUriInput.fromPageUri(collectedTest.target.referencePage);
+    const titleInput = TitleInput.fromTitle(collectedTest.info.title);
+    const supportInput = SupportInput.fromCollectedTest(collectedTest);
+    const scriptsInput = await ScriptsInput.fromCollectedTestAsync(collectedTest, dataUrl);
+
     const unexpectedInput = UnexpectedInput.fromBuiltin();
     const keysInput = KeysInput.fromCollectedTest(collectedTest);
     const commandsInput = CommandsInput.fromCollectedTestKeys(collectedTest, {keysInput});
-    const behaviorInput = BehaviorInput.fromCollectedTestCommandsKeysUnexpected(collectedTest, {commandsInput, keysInput, unexpectedInput})
-    const scriptsInput = await ScriptsInput.fromCollectedTestAsync(collectedTest);
+    const behaviorInput = BehaviorInput.fromCollectedTestCommandsKeysUnexpected(collectedTest, {
+      commandsInput,
+      keysInput,
+      unexpectedInput,
+    });
+
+    this.setTitleInput(titleInput);
+    this.setPageUriInput(pageUriInput);
+    this.setSupportInput(supportInput);
+    this.setScriptsInput(scriptsInput);
 
     this.setUnexpectedInput(unexpectedInput);
     this.setKeysInput(keysInput);
     this.setCommandsInput(commandsInput);
     this.setBehaviorInput(behaviorInput);
-    this.setScriptsInput(scriptsInput);
   }
 
   /** @param {CommandsInput} commandsInput */
@@ -978,7 +1033,8 @@ export class TestRunExport extends TestRun {
     }
     return {
       ...testPage,
-      resultsJSON: this.state.currentUserAction === UserActionMap.CLOSE_TEST_WINDOW ? this.resultsJSON(this.state) : null,
+      resultsJSON:
+        this.state.currentUserAction === UserActionMap.CLOSE_TEST_WINDOW ? this.resultsJSON(this.state) : null,
     };
   }
 }
@@ -1083,7 +1139,6 @@ function invariant(test, message, ...args) {
  * @typedef SupportJSON
  * @property {ATJSON[]} ats
  * @property {object} applies_to
- * @property {string[]} applies_to.system
  * @property {object[]} examples
  * @property {string} examples[].directory
  * @property {string} examples[].name

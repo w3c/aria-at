@@ -73,6 +73,7 @@
  * @property {string} info.references[].value
  * @property {object} instructions
  * @property {string[]} instructions.user
+ * @property {string} [instructions.mode]
  * @property {string} instructions.raw
  * @property {object} target
  * @property {object} target.at

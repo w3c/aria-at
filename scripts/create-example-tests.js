@@ -1,3 +1,4 @@
+/** format */
 /// <reference path="../types/aria-at-csv.js" />
 /// <reference path="../types/aria-at-parsed.js" />
 /// <reference path="../types/aria-at-validated.js" />
@@ -659,12 +660,17 @@ ${rows}
               const keysParsed = parseKeyMap(keyDefs);
               const supportParsed = parseSupport(support);
 
+              const keysValidated = validateKeyMap(keysParsed, {addKeyMapError(reason) {
+                errorCount += 1;
+                errors += `[resources/keys.mjs]: ${reason}\n`;
+              }});
+
               const supportQueryables = {
                 at: Queryable.from('at', supportParsed.ats),
                 atGroup: Queryable.from('atGroup', supportParsed.atGroups),
               };
               const commandLookups = {
-                key: Queryable.from('key', keysParsed),
+                key: Queryable.from('key', keysValidated),
                 support: supportQueryables,
               };
               const commandsValidated = commandsParsed.map(command => validateCommand(command, commandLookups, {addCommandError}));
@@ -1016,16 +1022,16 @@ function validateCommand(commandParsed, data, {addCommandError = () => {}} = {})
   }
 }
 
-function where(goal, value) {
-  if (typeof goal === 'object') {
-    if (Array.isArray(goal)) {
+// function where(goal, value) {
+//   if (typeof goal === 'object') {
+//     if (Array.isArray(goal)) {
 
-    }
-    for (const key of Object.keys(goal)) {
+//     }
+//     for (const key of Object.keys(goal)) {
 
-    }
-  }
-}
+//     }
+//   }
+// }
 
 /**
  *
@@ -1078,6 +1084,69 @@ function where2(goal) {
 // }
 
 /**
+ * @param {AriaATParsed.KeyMap} keyMap
+ */
+function validateKeyMap(keyMap, {addKeyMapError}) {
+  if (!keyMap.ALT_DELETE) {
+    addKeyMapError(`ALT_DELETE is not defined in keys module.`);
+  }
+  if (!keyMap.INS_Z) {
+    addKeyMapError(`INS_Z is not defined in keys module.`);
+  }
+  if (!keyMap.ESC) {
+    addKeyMapError(`ESC is not defined in keys module.`);
+  }
+  if (!keyMap.INS_SPACE) {
+    addKeyMapError(`INS_SPACE is not defined in keys module.`);
+  }
+  if (!keyMap.LEFT) {
+    addKeyMapError(`LEFT is not defined in keys module.`);
+  }
+  if (!keyMap.RIGHT) {
+    addKeyMapError(`RIGHT is not defined in keys module.`);
+  }
+  return keyMap;
+}
+
+
+const MODE_INSTRUCTION_TEMPLATES = {
+  jaws: {
+    reading: (data) => {
+      const altDelete = data.key.where({id: 'ALT_DELETE'});
+      const insZ = data.key.where({id: 'INS_Z'});
+      return `Verify the Virtual Cursor is active by pressing ${altDelete}. If it is not, turn on the Virtual Cursor by pressing ${insZ}.`;
+    },
+    interaction: (data) => {
+      const altDelete = data.key.where({id: 'ALT_DELETE'});
+      const insZ = data.key.where({id: 'INS_Z'});
+      return `Verify the PC Cursor is active by pressing ${altDelete}. If it is not, turn off the Virtual Cursor by pressing ${insZ}.`;
+    },
+  },
+  nvda: {
+    reading: (data) => {
+      const esc = data.key.where({id: 'ESC'});
+      return `Insure NVDA is in browse mode by pressing ${esc}. Note: This command has no effect if NVDA is already in browse mode.`;
+    },
+    interaction: (data) => {
+      const insSpace = data.key.where({id: 'INS_SPACE'});
+      return `If NVDA did not make the focus mode sound when the test page loaded, press ${insSpace} to turn focus mode on.`;
+    }
+  },
+  voiceover_macos: {
+    reading: (data) => {
+      const left = data.key.where({id: 'LEFT'});
+      const right = data.key.where({id: 'RIGHT'});
+      return `Toggle Quick Nav ON by pressing the ${left} and ${right} keys at the same time.`;
+    },
+    interaction: (data) => {
+      const left = data.key.where({id: 'LEFT'});
+      const right = data.key.where({id: 'RIGHT'});
+      return `Toggle Quick Nav OFF by pressing the ${left} and ${right} keys at the same time.`;
+    }
+  }
+};
+
+/**
  * @param {T} value
  * @param {function(T): U} goal
  * @returns {T}
@@ -1095,6 +1164,7 @@ function map(value, goal) {
  * @param {AriaATParsed.Test} testParsed
  * @param {object} data
  * @param {Queryable<AriaATParsed.Command>} data.command
+ * @param {Queryable<AriaATParsed.Key>} data.key
  * @param {Queryable<string>} data.mode
  * @param {Queryable<AriaATParsed.Reference>} data.reference
  * @param {Queryable<AriaATParsed.ScriptSource>} data.script
@@ -1177,6 +1247,10 @@ function validateTest(testParsed, data, {addTestError = () => {}} = {}) {
       ...testParsed.setupScript,
       ...data.script.where({name: testParsed.setupScript.name}),
     } : undefined,
+    instructions: {
+      ...testParsed,
+      mode: MODE_INSTRUCTION_TEMPLATES[targetParsed.target.at.key][testParsed.target.mode](data),
+    },
     assertions,
   };
 }

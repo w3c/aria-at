@@ -1,4 +1,3 @@
-/** format */
 /// <reference path="../types/aria-at-csv.js" />
 /// <reference path="../types/aria-at-parsed.js" />
 /// <reference path="../types/aria-at-validated.js" />
@@ -669,8 +668,9 @@ ${rows}
                 at: Queryable.from('at', supportParsed.ats),
                 atGroup: Queryable.from('atGroup', supportParsed.atGroups),
               };
+              const keyQueryable = Queryable.from('key', keysValidated);
               const commandLookups = {
-                key: Queryable.from('key', keysValidated),
+                key: keyQueryable,
                 support: supportQueryables,
               };
               const commandsValidated = commandsParsed.map(command => validateCommand(command, commandLookups, {addCommandError}));
@@ -694,12 +694,16 @@ ${rows}
                 command,
                 test: testQueryable.where({testId: command.testId}),
                 reference: referenceQueryable,
+                key: keyQueryable,
               }));
 
               const files = [
                 ...createScriptFiles(scripts, testPlanBuildDirectory),
                 ...testsCollected.map(collectedTest => (
                   createCollectedTestFile(collectedTest, testPlanBuildDirectory)
+                )),
+                ...testsCollected.map(collectedTest => (
+                  createCollectedTestHtmlFile(collectedTest, testPlanBuildDirectory)
                 ))
               ];
 
@@ -772,7 +776,7 @@ function loadScripts(testPlanJsDirectory) {
  * @returns {{path: string, content: string}[]}
  */
 function createScriptFiles(scripts, testPlanBuildDirectory) {
-  const scriptJsonpFunction = 'scriptJsonpLoaded';
+  const jsonpFunction = 'scriptsJsonpLoaded';
 
   return [
     ...scripts.reduce((files, script) => {
@@ -799,7 +803,7 @@ function createScriptFiles(scripts, testPlanBuildDirectory) {
   }
 
   function renderJsonp(scripts) {
-    return reindent`${scriptJsonpFunction}({
+    return reindent`window[document.currentScript.getAttribute("jsonpFunction") || "${jsonpFunction}"]({
   ${scripts.map(renderJsonpExport).join(',\n')}
 });
 `;
@@ -1114,34 +1118,34 @@ const MODE_INSTRUCTION_TEMPLATES = {
     reading: (data) => {
       const altDelete = data.key.where({id: 'ALT_DELETE'});
       const insZ = data.key.where({id: 'INS_Z'});
-      return `Verify the Virtual Cursor is active by pressing ${altDelete}. If it is not, turn on the Virtual Cursor by pressing ${insZ}.`;
+      return `Verify the Virtual Cursor is active by pressing ${altDelete.keystroke}. If it is not, turn on the Virtual Cursor by pressing ${insZ.keystroke}.`;
     },
     interaction: (data) => {
       const altDelete = data.key.where({id: 'ALT_DELETE'});
       const insZ = data.key.where({id: 'INS_Z'});
-      return `Verify the PC Cursor is active by pressing ${altDelete}. If it is not, turn off the Virtual Cursor by pressing ${insZ}.`;
+      return `Verify the PC Cursor is active by pressing ${altDelete.keystroke}. If it is not, turn off the Virtual Cursor by pressing ${insZ.keystroke}.`;
     },
   },
   nvda: {
     reading: (data) => {
       const esc = data.key.where({id: 'ESC'});
-      return `Insure NVDA is in browse mode by pressing ${esc}. Note: This command has no effect if NVDA is already in browse mode.`;
+      return `Insure NVDA is in browse mode by pressing ${esc.keystroke}. Note: This command has no effect if NVDA is already in browse mode.`;
     },
     interaction: (data) => {
       const insSpace = data.key.where({id: 'INS_SPACE'});
-      return `If NVDA did not make the focus mode sound when the test page loaded, press ${insSpace} to turn focus mode on.`;
+      return `If NVDA did not make the focus mode sound when the test page loaded, press ${insSpace.keystroke} to turn focus mode on.`;
     }
   },
   voiceover_macos: {
     reading: (data) => {
       const left = data.key.where({id: 'LEFT'});
       const right = data.key.where({id: 'RIGHT'});
-      return `Toggle Quick Nav ON by pressing the ${left} and ${right} keys at the same time.`;
+      return `Toggle Quick Nav ON by pressing the ${left.keystroke} and ${right.keystroke} keys at the same time.`;
     },
     interaction: (data) => {
       const left = data.key.where({id: 'LEFT'});
       const right = data.key.where({id: 'RIGHT'});
-      return `Toggle Quick Nav OFF by pressing the ${left} and ${right} keys at the same time.`;
+      return `Toggle Quick Nav OFF by pressing the ${left.keystroke} and ${right.keystroke} keys at the same time.`;
     }
   }
 };
@@ -1247,10 +1251,6 @@ function validateTest(testParsed, data, {addTestError = () => {}} = {}) {
       ...testParsed.setupScript,
       ...data.script.where({name: testParsed.setupScript.name}),
     } : undefined,
-    instructions: {
-      ...testParsed,
-      mode: MODE_INSTRUCTION_TEMPLATES[targetParsed.target.at.key][testParsed.target.mode](data),
-    },
     assertions,
   };
 }
@@ -1262,7 +1262,7 @@ function validateTest(testParsed, data, {addTestError = () => {}} = {}) {
  * @param {Queryable<AriaATCSV.Reference>} data.reference
  * @returns {AriaATFile.CollectedTest}
  */
-function collectTestData({test, command, reference}) {
+function collectTestData({test, command, reference, key}) {
   return {
     info: {
       testId: test.testId,
@@ -1276,7 +1276,10 @@ function collectTestData({test, command, reference}) {
       referencePage: reference.where({refId: 'reference'}).value,
       setupScript: test.setupScript,
     },
-    instructions: test.instructions,
+    instructions: {
+      ...test.instructions,
+      mode: MODE_INSTRUCTION_TEMPLATES[command.target.at.key][command.target.mode]({key}),
+    },
     commands: command.commands,
     assertions: test.assertions,
   };
@@ -1289,6 +1292,98 @@ function createCollectedTestFile(test, testPlanBuildDirectory) {
   return {
     path: path.join(testPlanBuildDirectory, `test-${test.info.testId.toString().padStart(2, '0')}-${test.info.task.replace(/\s+/g, '-')}-${test.target.mode}-${test.target.at.key}.collected.json`),
     content: beautify(test, null, 2, 40)
+  };
+}
+
+/**
+ * @param {AriaATFile.CollectedTest} test
+ * @returns {string}
+ */
+function renderCollectedTestHtml(test, testFileName) {
+  return reindent`<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>${test.info.title}</title>
+    ${test.info.references.map(({value}) => `<link rel="help" href="${value}">`).join('\n')}
+    <link rel="preload" href="${testFileName}" as="fetch">
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 1em;
+      }
+
+      table, td, th {
+        border: 1px solid black;
+      }
+
+      td {
+        padding: .5em;
+      }
+
+      table.record-results tr:first-child {
+        font-weight: bold;
+      }
+
+      textarea {
+        width: 100%
+      }
+
+      fieldset.problem-select {
+        margin-top: 1em;
+        margin-left: 1em;
+      }
+
+      .required:not(.highlight-required) {
+        display: none;
+      }
+
+      .required-other:not(.highlight-required) {
+        display: none;
+      }
+
+      .required.highlight-required {
+        color: red;
+      }
+
+      fieldset.highlight-required {
+        border-color: red;
+      }
+
+      fieldset .highlight-required {
+        color: red;
+      }
+
+      .off-screen {
+        position: absolute !important;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        clip: rect(1px, 1px, 1px, 1px);
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import {loadCollectedTestAsync} from "../resources/aria-at-harness.mjs";
+      loadCollectedTestAsync(new URL(location + "/..").pathname, "${testFileName}");
+    </script>
+  </body>
+</html>
+`;
+}
+
+/**
+ * @param {AriaATFile.CollectedTest} test
+ * @param {string} testPlanBuildDirectory
+ * @returns {{path: string, content: string}}
+ */
+function createCollectedTestHtmlFile(test, testPlanBuildDirectory) {
+  const testJsonFileName = `test-${test.info.testId.toString().padStart(2, '0')}-${test.info.task.replace(/\s+/g, '-')}-${test.target.mode}-${test.target.at.key}.collected.json`;
+  return {
+    path: path.join(testPlanBuildDirectory, `test-${test.info.testId.toString().padStart(2, '0')}-${test.info.task.replace(/\s+/g, '-')}-${test.target.mode}-${test.target.at.key}.collected.html`),
+    content: renderCollectedTestHtml(test, testJsonFileName),
   };
 }
 

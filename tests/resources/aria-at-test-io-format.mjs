@@ -229,7 +229,7 @@ class CommandsInput {
           [collectedTest.info.task]: {
             [collectedTest.target.mode]: {
               [collectedTest.target.at.key]: collectedTest.commands.map(({id, extraInstruction}) =>
-                extraInstruction ? [id] : [id, extraInstruction]
+                extraInstruction ? [id, extraInstruction] : [id]
               ),
             },
           },
@@ -349,7 +349,7 @@ class ScriptsInput {
   }
 
   /**
-   * @param {AriaATFile.CollectedTest} script
+   * @param {{source: string}} script
    * @private
    */
   static scriptsFromSource(script) {
@@ -357,7 +357,7 @@ class ScriptsInput {
   }
 
   /**
-   * @param {AriaATFile.CollectedTest} script
+   * @param {{modulePath: string}} script
    * @param {string} dataUrl
    * @private
    */
@@ -366,7 +366,7 @@ class ScriptsInput {
   }
 
   /**
-   * @param {AriaATFile.CollectedTest} script
+   * @param {{jsonpPath: string}} script
    * @param {string} dataUrl
    * @private
    */
@@ -375,7 +375,8 @@ class ScriptsInput {
       new Promise(resolve => {
         window.scriptsJsonpLoaded = resolve;
         const scriptTag = document.createElement("script");
-        scriptTag.src = setupScript.jsonpPath;
+        scriptTag.src = script.jsonpPath;
+        document.body.appendChild(scriptTag);
       }),
       new Promise((_, reject) => setTimeout(() => reject(new Error("Loading scripts timeout error")), 10000)),
     ]);
@@ -387,16 +388,16 @@ class ScriptsInput {
    */
   static async fromCollectedTestAsync({target: {setupScript}}, dataUrl) {
     if (!setupScript) {
-      return new ScriptsInput({});
+      return new ScriptsInput({scripts: {}});
     }
     try {
-      return new ScriptsInput(ScriptsInput.scriptsFromSource(setupScript));
+      return new ScriptsInput({scripts: ScriptsInput.scriptsFromSource(setupScript)});
     } catch (error) {
       try {
-        return new ScriptsInput(await ScriptsInput.scriptsFromModuleAsync(setupScript, dataUrl));
+        return new ScriptsInput({scripts: await ScriptsInput.scriptsFromModuleAsync(setupScript, dataUrl)});
       } catch (error2) {
         try {
-          return new ScriptsInput(await ScriptsInput.scriptsFromJsonpAsync(setupScript, dataUrl));
+          return new ScriptsInput({scripts: await ScriptsInput.scriptsFromJsonpAsync(setupScript, dataUrl)});
         } catch (error3) {
           throw new Error([error, error2, error3].map(error => error.stack || error.message).join("\n\n"));
         }
@@ -531,13 +532,13 @@ class BehaviorInput {
       behavior: {
         description: info.title,
         task: info.task,
-        mode: info.mode,
-        modeInstructions: keysInput.modeInstructions(mode),
+        mode: target.mode,
+        modeInstructions: instructions.mode,
         appliesTo: [target.at.name],
         specificUserInstruction: instructions.raw,
         setupScriptDescription: target.setupScript ? target.setupScript.description : undefined,
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
-        commands: commandsInput.getCommands(info.task, collectedTest.info.mode),
+        commands: commandsInput.getCommands(info.task, target.mode),
         assertions: assertions.map(({priority, expectation: assertion}) => ({
           priority,
           assertion,

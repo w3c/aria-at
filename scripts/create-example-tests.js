@@ -689,13 +689,15 @@ ${rows}
                 })
               );
 
-              const testQueryable = Queryable.from('test', testsValidated);
-              const testsCollected = commandsValidated.map(command => collectTestData({
-                command,
-                test: testQueryable.where({testId: command.testId}),
-                reference: referenceQueryable,
-                key: keyQueryable,
-              }));
+              const commandQueryable = Queryable.from('command', commandsValidated);
+              const testsCollected = testsValidated.flatMap(test => {
+                return test.target.at.map(({key}) => collectTestData({
+                  test,
+                  command: commandQueryable.where({testId: test.testId, target: {at: {key}}}),
+                  reference: referenceQueryable,
+                  key: keyQueryable,
+                }));
+              });
 
               const files = [
                 ...createScriptFiles(scripts, testPlanBuildDirectory),

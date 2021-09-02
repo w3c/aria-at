@@ -40,7 +40,6 @@
  * @property {string} references[].value
  * @property {object} instructions
  * @property {string[]} instructions.user
- * @property {string} [instructions.mode]
  * @property {string} instructions.raw
  * @property {object[]} assertions
  * @property {1 | 2} assertions[].priority

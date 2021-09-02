@@ -1,0 +1,87 @@
+{
+  "info": {
+    "testId": 15,
+    "task": "open collapsed select-only combobox to specific option",
+    "title": "Open a collapsed select-only combobox to a specific option in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      },
+      {
+        "refId": "listbox",
+        "value": "https://w3c.github.io/aria/#listbox"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "option",
+        "value": "https://w3c.github.io/aria/#option"
+      },
+      {
+        "refId": "aria-selected",
+        "value": "https://w3c.github.io/aria/#aria-selected"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/combobox-select-only.html",
+    "setupScript": {
+      "name": "moveFocusToCombobox",
+      "description": "sets focus on the combobox",
+      "source": "// sets focus on the combobox\ntestPageDocument.querySelector('[role=\"combobox\"]').focus();\n",
+      "modulePath": "scripts/moveFocusToCombobox.module.js",
+      "jsonpPath": "scripts/moveFocusToCombobox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the combobox, open the combobox and set focus on a specific option by typing a printable character."
+    ],
+    "raw": "With focus on the combobox, open the combobox and set focus on a specific option by typing a printable character.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [ { "id": "A", "keystroke": "A" } ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "State of the combobox (expanded) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role of the popup ('listbox') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the popup ('Favorite Fruit') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the focused option in the popup ('Apple') is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "State of the focused option in the popup (not selected) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of the focused option in the popup (2) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of options in the popup (13) is conveyed"
+    }
+  ]
+}

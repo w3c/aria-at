@@ -1,0 +1,94 @@
+{
+  "info": {
+    "testId": 5,
+    "task": "navigate to first checked radio button in group",
+    "title": "Navigate to the first checked radio button in a group in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/radio/radio-activedescendant.html"
+      },
+      {
+        "refId": "radiogroup",
+        "value": "https://w3c.github.io/aria/#radiogroup"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "radio",
+        "value": "https://w3c.github.io/aria/#radio"
+      },
+      {
+        "refId": "aria-activedescendant",
+        "value": "https://w3c.github.io/aria/#aria-activedescendant"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-3-17_161413/radio-activedescendant.html",
+    "setupScript": {
+      "name": "checkFirstRadioButtonAndSetFocusBeforeRadioGroup",
+      "description": "sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading",
+      "source": "// sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading\nlet radioGroup = testPageDocument.querySelector('[role=\"radiogroup\"]');\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.classList.remove('focus');\n});\nradios[0].classList.add('focus');\nradios[0].setAttribute('aria-checked', 'true');\nradioGroup.setAttribute('aria-activedescendant', radios[0].id);\ntestPageDocument.querySelector('#beforelink').focus();\ntestPageDocument.querySelector('#group_label_1').style.display = 'none';\n",
+      "modulePath": "scripts/checkFirstRadioButtonAndSetFocusBeforeRadioGroup.module.js",
+      "jsonpPath": "scripts/checkFirstRadioButtonAndSetFocusBeforeRadioGroup.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the first radio button in the group."
+    ],
+    "raw": "Navigate to the first radio button in the group.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    { "id": "F", "keystroke": "F" },
+    { "id": "R", "keystroke": "R" },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the group, 'Pizza Crust', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "role 'radio button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "name of the radio button, 'Regular crust', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the radio button, 'checked', is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Position of the radio button, 1, is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Number of radio buttons in the group, 3, is conveyed"
+    }
+  ]
+}

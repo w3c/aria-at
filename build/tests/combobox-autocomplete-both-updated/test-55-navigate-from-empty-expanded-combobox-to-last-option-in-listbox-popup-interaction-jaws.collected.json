@@ -1,0 +1,88 @@
+{
+  "info": {
+    "testId": 55,
+    "task": "navigate from empty expanded combobox to last option in listbox popup",
+    "title": "Navigate from an empty, expanded combobox to the last option in a listbox popup in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      },
+      {
+        "refId": "listbox",
+        "value": "https://w3c.github.io/aria/#listbox"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "aria-selected",
+        "value": "https://w3c.github.io/aria/#aria-selected"
+      },
+      {
+        "refId": "aria-activedescendant",
+        "value": "https://w3c.github.io/aria/#aria-activedescendant"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "setupScript": {
+      "name": "moveFocusToAndExpandCombobox",
+      "description": "sets focus on and expands the combobox",
+      "source": "// sets focus on and expands the combobox\ntestPageDocument.defaultView.comboboxController.open();\ntestPageDocument.defaultView.comboboxController.comboboxNode.focus();\n",
+      "modulePath": "scripts/moveFocusToAndExpandCombobox.module.js",
+      "jsonpPath": "scripts/moveFocusToAndExpandCombobox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the combobox, navigate to the the last option in the listbox popup."
+    ],
+    "raw": "With focus on the combobox, navigate to the the last option in the listbox popup.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role of the popup ('listbox') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the popup ('States') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the focused option in the popup ('Wyoming') is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "State of the focused option in the popup (selected) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of the focused option in the popup (56) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of options in the popup (56) is conveyed"
+    }
+  ]
+}

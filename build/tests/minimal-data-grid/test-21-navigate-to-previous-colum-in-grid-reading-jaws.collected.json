@@ -1,0 +1,56 @@
+{
+  "info": {
+    "testId": 21,
+    "task": "navigate to previous colum in grid",
+    "title": "Navigate to the previous colum in a grid in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "setupScript": {
+      "name": "setFocusOnSecondDataCell",
+      "description": "sets focus on the second cell of the second row in the grid",
+      "source": "// sets focus on the second cell of the second row in the grid\ntestPageDocument.defaultView.ex1Grid.setFocusPointer(0, 1);\ntestPageDocument.defaultView.ex1Grid.focusCell(0, 1);\n",
+      "modulePath": "scripts/setFocusOnSecondDataCell.module.js",
+      "jsonpPath": "scripts/setFocusOnSecondDataCell.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the previous column in the grid."
+    ],
+    "raw": "Navigate to the previous column in the grid.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "CTRL_ALT_LEFT",
+      "keystroke": "Control+Alt+Left"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the column header ('Date') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the cell ('01-Jan-16') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "coordinates of the cell (column 1, row 2) are conveyed"
+    }
+  ]
+}

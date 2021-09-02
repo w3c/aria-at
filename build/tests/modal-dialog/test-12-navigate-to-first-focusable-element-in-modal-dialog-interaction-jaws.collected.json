@@ -1,0 +1,52 @@
+{
+  "info": {
+    "testId": 12,
+    "task": "navigate to first focusable element in modal dialog",
+    "title": "Navigate to the first focusable element in a modal dialog in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-12-17_13353/dialog.html",
+    "setupScript": {
+      "name": "openAddDeliveryAddressDialogAndFocusCancelButton",
+      "description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button",
+      "source": "// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button\nconst btn = testPageDocument.querySelector('#ex1 > button');\ntestPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_cancel');\n",
+      "modulePath": "scripts/openAddDeliveryAddressDialogAndFocusCancelButton.module.js",
+      "jsonpPath": "scripts/openAddDeliveryAddressDialogAndFocusCancelButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the last focusable element inside a modal dialog, navigate to the first focusable element in the same dialog."
+    ],
+    "raw": "With focus on the last focusable element inside a modal dialog, navigate to the first focusable element in the same dialog.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Name 'Street' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The ability to enter text is conveyed"
+    }
+  ]
+}

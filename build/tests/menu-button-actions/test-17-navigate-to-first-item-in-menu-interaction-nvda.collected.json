@@ -1,0 +1,68 @@
+{
+  "info": {
+    "testId": 17,
+    "task": "navigate to first item in menu",
+    "title": "Navigate to the first item in a menu in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menu-button/menu-button-actions.html"
+      },
+      {
+        "refId": "menuitem",
+        "value": "https://w3c.github.io/aria/#menuitem"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-1-14_12348/menu-button-actions.html",
+    "setupScript": {
+      "name": "openMenuAndSetFocusToLastItem",
+      "description": "opens the menu, and sets focus on 'Action 4'",
+      "source": "// opens the menu, and sets focus on 'Action 4'\ntestPageDocument.defaultView.menuController.openPopup();\ntestPageDocument.defaultView.menuController.setFocusToLastMenuitem();\n",
+      "modulePath": "scripts/openMenuAndSetFocusToLastItem.module.js",
+      "jsonpPath": "scripts/openMenuAndSetFocusToLastItem.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Action 4' menu item, navigate to the first menu item."
+    ],
+    "raw": "With focus on the 'Action 4' menu item, navigate to the first menu item.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "HOME",
+      "keystroke": "Home"
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 2,
+      "expectation": "Role of the focused item, 'menu item', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the focused item, 'Action 1', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of the focused item in the menu (1) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of items in the menu (4) is conveyed"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "info": {
+    "testId": 36,
+    "task": "read checked menuitemcheckbox in a group in a submenu",
+    "title": "Read checked menu item checkbox in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html"
+      },
+      {
+        "refId": "group",
+        "value": "https://w3c.github.io/aria/#group"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "menuitemcheckbox",
+        "value": "https://w3c.github.io/aria/#menuitemcheckbox"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "nvda",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.html",
+    "setupScript": {
+      "name": "focusonstylecolor",
+      "description": "sets focus on the 'Style/Color' menu item",
+      "source": "// Move focus to the \"Style/Color\" menu item\ntestPageDocument.querySelectorAll('[role=menuitem]')[1].focus();\n",
+      "modulePath": "scripts/focusonstylecolor.module.js",
+      "jsonpPath": "scripts/focusonstylecolor.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Open 'Style/Color' menu with down arrow.",
+      "Navigate to 'Italic' menu item and check it by pressing enter. (the menu will close.)",
+      "Re-open 'Style/Color' menu with down arrow.",
+      "Navigate to 'Italic' menu item.",
+      "Read the 'Italic' menu item checkbox"
+    ],
+    "raw": "Open 'Style/Color' menu with down arrow. | Navigate to 'Italic' menu item and check it by pressing enter. (the menu will close.) | Re-open 'Style/Color' menu with down arrow. | Navigate to 'Italic' menu item. | Read the 'Italic' menu item checkbox",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab"
+    },
+    {
+      "id": "INS_NUMPAD_5",
+      "keystroke": "Insert+Numpad 5 (or CapsLock+Numpad 5)"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "The name 'Italic' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The role 'menu item checkbox' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The unchecked state is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The position of the item and number of items in the 'Font Style ' group are conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The name and role of the 'Font Style' group are conveyed"
+    }
+  ]
+}

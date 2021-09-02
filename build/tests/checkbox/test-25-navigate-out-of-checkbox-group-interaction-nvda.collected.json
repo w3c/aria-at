@@ -1,0 +1,65 @@
+{
+  "info": {
+    "testId": 25,
+    "task": "navigate out of checkbox group",
+    "title": "Navigate out of a checkbox group in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html"
+      },
+      {
+        "refId": "checkbox",
+        "value": "https://w3c.github.io/aria/#checkbox"
+      },
+      {
+        "refId": "group",
+        "value": "https://w3c.github.io/aria/#group"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.html"
+  },
+  "instructions": {
+    "user": [
+      "Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start."
+    ],
+    "raw": "Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab"
+    },
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 2,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Group name 'Sandwich Condiments' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The group boundary is conveyed"
+    }
+  ]
+}

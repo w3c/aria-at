@@ -1,0 +1,68 @@
+{
+  "info": {
+    "testId": 30,
+    "task": "navigate to last option in listbox popup",
+    "title": "Navigate to the last option in a listbox popup",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html"
+      },
+      {
+        "refId": "option",
+        "value": "https://w3c.github.io/aria/#option"
+      },
+      {
+        "refId": "aria-selected",
+        "value": "https://w3c.github.io/aria/#aria-selected"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/combobox-select-only.html",
+    "setupScript": {
+      "name": "openListboxToGuava",
+      "description": "sets focus on and expands the Combobox, and sets the focused option to 'Guava'",
+      "source": "// sets focus on and expands the Combobox, and sets the focused option to 'Guave'\ntestPageDocument.querySelector('[role=\"combobox\"]').focus();\ntestPageDocument.defaultView.selectController.updateMenuState(true);\ntestPageDocument.defaultView.selectController.onOptionChange(11);\n",
+      "modulePath": "scripts/openListboxToGuava.module.js",
+      "jsonpPath": "scripts/openListboxToGuava.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the listbox popup, navigate to the last option."
+    ],
+    "raw": "With focus on the listbox popup, navigate to the last option.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "END",
+      "keystroke": "End"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the focused option in the popup ('Huckleberry') is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "State of the focused option in the popup (not selected) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of the focused option in the popup (13) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of options in the popup (13) is conveyed"
+    }
+  ]
+}

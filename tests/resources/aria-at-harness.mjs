@@ -87,6 +87,15 @@ export function verifyATBehavior(atBehavior) {
   testRunIO.setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected(atBehavior);
 }
 
+export async function loadCollectedTestAsync(testRoot, testFileName) {
+  const collectedTestResponse = await fetch(`${testRoot}/${testFileName}`);
+  const collectedTestJson = await collectedTestResponse.json();
+  await testRunIO.setInputsFromCollectedTestAsync(collectedTestJson, testRoot);
+  testRunIO.setConfigInputFromQueryParamsAndSupport([['at', collectedTestJson.target.at.key], ...Array.from(new URL(document.location).searchParams)]);
+
+  displayInstructionsForBehaviorTest();
+}
+
 export function displayTestPageAndInstructions(testPage) {
   if (document.readyState !== "complete") {
     window.setTimeout(() => {

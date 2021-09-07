@@ -1,0 +1,56 @@
+{
+  "info": {
+    "testId": 51,
+    "task": "navigate to last cell of row in grid",
+    "title": "Navigate to the last cell of a row in a grid",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "setupScript": {
+      "name": "setFocusOnFirstDataCell",
+      "description": "sets focus on the first cell of the second row in the grid",
+      "source": "// sets focus on the first cell of the second row in the grid\ntestPageDocument.defaultView.ex1Grid.setFocusPointer(0, 0);\ntestPageDocument.defaultView.ex1Grid.focusCell(0, 0);\n",
+      "modulePath": "scripts/setFocusOnFirstDataCell.module.js",
+      "jsonpPath": "scripts/setFocusOnFirstDataCell.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the last cell of the current row in the grid."
+    ],
+    "raw": "Navigate to the last cell of the current row in the grid.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "END",
+      "keystroke": "End"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the column header ('Balance') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the cell ('$1,000,000.00') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "coordinates of the cell (column 5, row 2) are conveyed"
+    }
+  ]
+}

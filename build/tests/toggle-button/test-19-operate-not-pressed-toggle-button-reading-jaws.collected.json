@@ -1,0 +1,60 @@
+{
+  "info": {
+    "testId": 19,
+    "task": "operate not pressed toggle button",
+    "title": "Operate a not pressed toggle button in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/button/button.html"
+      },
+      {
+        "refId": "button",
+        "value": "https://w3c.github.io/aria/#button"
+      },
+      {
+        "refId": "aria-pressed",
+        "value": "https://w3c.github.io/aria/#aria-pressed"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-3-29_145942/button.html",
+    "setupScript": {
+      "name": "setFocusOnButton",
+      "description": "sets focus on the button",
+      "source": "// sets focus on the button\ntestPageDocument.querySelector('#toggle').focus();\n",
+      "modulePath": "scripts/setFocusOnButton.module.js",
+      "jsonpPath": "scripts/setFocusOnButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Mute' button, activate the button."
+    ],
+    "raw": "With the reading cursor on the 'Mute' button, activate the button.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "SPACE",
+      "keystroke": "Space"
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change in state, to 'pressed', is conveyed"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "info": {
+    "testId": 40,
+    "task": "close empty combobox",
+    "title": "Close an empty combobox in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "setupScript": {
+      "name": "moveFocusToAndExpandCombobox",
+      "description": "sets focus on and expands the combobox",
+      "source": "// sets focus on and expands the combobox\ntestPageDocument.defaultView.comboboxController.open();\ntestPageDocument.defaultView.comboboxController.comboboxNode.focus();\n",
+      "modulePath": "scripts/moveFocusToAndExpandCombobox.module.js",
+      "jsonpPath": "scripts/moveFocusToAndExpandCombobox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the combobox, close the combobox."
+    ],
+    "raw": "With focus on the combobox, close the combobox.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "ENTER",
+      "keystroke": "Enter"
+    },
+    {
+      "id": "ESC",
+      "keystroke": "Escape"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change in state (to collapsed) is conveyed"
+    }
+  ]
+}

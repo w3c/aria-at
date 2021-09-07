@@ -1,0 +1,76 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "read information about collapsed select-only combobox",
+    "title": "Read information about a collapsed select-only combobox in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html"
+      },
+      {
+        "refId": "combobox",
+        "value": "https://w3c.github.io/aria-practices/#combobox"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/combobox-select-only.html",
+    "setupScript": {
+      "name": "moveFocusToCombobox",
+      "description": "sets focus on the combobox",
+      "source": "// sets focus on the combobox\ntestPageDocument.querySelector('[role=\"combobox\"]').focus();\n",
+      "modulePath": "scripts/moveFocusToCombobox.module.js",
+      "jsonpPath": "scripts/moveFocusToCombobox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the combobox, read information about the combobox."
+    ],
+    "raw": "With the reading cursor on the combobox, read information about the combobox.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab"
+    },
+    {
+      "id": "INS_UP",
+      "keystroke": "Insert+Up"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'combobox' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Favorite Fruit' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the selected option ('Choose a Fruit') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the combobox (collapsed) is conveyed"
+    }
+  ]
+}

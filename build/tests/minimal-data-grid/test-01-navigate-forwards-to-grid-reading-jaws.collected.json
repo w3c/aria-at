@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 1,
+    "task": "navigate forwards to grid",
+    "title": "Navigate forwards to a grid in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      },
+      {
+        "refId": "grid",
+        "value": "https://w3c.github.io/aria/#grid"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "setupScript": {
+      "name": "setFocusBeforeGrid",
+      "description": "sets focus on a link before the grid",
+      "source": "// sets focus on a link before the grid\ntestPageDocument.querySelector('#beforelink').focus();",
+      "modulePath": "scripts/setFocusBeforeGrid.module.js",
+      "jsonpPath": "scripts/setFocusBeforeGrid.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the first column header in the grid. Note: you may need to press  certain commands (such as Down Arrow) multiple times to hear all information relating to the grid and the first column header."
+    ],
+    "raw": "Navigate to the first column header in the grid. Note: you may need to press  certain commands (such as Down Arrow) multiple times to hear all information relating to the grid and the first column header.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "T_THEN_DOWN",
+      "keystroke": "T followed by Down Arrow"
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'grid' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Transactions January 1 through January 6' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of columns (5) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of rows (7) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the first column header ('Date') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Coordinates of the column header (column 1, row 1) are conveyed"
+    }
+  ]
+}

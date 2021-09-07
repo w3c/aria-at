@@ -1,0 +1,76 @@
+{
+  "info": {
+    "testId": 35,
+    "task": "navigate to last radio button",
+    "title": "Navigate to the last radio button in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/radio/radio.html"
+      },
+      {
+        "refId": "radio",
+        "value": "https://w3c.github.io/aria/#radio"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-15_144141/radio.html",
+    "setupScript": {
+      "name": "setFocusOnFirstRadioButton",
+      "description": "sets focus on the first radio button",
+      "source": "// sets focus on the first radio button\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.tabIndex = -1;\n});\nradios[0].tabIndex = 0;\nradios[0].focus();\n",
+      "modulePath": "scripts/setFocusOnFirstRadioButton.module.js",
+      "jsonpPath": "scripts/setFocusOnFirstRadioButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Regular crust' radio button, navigate to the last radio button."
+    ],
+    "raw": "With focus on the 'Regular crust' radio button, navigate to the last radio button.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow"
+    },
+    {
+      "id": "LEFT",
+      "keystroke": "Left Arrow"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "role 'radio button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "name 'Thin crust' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the radio button, 'checked', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of the radio button, 3, is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of radio buttons in the group, 3, is conveyed"
+    }
+  ]
+}

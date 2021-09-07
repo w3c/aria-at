@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 5,
+    "task": "navigate into end of grid",
+    "title": "Navigate into the end of a grid",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      },
+      {
+        "refId": "grid",
+        "value": "https://w3c.github.io/aria/#grid"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "setupScript": {
+      "name": "setFocusAfterGrid",
+      "description": "sets focus on a link after the grid",
+      "source": "// sets focus on a link after the grid\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterGrid.module.js",
+      "jsonpPath": "scripts/setFocusAfterGrid.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the last cell in the grid. Note: you may need to press certain commands (such as Control+Option+Left) multiple times to hear all information relating to the grid and the last cell."
+    ],
+    "raw": "Navigate to the last cell in the grid. Note: you may need to press certain commands (such as Control+Option+Left) multiple times to hear all information relating to the grid and the last cell.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'grid' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Grid boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Transactions January 1 through January 6' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Number of columns (5) is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Number of rows (7) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the last column header ('Balance') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the last cell ('$995,532.00') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Coordinates of the last cell (column 5, row 7) are conveyed"
+    }
+  ]
+}

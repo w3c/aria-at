@@ -1,0 +1,76 @@
+{
+  "info": {
+    "testId": 27,
+    "task": "delete tab from tab list",
+    "title": "Delete a tab from a tab list in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/tabs/tabs-2/tabs.html"
+      },
+      {
+        "refId": "tab",
+        "value": "https://w3c.github.io/aria/#tab"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-selected",
+        "value": "https://w3c.github.io/aria/#aria-selected"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-2-15_124757/tabs.html",
+    "setupScript": {
+      "name": "setFocusOnThirdTab",
+      "description": "sets focus on the third tab",
+      "source": "// sets focus on the third tab\ntestPageDocument.querySelector('#complex').focus();\n",
+      "modulePath": "scripts/setFocusOnThirdTab.module.js",
+      "jsonpPath": "scripts/setFocusOnThirdTab.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Joke' tab, delete the tab."
+    ],
+    "raw": "With the reading cursor on the 'Joke' tab, delete the tab.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "DELETE",
+      "keystroke": "Delete"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'tab' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Agnes Obel' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the tab, 'selected', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of tab in the tab list, 2, is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of tabs in the tab list, 2, is conveyed"
+    }
+  ]
+}

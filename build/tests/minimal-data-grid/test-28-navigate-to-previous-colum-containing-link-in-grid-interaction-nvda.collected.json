@@ -1,0 +1,60 @@
+{
+  "info": {
+    "testId": 28,
+    "task": "navigate to previous colum containing link in grid",
+    "title": "Navigate to the previous colum containing a link in a grid in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "setupScript": {
+      "name": "setFocusOnFourthDataCell",
+      "description": "sets focus on the fourth cell of the second row in the grid",
+      "source": "// sets focus on the fourth cell of the second row in the grid\ntestPageDocument.defaultView.ex1Grid.setFocusPointer(0, 3);\ntestPageDocument.defaultView.ex1Grid.focusCell(0, 3);\n",
+      "modulePath": "scripts/setFocusOnFourthDataCell.module.js",
+      "jsonpPath": "scripts/setFocusOnFourthDataCell.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the previous column containing a link in the grid."
+    ],
+    "raw": "Navigate to the previous column containing a link in the grid.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "LEFT",
+      "keystroke": "Left Arrow"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the column header ('Description') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Cash Deposit' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "coordinates of the cell (column 3, row 2) are conveyed"
+    }
+  ]
+}

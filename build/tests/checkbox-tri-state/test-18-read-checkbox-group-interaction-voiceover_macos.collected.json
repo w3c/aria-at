@@ -1,0 +1,56 @@
+{
+  "info": {
+    "testId": 18,
+    "task": "read checkbox group",
+    "title": "Read grouping information of a grouped, partially checked checkbox",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-2/checkbox-2.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/checkbox-tri-state.html",
+    "setupScript": {
+      "name": "moveFocusToFirstCheckbox",
+      "description": "sets focus on the first checkbox",
+      "source": "// sets focus on the first checkbox\ntestPageDocument.querySelector('[role=\"checkbox\"]').focus();\n",
+      "modulePath": "scripts/moveFocusToFirstCheckbox.module.js",
+      "jsonpPath": "scripts/moveFocusToFirstCheckbox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "When focus is on a checkbox, read its grouping information."
+    ],
+    "raw": "When focus is on a checkbox, read its grouping information.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_F3",
+      "keystroke": "Control+Option+F3"
+    },
+    {
+      "id": "CTRL_OPT_F4",
+      "keystroke": "Control+Option+F4"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 2,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Group name 'Sandwich Condiments' is conveyed"
+    }
+  ]
+}

@@ -98,7 +98,7 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
         });
 
         fse.readdirSync(testPlanBuildDirectory).forEach(function (test) {
-            if (path.extname(test) === '.html' && path.basename(test) !== 'index.html') {
+            if (path.extname(test) === '.html' && !/\.collected\.html$/.test(test) && path.basename(test) !== 'index.html') {
                 const testFile = path.join(testsBuildDirectory, directory, test);
                 const root = np.parse(fse.readFileSync(testFile, 'utf8'), {script: true});
 

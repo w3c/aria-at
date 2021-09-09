@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 18,
+    "task": "open nested modal dialog",
+    "title": "Open a nested modal dialog in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html"
+      },
+      {
+        "refId": "dialog",
+        "value": "https://w3c.github.io/aria/#dialog"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-describedby",
+        "value": "https://w3c.github.io/aria/#aria-describedby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2020-12-17_13353/dialog.html",
+    "setupScript": {
+      "name": "openAddDeliveryAddressDialogAndFocusAddButton",
+      "description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button",
+      "source": "// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button\nconst btn = testPageDocument.querySelector('#ex1 > button');\ntestPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');\n",
+      "modulePath": "scripts/openAddDeliveryAddressDialogAndFocusAddButton.module.js",
+      "jsonpPath": "scripts/openAddDeliveryAddressDialogAndFocusAddButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Add' button inside a modal dialog, open the nested 'Address Added' dialog."
+    ],
+    "raw": "With the reading cursor on the 'Add' button inside a modal dialog, open the nested 'Address Added' dialog.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "SPACE",
+      "keystroke": "Space"
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'dialog' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Address Added' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Description of the dialog ('The address you provided has been added to your list of delivery addresses. It is ready for immediate use. If you wish to remove it, you can do so from your profile.') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role of the focused element ('button') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the focused element ('OK') is conveyed"
+    }
+  ]
+}

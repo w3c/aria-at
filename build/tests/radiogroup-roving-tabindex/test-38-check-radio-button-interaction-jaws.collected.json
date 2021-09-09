@@ -1,0 +1,52 @@
+{
+  "info": {
+    "testId": 38,
+    "task": "check radio button",
+    "title": "Check a radio button in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/radio/radio.html"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-15_144141/radio.html",
+    "setupScript": {
+      "name": "setFocusOnFirstRadioButton",
+      "description": "sets focus on the first radio button",
+      "source": "// sets focus on the first radio button\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.tabIndex = -1;\n});\nradios[0].tabIndex = 0;\nradios[0].focus();\n",
+      "modulePath": "scripts/setFocusOnFirstRadioButton.module.js",
+      "jsonpPath": "scripts/setFocusOnFirstRadioButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Regular crust' radio button, check the radio button."
+    ],
+    "raw": "With focus on the 'Regular crust' radio button, check the radio button.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "SPACE",
+      "keystroke": "Space"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change in state, to 'checked', is conveyed"
+    }
+  ]
+}

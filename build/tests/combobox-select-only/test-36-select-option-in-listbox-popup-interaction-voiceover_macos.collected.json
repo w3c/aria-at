@@ -1,0 +1,84 @@
+{
+  "info": {
+    "testId": 36,
+    "task": "select option in listbox popup",
+    "title": "Select an option in a listbox popup",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html"
+      },
+      {
+        "refId": "combobox",
+        "value": "https://w3c.github.io/aria-practices/#combobox"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/combobox-select-only.html",
+    "setupScript": {
+      "name": "openListboxToApple",
+      "description": "sets focus on and expands the Combobox, and sets the focused option to 'Apple' without selecting it",
+      "source": "// sets focus on and expands the Combobox, and sets the focused option to 'Apple'\ntestPageDocument.querySelector('[role=\"combobox\"]').focus();\ntestPageDocument.defaultView.selectController.updateMenuState(true);\ntestPageDocument.defaultView.selectController.onOptionChange(1);\n",
+      "modulePath": "scripts/openListboxToApple.module.js",
+      "jsonpPath": "scripts/openListboxToApple.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "with focus on the listbox popup, select the focused option."
+    ],
+    "raw": "with focus on the listbox popup, select the focused option.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_SPACE",
+      "keystroke": "Control+Option+Space"
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter"
+    },
+    {
+      "id": "SPACE",
+      "keystroke": "Space"
+    },
+    {
+      "id": "OPT_UP",
+      "keystroke": "Option+Up"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'combobox' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Favorite Fruit' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the selected option ('Apple') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the combobox (collapsed) is conveyed"
+    }
+  ]
+}

@@ -1,4 +1,7 @@
+/** @format */
 /// <reference path="../../types/aria-at-file.js" />
+/// <reference path="./types/aria-at-test-run.js" />
+/// <reference path="./types/aria-at-test-result.js" />
 
 import {
   HasUnexpectedBehaviorMap,
@@ -798,7 +801,7 @@ export class TestRunInputOutput {
     this.setUnexpectedInput(UnexpectedInput.fromBuiltin());
   }
 
-  /** @returns {import("./aria-at-test-run.mjs").TestRunState} */
+  /** @returns {AriaATTestRun.State} */
   testRunState() {
     invariant(
       this.behaviorInput !== null,
@@ -904,7 +907,7 @@ export class TestRunInputOutput {
   }
 
   /**
-   * @param {import("./aria-at-test-run.mjs").TestRunState} state
+   * @param {AriaATTestRun.State} state
    * @returns {import("./aria-at-harness.mjs").SubmitResultJSON}
    */
   submitResultsJSON(state) {
@@ -1007,6 +1010,109 @@ export class TestRunInputOutput {
                 : AssertionFailJSONMap.NO_SUPPORT,
           };
     }
+  }
+
+  /**
+   * Transform a test run state into a test result json for serialization.
+   * @param {AriaATTestRun.State} state
+   * @returns {AriaATTestResult.JSON}
+   */
+  testResultJSON(state) {
+    return {
+      test: {
+        title: state.info.description,
+        at: {
+          id: state.config.at.key,
+        },
+        atMode: state.info.mode,
+      },
+      scenarioResults: state.commands.map(command => ({
+        scenario: {
+          command: {
+            id: command.description,
+          },
+        },
+        output: command.atOutput.value,
+        assertionResults: command.assertions.map(assertion => ({
+          assertion: {
+            priority: assertion.priority === 1 ? "REQUIRED" : "OPTIONAL",
+            text: assertion.description,
+          },
+          passed: assertion.result === "pass",
+          failedReason:
+            assertion.result === "failIncorrect"
+              ? "INCORRECT_OUTPUT"
+              : assertion.result === "failMissing"
+              ? "NO_OUTPUT"
+              : null,
+        })),
+        unexpectedBehaviors: command.unexpected.behaviors
+          .map(behavior =>
+            behavior.checked
+              ? {
+                  text: behavior.description,
+                  otherUnexpectedBehaviorText: behavior.more ? behavior.more.value : null,
+                }
+              : null
+          )
+          .filter(Boolean),
+      })),
+    };
+  }
+
+  /**
+   * Set a default or given test run state with the recorded results json. Intermediate state not stored into
+   * testResult, like highlightRequired, is to the default.
+   * @param {AriaATTestResult.JSON} testResult
+   * @param {AriaATTestRun.State} [state]
+   * @returns {AriaATTestRun.State}
+   */
+  testRunStateFromTestResultJSON(testResult, state = this.testRunState()) {
+    return {
+      ...state,
+      commands: state.commands.map((command, commandIndex) => {
+        const scenarioResult = testResult.scenarioResults[commandIndex];
+        return {
+          ...command,
+          atOutput: {highlightRequired: false, value: scenarioResult.output},
+          assertions: command.assertions.map((assertion, assertionIndex) => {
+            const assertionResult = scenarioResult.assertionResults[assertionIndex];
+            return {
+              ...assertion,
+              highlightRequired: false,
+              result: assertionResult.passed
+                ? "pass"
+                : assertionResult.failedReason === "INCORRECT_OUTPUT"
+                ? "failIncorrect"
+                : assertionResult.failedReason === "NO_OUTPUT"
+                ? "failMissing"
+                : "notSet",
+            };
+          }),
+          unexpected: {
+            ...command.unexpected,
+            highlightRequired: false,
+            hasUnexpected: scenarioResult.unexpectedBehaviors.length > 0 ? "hasUnexpected" : "doesNotHaveUnexpected",
+            tabbedBehavior: 0,
+            behaviors: command.unexpected.behaviors.map(behavior => {
+              const behaviorResult = scenarioResult.unexpectedBehaviors.find(
+                unexpectedResult => unexpectedResult.text === behavior.description
+              );
+              return {
+                ...behavior,
+                checked: behaviorResult ? true : false,
+                more: behavior.more
+                  ? {
+                      highlightRequired: false,
+                      value: behaviorResult ? behaviorResult.otherUnexpectedBehaviorText : "",
+                    }
+                  : behavior.more,
+              };
+            }),
+          },
+        };
+      }),
+    };
   }
 }
 
@@ -1127,7 +1233,7 @@ function invariant(test, message, ...args) {
 /** @typedef {ConstructorParameters<typeof TestRun>[0]} TestRunOptions */
 /**
  * @typedef TestRunExportOptions
- * @property {(state: TestRunState) => SubmitResultJSON} resultsJSON
+ * @property {(state: AriaATTestRun.State) => SubmitResultJSON} resultsJSON
  */
 
 /**
@@ -1265,7 +1371,6 @@ function invariant(test, message, ...args) {
  * @template T
  */
 
-/** @typedef {import('./aria-at-test-run.mjs').TestRunState} TestRunState */
 /** @typedef {import('./aria-at-test-run.mjs').TestRunAssertion} TestRunAssertion */
 /** @typedef {import('./aria-at-test-run.mjs').TestRunAdditionalAssertion} TestRunAdditionalAssertion */
 /** @typedef {import('./aria-at-test-run.mjs').TestRunCommand} TestRunCommand */

@@ -254,6 +254,8 @@ class ConfigInput {
    * @param {ATJSON} value.at
    * @param {boolean} value.displaySubmitButton
    * @param {boolean} value.renderResultsAfterSubmit
+   * @param {"SubmitResultsJSON" | "TestResultJSON"} value.resultFormat
+   * @param {AriaATTestResult.JSON | null} value.resultJSON
    * @private
    */
   constructor(errors, value) {
@@ -275,6 +277,14 @@ class ConfigInput {
     return this._value.renderResultsAfterSubmit;
   }
 
+  resultFormat() {
+    return this._value.resultFormat;
+  }
+
+  resultJSON() {
+    return this._value.resultJSON;
+  }
+
   /**
    * @param {ConfigQueryParams} queryParams
    * @param {object} data
@@ -286,6 +296,8 @@ class ConfigInput {
     let at = supportInput.defaultAT();
     let displaySubmitButton = true;
     let renderResultsAfterSubmit = true;
+    let resultFormat = "SubmitResultsJSON";
+    let resultJSON = null;
 
     for (const [key, value] of queryParams) {
       if (key === "at") {
@@ -302,13 +314,32 @@ class ConfigInput {
         displaySubmitButton = decodeBooleanParam(value, displaySubmitButton);
       } else if (key === "showSubmitButton") {
         renderResultsAfterSubmit = decodeBooleanParam(value, renderResultsAfterSubmit);
+      } else if (key === "resultFormat") {
+        if (value !== "SubmitResultsJSON" && value !== "TestResultJSON") {
+          errors.push(`resultFormat can be 'SubmitResultsJSON' or 'TestResultJSON'. '${value}' is not supported.`);
+          continue;
+        }
+        resultFormat = value;
+      } else if (key === "resultJSON") {
+        try {
+          resultJSON = JSON.parse(value);
+        } catch (error) {
+          errors.push(`Failed to parse resultJSON: ${error.message}`);
+        }
       }
+    }
+
+    if (resultJSON && resultFormat !== "TestResultJSON") {
+      errors.push(`resultJSON requires resultFormat to be set to 'TestResultJSON'.`);
+      resultJSON = null;
     }
 
     return new ConfigInput(errors, {
       at,
       displaySubmitButton,
       renderResultsAfterSubmit,
+      resultFormat,
+      resultJSON,
     });
 
     /**
@@ -822,7 +853,7 @@ export class TestRunInputOutput {
     const test = this.behaviorInput.behavior();
     const config = this.configInput;
 
-    return {
+    let state = {
       errors,
       info: {
         description: test.description,
@@ -874,6 +905,12 @@ export class TestRunInputOutput {
           })
       ),
     };
+
+    if (this.configInput.resultJSON()) {
+      state = this.testRunStateFromTestResultJSON(this.configInput.resultJSON(), state);
+    }
+
+    return state;
   }
 
   testWindowOptions() {
@@ -1058,6 +1095,22 @@ export class TestRunInputOutput {
           .filter(Boolean),
       })),
     };
+  }
+
+  /**
+   * @param {AriaATTestRun.State} state
+   * @returns {SubmitResultJSON | AriaATTestResult.JSON}
+   */
+  resultJSON(state) {
+    // If ConfigInput is available and resultFormat is TestResultJSON return result in that format.
+    if (this.configInput !== null) {
+      const resultFormat = this.configInput.resultFormat();
+      if (resultFormat === "TestResultJSON") {
+        return this.testResultJSON(state);
+      }
+    }
+
+    return this.submitResultsJSON(state);
   }
 
   /**

@@ -138,10 +138,10 @@ function displayInstructionsForBehaviorTest() {
       closeTestPage() {
         windowManager.close();
       },
-      postResults: () => postResults(testRunIO.submitResultsJSON(app.state)),
+      postResults: () => postResults(testRunIO.resultJSON(app.state)),
     },
     state: testRunIO.testRunState(),
-    resultsJSON: state => testRunIO.submitResultsJSON(state),
+    resultsJSON: state => testRunIO.resultJSON(state),
   });
   app.observe(() => {
     render(document.body, renderVirtualTestPage(app.testPageAndResults()));

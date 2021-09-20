@@ -1,4 +1,3 @@
-/** @format */
 /// <reference path="../../types/aria-at-file.js" />
 /// <reference path="./types/aria-at-test-run.js" />
 /// <reference path="./types/aria-at-test-result.js" />

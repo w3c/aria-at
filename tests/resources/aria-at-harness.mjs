@@ -284,7 +284,7 @@ function renderVirtualTestPage(doc) {
           section(
             id("errors"),
             style({display: doc.errors && doc.errors.visible ? "block" : "none"}),
-            h2("Test cannot be performed due to error(s)!"),
+            h2(doc.errors ? doc.errors.header : ''),
             ul(...(doc.errors && doc.errors.errors ? doc.errors.errors.map(error => li(error)) : [])),
             hr()
           ),

@@ -118,9 +118,9 @@ export function instructionDocument(resultState, hooks) {
 
   return {
     errors: {
-      visible: false,
+      visible: resultState.errors && resultState.errors.length > 0 ? true : false,
       header: "Test cannot be performed due to error(s)!",
-      errors: [],
+      errors: resultState.errors || [],
     },
     instructions: {
       header: {
@@ -681,9 +681,10 @@ function testPageDocument(state, hooks) {
       results: resultsTableDocument(state),
     };
   }
+  const instructions = instructionDocument(state, hooks);
   return {
-    errors: null,
-    instructions: instructionDocument(state, hooks),
+    errors: instructions.errors,
+    instructions,
   };
 }
 

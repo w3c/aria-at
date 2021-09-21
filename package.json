@@ -10,7 +10,8 @@
     "cleanup": "rimraf build",
     "create-all-tests": "cross-var node scripts/create-all-tests.js --testplan=$npm_config_testplan",
     "review-tests": "cross-var node --experimental-modules scripts/test-reviewer.mjs --testplan=$npm_config_testplan",
-    "update-reference": "node scripts/update-reference.js"
+    "update-reference": "node scripts/update-reference.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "cross-var": "^1.1.0",
@@ -26,8 +27,13 @@
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "eslint": "^6.1.0",
-    "eslint-plugin-import": "^2.18.2"
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.4.1",
+    "husky": "^7.0.0",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.4.1"
   },
   "repository": {
     "type": "git",
@@ -38,5 +44,8 @@
   "bugs": {
     "url": "https://github.com/w3c/aria-at/issues"
   },
-  "homepage": "https://github.com/w3c/aria-at#readme"
+  "homepage": "https://github.com/w3c/aria-at#readme",
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
+  }
 }

@@ -41,9 +41,7 @@ Default use:
 }
 
 if (!args._.length === 2) {
-  console.log(
-    'Command expects two json file names as arguments, please supply.'
-  );
+  console.log('Command expects two json file names as arguments, please supply.');
   process.exit();
 }
 
@@ -56,9 +54,7 @@ try {
   fse.statSync(resultsFile1);
   fse.statSync(resultsFile2);
 } catch (err) {
-  console.log(
-    'One or more results file did not exist. Please use path to existing results file.'
-  );
+  console.log('One or more results file did not exist. Please use path to existing results file.');
   process.exit();
 }
 
@@ -135,12 +131,8 @@ const compareTests = async function () {
 
     const newCommandsList = [];
     const rByCommand = [{}, {}];
-    rByTest[0][testName].details.commands.map(
-      (c) => (rByCommand[0][c.command] = c)
-    );
-    rByTest[1][testName].details.commands.map(
-      (c) => (rByCommand[1][c.command] = c)
-    );
+    rByTest[0][testName].details.commands.map((c) => (rByCommand[0][c.command] = c));
+    rByTest[1][testName].details.commands.map((c) => (rByCommand[1][c.command] = c));
 
     let newUnexpectedCount = 0;
     const newSummary = {
@@ -162,12 +154,8 @@ const compareTests = async function () {
       const newCommand = { ...rByCommand[0][c] };
 
       const rByAssertion = [{}, {}];
-      rByCommand[0][c].assertions.map(
-        (a) => (rByAssertion[0][a.assertion] = a)
-      );
-      rByCommand[1][c].assertions.map(
-        (a) => (rByAssertion[1][a.assertion] = a)
-      );
+      rByCommand[0][c].assertions.map((a) => (rByAssertion[0][a.assertion] = a));
+      rByCommand[1][c].assertions.map((a) => (rByAssertion[1][a.assertion] = a));
 
       let newAssertionList = [];
       let newCommandPasses = true;
@@ -191,9 +179,7 @@ Output results recorded:
           htmlDiff += `
 <h1>Assertion diff for: ${testName}</h1>
 <ul>
-  <li>Instruction: ${
-    rByTest[0][testName].details.specific_user_instruction
-  }</li>
+  <li>Instruction: ${rByTest[0][testName].details.specific_user_instruction}</li>
   <li>Using Command: ${c}</li>
   <li>Testing Assertion: ${a}</li>
 </ul>
@@ -267,10 +253,8 @@ Unexpected behaviors recorded:
 
         if (SAVE) {
           let answer = await chooseResult(ub1, ub2);
-          newCommand.unexpectedBehaviors =
-            rByCommand[answer][c].unexpected_behaviors;
-          newUnexpectedCount +=
-            rByCommand[answer][c].unexpected_behaviors.length;
+          newCommand.unexpectedBehaviors = rByCommand[answer][c].unexpected_behaviors;
+          newUnexpectedCount += rByCommand[answer][c].unexpected_behaviors.length;
         }
       } else {
         newUnexpectedCount += newCommand.unexpected_behaviors.length;

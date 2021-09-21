@@ -77,38 +77,26 @@ async function copyExampleToRepo(exampleName) {
       process.exit();
     }
 
-    const referencesCsvFile = path.join(
-      testDirectory,
-      'data',
-      'references.csv'
-    );
+    const referencesCsvFile = path.join(testDirectory, 'data', 'references.csv');
     try {
       fse.statSync(referencesCsvFile);
     } catch (err) {
       console.log(
-        "The references.csv file does not exist. Please create '" +
-          referencesCsvFile +
-          "' file."
+        "The references.csv file does not exist. Please create '" + referencesCsvFile + "' file."
       );
       process.exit();
     }
     const referencesCsv = fs.readFileSync(referencesCsvFile, 'UTF-8');
     const exampleUrl = (
-      (referencesCsv || '')
-        .split(/\r?\n/)
-        .find((s) => s.startsWith('example,')) || ''
+      (referencesCsv || '').split(/\r?\n/).find((s) => s.startsWith('example,')) || ''
     ).split(',')[1];
     if (!exampleUrl) {
       console.log('`example` must be defined in the references.csv file');
       process.exit();
     }
     let examplePath;
-    if (
-      exampleUrl.indexOf('https://w3c.github.io/aria-practices/examples/') >= 0
-    ) {
-      examplePath = exampleUrl.split(
-        'https://w3c.github.io/aria-practices/'
-      )[1];
+    if (exampleUrl.indexOf('https://w3c.github.io/aria-practices/examples/') >= 0) {
+      examplePath = exampleUrl.split('https://w3c.github.io/aria-practices/')[1];
       examplePath = path.join(...examplePath.split('/')); // Ensure path type is correct regardless of OS
     } else {
       console.log(
@@ -126,9 +114,7 @@ async function copyExampleToRepo(exampleName) {
     }
 
     const htmlFileAbsolute = path.join(repoBasePath, examplePath);
-    console.log(
-      `Locating the matching example file ${posixPath(htmlFileAbsolute)}.`
-    );
+    console.log(`Locating the matching example file ${posixPath(htmlFileAbsolute)}.`);
     try {
       fse.statSync(htmlFileAbsolute);
     } catch (err) {

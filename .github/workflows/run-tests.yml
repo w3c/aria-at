@@ -1,0 +1,25 @@
+name: Run Tests on Windows Server 2019
+
+on: [push, pull_request]
+
+jobs:
+  run-tests:
+    runs-on: windows-2019
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Generate test files
+      run: npm run create-all-tests
+      # TODO re-use generated tests from generate-and-commit-files.yml somehow?
+
+    - name: Run automated tests
+      run: echo NOT IMPLEMENTED

@@ -4,4 +4,7 @@ testPageDocument.defaultView.comboboxController.comboboxNode.focus();
 testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
 let opt = testPageDocument.querySelector('#lb1-al');
 testPageDocument.defaultView.comboboxController.setOption(opt, true);
-testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(0, 0);
+testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(
+  0,
+  0
+);

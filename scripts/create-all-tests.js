@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const {createExampleTests} = require('./create-example-tests');
+const { createExampleTests } = require('./create-example-tests');
 
 let successRunsCount = 0;
 let errorRunsCount = 0;
@@ -12,7 +12,7 @@ const args = require('minimist')(process.argv.slice(2), {
     h: 'help',
     t: 'testplan',
     v: 'verbose',
-    V: 'validate'
+    V: 'validate',
   },
 });
 
@@ -34,7 +34,10 @@ if (args.help) {
 }
 
 // on some OSes, it seems the the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
-const TARGET_TEST_PLAN = args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate test assets for
+const TARGET_TEST_PLAN =
+  args.testplan && !args.testplan.includes('npm_config_testplan')
+    ? args.testplan
+    : null; // individual test plan to generate test assets for
 const VERBOSE_CHECK = !!args.verbose;
 const VALIDATE_CHECK = !!args.validate;
 
@@ -42,36 +45,49 @@ const scriptsDirectory = path.dirname(__filename);
 const rootDirectory = scriptsDirectory.split('scripts')[0];
 const testsDirectory = path.join(rootDirectory, 'tests');
 
-const filteredTestPlans = fs.readdirSync(testsDirectory)
-  .filter(f => TARGET_TEST_PLAN ?
-    f !== 'resources' && f === TARGET_TEST_PLAN && fs.statSync(path.join(testsDirectory, f)).isDirectory() : // checking to see if individual test plan has been specified
-    f !== 'resources' && fs.statSync(path.join(testsDirectory, f)).isDirectory()
-  )
+const filteredTestPlans = fs.readdirSync(testsDirectory).filter((f) =>
+  TARGET_TEST_PLAN
+    ? f !== 'resources' &&
+      f === TARGET_TEST_PLAN &&
+      fs.statSync(path.join(testsDirectory, f)).isDirectory() // checking to see if individual test plan has been specified
+    : f !== 'resources' &&
+      fs.statSync(path.join(testsDirectory, f)).isDirectory()
+);
 
-if (!filteredTestPlans.length) { // most likely to happen if incorrect testPlan specified
+if (!filteredTestPlans.length) {
+  // most likely to happen if incorrect testPlan specified
   console.error('ERROR: Unable to find valid test plan(s).');
   process.exit();
 }
 
-filteredTestPlans.forEach(async directory => {
-    const {isSuccessfulRun, suppressedMessages} = await createExampleTests({
-      directory: path.join('tests', directory),
-      args
-    });
-    if (isSuccessfulRun) successRunsCount++;
-    else errorRunsCount++;
+filteredTestPlans.forEach(async (directory) => {
+  const { isSuccessfulRun, suppressedMessages } = await createExampleTests({
+    directory: path.join('tests', directory),
+    args,
+  });
+  if (isSuccessfulRun) successRunsCount++;
+  else errorRunsCount++;
 
-    // increment total runs completed
-    totalRunsCount = successRunsCount + errorRunsCount;
+  // increment total runs completed
+  totalRunsCount = successRunsCount + errorRunsCount;
 
-    // report how many messages have been hidden by not running in verbose mode
-    suppressedMessageCount = suppressedMessages;
+  // report how many messages have been hidden by not running in verbose mode
+  suppressedMessageCount = suppressedMessages;
 
-    if (totalRunsCount === filteredTestPlans.length) { // last test plan has been ran
-      if (VALIDATE_CHECK) console.log(`(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed without any validation errors.\n`);
-      else console.log(`(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`);
+  if (totalRunsCount === filteredTestPlans.length) {
+    // last test plan has been ran
+    if (VALIDATE_CHECK)
+      console.log(
+        `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed without any validation errors.\n`
+      );
+    else
+      console.log(
+        `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`
+      );
 
-      if (!VERBOSE_CHECK) console.log(`NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`)
-    }
+    if (!VERBOSE_CHECK)
+      console.log(
+        `NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`
+      );
   }
-);
+});

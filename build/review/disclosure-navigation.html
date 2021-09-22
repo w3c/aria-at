@@ -18,8 +18,10 @@
       }
 
     </style>
-    <script>
-      const filterATs = function(button) {
+    <script type="module">
+      import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
+
+      window.filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
@@ -54,21 +56,10 @@
 
           }
         }
-      }
+      };
 
-      function executeScriptInTestPage(setupScriptName, testPageWindow) {
-        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-            || testPageWindow.document.readyState !== 'complete'
-        ) {
-          window.setTimeout(() => {
-            executeScriptInTestPage(setupScriptName, testPageWindow);
-          }, 100);
-          return;
-        }
-
-        if (setupScriptName) {
-          var scripts = {
-            	checkFirstCheckbox: function(testPageDocument){
+      var scripts = {
+        	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -600,30 +591,26 @@
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
 }
-          };
+      };
 
-          scripts[setupScriptName](testPageWindow.document);
-        }
-      }
+      window.openTestPage = function(testPageUri, testNumber, setupScriptName) {
+        var openTestPageElement = document.getElementById('open-test-page-' + testNumber);
 
-      function openTestPage(testPageUri, testNumber, setupScriptName) {
-        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-        document.getElementById('open-test-page-' + testNumber).disabled = true;
-
-        // If the window is closed, re-enable open popup button
-        testPageWindow.onunload = function(event) {
-          window.setTimeout(() => {
-            if (testPageWindow.closed) {
-              testPageWindow = undefined;
-              document.getElementById('open-test-page-' + testNumber).disabled = false;
+        var testWindow = new TestWindow({
+          pageUri: testPageUri,
+          setupScriptName,
+          scripts,
+          hooks: {
+            windowOpened() {
+              openTestPageElement.disabled = true;
+            },
+            windowClosed() {
+              openTestPageElement.disabled = false;
             }
-          }, 100);
-
-        };
-
-        executeScriptInTestPage(setupScriptName, testPageWindow);
-      }
+          }
+        });
+        testWindow.open();
+      };
     </script>
   </head>
   <body>
@@ -643,7 +630,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-01-navigate-forwards-to-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -724,7 +711,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-02-navigate-backwards-to-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -805,7 +792,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-03-navigate-forwards-to-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -880,7 +867,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-04-navigate-backwards-to-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -961,7 +948,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-05-navigate-forwards-to-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1011,7 +998,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-06-navigate-backwards-to-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1061,7 +1048,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-07-navigate-forwards-to-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1142,7 +1129,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-08-navigate-backwards-to-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1223,7 +1210,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-09-navigate-forwards-to-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1298,7 +1285,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-10-navigate-backwards-to-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1379,7 +1366,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-11-navigate-forwards-to-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1428,7 +1415,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-12-navigate-backwards-to-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1478,7 +1465,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-13-read-information-about-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1555,7 +1542,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-14-read-information-about-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1630,7 +1617,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-15-read-information-about-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1679,7 +1666,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-16-read-information-about-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1756,7 +1743,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-17-read-information-about-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1831,7 +1818,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-18-read-information-about-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1880,7 +1867,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-19-operate-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1953,7 +1940,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-20-operate-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -2026,7 +2013,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-21-operate-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2074,7 +2061,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-22-operate-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -2147,7 +2134,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-23-operate-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -2220,7 +2207,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-24-operate-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2268,7 +2255,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-25-navigate-from-expanded-disclosure-button-to-link-in-dropdown-reading.html?at=jaws">jaws</a></li>
@@ -2349,7 +2336,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-26-navigate-from-expanded-disclosure-button-to-link-in-dropdown-interaction.html?at=jaws">jaws</a></li>
@@ -2427,7 +2414,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-27-navigate-from-expanded-disclosure-button-to-link-in-dropdown-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2478,7 +2465,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-28-navigate-from-expanded-disclosure-button-to-current-page-link-reading.html?at=jaws">jaws</a></li>
@@ -2562,7 +2549,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-29-navigate-from-expanded-disclosure-button-to-current-page-link-interaction.html?at=jaws">jaws</a></li>
@@ -2643,7 +2630,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-30-navigate-from-expanded-disclosure-button-to-current-page-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2696,7 +2683,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-31-navigate-from-dropdown-to-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -2771,7 +2758,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-32-navigate-from-dropdown-to-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -2846,7 +2833,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-33-navigate-from-dropdown-to-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2894,7 +2881,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-34-navigate-forwards-to-link-in-dropdown-reading.html?at=jaws">jaws</a></li>
@@ -2971,7 +2958,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-35-navigate-backwards-to-link-in-dropdown-reading.html?at=jaws">jaws</a></li>
@@ -3048,7 +3035,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-36-navigate-forwards-to-link-in-dropdown-interaction.html?at=jaws">jaws</a></li>
@@ -3124,7 +3111,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-37-navigate-backwards-to-link-in-dropdown-interaction.html?at=jaws">jaws</a></li>
@@ -3200,7 +3187,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-38-navigate-forwards-to-link-in-dropdown-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3250,7 +3237,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-39-navigate-backwards-to-link-in-dropdown-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3300,7 +3287,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-40-navigate-to-first-link-in-dropdown-interaction.html?at=jaws">jaws</a></li>
@@ -3372,7 +3359,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-41-navigate-to-last-link-in-dropdown-interaction.html?at=jaws">jaws</a></li>
@@ -3444,7 +3431,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-42-navigate-to-first-link-in-dropdown-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3490,7 +3477,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-43-navigate-to-last-link-in-dropdown-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3536,7 +3523,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-44-activate-link-in-dropdown-reading.html?at=jaws">jaws</a></li>
@@ -3612,7 +3599,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-45-activate-link-in-dropdown-interaction.html?at=jaws">jaws</a></li>
@@ -3688,7 +3675,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 11:24:22 2021 -0400</li>
+        <li>Last edited: Wed Sep 15 11:10:38 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-navigation/test-46-activate-link-in-dropdown-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

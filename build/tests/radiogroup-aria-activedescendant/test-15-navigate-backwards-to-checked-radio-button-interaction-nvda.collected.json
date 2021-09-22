@@ -41,7 +41,7 @@
     "setupScript": {
       "name": "checkFirstRadioButtonAndSetFocusAfterRadioGroup",
       "description": "sets the state of the first radio button to checked, and sets focus on a link after the radio group",
-      "source": "// sets the state of the first radio button to checked, and sets focus on a link after the radio group\nlet radioGroup = testPageDocument.querySelector('[role=\"radiogroup\"]');\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.classList.remove('focus');\n});\nradios[0].classList.add('focus');\nradios[0].setAttribute('aria-checked', 'true');\nradioGroup.setAttribute('aria-activedescendant', radios[0].id);\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "source": "// sets the state of the first radio button to checked, and sets focus on a link after the radio group\nlet radioGroup = testPageDocument.querySelector('[role=\"radiogroup\"]');\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.classList.remove('focus');\n});\nradios[0].classList.add('focus');\nradios[0].setAttribute('aria-checked', 'true');\nradioGroup.setAttribute('aria-activedescendant', radios[0].id);\ntestPageDocument.querySelector('#afterlink').focus();\n",
       "modulePath": "scripts/checkFirstRadioButtonAndSetFocusAfterRadioGroup.module.js",
       "jsonpPath": "scripts/checkFirstRadioButtonAndSetFocusAfterRadioGroup.jsonp.js"
     }

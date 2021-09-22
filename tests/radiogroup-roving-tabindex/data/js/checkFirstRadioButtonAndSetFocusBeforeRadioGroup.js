@@ -1,6 +1,6 @@
 // sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading
 let radios = testPageDocument.querySelectorAll('[role="radio"]');
-radios.forEach((r) => {
+radios.forEach(r => {
   r.setAttribute('aria-checked', 'false');
   r.tabIndex = -1;
 });

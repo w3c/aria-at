@@ -38,7 +38,7 @@ const logger = (message, severe = false, force = false) => {
  * @param {object} args={}
  */
 const createExampleTests = ({ directory, args = {} }) =>
-  new Promise((resolve) => {
+  new Promise(resolve => {
     // setup from arguments passed to npm script
     VERBOSE_CHECK = !!args.verbose;
     VALIDATE_CHECK = !!args.validate;
@@ -129,7 +129,7 @@ const createExampleTests = ({ directory, args = {} }) =>
 
     let allATKeys = [];
     let allATNames = [];
-    support.ats.forEach((at) => {
+    support.ats.forEach(at => {
       allATKeys.push(at.key);
       allATNames.push(at.name);
     });
@@ -189,7 +189,7 @@ const createExampleTests = ({ directory, args = {} }) =>
       const lines = keys.split(/\r?\n/);
 
       // print all lines
-      lines.forEach((line) => {
+      lines.forEach(line => {
         let parts1 = line.split(' ');
         let parts2 = line.split('"');
 
@@ -326,7 +326,7 @@ const createExampleTests = ({ directory, args = {} }) =>
         // check for individual assistive technologies
         let items = values.split(',');
         let newValues = [];
-        items.filter((item) => {
+        items.filter(item => {
           let value = checkValue(item);
           if (!value) {
             addTestError(
@@ -411,7 +411,7 @@ const createExampleTests = ({ directory, args = {} }) =>
           try {
             const data = fs.readFileSync(filename, 'UTF-8');
             const lines = data.split(/\r?\n/);
-            lines.forEach((line) => {
+            lines.forEach(line => {
               if (line.trim().length) script += '\t\t\t' + line.trim() + '\n';
             });
           } catch (err) {
@@ -447,7 +447,7 @@ const createExampleTests = ({ directory, args = {} }) =>
       let appliesTo = getAppliesToValues(test.appliesTo);
       let mode = getModeValue(test.mode);
 
-      appliesTo.forEach((at) => {
+      appliesTo.forEach(at => {
         if (commands[task]) {
           if (!commands[task][mode][at.toLowerCase()]) {
             addTestError(
@@ -561,7 +561,7 @@ ${references}
 
       const applies_to_at = [];
 
-      allATKeys.forEach((at) => applies_to_at.push(testData.applies_to.indexOf(at) >= 0));
+      allATKeys.forEach(at => applies_to_at.push(testData.applies_to.indexOf(at) >= 0));
 
       return [testFileName, applies_to_at];
     }
@@ -574,7 +574,7 @@ ${references}
       let rows = '';
       let all_ats = '';
 
-      allATNames.forEach((at) => (all_ats += '<th>' + at + '</th>\n'));
+      allATNames.forEach(at => (all_ats += '<th>' + at + '</th>\n'));
 
       tasks.forEach(function (task) {
         rows += `<tr><td>${task.id}</td>`;
@@ -691,7 +691,7 @@ ${rows}
 
     fs.createReadStream(referencesCsvFilePath)
       .pipe(csv())
-      .on('data', (row) => {
+      .on('data', row => {
         refRows.push(row);
         refs[row.refId] = row.value.trim();
       })
@@ -700,7 +700,7 @@ ${rows}
 
         fs.createReadStream(atCommandsCsvFilePath)
           .pipe(csv())
-          .on('data', (row) => {
+          .on('data', row => {
             atCommands.push(row);
           })
           .on('end', () => {
@@ -708,7 +708,7 @@ ${rows}
 
             fs.createReadStream(testsCsvFilePath)
               .pipe(csv())
-              .on('data', (row) => {
+              .on('data', row => {
                 tests.push(row);
               })
               .on('end', () => {
@@ -741,7 +741,7 @@ ${rows}
                   key: keyQueryable,
                   support: supportQueryables,
                 };
-                const commandsValidated = commandsParsed.map((command) =>
+                const commandsValidated = commandsParsed.map(command =>
                   validateCommand(command, commandLookups, { addCommandError })
                 );
 
@@ -753,14 +753,14 @@ ${rows}
                   script: Queryable.from('script', scripts),
                   support: supportQueryables,
                 };
-                const testsValidated = testsParsed.map((test) =>
+                const testsValidated = testsParsed.map(test =>
                   validateTest(test, testLookups, {
                     addTestError: addTestError.bind(null, test.testId),
                   })
                 );
 
                 const commandQueryable = Queryable.from('command', commandsValidated);
-                const testsCollected = testsValidated.flatMap((test) => {
+                const testsCollected = testsValidated.flatMap(test => {
                   return test.target.at.map(({ key }) =>
                     collectTestData({
                       test,
@@ -776,16 +776,16 @@ ${rows}
 
                 const files = [
                   ...createScriptFiles(scripts, testPlanBuildDirectory),
-                  ...testsCollected.map((collectedTest) =>
+                  ...testsCollected.map(collectedTest =>
                     createCollectedTestFile(collectedTest, testPlanBuildDirectory)
                   ),
-                  ...testsCollected.map((collectedTest) =>
+                  ...testsCollected.map(collectedTest =>
                     createCollectedTestHtmlFile(collectedTest, testPlanBuildDirectory)
                   ),
                 ];
 
                 if (!VALIDATE_CHECK) {
-                  files.forEach((file) => {
+                  files.forEach(file => {
                     fs.mkdirSync(path.dirname(file.path), { recursive: true });
                     fs.writeFileSync(file.path, file.content);
                   });
@@ -834,7 +834,7 @@ ${rows}
  * @returns {AriaATFile.ScriptSource[]}
  */
 function loadScripts(testPlanJsDirectory) {
-  return fs.readdirSync(testPlanJsDirectory).map((scriptFileName) => {
+  return fs.readdirSync(testPlanJsDirectory).map(scriptFileName => {
     const name = path.basename(scriptFileName, '.js');
     const source = fs.readFileSync(path.join(testPlanJsDirectory, scriptFileName), 'utf-8');
     const modulePath = path.posix.join('scripts', `${name}.module.js`);
@@ -930,7 +930,7 @@ function parseCommandCSVRow(commandRow) {
       commandRow.commandF,
     ]
       .filter(Boolean)
-      .map((command) => {
+      .map(command => {
         const paranIndex = command.indexOf('(');
         if (paranIndex >= 0) {
           return {
@@ -980,9 +980,9 @@ function parseSupport(supportRaw) {
       ...Object.entries(supportRaw.applies_to).map(([name, value]) => ({
         key: name.toLowerCase(),
         name,
-        ats: value.map((key) => supportRaw.ats.find((at) => at.key === key) || { key }),
+        ats: value.map(key => supportRaw.ats.find(at => at.key === key) || { key }),
       })),
-      ...supportRaw.ats.map((at) => ({
+      ...supportRaw.ats.map(at => ({
         key: at.key,
         name: at.name,
         ats: [at],
@@ -1002,11 +1002,11 @@ function parseTestCSVRow(testRow) {
     title: testRow.title,
     references: testRow.refs
       .split(' ')
-      .map((raw) => raw.trim().toLowerCase())
+      .map(raw => raw.trim().toLowerCase())
       .filter(Boolean)
-      .map((refId) => ({ refId })),
+      .map(refId => ({ refId })),
     target: {
-      at: testRow.appliesTo.split(',').map((raw) => ({
+      at: testRow.appliesTo.split(',').map(raw => ({
         key: raw.trim().toLowerCase().replace(' ', '_'),
         raw,
       })),
@@ -1019,7 +1019,7 @@ function parseTestCSVRow(testRow) {
         }
       : undefined,
     instructions: {
-      user: testRow.instructions.split('|').map((instruction) => instruction.trim()),
+      user: testRow.instructions.split('|').map(instruction => instruction.trim()),
       raw: testRow.instructions,
     },
     assertions: [
@@ -1055,7 +1055,7 @@ function parseTestCSVRow(testRow) {
       testRow.assertion30,
     ]
       .filter(Boolean)
-      .map((assertion) => {
+      .map(assertion => {
         const colonMatch = /^([12]):/.exec(assertion);
         if (colonMatch) {
           const priority = Number(colonMatch[1]);
@@ -1092,7 +1092,7 @@ function validateCommand(commandParsed, data, { addCommandError = () => {} } = {
         })),
       },
     },
-    commands: commandParsed.commands.map((command) => {
+    commands: commandParsed.commands.map(command => {
       const key = data.key.where({ id: command.id });
       if (!key) {
         addCommandError(commandParsed.task, command.id);
@@ -1128,16 +1128,16 @@ function where2(goal) {
     }
     const keyChecks = Object.entries(goal).map(([key, value]) => {
       const check = where2(value);
-      const get = (target) => target[key];
-      return (target) => check(get(target));
+      const get = target => target[key];
+      return target => check(get(target));
     });
-    const isObject = (target) => typeof target === 'object' && !Array.isArray(target);
+    const isObject = target => typeof target === 'object' && !Array.isArray(target);
     const allChecks = [isObject, ...keyChecks];
-    return (target) => allChecks.every((check) => check(target));
+    return target => allChecks.every(check => check(target));
   } else if (typeof goal === 'function') {
     throw new Error();
   }
-  return (target) => target === goal;
+  return target => target === goal;
 }
 
 // function extract(goal, target) {
@@ -1193,34 +1193,34 @@ function validateKeyMap(keyMap, { addKeyMapError }) {
 
 const MODE_INSTRUCTION_TEMPLATES = {
   jaws: {
-    reading: (data) => {
+    reading: data => {
       const altDelete = data.key.where({ id: 'ALT_DELETE' });
       const insZ = data.key.where({ id: 'INS_Z' });
       return `Verify the Virtual Cursor is active by pressing ${altDelete.keystroke}. If it is not, turn on the Virtual Cursor by pressing ${insZ.keystroke}.`;
     },
-    interaction: (data) => {
+    interaction: data => {
       const altDelete = data.key.where({ id: 'ALT_DELETE' });
       const insZ = data.key.where({ id: 'INS_Z' });
       return `Verify the PC Cursor is active by pressing ${altDelete.keystroke}. If it is not, turn off the Virtual Cursor by pressing ${insZ.keystroke}.`;
     },
   },
   nvda: {
-    reading: (data) => {
+    reading: data => {
       const esc = data.key.where({ id: 'ESC' });
       return `Insure NVDA is in browse mode by pressing ${esc.keystroke}. Note: This command has no effect if NVDA is already in browse mode.`;
     },
-    interaction: (data) => {
+    interaction: data => {
       const insSpace = data.key.where({ id: 'INS_SPACE' });
       return `If NVDA did not make the focus mode sound when the test page loaded, press ${insSpace.keystroke} to turn focus mode on.`;
     },
   },
   voiceover_macos: {
-    reading: (data) => {
+    reading: data => {
       const left = data.key.where({ id: 'LEFT' });
       const right = data.key.where({ id: 'RIGHT' });
       return `Toggle Quick Nav ON by pressing the ${left.keystroke} and ${right.keystroke} keys at the same time.`;
     },
-    interaction: (data) => {
+    interaction: data => {
       const left = data.key.where({ id: 'LEFT' });
       const right = data.key.where({ id: 'RIGHT' });
       return `Toggle Quick Nav OFF by pressing the ${left.keystroke} and ${right.keystroke} keys at the same time.`;
@@ -1262,7 +1262,7 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
     addTestError(`"${testParsed.task}" does not exist in commands.csv file.`);
   }
 
-  testParsed.target.at.forEach((at) => {
+  testParsed.target.at.forEach(at => {
     if (!data.support.atGroup.where({ key: at.key })) {
       addTestError(`"${at.key}" is not valid value for "appliesTo" property.`);
     }
@@ -1298,7 +1298,7 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
     addTestError(`Setup script does not exist: ${testParsed.setupScript.name}`);
   }
 
-  const assertions = testParsed.assertions.map((assertion) => {
+  const assertions = testParsed.assertions.map(assertion => {
     if (
       typeof assertion.priority === 'string' ||
       (assertion.priority !== 1 && assertion.priority !== 2)
@@ -1319,12 +1319,12 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
     references: [
       ...[data.reference.where({ refId: 'example' })].filter(Boolean),
       ...references,
-    ].map((ref) => ({
+    ].map(ref => ({
       ...ref,
       ...data.reference.where({ refId: ref.refId }),
     })),
     target: {
-      at: testParsed.target.at.map((at) => ({
+      at: testParsed.target.at.map(at => ({
         ...at,
         ...map(data.support.at.where({ key: at.key }), ({ name }) => ({
           name,

@@ -43,7 +43,7 @@ const scriptsDirectory = path.dirname(__filename);
 const rootDirectory = scriptsDirectory.split('scripts')[0];
 const testsDirectory = path.join(rootDirectory, 'tests');
 
-const filteredTestPlans = fs.readdirSync(testsDirectory).filter((f) =>
+const filteredTestPlans = fs.readdirSync(testsDirectory).filter(f =>
   TARGET_TEST_PLAN
     ? f !== 'resources' &&
       f === TARGET_TEST_PLAN &&
@@ -57,7 +57,7 @@ if (!filteredTestPlans.length) {
   process.exit();
 }
 
-filteredTestPlans.forEach(async (directory) => {
+filteredTestPlans.forEach(async directory => {
   const { isSuccessfulRun, suppressedMessages } = await createExampleTests({
     directory: path.join('tests', directory),
     args,

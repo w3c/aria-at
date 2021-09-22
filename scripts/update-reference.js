@@ -88,7 +88,7 @@ async function copyExampleToRepo(exampleName) {
     }
     const referencesCsv = fs.readFileSync(referencesCsvFile, 'UTF-8');
     const exampleUrl = (
-      (referencesCsv || '').split(/\r?\n/).find((s) => s.startsWith('example,')) || ''
+      (referencesCsv || '').split(/\r?\n/).find(s => s.startsWith('example,')) || ''
     ).split(',')[1];
     if (!exampleUrl) {
       console.log('`example` must be defined in the references.csv file');
@@ -147,7 +147,7 @@ async function copyExampleToRepo(exampleName) {
       formattedDateTime
     );
     await fse.ensureDir(referenceDir);
-    const filterFunc = (src) => {
+    const filterFunc = src => {
       return src.indexOf('.html') === -1 || src === htmlFileAbsolute;
     };
     console.log('Copying assets to timestamped local directory.\n\n');

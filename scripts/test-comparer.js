@@ -109,15 +109,15 @@ const compareTests = async function () {
   const combinedResults = { ...results1, ...{ results: [] } };
 
   const rByTest = [{}, {}];
-  results1.results.map((t) => {
+  results1.results.map(t => {
     rByTest[0][t.test] = t;
   });
-  results2.results.map((t) => {
+  results2.results.map(t => {
     rByTest[1][t.test] = t;
   });
 
   let allTests = new Set(Object.keys(rByTest[0]));
-  Object.keys(rByTest[1]).map((t) => {
+  Object.keys(rByTest[1]).map(t => {
     allTests.add(t);
   });
 
@@ -131,8 +131,8 @@ const compareTests = async function () {
 
     const newCommandsList = [];
     const rByCommand = [{}, {}];
-    rByTest[0][testName].details.commands.map((c) => (rByCommand[0][c.command] = c));
-    rByTest[1][testName].details.commands.map((c) => (rByCommand[1][c.command] = c));
+    rByTest[0][testName].details.commands.map(c => (rByCommand[0][c.command] = c));
+    rByTest[1][testName].details.commands.map(c => (rByCommand[1][c.command] = c));
 
     let newUnexpectedCount = 0;
     const newSummary = {
@@ -154,8 +154,8 @@ const compareTests = async function () {
       const newCommand = { ...rByCommand[0][c] };
 
       const rByAssertion = [{}, {}];
-      rByCommand[0][c].assertions.map((a) => (rByAssertion[0][a.assertion] = a));
-      rByCommand[1][c].assertions.map((a) => (rByAssertion[1][a.assertion] = a));
+      rByCommand[0][c].assertions.map(a => (rByAssertion[0][a.assertion] = a));
+      rByCommand[1][c].assertions.map(a => (rByAssertion[1][a.assertion] = a));
 
       let newAssertionList = [];
       let newCommandPasses = true;
@@ -295,5 +295,5 @@ Unexpected behaviors recorded:
 
 compareTests().then(
   () => console.log('Success!'),
-  (err) => console.log(err)
+  err => console.log(err)
 );

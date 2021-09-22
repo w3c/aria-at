@@ -1,7 +1,7 @@
 // sets focus on the third radio button
 let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
 let radios = testPageDocument.querySelectorAll('[role="radio"]');
-radios.forEach((r) => {
+radios.forEach(r => {
   r.setAttribute('aria-checked', 'false');
   r.classList.remove('focus');
 });

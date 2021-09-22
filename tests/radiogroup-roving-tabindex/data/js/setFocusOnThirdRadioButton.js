@@ -1,6 +1,6 @@
 // sets focus on the third radio button
 let radios = testPageDocument.querySelectorAll('[role="radio"]');
-radios.forEach((r) => {
+radios.forEach(r => {
   r.setAttribute('aria-checked', 'false');
   r.tabIndex = -1;
 });

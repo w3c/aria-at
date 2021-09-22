@@ -852,7 +852,7 @@ function loadScripts(testPlanJsDirectory) {
 /**
  * @param {AriaATFile.ScriptSource[]} scripts
  * @param {string} testPlanBuildDirectory
- * @returns {{path: string, content: string}[]}
+ * @returns {{path: string, content: Uint8Array}[]}
  */
 function createScriptFiles(scripts, testPlanBuildDirectory) {
   const jsonpFunction = 'scriptsJsonpLoaded';
@@ -871,11 +871,11 @@ function createScriptFiles(scripts, testPlanBuildDirectory) {
     return [
       {
         path: path.join(testPlanBuildDirectory, modulePath),
-        content: renderModule(scripts).toString(),
+        content: encodeText(renderModule(scripts).toString()),
       },
       {
         path: path.join(testPlanBuildDirectory, jsonpPath),
-        content: renderJsonp(scripts).toString(),
+        content: encodeText(renderJsonp(scripts).toString()),
       },
     ];
   }
@@ -1371,6 +1371,13 @@ function collectTestData({ test, command, reference, key }) {
   };
 }
 
+function encodeText(text) {
+  if (typeof TextEncoder !== 'undefined') {
+    return new TextEncoder().encode(text);
+  }
+  return new Uint8Array(Buffer.from(text).arrayBuffer);
+}
+
 /**
  * @param {AriaATFile.CollectedTest} test
  */
@@ -1383,7 +1390,7 @@ function createCollectedTestFile(test, testPlanBuildDirectory) {
         '-'
       )}-${test.target.mode}-${test.target.at.key}.collected.json`
     ),
-    content: beautify(test, null, 2, 40),
+    content: encodeText(beautify(test, null, 2, 40)),
   };
 }
 
@@ -1469,7 +1476,7 @@ function renderCollectedTestHtml(test, testFileName) {
 /**
  * @param {AriaATFile.CollectedTest} test
  * @param {string} testPlanBuildDirectory
- * @returns {{path: string, content: string}}
+ * @returns {{path: string, content: Uint8Array}}
  */
 function createCollectedTestHtmlFile(test, testPlanBuildDirectory) {
   const testJsonFileName = `test-${test.info.testId
@@ -1485,7 +1492,7 @@ function createCollectedTestHtmlFile(test, testPlanBuildDirectory) {
         '-'
       )}-${test.target.mode}-${test.target.at.key}.collected.html`
     ),
-    content: renderCollectedTestHtml(test, testJsonFileName),
+    content: encodeText(renderCollectedTestHtml(test, testJsonFileName)),
   };
 }
 

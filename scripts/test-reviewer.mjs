@@ -31,6 +31,8 @@ if (args.help) {
 main();
 
 async function main() {
+  let parseTime = 0;
+
   // on some OSes, it seems the the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
   const TARGET_TEST_PLAN =
     args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate review page assets for
@@ -119,7 +121,11 @@ async function main() {
               path.basename(test) !== 'index.html'
             ) {
               const testFile = path.join(testsBuildDirectory, directory, test);
+              const parseStart =
+                typeof performance === 'undefined' ? Date.now() : performance.now();
               const root = np.parse(fse.readFileSync(testFile, 'utf8'), { script: true });
+              parseTime +=
+                typeof performance === 'undefined' ? Date.now() - parseStart : performance.now();
 
               // Get metadata
               const testFullName = root.querySelector('title').innerHTML;
@@ -291,6 +297,8 @@ async function main() {
 
   console.log(`\nGenerated index.html: ${indexFileBuildOutputPath}`);
   console.log('\nDone.');
+
+  console.log(parseTime, typeof performance);
 }
 
 async function spawnAsync(...args) {

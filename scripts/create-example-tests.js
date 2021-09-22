@@ -93,6 +93,35 @@ const createExampleTests = ({ directory, args = {} }) =>
     const keysFileBuildPath = path.join(resourcesBuildDirectory, 'keys.mjs');
     const vrenderFileBuildPath = path.join(resourcesBuildDirectory, 'vrender.mjs');
 
+    const [directoryManifest, resourcesManifest, supportManifest, existingBuild] =
+      await Promise.all([
+        readAll(testPlanDirectory, {}),
+        readAll(resourcesDirectory, {}),
+        readAll(supportFilePath, {}),
+        createManifest(
+          {},
+          {
+            '': async (manifest, pathComponents) =>
+              filterManifestEntries(
+                readOne(path.join(rootDirectory, pathComponents.join(path.sep)), manifest),
+                ({ name }) => name === 'build'
+              ),
+            '*': async (manifest, pathComponents) =>
+              filterManifestEntries(
+                readOne(path.join(rootDirectory, pathComponents.join(path.sep)), manifest),
+                ({ name }) => name === 'tests'
+              ),
+            '*/*': async (manifest, pathComponents) =>
+              filterManifestEntries(
+                readOne(path.join(rootDirectory, pathComponents.join(path.sep)), manifest),
+                ({ name }) => [path.basename(directory), 'resources', 'support.json'].includes(name)
+              ),
+            '**': async (manifest, pathComponents) =>
+              readOne(path.join(rootDirectory, pathComponents.join(path.sep)), manifest),
+          }
+        ),
+      ]);
+
     // create directories if not exists
     fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
     fs.existsSync(testsBuildDirectory) || fs.mkdirSync(testsBuildDirectory);
@@ -647,7 +676,7 @@ ${references}
  <main>
   <h1>Index of Assistive Technology Test Files</h1>
   <p>This is useful for viewing the local files on a local web server and provides links that will work when the local version of the
-  test runner is being executed, using <code>npm run start</code> from the root directory: <code>${rootDirectory}</code>.</p>
+  , using <code>npm run start</code> from the root directory: <code>${rootDirectory}</code>.</p>
   <table>
     <thead>
       <tr>

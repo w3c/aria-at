@@ -12,32 +12,57 @@ const beautify = require('json-beautify');
 
 const { reindent } = require('../lib/lines');
 const { Queryable } = require('../lib/queryable');
-
-let VERBOSE_CHECK = false;
-let VALIDATE_CHECK = false;
-
-let suppressedMessages = 0;
-
-/**
- * @param {string} message - message to be logged
- * @param {boolean} severe=false - indicates whether the message should be viewed as an error or not
- * @param {boolean} force=false - indicates whether this message should be forced to be outputted regardless of verbosity level
- */
-const logger = (message, severe = false, force = false) => {
-  if (VERBOSE_CHECK || force) {
-    if (severe) console.error(message);
-    else console.log(message);
-  } else {
-    // Output no logs
-    suppressedMessages += 1; // counter to indicate how many messages were hidden
-  }
-};
+const { parseSupport } = require('../lib/data/parse-support');
+const {
+  renderHTML: renderCollectedTestHtml,
+} = require('../lib/data/templates/collected-test.html');
+const {
+  host: { read },
+} = require('../lib/util/file-record');
+const { FileRecordChain } = require('../lib/util/file-record-chain');
+const { parseTestCSVRow } = require('../lib/data/parse-test-csv-row');
+const { Readable } = require('stream');
 
 /**
  * @param {string} directory - path to directory of data to be used to generate test
  * @param {object} args={}
  */
 const createExampleTests = async ({ directory, args = {} }) => {
+  let VERBOSE_CHECK = false;
+  let VALIDATE_CHECK = false;
+
+  let suppressedMessages = 0;
+
+  /**
+   * @param {string} message - message to be logged
+   * @param {object} [options]
+   * @param {boolean} [options.severe=false] - indicates whether the message should be viewed as an error or not
+   * @param {boolean} [options.force=false] - indicates whether this message should be forced to be outputted regardless of verbosity level
+   */
+  const log = (message, { severe = false, force = false } = {}) => {
+    if (VERBOSE_CHECK || force) {
+      if (severe) console.error(message);
+      else console.log(message);
+    } else {
+      // Output no logs
+      suppressedMessages += 1; // counter to indicate how many messages were hidden
+    }
+  };
+
+  /**
+   * @param {string} message - error message
+   */
+  log.warning = message => log(message, { severe: true, force: true });
+
+  /**
+   * Log error then exit the process.
+   * @param {string} message - error message
+   */
+  log.error = message => {
+    log.warning(message);
+    process.exit();
+  };
+
   // setup from arguments passed to npm script
   VERBOSE_CHECK = !!args.verbose;
   VALIDATE_CHECK = !!args.validate;
@@ -92,125 +117,96 @@ const createExampleTests = async ({ directory, args = {} }) => {
   const keysFileBuildPath = path.join(resourcesBuildDirectory, 'keys.mjs');
   const vrenderFileBuildPath = path.join(resourcesBuildDirectory, 'vrender.mjs');
 
-  const [directoryManifest, resourcesManifest, supportManifest, existingBuild] = await Promise.all([
-    readAll(testPlanDirectory, {}),
-    readAll(resourcesDirectory, {}),
-    readAll(supportFilePath, {}),
-    createManifest(
-      {},
+  const existingBuildPromise = read(rootDirectory, {
+    glob: `build{/,/tests{/${path.basename(directory)}{,/**},/resources{,/*},/support.json}}`,
+  });
+
+  const [testPlanRecord, resourcesOriginalRecord, supportRecord] = await Promise.all(
+    [testPlanDirectory, resourcesDirectory, supportFilePath].map(filepath =>
+      FileRecordChain.read(filepath)
+    )
+  );
+
+  const scriptsRecord = testPlanRecord.find('data/js');
+  const resourcesRecord = resourcesOriginalRecord.filter({ glob: '{aria-at-*,keys,vrender}.mjs' });
+
+  const newBuild = new FileRecordChain({
+    name: 'build',
+    entries: [
       {
-        '': async (manifest, pathComponents) =>
-          filterManifestEntries(
-            readOne(path.join(rootDirectory, pathComponents.join(path.sep)), manifest),
-            ({ name }) => name === 'build'
-          ),
-        '*': async (manifest, pathComponents) =>
-          filterManifestEntries(
-            readOne(path.join(rootDirectory, pathComponents.join(path.sep)), manifest),
-            ({ name }) => name === 'tests'
-          ),
-        '*/*': async (manifest, pathComponents) =>
-          filterManifestEntries(
-            readOne(path.join(rootDirectory, pathComponents.join(path.sep)), manifest),
-            ({ name }) => [path.basename(directory), 'resources', 'support.json'].includes(name)
-          ),
-        '**': async (manifest, pathComponents) =>
-          readOne(path.join(rootDirectory, pathComponents.join(path.sep)), manifest),
-      }
-    ),
-  ]);
+        name: 'tests',
+        entries: [
+          { name: path.basename(directory), entries: [] },
+          { name: 'resources', ...resourcesRecord.record },
+          { name: 'support.json', ...supportRecord.record },
+        ],
+      },
+    ],
+  });
 
-  // create directories if not exists
-  fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
-  fs.existsSync(testsBuildDirectory) || fs.mkdirSync(testsBuildDirectory);
-  fs.existsSync(testPlanBuildDirectory) || fs.mkdirSync(testPlanBuildDirectory);
-  fs.existsSync(resourcesBuildDirectory) || fs.mkdirSync(resourcesBuildDirectory);
+  // // create directories if not exists
+  // fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
+  // fs.existsSync(testsBuildDirectory) || fs.mkdirSync(testsBuildDirectory);
+  // fs.existsSync(testPlanBuildDirectory) || fs.mkdirSync(testPlanBuildDirectory);
+  // fs.existsSync(resourcesBuildDirectory) || fs.mkdirSync(resourcesBuildDirectory);
 
-  // ensure the build folder has the files it needs for running local server
-  fse.copySync(supportFilePath, supportFileBuildPath, { overwrite: true });
+  // // ensure the build folder has the files it needs for running local server
+  // fse.copySync(supportFilePath, supportFileBuildPath, { overwrite: true });
 
-  fse.copySync(ariaAtHarnessFilePath, ariaAtHarnessFileBuildPath, {
-    overwrite: true,
-  });
-  fse.copySync(ariaAtTestIoFormatFilePath, ariaAtTestIoFormatFileBuildPath, {
-    overwrite: true,
-  });
-  fse.copySync(ariaAtTestRunFilePath, ariaAtTestRunFileBuildPath, {
-    overwrite: true,
-  });
-  fse.copySync(ariaAtTestWindowFilePath, ariaAtTestWindowFileBuildPath, {
-    overwrite: true,
-  });
-  fse.copySync(atCommandsFilePath, atCommandsFileBuildPath, {
-    overwrite: true,
-  });
-  fse.copySync(keysFilePath, keysFileBuildPath, { overwrite: true });
-  fse.copySync(vrenderFilePath, vrenderFileBuildPath, { overwrite: true });
+  // fse.copySync(ariaAtHarnessFilePath, ariaAtHarnessFileBuildPath, {
+  //   overwrite: true,
+  // });
+  // fse.copySync(ariaAtTestIoFormatFilePath, ariaAtTestIoFormatFileBuildPath, {
+  //   overwrite: true,
+  // });
+  // fse.copySync(ariaAtTestRunFilePath, ariaAtTestRunFileBuildPath, {
+  //   overwrite: true,
+  // });
+  // fse.copySync(ariaAtTestWindowFilePath, ariaAtTestWindowFileBuildPath, {
+  //   overwrite: true,
+  // });
+  // fse.copySync(atCommandsFilePath, atCommandsFileBuildPath, {
+  //   overwrite: true,
+  // });
+  // fse.copySync(keysFilePath, keysFileBuildPath, { overwrite: true });
+  // fse.copySync(vrenderFilePath, vrenderFileBuildPath, { overwrite: true });
 
-  fse.copySync(referenceDirectory, referenceBuildDirectory, {
-    overwrite: true,
-  });
+  // fse.copySync(referenceDirectory, referenceBuildDirectory, {
+  //   overwrite: true,
+  // });
 
   const keyDefs = {};
-  const support = JSON.parse(fse.readFileSync(supportFilePath));
+  const support = JSON.parse(supportRecord.text);
 
-  let allATKeys = [];
-  let allATNames = [];
-  support.ats.forEach(at => {
-    allATKeys.push(at.key);
-    allATNames.push(at.name);
-  });
+  let allATKeys = support.ats.map(({ key }) => key);
+  let allATNames = support.ats.map(({ name }) => name);
 
   const validAppliesTo = ['Screen Readers', 'Desktop Screen Readers'].concat(allATKeys);
 
-  try {
-    fse.statSync(testPlanDirectory);
-  } catch (err) {
-    logger(
-      `The test directory '${testPlanDirectory}' does not exist. Check the path to tests.`,
-      true,
-      true
-    );
-    process.exit();
+  if (!testPlanRecord.isDirectory()) {
+    log.error(`The test directory '${testPlanDirectory}' does not exist. Check the path to tests.`);
   }
 
-  try {
-    fse.statSync(testsCsvFilePath);
-  } catch (err) {
-    logger(
-      `The tests.csv file does not exist. Please create '${testsCsvFilePath}' file.`,
-      true,
-      true
-    );
-    process.exit();
+  if (!testPlanRecord.find('data/tests.csv').isFile()) {
+    log.error(`The tests.csv file does not exist. Please create '${testsCsvFilePath}' file.`);
   }
 
-  try {
-    fse.statSync(atCommandsCsvFilePath);
-  } catch (err) {
-    logger(
-      `The at-commands.csv file does not exist. Please create '${atCommandsCsvFilePath}' file.`,
-      true,
-      true
+  if (!testPlanRecord.find('data/commands.csv').isFile()) {
+    log.error(
+      `The at-commands.csv file does not exist. Please create '${atCommandsCsvFilePath}' file.`
     );
-    process.exit();
   }
 
-  try {
-    fse.statSync(referencesCsvFilePath);
-  } catch (err) {
-    logger(
-      `The references.csv file does not exist. Please create '${referencesCsvFilePath}' file.`,
-      true,
-      true
+  if (!testPlanRecord.find('data/references.csv').isFile()) {
+    log.error(
+      `The references.csv file does not exist. Please create '${referencesCsvFilePath}' file.`
     );
-    process.exit();
   }
 
   // get Keys that are defined
   try {
     // read contents of the file
-    const keys = fs.readFileSync(keysFilePath, 'UTF-8');
+    const keys = resourcesRecord.find('keys.mjs').text;
 
     // split the contents by new line
     const lines = keys.split(/\r?\n/);
@@ -226,7 +222,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
       }
     });
   } catch (err) {
-    logger(err, true, true);
+    log.warning(err);
   }
 
   // delete test files
@@ -255,7 +251,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
    * @param commands
    * @returns {{}}
    */
-  function createATCommandFile(commands) {
+  function createATCommandFile(commands, { emitFile }) {
     const testPlanAtCommandsJsonFilePath = path.join(testPlanBuildDirectory, 'commands.json');
     let data = {};
 
@@ -304,8 +300,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
       addCommand(command.task, command.mode, command.at, command.commandF);
     });
 
-    if (!VALIDATE_CHECK)
-      fs.writeFileSync(testPlanAtCommandsJsonFilePath, beautify(data, null, 2, 40));
+    emitFile(testPlanAtCommandsJsonFilePath, beautify(data, null, 2, 40));
 
     return data;
   }
@@ -317,7 +312,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
    * @param commands
    * @returns {(string|*[])[]}
    */
-  function createTestFile(test, refs, commands) {
+  function createTestFile(test, refs, commands, { addTestError, emitFile, scriptsRecord }) {
     let scripts = [];
 
     function getModeValue(value) {
@@ -422,24 +417,22 @@ const createExampleTests = async ({ directory, args = {} }) => {
       return links;
     }
 
-    function addSetupScript(scriptName, filename) {
+    function addSetupScript(scriptName) {
       let script = '';
-      if (filename.length) {
-        try {
-          fse.statSync(filename);
-        } catch (err) {
-          addTestError(test.testId, 'Setup script does not exist: ' + filename);
+      if (scriptName) {
+        if (!scriptsRecord.find(`${scriptName}.js`).isFile()) {
+          addTestError(test.testId, `Setup script does not exist: ${scriptName}.js`);
           return '';
         }
 
         try {
-          const data = fs.readFileSync(filename, 'UTF-8');
+          const data = scriptsRecord.find(`${scriptName}.js`).text;
           const lines = data.split(/\r?\n/);
           lines.forEach(line => {
             if (line.trim().length) script += '\t\t\t' + line.trim() + '\n';
           });
         } catch (err) {
-          logger(err, true, true);
+          log.warning(err);
         }
 
         scripts.push(`\t\t${scriptName}: function(testPageDocument){\n${script}\t\t}`);
@@ -489,7 +482,6 @@ const createExampleTests = async ({ directory, args = {} }) => {
     });
 
     let assertions = [];
-    let setupFileName = '';
     let id = test.testId;
     if (parseInt(test.testId) < 10) {
       id = '0' + id;
@@ -502,15 +494,8 @@ const createExampleTests = async ({ directory, args = {} }) => {
     let testPlanHtmlFileBuildPath = path.join(testPlanBuildDirectory, testFileName);
     let testPlanJsonFileBuildPath = path.join(testPlanBuildDirectory, testJSONFileName);
 
-    if (typeof test.setupScript === 'string') {
-      let setupScript = test.setupScript.trim();
-      if (setupScript.length) {
-        setupFileName = path.join(javascriptDirectory, test.setupScript + '.js');
-      }
-    }
-
     let references = getReferences(refs.example, test.refs);
-    addSetupScript(test.setupScript, setupFileName);
+    addSetupScript(test.setupScript);
 
     for (let i = 1; i < 31; i++) {
       if (!test['assertion' + i]) {
@@ -530,8 +515,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
       output_assertions: assertions,
     };
 
-    if (!VALIDATE_CHECK)
-      fse.writeFileSync(testPlanJsonFileBuildPath, JSON.stringify(testData, null, 2), 'utf8');
+    emitFile(testPlanJsonFileBuildPath, JSON.stringify(testData, null, 2), 'utf8');
 
     function getTestJson() {
       return JSON.stringify(testData, null, 2);
@@ -566,7 +550,7 @@ ${references}
 </script>
   `;
 
-    if (!VALIDATE_CHECK) fse.writeFileSync(testPlanHtmlFileBuildPath, testHTML, 'utf8');
+    emitFile(testPlanHtmlFileBuildPath, testHTML, 'utf8');
 
     /** @type {AriaATFile.CollectedTest} */
     const collectedTest = {};
@@ -582,7 +566,7 @@ ${references}
    * Create an index file for a local server
    * @param tasks
    */
-  function createIndexFile(tasks) {
+  function createIndexFile(tasks, { emitFile }) {
     let rows = '';
     let all_ats = '';
 
@@ -677,13 +661,11 @@ ${rows}
 </body>
 `;
 
-    if (!VALIDATE_CHECK) fse.writeFileSync(indexFileBuildOutputPath, indexHTML, 'utf8');
+    emitFile(indexFileBuildOutputPath, indexHTML, 'utf8');
   }
 
   // Process CSV files
   var refs = {};
-  var atCommands = [];
-  var tests = [];
   var errorCount = 0;
   var errors = '';
   var indexOfURLs = [];
@@ -699,151 +681,157 @@ ${rows}
       '[Command]: The key reference "' + key + '" is invalid for the "' + task + '" task.\n';
   }
 
-  const refRows = [];
+  const newTestPlan = newBuild.find(`build/tests/${path.basename(testPlanBuildDirectory)}`);
+  function emitFile(filepath, buffer) {
+    newTestPlan.add(path.relative(testPlanBuildDirectory, filepath), { buffer });
+  }
 
-  fs.createReadStream(referencesCsvFilePath)
-    .pipe(csv())
-    .on('data', row => {
-      refRows.push(row);
-      refs[row.refId] = row.value.trim();
+  const [refRows, atCommands, tests] = await Promise.all([
+    readCSV(testPlanRecord.find('data/references.csv')).then(rows => {
+      log(`References CSV file successfully processed: ${referencesCsvFilePath}`);
+      return rows;
+    }),
+    readCSV(testPlanRecord.find('data/commands.csv')).then(rows => {
+      log(`Commands CSV file successfully processed: ${atCommandsCsvFilePath}`);
+      return rows;
+    }),
+    readCSV(testPlanRecord.find('data/tests.csv')).then(rows => {
+      log(`Test CSV file successfully processed: ${testsCsvFilePath}`);
+      return rows;
+    }),
+  ]);
+
+  for (const row of refRows) {
+    refs[row.refId] = row.value.trim();
+  }
+
+  const scripts = loadScripts(scriptsRecord);
+
+  const commandsParsed = atCommands.map(parseCommandCSVRow);
+  const testsParsed = tests.map(parseTestCSVRow);
+  const referencesParsed = parseRefencesCSV(refRows);
+  const keysParsed = parseKeyMap(keyDefs);
+  const supportParsed = parseSupport(support);
+
+  const keysValidated = validateKeyMap(keysParsed, {
+    addKeyMapError(reason) {
+      errorCount += 1;
+      errors += `[resources/keys.mjs]: ${reason}\n`;
+    },
+  });
+
+  const supportQueryables = {
+    at: Queryable.from('at', supportParsed.ats),
+    atGroup: Queryable.from('atGroup', supportParsed.atGroups),
+  };
+  const keyQueryable = Queryable.from('key', keysValidated);
+  const commandLookups = {
+    key: keyQueryable,
+    support: supportQueryables,
+  };
+  const commandsValidated = commandsParsed.map(command =>
+    validateCommand(command, commandLookups, { addCommandError })
+  );
+
+  const referenceQueryable = Queryable.from('reference', referencesParsed);
+  const testLookups = {
+    command: Queryable.from('command', commandsValidated),
+    mode: Queryable.from('mode', validModes),
+    reference: referenceQueryable,
+    script: Queryable.from('script', scripts),
+    support: supportQueryables,
+  };
+  const testsValidated = testsParsed.map(test =>
+    validateTest(test, testLookups, {
+      addTestError: addTestError.bind(null, test.testId),
     })
-    .on('end', () => {
-      logger(`References CSV file successfully processed: ${referencesCsvFilePath}`);
+  );
 
-      readCSV(atCommandsCsvFilePath).then(atCommands => {
-        logger(`Commands CSV file successfully processed: ${atCommandsCsvFilePath}`);
+  const commandQueryable = Queryable.from('command', commandsValidated);
+  const testsCollected = testsValidated.flatMap(test => {
+    return test.target.at.map(({ key }) =>
+      collectTestData({
+        test,
+        command: commandQueryable.where({
+          testId: test.testId,
+          target: { at: { key } },
+        }),
+        reference: referenceQueryable,
+        key: keyQueryable,
+      })
+    );
+  });
 
-        fs.createReadStream(testsCsvFilePath)
-          .pipe(csv())
-          .on('data', row => {
-            tests.push(row);
-          })
-          .on('end', () => {
-            logger(`Test CSV file successfully processed: ${testsCsvFilePath}`);
+  const files = [
+    ...createScriptFiles(scripts, testPlanBuildDirectory),
+    ...testsCollected.map(collectedTest =>
+      createCollectedTestFile(collectedTest, testPlanBuildDirectory)
+    ),
+    ...testsCollected.map(collectedTest =>
+      createCollectedTestHtmlFile(collectedTest, testPlanBuildDirectory)
+    ),
+  ];
+  files.forEach(file => {
+    newTestPlan.add(path.relative(testPlanBuildDirectory, file.path), { buffer: file.content });
+  });
 
-            logger('Deleting current test files...');
-            deleteFilesFromDirectory(testPlanDirectory);
+  const atCommandsMap = createATCommandFile(atCommands, {
+    emitFile,
+  });
 
-            const scripts = loadScripts(path.join(testPlanDirectory, 'data', 'js'));
-
-            const commandsParsed = atCommands.map(parseCommandCSVRow);
-            const testsParsed = tests.map(parseTestCSVRow);
-            const referencesParsed = parseRefencesCSV(refRows);
-            const keysParsed = parseKeyMap(keyDefs);
-            const supportParsed = parseSupport(support);
-
-            const keysValidated = validateKeyMap(keysParsed, {
-              addKeyMapError(reason) {
-                errorCount += 1;
-                errors += `[resources/keys.mjs]: ${reason}\n`;
-              },
-            });
-
-            const supportQueryables = {
-              at: Queryable.from('at', supportParsed.ats),
-              atGroup: Queryable.from('atGroup', supportParsed.atGroups),
-            };
-            const keyQueryable = Queryable.from('key', keysValidated);
-            const commandLookups = {
-              key: keyQueryable,
-              support: supportQueryables,
-            };
-            const commandsValidated = commandsParsed.map(command =>
-              validateCommand(command, commandLookups, { addCommandError })
-            );
-
-            const referenceQueryable = Queryable.from('reference', referencesParsed);
-            const testLookups = {
-              command: Queryable.from('command', commandsValidated),
-              mode: Queryable.from('mode', validModes),
-              reference: referenceQueryable,
-              script: Queryable.from('script', scripts),
-              support: supportQueryables,
-            };
-            const testsValidated = testsParsed.map(test =>
-              validateTest(test, testLookups, {
-                addTestError: addTestError.bind(null, test.testId),
-              })
-            );
-
-            const commandQueryable = Queryable.from('command', commandsValidated);
-            const testsCollected = testsValidated.flatMap(test => {
-              return test.target.at.map(({ key }) =>
-                collectTestData({
-                  test,
-                  command: commandQueryable.where({
-                    testId: test.testId,
-                    target: { at: { key } },
-                  }),
-                  reference: referenceQueryable,
-                  key: keyQueryable,
-                })
-              );
-            });
-
-            const files = [
-              ...createScriptFiles(scripts, testPlanBuildDirectory),
-              ...testsCollected.map(collectedTest =>
-                createCollectedTestFile(collectedTest, testPlanBuildDirectory)
-              ),
-              ...testsCollected.map(collectedTest =>
-                createCollectedTestHtmlFile(collectedTest, testPlanBuildDirectory)
-              ),
-            ];
-
-            if (!VALIDATE_CHECK) {
-              files.forEach(file => {
-                fs.mkdirSync(path.dirname(file.path), { recursive: true });
-                fs.writeFileSync(file.path, file.content);
-              });
-            }
-
-            atCommands = createATCommandFile(atCommands);
-
-            logger('Creating the following test files: ');
-            tests.forEach(function (test) {
-              try {
-                let [url, applies_to_at] = createTestFile(test, refs, atCommands);
-                indexOfURLs.push({
-                  id: test.testId,
-                  title: test.title,
-                  href: url,
-                  script: test.setupScript,
-                  applies_to_at: applies_to_at,
-                });
-                logger('[Test ' + test.testId + ']: ' + url);
-              } catch (err) {
-                logger(err, true, true);
-              }
-            });
-
-            createIndexFile(indexOfURLs);
-
-            if (errorCount) {
-              logger(
-                `*** ${errorCount} Errors in tests and/or commands in file [${testsCsvFilePath}] ***`,
-                true,
-                true
-              );
-              logger(errors, true, true);
-              resolve({ isSuccessfulRun: false, suppressedMessages });
-            } else {
-              logger('No validation errors detected\n');
-              resolve({ isSuccessfulRun: true, suppressedMessages });
-            }
-          });
+  log('Creating the following test files: ');
+  tests.forEach(function (test) {
+    try {
+      const [url, applies_to_at] = createTestFile(test, refs, atCommandsMap, {
+        addTestError,
+        emitFile,
+        scriptsRecord,
       });
-    });
+
+      indexOfURLs.push({
+        id: test.testId,
+        title: test.title,
+        href: url,
+        script: test.setupScript,
+        applies_to_at: applies_to_at,
+      });
+
+      log('[Test ' + test.testId + ']: ' + url);
+    } catch (err) {
+      log.warning(err);
+    }
+  });
+
+  createIndexFile(indexOfURLs, {
+    emitFile,
+  });
+
+  const buildChanges = newBuild.changesAfter(await existingBuildPromise);
+
+  if (!VALIDATE_CHECK) {
+    await buildChanges.commit(rootDirectory);
+  }
+
+  if (errorCount) {
+    log.warning(
+      `*** ${errorCount} Errors in tests and/or commands in file [${testsCsvFilePath}] ***`
+    );
+    log.warning(errors);
+  } else {
+    log('No validation errors detected\n');
+  }
+
+  return { isSuccessfulRun: errorCount > 0, suppressedMessages };
 };
 
 /**
- * @param {string} filepath
+ * @param {FileRecord.Record} record
  * @returns {Promise<string[][]>}
  */
-function readCSV(filepath) {
+function readCSV(record) {
   const rows = [];
   return new Promise(resolve => {
-    fs.createReadStream(filepath)
+    Readable.from(record.buffer)
       .pipe(csv())
       .on('data', row => {
         rows.push(row);
@@ -855,13 +843,12 @@ function readCSV(filepath) {
 }
 
 /**
- * @param {string} testPlanJsDirectory
+ * @param {FileRecordChain} testPlanJsDirectory
  * @returns {AriaATFile.ScriptSource[]}
  */
-function loadScripts(testPlanJsDirectory) {
-  return fs.readdirSync(testPlanJsDirectory).map(scriptFileName => {
-    const name = path.basename(scriptFileName, '.js');
-    const source = fs.readFileSync(path.join(testPlanJsDirectory, scriptFileName), 'utf-8');
+function loadScripts(testPlanJS) {
+  return testPlanJS.filter({ glob: '*.js' }).entries.map(({ name: fileName, text: source }) => {
+    const name = path.basename(fileName, '.js');
     const modulePath = path.posix.join('scripts', `${name}.module.js`);
     const jsonpPath = path.posix.join('scripts', `${name}.jsonp.js`);
 
@@ -995,112 +982,11 @@ function parseRefencesCSV(referenceRows) {
 }
 
 /**
- * @param {AriaATCSV.Support} supportRaw
- * @returns {AriaATParsed.Support}
- */
-function parseSupport(supportRaw) {
-  return {
-    ats: supportRaw.ats,
-    atGroups: [
-      ...Object.entries(supportRaw.applies_to).map(([name, value]) => ({
-        key: name.toLowerCase(),
-        name,
-        ats: value.map(key => supportRaw.ats.find(at => at.key === key) || { key }),
-      })),
-      ...supportRaw.ats.map(at => ({
-        key: at.key,
-        name: at.name,
-        ats: [at],
-      })),
-    ],
-  };
-}
-
-/**
- * @param {AriaATCSV.Test} testRow
- * @returns {AriaATParsed.Test}
- */
-function parseTestCSVRow(testRow) {
-  return {
-    testId: Number(testRow.testId),
-    task: testRow.task.replace(/[';]/g, '').trim().toLowerCase(),
-    title: testRow.title,
-    references: testRow.refs
-      .split(' ')
-      .map(raw => raw.trim().toLowerCase())
-      .filter(Boolean)
-      .map(refId => ({ refId })),
-    target: {
-      at: testRow.appliesTo.split(',').map(raw => ({
-        key: raw.trim().toLowerCase().replace(' ', '_'),
-        raw,
-      })),
-      mode: testRow.mode.trim().toLowerCase(),
-    },
-    setupScript: testRow.setupScript
-      ? {
-          name: testRow.setupScript,
-          description: testRow.setupScriptDescription,
-        }
-      : undefined,
-    instructions: {
-      user: testRow.instructions.split('|').map(instruction => instruction.trim()),
-      raw: testRow.instructions,
-    },
-    assertions: [
-      testRow.assertion1,
-      testRow.assertion2,
-      testRow.assertion3,
-      testRow.assertion4,
-      testRow.assertion5,
-      testRow.assertion6,
-      testRow.assertion7,
-      testRow.assertion8,
-      testRow.assertion9,
-      testRow.assertion10,
-      testRow.assertion11,
-      testRow.assertion12,
-      testRow.assertion13,
-      testRow.assertion14,
-      testRow.assertion15,
-      testRow.assertion16,
-      testRow.assertion17,
-      testRow.assertion18,
-      testRow.assertion19,
-      testRow.assertion20,
-      testRow.assertion21,
-      testRow.assertion22,
-      testRow.assertion23,
-      testRow.assertion24,
-      testRow.assertion25,
-      testRow.assertion26,
-      testRow.assertion27,
-      testRow.assertion28,
-      testRow.assertion29,
-      testRow.assertion30,
-    ]
-      .filter(Boolean)
-      .map(assertion => {
-        const colonMatch = /^([12]):/.exec(assertion);
-        if (colonMatch) {
-          const priority = Number(colonMatch[1]);
-          return {
-            priority: Number.isNaN(priority) ? colonMatch[1] : priority,
-            expectation: assertion.substring(assertion.indexOf(':') + 1).trim(),
-          };
-        }
-        return {
-          priority: 1,
-          expectation: assertion.trim(),
-        };
-      }),
-  };
-}
-
-/**
  * @param {AriaATParsed.Command} commandParsed
  * @param {object} data
  * @param {Queryable<AriaATParsed.Key>} data.key
+ * @param {object} data.support
+ * @param {Queryable<{key: string, name: string}>} data.support.at
  * @param {object} [options]
  * @param {function(string, string): void} [options.addCommandError]
  * @returns {AriaATValidated.Command}
@@ -1411,85 +1297,6 @@ function createCollectedTestFile(test, testPlanBuildDirectory) {
     ),
     content: beautify(test, null, 2, 40),
   };
-}
-
-/**
- * @param {AriaATFile.CollectedTest} test
- * @returns {string}
- */
-function renderCollectedTestHtml(test, testFileName) {
-  return reindent`<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>${test.info.title}</title>
-    ${test.info.references.map(({ value }) => `<link rel="help" href="${value}">`).join('\n')}
-    <link rel="preload" href="${testFileName}" as="fetch">
-    <style>
-      table {
-        border-collapse: collapse;
-        margin-bottom: 1em;
-      }
-
-      table, td, th {
-        border: 1px solid black;
-      }
-
-      td {
-        padding: .5em;
-      }
-
-      table.record-results tr:first-child {
-        font-weight: bold;
-      }
-
-      textarea {
-        width: 100%
-      }
-
-      fieldset.problem-select {
-        margin-top: 1em;
-        margin-left: 1em;
-      }
-
-      .required:not(.highlight-required) {
-        display: none;
-      }
-
-      .required-other:not(.highlight-required) {
-        display: none;
-      }
-
-      .required.highlight-required {
-        color: red;
-      }
-
-      fieldset.highlight-required {
-        border-color: red;
-      }
-
-      fieldset .highlight-required {
-        color: red;
-      }
-
-      .off-screen {
-        position: absolute !important;
-        height: 1px;
-        width: 1px;
-        overflow: hidden;
-        clip: rect(1px, 1px, 1px, 1px);
-        white-space: nowrap;
-      }
-    </style>
-  </head>
-  <body>
-    <script type="module">
-      import {loadCollectedTestAsync} from "../resources/aria-at-harness.mjs";
-      loadCollectedTestAsync(new URL(location + "/..").pathname, "${testFileName}");
-    </script>
-  </body>
-</html>
-`;
 }
 
 /**

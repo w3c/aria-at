@@ -13,7 +13,7 @@ const beautify = require('json-beautify');
 const nodeHTMLParser = require('node-html-parser');
 
 const { validate, invariant } = require('../lib/util/error');
-const { reindent, Lines } = require('../lib/util/lines');
+const { reindent } = require('../lib/util/lines');
 const { Queryable } = require('../lib/util/queryable');
 const { FileRecordChain } = require('../lib/util/file-record-chain');
 
@@ -782,9 +782,10 @@ ${rows}
   });
 
   const buildChanges = newBuild.changesAfter(await existingBuildPromise);
+  console.log(buildChanges.describe());
 
   if (!VALIDATE_CHECK) {
-    await buildChanges.commit(rootDirectory);
+    // await buildChanges.commit(rootDirectory);
   }
 
   if (errorCount) {

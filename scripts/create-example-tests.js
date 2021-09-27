@@ -5,23 +5,24 @@
 
 'use strict';
 const fs = require('fs');
-const fse = require('fs-extra');
 const path = require('path');
+const { Readable } = require('stream');
+
 const csv = require('csv-parser');
 const beautify = require('json-beautify');
+const nodeHTMLParser = require('node-html-parser');
 
-const { reindent } = require('../lib/lines');
-const { Queryable } = require('../lib/queryable');
+const { validate, invariant } = require('../lib/util/error');
+const { reindent, Lines } = require('../lib/util/lines');
+const { Queryable } = require('../lib/util/queryable');
+const { FileRecordChain } = require('../lib/util/file-record-chain');
+
 const { parseSupport } = require('../lib/data/parse-support');
+const { parseTestCSVRow } = require('../lib/data/parse-test-csv-row');
+
 const {
   renderHTML: renderCollectedTestHtml,
 } = require('../lib/data/templates/collected-test.html');
-const {
-  host: { read },
-} = require('../lib/util/file-record');
-const { FileRecordChain } = require('../lib/util/file-record-chain');
-const { parseTestCSVRow } = require('../lib/data/parse-test-csv-row');
-const { Readable } = require('stream');
 
 /**
  * @param {string} directory - path to directory of data to be used to generate test
@@ -78,47 +79,18 @@ const createExampleTests = async ({ directory, args = {} }) => {
 
   const resourcesDirectory = path.join(testsDirectory, 'resources');
 
-  const ariaAtHarnessFilePath = path.join(resourcesDirectory, 'aria-at-harness.mjs');
-  const ariaAtTestIoFormatFilePath = path.join(resourcesDirectory, 'aria-at-test-io-format.mjs');
-  const ariaAtTestRunFilePath = path.join(resourcesDirectory, 'aria-at-test-run.mjs');
-  const ariaAtTestWindowFilePath = path.join(resourcesDirectory, 'aria-at-test-window.mjs');
-  const atCommandsFilePath = path.join(resourcesDirectory, 'at-commands.mjs');
-  const keysFilePath = path.join(resourcesDirectory, 'keys.mjs');
-  const vrenderFilePath = path.join(resourcesDirectory, 'vrender.mjs');
-
   const supportFilePath = path.join(testsDirectory, 'support.json');
-  const javascriptDirectory = path.join(testPlanDirectory, 'data', 'js');
   const testsCsvFilePath = path.join(testPlanDirectory, 'data', 'tests.csv');
   const atCommandsCsvFilePath = path.join(testPlanDirectory, 'data', 'commands.csv');
   const referencesCsvFilePath = path.join(testPlanDirectory, 'data', 'references.csv');
-  const referenceDirectory = path.join(testPlanDirectory, 'reference');
 
   // build output folders and file paths setup
   const buildDirectory = path.join(rootDirectory, 'build');
-  const testsBuildDirectory = path.join(buildDirectory, 'tests');
   const testPlanBuildDirectory = path.join(buildDirectory, directory);
-  const resourcesBuildDirectory = path.join(testsBuildDirectory, 'resources');
-  const referenceBuildDirectory = path.join(testPlanBuildDirectory, 'reference');
-
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
-  const supportFileBuildPath = path.join(testsBuildDirectory, 'support.json');
 
-  const ariaAtHarnessFileBuildPath = path.join(resourcesBuildDirectory, 'aria-at-harness.mjs');
-  const ariaAtTestIoFormatFileBuildPath = path.join(
-    resourcesBuildDirectory,
-    'aria-at-test-io-format.mjs'
-  );
-  const ariaAtTestRunFileBuildPath = path.join(resourcesBuildDirectory, 'aria-at-test-run.mjs');
-  const ariaAtTestWindowFileBuildPath = path.join(
-    resourcesBuildDirectory,
-    'aria-at-test-window.mjs'
-  );
-  const atCommandsFileBuildPath = path.join(resourcesBuildDirectory, 'at-commands.mjs');
-  const keysFileBuildPath = path.join(resourcesBuildDirectory, 'keys.mjs');
-  const vrenderFileBuildPath = path.join(resourcesBuildDirectory, 'vrender.mjs');
-
-  const existingBuildPromise = read(rootDirectory, {
-    glob: `build{/,/tests{/${path.basename(directory)}{,/**},/resources{,/*},/support.json}}`,
+  const existingBuildPromise = FileRecordChain.read(rootDirectory, {
+    glob: `,build{,/tests{,/${path.basename(directory)}{,/**},/resources{,/*},/support.json}}`,
   });
 
   const [testPlanRecord, resourcesOriginalRecord, supportRecord] = await Promise.all(
@@ -131,49 +103,25 @@ const createExampleTests = async ({ directory, args = {} }) => {
   const resourcesRecord = resourcesOriginalRecord.filter({ glob: '{aria-at-*,keys,vrender}.mjs' });
 
   const newBuild = new FileRecordChain({
-    name: 'build',
     entries: [
       {
-        name: 'tests',
+        name: 'build',
         entries: [
-          { name: path.basename(directory), entries: [] },
-          { name: 'resources', ...resourcesRecord.record },
-          { name: 'support.json', ...supportRecord.record },
+          {
+            name: 'tests',
+            entries: [
+              {
+                name: path.basename(directory),
+                entries: testPlanRecord.filter({ glob: 'reference{,/**}' }).record.entries,
+              },
+              { name: 'resources', ...resourcesRecord.record },
+              { name: 'support.json', ...supportRecord.record },
+            ],
+          },
         ],
       },
     ],
   });
-
-  // // create directories if not exists
-  // fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
-  // fs.existsSync(testsBuildDirectory) || fs.mkdirSync(testsBuildDirectory);
-  // fs.existsSync(testPlanBuildDirectory) || fs.mkdirSync(testPlanBuildDirectory);
-  // fs.existsSync(resourcesBuildDirectory) || fs.mkdirSync(resourcesBuildDirectory);
-
-  // // ensure the build folder has the files it needs for running local server
-  // fse.copySync(supportFilePath, supportFileBuildPath, { overwrite: true });
-
-  // fse.copySync(ariaAtHarnessFilePath, ariaAtHarnessFileBuildPath, {
-  //   overwrite: true,
-  // });
-  // fse.copySync(ariaAtTestIoFormatFilePath, ariaAtTestIoFormatFileBuildPath, {
-  //   overwrite: true,
-  // });
-  // fse.copySync(ariaAtTestRunFilePath, ariaAtTestRunFileBuildPath, {
-  //   overwrite: true,
-  // });
-  // fse.copySync(ariaAtTestWindowFilePath, ariaAtTestWindowFileBuildPath, {
-  //   overwrite: true,
-  // });
-  // fse.copySync(atCommandsFilePath, atCommandsFileBuildPath, {
-  //   overwrite: true,
-  // });
-  // fse.copySync(keysFilePath, keysFileBuildPath, { overwrite: true });
-  // fse.copySync(vrenderFilePath, vrenderFileBuildPath, { overwrite: true });
-
-  // fse.copySync(referenceDirectory, referenceBuildDirectory, {
-  //   overwrite: true,
-  // });
 
   const keyDefs = {};
   const support = JSON.parse(supportRecord.text);
@@ -734,6 +682,8 @@ ${rows}
   );
 
   const referenceQueryable = Queryable.from('reference', referencesParsed);
+  const examplePathOriginal = referenceQueryable.where({ refId: 'reference' }).value;
+  const exampleRecord = testPlanRecord.find(examplePathOriginal);
   const testLookups = {
     command: Queryable.from('command', commandsValidated),
     mode: Queryable.from('mode', validModes),
@@ -747,6 +697,25 @@ ${rows}
     })
   );
 
+  const examplePathTemplate = scriptName =>
+    path.join(
+      path.dirname(examplePathOriginal),
+      `${path.basename(examplePathOriginal, '.html')}${scriptName ? `.${scriptName}` : ''}.html`
+    );
+  const exampleTemplate = validate.reportTo(
+    reason => {
+      errorCount += 1;
+      errors += `[${examplePathOriginal}]: ${reason.message}\n`;
+    },
+    () => createExampleScriptsTemplate(exampleRecord)
+  );
+  const exampleScriptedFiles = [{ name: '', source: '' }, ...scripts].map(({ name, source }) => ({
+    name,
+    path: examplePathTemplate(name),
+    content: exampleTemplate.render(exampleTemplateParams(name, source)).toString(),
+  }));
+  const exampleScriptedFilesQueryable = Queryable.from('example', exampleScriptedFiles);
+
   const commandQueryable = Queryable.from('command', commandsValidated);
   const testsCollected = testsValidated.flatMap(test => {
     return test.target.at.map(({ key }) =>
@@ -757,13 +726,19 @@ ${rows}
           target: { at: { key } },
         }),
         reference: referenceQueryable,
+        example: exampleScriptedFilesQueryable,
         key: keyQueryable,
+        modeInstructionTemplate: MODE_INSTRUCTION_TEMPLATES_QUERYABLE,
       })
     );
   });
 
   const files = [
     ...createScriptFiles(scripts, testPlanBuildDirectory),
+    ...exampleScriptedFiles.map(({ path: pathSuffix, content }) => ({
+      path: path.join('build', 'tests', path.basename(directory), pathSuffix),
+      content,
+    })),
     ...testsCollected.map(collectedTest =>
       createCollectedTestFile(collectedTest, testPlanBuildDirectory)
     ),
@@ -814,7 +789,7 @@ ${rows}
 
   if (errorCount) {
     log.warning(
-      `*** ${errorCount} Errors in tests and/or commands in file [${testsCsvFilePath}] ***`
+      `*** ${errorCount} Errors in tests and/or commands in test plan [${directory}] ***`
     );
     log.warning(errors);
   } else {
@@ -823,6 +798,36 @@ ${rows}
 
   return { isSuccessfulRun: errorCount > 0, suppressedMessages };
 };
+
+function exampleTemplateParams(name, source) {
+  return {
+    script: reindent`
+<!-- Generated by create-example-tests.js -->
+<script>
+  (function() {
+    function setupScript(testPageDocument) {
+      // ${name}
+      ${source}
+    };
+    document.addEventListener('click', function(event) {
+      if (event.target.classList.contains('button-run-test-setup')) {
+        event.target.disabled = true;
+        setupScript(document);
+      }
+    });
+  })();
+</script>
+<!-- End of generated output -->`,
+    button: reindent`
+<!-- Generated by create-example-tests.js -->
+<div style="position: relative; left: 0; right: 0; height: 2rem;">
+  <button class="button-run-test-setup" autofocus style="height: 100%; width: 100%;"${
+    source ? '' : ' disabled'
+  }>Run Test Setup</button>
+</div>
+<!-- End of generated output -->`,
+  };
+}
 
 /**
  * @param {FileRecord.Record} record
@@ -843,11 +848,11 @@ function readCSV(record) {
 }
 
 /**
- * @param {FileRecordChain} testPlanJsDirectory
- * @returns {AriaATFile.ScriptSource[]}
+ * @param {FileRecordChain} testPlanJS
+ * @returns {AriaATParsed.ScriptSource[]}
  */
 function loadScripts(testPlanJS) {
-  return testPlanJS.filter({ glob: '*.js' }).entries.map(({ name: fileName, text: source }) => {
+  return testPlanJS.filter({ glob: ',*.js' }).entries.map(({ name: fileName, text: source }) => {
     const name = path.basename(fileName, '.js');
     const modulePath = path.posix.join('scripts', `${name}.module.js`);
     const jsonpPath = path.posix.join('scripts', `${name}.jsonp.js`);
@@ -1016,67 +1021,6 @@ function validateCommand(commandParsed, data, { addCommandError = () => {} } = {
   };
 }
 
-// function where(goal, value) {
-//   if (typeof goal === 'object') {
-//     if (Array.isArray(goal)) {
-
-//     }
-//     for (const key of Object.keys(goal)) {
-
-//     }
-//   }
-// }
-
-/**
- *
- * @param {*} goal
- * @returns {function(*): boolean}
- */
-function where2(goal) {
-  if (typeof goal === 'object' && goal !== null) {
-    if (Array.isArray(goal)) {
-      throw new Error();
-    }
-    const keyChecks = Object.entries(goal).map(([key, value]) => {
-      const check = where2(value);
-      const get = target => target[key];
-      return target => check(get(target));
-    });
-    const isObject = target => typeof target === 'object' && !Array.isArray(target);
-    const allChecks = [isObject, ...keyChecks];
-    return target => allChecks.every(check => check(target));
-  } else if (typeof goal === 'function') {
-    throw new Error();
-  }
-  return target => target === goal;
-}
-
-// function extract(goal, target) {
-//   if (typeof goal !== 'object' || goal === null) {
-//     throw new Error();
-//   } else if (!Array.isArray(goal)) {
-//     throw new Error();
-//   }
-//   const obj = {};
-//   for (const key of goal) {
-//     if (typeof key === 'object') {
-//       if (!Array.isArray(key)) {
-//         throw new Error();
-//       } else if (key.length !== 2) {
-//         throw new Error();
-//       } else if (typeof key[0] !== 'string') {
-//         throw new Error();
-//       }
-//       obj[key[0]] = extract(key[1], target[key[0]]);
-//     } else if (typeof key === 'string') {
-//       obj[key] = target[key];
-//     } else {
-//       throw new Error();
-//     }
-//   }
-//   return obj;
-// }
-
 /**
  * @param {AriaATParsed.KeyMap} keyMap
  */
@@ -1102,42 +1046,60 @@ function validateKeyMap(keyMap, { addKeyMapError }) {
   return keyMap;
 }
 
-const MODE_INSTRUCTION_TEMPLATES = {
-  jaws: {
-    reading: data => {
+const MODE_INSTRUCTION_TEMPLATES_QUERYABLE = Queryable.from('modeInstructionTemplate', [
+  {
+    at: 'jaws',
+    mode: 'reading',
+    render: data => {
       const altDelete = data.key.where({ id: 'ALT_DELETE' });
       const insZ = data.key.where({ id: 'INS_Z' });
       return `Verify the Virtual Cursor is active by pressing ${altDelete.keystroke}. If it is not, turn on the Virtual Cursor by pressing ${insZ.keystroke}.`;
     },
-    interaction: data => {
+  },
+  {
+    at: 'jaws',
+    mode: 'interaction',
+    render: data => {
       const altDelete = data.key.where({ id: 'ALT_DELETE' });
       const insZ = data.key.where({ id: 'INS_Z' });
       return `Verify the PC Cursor is active by pressing ${altDelete.keystroke}. If it is not, turn off the Virtual Cursor by pressing ${insZ.keystroke}.`;
     },
   },
-  nvda: {
-    reading: data => {
+  {
+    at: 'nvda',
+    mode: 'reading',
+    render: data => {
       const esc = data.key.where({ id: 'ESC' });
       return `Insure NVDA is in browse mode by pressing ${esc.keystroke}. Note: This command has no effect if NVDA is already in browse mode.`;
     },
-    interaction: data => {
+  },
+  {
+    at: 'nvda',
+    mode: 'interaction',
+    render: data => {
       const insSpace = data.key.where({ id: 'INS_SPACE' });
       return `If NVDA did not make the focus mode sound when the test page loaded, press ${insSpace.keystroke} to turn focus mode on.`;
     },
   },
-  voiceover_macos: {
-    reading: data => {
+  {
+    at: 'voiceover_macos',
+    mode: 'reading',
+    render: data => {
       const left = data.key.where({ id: 'LEFT' });
       const right = data.key.where({ id: 'RIGHT' });
       return `Toggle Quick Nav ON by pressing the ${left.keystroke} and ${right.keystroke} keys at the same time.`;
     },
-    interaction: data => {
+  },
+  {
+    at: 'voiceover_macos',
+    mode: 'interaction',
+    render: data => {
       const left = data.key.where({ id: 'LEFT' });
       const right = data.key.where({ id: 'RIGHT' });
       return `Toggle Quick Nav OFF by pressing the ${left.keystroke} and ${right.keystroke} keys at the same time.`;
     },
   },
-};
+]);
 
 /**
  * @param {T} value
@@ -1151,6 +1113,56 @@ function map(value, goal) {
     return goal(value);
   }
   return value;
+}
+
+function last(ary) {
+  return ary[ary.length - 1];
+}
+
+const SCRIPTS_HEAD_MARKER = 'marker7dfe2e54ee48e64f02dbb8f1ce4f3878';
+const SCRIPTS_CONTENT_MARKER = 'marker255b3ead39a8eac8bf74ec15235bcd27';
+function createExampleScriptsTemplate(exampleRecord) {
+  const source = exampleRecord.text;
+  const html = nodeHTMLParser.parse(source);
+  if (!(html instanceof nodeHTMLParser.HTMLElement)) {
+    return;
+  }
+
+  const head = html.querySelector('head');
+  invariant(head, `Example html does not have a 'head' element.`);
+
+  const body = html.querySelector('body');
+  const main = html.querySelector('main');
+  validate(main, `Example html does not have a 'main' element. Using 'body' instead.`);
+  invariant(body, `Example html does not have a 'body' element.`);
+  const content = main || body;
+
+  const scriptsHeadMarkerTag = `<${SCRIPTS_HEAD_MARKER}></${SCRIPTS_HEAD_MARKER}>`;
+  const lastHeadChild = last(head.querySelectorAll('*'));
+  if (lastHeadChild) {
+    lastHeadChild.insertAdjacentHTML('afterend', scriptsHeadMarkerTag);
+  } else {
+    head.insertAdjacentHTML('afterbegin', scriptsHeadMarkerTag);
+  }
+
+  const scriptsContentMarkerTag = `<${SCRIPTS_CONTENT_MARKER}></${SCRIPTS_CONTENT_MARKER}>`;
+  const lastContentChild = last(content.querySelectorAll('*'));
+  if (lastContentChild) {
+    lastContentChild.insertAdjacentHTML('afterend', scriptsContentMarkerTag);
+  } else {
+    content.insertAdjacentHTML('afterbegin', scriptsContentMarkerTag);
+  }
+
+  const modifiedSource = html.toString();
+  const modifiedSourceSplit = modifiedSource.split(
+    new RegExp(`${scriptsHeadMarkerTag}|${scriptsContentMarkerTag}`, 'g')
+  );
+
+  return {
+    render({ script, button }) {
+      return reindent(modifiedSourceSplit, script, button);
+    },
+  };
 }
 
 /**
@@ -1258,9 +1270,11 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
  * @param {AriaATValidated.Test} data.test
  * @param {AriaATValidated.Command} data.command
  * @param {Queryable<AriaATCSV.Reference>} data.reference
+ * @param {Queryable<AriaATParsed.Key>} data.key
+ * @param {Queryable<{at: string, mode: string, render: function({key: *}): string}>} data.modeInstructionTemplate
  * @returns {AriaATFile.CollectedTest}
  */
-function collectTestData({ test, command, reference, key }) {
+function collectTestData({ test, command, reference, key, example, modeInstructionTemplate }) {
   return {
     info: {
       testId: test.testId,
@@ -1271,12 +1285,17 @@ function collectTestData({ test, command, reference, key }) {
     target: {
       ...test.target,
       at: command.target.at,
-      referencePage: reference.where({ refId: 'reference' }).value,
+      referencePage: example.where({ name: test.setupScript ? test.setupScript.name : '' }).value,
       setupScript: test.setupScript,
     },
     instructions: {
       ...test.instructions,
-      mode: MODE_INSTRUCTION_TEMPLATES[command.target.at.key][command.target.mode]({ key }),
+      mode: modeInstructionTemplate
+        .where({
+          at: command.target.at.key,
+          mode: command.target.mode,
+        })
+        .render({ key }),
     },
     commands: command.commands,
     assertions: test.assertions,

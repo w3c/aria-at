@@ -89,8 +89,8 @@ const createExampleTests = async ({ directory, args = {} }) => {
   const testPlanBuildDirectory = path.join(buildDirectory, directory);
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
 
-  const existingBuildPromise = FileRecordChain.read(rootDirectory, {
-    glob: `,build{,/tests{,/${path.basename(directory)}{,/**},/resources{,/*},/support.json}}`,
+  const existingBuildPromise = FileRecordChain.read(buildDirectory, {
+    glob: `,tests{,/${path.basename(directory)}{,/**},/resources{,/*},/support.json}`,
   });
 
   const [testPlanRecord, resourcesOriginalRecord, supportRecord] = await Promise.all(
@@ -105,19 +105,14 @@ const createExampleTests = async ({ directory, args = {} }) => {
   const newBuild = new FileRecordChain({
     entries: [
       {
-        name: 'build',
+        name: 'tests',
         entries: [
           {
-            name: 'tests',
-            entries: [
-              {
-                name: path.basename(directory),
-                entries: testPlanRecord.filter({ glob: 'reference{,/**}' }).record.entries,
-              },
-              { name: 'resources', ...resourcesRecord.record },
-              { name: 'support.json', ...supportRecord.record },
-            ],
+            name: path.basename(directory),
+            entries: testPlanRecord.filter({ glob: 'reference{,/**}' }).record.entries,
           },
+          { name: 'resources', ...resourcesRecord.record },
+          { name: 'support.json', ...supportRecord.record },
         ],
       },
     ],
@@ -629,7 +624,7 @@ ${rows}
       '[Command]: The key reference "' + key + '" is invalid for the "' + task + '" task.\n';
   }
 
-  const newTestPlan = newBuild.find(`build/tests/${path.basename(testPlanBuildDirectory)}`);
+  const newTestPlan = newBuild.find(`tests/${path.basename(testPlanBuildDirectory)}`);
   function emitFile(filepath, buffer) {
     newTestPlan.add(path.relative(testPlanBuildDirectory, filepath), { buffer });
   }
@@ -697,16 +692,14 @@ ${rows}
     })
   );
 
+  /** @type {function(string): string} */
   const examplePathTemplate = scriptName =>
     path.join(
       path.dirname(examplePathOriginal),
       `${path.basename(examplePathOriginal, '.html')}${scriptName ? `.${scriptName}` : ''}.html`
     );
   const exampleTemplate = validate.reportTo(
-    reason => {
-      errorCount += 1;
-      errors += `[${examplePathOriginal}]: ${reason.message}\n`;
-    },
+    reason => log.warning(`[${examplePathOriginal}]: ${reason.message}`),
     () => createExampleScriptsTemplate(exampleRecord)
   );
   const exampleScriptedFiles = [{ name: '', source: '' }, ...scripts].map(({ name, source }) => ({
@@ -781,11 +774,16 @@ ${rows}
     emitFile,
   });
 
-  const buildChanges = newBuild.changesAfter(await existingBuildPromise);
+  const existingBuild = await existingBuildPromise;
+  if (!existingBuild.isDirectory()) {
+    log.error(`The destination 'build' directory does not exist.`);
+  }
+
+  const buildChanges = newBuild.changesAfter(existingBuild);
   console.log(buildChanges.describe());
 
   if (!VALIDATE_CHECK) {
-    // await buildChanges.commit(rootDirectory);
+    // await buildChanges.commit(buildDirectory);
   }
 
   if (errorCount) {
@@ -1160,6 +1158,11 @@ function createExampleScriptsTemplate(exampleRecord) {
   );
 
   return {
+    /**
+     * @param {object} param0
+     * @param {string} param0.script
+     * @param {string} param0.button
+     */
     render({ script, button }) {
       return reindent(modifiedSourceSplit, script, button);
     },
@@ -1270,12 +1273,12 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
  * @param {object} data
  * @param {AriaATValidated.Test} data.test
  * @param {AriaATValidated.Command} data.command
- * @param {Queryable<AriaATCSV.Reference>} data.reference
  * @param {Queryable<AriaATParsed.Key>} data.key
+ * @param {Queryable<{name: string, path: string}>} data.example
  * @param {Queryable<{at: string, mode: string, render: function({key: *}): string}>} data.modeInstructionTemplate
  * @returns {AriaATFile.CollectedTest}
  */
-function collectTestData({ test, command, reference, key, example, modeInstructionTemplate }) {
+function collectTestData({ test, command, key, example, modeInstructionTemplate }) {
   return {
     info: {
       testId: test.testId,
@@ -1286,7 +1289,7 @@ function collectTestData({ test, command, reference, key, example, modeInstructi
     target: {
       ...test.target,
       at: command.target.at,
-      referencePage: example.where({ name: test.setupScript ? test.setupScript.name : '' }).value,
+      referencePage: example.where({ name: test.setupScript ? test.setupScript.name : '' }).path,
       setupScript: test.setupScript,
     },
     instructions: {

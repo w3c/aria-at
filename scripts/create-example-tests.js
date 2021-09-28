@@ -23,7 +23,9 @@ const { parseTestCSVRow } = require('../lib/data/parse-test-csv-row');
 const {
   renderHTML: renderCollectedTestHtml,
 } = require('../lib/data/templates/collected-test.html');
-const { isArrayBufferView, isArrayBuffer } = require('util/types');
+const {
+  types: { isArrayBufferView, isArrayBuffer },
+} = require('util');
 
 /**
  * @param {string} directory - path to directory of data to be used to generate test

@@ -204,9 +204,10 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
           testNumber: tests.length + 1,
           name: testFullName,
           location: `/${directory}/${test}`,
-          reference: `/${directory}/${path.basename(reference, '.html')}${
-            testData.setupTestPage ? `.${testData.setupTestPage}` : ''
-          }.html`,
+          reference: `/${directory}/${path.posix.join(
+            path.dirname(reference),
+            path.basename(reference, '.html')
+          )}${testData.setupTestPage ? `.${testData.setupTestPage}` : ''}.html`,
           allRelevantATsFormatted: testData.applies_to.join(', '),
           allRelevantATs: testData.applies_to,
           setupScriptName: testData.setupTestPage,

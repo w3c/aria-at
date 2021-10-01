@@ -18,8 +18,10 @@
       }
 
     </style>
-    <script>
-      const filterATs = function(button) {
+    <script type="module">
+      import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
+
+      window.filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
@@ -54,21 +56,10 @@
 
           }
         }
-      }
+      };
 
-      function executeScriptInTestPage(setupScriptName, testPageWindow) {
-        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-            || testPageWindow.document.readyState !== 'complete'
-        ) {
-          window.setTimeout(() => {
-            executeScriptInTestPage(setupScriptName, testPageWindow);
-          }, 100);
-          return;
-        }
-
-        if (setupScriptName) {
-          var scripts = {
-            	checkFirstCheckbox: function(testPageDocument){
+      var scripts = {
+        	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -600,30 +591,26 @@
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
 }
-          };
+      };
 
-          scripts[setupScriptName](testPageWindow.document);
-        }
-      }
+      window.openTestPage = function(testPageUri, testNumber, setupScriptName) {
+        var openTestPageElement = document.getElementById('open-test-page-' + testNumber);
 
-      function openTestPage(testPageUri, testNumber, setupScriptName) {
-        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-        document.getElementById('open-test-page-' + testNumber).disabled = true;
-
-        // If the window is closed, re-enable open popup button
-        testPageWindow.onunload = function(event) {
-          window.setTimeout(() => {
-            if (testPageWindow.closed) {
-              testPageWindow = undefined;
-              document.getElementById('open-test-page-' + testNumber).disabled = false;
+        var testWindow = new TestWindow({
+          pageUri: testPageUri,
+          setupScriptName,
+          scripts,
+          hooks: {
+            windowOpened() {
+              openTestPageElement.disabled = true;
+            },
+            windowClosed() {
+              openTestPageElement.disabled = false;
             }
-          }, 100);
-
-        };
-
-        executeScriptInTestPage(setupScriptName, testPageWindow);
-      }
+          }
+        });
+        testWindow.open();
+      };
     </script>
   </head>
   <body>
@@ -643,7 +630,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-01-navigate-forwards-to-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -659,7 +646,7 @@
       </ul>
 
       <button id="open-test-page-1"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 1, 'moveFocusBeforeFirstDisclosure');">Open Test 1 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusBeforeFirstDisclosure.html', 1, 'moveFocusBeforeFirstDisclosure');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -724,7 +711,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-02-navigate-backwards-to-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -740,7 +727,7 @@
       </ul>
 
       <button id="open-test-page-2"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 2, 'moveFocusAfterFirstDisclosure');">Open Test 2 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusAfterFirstDisclosure.html', 2, 'moveFocusAfterFirstDisclosure');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -805,7 +792,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-03-navigate-forwards-to-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -821,7 +808,7 @@
       </ul>
 
       <button id="open-test-page-3"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 3, 'moveFocusBeforeFirstDisclosure');">Open Test 3 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusBeforeFirstDisclosure.html', 3, 'moveFocusBeforeFirstDisclosure');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -880,7 +867,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-04-navigate-backwards-to-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -896,7 +883,7 @@
       </ul>
 
       <button id="open-test-page-4"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 4, 'moveFocusAfterFirstDisclosure');">Open Test 4 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusAfterFirstDisclosure.html', 4, 'moveFocusAfterFirstDisclosure');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -955,7 +942,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-05-navigate-forwards-to-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -970,7 +957,7 @@
       </ul>
 
       <button id="open-test-page-5"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 5, 'moveFocusBeforeFirstDisclosure');">Open Test 5 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusBeforeFirstDisclosure.html', 5, 'moveFocusBeforeFirstDisclosure');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1005,7 +992,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-06-navigate-backwards-to-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1020,7 +1007,7 @@
       </ul>
 
       <button id="open-test-page-6"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 6, 'moveFocusAfterFirstDisclosure');">Open Test 6 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusAfterFirstDisclosure.html', 6, 'moveFocusAfterFirstDisclosure');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1055,7 +1042,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-07-navigate-forwards-to-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1071,7 +1058,7 @@
       </ul>
 
       <button id="open-test-page-7"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 7, 'moveFocusBeforeAndExpandFirstDisclosure');">Open Test 7 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusBeforeAndExpandFirstDisclosure.html', 7, 'moveFocusBeforeAndExpandFirstDisclosure');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1136,7 +1123,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-08-navigate-backwards-to-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1152,7 +1139,7 @@
       </ul>
 
       <button id="open-test-page-8"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 8, 'moveFocusAfterAndExpandFirstDisclosure');">Open Test 8 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusAfterAndExpandFirstDisclosure.html', 8, 'moveFocusAfterAndExpandFirstDisclosure');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1217,7 +1204,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-09-navigate-forwards-to-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1233,7 +1220,7 @@
       </ul>
 
       <button id="open-test-page-9"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 9, 'moveFocusBeforeAndExpandFirstDisclosure');">Open Test 9 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusBeforeAndExpandFirstDisclosure.html', 9, 'moveFocusBeforeAndExpandFirstDisclosure');">Open Test 9 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1292,7 +1279,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-10-navigate-backwards-to-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1308,7 +1295,7 @@
       </ul>
 
       <button id="open-test-page-10"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 10, 'moveFocusAfterAndExpandFirstDisclosure');">Open Test 10 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusAfterAndExpandFirstDisclosure.html', 10, 'moveFocusAfterAndExpandFirstDisclosure');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1367,7 +1354,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-11-navigate-forwards-to-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1382,7 +1369,7 @@
       </ul>
 
       <button id="open-test-page-11"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 11, 'moveFocusBeforeAndExpandFirstDisclosure');">Open Test 11 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusBeforeAndExpandFirstDisclosure.html', 11, 'moveFocusBeforeAndExpandFirstDisclosure');">Open Test 11 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1417,7 +1404,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-12-navigate-backwards-to-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1432,7 +1419,7 @@
       </ul>
 
       <button id="open-test-page-12"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 12, 'moveFocusAfterAndExpandFirstDisclosure');">Open Test 12 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusAfterAndExpandFirstDisclosure.html', 12, 'moveFocusAfterAndExpandFirstDisclosure');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1467,7 +1454,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-13-read-information-about-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1483,7 +1470,7 @@
       </ul>
 
       <button id="open-test-page-13"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 13, 'moveFocusToFirstDisclosure');">Open Test 13 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToFirstDisclosure.html', 13, 'moveFocusToFirstDisclosure');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1544,7 +1531,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-14-read-information-about-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1560,7 +1547,7 @@
       </ul>
 
       <button id="open-test-page-14"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 14, 'moveFocusToFirstDisclosure');">Open Test 14 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToFirstDisclosure.html', 14, 'moveFocusToFirstDisclosure');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1619,7 +1606,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-15-read-information-about-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1634,7 +1621,7 @@
       </ul>
 
       <button id="open-test-page-15"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 15, 'moveFocusToFirstDisclosure');">Open Test 15 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToFirstDisclosure.html', 15, 'moveFocusToFirstDisclosure');">Open Test 15 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1668,7 +1655,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-16-read-information-about-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1684,7 +1671,7 @@
       </ul>
 
       <button id="open-test-page-16"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 16, 'moveFocusToAndExpandFirstDisclosure');">Open Test 16 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToAndExpandFirstDisclosure.html', 16, 'moveFocusToAndExpandFirstDisclosure');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1745,7 +1732,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-17-read-information-about-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1761,7 +1748,7 @@
       </ul>
 
       <button id="open-test-page-17"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 17, 'moveFocusToAndExpandFirstDisclosure');">Open Test 17 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToAndExpandFirstDisclosure.html', 17, 'moveFocusToAndExpandFirstDisclosure');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1820,7 +1807,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-18-read-information-about-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1835,7 +1822,7 @@
       </ul>
 
       <button id="open-test-page-18"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 18, 'moveFocusToAndExpandFirstDisclosure');">Open Test 18 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToAndExpandFirstDisclosure.html', 18, 'moveFocusToAndExpandFirstDisclosure');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1869,7 +1856,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-19-operate-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1885,7 +1872,7 @@
       </ul>
 
       <button id="open-test-page-19"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 19, 'moveFocusToFirstDisclosure');">Open Test 19 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToFirstDisclosure.html', 19, 'moveFocusToFirstDisclosure');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1942,7 +1929,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-20-operate-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1958,7 +1945,7 @@
       </ul>
 
       <button id="open-test-page-20"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 20, 'moveFocusToFirstDisclosure');">Open Test 20 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToFirstDisclosure.html', 20, 'moveFocusToFirstDisclosure');">Open Test 20 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2015,7 +2002,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-21-operate-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2030,7 +2017,7 @@
       </ul>
 
       <button id="open-test-page-21"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 21, 'moveFocusToFirstDisclosure');">Open Test 21 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToFirstDisclosure.html', 21, 'moveFocusToFirstDisclosure');">Open Test 21 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2063,7 +2050,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-22-operate-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -2079,7 +2066,7 @@
       </ul>
 
       <button id="open-test-page-22"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 22, 'moveFocusToAndExpandFirstDisclosure');">Open Test 22 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToAndExpandFirstDisclosure.html', 22, 'moveFocusToAndExpandFirstDisclosure');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2136,7 +2123,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-23-operate-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -2152,7 +2139,7 @@
       </ul>
 
       <button id="open-test-page-23"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 23, 'moveFocusToAndExpandFirstDisclosure');">Open Test 23 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToAndExpandFirstDisclosure.html', 23, 'moveFocusToAndExpandFirstDisclosure');">Open Test 23 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2209,7 +2196,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-24-operate-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2224,7 +2211,7 @@
       </ul>
 
       <button id="open-test-page-24"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 24, 'moveFocusToAndExpandFirstDisclosure');">Open Test 24 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToAndExpandFirstDisclosure.html', 24, 'moveFocusToAndExpandFirstDisclosure');">Open Test 24 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2257,7 +2244,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-25-navigate-from-expanded-disclosure-button-to-text-of-question-answer-reading.html?at=jaws">jaws</a></li>
@@ -2272,7 +2259,7 @@
       </ul>
 
       <button id="open-test-page-25"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 25, 'moveFocusToAndExpandFirstDisclosure');">Open Test 25 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToAndExpandFirstDisclosure.html', 25, 'moveFocusToAndExpandFirstDisclosure');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2328,7 +2315,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-26-navigate-from-expanded-disclosure-button-to-text-of-question-answer-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2342,7 +2329,7 @@
       </ul>
 
       <button id="open-test-page-26"
-        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.html', 26, 'moveFocusToAndExpandFirstDisclosure');">Open Test 26 Page</button>
+        onclick="openTestPage('../tests&#x2F;disclosure-faq&#x2F;reference&#x2F;2020-12-3_11559&#x2F;disclosure-faq.moveFocusToAndExpandFirstDisclosure.html', 26, 'moveFocusToAndExpandFirstDisclosure');">Open Test 26 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>

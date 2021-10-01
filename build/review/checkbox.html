@@ -18,8 +18,10 @@
       }
 
     </style>
-    <script>
-      const filterATs = function(button) {
+    <script type="module">
+      import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
+
+      window.filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
@@ -54,21 +56,10 @@
 
           }
         }
-      }
+      };
 
-      function executeScriptInTestPage(setupScriptName, testPageWindow) {
-        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-            || testPageWindow.document.readyState !== 'complete'
-        ) {
-          window.setTimeout(() => {
-            executeScriptInTestPage(setupScriptName, testPageWindow);
-          }, 100);
-          return;
-        }
-
-        if (setupScriptName) {
-          var scripts = {
-            	checkFirstCheckbox: function(testPageDocument){
+      var scripts = {
+        	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -600,30 +591,26 @@
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
 }
-          };
+      };
 
-          scripts[setupScriptName](testPageWindow.document);
-        }
-      }
+      window.openTestPage = function(testPageUri, testNumber, setupScriptName) {
+        var openTestPageElement = document.getElementById('open-test-page-' + testNumber);
 
-      function openTestPage(testPageUri, testNumber, setupScriptName) {
-        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-        document.getElementById('open-test-page-' + testNumber).disabled = true;
-
-        // If the window is closed, re-enable open popup button
-        testPageWindow.onunload = function(event) {
-          window.setTimeout(() => {
-            if (testPageWindow.closed) {
-              testPageWindow = undefined;
-              document.getElementById('open-test-page-' + testNumber).disabled = false;
+        var testWindow = new TestWindow({
+          pageUri: testPageUri,
+          setupScriptName,
+          scripts,
+          hooks: {
+            windowOpened() {
+              openTestPageElement.disabled = true;
+            },
+            windowClosed() {
+              openTestPageElement.disabled = false;
             }
-          }, 100);
-
-        };
-
-        executeScriptInTestPage(setupScriptName, testPageWindow);
-      }
+          }
+        });
+        testWindow.open();
+      };
     </script>
   </head>
   <body>
@@ -643,7 +630,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-01-navigate-to-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -716,7 +703,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-02-navigate-to-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -782,7 +769,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-03-navigate-to-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -828,7 +815,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-04-navigate-to-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -845,7 +832,7 @@
       </ul>
 
       <button id="open-test-page-4"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 4, 'checkFirstCheckbox');">Open Test 4 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.checkFirstCheckbox.html', 4, 'checkFirstCheckbox');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -911,7 +898,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-05-navigate-to-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -928,7 +915,7 @@
       </ul>
 
       <button id="open-test-page-5"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 5, 'checkFirstCheckbox');">Open Test 5 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.checkFirstCheckbox.html', 5, 'checkFirstCheckbox');">Open Test 5 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -987,7 +974,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-06-navigate-to-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1003,7 +990,7 @@
       </ul>
 
       <button id="open-test-page-6"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 6, 'checkFirstCheckbox');">Open Test 6 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.checkFirstCheckbox.html', 6, 'checkFirstCheckbox');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1038,7 +1025,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-07-operate-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1101,7 +1088,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-08-operate-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1162,7 +1149,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-09-operate-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1204,7 +1191,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-10-read-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1221,7 +1208,7 @@
       </ul>
 
       <button id="open-test-page-10"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 10, 'moveFocusToFirstCheckbox');">Open Test 10 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusToFirstCheckbox.html', 10, 'moveFocusToFirstCheckbox');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1282,7 +1269,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-11-read-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1299,7 +1286,7 @@
       </ul>
 
       <button id="open-test-page-11"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 11, 'moveFocusToFirstCheckbox');">Open Test 11 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusToFirstCheckbox.html', 11, 'moveFocusToFirstCheckbox');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1360,7 +1347,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-12-read-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1376,7 +1363,7 @@
       </ul>
 
       <button id="open-test-page-12"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 12, 'moveFocusToFirstCheckbox');">Open Test 12 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusToFirstCheckbox.html', 12, 'moveFocusToFirstCheckbox');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1410,7 +1397,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-13-read-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1427,7 +1414,7 @@
       </ul>
 
       <button id="open-test-page-13"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 13, 'moveFocusAndCheckFirstCheckbox');">Open Test 13 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusAndCheckFirstCheckbox.html', 13, 'moveFocusAndCheckFirstCheckbox');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1488,7 +1475,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-14-read-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1505,7 +1492,7 @@
       </ul>
 
       <button id="open-test-page-14"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 14, 'moveFocusAndCheckFirstCheckbox');">Open Test 14 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusAndCheckFirstCheckbox.html', 14, 'moveFocusAndCheckFirstCheckbox');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1566,7 +1553,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-15-read-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1582,7 +1569,7 @@
       </ul>
 
       <button id="open-test-page-15"
-        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 15, 'moveFocusAndCheckFirstCheckbox');">Open Test 15 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusAndCheckFirstCheckbox.html', 15, 'moveFocusAndCheckFirstCheckbox');">Open Test 15 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1616,7 +1603,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1680,7 +1667,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1744,7 +1731,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1788,7 +1775,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-19-navigate-sequentially-through-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1857,7 +1844,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-20-navigate-sequentially-through-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1903,7 +1890,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-21-navigate-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1980,7 +1967,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-22-navigate-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2049,7 +2036,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-23-navigate-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2099,7 +2086,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-24-navigate-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -2168,7 +2155,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-25-navigate-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2237,7 +2224,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-26-navigate-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

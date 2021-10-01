@@ -18,8 +18,10 @@
       }
 
     </style>
-    <script>
-      const filterATs = function(button) {
+    <script type="module">
+      import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
+
+      window.filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
@@ -54,21 +56,10 @@
 
           }
         }
-      }
+      };
 
-      function executeScriptInTestPage(setupScriptName, testPageWindow) {
-        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-            || testPageWindow.document.readyState !== 'complete'
-        ) {
-          window.setTimeout(() => {
-            executeScriptInTestPage(setupScriptName, testPageWindow);
-          }, 100);
-          return;
-        }
-
-        if (setupScriptName) {
-          var scripts = {
-            	checkFirstCheckbox: function(testPageDocument){
+      var scripts = {
+        	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -600,30 +591,26 @@
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
 }
-          };
+      };
 
-          scripts[setupScriptName](testPageWindow.document);
-        }
-      }
+      window.openTestPage = function(testPageUri, testNumber, setupScriptName) {
+        var openTestPageElement = document.getElementById('open-test-page-' + testNumber);
 
-      function openTestPage(testPageUri, testNumber, setupScriptName) {
-        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-        document.getElementById('open-test-page-' + testNumber).disabled = true;
-
-        // If the window is closed, re-enable open popup button
-        testPageWindow.onunload = function(event) {
-          window.setTimeout(() => {
-            if (testPageWindow.closed) {
-              testPageWindow = undefined;
-              document.getElementById('open-test-page-' + testNumber).disabled = false;
+        var testWindow = new TestWindow({
+          pageUri: testPageUri,
+          setupScriptName,
+          scripts,
+          hooks: {
+            windowOpened() {
+              openTestPageElement.disabled = true;
+            },
+            windowClosed() {
+              openTestPageElement.disabled = false;
             }
-          }, 100);
-
-        };
-
-        executeScriptInTestPage(setupScriptName, testPageWindow);
-      }
+          }
+        });
+        testWindow.open();
+      };
     </script>
   </head>
   <body>
@@ -643,7 +630,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-01-navigate-forwards-to-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -660,7 +647,7 @@
       </ul>
 
       <button id="open-test-page-1"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 1, 'moveFocusBeforeFirstCheckbox');">Open Test 1 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusBeforeFirstCheckbox.html', 1, 'moveFocusBeforeFirstCheckbox');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -725,7 +712,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-02-navigate-backwards-to-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -742,7 +729,7 @@
       </ul>
 
       <button id="open-test-page-2"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 2, 'moveFocusAfterFirstCheckbox');">Open Test 2 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusAfterFirstCheckbox.html', 2, 'moveFocusAfterFirstCheckbox');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -807,7 +794,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-03-navigate-forwards-to-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -824,7 +811,7 @@
       </ul>
 
       <button id="open-test-page-3"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 3, 'moveFocusBeforeFirstCheckbox');">Open Test 3 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusBeforeFirstCheckbox.html', 3, 'moveFocusBeforeFirstCheckbox');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -883,7 +870,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-04-navigate-backwards-to-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -900,7 +887,7 @@
       </ul>
 
       <button id="open-test-page-4"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 4, 'moveFocusAfterFirstCheckbox');">Open Test 4 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusAfterFirstCheckbox.html', 4, 'moveFocusAfterFirstCheckbox');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -959,7 +946,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-05-navigate-forwards-to-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -975,7 +962,7 @@
       </ul>
 
       <button id="open-test-page-5"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 5, 'moveFocusBeforeFirstCheckbox');">Open Test 5 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusBeforeFirstCheckbox.html', 5, 'moveFocusBeforeFirstCheckbox');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1010,7 +997,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-06-navigate-backwards-to-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1026,7 +1013,7 @@
       </ul>
 
       <button id="open-test-page-6"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 6, 'moveFocusAfterFirstCheckbox');">Open Test 6 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusAfterFirstCheckbox.html', 6, 'moveFocusAfterFirstCheckbox');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1061,7 +1048,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-07-operate-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1077,7 +1064,7 @@
       </ul>
 
       <button id="open-test-page-7"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 7, 'moveFocusToFirstCheckbox');">Open Test 7 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToFirstCheckbox.html', 7, 'moveFocusToFirstCheckbox');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1132,7 +1119,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-08-operate-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1148,7 +1135,7 @@
       </ul>
 
       <button id="open-test-page-8"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 8, 'moveFocusToFirstCheckbox');">Open Test 8 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToFirstCheckbox.html', 8, 'moveFocusToFirstCheckbox');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1203,7 +1190,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-09-operate-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1218,7 +1205,7 @@
       </ul>
 
       <button id="open-test-page-9"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 9, 'moveFocusToFirstCheckbox');">Open Test 9 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToFirstCheckbox.html', 9, 'moveFocusToFirstCheckbox');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1250,7 +1237,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-10-operate-unchecked-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1267,7 +1254,7 @@
       </ul>
 
       <button id="open-test-page-10"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 10, 'moveFocusToAndUncheckFirstCheckbox');">Open Test 10 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToAndUncheckFirstCheckbox.html', 10, 'moveFocusToAndUncheckFirstCheckbox');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1322,7 +1309,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-11-operate-unchecked-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1339,7 +1326,7 @@
       </ul>
 
       <button id="open-test-page-11"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 11, 'moveFocusToAndUncheckFirstCheckbox');">Open Test 11 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToAndUncheckFirstCheckbox.html', 11, 'moveFocusToAndUncheckFirstCheckbox');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1394,7 +1381,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-12-operate-unchecked-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1410,7 +1397,7 @@
       </ul>
 
       <button id="open-test-page-12"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 12, 'moveFocusToAndUncheckFirstCheckbox');">Open Test 12 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToAndUncheckFirstCheckbox.html', 12, 'moveFocusToAndUncheckFirstCheckbox');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1442,7 +1429,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-13-read-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1459,7 +1446,7 @@
       </ul>
 
       <button id="open-test-page-13"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 13, 'moveFocusToFirstCheckbox');">Open Test 13 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToFirstCheckbox.html', 13, 'moveFocusToFirstCheckbox');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1520,7 +1507,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-14-read-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1537,7 +1524,7 @@
       </ul>
 
       <button id="open-test-page-14"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 14, 'moveFocusToFirstCheckbox');">Open Test 14 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToFirstCheckbox.html', 14, 'moveFocusToFirstCheckbox');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1598,7 +1585,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-15-read-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1614,7 +1601,7 @@
       </ul>
 
       <button id="open-test-page-15"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 15, 'moveFocusToFirstCheckbox');">Open Test 15 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToFirstCheckbox.html', 15, 'moveFocusToFirstCheckbox');">Open Test 15 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1648,7 +1635,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1663,7 +1650,7 @@
       </ul>
 
       <button id="open-test-page-16"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 16, 'moveFocusToFirstCheckbox');">Open Test 16 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToFirstCheckbox.html', 16, 'moveFocusToFirstCheckbox');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1720,7 +1707,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1735,7 +1722,7 @@
       </ul>
 
       <button id="open-test-page-17"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 17, 'moveFocusToFirstCheckbox');">Open Test 17 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToFirstCheckbox.html', 17, 'moveFocusToFirstCheckbox');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1792,7 +1779,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1806,7 +1793,7 @@
       </ul>
 
       <button id="open-test-page-18"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 18, 'moveFocusToFirstCheckbox');">Open Test 18 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusToFirstCheckbox.html', 18, 'moveFocusToFirstCheckbox');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1839,7 +1826,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-19-navigate-forwards-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1854,7 +1841,7 @@
       </ul>
 
       <button id="open-test-page-19"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 19, 'moveFocusBeforeFirstCheckbox');">Open Test 19 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusBeforeFirstCheckbox.html', 19, 'moveFocusBeforeFirstCheckbox');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1917,7 +1904,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-20-navigate-backwards-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1932,7 +1919,7 @@
       </ul>
 
       <button id="open-test-page-20"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 20, 'moveFocusAfterFirstCheckbox');">Open Test 20 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusAfterFirstCheckbox.html', 20, 'moveFocusAfterFirstCheckbox');">Open Test 20 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1991,7 +1978,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-21-navigate-forwards-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2006,7 +1993,7 @@
       </ul>
 
       <button id="open-test-page-21"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 21, 'moveFocusBeforeFirstCheckbox');">Open Test 21 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusBeforeFirstCheckbox.html', 21, 'moveFocusBeforeFirstCheckbox');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2065,7 +2052,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-22-navigate-backwards-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2080,7 +2067,7 @@
       </ul>
 
       <button id="open-test-page-22"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 22, 'moveFocusAfterFirstCheckbox');">Open Test 22 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusAfterFirstCheckbox.html', 22, 'moveFocusAfterFirstCheckbox');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2139,7 +2126,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-23-navigate-forwards-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2153,7 +2140,7 @@
       </ul>
 
       <button id="open-test-page-23"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 23, 'moveFocusBeforeFirstCheckbox');">Open Test 23 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusBeforeFirstCheckbox.html', 23, 'moveFocusBeforeFirstCheckbox');">Open Test 23 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2186,7 +2173,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-24-navigate-backwards-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2200,7 +2187,7 @@
       </ul>
 
       <button id="open-test-page-24"
-        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.html', 24, 'moveFocusAfterFirstCheckbox');">Open Test 24 Page</button>
+        onclick="openTestPage('../tests&#x2F;checkbox-tri-state&#x2F;reference&#x2F;checkbox-tri-state.moveFocusAfterFirstCheckbox.html', 24, 'moveFocusAfterFirstCheckbox');">Open Test 24 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>

@@ -18,8 +18,10 @@
       }
 
     </style>
-    <script>
-      const filterATs = function(button) {
+    <script type="module">
+      import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
+
+      window.filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
@@ -54,21 +56,10 @@
 
           }
         }
-      }
+      };
 
-      function executeScriptInTestPage(setupScriptName, testPageWindow) {
-        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-            || testPageWindow.document.readyState !== 'complete'
-        ) {
-          window.setTimeout(() => {
-            executeScriptInTestPage(setupScriptName, testPageWindow);
-          }, 100);
-          return;
-        }
-
-        if (setupScriptName) {
-          var scripts = {
-            	checkFirstCheckbox: function(testPageDocument){
+      var scripts = {
+        	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -600,30 +591,26 @@
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
 }
-          };
+      };
 
-          scripts[setupScriptName](testPageWindow.document);
-        }
-      }
+      window.openTestPage = function(testPageUri, testNumber, setupScriptName) {
+        var openTestPageElement = document.getElementById('open-test-page-' + testNumber);
 
-      function openTestPage(testPageUri, testNumber, setupScriptName) {
-        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-        document.getElementById('open-test-page-' + testNumber).disabled = true;
-
-        // If the window is closed, re-enable open popup button
-        testPageWindow.onunload = function(event) {
-          window.setTimeout(() => {
-            if (testPageWindow.closed) {
-              testPageWindow = undefined;
-              document.getElementById('open-test-page-' + testNumber).disabled = false;
+        var testWindow = new TestWindow({
+          pageUri: testPageUri,
+          setupScriptName,
+          scripts,
+          hooks: {
+            windowOpened() {
+              openTestPageElement.disabled = true;
+            },
+            windowClosed() {
+              openTestPageElement.disabled = false;
             }
-          }, 100);
-
-        };
-
-        executeScriptInTestPage(setupScriptName, testPageWindow);
-      }
+          }
+        });
+        testWindow.open();
+      };
     </script>
   </head>
   <body>
@@ -643,7 +630,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-01-navigate-forwards-to-menu-button-reading.html?at=jaws">jaws</a></li>
@@ -659,7 +646,7 @@
       </ul>
 
       <button id="open-test-page-1"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 1, 'setFocusBeforeMenuButton');">Open Test 1 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusBeforeMenuButton.html', 1, 'setFocusBeforeMenuButton');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -722,7 +709,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-02-navigate-backwards-to-menu-button-reading.html?at=jaws">jaws</a></li>
@@ -738,7 +725,7 @@
       </ul>
 
       <button id="open-test-page-2"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 2, 'setFocusAfterMenuButton');">Open Test 2 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusAfterMenuButton.html', 2, 'setFocusAfterMenuButton');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -801,7 +788,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-03-navigate-forwards-to-menu-button-interaction.html?at=jaws">jaws</a></li>
@@ -817,7 +804,7 @@
       </ul>
 
       <button id="open-test-page-3"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 3, 'setFocusBeforeMenuButton');">Open Test 3 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusBeforeMenuButton.html', 3, 'setFocusBeforeMenuButton');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -874,7 +861,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-04-navigate-backwards-to-menu-button-interaction.html?at=jaws">jaws</a></li>
@@ -890,7 +877,7 @@
       </ul>
 
       <button id="open-test-page-4"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 4, 'setFocusAfterMenuButton');">Open Test 4 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusAfterMenuButton.html', 4, 'setFocusAfterMenuButton');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -947,7 +934,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-05-navigate-forwards-to-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -962,7 +949,7 @@
       </ul>
 
       <button id="open-test-page-5"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 5, 'setFocusBeforeMenuButton');">Open Test 5 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusBeforeMenuButton.html', 5, 'setFocusBeforeMenuButton');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -996,7 +983,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-06-navigate-backwards-to-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1011,7 +998,7 @@
       </ul>
 
       <button id="open-test-page-6"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 6, 'setFocusAfterMenuButton');">Open Test 6 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusAfterMenuButton.html', 6, 'setFocusAfterMenuButton');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1045,7 +1032,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-07-read-information-about-menu-button-reading.html?at=jaws">jaws</a></li>
@@ -1061,7 +1048,7 @@
       </ul>
 
       <button id="open-test-page-7"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 7, 'setFocusOnMenuButton');">Open Test 7 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusOnMenuButton.html', 7, 'setFocusOnMenuButton');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1120,7 +1107,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-08-read-information-about-menu-button-interaction.html?at=jaws">jaws</a></li>
@@ -1136,7 +1123,7 @@
       </ul>
 
       <button id="open-test-page-8"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 8, 'setFocusOnMenuButton');">Open Test 8 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusOnMenuButton.html', 8, 'setFocusOnMenuButton');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1195,7 +1182,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-09-read-information-about-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1210,7 +1197,7 @@
       </ul>
 
       <button id="open-test-page-9"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 9, 'setFocusOnMenuButton');">Open Test 9 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusOnMenuButton.html', 9, 'setFocusOnMenuButton');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1243,7 +1230,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-10-open-menu-reading.html?at=jaws">jaws</a></li>
@@ -1261,7 +1248,7 @@
       </ul>
 
       <button id="open-test-page-10"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 10, 'setFocusOnMenuButton');">Open Test 10 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusOnMenuButton.html', 10, 'setFocusOnMenuButton');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1328,7 +1315,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-11-open-menu-interaction.html?at=jaws">jaws</a></li>
@@ -1346,7 +1333,7 @@
       </ul>
 
       <button id="open-test-page-11"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 11, 'setFocusOnMenuButton');">Open Test 11 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusOnMenuButton.html', 11, 'setFocusOnMenuButton');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1415,7 +1402,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-12-open-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1432,7 +1419,7 @@
       </ul>
 
       <button id="open-test-page-12"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 12, 'setFocusOnMenuButton');">Open Test 12 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusOnMenuButton.html', 12, 'setFocusOnMenuButton');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1471,7 +1458,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-13-open-menu-to-last-item-interaction.html?at=jaws">jaws</a></li>
@@ -1489,7 +1476,7 @@
       </ul>
 
       <button id="open-test-page-13"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 13, 'setFocusOnMenuButton');">Open Test 13 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusOnMenuButton.html', 13, 'setFocusOnMenuButton');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1554,7 +1541,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-14-open-menu-to-last-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1571,7 +1558,7 @@
       </ul>
 
       <button id="open-test-page-14"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 14, 'setFocusOnMenuButton');">Open Test 14 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.setFocusOnMenuButton.html', 14, 'setFocusOnMenuButton');">Open Test 14 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1607,7 +1594,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-15-read-information-about-menu-item-interaction.html?at=jaws">jaws</a></li>
@@ -1623,7 +1610,7 @@
       </ul>
 
       <button id="open-test-page-15"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 15, 'openMenuAndSetFocusToFirstItem');">Open Test 15 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToFirstItem.html', 15, 'openMenuAndSetFocusToFirstItem');">Open Test 15 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1686,7 +1673,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-16-read-information-about-menu-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1701,7 +1688,7 @@
       </ul>
 
       <button id="open-test-page-16"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 16, 'openMenuAndSetFocusToFirstItem');">Open Test 16 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToFirstItem.html', 16, 'openMenuAndSetFocusToFirstItem');">Open Test 16 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1736,7 +1723,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-17-navigate-to-first-item-in-menu-interaction.html?at=jaws">jaws</a></li>
@@ -1752,7 +1739,7 @@
       </ul>
 
       <button id="open-test-page-17"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 17, 'openMenuAndSetFocusToLastItem');">Open Test 17 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToLastItem.html', 17, 'openMenuAndSetFocusToLastItem');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1815,7 +1802,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-18-navigate-to-first-item-in-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1830,7 +1817,7 @@
       </ul>
 
       <button id="open-test-page-18"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 18, 'openMenuAndSetFocusToLastItem');">Open Test 18 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToLastItem.html', 18, 'openMenuAndSetFocusToLastItem');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1865,7 +1852,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-19-navigate-to-last-item-in-menu-interaction.html?at=jaws">jaws</a></li>
@@ -1881,7 +1868,7 @@
       </ul>
 
       <button id="open-test-page-19"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 19, 'openMenuAndSetFocusToFirstItem');">Open Test 19 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToFirstItem.html', 19, 'openMenuAndSetFocusToFirstItem');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1944,7 +1931,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-20-navigate-to-last-item-in-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1959,7 +1946,7 @@
       </ul>
 
       <button id="open-test-page-20"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 20, 'openMenuAndSetFocusToFirstItem');">Open Test 20 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToFirstItem.html', 20, 'openMenuAndSetFocusToFirstItem');">Open Test 20 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1994,7 +1981,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-21-navigate-to-item-in-menu-by-typing-character-interaction.html?at=jaws">jaws</a></li>
@@ -2010,7 +1997,7 @@
       </ul>
 
       <button id="open-test-page-21"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 21, 'openMenuAndSetFocusToFirstItem');">Open Test 21 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToFirstItem.html', 21, 'openMenuAndSetFocusToFirstItem');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2071,7 +2058,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-22-navigate-to-item-in-menu-by-typing-character-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2086,7 +2073,7 @@
       </ul>
 
       <button id="open-test-page-22"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 22, 'openMenuAndSetFocusToFirstItem');">Open Test 22 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToFirstItem.html', 22, 'openMenuAndSetFocusToFirstItem');">Open Test 22 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2120,7 +2107,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-23-activate-menu-item-interaction.html?at=jaws">jaws</a></li>
@@ -2136,7 +2123,7 @@
       </ul>
 
       <button id="open-test-page-23"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 23, 'openMenuAndSetFocusToFirstItem');">Open Test 23 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToFirstItem.html', 23, 'openMenuAndSetFocusToFirstItem');">Open Test 23 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2193,7 +2180,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-24-activate-menu-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2208,7 +2195,7 @@
       </ul>
 
       <button id="open-test-page-24"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 24, 'openMenuAndSetFocusToFirstItem');">Open Test 24 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToFirstItem.html', 24, 'openMenuAndSetFocusToFirstItem');">Open Test 24 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2241,7 +2228,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-25-close-menu-interaction.html?at=jaws">jaws</a></li>
@@ -2257,7 +2244,7 @@
       </ul>
 
       <button id="open-test-page-25"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 25, 'openMenuAndSetFocusToFirstItem');">Open Test 25 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToFirstItem.html', 25, 'openMenuAndSetFocusToFirstItem');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2314,7 +2301,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Sep 22 15:34:24 2021 -0400</li>
+        <li>Last edited: Fri Oct 1 11:16:01 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions/test-26-close-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2329,7 +2316,7 @@
       </ul>
 
       <button id="open-test-page-26"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.html', 26, 'openMenuAndSetFocusToFirstItem');">Open Test 26 Page</button>
+        onclick="openTestPage('../tests&#x2F;menu-button-actions&#x2F;reference&#x2F;2021-1-14_12348&#x2F;menu-button-actions.openMenuAndSetFocusToFirstItem.html', 26, 'openMenuAndSetFocusToFirstItem');">Open Test 26 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>

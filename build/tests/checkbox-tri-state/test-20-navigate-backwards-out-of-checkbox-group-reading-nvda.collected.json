@@ -1,0 +1,56 @@
+{
+  "info": {
+    "testId": 20,
+    "task": "navigate backwards out of checkbox group",
+    "title": "Navigate backwards out of a checkbox group in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-2/checkbox-2.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/checkbox-tri-state.moveFocusAfterFirstCheckbox.html",
+    "setupScript": {
+      "name": "moveFocusAfterFirstCheckbox",
+      "description": "sets focus on a link after the first checkbox",
+      "source": "// sets focus on a link after the first checkbox\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/moveFocusAfterFirstCheckbox.module.js",
+      "jsonpPath": "scripts/moveFocusAfterFirstCheckbox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate backwards out of the checkbox group."
+    ],
+    "raw": "Navigate backwards out of the checkbox group.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 2,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Group name 'Sandwich Condiments' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The group boundary is conveyed"
+    }
+  ]
+}

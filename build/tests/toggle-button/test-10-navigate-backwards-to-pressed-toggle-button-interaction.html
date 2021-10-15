@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a pressed toggle button in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/button/button.html">
+<link rel="help" href="https://w3c.github.io/aria/#button">
+<link rel="help" href="https://w3c.github.io/aria/#aria-pressed">
+
+<script>
+  var scripts = {
+		setFocusAfterButton: function(testPageDocument){
+			// sets focus on a link after the button
+			testPageDocument.querySelector('#afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link after the button",
+  "setupTestPage": "setFocusAfterButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to pressed toggle button",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Mute' button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Mute' is conveyed"
+    ],
+    [
+      "1",
+      "State 'pressed' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to pressed toggle button": {
+    "reading": {
+      "jaws": [
+        [ "UP" ],
+        [ "SHIFT_B" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "nvda": [
+        [ "UP" ],
+        [ "SHIFT_B" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-3-29_145942/button.setFocusAfterButton.html");
+  });
+</script>
+  

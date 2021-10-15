@@ -1,0 +1,84 @@
+{
+  "info": {
+    "testId": 39,
+    "task": "read disabled menuitem in a submenu",
+    "title": "Read disabled menu item in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html"
+      },
+      {
+        "refId": "group",
+        "value": "https://w3c.github.io/aria/#group"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "menuitem",
+        "value": "https://w3c.github.io/aria/#menuitem"
+      },
+      {
+        "refId": "aria-disabled",
+        "value": "https://w3c.github.io/aria/#aria-disabled"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "nvda",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.focusonsize.html",
+    "setupScript": {
+      "name": "focusonsize",
+      "description": "sets focus on the 'Size' menu item",
+      "source": "// Move focus to the \"Size\" menu item\ntestPageDocument.querySelectorAll('[role=menuitem]')[3].focus();\n",
+      "modulePath": "scripts/focusonsize.module.js",
+      "jsonpPath": "scripts/focusonsize.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Open 'Size' menu with  down arrow.",
+      "Navigate to 'X-Small' with down arrow.",
+      "Activate 'X-Small'. with Enter.",
+      "Open 'Size' menu with down arrow.",
+      "Read the 'Smaller' menu item"
+    ],
+    "raw": "Open 'Size' menu with  down arrow. | Navigate to 'X-Small' with down arrow. | Activate 'X-Small'. with Enter. | Open 'Size' menu with down arrow. | Read the 'Smaller' menu item",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab"
+    },
+    {
+      "id": "INS_NUMPAD_5",
+      "keystroke": "Insert+Numpad 5 (or CapsLock+Numpad 5)"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "The name 'Smaller' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The role 'menu item' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The disabled state is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The position of the item and number of items in the menu  are conveyed"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "info": {
+    "testId": 3,
+    "task": "navigate forwards to collapsed disclosure button",
+    "title": "Navigate forwards to a collapsed disclosure button in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/disclosure-navigation.moveFocusBeforeFirstDisclosure.html",
+    "setupScript": {
+      "name": "moveFocusBeforeFirstDisclosure",
+      "description": "sets focus on a link before the first disclosure button",
+      "source": "// sets focus on a link before the first disclosure button\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/moveFocusBeforeFirstDisclosure.module.js",
+      "jsonpPath": "scripts/moveFocusBeforeFirstDisclosure.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the first disclosure button in the navigation region. Note: it should be in the collapsed state."
+    ],
+    "raw": "Navigate to the first disclosure button in the navigation region. Note: it should be in the collapsed state.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'About' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the button (collapsed) is conveyed"
+    }
+  ]
+}

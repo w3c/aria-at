@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to unchecked menu item checkbox in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html">
+<link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  var scripts = {
+		focusonstylecolor: function(testPageDocument){
+			// Move focus to the "Style/Color" menu item
+			testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Style/Color' menu item",
+  "setupTestPage": "focusonstylecolor",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate to unchecked menuitemcheckbox in submenu",
+  "specific_user_instruction": "Open \"Style/Color\" menu with down arrow. | Navigate to 'Italic' menu item checkbox",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Italic' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "The unchecked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menu are conveyed"
+    ],
+    [
+      "2",
+      " The name and role of the 'Font Style' group are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to unchecked menuitemcheckbox in submenu": {
+    "interaction": {
+      "jaws": [ [ "UP_AND_DOWN" ] ],
+      "nvda": [ [ "UP_AND_DOWN" ] ],
+      "voiceover_macos": [
+        [ "UP_AND_DOWN" ],
+        [
+          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+        ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175528/menubar-editor.focusonstylecolor.html");
+  });
+</script>
+  

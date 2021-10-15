@@ -1,0 +1,56 @@
+{
+  "info": {
+    "testId": 43,
+    "task": "close filled in combobox",
+    "title": "Close a filled in combobox in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToAlabama.html",
+    "setupScript": {
+      "name": "moveFocusToAndExpandComboboxAndSetValueToAlabama",
+      "description": "sets focus on and expands the combobox, and sets the combobox value to 'Alabama'",
+      "source": "// sets focus on and expands the combobox, and sets the combobox value to 'Alabama'\ntestPageDocument.defaultView.comboboxController.setValue('Alabama');\ntestPageDocument.defaultView.comboboxController.open();\ntestPageDocument.defaultView.comboboxController.comboboxNode.select();\ntestPageDocument.defaultView.comboboxController.comboboxNode.focus();\n",
+      "modulePath": "scripts/moveFocusToAndExpandComboboxAndSetValueToAlabama.module.js",
+      "jsonpPath": "scripts/moveFocusToAndExpandComboboxAndSetValueToAlabama.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the combobox, close the combobox."
+    ],
+    "raw": "With focus on the combobox, close the combobox.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "ENTER",
+      "keystroke": "Enter"
+    },
+    {
+      "id": "ESC",
+      "keystroke": "Escape"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change in state (to collapsed) is conveyed"
+    }
+  ]
+}

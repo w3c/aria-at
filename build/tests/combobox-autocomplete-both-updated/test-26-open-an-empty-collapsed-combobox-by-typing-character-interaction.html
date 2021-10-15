@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Open an empty, collapsed combobox by typing a character</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script>
+  var scripts = {
+		moveFocusToCombobox: function(testPageDocument){
+			// sets focus on the combobox
+			testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the combobox",
+  "setupTestPage": "moveFocusToCombobox",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "open an empty collapsed combobox by typing character",
+  "specific_user_instruction": "With focus on the combobox, open the combobox without moving into the listbox popup.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state (to expanded) is conveyed"
+    ],
+    [
+      "1",
+      "Text of the automatically completed option ('Alabama') is conveyed"
+    ],
+    [
+      "1",
+      "State of the text in the input (selected) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "open an empty collapsed combobox by typing character": {
+    "interaction": { "voiceover_macos": [ [ "A" ] ] }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToCombobox.html");
+  });
+</script>
+  

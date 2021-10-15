@@ -1,0 +1,57 @@
+{
+  "info": {
+    "testId": 2,
+    "task": "navigate to unchecked checkbox",
+    "title": "Navigate to an unchecked checkbox in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html"
+      },
+      {
+        "refId": "checkbox",
+        "value": "https://w3c.github.io/aria/#checkbox"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.html"
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the first checkbox. Note: it should be in the unchecked state."
+    ],
+    "raw": "Navigate to the first checkbox. Note: it should be in the unchecked state.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "TAB_AND_SHIFT_TAB",
+      "keystroke": "Tab / Shift+Tab"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'checkbox' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Lettuce' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the checkbox (not checked) is conveyed"
+    }
+  ]
+}

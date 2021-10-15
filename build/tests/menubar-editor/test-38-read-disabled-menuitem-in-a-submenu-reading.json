@@ -1,0 +1,29 @@
+{
+  "setup_script_description": "sets focus on a link just before the menubar",
+  "setupTestPage": "focusonfirstlink",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read disabled menuitem in a submenu",
+  "specific_user_instruction": "Tab to 'Text Formatting' menubar. | Navigate to 'Size' menu item with right arrow. | Open 'Size' menu with  down arrow. | Navigate to 'X-Small' with down arrow. | Activate 'X-Small'. with Enter. | Open 'Size' menu with down arrow. | Activate the screen reader reading cursor. | Read the 'Smaller' menu item",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Smaller' is conveyed"
+    ],
+    [
+      "2",
+      " The role 'menu item' is conveyed"
+    ],
+    [
+      "1",
+      "The disabled state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menu  are conveyed"
+    ]
+  ]
+}

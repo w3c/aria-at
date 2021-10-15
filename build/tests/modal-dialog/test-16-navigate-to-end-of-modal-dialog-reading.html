@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the end of a modal dialog in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html">
+
+<script>
+  var scripts = {
+		openAddDeliveryAddressDialogAndFocusFirstInput: function(testPageDocument){
+			// opens the 'Add Delivery Address' modal dialog, and sets focus on the first input
+			const btn = testPageDocument.querySelector('#ex1 > button');
+			testPageDocument.defaultView.openDialog('dialog1', btn);
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the first input",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusFirstInput",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate to end of modal dialog",
+  "specific_user_instruction": "With the reading cursor on an input inside a modal dialog, navigate to the end of the dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Cancel' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to end of modal dialog": {
+    "reading": {
+      "jaws": [ [ "CTRL_END" ] ],
+      "nvda": [ [ "CTRL_END" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [ [ "CTRL_OPT_END" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-17_13353/dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html");
+  });
+</script>
+  

@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate from an empty, expanded combobox to the last option in a listbox popup</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+<link rel="help" href="https://w3c.github.io/aria/#listbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-label">
+<link rel="help" href="https://w3c.github.io/aria/#aria-selected">
+<link rel="help" href="https://w3c.github.io/aria/#aria-activedescendant">
+
+<script>
+  var scripts = {
+		moveFocusToAndExpandCombobox: function(testPageDocument){
+			// sets focus on and expands the combobox
+			testPageDocument.defaultView.comboboxController.open();
+			testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on and expands the combobox",
+  "setupTestPage": "moveFocusToAndExpandCombobox",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate from empty expanded combobox to last option in listbox popup",
+  "specific_user_instruction": "With focus on the combobox, navigate to the the last option in the listbox popup.",
+  "output_assertions": [
+    [
+      "1",
+      "Role of the popup ('listbox') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the popup ('States') is conveyed"
+    ],
+    [
+      "1",
+      "Text of the focused option in the popup ('Wyoming') is conveyed"
+    ],
+    [
+      "2",
+      "State of the focused option in the popup (selected) is conveyed"
+    ],
+    [
+      "1",
+      "Position of the focused option in the popup (56) is conveyed"
+    ],
+    [
+      "1",
+      "Number of options in the popup (56) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate from empty expanded combobox to last option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ],
+      "voiceover_macos": [ [ "UP" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToAndExpandCombobox.html");
+  });
+</script>
+  

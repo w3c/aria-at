@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a tab panel in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/tabs/tabs-2/tabs.html">
+<link rel="help" href="https://w3c.github.io/aria/#tabpanel">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+
+<script>
+  var scripts = {
+		setFocusAfterTabpanel: function(testPageDocument){
+			// sets focus on a link after the tab panel
+			testPageDocument.querySelector('#afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link after the tab panel",
+  "setupTestPage": "setFocusAfterTabpanel",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to tab panel",
+  "specific_user_instruction": "Navigate to the tab panel.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'tab panel' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Nils Frahm' is conveyed"
+    ],
+    [
+      "1",
+      "Textual content of the tab panel is conveyed as 'Nils Frahm is a German musician, composer and record producer based in Berlin. He is known for combining classical and electronic music and for an unconventional approach to the piano in which he mixes a grand piano, upright piano, Roland Juno-60, Rhodes piano, drum machine, and Moog Taurus.'"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to tab panel": {
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_LEFT" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-2-15_124757/tabs.setFocusAfterTabpanel.html");
+  });
+</script>
+  

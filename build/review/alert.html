@@ -62,6 +62,15 @@
         	setFocusOnButton: function(testPageDocument){
 	// sets focus on the 'Trigger Alert' button
 	testPageDocument.querySelector('#alert-trigger').focus();
+},	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link after the 'Breadcrumb Example' link
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeFirstBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link before the 'WAI-ARIA Authoring Practices' link
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on the 'Breadcrumb Example' link
+	testPageDocument.querySelector('[aria-current="page"]').focus();
 },	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
@@ -633,7 +642,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Fri Oct 15 16:10:43 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-01-trigger-alert-reading.html?at=jaws">jaws</a></li>
@@ -708,7 +717,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Fri Oct 15 16:10:43 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-02-trigger-alert-interaction.html?at=jaws">jaws</a></li>
@@ -783,7 +792,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: </li>
+        <li>Last edited: Fri Oct 15 16:10:43 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-03-trigger-alert-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

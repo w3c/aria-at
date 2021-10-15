@@ -1,0 +1,41 @@
+{
+  "setup_script_description": "sets focus on a link before the radio group, and hides the group heading",
+  "setupTestPage": "setFocusBeforeRadioGroup",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate to first unchecked radio button in group",
+  "specific_user_instruction": "Navigate to the first radio button in the group. Note: You may need to press certain commands (such as Down Arrow) multiple times to hear all information relating to the radio button and group.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the group, 'Pizza Crust', is conveyed"
+    ],
+    [
+      "1",
+      "role 'radio button' is conveyed"
+    ],
+    [
+      "1",
+      "name of the radio button, 'Regular crust', is conveyed"
+    ],
+    [
+      "1",
+      "State of the radio button, 'unchecked', is conveyed"
+    ],
+    [
+      "2",
+      "Position of the radio button, 1, is conveyed"
+    ],
+    [
+      "2",
+      "Number of radio buttons in the group, 3, is conveyed"
+    ]
+  ]
+}

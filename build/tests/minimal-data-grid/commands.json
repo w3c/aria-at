@@ -1,0 +1,270 @@
+{
+  "navigate forwards to grid": {
+    "reading": {
+      "jaws": [
+        [ "T_THEN_DOWN" ],
+        [ "DOWN" ]
+      ],
+      "nvda": [ [ "T" ], [ "DOWN" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_T" ]
+      ]
+    }
+  },
+  "navigate backwards to grid": {
+    "reading": {
+      "jaws": [ [ "SHIFT_T_THEN_DOWN" ] ],
+      "nvda": [ [ "SHIFT_T" ] ]
+    }
+  },
+  "navigate into end of grid": {
+    "reading": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [ [ "CTRL_OPT_LEFT" ] ]
+    }
+  },
+  "move focus forwards into grid": {
+    "reading": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [ [ "TAB" ] ]
+    }
+  },
+  "move focus backwards into grid": {
+    "reading": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [ [ "SHIFT_TAB" ] ]
+    }
+  },
+  "read information about grid cell": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  },
+  "read information about grid cell containing link": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  },
+  "navigate to next colum in grid": {
+    "reading": {
+      "jaws": [ [ "CTRL_ALT_RIGHT" ] ],
+      "nvda": [ [ "CTRL_ALT_RIGHT" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [ [ "RIGHT" ] ],
+      "voiceover_macos": [
+        [ "RIGHT" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_Y" ]
+      ]
+    }
+  },
+  "navigate to previous colum in grid": {
+    "reading": {
+      "jaws": [ [ "CTRL_ALT_LEFT" ] ],
+      "nvda": [ [ "CTRL_ALT_LEFT" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "LEFT" ] ],
+      "nvda": [ [ "LEFT" ] ],
+      "voiceover_macos": [
+        [ "LEFT" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_Y" ]
+      ]
+    }
+  },
+  "navigate to next colum containing link in grid": {
+    "reading": {
+      "jaws": [
+        [ "U" ],
+        [ "CTRL_ALT_RIGHT" ]
+      ],
+      "nvda": [
+        [ "U" ],
+        [ "K" ],
+        [ "CTRL_ALT_RIGHT" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [
+        [ "RIGHT" ],
+        [ "CTRL_ALT_RIGHT" ]
+      ],
+      "voiceover_macos": [
+        [ "RIGHT" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_Y" ],
+        [ "CTRL_OPT_CMD_L" ]
+      ]
+    }
+  },
+  "navigate to previous colum containing link in grid": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_U" ],
+        [ "CTRL_ALT_LEFT" ]
+      ],
+      "nvda": [
+        [ "SHIFT_U" ],
+        [ "SHIFT_K" ],
+        [ "CTRL_ALT_LEFT" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "LEFT" ] ],
+      "nvda": [ [ "LEFT" ] ],
+      "voiceover_macos": [
+        [ "LEFT" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_Y" ],
+        [ "SHIFT_CTRL_OPT_CMD_L" ]
+      ]
+    }
+  },
+  "navigate to next column from cel containing link in grid": {
+    "reading": {
+      "jaws": [ [ "CTRL_ALT_RIGHT" ] ],
+      "nvda": [ [ "CTRL_ALT_RIGHT" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [ [ "RIGHT" ] ],
+      "voiceover_macos": [
+        [ "RIGHT" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_Y" ]
+      ]
+    }
+  },
+  "navigate to previous column from cel containing link in grid": {
+    "reading": {
+      "jaws": [ [ "CTRL_ALT_LEFT" ] ],
+      "nvda": [ [ "CTRL_ALT_LEFT" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "LEFT" ] ],
+      "nvda": [ [ "LEFT" ] ],
+      "voiceover_macos": [
+        [ "LEFT" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_Y" ],
+        [ "SHIFT_CTRL_OPT_CMD_L" ]
+      ]
+    }
+  },
+  "navigate to next row in grid": {
+    "reading": {
+      "jaws": [ [ "CTRL_ALT_DOWN" ] ],
+      "nvda": [ [ "CTRL_ALT_DOWN" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ],
+      "voiceover_macos": [
+        [ "DOWN" ],
+        [ "CTRL_OPT_DOWN" ]
+      ]
+    }
+  },
+  "navigate to previous row in grid": {
+    "reading": {
+      "jaws": [ [ "CTRL_ALT_UP" ] ],
+      "nvda": [ [ "CTRL_ALT_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ],
+      "voiceover_macos": [ [ "UP" ], [ "CTRL_OPT_UP" ] ]
+    }
+  },
+  "navigate to cell containing link on next row in grid": {
+    "reading": {
+      "jaws": [ [ "CTRL_ALT_DOWN" ] ],
+      "nvda": [ [ "CTRL_ALT_DOWN" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ],
+      "voiceover_macos": [
+        [ "DOWN" ],
+        [ "CTRL_OPT_DOWN" ]
+      ]
+    }
+  },
+  "navigate to cell containing link on previous row in grid": {
+    "reading": {
+      "jaws": [ [ "CTRL_ALT_UP" ] ],
+      "nvda": [ [ "CTRL_ALT_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ],
+      "voiceover_macos": [ [ "UP" ], [ "CTRL_OPT_UP" ] ]
+    }
+  },
+  "navigate to first cell of row in grid": {
+    "interaction": {
+      "jaws": [ [ "HOME" ] ],
+      "nvda": [ [ "HOME" ] ],
+      "voiceover_macos": [ [ "HOME" ] ]
+    }
+  },
+  "navigate to last cell of row in grid": {
+    "interaction": {
+      "jaws": [ [ "END" ] ],
+      "nvda": [ [ "END" ] ],
+      "voiceover_macos": [ [ "END" ] ]
+    }
+  },
+  "navigate to first cell in grid": {
+    "interaction": {
+      "jaws": [ [ "CTRL_HOME" ] ],
+      "nvda": [ [ "CTRL_HOME" ] ],
+      "voiceover_macos": [ [ "CTRL_HOME" ] ]
+    }
+  },
+  "navigate to last cell in grid": {
+    "interaction": {
+      "jaws": [ [ "CTRL_END" ] ],
+      "nvda": [ [ "CTRL_END" ] ],
+      "voiceover_macos": [ [ "CTRL_END" ] ]
+    }
+  }
+}

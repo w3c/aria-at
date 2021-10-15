@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards to a menu button in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menu-button/menu-button-actions.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-haspopup">
+
+<script>
+  var scripts = {
+		setFocusBeforeMenuButton: function(testPageDocument){
+			// sets focus on a link before the menu button
+			testPageDocument.querySelector('#beforelink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link before the menu button",
+  "setupTestPage": "setFocusBeforeMenuButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate forwards to menu button",
+  "specific_user_instruction": "Navigate to the menu button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'menu button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Actions' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards to menu button": {
+    "reading": {
+      "jaws": [
+        [ "B" ],
+        [ "F" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ],
+      "nvda": [
+        [ "B" ],
+        [ "F" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-1-14_12348/menu-button-actions.setFocusBeforeMenuButton.html");
+  });
+</script>
+  

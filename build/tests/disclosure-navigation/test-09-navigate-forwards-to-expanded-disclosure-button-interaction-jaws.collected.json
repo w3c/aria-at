@@ -1,0 +1,60 @@
+{
+  "info": {
+    "testId": 9,
+    "task": "navigate forwards to expanded disclosure button",
+    "title": "Navigate forwards to an expanded disclosure button in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/disclosure-navigation.moveFocusBeforeAndExpandFirstDisclosure.html",
+    "setupScript": {
+      "name": "moveFocusBeforeAndExpandFirstDisclosure",
+      "description": "sets focus on a link before the first disclosure button, and sets the state of the first button to expanded",
+      "source": "// sets focus on a link before the first disclosure button, and sets the state of the first button to expanded\ntestPageDocument.defaultView.disclosureController.toggleExpand(0, true);\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/moveFocusBeforeAndExpandFirstDisclosure.module.js",
+      "jsonpPath": "scripts/moveFocusBeforeAndExpandFirstDisclosure.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the first disclosure button in the navigation region. Note: it should be in the expanded state."
+    ],
+    "raw": "Navigate to the first disclosure button in the navigation region. Note: it should be in the expanded state.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'About' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the button (expanded) is conveyed"
+    }
+  ]
+}

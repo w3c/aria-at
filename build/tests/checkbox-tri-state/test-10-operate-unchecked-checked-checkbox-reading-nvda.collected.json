@@ -1,0 +1,56 @@
+{
+  "info": {
+    "testId": 10,
+    "task": "operate unchecked checked checkbox",
+    "title": "Operate an unchecked checkbox in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-2/checkbox-2.html"
+      },
+      {
+        "refId": "checkbox",
+        "value": "https://w3c.github.io/aria/#checkbox"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/checkbox-tri-state.moveFocusToAndUncheckFirstCheckbox.html",
+    "setupScript": {
+      "name": "moveFocusToAndUncheckFirstCheckbox",
+      "description": "sets focus on the first checkbox and sets its state to unchecked",
+      "source": "// sets focus on the first checkbox and sets its state to unchecked\nconst checkbox = testPageDocument.querySelector('[role=\"checkbox\"]');\ncheckbox.setAttribute('aria-checked', 'false');\ncheckbox.focus();\n",
+      "modulePath": "scripts/moveFocusToAndUncheckFirstCheckbox.module.js",
+      "jsonpPath": "scripts/moveFocusToAndUncheckFirstCheckbox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Partially check the first checkbox."
+    ],
+    "raw": "Partially check the first checkbox.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "SPACE",
+      "keystroke": "Space"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change in state (to partially checked) is conveyed"
+    }
+  ]
+}

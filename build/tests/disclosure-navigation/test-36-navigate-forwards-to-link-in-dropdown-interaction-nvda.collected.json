@@ -1,0 +1,60 @@
+{
+  "info": {
+    "testId": 36,
+    "task": "navigate forwards to link in dropdown",
+    "title": "Navigate forwards to a link in a dropdown in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/disclosure-navigation.moveFocusToFirstLinkInDropdown.html",
+    "setupScript": {
+      "name": "moveFocusToFirstLinkInDropdown",
+      "description": "sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown",
+      "source": "// sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown\ntestPageDocument.defaultView.disclosureController.toggleExpand(0, true);\ntestPageDocument.querySelector('#id_about_menu a').focus();\n",
+      "modulePath": "scripts/moveFocusToFirstLinkInDropdown.module.js",
+      "jsonpPath": "scripts/moveFocusToFirstLinkInDropdown.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on a link in the first dropdown, navigate to the next link."
+    ],
+    "raw": "With focus on a link in the first dropdown, navigate to the next link.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow"
+    },
+    {
+      "id": "RIGHT",
+      "keystroke": "Right Arrow"
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Administration' is conveyed"
+    }
+  ]
+}

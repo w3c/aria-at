@@ -1,0 +1,72 @@
+{
+  "info": {
+    "testId": 10,
+    "task": "navigate backwards to expanded disclosure button",
+    "title": "Navigate backwards to an expanded disclosure button in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/disclosure-navigation.moveFocusToFirstLinkInDropdown.html",
+    "setupScript": {
+      "name": "moveFocusToFirstLinkInDropdown",
+      "description": "sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown",
+      "source": "// sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown\ntestPageDocument.defaultView.disclosureController.toggleExpand(0, true);\ntestPageDocument.querySelector('#id_about_menu a').focus();\n",
+      "modulePath": "scripts/moveFocusToFirstLinkInDropdown.module.js",
+      "jsonpPath": "scripts/moveFocusToFirstLinkInDropdown.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the first disclosure button in the navigation region. Note: it should be in the expanded state."
+    ],
+    "raw": "Navigate to the first disclosure button in the navigation region. Note: it should be in the expanded state.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab"
+    },
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow"
+    },
+    {
+      "id": "LEFT",
+      "keystroke": "Left Arrow"
+    },
+    {
+      "id": "HOME",
+      "keystroke": "Home"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'About' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the button (expanded) is conveyed"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "info": {
+    "testId": 17,
+    "task": "navigate to unchecked menuitemradio in submenu",
+    "title": "Navigate to unchecked menu item radio in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html"
+      },
+      {
+        "refId": "menuitemradio",
+        "value": "https://w3c.github.io/aria/#menuitemradio"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "jaws",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.focusonfont.html",
+    "setupScript": {
+      "name": "focusonfont",
+      "description": "sets focus on the 'Font' menu item",
+      "source": "// Move focus to the \"Font\" menu item\ntestPageDocument.querySelectorAll('[role=menuitem]')[0].focus();\n",
+      "modulePath": "scripts/focusonfont.module.js",
+      "jsonpPath": "scripts/focusonfont.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Open \"Font\" menu with down arrow.",
+      "Navigate to 'Monospace' menu item radio"
+    ],
+    "raw": "Open \"Font\" menu with down arrow. | Navigate to 'Monospace' menu item radio",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "UP_AND_DOWN",
+      "keystroke": "Up Arrow / Down Arrow"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "The name 'Monospace' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The role 'menu item radio' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The unchecked state is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The position of the item and number of items in the menu are conveyed"
+    }
+  ]
+}

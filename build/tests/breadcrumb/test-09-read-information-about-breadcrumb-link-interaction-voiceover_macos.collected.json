@@ -1,0 +1,68 @@
+{
+  "info": {
+    "testId": 9,
+    "task": "read information about breadcrumb link",
+    "title": "Read information about a breadcrumb link",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/breadcrumb/index.html"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "aria-current",
+        "value": "https://w3c.github.io/aria/#aria-current"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-4-16_152046/index.setFocusOnLastBreadcrumbLink.html",
+    "setupScript": {
+      "name": "setFocusOnLastBreadcrumbLink",
+      "description": "sets focus on the 'Breadcrumb Example' link",
+      "source": "// sets focus on the 'Breadcrumb Example' link\ntestPageDocument.querySelector('[aria-current=\"page\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnLastBreadcrumbLink.module.js",
+      "jsonpPath": "scripts/setFocusOnLastBreadcrumbLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Breadcrumb Example' link, read information about the link."
+    ],
+    "raw": "With focus on the 'Breadcrumb Example' link, read information about the link.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_F3",
+      "keystroke": "Control+Option+F3"
+    },
+    {
+      "id": "CTRL_OPT_F4",
+      "keystroke": "Control+Option+F4"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Breadcrumb Example' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'current page' is conveyed"
+    }
+  ]
+}

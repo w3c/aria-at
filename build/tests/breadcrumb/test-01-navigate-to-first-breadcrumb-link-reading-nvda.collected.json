@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 1,
+    "task": "navigate to first breadcrumb link",
+    "title": "Navigate to the first breadcrumb link in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/breadcrumb/index.html"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-4-16_152046/index.setFocusBeforeFirstBreadcrumbLink.html",
+    "setupScript": {
+      "name": "setFocusBeforeFirstBreadcrumbLink",
+      "description": "sets focus on a link before the 'WAI-ARIA Authoring Practices' link",
+      "source": "// sets focus on a link before the 'WAI-ARIA Authoring Practices' link\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeFirstBreadcrumbLink.module.js",
+      "jsonpPath": "scripts/setFocusBeforeFirstBreadcrumbLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'WAI-ARIA Authoring Practices' link."
+    ],
+    "raw": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'WAI-ARIA Authoring Practices' link.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    { "id": "U", "keystroke": "U" },
+    { "id": "K", "keystroke": "K" },
+    { "id": "L", "keystroke": "L" },
+    { "id": "I", "keystroke": "I" },
+    {
+      "id": "TAB",
+      "keystroke": "Tab"
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role of the landmark region, 'navigation', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the landmark region, 'Breadcrumb', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "'Role of the breadcrumbs container, 'list', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of list items, 4, is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'WAI-ARIA Authoring Practices' is conveyed"
+    }
+  ]
+}

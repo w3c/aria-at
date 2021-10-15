@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read information about a breadcrumb link in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/breadcrumb/index.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-label">
+<link rel="help" href="https://w3c.github.io/aria/#aria-current">
+
+<script>
+  var scripts = {
+		setFocusOnLastBreadcrumbLink: function(testPageDocument){
+			// sets focus on the 'Breadcrumb Example' link
+			testPageDocument.querySelector('[aria-current="page"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Breadcrumb Example' link",
+  "setupTestPage": "setFocusOnLastBreadcrumbLink",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read information about breadcrumb link",
+  "specific_user_instruction": "With focus on the 'Breadcrumb Example' link, read information about the link.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Breadcrumb Example' is conveyed"
+    ],
+    [
+      "1",
+      "State 'current page' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about breadcrumb link": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-4-16_152046/index.setFocusOnLastBreadcrumbLink.html");
+  });
+</script>
+  

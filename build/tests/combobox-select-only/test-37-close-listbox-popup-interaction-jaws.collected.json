@@ -1,0 +1,72 @@
+{
+  "info": {
+    "testId": 37,
+    "task": "close listbox popup",
+    "title": "Close a listbox popup in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html"
+      },
+      {
+        "refId": "combobox",
+        "value": "https://w3c.github.io/aria-practices/#combobox"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/combobox-select-only.openListboxToApple.html",
+    "setupScript": {
+      "name": "openListboxToApple",
+      "description": "sets focus on and expands the Combobox, and sets the focused option to 'Apple' without selecting it",
+      "source": "// sets focus on and expands the Combobox, and sets the focused option to 'Apple'\ntestPageDocument.querySelector('[role=\"combobox\"]').focus();\ntestPageDocument.defaultView.selectController.updateMenuState(true);\ntestPageDocument.defaultView.selectController.onOptionChange(1);\n",
+      "modulePath": "scripts/openListboxToApple.module.js",
+      "jsonpPath": "scripts/openListboxToApple.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "with focus on the listbox popup, close the listbox popup without changing the selected value of the combobox."
+    ],
+    "raw": "with focus on the listbox popup, close the listbox popup without changing the selected value of the combobox.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "ESC",
+      "keystroke": "Escape"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'combobox' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Favorite Fruit' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the selected option ('Choose a Fruit') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the combobox (collapsed) is conveyed"
+    }
+  ]
+}

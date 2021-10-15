@@ -1,0 +1,72 @@
+{
+  "info": {
+    "testId": 2,
+    "task": "open modal dialog",
+    "title": "Open a modal dialog in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html"
+      },
+      {
+        "refId": "dialog",
+        "value": "https://w3c.github.io/aria/#dialog"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-12-17_13353/dialog.moveFocusToAddDeliveryAddressButton.html",
+    "setupScript": {
+      "name": "moveFocusToAddDeliveryAddressButton",
+      "description": "sets focus on the 'Add Delivery Address' button",
+      "source": "// sets focus on the 'Add Delivery Address' button\ntestPageDocument.querySelector('#ex1 > button').focus();\n",
+      "modulePath": "scripts/moveFocusToAddDeliveryAddressButton.module.js",
+      "jsonpPath": "scripts/moveFocusToAddDeliveryAddressButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Add Delivery Address' button, open the dialog."
+    ],
+    "raw": "With focus on the 'Add Delivery Address' button, open the dialog.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "SPACE",
+      "keystroke": "Space"
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'dialog' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Add Delivery Address' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the focused input ('Street') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The ability to enter text into the focused input is conveyed"
+    }
+  ]
+}

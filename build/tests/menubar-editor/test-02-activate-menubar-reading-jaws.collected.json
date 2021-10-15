@@ -1,0 +1,50 @@
+{
+  "info": {
+    "testId": 2,
+    "task": "activate menubar",
+    "title": "Activate menubar in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html"
+      },
+      {
+        "refId": "menubar",
+        "value": "https://w3c.github.io/aria/#menubar"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "jaws",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.html"
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the 'Font\" menu item in the 'Text Formatting' menubar example with down arrow.",
+      "Activate the 'Font' menu"
+    ],
+    "raw": "Navigate to the 'Font\" menu item in the 'Text Formatting' menubar example with down arrow. | Activate the 'Font' menu",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "SPACE",
+      "keystroke": "Space"
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change of mode from reading to interaction is conveyed"
+    }
+  ]
+}

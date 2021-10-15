@@ -1,0 +1,60 @@
+{
+  "info": {
+    "testId": 1,
+    "task": "navigate forwards to menu button",
+    "title": "Navigate forwards to a menu button in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menu-button/menu-button-actions.html"
+      },
+      {
+        "refId": "aria-haspopup",
+        "value": "https://w3c.github.io/aria/#aria-haspopup"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-1-14_12348/menu-button-actions.setFocusBeforeMenuButton.html",
+    "setupScript": {
+      "name": "setFocusBeforeMenuButton",
+      "description": "sets focus on a link before the menu button",
+      "source": "// sets focus on a link before the menu button\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeMenuButton.module.js",
+      "jsonpPath": "scripts/setFocusBeforeMenuButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [ "Navigate to the menu button." ],
+    "raw": "Navigate to the menu button.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    { "id": "B", "keystroke": "B" },
+    { "id": "F", "keystroke": "F" },
+    {
+      "id": "TAB",
+      "keystroke": "Tab"
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'menu button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Actions' is conveyed"
+    }
+  ]
+}

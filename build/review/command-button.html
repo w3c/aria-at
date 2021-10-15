@@ -59,7 +59,16 @@
       };
 
       var scripts = {
-        	checkFirstCheckbox: function(testPageDocument){
+        	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link after the 'Breadcrumb Example' link
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeFirstBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link before the 'WAI-ARIA Authoring Practices' link
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on the 'Breadcrumb Example' link
+	testPageDocument.querySelector('[aria-current="page"]').focus();
+},	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -630,7 +639,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 15:03:08 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-01-navigate-forwards-to-button-reading.html?at=jaws">jaws</a></li>
@@ -709,7 +718,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 15:03:08 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-02-navigate-backwards-to-button-reading.html?at=jaws">jaws</a></li>
@@ -788,7 +797,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 15:03:08 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-03-navigate-forwards-to-button-interaction.html?at=jaws">jaws</a></li>
@@ -861,7 +870,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 15:03:08 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-04-navigate-backwards-to-button-interaction.html?at=jaws">jaws</a></li>
@@ -934,7 +943,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 15:03:08 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-05-navigate-forwards-to-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -983,7 +992,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 15:03:08 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-06-navigate-backwards-to-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1032,7 +1041,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 15:03:08 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-07-read-information-about-button-reading.html?at=jaws">jaws</a></li>
@@ -1107,7 +1116,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 15:03:08 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-08-read-information-about-button-interaction.html?at=jaws">jaws</a></li>
@@ -1182,7 +1191,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 15:03:08 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-09-read-information-about-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

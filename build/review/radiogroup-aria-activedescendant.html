@@ -205,6 +205,27 @@
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
 	testPageDocument.querySelector('#action').focus();
+},	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+	testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
 	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
@@ -630,7 +651,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-01-navigate-to-first-unchecked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -721,7 +742,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-02-navigate-to-first-unchecked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -778,7 +799,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-03-navigate-to-last-unchecked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -869,7 +890,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-04-navigate-to-last-unchecked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -926,7 +947,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-05-navigate-to-first-checked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -1017,7 +1038,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-06-navigate-to-first-checked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1074,7 +1095,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-07-navigate-to-last-checked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -1165,7 +1186,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-08-navigate-to-last-checked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1222,7 +1243,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-09-navigate-forwards-to-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1309,7 +1330,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-10-navigate-forwards-to-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1365,7 +1386,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-11-navigate-backwards-to-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1452,7 +1473,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-12-navigate-backwards-to-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1508,7 +1529,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-13-navigate-forwards-to-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1595,7 +1616,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-14-navigate-forwards-to-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1651,7 +1672,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-15-navigate-backwards-to-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1738,7 +1759,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-16-navigate-backwards-to-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1794,7 +1815,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-17-navigate-out-of-start-of-radio-group-reading.html?at=jaws">jaws</a></li>
@@ -1876,7 +1897,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-18-navigate-out-of-start-of-radio-group-interaction.html?at=jaws">jaws</a></li>
@@ -1956,7 +1977,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-19-navigate-out-of-start-of-radio-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2008,7 +2029,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-20-navigate-out-of-end-of-radio-group-reading.html?at=jaws">jaws</a></li>
@@ -2090,7 +2111,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-21-navigate-out-of-end-of-radio-group-interaction.html?at=jaws">jaws</a></li>
@@ -2170,7 +2191,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-22-navigate-out-of-end-of-radio-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2222,7 +2243,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-23-read-information-about-unchecked-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -2305,7 +2326,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-24-read-information-about-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2388,7 +2409,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-25-read-information-about-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2441,7 +2462,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-26-read-information-about-checked-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -2524,7 +2545,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-27-read-information-about-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2607,7 +2628,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-28-read-information-about-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2660,7 +2681,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-29-navigate-to-next-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2743,7 +2764,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-30-navigate-to-next-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2797,7 +2818,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-31-navigate-to-previous-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2880,7 +2901,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-32-navigate-to-previous-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2934,7 +2955,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-33-navigate-to-first-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3017,7 +3038,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-34-navigate-to-first-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3070,7 +3091,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-35-navigate-to-last-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3153,7 +3174,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-36-navigate-to-last-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3206,7 +3227,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-37-check-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -3277,7 +3298,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-38-check-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3348,7 +3369,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-39-check-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

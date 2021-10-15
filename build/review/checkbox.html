@@ -205,6 +205,27 @@
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
 	testPageDocument.querySelector('#action').focus();
+},	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+	testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
 	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
@@ -630,7 +651,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-01-navigate-to-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -703,7 +724,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-02-navigate-to-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -769,7 +790,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-03-navigate-to-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -815,7 +836,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-04-navigate-to-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -898,7 +919,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-05-navigate-to-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -974,7 +995,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-06-navigate-to-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1025,7 +1046,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-07-operate-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1088,7 +1109,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-08-operate-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1149,7 +1170,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-09-operate-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1191,7 +1212,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-10-read-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1269,7 +1290,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-11-read-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1347,7 +1368,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-12-read-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1397,7 +1418,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-13-read-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1475,7 +1496,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-14-read-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1553,7 +1574,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-15-read-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1603,7 +1624,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1667,7 +1688,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1731,7 +1752,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1775,7 +1796,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-19-navigate-sequentially-through-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1844,7 +1865,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-20-navigate-sequentially-through-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1890,7 +1911,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-21-navigate-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1967,7 +1988,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-22-navigate-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2036,7 +2057,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-23-navigate-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2086,7 +2107,7 @@
       <ul>
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-24-navigate-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -2155,7 +2176,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-25-navigate-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2224,7 +2245,7 @@
       <ul>
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Fri Oct 15 12:10:07 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-26-navigate-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

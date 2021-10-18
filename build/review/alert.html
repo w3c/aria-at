@@ -50,10 +50,11 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
+          }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
           }
         }
       };
@@ -637,12 +638,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Trigger an alert in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Trigger an alert in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-01-trigger-alert-reading.html?at=jaws">jaws</a></li>
@@ -657,7 +658,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
+      <button id="open-test-page-1" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;alert&#x2F;reference&#x2F;2021-10-15_143458&#x2F;alert.setFocusOnButton.html', 1, 'setFocusOnButton');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
@@ -712,12 +713,12 @@
             <tr><td>required</td><td>Text &#39;Hello&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Trigger an alert in interaction mode</h2>
+    <h2 class="jaws nvda">Test 2: Trigger an alert in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-02-trigger-alert-interaction.html?at=jaws">jaws</a></li>
@@ -732,7 +733,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
+      <button id="open-test-page-2" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;alert&#x2F;reference&#x2F;2021-10-15_143458&#x2F;alert.setFocusOnButton.html', 2, 'setFocusOnButton');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
@@ -787,12 +788,12 @@
             <tr><td>required</td><td>Text &#39;Hello&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Trigger an alert</h2>
+    <h2 class="voiceover_macos">Test 3: Trigger an alert</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-03-trigger-alert-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -806,7 +807,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
+      <button id="open-test-page-3" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;alert&#x2F;reference&#x2F;2021-10-15_143458&#x2F;alert.setFocusOnButton.html', 3, 'setFocusOnButton');">Open Test 3 Page</button>
     </p>
       <div class="voiceover_macos">

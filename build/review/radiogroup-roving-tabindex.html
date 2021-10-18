@@ -50,10 +50,11 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
+          }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
           }
         }
       };
@@ -637,12 +638,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate to the first unchecked radio button in a group in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Navigate to the first unchecked radio button in a group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-01-navigate-to-first-unchecked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -660,7 +661,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
+      <button id="open-test-page-1" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusBeforeRadioGroup.html', 1, 'setFocusBeforeRadioGroup');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
@@ -727,12 +728,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate to the first unchecked radio button in a group</h2>
+    <h2 class="voiceover_macos">Test 2: Navigate to the first unchecked radio button in a group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-02-navigate-to-first-unchecked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -749,7 +750,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
+      <button id="open-test-page-2" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusBeforeRadioGroup.html', 2, 'setFocusBeforeRadioGroup');">Open Test 2 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -783,12 +784,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: navigate to the last unchecked radio button in a group in reading mode</h2>
+    <h2 class="jaws nvda">Test 3: navigate to the last unchecked radio button in a group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-03-navigate-to-last-unchecked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -806,7 +807,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
+      <button id="open-test-page-3" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusAfterRadioGroup.html', 3, 'setFocusAfterRadioGroup');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
@@ -873,12 +874,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate to the last unchecked radio button in a group</h2>
+    <h2 class="voiceover_macos">Test 4: Navigate to the last unchecked radio button in a group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-04-navigate-to-last-unchecked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -895,7 +896,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
+      <button id="open-test-page-4" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusAfterRadioGroup.html', 4, 'setFocusAfterRadioGroup');">Open Test 4 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -929,12 +930,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate to the first checked radio button in a group in reading mode</h2>
+    <h2 class="jaws nvda">Test 5: Navigate to the first checked radio button in a group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-05-navigate-to-first-checked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -952,7 +953,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
+      <button id="open-test-page-5" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.checkFirstRadioButtonAndSetFocusBeforeRadioGroup.html', 5, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 5 Page</button>
     </p>
       <div class="jaws">
@@ -1019,12 +1020,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate to the first checked radio button in a group</h2>
+    <h2 class="voiceover_macos">Test 6: Navigate to the first checked radio button in a group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-06-navigate-to-first-checked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1041,7 +1042,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
+      <button id="open-test-page-6" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.checkFirstRadioButtonAndSetFocusBeforeRadioGroup.html', 6, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1075,12 +1076,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Navigate to the last checked radio button in a group in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Navigate to the last checked radio button in a group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-07-navigate-to-last-checked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -1098,7 +1099,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
+      <button id="open-test-page-7" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.checkThirdRadioButtonAndSetFocusAfterRadioGroup.html', 7, 'checkThirdRadioButtonAndSetFocusAfterRadioGroup');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
@@ -1165,12 +1166,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Navigate to the last checked radio button in a group</h2>
+    <h2 class="voiceover_macos">Test 8: Navigate to the last checked radio button in a group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-08-navigate-to-last-checked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1187,7 +1188,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
+      <button id="open-test-page-8" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.checkThirdRadioButtonAndSetFocusAfterRadioGroup.html', 8, 'checkThirdRadioButtonAndSetFocusAfterRadioGroup');">Open Test 8 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1221,12 +1222,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Navigate forwards to an unchecked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 9: Navigate forwards to an unchecked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-09-navigate-forwards-to-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1244,7 +1245,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
+      <button id="open-test-page-9" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusBeforeRadioGroup.html', 9, 'setFocusBeforeRadioGroup');">Open Test 9 Page</button>
     </p>
       <div class="jaws">
@@ -1307,12 +1308,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 10: Navigate forwards to an unchecked radio button</h2>
+    <h2 class="voiceover_macos">Test 10: Navigate forwards to an unchecked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-10-navigate-forwards-to-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1329,7 +1330,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10"
+      <button id="open-test-page-10" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusBeforeRadioGroup.html', 10, 'setFocusBeforeRadioGroup');">Open Test 10 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1362,12 +1363,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 11: Navigate backwards to an unchecked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 11: Navigate backwards to an unchecked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-11-navigate-backwards-to-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1385,7 +1386,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11"
+      <button id="open-test-page-11" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusAfterRadioGroup.html', 11, 'setFocusAfterRadioGroup');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
@@ -1448,12 +1449,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Navigate backwards to an unchecked radio button</h2>
+    <h2 class="voiceover_macos">Test 12: Navigate backwards to an unchecked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-12-navigate-backwards-to-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1470,7 +1471,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12"
+      <button id="open-test-page-12" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusAfterRadioGroup.html', 12, 'setFocusAfterRadioGroup');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1503,12 +1504,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 13: Navigate forwards to a checked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 13: Navigate forwards to a checked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-13-navigate-forwards-to-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1526,7 +1527,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13"
+      <button id="open-test-page-13" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.checkFirstRadioButtonAndSetFocusBeforeRadioGroup.html', 13, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
@@ -1589,12 +1590,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 14: Navigate forwards to a checked radio button</h2>
+    <h2 class="voiceover_macos">Test 14: Navigate forwards to a checked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-14-navigate-forwards-to-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1611,7 +1612,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14"
+      <button id="open-test-page-14" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.checkFirstRadioButtonAndSetFocusBeforeRadioGroup.html', 14, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 14 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1644,12 +1645,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 15: Navigate backwards to a checked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 15: Navigate backwards to a checked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-15-navigate-backwards-to-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1667,7 +1668,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15"
+      <button id="open-test-page-15" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.checkFirstRadioButtonAndSetFocusAfterRadioGroup.html', 15, 'checkFirstRadioButtonAndSetFocusAfterRadioGroup');">Open Test 15 Page</button>
     </p>
       <div class="jaws">
@@ -1730,12 +1731,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Navigate backwards to a checked radio button</h2>
+    <h2 class="voiceover_macos">Test 16: Navigate backwards to a checked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-16-navigate-backwards-to-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1752,7 +1753,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16"
+      <button id="open-test-page-16" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.checkFirstRadioButtonAndSetFocusAfterRadioGroup.html', 16, 'checkFirstRadioButtonAndSetFocusAfterRadioGroup');">Open Test 16 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1785,12 +1786,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 17: Navigate out of the start of a radio group in reading mode</h2>
+    <h2 class="jaws nvda">Test 17: Navigate out of the start of a radio group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-17-navigate-out-of-start-of-radio-group-reading.html?at=jaws">jaws</a></li>
@@ -1806,7 +1807,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17"
+      <button id="open-test-page-17" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 17, 'setFocusOnFirstRadioButton');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
@@ -1867,12 +1868,12 @@
             <tr><td>required</td><td>name &#39;Navigate forwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 18: Navigate out of the start of a radio group in interaction mode</h2>
+    <h2 class="jaws nvda">Test 18: Navigate out of the start of a radio group in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-18-navigate-out-of-start-of-radio-group-interaction.html?at=jaws">jaws</a></li>
@@ -1888,7 +1889,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18"
+      <button id="open-test-page-18" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 18, 'setFocusOnFirstRadioButton');">Open Test 18 Page</button>
     </p>
       <div class="jaws">
@@ -1947,12 +1948,12 @@
             <tr><td>required</td><td>name &#39;Navigate forwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 19: Navigate out of the start of a radio group</h2>
+    <h2 class="voiceover_macos">Test 19: Navigate out of the start of a radio group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-19-navigate-out-of-start-of-radio-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1967,7 +1968,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19"
+      <button id="open-test-page-19" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 19, 'setFocusOnFirstRadioButton');">Open Test 19 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1999,12 +2000,12 @@
             <tr><td>required</td><td>name &#39;Navigate forwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 20: Navigate out of the end of a radio group in reading mode</h2>
+    <h2 class="jaws nvda">Test 20: Navigate out of the end of a radio group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-20-navigate-out-of-end-of-radio-group-reading.html?at=jaws">jaws</a></li>
@@ -2020,7 +2021,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20"
+      <button id="open-test-page-20" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnThirdRadioButton.html', 20, 'setFocusOnThirdRadioButton');">Open Test 20 Page</button>
     </p>
       <div class="jaws">
@@ -2081,12 +2082,12 @@
             <tr><td>required</td><td>name &#39;Navigate backwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 21: Navigate out of the end of a radio group in interaction mode</h2>
+    <h2 class="jaws nvda">Test 21: Navigate out of the end of a radio group in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-21-navigate-out-of-end-of-radio-group-interaction.html?at=jaws">jaws</a></li>
@@ -2102,7 +2103,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21"
+      <button id="open-test-page-21" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnThirdRadioButton.html', 21, 'setFocusOnThirdRadioButton');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
@@ -2161,12 +2162,12 @@
             <tr><td>required</td><td>name &#39;Navigate backwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 22: Navigate out of the end of a radio group</h2>
+    <h2 class="voiceover_macos">Test 22: Navigate out of the end of a radio group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-22-navigate-out-of-end-of-radio-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2181,7 +2182,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22"
+      <button id="open-test-page-22" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnThirdRadioButton.html', 22, 'setFocusOnThirdRadioButton');">Open Test 22 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2213,12 +2214,12 @@
             <tr><td>required</td><td>name &#39;Navigate backwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 23: Read information about an unchecked radio button in reading mode</h2>
+    <h2 class="jaws nvda">Test 23: Read information about an unchecked radio button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-23-read-information-about-unchecked-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -2234,7 +2235,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23"
+      <button id="open-test-page-23" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 23, 'setFocusOnFirstRadioButton');">Open Test 23 Page</button>
     </p>
       <div class="jaws">
@@ -2295,12 +2296,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 24: Read information about an unchecked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 24: Read information about an unchecked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-24-read-information-about-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2316,7 +2317,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24"
+      <button id="open-test-page-24" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 24, 'setFocusOnFirstRadioButton');">Open Test 24 Page</button>
     </p>
       <div class="jaws">
@@ -2377,12 +2378,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 25: Read information about an unchecked radio button</h2>
+    <h2 class="voiceover_macos">Test 25: Read information about an unchecked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-25-read-information-about-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2397,7 +2398,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-25"
+      <button id="open-test-page-25" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 25, 'setFocusOnFirstRadioButton');">Open Test 25 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2429,12 +2430,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 26: Read information about a checked radio button in reading mode</h2>
+    <h2 class="jaws nvda">Test 26: Read information about a checked radio button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-26-read-information-about-checked-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -2450,7 +2451,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-26"
+      <button id="open-test-page-26" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnAndCheckFirstRadioButton.html', 26, 'setFocusOnAndCheckFirstRadioButton');">Open Test 26 Page</button>
     </p>
       <div class="jaws">
@@ -2511,12 +2512,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 27: Read information about a checked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 27: Read information about a checked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-27-read-information-about-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2532,7 +2533,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-27"
+      <button id="open-test-page-27" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnAndCheckFirstRadioButton.html', 27, 'setFocusOnAndCheckFirstRadioButton');">Open Test 27 Page</button>
     </p>
       <div class="jaws">
@@ -2593,12 +2594,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 28: Read information about a checked radio button</h2>
+    <h2 class="voiceover_macos">Test 28: Read information about a checked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-28-read-information-about-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2613,7 +2614,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-28"
+      <button id="open-test-page-28" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnAndCheckFirstRadioButton.html', 28, 'setFocusOnAndCheckFirstRadioButton');">Open Test 28 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2645,12 +2646,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 29: Navigate to the next radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 29: Navigate to the next radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-29-navigate-to-next-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2666,7 +2667,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-29"
+      <button id="open-test-page-29" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 29, 'setFocusOnFirstRadioButton');">Open Test 29 Page</button>
     </p>
       <div class="jaws">
@@ -2727,12 +2728,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 30: Navigate to the next radio button</h2>
+    <h2 class="voiceover_macos">Test 30: Navigate to the next radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-30-navigate-to-next-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2747,7 +2748,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-30"
+      <button id="open-test-page-30" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 30, 'setFocusOnFirstRadioButton');">Open Test 30 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2780,12 +2781,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 31: Navigate to the previous radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 31: Navigate to the previous radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-31-navigate-to-previous-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2801,7 +2802,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-31"
+      <button id="open-test-page-31" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnSecondRadioButton.html', 31, 'setFocusOnSecondRadioButton');">Open Test 31 Page</button>
     </p>
       <div class="jaws">
@@ -2862,12 +2863,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 32: Navigate to the previous radio button</h2>
+    <h2 class="voiceover_macos">Test 32: Navigate to the previous radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-32-navigate-to-previous-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2882,7 +2883,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-32"
+      <button id="open-test-page-32" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnSecondRadioButton.html', 32, 'setFocusOnSecondRadioButton');">Open Test 32 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2915,12 +2916,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 33: Navigate to the first radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 33: Navigate to the first radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-33-navigate-to-first-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2936,7 +2937,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-33"
+      <button id="open-test-page-33" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnThirdRadioButton.html', 33, 'setFocusOnThirdRadioButton');">Open Test 33 Page</button>
     </p>
       <div class="jaws">
@@ -2997,12 +2998,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 34: Navigate to the first radio button</h2>
+    <h2 class="voiceover_macos">Test 34: Navigate to the first radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-34-navigate-to-first-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3017,7 +3018,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-34"
+      <button id="open-test-page-34" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnThirdRadioButton.html', 34, 'setFocusOnThirdRadioButton');">Open Test 34 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -3049,12 +3050,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 35: Navigate to the last radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 35: Navigate to the last radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-35-navigate-to-last-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3070,7 +3071,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-35"
+      <button id="open-test-page-35" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 35, 'setFocusOnFirstRadioButton');">Open Test 35 Page</button>
     </p>
       <div class="jaws">
@@ -3131,12 +3132,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 36: Navigate to the last radio button</h2>
+    <h2 class="voiceover_macos">Test 36: Navigate to the last radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-36-navigate-to-last-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3151,7 +3152,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-36"
+      <button id="open-test-page-36" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 36, 'setFocusOnFirstRadioButton');">Open Test 36 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -3183,12 +3184,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 37: Check a radio button in reading mode</h2>
+    <h2 class="jaws nvda">Test 37: Check a radio button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-37-check-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -3203,7 +3204,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-37"
+      <button id="open-test-page-37" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 37, 'setFocusOnFirstRadioButton');">Open Test 37 Page</button>
     </p>
       <div class="jaws">
@@ -3254,12 +3255,12 @@
             <tr><td>required</td><td>Change in state, to &#39;checked&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 38: Check a radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 38: Check a radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-38-check-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3274,7 +3275,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-38"
+      <button id="open-test-page-38" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 38, 'setFocusOnFirstRadioButton');">Open Test 38 Page</button>
     </p>
       <div class="jaws">
@@ -3325,12 +3326,12 @@
             <tr><td>required</td><td>Change in state, to &#39;checked&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 39: Check a radio button</h2>
+    <h2 class="voiceover_macos">Test 39: Check a radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-roving-tabindex/test-39-check-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3344,7 +3345,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-39"
+      <button id="open-test-page-39" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;radiogroup-roving-tabindex&#x2F;reference&#x2F;2021-3-15_144141&#x2F;radio.setFocusOnFirstRadioButton.html', 39, 'setFocusOnFirstRadioButton');">Open Test 39 Page</button>
     </p>
       <div class="voiceover_macos">

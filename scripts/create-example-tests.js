@@ -2,6 +2,7 @@
 /// <reference path="../types/aria-at-parsed.js" />
 /// <reference path="../types/aria-at-validated.js" />
 /// <reference path="../types/aria-at-file.js" />
+/// <reference path="../lib/util/file-record-types.js" />
 
 'use strict';
 const fs = require('fs');
@@ -10,9 +11,8 @@ const { Readable } = require('stream');
 
 const csv = require('csv-parser');
 const beautify = require('json-beautify');
-const nodeHTMLParser = require('node-html-parser');
 
-const { validate, invariant } = require('../lib/util/error');
+const { validate } = require('../lib/util/error');
 const { reindent } = require('../lib/util/lines');
 const { Queryable } = require('../lib/util/queryable');
 const { FileRecordChain } = require('../lib/util/file-record-chain');
@@ -26,6 +26,7 @@ const {
 const {
   types: { isArrayBufferView, isArrayBuffer },
 } = require('util');
+const { createExampleScriptsTemplate } = require('../lib/data/example-scripts-template');
 
 /**
  * @param {string} directory - path to directory of data to be used to generate test
@@ -1028,7 +1029,7 @@ function validateCommand(commandParsed, data, { addCommandError = () => {} } = {
       ...commandParsed.target,
       at: {
         ...commandParsed.target.at,
-        ...map(data.support.at.where({ key: commandParsed.target.at.key }), ({ name }) => ({
+        ...mapDefined(data.support.at.where({ key: commandParsed.target.at.key }), ({ name }) => ({
           name,
         })),
       },
@@ -1127,72 +1128,17 @@ const MODE_INSTRUCTION_TEMPLATES_QUERYABLE = Queryable.from('modeInstructionTemp
 ]);
 
 /**
- * @param {T} value
+ * @param {T} maybeDefined
  * @param {function(T): U} goal
  * @returns {T}
  * @template T
  * @template {T} U
  */
-function map(value, goal) {
-  if (value) {
-    return goal(value);
+function mapDefined(maybeDefined, goal) {
+  if (maybeDefined) {
+    return goal(maybeDefined);
   }
-  return value;
-}
-
-function last(ary) {
-  return ary[ary.length - 1];
-}
-
-const SCRIPTS_HEAD_MARKER = 'marker7dfe2e54ee48e64f02dbb8f1ce4f3878';
-const SCRIPTS_CONTENT_MARKER = 'marker255b3ead39a8eac8bf74ec15235bcd27';
-function createExampleScriptsTemplate(exampleRecord) {
-  const source = exampleRecord.text;
-  const html = nodeHTMLParser.parse(source);
-  if (!(html instanceof nodeHTMLParser.HTMLElement)) {
-    return;
-  }
-
-  const head = html.querySelector('head');
-  invariant(head, `Example html does not have a 'head' element.`);
-
-  const body = html.querySelector('body');
-  const main = html.querySelector('main');
-  validate(main, `Example html does not have a 'main' element. Using 'body' instead.`);
-  invariant(body, `Example html does not have a 'body' element.`);
-  const content = main || body;
-
-  const scriptsHeadMarkerTag = `<${SCRIPTS_HEAD_MARKER}></${SCRIPTS_HEAD_MARKER}>`;
-  const lastHeadChild = last(head.querySelectorAll('*'));
-  if (lastHeadChild) {
-    lastHeadChild.insertAdjacentHTML('afterend', scriptsHeadMarkerTag);
-  } else {
-    head.insertAdjacentHTML('afterbegin', scriptsHeadMarkerTag);
-  }
-
-  const scriptsContentMarkerTag = `<${SCRIPTS_CONTENT_MARKER}></${SCRIPTS_CONTENT_MARKER}>`;
-  const lastContentChild = last(content.querySelectorAll('*'));
-  if (lastContentChild) {
-    lastContentChild.insertAdjacentHTML('afterend', scriptsContentMarkerTag);
-  } else {
-    content.insertAdjacentHTML('afterbegin', scriptsContentMarkerTag);
-  }
-
-  const modifiedSource = html.toString();
-  const modifiedSourceSplit = modifiedSource.split(
-    new RegExp(`${scriptsHeadMarkerTag}|${scriptsContentMarkerTag}`, 'g')
-  );
-
-  return {
-    /**
-     * @param {object} param0
-     * @param {string} param0.script
-     * @param {string} param0.button
-     */
-    render({ script, button }) {
-      return reindent(modifiedSourceSplit, script, button);
-    },
-  };
+  return maybeDefined;
 }
 
 /**
@@ -1279,7 +1225,7 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
     target: {
       at: testParsed.target.at.map(at => ({
         ...at,
-        ...map(data.support.at.where({ key: at.key }), ({ name }) => ({
+        ...mapDefined(data.support.at.where({ key: at.key }), ({ name }) => ({
           name,
         })),
       })),

@@ -209,6 +209,7 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
             path.basename(reference, '.html')
           )}${testData.setupTestPage ? `.${testData.setupTestPage}` : ''}.html`,
           allRelevantATsFormatted: testData.applies_to.join(', '),
+          allRelevantATsSpaceSeparated: testData.applies_to.join(' '),
           allRelevantATs: testData.applies_to,
           setupScriptName: testData.setupTestPage,
           task,

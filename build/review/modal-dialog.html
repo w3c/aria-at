@@ -50,10 +50,11 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
+          }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
           }
         }
       };
@@ -637,12 +638,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Open a modal dialog in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Open a modal dialog in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-01-open-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -658,7 +659,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
+      <button id="open-test-page-1" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.moveFocusToAddDeliveryAddressButton.html', 1, 'moveFocusToAddDeliveryAddressButton');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
@@ -717,12 +718,12 @@
             <tr><td>required</td><td>The ability to enter text into the focused input is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Open a modal dialog in interaction mode</h2>
+    <h2 class="jaws nvda">Test 2: Open a modal dialog in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-02-open-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -738,7 +739,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
+      <button id="open-test-page-2" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.moveFocusToAddDeliveryAddressButton.html', 2, 'moveFocusToAddDeliveryAddressButton');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
@@ -797,12 +798,12 @@
             <tr><td>required</td><td>The ability to enter text into the focused input is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Open a Modal Dialog</h2>
+    <h2 class="voiceover_macos">Test 3: Open a Modal Dialog</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-03-open-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -817,7 +818,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
+      <button id="open-test-page-3" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.moveFocusToAddDeliveryAddressButton.html', 3, 'moveFocusToAddDeliveryAddressButton');">Open Test 3 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -849,12 +850,12 @@
             <tr><td>required</td><td>The ability to enter text into the focused input is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Close a modal dialog in reading mode</h2>
+    <h2 class="jaws nvda">Test 4: Close a modal dialog in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-04-close-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -868,7 +869,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
+      <button id="open-test-page-4" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html', 4, 'openAddDeliveryAddressDialogAndFocusFirstInput');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
@@ -921,12 +922,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Add Delivery Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Close a modal dialog in interaction mode</h2>
+    <h2 class="jaws nvda">Test 5: Close a modal dialog in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-05-close-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -940,7 +941,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
+      <button id="open-test-page-5" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html', 5, 'openAddDeliveryAddressDialogAndFocusFirstInput');">Open Test 5 Page</button>
     </p>
       <div class="jaws">
@@ -993,12 +994,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Add Delivery Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Close a modal dialog</h2>
+    <h2 class="voiceover_macos">Test 6: Close a modal dialog</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-06-close-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1011,7 +1012,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
+      <button id="open-test-page-6" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html', 6, 'openAddDeliveryAddressDialogAndFocusFirstInput');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1039,12 +1040,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Add Delivery Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Close a modal dialog using a button in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Close a modal dialog using a button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-07-close-modal-dialog-using-button-reading.html?at=jaws">jaws</a></li>
@@ -1058,7 +1059,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
+      <button id="open-test-page-7" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusCancelButton.html', 7, 'openAddDeliveryAddressDialogAndFocusCancelButton');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
@@ -1113,12 +1114,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Add Delivery Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Close a modal dialog using a button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 8: Close a modal dialog using a button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-08-close-modal-dialog-using-button-interaction.html?at=jaws">jaws</a></li>
@@ -1132,7 +1133,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
+      <button id="open-test-page-8" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusCancelButton.html', 8, 'openAddDeliveryAddressDialogAndFocusCancelButton');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
@@ -1187,12 +1188,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Add Delivery Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Close a modal dialog using a button</h2>
+    <h2 class="voiceover_macos">Test 9: Close a modal dialog using a button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-09-close-modal-dialog-using-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1205,7 +1206,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
+      <button id="open-test-page-9" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusCancelButton.html', 9, 'openAddDeliveryAddressDialogAndFocusCancelButton');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1235,12 +1236,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Add Delivery Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 10: Navigate to the last focusable element in a modal dialog in interaction mode</h2>
+    <h2 class="jaws nvda">Test 10: Navigate to the last focusable element in a modal dialog in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-10-navigate-to-last-focusable-element-in-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -1254,7 +1255,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10"
+      <button id="open-test-page-10" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html', 10, 'openAddDeliveryAddressDialogAndFocusFirstInput');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
@@ -1307,12 +1308,12 @@
             <tr><td>required</td><td>Name &#39;Cancel&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 11: Navigate to the last focusable element in a modal dialog</h2>
+    <h2 class="voiceover_macos">Test 11: Navigate to the last focusable element in a modal dialog</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-11-navigate-to-last-focusable-element-in-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1325,7 +1326,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11"
+      <button id="open-test-page-11" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html', 11, 'openAddDeliveryAddressDialogAndFocusFirstInput');">Open Test 11 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1353,12 +1354,12 @@
             <tr><td>required</td><td>Name &#39;Cancel&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Navigate to the first focusable element in a modal dialog in interaction mode</h2>
+    <h2 class="jaws nvda">Test 12: Navigate to the first focusable element in a modal dialog in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-12-navigate-to-first-focusable-element-in-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -1372,7 +1373,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12"
+      <button id="open-test-page-12" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusCancelButton.html', 12, 'openAddDeliveryAddressDialogAndFocusCancelButton');">Open Test 12 Page</button>
     </p>
       <div class="jaws">
@@ -1425,12 +1426,12 @@
             <tr><td>required</td><td>The ability to enter text is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 13: Navigate to the first focusable element in a modal dialog</h2>
+    <h2 class="voiceover_macos">Test 13: Navigate to the first focusable element in a modal dialog</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-13-navigate-to-first-focusable-element-in-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1443,7 +1444,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13"
+      <button id="open-test-page-13" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusCancelButton.html', 13, 'openAddDeliveryAddressDialogAndFocusCancelButton');">Open Test 13 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1471,12 +1472,12 @@
             <tr><td>required</td><td>The ability to enter text is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 14: Navigate to the beginning of a modal dialog in reading mode </h2>
+    <h2 class="jaws nvda">Test 14: Navigate to the beginning of a modal dialog in reading mode </h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-14-navigate-to-beginning-of-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -1490,7 +1491,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14"
+      <button id="open-test-page-14" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html', 14, 'openAddDeliveryAddressDialogAndFocusFirstInput');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
@@ -1545,12 +1546,12 @@
             <tr><td>required</td><td>Text of the heading (&#39;Add Delivery Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 15: Navigate to the beginning of a modal dialog </h2>
+    <h2 class="voiceover_macos">Test 15: Navigate to the beginning of a modal dialog </h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-15-navigate-to-beginning-of-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1563,7 +1564,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15"
+      <button id="open-test-page-15" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html', 15, 'openAddDeliveryAddressDialogAndFocusFirstInput');">Open Test 15 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1592,12 +1593,12 @@
             <tr><td>required</td><td>Text of the heading (&#39;Add Delivery Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Navigate to the end of a modal dialog in reading mode</h2>
+    <h2 class="jaws nvda">Test 16: Navigate to the end of a modal dialog in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-16-navigate-to-end-of-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -1611,7 +1612,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16"
+      <button id="open-test-page-16" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html', 16, 'openAddDeliveryAddressDialogAndFocusFirstInput');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
@@ -1664,12 +1665,12 @@
             <tr><td>required</td><td>Name &#39;Cancel&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 17: Navigate to the end of a modal dialog</h2>
+    <h2 class="voiceover_macos">Test 17: Navigate to the end of a modal dialog</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-17-navigate-to-end-of-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1682,7 +1683,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17"
+      <button id="open-test-page-17" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html', 17, 'openAddDeliveryAddressDialogAndFocusFirstInput');">Open Test 17 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1710,12 +1711,12 @@
             <tr><td>required</td><td>Name &#39;Cancel&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 18: Open a nested modal dialog in reading mode</h2>
+    <h2 class="jaws nvda">Test 18: Open a nested modal dialog in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-18-open-nested-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -1732,7 +1733,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18"
+      <button id="open-test-page-18" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusAddButton.html', 18, 'openAddDeliveryAddressDialogAndFocusAddButton');">Open Test 18 Page</button>
     </p>
       <div class="jaws">
@@ -1793,12 +1794,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;OK&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 19: Open a nested modal dialog in interaction mode</h2>
+    <h2 class="jaws nvda">Test 19: Open a nested modal dialog in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-19-open-nested-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -1815,7 +1816,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19"
+      <button id="open-test-page-19" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusAddButton.html', 19, 'openAddDeliveryAddressDialogAndFocusAddButton');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
@@ -1876,12 +1877,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;OK&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 20: Open a nested modal dialog</h2>
+    <h2 class="voiceover_macos">Test 20: Open a nested modal dialog</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-20-open-nested-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1897,7 +1898,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20"
+      <button id="open-test-page-20" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddDeliveryAddressDialogAndFocusAddButton.html', 20, 'openAddDeliveryAddressDialogAndFocusAddButton');">Open Test 20 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1930,12 +1931,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;OK&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 21: Close a nested modal dialog in reading mode</h2>
+    <h2 class="jaws nvda">Test 21: Close a nested modal dialog in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-21-close-nested-modal-dialog-reading.html?at=jaws">jaws</a></li>
@@ -1951,7 +1952,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21"
+      <button id="open-test-page-21" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openVerificationResultDialogAndFocusCloseButton.html', 21, 'openVerificationResultDialogAndFocusCloseButton');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
@@ -2008,12 +2009,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Verify Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 22: Close a nested modal dialog in interaction mode</h2>
+    <h2 class="jaws nvda">Test 22: Close a nested modal dialog in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-22-close-nested-modal-dialog-interaction.html?at=jaws">jaws</a></li>
@@ -2029,7 +2030,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22"
+      <button id="open-test-page-22" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openVerificationResultDialogAndFocusCloseButton.html', 22, 'openVerificationResultDialogAndFocusCloseButton');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
@@ -2086,12 +2087,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Verify Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 23: Close a nested modal dialog</h2>
+    <h2 class="voiceover_macos">Test 23: Close a nested modal dialog</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-23-close-nested-modal-dialog-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2106,7 +2107,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23"
+      <button id="open-test-page-23" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openVerificationResultDialogAndFocusCloseButton.html', 23, 'openVerificationResultDialogAndFocusCloseButton');">Open Test 23 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2136,12 +2137,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Verify Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 24: Close a nested modal dialog using a button in reading mode</h2>
+    <h2 class="jaws nvda">Test 24: Close a nested modal dialog using a button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-24-close-nested-modal-dialog-using-button-reading.html?at=jaws">jaws</a></li>
@@ -2157,7 +2158,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24"
+      <button id="open-test-page-24" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openVerificationResultDialogAndFocusCloseButton.html', 24, 'openVerificationResultDialogAndFocusCloseButton');">Open Test 24 Page</button>
     </p>
       <div class="jaws">
@@ -2216,12 +2217,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Verify Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 25: Close a nested modal dialog using a button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 25: Close a nested modal dialog using a button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-25-close-nested-modal-dialog-using-button-interaction.html?at=jaws">jaws</a></li>
@@ -2237,7 +2238,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-25"
+      <button id="open-test-page-25" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openVerificationResultDialogAndFocusCloseButton.html', 25, 'openVerificationResultDialogAndFocusCloseButton');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
@@ -2296,12 +2297,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Verify Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 26: Close a nested modal dialog using a button</h2>
+    <h2 class="voiceover_macos">Test 26: Close a nested modal dialog using a button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-26-close-nested-modal-dialog-using-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2316,7 +2317,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-26"
+      <button id="open-test-page-26" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openVerificationResultDialogAndFocusCloseButton.html', 26, 'openVerificationResultDialogAndFocusCloseButton');">Open Test 26 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2348,12 +2349,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Verify Address&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 27: Open a nested modal dialog using a link in reading mode</h2>
+    <h2 class="jaws nvda">Test 27: Open a nested modal dialog using a link in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-27-open-nested-modal-dialog-using-link-reading.html?at=jaws">jaws</a></li>
@@ -2370,7 +2371,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-27"
+      <button id="open-test-page-27" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddressAddedDialogAndFocusYourProfileLink.html', 27, 'openAddressAddedDialogAndFocusYourProfileLink');">Open Test 27 Page</button>
     </p>
       <div class="jaws">
@@ -2429,12 +2430,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Close&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 28: Open a nested modal dialog using a link in interaction mode</h2>
+    <h2 class="jaws nvda">Test 28: Open a nested modal dialog using a link in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-28-open-nested-modal-dialog-using-link-interaction.html?at=jaws">jaws</a></li>
@@ -2451,7 +2452,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-28"
+      <button id="open-test-page-28" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddressAddedDialogAndFocusYourProfileLink.html', 28, 'openAddressAddedDialogAndFocusYourProfileLink');">Open Test 28 Page</button>
     </p>
       <div class="jaws">
@@ -2510,12 +2511,12 @@
             <tr><td>required</td><td>Name of the focused element (&#39;Close&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 29: Open a nested modal dialog using a link</h2>
+    <h2 class="voiceover_macos">Test 29: Open a nested modal dialog using a link</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/modal-dialog/test-29-open-nested-modal-dialog-using-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2531,7 +2532,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-29"
+      <button id="open-test-page-29" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;modal-dialog&#x2F;reference&#x2F;2020-12-17_13353&#x2F;dialog.openAddressAddedDialogAndFocusYourProfileLink.html', 29, 'openAddressAddedDialogAndFocusYourProfileLink');">Open Test 29 Page</button>
     </p>
       <div class="voiceover_macos">

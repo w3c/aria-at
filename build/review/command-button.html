@@ -50,10 +50,11 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
+          }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
           }
         }
       };
@@ -637,12 +638,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate forwards to a button in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Navigate forwards to a button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-01-navigate-forwards-to-button-reading.html?at=jaws">jaws</a></li>
@@ -657,7 +658,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
+      <button id="open-test-page-1" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;command-button&#x2F;reference&#x2F;2021-3-29_132754&#x2F;button.setFocusBeforeButton.html', 1, 'setFocusBeforeButton');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
@@ -716,12 +717,12 @@
             <tr><td>required</td><td>Name &#39;Print Page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate backwards to a button in reading mode</h2>
+    <h2 class="jaws nvda">Test 2: Navigate backwards to a button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-02-navigate-backwards-to-button-reading.html?at=jaws">jaws</a></li>
@@ -736,7 +737,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
+      <button id="open-test-page-2" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;command-button&#x2F;reference&#x2F;2021-3-29_132754&#x2F;button.setFocusAfterButton.html', 2, 'setFocusAfterButton');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
@@ -795,12 +796,12 @@
             <tr><td>required</td><td>Name &#39;Print Page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Navigate forwards to a button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 3: Navigate forwards to a button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-03-navigate-forwards-to-button-interaction.html?at=jaws">jaws</a></li>
@@ -815,7 +816,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
+      <button id="open-test-page-3" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;command-button&#x2F;reference&#x2F;2021-3-29_132754&#x2F;button.setFocusBeforeButton.html', 3, 'setFocusBeforeButton');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
@@ -868,12 +869,12 @@
             <tr><td>required</td><td>Name &#39;Print Page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate backwards to a button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 4: Navigate backwards to a button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-04-navigate-backwards-to-button-interaction.html?at=jaws">jaws</a></li>
@@ -888,7 +889,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
+      <button id="open-test-page-4" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;command-button&#x2F;reference&#x2F;2021-3-29_132754&#x2F;button.setFocusAfterButton.html', 4, 'setFocusAfterButton');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
@@ -941,12 +942,12 @@
             <tr><td>required</td><td>Name &#39;Print Page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate forwards to a button</h2>
+    <h2 class="voiceover_macos">Test 5: Navigate forwards to a button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-05-navigate-forwards-to-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -960,7 +961,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
+      <button id="open-test-page-5" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;command-button&#x2F;reference&#x2F;2021-3-29_132754&#x2F;button.setFocusBeforeButton.html', 5, 'setFocusBeforeButton');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -990,12 +991,12 @@
             <tr><td>required</td><td>Name &#39;Print Page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate backwards to a button</h2>
+    <h2 class="voiceover_macos">Test 6: Navigate backwards to a button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-06-navigate-backwards-to-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1009,7 +1010,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
+      <button id="open-test-page-6" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;command-button&#x2F;reference&#x2F;2021-3-29_132754&#x2F;button.setFocusAfterButton.html', 6, 'setFocusAfterButton');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1039,12 +1040,12 @@
             <tr><td>required</td><td>Name &#39;Print Page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Read information about a button in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Read information about a button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-07-read-information-about-button-reading.html?at=jaws">jaws</a></li>
@@ -1059,7 +1060,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
+      <button id="open-test-page-7" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;command-button&#x2F;reference&#x2F;2021-3-29_132754&#x2F;button.setFocusOnButton.html', 7, 'setFocusOnButton');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
@@ -1114,12 +1115,12 @@
             <tr><td>required</td><td>Name &#39;Print Page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Read information about a button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 8: Read information about a button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-08-read-information-about-button-interaction.html?at=jaws">jaws</a></li>
@@ -1134,7 +1135,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
+      <button id="open-test-page-8" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;command-button&#x2F;reference&#x2F;2021-3-29_132754&#x2F;button.setFocusOnButton.html', 8, 'setFocusOnButton');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
@@ -1189,12 +1190,12 @@
             <tr><td>required</td><td>Name &#39;Print Page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Read information about a button</h2>
+    <h2 class="voiceover_macos">Test 9: Read information about a button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/command-button/test-09-read-information-about-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1208,7 +1209,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
+      <button id="open-test-page-9" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;command-button&#x2F;reference&#x2F;2021-3-29_132754&#x2F;button.setFocusOnButton.html', 9, 'setFocusOnButton');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">

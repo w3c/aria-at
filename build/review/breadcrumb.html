@@ -50,10 +50,11 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
+          }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
           }
         }
       };
@@ -637,12 +638,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate to the first breadcrumb link in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Navigate to the first breadcrumb link in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-01-navigate-to-first-breadcrumb-link-reading.html?at=jaws">jaws</a></li>
@@ -657,7 +658,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
+      <button id="open-test-page-1" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;breadcrumb&#x2F;reference&#x2F;2021-4-16_152046&#x2F;index.setFocusBeforeFirstBreadcrumbLink.html', 1, 'setFocusBeforeFirstBreadcrumbLink');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
@@ -723,12 +724,12 @@
             <tr><td>required</td><td>Name &#39;WAI-ARIA Authoring Practices&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate to the last breadcrumb link in reading mode</h2>
+    <h2 class="jaws nvda">Test 2: Navigate to the last breadcrumb link in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-02-navigate-to-last-breadcrumb-link-reading.html?at=jaws">jaws</a></li>
@@ -744,7 +745,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
+      <button id="open-test-page-2" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;breadcrumb&#x2F;reference&#x2F;2021-4-16_152046&#x2F;index.setFocusAfterLastBreadcrumbLink.html', 2, 'setFocusAfterLastBreadcrumbLink');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
@@ -807,12 +808,12 @@
             <tr><td>required</td><td>State &#39;current page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Navigate to the first breadcrumb link in interaction mode</h2>
+    <h2 class="jaws nvda">Test 3: Navigate to the first breadcrumb link in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-03-navigate-to-first-breadcrumb-link-interaction.html?at=jaws">jaws</a></li>
@@ -827,7 +828,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
+      <button id="open-test-page-3" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;breadcrumb&#x2F;reference&#x2F;2021-4-16_152046&#x2F;index.setFocusBeforeFirstBreadcrumbLink.html', 3, 'setFocusBeforeFirstBreadcrumbLink');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
@@ -888,12 +889,12 @@
             <tr><td>required</td><td>Name &#39;WAI-ARIA Authoring Practices&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate to the last breadcrumb link in interaction mode</h2>
+    <h2 class="jaws nvda">Test 4: Navigate to the last breadcrumb link in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-04-navigate-to-last-breadcrumb-link-interaction.html?at=jaws">jaws</a></li>
@@ -909,7 +910,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
+      <button id="open-test-page-4" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;breadcrumb&#x2F;reference&#x2F;2021-4-16_152046&#x2F;index.setFocusAfterLastBreadcrumbLink.html', 4, 'setFocusAfterLastBreadcrumbLink');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
@@ -972,12 +973,12 @@
             <tr><td>required</td><td>State &#39;current page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate to the first breadcrumb link</h2>
+    <h2 class="voiceover_macos">Test 5: Navigate to the first breadcrumb link</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: </li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-05-navigate-to-first-breadcrumb-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -991,7 +992,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
+      <button id="open-test-page-5" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;breadcrumb&#x2F;reference&#x2F;2021-4-16_152046&#x2F;index.setFocusBeforeFirstBreadcrumbLink.html', 5, 'setFocusBeforeFirstBreadcrumbLink');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1023,12 +1024,12 @@
             <tr><td>required</td><td>Name &#39;WAI-ARIA Authoring Practices&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate to the last breadcrumb link</h2>
+    <h2 class="voiceover_macos">Test 6: Navigate to the last breadcrumb link</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: </li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-06-navigate-to-last-breadcrumb-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1043,7 +1044,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
+      <button id="open-test-page-6" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;breadcrumb&#x2F;reference&#x2F;2021-4-16_152046&#x2F;index.setFocusAfterLastBreadcrumbLink.html', 6, 'setFocusAfterLastBreadcrumbLink');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1076,12 +1077,12 @@
             <tr><td>required</td><td>State &#39;current page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Read information about a breadcrumb link in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Read information about a breadcrumb link in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-07-read-information-about-breadcrumb-link-reading.html?at=jaws">jaws</a></li>
@@ -1097,7 +1098,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
+      <button id="open-test-page-7" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;breadcrumb&#x2F;reference&#x2F;2021-4-16_152046&#x2F;index.setFocusOnLastBreadcrumbLink.html', 7, 'setFocusOnLastBreadcrumbLink');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
@@ -1154,12 +1155,12 @@
             <tr><td>required</td><td>State &#39;current page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Read information about a breadcrumb link in interaction mode</h2>
+    <h2 class="jaws nvda">Test 8: Read information about a breadcrumb link in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: </li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-08-read-information-about-breadcrumb-link-interaction.html?at=jaws">jaws</a></li>
@@ -1175,7 +1176,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
+      <button id="open-test-page-8" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;breadcrumb&#x2F;reference&#x2F;2021-4-16_152046&#x2F;index.setFocusOnLastBreadcrumbLink.html', 8, 'setFocusOnLastBreadcrumbLink');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
@@ -1232,12 +1233,12 @@
             <tr><td>required</td><td>State &#39;current page&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Read information about a breadcrumb link</h2>
+    <h2 class="voiceover_macos">Test 9: Read information about a breadcrumb link</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: </li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-09-read-information-about-breadcrumb-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1252,7 +1253,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
+      <button id="open-test-page-9" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;breadcrumb&#x2F;reference&#x2F;2021-4-16_152046&#x2F;index.setFocusOnLastBreadcrumbLink.html', 9, 'setFocusOnLastBreadcrumbLink');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">

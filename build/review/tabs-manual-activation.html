@@ -50,10 +50,11 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
+          }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
           }
         }
       };
@@ -637,12 +638,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate forwards to a tab list in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Navigate forwards to a tab list in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-01-navigate-forwards-to-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -661,7 +662,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
+      <button id="open-test-page-1" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusBeforeTablist.html', 1, 'setFocusBeforeTablist');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
@@ -726,12 +727,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate backwards to a tab list in reading mode</h2>
+    <h2 class="jaws nvda">Test 2: Navigate backwards to a tab list in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-02-navigate-backwards-to-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -750,7 +751,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
+      <button id="open-test-page-2" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.activateThirdTabAndSetFocusOnTabpanel.html', 2, 'activateThirdTabAndSetFocusOnTabpanel');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
@@ -815,12 +816,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Navigate forwards to a tab list in interaction mode</h2>
+    <h2 class="jaws nvda">Test 3: Navigate forwards to a tab list in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-03-navigate-forwards-to-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -839,7 +840,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
+      <button id="open-test-page-3" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusBeforeTablist.html', 3, 'setFocusBeforeTablist');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
@@ -902,12 +903,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate backwards to a tab list in interaction mode</h2>
+    <h2 class="jaws nvda">Test 4: Navigate backwards to a tab list in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-04-navigate-backwards-to-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -926,7 +927,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
+      <button id="open-test-page-4" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.activateThirdTabAndSetFocusOnTabpanel.html', 4, 'activateThirdTabAndSetFocusOnTabpanel');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
@@ -989,12 +990,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate forwards to a tab list</h2>
+    <h2 class="voiceover_macos">Test 5: Navigate forwards to a tab list</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-05-navigate-forwards-to-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1012,7 +1013,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
+      <button id="open-test-page-5" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusBeforeTablist.html', 5, 'setFocusBeforeTablist');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1047,12 +1048,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate backwards to a tab list</h2>
+    <h2 class="voiceover_macos">Test 6: Navigate backwards to a tab list</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-06-navigate-backwards-to-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1070,7 +1071,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
+      <button id="open-test-page-6" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.activateThirdTabAndSetFocusOnTabpanel.html', 6, 'activateThirdTabAndSetFocusOnTabpanel');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1105,12 +1106,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Read information about a tab in a tab list in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Read information about a tab in a tab list in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-07-read-information-about-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1127,7 +1128,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
+      <button id="open-test-page-7" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnFirstTab.html', 7, 'setFocusOnFirstTab');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
@@ -1188,12 +1189,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Read information about a tab in a tab list in interaction mode</h2>
+    <h2 class="jaws nvda">Test 8: Read information about a tab in a tab list in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-08-read-information-about-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1210,7 +1211,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
+      <button id="open-test-page-8" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnFirstTab.html', 8, 'setFocusOnFirstTab');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
@@ -1271,12 +1272,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Read information about a tab in a tab list</h2>
+    <h2 class="voiceover_macos">Test 9: Read information about a tab in a tab list</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-09-read-information-about-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1292,7 +1293,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
+      <button id="open-test-page-9" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnFirstTab.html', 9, 'setFocusOnFirstTab');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1324,12 +1325,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 10: Navigate to the next tab in a tab list in reading mode</h2>
+    <h2 class="jaws nvda">Test 10: Navigate to the next tab in a tab list in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-10-navigate-to-next-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1345,7 +1346,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10"
+      <button id="open-test-page-10" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnFirstTab.html', 10, 'setFocusOnFirstTab');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
@@ -1402,12 +1403,12 @@
             <tr><td>optional</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 11: Navigate to the next tab in a tab list in interaction mode</h2>
+    <h2 class="jaws nvda">Test 11: Navigate to the next tab in a tab list in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-11-navigate-to-next-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1423,7 +1424,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11"
+      <button id="open-test-page-11" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnFirstTab.html', 11, 'setFocusOnFirstTab');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
@@ -1480,12 +1481,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Navigate to the next tab in a tab list</h2>
+    <h2 class="voiceover_macos">Test 12: Navigate to the next tab in a tab list</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-12-navigate-to-next-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1500,7 +1501,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12"
+      <button id="open-test-page-12" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnFirstTab.html', 12, 'setFocusOnFirstTab');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1530,12 +1531,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 13: Navigate to the previous tab in a tab list in reading mode</h2>
+    <h2 class="jaws nvda">Test 13: Navigate to the previous tab in a tab list in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-13-navigate-to-previous-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1552,7 +1553,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13"
+      <button id="open-test-page-13" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnSecondTab.html', 13, 'setFocusOnSecondTab');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
@@ -1611,12 +1612,12 @@
             <tr><td>optional</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 14: Navigate to the previous tab in a tab list in interaction mode</h2>
+    <h2 class="jaws nvda">Test 14: Navigate to the previous tab in a tab list in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-14-navigate-to-previous-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1633,7 +1634,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14"
+      <button id="open-test-page-14" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnSecondTab.html', 14, 'setFocusOnSecondTab');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
@@ -1692,12 +1693,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 15: Navigate to the previous tab in a tab list</h2>
+    <h2 class="voiceover_macos">Test 15: Navigate to the previous tab in a tab list</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-15-navigate-to-previous-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1713,7 +1714,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15"
+      <button id="open-test-page-15" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnSecondTab.html', 15, 'setFocusOnSecondTab');">Open Test 15 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1744,12 +1745,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Navigate to the first tab in a tab list in interaction mode</h2>
+    <h2 class="jaws nvda">Test 16: Navigate to the first tab in a tab list in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-16-navigate-to-first-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1766,7 +1767,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16"
+      <button id="open-test-page-16" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnThirdTab.html', 16, 'setFocusOnThirdTab');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
@@ -1825,12 +1826,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 17: Navigate to the first tab in a tab list</h2>
+    <h2 class="voiceover_macos">Test 17: Navigate to the first tab in a tab list</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-17-navigate-to-first-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1846,7 +1847,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17"
+      <button id="open-test-page-17" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnThirdTab.html', 17, 'setFocusOnThirdTab');">Open Test 17 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1877,12 +1878,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 18: Navigate to the last tab in a tab list in interaction mode</h2>
+    <h2 class="jaws nvda">Test 18: Navigate to the last tab in a tab list in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-18-navigate-to-last-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1898,7 +1899,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18"
+      <button id="open-test-page-18" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnFirstTab.html', 18, 'setFocusOnFirstTab');">Open Test 18 Page</button>
     </p>
       <div class="jaws">
@@ -1955,12 +1956,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 19: Navigate to the last tab in a tab list</h2>
+    <h2 class="voiceover_macos">Test 19: Navigate to the last tab in a tab list</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-19-navigate-to-last-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1975,7 +1976,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19"
+      <button id="open-test-page-19" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnFirstTab.html', 19, 'setFocusOnFirstTab');">Open Test 19 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2005,12 +2006,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 20: Navigate forwards to a tab panel in interaction mode</h2>
+    <h2 class="jaws nvda">Test 20: Navigate forwards to a tab panel in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-20-navigate-forwards-to-tab-panel-interaction.html?at=jaws">jaws</a></li>
@@ -2026,7 +2027,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20"
+      <button id="open-test-page-20" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnFirstTab.html', 20, 'setFocusOnFirstTab');">Open Test 20 Page</button>
     </p>
       <div class="jaws">
@@ -2081,12 +2082,12 @@
             <tr><td>required</td><td>Textual content of the tab panel is conveyed as &#39;Nils Frahm is a German musician, composer and record producer based in Berlin. He is known for combining classical and electronic music and for an unconventional approach to the piano in which he mixes a grand piano, upright piano, Roland Juno-60, Rhodes piano, drum machine, and Moog Taurus.&#39;</td></tr>
         </table>
       </div>
-    <h2>Test 21: Navigate backwards to a tab panel in interaction mode</h2>
+    <h2 class="jaws nvda">Test 21: Navigate backwards to a tab panel in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-21-navigate-backwards-to-tab-panel-interaction.html?at=jaws">jaws</a></li>
@@ -2102,7 +2103,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21"
+      <button id="open-test-page-21" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusAfterTabpanel.html', 21, 'setFocusAfterTabpanel');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
@@ -2157,12 +2158,12 @@
             <tr><td>required</td><td>Textual content of the tab panel is conveyed as &#39;Nils Frahm is a German musician, composer and record producer based in Berlin. He is known for combining classical and electronic music and for an unconventional approach to the piano in which he mixes a grand piano, upright piano, Roland Juno-60, Rhodes piano, drum machine, and Moog Taurus.&#39;</td></tr>
         </table>
       </div>
-    <h2>Test 22: Navigate forwards to a tab panel</h2>
+    <h2 class="voiceover_macos">Test 22: Navigate forwards to a tab panel</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-22-navigate-forwards-to-tab-panel-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2177,7 +2178,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22"
+      <button id="open-test-page-22" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnFirstTab.html', 22, 'setFocusOnFirstTab');">Open Test 22 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2207,12 +2208,12 @@
             <tr><td>required</td><td>Textual content of the tab panel is conveyed as &#39;Nils Frahm is a German musician, composer and record producer based in Berlin. He is known for combining classical and electronic music and for an unconventional approach to the piano in which he mixes a grand piano, upright piano, Roland Juno-60, Rhodes piano, drum machine, and Moog Taurus.&#39;</td></tr>
         </table>
       </div>
-    <h2>Test 23: Navigate backwards to a tab panel</h2>
+    <h2 class="voiceover_macos">Test 23: Navigate backwards to a tab panel</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-23-navigate-backwards-to-tab-panel-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2227,7 +2228,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23"
+      <button id="open-test-page-23" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusAfterTabpanel.html', 23, 'setFocusAfterTabpanel');">Open Test 23 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2257,12 +2258,12 @@
             <tr><td>required</td><td>Textual content of the tab panel is conveyed as &#39;Nils Frahm is a German musician, composer and record producer based in Berlin. He is known for combining classical and electronic music and for an unconventional approach to the piano in which he mixes a grand piano, upright piano, Roland Juno-60, Rhodes piano, drum machine, and Moog Taurus.&#39;</td></tr>
         </table>
       </div>
-    <h2>Test 24: Activate a tab in a tab list in reading mode</h2>
+    <h2 class="jaws nvda">Test 24: Activate a tab in a tab list in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-24-activate-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -2277,7 +2278,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24"
+      <button id="open-test-page-24" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnSecondTab.html', 24, 'setFocusOnSecondTab');">Open Test 24 Page</button>
     </p>
       <div class="jaws">
@@ -2330,12 +2331,12 @@
             <tr><td>required</td><td>State of the tab, &#39;selected&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 25: Activate a tab in a tab list in interaction mode</h2>
+    <h2 class="jaws nvda">Test 25: Activate a tab in a tab list in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-25-activate-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2350,7 +2351,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-25"
+      <button id="open-test-page-25" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnSecondTab.html', 25, 'setFocusOnSecondTab');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
@@ -2403,12 +2404,12 @@
             <tr><td>required</td><td>State of the tab, &#39;selected&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 26: Activate a tab in a tab list</h2>
+    <h2 class="voiceover_macos">Test 26: Activate a tab in a tab list</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-26-activate-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2422,7 +2423,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-26"
+      <button id="open-test-page-26" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnSecondTab.html', 26, 'setFocusOnSecondTab');">Open Test 26 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2451,12 +2452,12 @@
             <tr><td>required</td><td>State of the tab, &#39;selected&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 27: Delete a tab from a tab list in reading mode</h2>
+    <h2 class="jaws nvda">Test 27: Delete a tab from a tab list in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-27-delete-tab-from-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -2473,7 +2474,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-27"
+      <button id="open-test-page-27" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnThirdTab.html', 27, 'setFocusOnThirdTab');">Open Test 27 Page</button>
     </p>
       <div class="jaws">
@@ -2532,12 +2533,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 2, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 28: Delete a tab from a tab list in interaction mode</h2>
+    <h2 class="jaws nvda">Test 28: Delete a tab from a tab list in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-28-delete-tab-from-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2554,7 +2555,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-28"
+      <button id="open-test-page-28" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnThirdTab.html', 28, 'setFocusOnThirdTab');">Open Test 28 Page</button>
     </p>
       <div class="jaws">
@@ -2613,12 +2614,12 @@
             <tr><td>required</td><td>Number of tabs in the tab list, 2, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 29: Delete a tab from a tab list</h2>
+    <h2 class="voiceover_macos">Test 29: Delete a tab from a tab list</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Fri Oct 15 16:20:58 2021 -0500</li>
+        <li>Last edited: Tue Oct 5 16:43:59 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-29-delete-tab-from-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2634,7 +2635,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-29"
+      <button id="open-test-page-29" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;tabs-manual-activation&#x2F;reference&#x2F;2021-2-15_124757&#x2F;tabs.setFocusOnThirdTab.html', 29, 'setFocusOnThirdTab');">Open Test 29 Page</button>
     </p>
       <div class="voiceover_macos">

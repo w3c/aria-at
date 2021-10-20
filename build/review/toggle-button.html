@@ -591,8 +591,20 @@
 },	setFocusAfterButton: function(testPageDocument){
 	// sets focus on a link after the button
 	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusAfterButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link after the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
+	testPageDocument.querySelector('#afterlink').focus();
 },	setFocusBeforeButton: function(testPageDocument){
 	// sets focus on a link before the button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusBeforeButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link before the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	testPageDocument.querySelector('#beforelink').focus();
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
@@ -643,7 +655,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-01-navigate-forwards-to-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -725,7 +737,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-02-navigate-backwards-to-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -807,7 +819,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-03-navigate-forwards-to-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -883,7 +895,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-04-navigate-backwards-to-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -959,7 +971,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-05-navigate-forwards-to-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1010,7 +1022,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-06-navigate-backwards-to-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1061,7 +1073,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-07-navigate-forwards-to-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1078,14 +1090,14 @@
       </ul>
 
       <button id="open-test-page-7" class="jaws nvda"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButton.html', 7, 'setFocusBeforeButton');">Open Test 7 Page</button>
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButtonAndSetStateToPressed.html', 7, 'setFocusBeforeButtonAndSetStateToPressed');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link before the button</li>
+        <li>sets focus on a link before the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1114,7 +1126,7 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link before the button</li>
+        <li>sets focus on a link before the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1143,7 +1155,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-08-navigate-backwards-to-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1160,14 +1172,14 @@
       </ul>
 
       <button id="open-test-page-8" class="jaws nvda"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButton.html', 8, 'setFocusAfterButton');">Open Test 8 Page</button>
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButtonAndSetStateToPressed.html', 8, 'setFocusAfterButtonAndSetStateToPressed');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link after the button</li>
+        <li>sets focus on a link after the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1196,7 +1208,7 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link after the button</li>
+        <li>sets focus on a link after the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1225,7 +1237,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-09-navigate-forwards-to-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1242,14 +1254,14 @@
       </ul>
 
       <button id="open-test-page-9" class="jaws nvda"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButton.html', 9, 'setFocusBeforeButton');">Open Test 9 Page</button>
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButtonAndSetStateToPressed.html', 9, 'setFocusBeforeButtonAndSetStateToPressed');">Open Test 9 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link before the button</li>
+        <li>sets focus on a link before the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1275,7 +1287,7 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link before the button</li>
+        <li>sets focus on a link before the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1301,7 +1313,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-10-navigate-backwards-to-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1318,14 +1330,14 @@
       </ul>
 
       <button id="open-test-page-10" class="jaws nvda"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButton.html', 10, 'setFocusAfterButton');">Open Test 10 Page</button>
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButtonAndSetStateToPressed.html', 10, 'setFocusAfterButtonAndSetStateToPressed');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link after the button</li>
+        <li>sets focus on a link after the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1351,7 +1363,7 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link after the button</li>
+        <li>sets focus on a link after the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1377,7 +1389,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-11-navigate-forwards-to-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1393,14 +1405,14 @@
       </ul>
 
       <button id="open-test-page-11" class="voiceover_macos"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButton.html', 11, 'setFocusBeforeButton');">Open Test 11 Page</button>
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButtonAndSetStateToPressed.html', 11, 'setFocusBeforeButtonAndSetStateToPressed');">Open Test 11 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link before the button</li>
+        <li>sets focus on a link before the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1428,7 +1440,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-12-navigate-backwards-to-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1444,14 +1456,14 @@
       </ul>
 
       <button id="open-test-page-12" class="voiceover_macos"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButton.html', 12, 'setFocusAfterButton');">Open Test 12 Page</button>
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButtonAndSetStateToPressed.html', 12, 'setFocusAfterButtonAndSetStateToPressed');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link after the button</li>
+        <li>sets focus on a link after the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1479,7 +1491,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-13-read-information-about-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1557,7 +1569,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-14-read-information-about-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1635,7 +1647,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-15-read-information-about-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1685,7 +1697,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-16-read-information-about-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1763,7 +1775,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-17-read-information-about-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1841,7 +1853,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-18-read-information-about-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1891,7 +1903,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-19-operate-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1965,7 +1977,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-20-operate-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -2039,7 +2051,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-21-operate-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2089,7 +2101,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-22-operate-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -2163,7 +2175,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-23-operate-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -2237,7 +2249,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Oct 19 14:34:03 2021 -0400</li>
+        <li>Last edited: Wed Oct 20 13:28:00 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-24-operate-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

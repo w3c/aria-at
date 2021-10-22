@@ -65,7 +65,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
    */
   log.error = message => {
     log.warning(message);
-    process.exit();
+    process.exit(1);
   };
 
   // setup from arguments passed to npm script

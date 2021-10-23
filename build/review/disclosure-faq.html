@@ -280,6 +280,15 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	setFocusAfterRedSlider: function(testPageDocument){
+	// sets focus on a link after the Red slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRedSlider: function(testPageDocument){
+	// sets focus on a link before the Red slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnRedSlider: function(testPageDocument){
+	// sets focus on the 'Red' slider
+	testPageDocument.querySelector('[role="slider"].red').focus();
 },	openMenuAndSetFocusToFirstItem: function(testPageDocument){
 	// opens the menu, and sets focus on 'Action 1'
 	testPageDocument.defaultView.menuController.openPopup();
@@ -655,7 +664,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-01-navigate-forwards-to-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -736,7 +745,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-02-navigate-backwards-to-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -817,7 +826,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-03-navigate-forwards-to-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -892,7 +901,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-04-navigate-backwards-to-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -967,7 +976,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-05-navigate-forwards-to-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1017,7 +1026,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-06-navigate-backwards-to-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1067,7 +1076,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-07-navigate-forwards-to-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1148,7 +1157,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-08-navigate-backwards-to-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1229,7 +1238,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-09-navigate-forwards-to-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1304,7 +1313,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-10-navigate-backwards-to-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1379,7 +1388,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-11-navigate-forwards-to-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1429,7 +1438,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-12-navigate-backwards-to-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1479,7 +1488,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-13-read-information-about-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1556,7 +1565,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-14-read-information-about-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1631,7 +1640,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-15-read-information-about-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1680,7 +1689,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-16-read-information-about-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1757,7 +1766,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-17-read-information-about-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -1832,7 +1841,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-18-read-information-about-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1881,7 +1890,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-19-operate-collapsed-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -1954,7 +1963,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-20-operate-collapsed-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -2027,7 +2036,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-21-operate-collapsed-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2075,7 +2084,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-22-operate-expanded-disclosure-button-reading.html?at=jaws">jaws</a></li>
@@ -2148,7 +2157,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-23-operate-expanded-disclosure-button-interaction.html?at=jaws">jaws</a></li>
@@ -2221,7 +2230,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-24-operate-expanded-disclosure-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2269,7 +2278,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-25-navigate-from-expanded-disclosure-button-to-text-of-question-answer-reading.html?at=jaws">jaws</a></li>
@@ -2340,7 +2349,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:02:14 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/disclosure-faq/test-26-navigate-from-expanded-disclosure-button-to-text-of-question-answer-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

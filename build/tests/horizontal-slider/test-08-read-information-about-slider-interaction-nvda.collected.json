@@ -1,0 +1,92 @@
+{
+  "info": {
+    "testId": 8,
+    "task": "read information about slider",
+    "title": "Read information about a slider in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-color-viewer.html"
+      },
+      {
+        "refId": "slider",
+        "value": "https://w3c.github.io/aria/#slider"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuemin",
+        "value": "https://w3c.github.io/aria/#aria-valuemin"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-9-28_15392/slider-color-viewer.setFocusOnRedSlider.html",
+    "setupScript": {
+      "name": "setFocusOnRedSlider",
+      "description": "sets focus on the 'Red' slider",
+      "source": "// sets focus on the 'Red' slider\ntestPageDocument.querySelector('[role=\"slider\"].red').focus();\n",
+      "modulePath": "scripts/setFocusOnRedSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnRedSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Red' slider, read information about the slider."
+    ],
+    "raw": "With focus on the 'Red' slider, read information about the slider.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab"
+    },
+    {
+      "id": "INS_UP",
+      "keystroke": "Insert+Up"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'slider' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Red' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Value '128' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Orientation 'horizontal' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Minimum value '0' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Maximum value '255' is conveyed"
+    }
+  ]
+}

@@ -3,8 +3,22 @@ window[document.currentScript.getAttribute("jsonpFunction") || "scriptsJsonpLoad
     // sets focus on a link after the button
     testPageDocument.querySelector('#afterlink').focus();
   },
+  setFocusAfterButtonAndSetStateToPressed(testPageDocument) {
+    // sets focus on a link after the button, and sets the state of the button to 'pressed'
+    let button = testPageDocument.querySelector('#toggle');
+    button.setAttribute('aria-pressed', 'true');
+    button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
+    testPageDocument.querySelector('#afterlink').focus();
+  },
   setFocusBeforeButton(testPageDocument) {
     // sets focus on a link before the button
+    testPageDocument.querySelector('#beforelink').focus();
+  },
+  setFocusBeforeButtonAndSetStateToPressed(testPageDocument) {
+    // sets focus on a link before the button, and sets the state of the button to 'pressed'
+    let button = testPageDocument.querySelector('#toggle');
+    button.setAttribute('aria-pressed', 'true');
+    button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
     testPageDocument.querySelector('#beforelink').focus();
   },
   setFocusOnButton(testPageDocument) {

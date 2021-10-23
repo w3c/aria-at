@@ -18,8 +18,10 @@
       }
 
     </style>
-    <script>
-      const filterATs = function(button) {
+    <script type="module">
+      import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
+
+      window.filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
@@ -48,51 +50,37 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
           }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
+          }
         }
-      }
+      };
 
-      function executeScriptInTestPage(setupScriptName, testPageWindow) {
-        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-            || testPageWindow.document.readyState !== 'complete'
-        ) {
-          window.setTimeout(() => {
-            executeScriptInTestPage(setupScriptName, testPageWindow);
-          }, 100);
-          return;
-        }
+      var scripts = {
+        {{{setupScripts}}}
+      };
 
-        if (setupScriptName) {
-          var scripts = {
-            {{{setupScripts}}}
-          };
+      window.openTestPage = function(testPageUri, testNumber, setupScriptName) {
+        var openTestPageElement = document.getElementById('open-test-page-' + testNumber);
 
-          scripts[setupScriptName](testPageWindow.document);
-        }
-      }
-
-      function openTestPage(testPageUri, testNumber, setupScriptName) {
-        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-        document.getElementById('open-test-page-' + testNumber).disabled = true;
-
-        // If the window is closed, re-enable open popup button
-        testPageWindow.onunload = function(event) {
-          window.setTimeout(() => {
-            if (testPageWindow.closed) {
-              testPageWindow = undefined;
-              document.getElementById('open-test-page-' + testNumber).disabled = false;
+        var testWindow = new TestWindow({
+          pageUri: testPageUri,
+          setupScriptName,
+          scripts,
+          hooks: {
+            windowOpened() {
+              openTestPageElement.disabled = true;
+            },
+            windowClosed() {
+              openTestPageElement.disabled = false;
             }
-          }, 100);
-
-        };
-
-        executeScriptInTestPage(setupScriptName, testPageWindow);
-      }
+          }
+        });
+        testWindow.open();
+      };
     </script>
   </head>
   <body>
@@ -108,9 +96,9 @@
     </fieldset>
 
     {{#tests}}
-    <h2>Test {{testNumber}}: {{{name}}}</h2>
+    <h2 class="{{allRelevantATsSpaceSeparated}}">Test {{testNumber}}: {{{name}}}</h2>
     <p>
-      <ul>
+      <ul class="{{allRelevantATsSpaceSeparated}}">
         <li>Mode: {{mode}}</li>
         <li>Applies to: {{allRelevantATsFormatted}}</li>
         <li>Last edited: {{lastEdited}}</li>
@@ -130,7 +118,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-{{testNumber}}"
+      <button id="open-test-page-{{testNumber}}" class="{{allRelevantATsSpaceSeparated}}"
         onclick="openTestPage('../tests{{reference}}', {{testNumber}}, '{{setupScriptName}}');">Open Test {{testNumber}} Page</button>
     </p>
       {{#ATTests}}

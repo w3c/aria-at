@@ -1,0 +1,83 @@
+{
+  "info": {
+    "testId": 6,
+    "task": "navigate to last breadcrumb link",
+    "title": "Navigate to the last breadcrumb link",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/breadcrumb/index.html"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "aria-current",
+        "value": "https://w3c.github.io/aria/#aria-current"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-4-16_152046/index.setFocusAfterLastBreadcrumbLink.html",
+    "setupScript": {
+      "name": "setFocusAfterLastBreadcrumbLink",
+      "description": "sets focus on a link after the 'Breadcrumb Example' link",
+      "source": "// sets focus on a link after the 'Breadcrumb Example' link\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterLastBreadcrumbLink.module.js",
+      "jsonpPath": "scripts/setFocusAfterLastBreadcrumbLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate backwards from here' link, navigate to the 'Breadcrumb Example' link."
+    ],
+    "raw": "With focus on the 'Navigate backwards from here' link, navigate to the 'Breadcrumb Example' link.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_LEFT,CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+    },
+    {
+      "id": "SHIFT_CTRL_OPT_CMD_L",
+      "keystroke": "Shift+Control+Option+Command+L"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role of the landmark region, 'navigation', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the landmark region, 'Breadcrumb', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "'Role of the breadcrumbs container, 'list', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of list items, 4, is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Breadcrumb Example' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'current page' is conveyed"
+    }
+  ]
+}

@@ -25,11 +25,11 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-15_144141/radio.html",
+    "referencePage": "reference/2021-3-15_144141/radio.setFocusOnThirdRadioButton.html",
     "setupScript": {
       "name": "setFocusOnThirdRadioButton",
       "description": "sets focus on the third radio button",
-      "source": "// sets focus on the third radio button\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.tabIndex = -1;\n});\nlet lastRadio = radios[radios.length - 1];\nlastRadio.tabIndex = 0;\nlastRadio.focus();\n",
+      "source": "// sets focus on the third radio button\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.tabIndex = -1;\n});\nlet lastRadio = radios[radios.length - 1];\nlastRadio.tabIndex = 0;\nlastRadio.focus();\n",
       "modulePath": "scripts/setFocusOnThirdRadioButton.module.js",
       "jsonpPath": "scripts/setFocusOnThirdRadioButton.jsonp.js"
     }

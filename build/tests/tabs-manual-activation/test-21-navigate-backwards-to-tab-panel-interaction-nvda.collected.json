@@ -25,11 +25,11 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-2-15_124757/tabs.html",
+    "referencePage": "reference/2021-2-15_124757/tabs.setFocusAfterTabpanel.html",
     "setupScript": {
       "name": "setFocusAfterTabpanel",
       "description": "sets focus on a link after the tab panel",
-      "source": "// sets focus on a link after the tab panel\ntestPageDocument.querySelector('#afterlink').focus();",
+      "source": "// sets focus on a link after the tab panel\ntestPageDocument.querySelector('#afterlink').focus();\n",
       "modulePath": "scripts/setFocusAfterTabpanel.module.js",
       "jsonpPath": "scripts/setFocusAfterTabpanel.jsonp.js"
     }

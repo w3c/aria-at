@@ -1,0 +1,21 @@
+{
+  "setup_script_description": "sets focus on the slider",
+  "setupTestPage": "setFocusOnSlider",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "increment slider by one star in interaction mode",
+  "specific_user_instruction": "With focus on the 'Rating' slider, set its value to one star.",
+  "output_assertions": [
+    [
+      "1",
+      "Textual value 'one star' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '1' is not conveyed"
+    ]
+  ]
+}

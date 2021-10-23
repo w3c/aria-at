@@ -29,11 +29,11 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtEnd.html",
     "setupScript": {
       "name": "moveFocusToAlabamaInListboxAndSetInputCursorAtEnd",
       "description": "expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the end of the textbox",
-      "source": "// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the end of the textbox\ntestPageDocument.defaultView.comboboxController.open();\ntestPageDocument.defaultView.comboboxController.comboboxNode.focus();\ntestPageDocument.defaultView.comboboxController.setVisualFocusListbox();\nlet opt = testPageDocument.querySelector('#lb1-al');\nlet optTextLength = opt.textContent.length;\ntestPageDocument.defaultView.comboboxController.setOption(opt, true);\ntestPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);\n",
+      "source": "// expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the end of the textbox\ntestPageDocument.defaultView.comboboxController.open();\ntestPageDocument.defaultView.comboboxController.comboboxNode.focus();\ntestPageDocument.defaultView.comboboxController.setVisualFocusListbox();\nlet opt = testPageDocument.querySelector('#lb1-al');\nlet optTextLength = opt.textContent.length;\ntestPageDocument.defaultView.comboboxController.setOption(opt, true);\ntestPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(\n  optTextLength,\n  optTextLength\n);\n",
       "modulePath": "scripts/moveFocusToAlabamaInListboxAndSetInputCursorAtEnd.module.js",
       "jsonpPath": "scripts/moveFocusToAlabamaInListboxAndSetInputCursorAtEnd.jsonp.js"
     }

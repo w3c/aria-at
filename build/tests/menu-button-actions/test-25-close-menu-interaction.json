@@ -1,0 +1,21 @@
+{
+  "setup_script_description": "opens the menu, and sets focus on 'Action 1'",
+  "setupTestPage": "openMenuAndSetFocusToFirstItem",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "close menu",
+  "specific_user_instruction": "With focus on the 'Action 1' menu item, close the menu.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'menu button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Actions' is conveyed"
+    ]
+  ]
+}

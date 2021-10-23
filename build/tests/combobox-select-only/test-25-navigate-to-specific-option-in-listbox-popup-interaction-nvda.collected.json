@@ -1,0 +1,63 @@
+{
+  "info": {
+    "testId": 25,
+    "task": "navigate to specific option in listbox popup",
+    "title": "Navigate to a specific option in a listbox popup in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html"
+      },
+      {
+        "refId": "option",
+        "value": "https://w3c.github.io/aria/#option"
+      },
+      {
+        "refId": "aria-selected",
+        "value": "https://w3c.github.io/aria/#aria-selected"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/combobox-select-only.openListbox.html",
+    "setupScript": {
+      "name": "openListbox",
+      "description": "sets focus on and expands the Combobox",
+      "source": "// sets focus on and expands the Combobox\ntestPageDocument.querySelector('[role=\"combobox\"]').focus();\ntestPageDocument.defaultView.selectController.updateMenuState(true);\n",
+      "modulePath": "scripts/openListbox.module.js",
+      "jsonpPath": "scripts/openListbox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the listbox popup, type a printable character to set focus on a specific option."
+    ],
+    "raw": "With focus on the listbox popup, type a printable character to set focus on a specific option.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [ { "id": "A", "keystroke": "A" } ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the focused option in the popup ('Apple') is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "State of the focused option in the popup (not selected) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of the focused option in the popup (2) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of options in the popup (13) is conveyed"
+    }
+  ]
+}

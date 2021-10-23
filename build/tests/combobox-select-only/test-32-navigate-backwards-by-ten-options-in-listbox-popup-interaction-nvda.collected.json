@@ -1,0 +1,68 @@
+{
+  "info": {
+    "testId": 32,
+    "task": "navigate backwards by ten options in listbox popup",
+    "title": "Navigate backwards by ten options in a listbox popup in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html"
+      },
+      {
+        "refId": "option",
+        "value": "https://w3c.github.io/aria/#option"
+      },
+      {
+        "refId": "aria-selected",
+        "value": "https://w3c.github.io/aria/#aria-selected"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/combobox-select-only.openListboxToHuckleberry.html",
+    "setupScript": {
+      "name": "openListboxToHuckleberry",
+      "description": "sets focus on and expands the Combobox, and sets the focused option to 'Huckleberry'",
+      "source": "// sets focus on and expands the Combobox, and sets the focused option to 'Huckleberry'\ntestPageDocument.querySelector('[role=\"combobox\"]').focus();\ntestPageDocument.defaultView.selectController.updateMenuState(true);\ntestPageDocument.defaultView.selectController.onOptionChange(12);\n",
+      "modulePath": "scripts/openListboxToHuckleberry.module.js",
+      "jsonpPath": "scripts/openListboxToHuckleberry.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "with focus on the listbox popup, navigate backwards by ten options."
+    ],
+    "raw": "with focus on the listbox popup, navigate backwards by ten options.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "PAGE_UP",
+      "keystroke": "Page Up"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the focused option in the popup ('Banana') is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "State of the focused option in the popup (not selected) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of the focused option in the popup (3) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of options in the popup (13) is conveyed"
+    }
+  ]
+}

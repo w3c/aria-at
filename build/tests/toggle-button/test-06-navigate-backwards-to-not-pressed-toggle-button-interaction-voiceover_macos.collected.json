@@ -1,0 +1,72 @@
+{
+  "info": {
+    "testId": 6,
+    "task": "navigate backwards to not pressed toggle button",
+    "title": "Navigate backwards to a not pressed toggle button",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/button/button.html"
+      },
+      {
+        "refId": "button",
+        "value": "https://w3c.github.io/aria/#button"
+      },
+      {
+        "refId": "aria-pressed",
+        "value": "https://w3c.github.io/aria/#aria-pressed"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-29_145942/button.setFocusAfterButton.html",
+    "setupScript": {
+      "name": "setFocusAfterButton",
+      "description": "sets focus on a link after the button",
+      "source": "// sets focus on a link after the button\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterButton.module.js",
+      "jsonpPath": "scripts/setFocusAfterButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate backwards from here' link, navigate to the 'Mute' button."
+    ],
+    "raw": "With focus on the 'Navigate backwards from here' link, navigate to the 'Mute' button.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left"
+    },
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab"
+    },
+    {
+      "id": "SHIFT_CTRL_OPT_CMD_J",
+      "keystroke": "Shift+Control+Option+Command+J"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Mute' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'not pressed' is conveyed"
+    }
+  ]
+}

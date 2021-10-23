@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Decrement a slider by one star in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/slider/slider-rating.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+
+<script>
+  var scripts = {
+		setFocusOnSliderAndSetValueToOne: function(testPageDocument){
+			// sets focus on the slider, and sets its value to one star
+			let slider = testPageDocument.querySelector('[role="slider"]');
+			slider.setAttribute('aria-valuenow', '1');
+			slider.setAttribute('aria-valuetext', 'one star');
+			slider.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the slider",
+  "setupTestPage": "setFocusOnSliderAndSetValueToOne",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "decrement slider by one star",
+  "specific_user_instruction": "With focus on the 'Rating' slider, set its value to zero stars.",
+  "output_assertions": [
+    [
+      "1",
+      "Textual value 'zero stars' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '0' is not conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "decrement slider by one star": {
+    "interaction": {
+      "jaws": [ [ "PAGE_DOWN" ] ],
+      "nvda": [ [ "PAGE_DOWN" ] ],
+      "voiceover_macos": [ [ "PAGE_DOWN" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-9-21_13436/slider-rating.setFocusOnSliderAndSetValueToOne.html");
+  });
+</script>
+  

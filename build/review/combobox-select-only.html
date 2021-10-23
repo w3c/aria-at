@@ -567,6 +567,33 @@
 	let lastRadio = radios[radios.length - 1];
 	lastRadio.tabIndex = 0;
 	lastRadio.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
+},	setFocusOnSliderAndSetValueToFive: function(testPageDocument){
+	// sets focus on the slider, and sets its value to five stars
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '5');
+	slider.setAttribute('aria-valuetext', 'five stars');
+	slider.focus();
+},	setFocusOnSliderAndSetValueToOne: function(testPageDocument){
+	// sets focus on the slider, and sets its value to one star
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '1');
+	slider.setAttribute('aria-valuetext', 'one star');
+	slider.focus();
+},	setFocusOnSliderAndSetValueToOneHalfStar: function(testPageDocument){
+	// sets focus on the slider, and sets its value to one half star
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '0.5');
+	slider.setAttribute('aria-valuetext', 'one half star');
+	slider.focus();
 },	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
 	// activates the third tab in the tab list, and sets focus on the tab panel
 	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
@@ -664,7 +691,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-01-navigate-forwards-to-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -749,7 +776,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-02-navigate-backwards-to-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -834,7 +861,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-03-navigate-forwards-to-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -913,7 +940,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-04-navigate-backwards-to-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -992,7 +1019,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-05-navigate-forwards-to-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1045,7 +1072,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-06-navigate-backwards-to-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1098,7 +1125,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-07-read-information-about-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1179,7 +1206,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-08-read-information-about-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1258,7 +1285,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-09-read-information-about-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1310,7 +1337,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-10-open-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1397,7 +1424,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-11-open-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1492,7 +1519,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-12-open-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1553,7 +1580,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-13-open-collapsed-select-only-combobox-to-first-option-interaction.html?at=jaws">jaws</a></li>
@@ -1640,7 +1667,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-14-open-collapsed-select-only-combobox-to-first-option-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1696,7 +1723,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-15-open-collapsed-select-only-combobox-to-specific-option-interaction.html?at=jaws">jaws</a></li>
@@ -1783,7 +1810,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-16-open-collapsed-select-only-combobox-to-specific-option-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1839,7 +1866,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-17-open-collapsed-select-only-combobox-to-last-option-interaction.html?at=jaws">jaws</a></li>
@@ -1926,7 +1953,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-18-open-collapsed-select-only-combobox-to-last-option-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1982,7 +2009,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-19-read-information-about-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2066,7 +2093,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-20-read-information-about-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2121,7 +2148,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-21-navigate-forwards-to-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2199,7 +2226,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-22-navigate-backwards-to-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2277,7 +2304,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-23-navigate-forwards-to-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2329,7 +2356,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-24-navigate-backwards-to-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2381,7 +2408,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-25-navigate-to-specific-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2459,7 +2486,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-26-navigate-to-specific-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2509,7 +2536,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-27-navigate-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2587,7 +2614,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-28-navigate-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2665,7 +2692,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-29-navigate-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2715,7 +2742,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-30-navigate-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2765,7 +2792,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-31-navigate-forwards-by-ten-options-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2843,7 +2870,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-32-navigate-backwards-by-ten-options-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2921,7 +2948,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-33-navigate-forwards-by-ten-options-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2971,7 +2998,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-34-navigate-backwards-by-ten-options-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3021,7 +3048,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-35-select-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -3104,7 +3131,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-36-select-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3158,7 +3185,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-37-close-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -3237,7 +3264,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
+        <li>Last edited: Sat Oct 23 13:45:35 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-38-close-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

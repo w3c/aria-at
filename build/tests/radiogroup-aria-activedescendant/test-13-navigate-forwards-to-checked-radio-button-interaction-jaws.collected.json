@@ -37,11 +37,11 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-17_161413/radio-activedescendant.html",
+    "referencePage": "reference/2021-3-17_161413/radio-activedescendant.checkFirstRadioButtonAndSetFocusBeforeRadioGroup.html",
     "setupScript": {
       "name": "checkFirstRadioButtonAndSetFocusBeforeRadioGroup",
       "description": "sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading",
-      "source": "// sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading\nlet radioGroup = testPageDocument.querySelector('[role=\"radiogroup\"]');\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.classList.remove('focus');\n});\nradios[0].classList.add('focus');\nradios[0].setAttribute('aria-checked', 'true');\nradioGroup.setAttribute('aria-activedescendant', radios[0].id);\ntestPageDocument.querySelector('#beforelink').focus();\ntestPageDocument.querySelector('#group_label_1').style.display = 'none';\n",
+      "source": "// sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading\nlet radioGroup = testPageDocument.querySelector('[role=\"radiogroup\"]');\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.classList.remove('focus');\n});\nradios[0].classList.add('focus');\nradios[0].setAttribute('aria-checked', 'true');\nradioGroup.setAttribute('aria-activedescendant', radios[0].id);\ntestPageDocument.querySelector('#beforelink').focus();\ntestPageDocument.querySelector('#group_label_1').style.display = 'none';\n",
       "modulePath": "scripts/checkFirstRadioButtonAndSetFocusBeforeRadioGroup.module.js",
       "jsonpPath": "scripts/checkFirstRadioButtonAndSetFocusBeforeRadioGroup.jsonp.js"
     }

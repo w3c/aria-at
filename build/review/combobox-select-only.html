@@ -18,8 +18,10 @@
       }
 
     </style>
-    <script>
-      const filterATs = function(button) {
+    <script type="module">
+      import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
+
+      window.filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
@@ -48,27 +50,29 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
           }
-        }
-      }
 
-      function executeScriptInTestPage(setupScriptName, testPageWindow) {
-        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-            || testPageWindow.document.readyState !== 'complete'
-        ) {
-          window.setTimeout(() => {
-            executeScriptInTestPage(setupScriptName, testPageWindow);
-          }, 100);
-          return;
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
+          }
         }
+      };
 
-        if (setupScriptName) {
-          var scripts = {
-            	checkFirstCheckbox: function(testPageDocument){
+      var scripts = {
+        	setFocusOnButton: function(testPageDocument){
+	// sets focus on the 'Trigger Alert' button
+	testPageDocument.querySelector('#alert-trigger').focus();
+},	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link after the 'Breadcrumb Example' link
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeFirstBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link before the 'WAI-ARIA Authoring Practices' link
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on the 'Breadcrumb Example' link
+	testPageDocument.querySelector('[aria-current="page"]').focus();
+},	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -132,7 +136,10 @@
 	let opt = testPageDocument.querySelector('#lb1-al');
 	let optTextLength = opt.textContent.length;
 	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);
+	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(
+	optTextLength,
+	optTextLength
+	);
 },	moveFocusToAlaskaInListbox: function(testPageDocument){
 	// expands the combobox, sets the combobox value to 'Alaska' and places focus on that option in the listbox popup
 	testPageDocument.defaultView.comboboxController.open();
@@ -273,6 +280,15 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	setFocusAfterRedSlider: function(testPageDocument){
+	// sets focus on a link after the Red slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRedSlider: function(testPageDocument){
+	// sets focus on a link before the Red slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnRedSlider: function(testPageDocument){
+	// sets focus on the 'Red' slider
+	testPageDocument.querySelector('[role="slider"].red').focus();
 },	openMenuAndSetFocusToFirstItem: function(testPageDocument){
 	// opens the menu, and sets focus on 'Action 1'
 	testPageDocument.defaultView.menuController.openPopup();
@@ -584,8 +600,20 @@
 },	setFocusAfterButton: function(testPageDocument){
 	// sets focus on a link after the button
 	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusAfterButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link after the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
+	testPageDocument.querySelector('#afterlink').focus();
 },	setFocusBeforeButton: function(testPageDocument){
 	// sets focus on a link before the button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusBeforeButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link before the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	testPageDocument.querySelector('#beforelink').focus();
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
@@ -597,30 +625,26 @@
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
 }
-          };
+      };
 
-          scripts[setupScriptName](testPageWindow.document);
-        }
-      }
+      window.openTestPage = function(testPageUri, testNumber, setupScriptName) {
+        var openTestPageElement = document.getElementById('open-test-page-' + testNumber);
 
-      function openTestPage(testPageUri, testNumber, setupScriptName) {
-        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-        document.getElementById('open-test-page-' + testNumber).disabled = true;
-
-        // If the window is closed, re-enable open popup button
-        testPageWindow.onunload = function(event) {
-          window.setTimeout(() => {
-            if (testPageWindow.closed) {
-              testPageWindow = undefined;
-              document.getElementById('open-test-page-' + testNumber).disabled = false;
+        var testWindow = new TestWindow({
+          pageUri: testPageUri,
+          setupScriptName,
+          scripts,
+          hooks: {
+            windowOpened() {
+              openTestPageElement.disabled = true;
+            },
+            windowClosed() {
+              openTestPageElement.disabled = false;
             }
-          }, 100);
-
-        };
-
-        executeScriptInTestPage(setupScriptName, testPageWindow);
-      }
+          }
+        });
+        testWindow.open();
+      };
     </script>
   </head>
   <body>
@@ -635,12 +659,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate forwards to a collapsed select-only combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Navigate forwards to a collapsed select-only combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-01-navigate-forwards-to-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -657,8 +681,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 1, 'moveFocusBeforeCombobox');">Open Test 1 Page</button>
+      <button id="open-test-page-1" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusBeforeCombobox.html', 1, 'moveFocusBeforeCombobox');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -720,12 +744,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate backwards to a collapsed select-only combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 2: Navigate backwards to a collapsed select-only combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-02-navigate-backwards-to-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -742,8 +766,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 2, 'moveFocusAfterCombobox');">Open Test 2 Page</button>
+      <button id="open-test-page-2" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusAfterCombobox.html', 2, 'moveFocusAfterCombobox');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -805,12 +829,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Navigate forwards to a collapsed select-only combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 3: Navigate forwards to a collapsed select-only combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-03-navigate-forwards-to-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -827,8 +851,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 3, 'moveFocusBeforeCombobox');">Open Test 3 Page</button>
+      <button id="open-test-page-3" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusBeforeCombobox.html', 3, 'moveFocusBeforeCombobox');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -884,12 +908,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate backwards to a collapsed select-only combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 4: Navigate backwards to a collapsed select-only combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-04-navigate-backwards-to-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -906,8 +930,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 4, 'moveFocusAfterCombobox');">Open Test 4 Page</button>
+      <button id="open-test-page-4" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusAfterCombobox.html', 4, 'moveFocusAfterCombobox');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -963,12 +987,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate forwards to a collapsed select-only combobox</h2>
+    <h2 class="voiceover_macos">Test 5: Navigate forwards to a collapsed select-only combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-05-navigate-forwards-to-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -984,8 +1008,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 5, 'moveFocusBeforeCombobox');">Open Test 5 Page</button>
+      <button id="open-test-page-5" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusBeforeCombobox.html', 5, 'moveFocusBeforeCombobox');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1016,12 +1040,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate backwards to a collapsed select-only combobox</h2>
+    <h2 class="voiceover_macos">Test 6: Navigate backwards to a collapsed select-only combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-06-navigate-backwards-to-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1037,8 +1061,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 6, 'moveFocusAfterCombobox');">Open Test 6 Page</button>
+      <button id="open-test-page-6" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusAfterCombobox.html', 6, 'moveFocusAfterCombobox');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1069,12 +1093,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Read information about a collapsed select-only combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Read information about a collapsed select-only combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-07-read-information-about-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1091,8 +1115,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 7, 'moveFocusToCombobox');">Open Test 7 Page</button>
+      <button id="open-test-page-7" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 7, 'moveFocusToCombobox');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1150,12 +1174,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Read information about a collapsed select-only combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 8: Read information about a collapsed select-only combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-08-read-information-about-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1172,8 +1196,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 8, 'moveFocusToCombobox');">Open Test 8 Page</button>
+      <button id="open-test-page-8" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 8, 'moveFocusToCombobox');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1229,12 +1253,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Read information about a collapsed select-only combobox</h2>
+    <h2 class="voiceover_macos">Test 9: Read information about a collapsed select-only combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-09-read-information-about-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1250,8 +1274,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 9, 'moveFocusToCombobox');">Open Test 9 Page</button>
+      <button id="open-test-page-9" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 9, 'moveFocusToCombobox');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1281,12 +1305,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 10: Open a collapsed select-only combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 10: Open a collapsed select-only combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-10-open-collapsed-select-only-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1305,8 +1329,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 10, 'moveFocusToCombobox');">Open Test 10 Page</button>
+      <button id="open-test-page-10" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 10, 'moveFocusToCombobox');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1368,12 +1392,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 11: Open a collapsed select-only combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 11: Open a collapsed select-only combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-11-open-collapsed-select-only-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1392,8 +1416,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 11, 'moveFocusToCombobox');">Open Test 11 Page</button>
+      <button id="open-test-page-11" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 11, 'moveFocusToCombobox');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1463,12 +1487,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Open a collapsed select-only combobox</h2>
+    <h2 class="voiceover_macos">Test 12: Open a collapsed select-only combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-12-open-collapsed-select-only-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1486,8 +1510,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 12, 'moveFocusToCombobox');">Open Test 12 Page</button>
+      <button id="open-test-page-12" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 12, 'moveFocusToCombobox');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1524,12 +1548,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 13: Open a collapsed select-only combobox to the first option in interaction mode</h2>
+    <h2 class="jaws nvda">Test 13: Open a collapsed select-only combobox to the first option in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-13-open-collapsed-select-only-combobox-to-first-option-interaction.html?at=jaws">jaws</a></li>
@@ -1548,8 +1572,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 13, 'moveFocusToCombobox');">Open Test 13 Page</button>
+      <button id="open-test-page-13" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 13, 'moveFocusToCombobox');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1611,12 +1635,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 14: Open a collapsed select-only combobox to the first option</h2>
+    <h2 class="voiceover_macos">Test 14: Open a collapsed select-only combobox to the first option</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-14-open-collapsed-select-only-combobox-to-first-option-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1634,8 +1658,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 14, 'moveFocusToCombobox');">Open Test 14 Page</button>
+      <button id="open-test-page-14" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 14, 'moveFocusToCombobox');">Open Test 14 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1667,12 +1691,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 15: Open a collapsed select-only combobox to a specific option in interaction mode</h2>
+    <h2 class="jaws nvda">Test 15: Open a collapsed select-only combobox to a specific option in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-15-open-collapsed-select-only-combobox-to-specific-option-interaction.html?at=jaws">jaws</a></li>
@@ -1691,8 +1715,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 15, 'moveFocusToCombobox');">Open Test 15 Page</button>
+      <button id="open-test-page-15" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 15, 'moveFocusToCombobox');">Open Test 15 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1754,12 +1778,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Open a collapsed select-only combobox to a specific option</h2>
+    <h2 class="voiceover_macos">Test 16: Open a collapsed select-only combobox to a specific option</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-16-open-collapsed-select-only-combobox-to-specific-option-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1777,8 +1801,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 16, 'moveFocusToCombobox');">Open Test 16 Page</button>
+      <button id="open-test-page-16" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 16, 'moveFocusToCombobox');">Open Test 16 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1810,12 +1834,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 17: Open a collapsed select-only combobox to the last option in interaction mode</h2>
+    <h2 class="jaws nvda">Test 17: Open a collapsed select-only combobox to the last option in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-17-open-collapsed-select-only-combobox-to-last-option-interaction.html?at=jaws">jaws</a></li>
@@ -1834,8 +1858,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 17, 'moveFocusToCombobox');">Open Test 17 Page</button>
+      <button id="open-test-page-17" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 17, 'moveFocusToCombobox');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1897,12 +1921,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 18: Open a collapsed select-only combobox to the last option</h2>
+    <h2 class="voiceover_macos">Test 18: Open a collapsed select-only combobox to the last option</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-18-open-collapsed-select-only-combobox-to-last-option-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1920,8 +1944,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 18, 'moveFocusToCombobox');">Open Test 18 Page</button>
+      <button id="open-test-page-18" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.moveFocusToCombobox.html', 18, 'moveFocusToCombobox');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1953,12 +1977,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 19: Read information about a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 19: Read information about a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-19-read-information-about-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -1976,8 +2000,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 19, 'openListbox');">Open Test 19 Page</button>
+      <button id="open-test-page-19" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListbox.html', 19, 'openListbox');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2037,12 +2061,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 20: Read information about a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 20: Read information about a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-20-read-information-about-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2059,8 +2083,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 20, 'openListbox');">Open Test 20 Page</button>
+      <button id="open-test-page-20" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListbox.html', 20, 'openListbox');">Open Test 20 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2092,12 +2116,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 21: Navigate forwards to an option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 21: Navigate forwards to an option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-21-navigate-forwards-to-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2113,8 +2137,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 21, 'openListbox');">Open Test 21 Page</button>
+      <button id="open-test-page-21" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListbox.html', 21, 'openListbox');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2170,12 +2194,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 22: Navigate backwards to an option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 22: Navigate backwards to an option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-22-navigate-backwards-to-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2191,8 +2215,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 22, 'openListboxToApple');">Open Test 22 Page</button>
+      <button id="open-test-page-22" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToApple.html', 22, 'openListboxToApple');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2248,12 +2272,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 23: Navigate forwards to an option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 23: Navigate forwards to an option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-23-navigate-forwards-to-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2268,8 +2292,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 23, 'openListbox');">Open Test 23 Page</button>
+      <button id="open-test-page-23" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListbox.html', 23, 'openListbox');">Open Test 23 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2300,12 +2324,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 24: Navigate backwards to an option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 24: Navigate backwards to an option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-24-navigate-backwards-to-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2320,8 +2344,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 24, 'openListboxToApple');">Open Test 24 Page</button>
+      <button id="open-test-page-24" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToApple.html', 24, 'openListboxToApple');">Open Test 24 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2352,12 +2376,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 25: Navigate to a specific option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 25: Navigate to a specific option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-25-navigate-to-specific-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2373,8 +2397,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-25"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 25, 'openListbox');">Open Test 25 Page</button>
+      <button id="open-test-page-25" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListbox.html', 25, 'openListbox');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2430,12 +2454,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 26: Navigate to a specific option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 26: Navigate to a specific option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-26-navigate-to-specific-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2450,8 +2474,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-26"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 26, 'openListbox');">Open Test 26 Page</button>
+      <button id="open-test-page-26" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListbox.html', 26, 'openListbox');">Open Test 26 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2480,12 +2504,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 27: Navigate to the first option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 27: Navigate to the first option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-27-navigate-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2501,8 +2525,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-27"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 27, 'openListboxToApple');">Open Test 27 Page</button>
+      <button id="open-test-page-27" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToApple.html', 27, 'openListboxToApple');">Open Test 27 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2558,12 +2582,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 28: Navigate to the last option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 28: Navigate to the last option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-28-navigate-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2579,8 +2603,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-28"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 28, 'openListboxToGuava');">Open Test 28 Page</button>
+      <button id="open-test-page-28" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToGuava.html', 28, 'openListboxToGuava');">Open Test 28 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2636,12 +2660,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 29: Navigate to the first option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 29: Navigate to the first option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-29-navigate-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2656,8 +2680,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-29"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 29, 'openListboxToApple');">Open Test 29 Page</button>
+      <button id="open-test-page-29" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToApple.html', 29, 'openListboxToApple');">Open Test 29 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2686,12 +2710,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 30: Navigate to the last option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 30: Navigate to the last option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-30-navigate-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2706,8 +2730,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-30"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 30, 'openListboxToGuava');">Open Test 30 Page</button>
+      <button id="open-test-page-30" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToGuava.html', 30, 'openListboxToGuava');">Open Test 30 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2736,12 +2760,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 31: Navigate forwards by ten options in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 31: Navigate forwards by ten options in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-31-navigate-forwards-by-ten-options-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2757,8 +2781,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-31"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 31, 'openListbox');">Open Test 31 Page</button>
+      <button id="open-test-page-31" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListbox.html', 31, 'openListbox');">Open Test 31 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2814,12 +2838,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 32: Navigate backwards by ten options in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 32: Navigate backwards by ten options in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-32-navigate-backwards-by-ten-options-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -2835,8 +2859,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-32"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 32, 'openListboxToHuckleberry');">Open Test 32 Page</button>
+      <button id="open-test-page-32" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToHuckleberry.html', 32, 'openListboxToHuckleberry');">Open Test 32 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2892,12 +2916,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 33: Navigate forwards by ten options in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 33: Navigate forwards by ten options in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-33-navigate-forwards-by-ten-options-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2912,8 +2936,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-33"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 33, 'openListbox');">Open Test 33 Page</button>
+      <button id="open-test-page-33" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListbox.html', 33, 'openListbox');">Open Test 33 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2942,12 +2966,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 34: Navigate backwards by ten options in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 34: Navigate backwards by ten options in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-34-navigate-backwards-by-ten-options-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2962,8 +2986,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-34"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 34, 'openListboxToHuckleberry');">Open Test 34 Page</button>
+      <button id="open-test-page-34" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToHuckleberry.html', 34, 'openListboxToHuckleberry');">Open Test 34 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2992,12 +3016,12 @@
             <tr><td>required</td><td>Number of options in the popup (13) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 35: Select an option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 35: Select an option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-35-select-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -3014,8 +3038,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-35"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 35, 'openListboxToApple');">Open Test 35 Page</button>
+      <button id="open-test-page-35" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToApple.html', 35, 'openListboxToApple');">Open Test 35 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -3075,12 +3099,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 36: Select an option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 36: Select an option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-36-select-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3096,8 +3120,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-36"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 36, 'openListboxToApple');">Open Test 36 Page</button>
+      <button id="open-test-page-36" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToApple.html', 36, 'openListboxToApple');">Open Test 36 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -3129,12 +3153,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 37: Close a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 37: Close a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-37-close-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -3151,8 +3175,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-37"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 37, 'openListboxToApple');">Open Test 37 Page</button>
+      <button id="open-test-page-37" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToApple.html', 37, 'openListboxToApple');">Open Test 37 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -3208,12 +3232,12 @@
             <tr><td>required</td><td>State of the combobox (collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 38: Close a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 38: Close a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-select-only/test-38-close-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3229,8 +3253,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-38"
-        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.html', 38, 'openListboxToApple');">Open Test 38 Page</button>
+      <button id="open-test-page-38" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;combobox-select-only&#x2F;reference&#x2F;combobox-select-only.openListboxToApple.html', 38, 'openListboxToApple');">Open Test 38 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>

@@ -2,8 +2,8 @@
 let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
 let radios = testPageDocument.querySelectorAll('[role="radio"]');
 radios.forEach(r => {
-	r.setAttribute('aria-checked', 'false');
-	r.classList.remove('focus');
+  r.setAttribute('aria-checked', 'false');
+  r.classList.remove('focus');
 });
 radios[0].classList.add('focus');
 radios[0].setAttribute('aria-checked', 'true');

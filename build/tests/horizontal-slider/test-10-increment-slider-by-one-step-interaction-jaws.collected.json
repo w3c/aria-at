@@ -1,0 +1,56 @@
+{
+  "info": {
+    "testId": 10,
+    "task": "increment slider by one step",
+    "title": "Increment a slider by one step in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-color-viewer.html"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-9-28_15392/slider-color-viewer.setFocusOnRedSlider.html",
+    "setupScript": {
+      "name": "setFocusOnRedSlider",
+      "description": "sets focus on the 'Red' slider",
+      "source": "// sets focus on the 'Red' slider\ntestPageDocument.querySelector('[role=\"slider\"].red').focus();\n",
+      "modulePath": "scripts/setFocusOnRedSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnRedSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Red' slider, set its value to 129."
+    ],
+    "raw": "With focus on the 'Red' slider, set its value to 129.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "RIGHT",
+      "keystroke": "Right Arrow"
+    },
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Value '129' is conveyed"
+    }
+  ]
+}

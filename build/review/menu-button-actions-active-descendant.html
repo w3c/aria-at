@@ -18,8 +18,10 @@
       }
 
     </style>
-    <script>
-      const filterATs = function(button) {
+    <script type="module">
+      import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
+
+      window.filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
@@ -48,27 +50,29 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
           }
-        }
-      }
 
-      function executeScriptInTestPage(setupScriptName, testPageWindow) {
-        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-            || testPageWindow.document.readyState !== 'complete'
-        ) {
-          window.setTimeout(() => {
-            executeScriptInTestPage(setupScriptName, testPageWindow);
-          }, 100);
-          return;
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
+          }
         }
+      };
 
-        if (setupScriptName) {
-          var scripts = {
-            	checkFirstCheckbox: function(testPageDocument){
+      var scripts = {
+        	setFocusOnButton: function(testPageDocument){
+	// sets focus on the 'Trigger Alert' button
+	testPageDocument.querySelector('#alert-trigger').focus();
+},	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link after the 'Breadcrumb Example' link
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeFirstBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link before the 'WAI-ARIA Authoring Practices' link
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on the 'Breadcrumb Example' link
+	testPageDocument.querySelector('[aria-current="page"]').focus();
+},	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -132,7 +136,10 @@
 	let opt = testPageDocument.querySelector('#lb1-al');
 	let optTextLength = opt.textContent.length;
 	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);
+	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(
+	optTextLength,
+	optTextLength
+	);
 },	moveFocusToAlaskaInListbox: function(testPageDocument){
 	// expands the combobox, sets the combobox value to 'Alaska' and places focus on that option in the listbox popup
 	testPageDocument.defaultView.comboboxController.open();
@@ -273,6 +280,15 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	setFocusAfterRedSlider: function(testPageDocument){
+	// sets focus on a link after the Red slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRedSlider: function(testPageDocument){
+	// sets focus on a link before the Red slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnRedSlider: function(testPageDocument){
+	// sets focus on the 'Red' slider
+	testPageDocument.querySelector('[role="slider"].red').focus();
 },	openMenuAndSetFocusToFirstItem: function(testPageDocument){
 	// opens the menu, and sets focus on 'Action 1'
 	testPageDocument.defaultView.menuController.openPopup();
@@ -584,8 +600,20 @@
 },	setFocusAfterButton: function(testPageDocument){
 	// sets focus on a link after the button
 	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusAfterButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link after the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
+	testPageDocument.querySelector('#afterlink').focus();
 },	setFocusBeforeButton: function(testPageDocument){
 	// sets focus on a link before the button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusBeforeButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link before the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	testPageDocument.querySelector('#beforelink').focus();
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
@@ -597,30 +625,26 @@
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
 }
-          };
+      };
 
-          scripts[setupScriptName](testPageWindow.document);
-        }
-      }
+      window.openTestPage = function(testPageUri, testNumber, setupScriptName) {
+        var openTestPageElement = document.getElementById('open-test-page-' + testNumber);
 
-      function openTestPage(testPageUri, testNumber, setupScriptName) {
-        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-        document.getElementById('open-test-page-' + testNumber).disabled = true;
-
-        // If the window is closed, re-enable open popup button
-        testPageWindow.onunload = function(event) {
-          window.setTimeout(() => {
-            if (testPageWindow.closed) {
-              testPageWindow = undefined;
-              document.getElementById('open-test-page-' + testNumber).disabled = false;
+        var testWindow = new TestWindow({
+          pageUri: testPageUri,
+          setupScriptName,
+          scripts,
+          hooks: {
+            windowOpened() {
+              openTestPageElement.disabled = true;
+            },
+            windowClosed() {
+              openTestPageElement.disabled = false;
             }
-          }, 100);
-
-        };
-
-        executeScriptInTestPage(setupScriptName, testPageWindow);
-      }
+          }
+        });
+        testWindow.open();
+      };
     </script>
   </head>
   <body>
@@ -635,12 +659,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate forwards to a menu button in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Navigate forwards to a menu button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-01-navigate-forwards-to-menu-button-reading.html?at=jaws">jaws</a></li>
@@ -655,8 +679,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 1, 'setFocusBeforeMenuButton');">Open Test 1 Page</button>
+      <button id="open-test-page-1" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusBeforeMenuButton.html', 1, 'setFocusBeforeMenuButton');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -714,12 +738,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate backwards to a menu button in reading mode</h2>
+    <h2 class="jaws nvda">Test 2: Navigate backwards to a menu button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-02-navigate-backwards-to-menu-button-reading.html?at=jaws">jaws</a></li>
@@ -734,8 +758,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 2, 'setFocusAfterMenuButton');">Open Test 2 Page</button>
+      <button id="open-test-page-2" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusAfterMenuButton.html', 2, 'setFocusAfterMenuButton');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -793,12 +817,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Navigate forwards to a menu button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 3: Navigate forwards to a menu button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-03-navigate-forwards-to-menu-button-interaction.html?at=jaws">jaws</a></li>
@@ -813,8 +837,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 3, 'setFocusBeforeMenuButton');">Open Test 3 Page</button>
+      <button id="open-test-page-3" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusBeforeMenuButton.html', 3, 'setFocusBeforeMenuButton');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -866,12 +890,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate backwards to a menu button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 4: Navigate backwards to a menu button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-04-navigate-backwards-to-menu-button-interaction.html?at=jaws">jaws</a></li>
@@ -886,8 +910,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 4, 'setFocusAfterMenuButton');">Open Test 4 Page</button>
+      <button id="open-test-page-4" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusAfterMenuButton.html', 4, 'setFocusAfterMenuButton');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -939,12 +963,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate forwards to a menu button</h2>
+    <h2 class="voiceover_macos">Test 5: Navigate forwards to a menu button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-05-navigate-forwards-to-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -958,8 +982,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 5, 'setFocusBeforeMenuButton');">Open Test 5 Page</button>
+      <button id="open-test-page-5" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusBeforeMenuButton.html', 5, 'setFocusBeforeMenuButton');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -988,12 +1012,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate backwards to a menu button</h2>
+    <h2 class="voiceover_macos">Test 6: Navigate backwards to a menu button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-06-navigate-backwards-to-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1007,8 +1031,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 6, 'setFocusAfterMenuButton');">Open Test 6 Page</button>
+      <button id="open-test-page-6" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusAfterMenuButton.html', 6, 'setFocusAfterMenuButton');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1037,12 +1061,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Read information about a menu button in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Read information about a menu button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-07-read-information-about-menu-button-reading.html?at=jaws">jaws</a></li>
@@ -1057,8 +1081,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 7, 'setFocusOnMenuButton');">Open Test 7 Page</button>
+      <button id="open-test-page-7" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusOnMenuButton.html', 7, 'setFocusOnMenuButton');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1112,12 +1136,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Read information about a menu button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 8: Read information about a menu button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-08-read-information-about-menu-button-interaction.html?at=jaws">jaws</a></li>
@@ -1132,8 +1156,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 8, 'setFocusOnMenuButton');">Open Test 8 Page</button>
+      <button id="open-test-page-8" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusOnMenuButton.html', 8, 'setFocusOnMenuButton');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1187,12 +1211,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Read information about a menu button</h2>
+    <h2 class="voiceover_macos">Test 9: Read information about a menu button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-09-read-information-about-menu-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1206,8 +1230,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 9, 'setFocusOnMenuButton');">Open Test 9 Page</button>
+      <button id="open-test-page-9" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusOnMenuButton.html', 9, 'setFocusOnMenuButton');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1235,12 +1259,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 10: Open a menu in reading mode</h2>
+    <h2 class="jaws nvda">Test 10: Open a menu in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-10-open-menu-reading.html?at=jaws">jaws</a></li>
@@ -1258,8 +1282,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 10, 'setFocusOnMenuButton');">Open Test 10 Page</button>
+      <button id="open-test-page-10" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusOnMenuButton.html', 10, 'setFocusOnMenuButton');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1321,12 +1345,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 11: Open a menu in interaction mode</h2>
+    <h2 class="jaws nvda">Test 11: Open a menu in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-11-open-menu-interaction.html?at=jaws">jaws</a></li>
@@ -1344,8 +1368,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 11, 'setFocusOnMenuButton');">Open Test 11 Page</button>
+      <button id="open-test-page-11" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusOnMenuButton.html', 11, 'setFocusOnMenuButton');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1409,12 +1433,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Open a menu</h2>
+    <h2 class="voiceover_macos">Test 12: Open a menu</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-12-open-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1430,8 +1454,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 12, 'setFocusOnMenuButton');">Open Test 12 Page</button>
+      <button id="open-test-page-12" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusOnMenuButton.html', 12, 'setFocusOnMenuButton');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1465,12 +1489,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 13: Open a menu to the last item in interaction mode</h2>
+    <h2 class="jaws nvda">Test 13: Open a menu to the last item in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-13-open-menu-to-last-item-interaction.html?at=jaws">jaws</a></li>
@@ -1488,8 +1512,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 13, 'setFocusOnMenuButton');">Open Test 13 Page</button>
+      <button id="open-test-page-13" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusOnMenuButton.html', 13, 'setFocusOnMenuButton');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1549,12 +1573,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 14: Open a menu to the last item</h2>
+    <h2 class="voiceover_macos">Test 14: Open a menu to the last item</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-14-open-menu-to-last-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1571,8 +1595,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 14, 'setFocusOnMenuButton');">Open Test 14 Page</button>
+      <button id="open-test-page-14" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.setFocusOnMenuButton.html', 14, 'setFocusOnMenuButton');">Open Test 14 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1603,12 +1627,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 15: Read information about a menu item in interaction mode</h2>
+    <h2 class="jaws nvda">Test 15: Read information about a menu item in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-15-read-information-about-menu-item-interaction.html?at=jaws">jaws</a></li>
@@ -1624,8 +1648,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 15, 'openMenuAndSetFocusToFirstItem');">Open Test 15 Page</button>
+      <button id="open-test-page-15" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html', 15, 'openMenuAndSetFocusToFirstItem');">Open Test 15 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1683,12 +1707,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Read information about a menu item</h2>
+    <h2 class="voiceover_macos">Test 16: Read information about a menu item</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-16-read-information-about-menu-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1703,8 +1727,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 16, 'openMenuAndSetFocusToFirstItem');">Open Test 16 Page</button>
+      <button id="open-test-page-16" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html', 16, 'openMenuAndSetFocusToFirstItem');">Open Test 16 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1734,12 +1758,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 17: Navigate to the first item in a menu in interaction mode</h2>
+    <h2 class="jaws nvda">Test 17: Navigate to the first item in a menu in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-17-navigate-to-first-item-in-menu-interaction.html?at=jaws">jaws</a></li>
@@ -1755,8 +1779,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 17, 'openMenuAndSetFocusToLastItem');">Open Test 17 Page</button>
+      <button id="open-test-page-17" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToLastItem.html', 17, 'openMenuAndSetFocusToLastItem');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1814,12 +1838,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 18: Navigate to the first item in a menu</h2>
+    <h2 class="voiceover_macos">Test 18: Navigate to the first item in a menu</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-18-navigate-to-first-item-in-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1834,8 +1858,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 18, 'openMenuAndSetFocusToLastItem');">Open Test 18 Page</button>
+      <button id="open-test-page-18" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToLastItem.html', 18, 'openMenuAndSetFocusToLastItem');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1865,12 +1889,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 19: Navigate to the last item in a menu in interaction mode</h2>
+    <h2 class="jaws nvda">Test 19: Navigate to the last item in a menu in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-19-navigate-to-last-item-in-menu-interaction.html?at=jaws">jaws</a></li>
@@ -1886,8 +1910,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 19, 'openMenuAndSetFocusToFirstItem');">Open Test 19 Page</button>
+      <button id="open-test-page-19" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html', 19, 'openMenuAndSetFocusToFirstItem');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1945,12 +1969,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 20: Navigate to the last item in a menu</h2>
+    <h2 class="voiceover_macos">Test 20: Navigate to the last item in a menu</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-20-navigate-to-last-item-in-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1965,8 +1989,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 20, 'openMenuAndSetFocusToFirstItem');">Open Test 20 Page</button>
+      <button id="open-test-page-20" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html', 20, 'openMenuAndSetFocusToFirstItem');">Open Test 20 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1996,12 +2020,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 21: Navigate to an item in a menu by typing a character in interaction mode</h2>
+    <h2 class="jaws nvda">Test 21: Navigate to an item in a menu by typing a character in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-21-navigate-to-item-in-menu-by-typing-character-interaction.html?at=jaws">jaws</a></li>
@@ -2017,8 +2041,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 21, 'openMenuAndSetFocusToFirstItem');">Open Test 21 Page</button>
+      <button id="open-test-page-21" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html', 21, 'openMenuAndSetFocusToFirstItem');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2074,12 +2098,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 22: Navigate to an item in a menu by typing a character</h2>
+    <h2 class="voiceover_macos">Test 22: Navigate to an item in a menu by typing a character</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-22-navigate-to-item-in-menu-by-typing-character-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2094,8 +2118,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 22, 'openMenuAndSetFocusToFirstItem');">Open Test 22 Page</button>
+      <button id="open-test-page-22" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html', 22, 'openMenuAndSetFocusToFirstItem');">Open Test 22 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2124,12 +2148,12 @@
             <tr><td>required</td><td>Number of items in the menu (4) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 23: Activate a menu item in interaction mode</h2>
+    <h2 class="jaws nvda">Test 23: Activate a menu item in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-23-activate-menu-item-interaction.html?at=jaws">jaws</a></li>
@@ -2144,8 +2168,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 23, 'openMenuAndSetFocusToFirstItem');">Open Test 23 Page</button>
+      <button id="open-test-page-23" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html', 23, 'openMenuAndSetFocusToFirstItem');">Open Test 23 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2197,12 +2221,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 24: Activate a menu item</h2>
+    <h2 class="voiceover_macos">Test 24: Activate a menu item</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-24-activate-menu-item-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2216,8 +2240,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 24, 'openMenuAndSetFocusToFirstItem');">Open Test 24 Page</button>
+      <button id="open-test-page-24" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html', 24, 'openMenuAndSetFocusToFirstItem');">Open Test 24 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2245,12 +2269,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 25: Close a menu in interaction mode</h2>
+    <h2 class="jaws nvda">Test 25: Close a menu in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-25-close-menu-interaction.html?at=jaws">jaws</a></li>
@@ -2265,8 +2289,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-25"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 25, 'openMenuAndSetFocusToFirstItem');">Open Test 25 Page</button>
+      <button id="open-test-page-25" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html', 25, 'openMenuAndSetFocusToFirstItem');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2318,12 +2342,12 @@
             <tr><td>required</td><td>Name &#39;Actions&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 26: Close a menu</h2>
+    <h2 class="voiceover_macos">Test 26: Close a menu</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Sat Oct 23 12:45:47 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/menu-button-actions-active-descendant/test-26-close-menu-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2337,8 +2361,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-26"
-        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.html', 26, 'openMenuAndSetFocusToFirstItem');">Open Test 26 Page</button>
+      <button id="open-test-page-26" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;menu-button-actions-active-descendant&#x2F;reference&#x2F;2021-1-14_171136&#x2F;menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html', 26, 'openMenuAndSetFocusToFirstItem');">Open Test 26 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>

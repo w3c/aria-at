@@ -33,7 +33,7 @@
     "setupScript": {
       "name": "setFocusOnSliderAndSetValueToFive",
       "description": "sets focus on the slider",
-      "source": "// sets focus on the slider, and sets its value to five stars\nlet slider = testPageDocument.querySelector('[role=\"slider\"]');\nslider.setAttribute('aria-valuenow', '5');\nslider.setAttribute('aria-valuetext', 'five stars');\nslider.focus();\n",
+      "source": "// sets focus on the slider, and sets its value to five stars\nlet slider = testPageDocument.querySelector('[role=\"slider\"]');\nslider.setAttribute('aria-valuenow', '5');\nslider.setAttribute('aria-valuetext', 'five of five stars');\nslider.focus();\n",
       "modulePath": "scripts/setFocusOnSliderAndSetValueToFive.module.js",
       "jsonpPath": "scripts/setFocusOnSliderAndSetValueToFive.jsonp.js"
     }

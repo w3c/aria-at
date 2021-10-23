@@ -29,7 +29,7 @@
     "setupScript": {
       "name": "setFocusOnSliderAndSetValueToOneHalfStar",
       "description": "sets focus on the slider, and sets its value to one half star",
-      "source": "// sets focus on the slider, and sets its value to one half star\nlet slider = testPageDocument.querySelector('[role=\"slider\"]');\nslider.setAttribute('aria-valuenow', '0.5');\nslider.setAttribute('aria-valuetext', 'one half star');\nslider.focus();\n",
+      "source": "// sets focus on the slider, and sets its value to one half star\nlet slider = testPageDocument.querySelector('[role=\"slider\"]');\nslider.setAttribute('aria-valuenow', '0.5');\nslider.setAttribute('aria-valuetext', 'one half of five stars');\nslider.focus();\n",
       "modulePath": "scripts/setFocusOnSliderAndSetValueToOneHalfStar.module.js",
       "jsonpPath": "scripts/setFocusOnSliderAndSetValueToOneHalfStar.jsonp.js"
     }

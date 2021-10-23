@@ -1,0 +1,20 @@
+{
+  "setup_script_description": "sets focus on the slider",
+  "setupTestPage": "setFocusOnSliderAndSetValueToFive",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "decrement slider to minimum value",
+  "specific_user_instruction": "With focus on the 'Rating' slider, set its value to zero stars.",
+  "output_assertions": [
+    [
+      "1",
+      "Textual value 'zero stars' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '0' is not conveyed"
+    ]
+  ]
+}

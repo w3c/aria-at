@@ -1,0 +1,100 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "read information about slider",
+    "title": "Read information about a slider in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-rating.html"
+      },
+      {
+        "refId": "slider",
+        "value": "https://w3c.github.io/aria/#slider"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuetext",
+        "value": "https://w3c.github.io/aria/#aria-valuetext"
+      },
+      {
+        "refId": "aria-valuemin",
+        "value": "https://w3c.github.io/aria/#aria-valuemin"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-9-21_13436/slider-rating.setFocusOnSlider.html",
+    "setupScript": {
+      "name": "setFocusOnSlider",
+      "description": "sets focus on the slider",
+      "source": "// sets focus on the slider\ntestPageDocument.querySelector('[role=\"slider\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Rating' slider, read information about the slider."
+    ],
+    "raw": "With the reading cursor on the 'Rating' slider, read information about the slider.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab"
+    },
+    {
+      "id": "INS_UP",
+      "keystroke": "Insert+Up"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'slider' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Rating' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Textual value 'zero of five stars' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Numeric value '0' is not conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Orientation 'horizontal' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Minimum value '0' is not conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Maximum value '5' is not conveyed"
+    }
+  ]
+}

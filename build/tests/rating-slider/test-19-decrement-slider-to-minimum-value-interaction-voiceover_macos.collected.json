@@ -1,0 +1,64 @@
+{
+  "info": {
+    "testId": 19,
+    "task": "decrement slider to minimum value",
+    "title": "Decrement a slider to the minimum value",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-rating.html"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuetext",
+        "value": "https://w3c.github.io/aria/#aria-valuetext"
+      },
+      {
+        "refId": "aria-valuemin",
+        "value": "https://w3c.github.io/aria/#aria-valuemin"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-9-21_13436/slider-rating.setFocusOnSliderAndSetValueToFive.html",
+    "setupScript": {
+      "name": "setFocusOnSliderAndSetValueToFive",
+      "description": "sets focus on the slider",
+      "source": "// sets focus on the slider, and sets its value to five stars\nlet slider = testPageDocument.querySelector('[role=\"slider\"]');\nslider.setAttribute('aria-valuenow', '5');\nslider.setAttribute('aria-valuetext', 'five of five stars');\nslider.focus();\n",
+      "modulePath": "scripts/setFocusOnSliderAndSetValueToFive.module.js",
+      "jsonpPath": "scripts/setFocusOnSliderAndSetValueToFive.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Rating' slider, set its value to zero stars."
+    ],
+    "raw": "With focus on the 'Rating' slider, set its value to zero stars.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "HOME",
+      "keystroke": "Home"
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Textual value 'zero stars' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Numeric value '0' is not conveyed"
+    }
+  ]
+}

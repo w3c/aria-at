@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a slider in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/slider/slider-color-viewer.html">
+<link rel="help" href="https://w3c.github.io/aria/#slider">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemin">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemax">
+
+<script>
+  var scripts = {
+		setFocusAfterRedSlider: function(testPageDocument){
+			// sets focus on a link after the Red slider
+			testPageDocument.querySelector('#afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link after the Red slider",
+  "setupTestPage": "setFocusAfterRedSlider",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to slider",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Red' slider.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'slider' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Red' is conveyed"
+    ],
+    [
+      "1",
+      "Value '128' is conveyed"
+    ],
+    [
+      "1",
+      "Orientation 'horizontal' is conveyed"
+    ],
+    [
+      "2",
+      "Minimum value '0' is conveyed"
+    ],
+    [
+      "2",
+      "Maximum value '255' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to slider": {
+    "reading": {
+      "jaws": [ [ "UP,UP" ], [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "UP,UP" ], [ "SHIFT_TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+        ],
+        [ "SHIFT_TAB" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\2021-9-28_15392\slider-color-viewer.setFocusAfterRedSlider.html");
+  });
+</script>
+  

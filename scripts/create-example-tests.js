@@ -5,9 +5,12 @@
 /// <reference path="../lib/util/file-record-types.js" />
 
 'use strict';
-const fs = require('fs');
+
 const path = require('path');
 const { Readable } = require('stream');
+const {
+  types: { isArrayBufferView, isArrayBuffer },
+} = require('util');
 
 const csv = require('csv-parser');
 const beautify = require('json-beautify');
@@ -19,13 +22,14 @@ const { FileRecordChain } = require('../lib/util/file-record-chain');
 
 const { parseSupport } = require('../lib/data/parse-support');
 const { parseTestCSVRow } = require('../lib/data/parse-test-csv-row');
+const { parseCommandCSVRow } = require('../lib/data/parse-command-csv-row');
+const {
+  createCommandTuplesATModeTaskLookup,
+} = require('../lib/data/command-tuples-at-mode-task-lookup');
 
 const {
   renderHTML: renderCollectedTestHtml,
 } = require('../lib/data/templates/collected-test.html');
-const {
-  types: { isArrayBufferView, isArrayBuffer },
-} = require('util');
 const { createExampleScriptsTemplate } = require('../lib/data/example-scripts-template');
 
 /**
@@ -180,84 +184,8 @@ const createExampleTests = async ({ directory, args = {} }) => {
     log.warning(err);
   }
 
-  // delete test files
-  var deleteFilesFromDirectory = function (dirPath) {
-    try {
-      var files = fs.readdirSync(dirPath);
-    } catch (e) {
-      return;
-    }
-    if (files.length > 0) {
-      for (var i = 0; i < files.length; i++) {
-        var filePath = dirPath + '/' + files[i];
-        if (fs.statSync(filePath).isFile()) {
-          fs.unlinkSync(filePath);
-        }
-      }
-    }
-  };
-
   function cleanTask(task) {
     return task.replace(/'/g, '').replace(/;/g, '').trim().toLowerCase();
-  }
-
-  /**
-   * Create AT commands file
-   * @param commands
-   * @returns {{}}
-   */
-  function createATCommandFile(commands, { emitFile }) {
-    const testPlanAtCommandsJsonFilePath = path.join(testPlanBuildDirectory, 'commands.json');
-    let data = {};
-
-    function addCommand(task, mode, at, key) {
-      task = cleanTask(task);
-      mode = mode.trim().toLowerCase();
-      at = at.trim().toLowerCase();
-
-      if (typeof key !== 'string' || key.length === 0) {
-        return;
-      }
-
-      if (typeof data[task] !== 'object') {
-        data[task] = {};
-      }
-
-      if (typeof data[task][mode] !== 'object') {
-        data[task][mode] = {};
-      }
-
-      if (typeof data[task][mode][at] !== 'object') {
-        data[task][mode][at] = [];
-      }
-
-      let items = key.split('(');
-
-      items[0] = items[0].trim();
-
-      if (typeof keyDefs[items[0]] !== 'string') {
-        addCommandError(task, items[0]);
-      }
-
-      if (items.length === 2) {
-        items[1] = '(' + items[1].trim();
-      }
-
-      data[task][mode][at].push(items);
-    }
-
-    commands.forEach(function (command) {
-      addCommand(command.task, command.mode, command.at, command.commandA);
-      addCommand(command.task, command.mode, command.at, command.commandB);
-      addCommand(command.task, command.mode, command.at, command.commandC);
-      addCommand(command.task, command.mode, command.at, command.commandD);
-      addCommand(command.task, command.mode, command.at, command.commandE);
-      addCommand(command.task, command.mode, command.at, command.commandF);
-    });
-
-    emitFile(testPlanAtCommandsJsonFilePath, beautify(data, null, 2, 40));
-
-    return data;
   }
 
   /**
@@ -761,9 +689,11 @@ ${rows}
   ];
   files.forEach(file => emitFile(file.path, file.content));
 
-  const atCommandsMap = createATCommandFile(atCommands, {
-    emitFile,
-  });
+  const atCommandsMap = createCommandTuplesATModeTaskLookup(commandsValidated);
+  emitFile(
+    path.join(testPlanBuildDirectory, 'commands.json'),
+    beautify(atCommandsMap, null, 2, 40)
+  );
 
   log('Creating the following test files: ');
   tests.forEach(function (test) {
@@ -950,45 +880,6 @@ function createScriptFiles(scripts, testPlanBuildDirectory) {
 }
 
 /**
- * @param {AriaATCSV.Command} commandRow
- * @returns {AriaATParsed.Command}
- */
-function parseCommandCSVRow(commandRow) {
-  return {
-    testId: Number(commandRow.testId),
-    task: commandRow.task.replace(/[';]/g, '').trim().toLowerCase(),
-    target: {
-      at: {
-        key: commandRow.at.trim().toLowerCase(),
-        raw: commandRow.at,
-      },
-      mode: commandRow.mode.trim().toLowerCase(),
-    },
-    commands: [
-      commandRow.commandA,
-      commandRow.commandB,
-      commandRow.commandC,
-      commandRow.commandD,
-      commandRow.commandE,
-      commandRow.commandF,
-    ]
-      .filter(Boolean)
-      .map(command => {
-        const paranIndex = command.indexOf('(');
-        if (paranIndex >= 0) {
-          return {
-            id: command.substring(0, paranIndex).trim(),
-            extraInstruction: command.substring(paranIndex).trim(),
-          };
-        }
-        return {
-          id: command.trim(),
-        };
-      }),
-  };
-}
-
-/**
  * @param {Object<string, string>} keyLines
  * @returns {AriaATParsed.KeyMap}
  */
@@ -1034,14 +925,19 @@ function validateCommand(commandParsed, data, { addCommandError = () => {} } = {
         })),
       },
     },
-    commands: commandParsed.commands.map(command => {
-      const key = data.key.where({ id: command.id });
-      if (!key) {
-        addCommandError(commandParsed.task, command.id);
-      }
+    commands: commandParsed.commands.map(({ id, keypresses: commandKeypresses, ...rest }) => {
+      const keypresses = commandKeypresses.map(keypress => {
+        const key = data.key.where(keypress);
+        if (!key) {
+          addCommandError(commandParsed.task, keypress.id);
+        }
+        return key;
+      });
       return {
-        ...key,
-        ...command,
+        id: id,
+        keystroke: keypresses.map(({ keystroke }) => keystroke).join(', then '),
+        keypresses,
+        ...rest,
       };
     }),
   };

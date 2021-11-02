@@ -54,10 +54,33 @@
     "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
   },
   "commands": [
-    { "id": "DOWN,DOWN,DOWN" },
+    {
+      "id": "DOWN,DOWN,DOWN",
+      "keystroke": "Down Arrow, then Down Arrow, then Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        },
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        },
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     }
   ],
   "assertions": [

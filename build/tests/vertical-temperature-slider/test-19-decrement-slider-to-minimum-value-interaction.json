@@ -1,0 +1,20 @@
+{
+  "setup_script_description": "sets focus on the slider",
+  "setupTestPage": "setFocusOnSlider",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "decrement slider to minimum value",
+  "specific_user_instruction": "With focus on the 'Temperature' slider, set its value to 10.0 degrees Celsius.",
+  "output_assertions": [
+    [
+      "1",
+      "Textual value '10.0 degrees Celsius' is conveyed"
+    ],
+    [
+      "1",
+      "numeric value '10.0' is not conveyed"
+    ]
+  ]
+}

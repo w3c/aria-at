@@ -651,6 +651,15 @@
 	button.setAttribute('aria-pressed', 'true');
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
 }
       };
 
@@ -691,7 +700,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-01-navigate-to-first-breadcrumb-link-reading.html?at=jaws">jaws</a></li>
@@ -780,7 +789,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-02-navigate-to-last-breadcrumb-link-reading.html?at=jaws">jaws</a></li>
@@ -872,7 +881,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-03-navigate-to-first-breadcrumb-link-interaction.html?at=jaws">jaws</a></li>
@@ -953,7 +962,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-04-navigate-to-last-breadcrumb-link-interaction.html?at=jaws">jaws</a></li>
@@ -1037,7 +1046,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-05-navigate-to-first-breadcrumb-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1089,7 +1098,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-06-navigate-to-last-breadcrumb-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1143,7 +1152,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-07-read-information-about-breadcrumb-link-reading.html?at=jaws">jaws</a></li>
@@ -1221,7 +1230,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-08-read-information-about-breadcrumb-link-interaction.html?at=jaws">jaws</a></li>
@@ -1299,7 +1308,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/breadcrumb/test-09-read-information-about-breadcrumb-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

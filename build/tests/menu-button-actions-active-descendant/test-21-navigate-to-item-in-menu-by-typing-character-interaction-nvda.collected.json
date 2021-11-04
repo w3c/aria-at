@@ -41,7 +41,18 @@
     "raw": "With focus on the 'Action 1' menu item, type a character to navigate to a different menu item.",
     "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
   },
-  "commands": [ { "id": "A", "keystroke": "A" } ],
+  "commands": [
+    {
+      "id": "A",
+      "keystroke": "A",
+      "keypresses": [
+        {
+          "id": "A",
+          "keystroke": "A"
+        }
+      ]
+    }
+  ],
   "assertions": [
     {
       "priority": 2,

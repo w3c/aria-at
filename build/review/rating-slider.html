@@ -651,6 +651,15 @@
 	button.setAttribute('aria-pressed', 'true');
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
 }
       };
 
@@ -691,7 +700,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-01-navigate-forwards-to-slider-reading.html?at=jaws">jaws</a></li>
@@ -781,7 +790,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-02-navigate-backwards-to-slider-reading.html?at=jaws">jaws</a></li>
@@ -871,7 +880,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-03-navigate-forwards-to-slider-interaction.html?at=jaws">jaws</a></li>
@@ -959,7 +968,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-04-navigate-backwards-to-slider-interaction.html?at=jaws">jaws</a></li>
@@ -1047,7 +1056,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-05-navigate-forwards-to-slider-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1105,7 +1114,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-06-navigate-backwards-to-slider-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1163,7 +1172,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-07-read-information-about-slider-reading.html?at=jaws">jaws</a></li>
@@ -1253,7 +1262,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-08-read-information-about-slider-interaction.html?at=jaws">jaws</a></li>
@@ -1343,7 +1352,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-09-read-information-about-slider-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1401,7 +1410,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-10-increment-slider-by-one-half-star-interaction.html?at=jaws">jaws</a></li>
@@ -1477,7 +1486,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-11-increment-slider-by-one-half-star-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1526,11 +1535,11 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: </li>
         <li>Tests:
           <ul>
-              <li><a href="../tests/rating-slider/test-12-decrement-slider-by-one-half-star-in-interaction-mode-interaction.html?at=jaws">jaws</a></li>
-              <li><a href="../tests/rating-slider/test-12-decrement-slider-by-one-half-star-in-interaction-mode-interaction.html?at=nvda">nvda</a></li>
+              <li><a href="../tests/rating-slider/test-12-decrement-slider-by-one-half-star-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/rating-slider/test-12-decrement-slider-by-one-half-star-interaction.html?at=nvda">nvda</a></li>
           </ul>
         </li>
         <li>Relevant Specifications:
@@ -1558,7 +1567,8 @@
              <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
              <li>With focus on the &#39;Rating&#39; slider, set its value to zero stars. using the following commands:
                <ul>
-                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>Left Arrow</li>
+                   <li>Down Arrow</li>
                </ul>
              </li>
           </ol>
@@ -1583,7 +1593,8 @@
              <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
              <li>With focus on the &#39;Rating&#39; slider, set its value to zero stars. using the following commands:
                <ul>
-                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>Left Arrow</li>
+                   <li>Down Arrow</li>
                </ul>
              </li>
           </ol>
@@ -1600,7 +1611,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-13-decrement-slider-by-one-half-star-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1649,11 +1660,11 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: </li>
         <li>Tests:
           <ul>
-              <li><a href="../tests/rating-slider/test-14-increment-slider-by-one-star-in-interaction-mode-interaction.html?at=jaws">jaws</a></li>
-              <li><a href="../tests/rating-slider/test-14-increment-slider-by-one-star-in-interaction-mode-interaction.html?at=nvda">nvda</a></li>
+              <li><a href="../tests/rating-slider/test-14-increment-slider-by-one-star-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/rating-slider/test-14-increment-slider-by-one-star-interaction.html?at=nvda">nvda</a></li>
           </ul>
         </li>
         <li>Relevant Specifications:
@@ -1681,7 +1692,7 @@
              <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
              <li>With focus on the &#39;Rating&#39; slider, set its value to one star. using the following commands:
                <ul>
-                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>Page Up</li>
                </ul>
              </li>
           </ol>
@@ -1706,7 +1717,7 @@
              <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
              <li>With focus on the &#39;Rating&#39; slider, set its value to one star. using the following commands:
                <ul>
-                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>Page Up</li>
                </ul>
              </li>
           </ol>
@@ -1723,7 +1734,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-15-increment-slider-by-one-star-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1771,11 +1782,11 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: </li>
         <li>Tests:
           <ul>
-              <li><a href="../tests/rating-slider/test-16-decrement-slider-by-one-star-in-interaction-mode-interaction.html?at=jaws">jaws</a></li>
-              <li><a href="../tests/rating-slider/test-16-decrement-slider-by-one-star-in-interaction-mode-interaction.html?at=nvda">nvda</a></li>
+              <li><a href="../tests/rating-slider/test-16-decrement-slider-by-one-star-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/rating-slider/test-16-decrement-slider-by-one-star-interaction.html?at=nvda">nvda</a></li>
           </ul>
         </li>
         <li>Relevant Specifications:
@@ -1803,7 +1814,7 @@
              <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
              <li>With focus on the &#39;Rating&#39; slider, set its value to zero stars. using the following commands:
                <ul>
-                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>Page Down</li>
                </ul>
              </li>
           </ol>
@@ -1828,7 +1839,7 @@
              <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
              <li>With focus on the &#39;Rating&#39; slider, set its value to zero stars. using the following commands:
                <ul>
-                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>Page Down</li>
                </ul>
              </li>
           </ol>
@@ -1845,7 +1856,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-17-decrement-slider-by-one-star-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1893,11 +1904,11 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: </li>
         <li>Tests:
           <ul>
-              <li><a href="../tests/rating-slider/test-18-decrement-slider-to-minimum-value-in-interaction-mode-interaction.html?at=jaws">jaws</a></li>
-              <li><a href="../tests/rating-slider/test-18-decrement-slider-to-minimum-value-in-interaction-mode-interaction.html?at=nvda">nvda</a></li>
+              <li><a href="../tests/rating-slider/test-18-decrement-slider-to-minimum-value-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/rating-slider/test-18-decrement-slider-to-minimum-value-interaction.html?at=nvda">nvda</a></li>
           </ul>
         </li>
         <li>Relevant Specifications:
@@ -1926,7 +1937,7 @@
              <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
              <li>With focus on the &#39;Rating&#39; slider, set its value to zero stars. using the following commands:
                <ul>
-                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>Home</li>
                </ul>
              </li>
           </ol>
@@ -1951,7 +1962,7 @@
              <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
              <li>With focus on the &#39;Rating&#39; slider, set its value to zero stars. using the following commands:
                <ul>
-                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>Home</li>
                </ul>
              </li>
           </ol>
@@ -1968,7 +1979,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-19-decrement-slider-to-minimum-value-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2017,11 +2028,11 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: </li>
         <li>Tests:
           <ul>
-              <li><a href="../tests/rating-slider/test-20-increment-slider-to-maximum-value-in-interaction-mode-interaction.html?at=jaws">jaws</a></li>
-              <li><a href="../tests/rating-slider/test-20-increment-slider-to-maximum-value-in-interaction-mode-interaction.html?at=nvda">nvda</a></li>
+              <li><a href="../tests/rating-slider/test-20-increment-slider-to-maximum-value-interaction.html?at=jaws">jaws</a></li>
+              <li><a href="../tests/rating-slider/test-20-increment-slider-to-maximum-value-interaction.html?at=nvda">nvda</a></li>
           </ul>
         </li>
         <li>Relevant Specifications:
@@ -2050,7 +2061,7 @@
              <li>Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z.</li>
              <li>With focus on the &#39;Rating&#39; slider, set its value to five stars. using the following commands:
                <ul>
-                   <li>No commands have been added for this test for JAWS. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>End</li>
                </ul>
              </li>
           </ol>
@@ -2075,7 +2086,7 @@
              <li>If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on.</li>
              <li>With focus on the &#39;Rating&#39; slider, set its value to five stars. using the following commands:
                <ul>
-                   <li>No commands have been added for this test for NVDA. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+                   <li>End</li>
                </ul>
              </li>
           </ol>
@@ -2092,7 +2103,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Nov 4 18:29:21 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/rating-slider/test-21-increment-slider-to-maximum-value-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

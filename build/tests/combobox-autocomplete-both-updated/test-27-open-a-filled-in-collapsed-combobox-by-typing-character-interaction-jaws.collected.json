@@ -37,7 +37,18 @@
     "raw": "With focus on the combobox, open the combobox without moving into the listbox popup.",
     "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
   },
-  "commands": [ { "id": "L", "keystroke": "L" } ],
+  "commands": [
+    {
+      "id": "L",
+      "keystroke": "L",
+      "keypresses": [
+        {
+          "id": "L",
+          "keystroke": "L"
+        }
+      ]
+    }
+  ],
   "assertions": [
     {
       "priority": 1,

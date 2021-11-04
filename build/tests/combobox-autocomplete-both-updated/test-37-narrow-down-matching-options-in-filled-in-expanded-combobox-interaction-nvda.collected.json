@@ -33,7 +33,18 @@
     "raw": "With focus on the combobox, type a character to narrow down the number of matching options in the listbox popup.",
     "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
   },
-  "commands": [ { "id": "L", "keystroke": "L" } ],
+  "commands": [
+    {
+      "id": "L",
+      "keystroke": "L",
+      "keypresses": [
+        {
+          "id": "L",
+          "keystroke": "L"
+        }
+      ]
+    }
+  ],
   "assertions": [
     {
       "priority": 1,

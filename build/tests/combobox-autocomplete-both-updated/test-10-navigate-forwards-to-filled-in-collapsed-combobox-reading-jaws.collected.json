@@ -46,16 +46,55 @@
     "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
   },
   "commands": [
-    { "id": "F", "keystroke": "F" },
-    { "id": "E", "keystroke": "E" },
-    { "id": "C", "keystroke": "C" },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "keystroke": "E",
+      "keypresses": [
+        {
+          "id": "E",
+          "keystroke": "E"
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "keystroke": "C",
+      "keypresses": [
+        {
+          "id": "C",
+          "keystroke": "C"
+        }
+      ]
+    },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

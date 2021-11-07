@@ -25,39 +25,35 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 ## APG Design Patterns
 
 <details>
-	<summary>All APG Design Patterns with at Least one Corresponding ARIA-AT Test Plan</summary>
+<summary>All APG Design Patterns with at Least one Corresponding ARIA-AT Test Plan</summary>
 
-	<ul>
-		<li>TODO</li>
-	</ul>
+* TODO
+
 </details>
 
 ## APG Examples
 
 <details>
-	<summary>All APG Examples with at Least one Corresponding ARIA-AT Test Plan</summary>
+<summary>All APG Examples with at Least one Corresponding ARIA-AT Test Plan</summary>
 
-	<ul>
-		<li>TODO</li>
-	</ul>
+* TODO
+
 </details>
 
 ## ARIA Roles
 
 <details>
-	<summary>All ARIA Roles Targeted by at Least one ARIA-AT Assertion</summary>
+<summary>All ARIA Roles Targeted by at Least one ARIA-AT Assertion</summary>
 
-	<ul>
-		<li>TODO</li>
-	</ul>
+* TODO
+
 </details>
 
 ## ARIA States and Properties
 
 <details>
-	<summary>All ARIA States and Properties Targeted by at Least one ARIA-AT Assertion</summary>
+<summary>All ARIA States and Properties Targeted by at Least one ARIA-AT Assertion</summary>
 
-	<ul>
-		<li>TODO</li>
-	</ul>
+* TODO
+
 </details>

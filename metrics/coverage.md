@@ -9,12 +9,12 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 
 ## Project Coverage at a Glance
 
-|Metric|Tested (Count)|Tested (Percent)|Total|
-|---|---|---|---|
-|APG Design Patterns|-|-|-|
-|APG Examples|-|-|-|
-|ARIA Roles|-|-|-|
-|ARIA States and Properties|-|-|-|
+|Metric|Tested (Count)|Tested (Percent)|Total|Notes|
+|---|---|---|---|---|
+|APG Design Patterns|20|66.67%|30|Including "Landmark Regions" section as a single pattern|
+|APG Examples|-|-|-|Including individual landmark region examples|
+|ARIA Roles|-|-|-|N/A|
+|ARIA States and Properties|-|-|-|N/A|
 
 ## Project Statistics
 
@@ -27,7 +27,26 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 <details>
 <summary>All APG Design Patterns with at Least one Corresponding ARIA-AT Test Plan</summary>
 
-* TODO
+* Accordion
+* Alert
+* Breadcrumb
+* Button
+* Checkbox
+* Combobox
+* Dialog
+* Disclosure
+* Grid
+* Landmark Regions
+* Link
+* Listbox
+* Menu/Menu bar
+* Menu Button
+* Radio Group
+* Slider
+* Slider (Multi-Thumb)
+* Spinbutton
+* Switch
+* Tabs
 
 </details>
 

@@ -1,6 +1,6 @@
 # ARIA-AT Project Coverage
 
-This document outlines the degree of WAI-ARIA specification coverage by the current test plans within the ARIA-AT project. The following shorthand terminology is used without:
+This document outlines the WAI-ARIA specification coverage by the current test plans within the ARIA-AT project. The following shorthand terminology is used throughout:
 
 * ARIA: the [Accessible Rich Internet Applications (WAI-ARIA) specification](https://w3c.github.io/aria/).
 * APG: the [WAI-ARIA Authoring Practices guide](https://w3c.github.io/aria-practices/).

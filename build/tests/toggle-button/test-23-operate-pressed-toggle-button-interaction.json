@@ -1,0 +1,17 @@
+{
+  "setup_script_description": "sets focus on the button, and sets its state to 'pressed'",
+  "setupTestPage": "setFocusOnButtonAndSetStateToPressed",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "operate pressed toggle button",
+  "specific_user_instruction": "With focus on the 'Mute' button, activate the button.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state, to 'not pressed', is conveyed"
+    ]
+  ]
+}

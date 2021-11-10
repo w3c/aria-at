@@ -1,0 +1,15 @@
+# build folder
+/build/**/*.json        -diff -merge
+/build/**/*.html        linguist-generated=true
+/build/*.json           -diff -merge
+/build/*.html           linguist-generated=true
+/build/index.html       -diff -merge
+/build/index.html       linguist-generated=true
+/build/review/*.html    -diff -merge
+/build/review/*.html    linguist-generated=true
+/build/tests/*/*.html   -diff -merge
+/build/tests/*/*.html   linguist-generated=true
+/build/tests/*/*.json   -diff -merge
+/build/tests/*/*.json   linguist-generated=true
+/build/tests/*/*.mjs    -diff -merge
+/build/tests/*/*.mjs    linguist-generated=true

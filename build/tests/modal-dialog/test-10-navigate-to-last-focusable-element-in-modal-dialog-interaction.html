@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the last focusable element in a modal dialog in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html">
+
+<script>
+  var scripts = {
+		openAddDeliveryAddressDialogAndFocusFirstInput: function(testPageDocument){
+			// opens the 'Add Delivery Address' modal dialog, and sets focus on the first input
+			const btn = testPageDocument.querySelector('#ex1 > button');
+			testPageDocument.defaultView.openDialog('dialog1', btn);
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the first input",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusFirstInput",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate to last focusable element in modal dialog",
+  "specific_user_instruction": "With focus on the first focusable element inside a modal dialog, navigate to the last focusable element in the same dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Cancel' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to last focusable element in modal dialog": {
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [ [ "SHIFT_TAB" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-17_13353/dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html");
+  });
+</script>
+  

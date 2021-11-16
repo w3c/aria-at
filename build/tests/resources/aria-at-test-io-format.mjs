@@ -95,10 +95,12 @@ class KeysInput {
   /** @param {AriaATFile.CollectedTest} collectedTest */
   static fromCollectedTest(collectedTest) {
     return new KeysInput({
-      origin: "test.collected.json",
-      keys: collectedTest.commands.reduce((carry, {id, keystroke}) => {
-        carry[id] = keystroke;
-        return carry;
+      origin: 'test.collected.json',
+      keys: collectedTest.commands.reduce((carry, { keypresses }) => {
+        return keypresses.reduce((carry, { id, keystroke }) => {
+          carry[id] = keystroke;
+          return carry;
+        }, carry);
       }, {}),
       at: collectedTest.target.at.key,
       modeInstructions: collectedTest.instructions.mode,

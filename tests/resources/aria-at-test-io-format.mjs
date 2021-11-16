@@ -571,7 +571,7 @@ class BehaviorInput {
         modeInstructions: instructions.mode,
         appliesTo: [target.at.name],
         specificUserInstruction: instructions.raw,
-        setupScriptDescription: target.setupScript ? target.setupScript.description : undefined,
+        setupScriptDescription: target.setupScript ? target.setupScript.description : '',
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
         commands: commandsInput.getCommands(info.task, target.mode),
         assertions: assertions.map(({priority, expectation: assertion}) => ({

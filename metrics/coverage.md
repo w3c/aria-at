@@ -1,5 +1,7 @@
 # ARIA-AT Project Coverage
 
+Last updated: November 18, 2021
+
 This document outlines the WAI-ARIA specification coverage by the current test plans within the ARIA-AT project. The following shorthand terminology is used throughout:
 
 * ARIA: the [Accessible Rich Internet Applications (WAI-ARIA) specification](https://w3c.github.io/aria/).
@@ -18,8 +20,8 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 
 ## Project Statistics
 
-* Test plans: -
-* Tests across all plans: -
+* Test plans: 48
+* Tests across all plans: 1,305
 * Assertions across all tests: -
 
 ## APG Design Patterns

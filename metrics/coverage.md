@@ -2,7 +2,9 @@
 
 Last updated: November 18, 2021
 
-This document outlines the WAI-ARIA specification coverage by the current test plans within the ARIA-AT project. The following shorthand terminology is used throughout:
+This document outlines the WAI-ARIA specification coverage by the current test plans within the ARIA-AT project. Looking for other project-related materials?  You can view the [ARIA-AT App Test Queue](https://aria-at.w3.org/test-queue), the [ARIA-AT test result reports](https://aria-at.w3.org/reports), or the [collection of all current test plans](https://w3c.github.io/aria-at/build/).  Also see the [ARIA-AT App Home page, at aria-at.w3.org](https://aria-at.w3.org/).
+
+The following shorthand terminology is used throughout:
 
 * ARIA: the [Accessible Rich Internet Applications (WAI-ARIA) specification](https://w3c.github.io/aria/).
 * APG: the [WAI-ARIA Authoring Practices guide](https://w3c.github.io/aria-practices/).

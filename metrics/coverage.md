@@ -22,7 +22,7 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 
 * Test plans: 48
 * Tests across all plans: 1,260
-* Assertions across all tests: -
+* Assertions across all tests: 5,021
 
 ## APG Design Patterns
 

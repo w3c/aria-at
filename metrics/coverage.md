@@ -16,7 +16,7 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 |APG Design Patterns|20|66.67%|30|Including "Landmark Regions" section as a single pattern|
 |APG Examples|-|-|-|Including individual landmark region examples|
 |ARIA Roles|40|19.8%|202|Total includes abstract roles|
-|ARIA States and Properties|-|-|-|N/A|
+|ARIA States and Properties|22|41.5%|53|N/A|
 
 ## Project Statistics
 
@@ -114,6 +114,27 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 <details>
 <summary>All ARIA States and Properties Targeted by at Least one ARIA-AT Assertion</summary>
 
-* TODO
+* [aria-activedescendant](https://w3c.github.io/aria/#aria-activedescendant)
+* [aria-atomic](https://w3c.github.io/aria/#aria-atomic)
+* [aria-autocomplete](https://w3c.github.io/aria/#aria-autocomplete)
+* [aria-checked](https://w3c.github.io/aria/#aria-checked)
+* [aria-controls](https://w3c.github.io/aria/#aria-controls)
+* [aria-current](https://w3c.github.io/aria/#aria-current)
+* [aria-describedby](https://w3c.github.io/aria/#aria-describedby)
+* [aria-disabled](https://w3c.github.io/aria/#aria-disabled)
+* [aria-expanded](https://w3c.github.io/aria/#aria-expanded)
+* [aria-haspopup](https://w3c.github.io/aria/#aria-haspopup)
+* [aria-hidden](https://w3c.github.io/aria/#aria-hidden)
+* [aria-label](https://w3c.github.io/aria/#aria-label)
+* [aria-labelledby](https://w3c.github.io/aria/#aria-labelledby)
+* [aria-live](https://w3c.github.io/aria/#aria-live))
+* [aria-modal](https://w3c.github.io/aria/#aria-modal)
+* [aria-orientation](https://w3c.github.io/aria/#aria-orientation)
+* [aria-pressed](https://w3c.github.io/aria/#aria-pressed)
+* [aria-selected](https://w3c.github.io/aria/#aria-selected)
+* [aria-valuemax](https://w3c.github.io/aria/#aria-valuemax)
+* [aria-valuemin](https://w3c.github.io/aria/#aria-valuemin)
+* [aria-valuenow](https://w3c.github.io/aria/#aria-valuenow)
+* [aria-valuetext](https://w3c.github.io/aria/#aria-valuetext)
 
 </details>

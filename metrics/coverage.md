@@ -14,7 +14,7 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 |Metric|Tested (Count)|Tested (Percent)|Total|Notes|
 |---|---|---|---|---|
 |APG Design Patterns|20|66.67%|30|Including "Landmark Regions" section as a single pattern|
-|APG Examples|-|-|-|Including individual landmark region examples|
+|APG Examples|45|69.2%|65|Including individual landmark region examples|
 |ARIA Roles|40|39.6%|101|Total includes abstract roles|
 |ARIA States and Properties|22|41.5%|53|N/A|
 
@@ -57,7 +57,51 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 <details>
 <summary>All APG Examples with at Least one Corresponding ARIA-AT Test Plan</summary>
 
-* TODO
+* [Accordion Example](https://w3c.github.io/aria-practices/examples/accordion/accordion.html)
+* [Action Menu Button Example Using aria-activedescendant](https://w3c.github.io/aria-practices/examples/menu-button/menu-button-actions-active-descendant.html)
+* [Action Menu Button Example Using element.focus()](https://w3c.github.io/aria-practices/examples/menu-button/menu-button-actions.html)
+* [Alert Example](https://w3c.github.io/aria-practices/examples/alert/alert.html)
+* [Banner Landmark Example](https://w3c.github.io/aria-practices/examples/landmarks/banner.html)
+* [Breadcrumb design pattern example](https://w3c.github.io/aria-practices/examples/breadcrumb/index.html)
+* [Button Examples](https://w3c.github.io/aria-practices/examples/button/button.html)
+* [Checkbox (Mixed-State) Example](https://w3c.github.io/aria-practices/examples/checkbox/checkbox-mixed.html)
+* [Checkbox (Two-State) Example](https://w3c.github.io/aria-practices/examples/checkbox/checkbox.html)
+* [Color Viewer Slider Example](https://w3c.github.io/aria-practices/examples/slider/slider-color-viewer.html)
+* [Complementary Landmark Example](https://w3c.github.io/aria-practices/examples/landmarks/complementary.html)
+* [Contentinfo Landmark Example](https://w3c.github.io/aria-practices/examples/landmarks/contentinfo.html)
+* [Data Grid Examples](https://w3c.github.io/aria-practices/examples/grid/dataGrids.html)
+* [Date Picker Spin Button Example:](https://w3c.github.io/aria-practices/examples/spinbutton/datepicker-spinbuttons.html)
+* [Disclosure (Show/Hide) Navigation Menu with Top-Level Links](https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation-hybrid.html)
+* [Disclosure (Show/Hide) Navigation Menu](https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html)
+* [Disclosure (Show/Hide) of Answers to Frequently Asked Questions](https://w3c.github.io/aria-practices/examples/disclosure/disclosure-faq.html)
+* [Disclosure (Show/Hide) of Image Description](https://w3c.github.io/aria-practices/examples/disclosure/disclosure-image-description.html)
+* [Editable Combobox with Both List and Inline Autocomplete](https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html)
+* [Editable Combobox with List Autocomplete](https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-list.html)
+* [Editable Combobox Without Autocomplete](https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-none.html)
+* [Editor Menubar Example](https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html)
+* [Form Landmark Example](https://w3c.github.io/aria-practices/examples/landmarks/form.html)
+* [Layout Grid Examples](https://w3c.github.io/aria-practices/examples/grid/LayoutGrids.html)
+* [Link Examples](https://w3c.github.io/aria-practices/examples/link/link.html)
+* [Listbox Example with Grouped Options](https://w3c.github.io/aria-practices/examples/listbox/listbox-grouped.html)
+* [Main Landmark Example](https://w3c.github.io/aria-practices/examples/landmarks/main.html)
+* [Media Seek Slider Example](https://w3c.github.io/aria-practices/examples/slider/slider-seek.html)
+* [Meter Example](https://w3c.github.io/aria-practices/examples/meter/meter.html)
+* [Modal Dialog Example](https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html)
+* [Multi-Thumb Slider Examples](https://w3c.github.io/aria-practices/examples/slider/slider-multithumb.html)
+* [Navigation Landmark Example](https://w3c.github.io/aria-practices/examples/landmarks/navigation.html)
+* [Navigation Menu Button](https://w3c.github.io/aria-practices/examples/menu-button/menu-button-links.html)
+* [Radio Group Example Using aria-activedescendant](https://w3c.github.io/aria-practices/examples/radio/radio-activedescendant.html)
+* [Radio Group Example Using Roving tabindex](https://w3c.github.io/aria-practices/examples/radio/radio.html)
+* [Rating Slider Example](https://w3c.github.io/aria-practices/examples/slider/slider-rating.html)
+* [Region Landmark Example](https://w3c.github.io/aria-practices/examples/landmarks/region.html)
+* [Scrollable Listbox Example](https://w3c.github.io/aria-practices/examples/listbox/listbox-scrollable.html)
+* [Search Landmark Example](https://w3c.github.io/aria-practices/examples/landmarks/search.html)
+* [Select-Only Combobox](https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html)
+* [Switch Example](https://w3c.github.io/aria-practices/examples/switch/switch.html)
+* [Table Example](https://w3c.github.io/aria-practices/examples/table/table.html)
+* [Tabs With Automatic Activation](https://w3c.github.io/aria-practices/examples/tabs/tabs-1/tabs.html)
+* [Tabs With Manual Activation](https://w3c.github.io/aria-practices/examples/tabs/tabs-2/tabs.html)
+* [Vertical Temperature Slider Example](https://w3c.github.io/aria-practices/examples/slider/slider-temperature.html)
 
 </details>
 

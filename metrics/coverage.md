@@ -29,26 +29,28 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 <details>
 <summary>All APG Design Patterns with at Least one Corresponding ARIA-AT Test Plan</summary>
 
-* Accordion
-* Alert
-* Breadcrumb
-* Button
-* Checkbox
-* Combobox
-* Dialog
-* Disclosure
-* Grid
-* Landmark Regions
-* Link
-* Listbox
-* Menu/Menu bar
-* Menu Button
-* Radio Group
-* Slider
-* Slider (Multi-Thumb)
-* Spinbutton
-* Switch
-* Tabs
+* [Accordion (Sections With Show/Hide Functionality)](https://w3c.github.io/aria-practices/#accordion)
+* [Alert](https://w3c.github.io/aria-practices/#alert)
+* [Breadcrumb](https://w3c.github.io/aria-practices/#breadcrumb)
+* [Button](https://w3c.github.io/aria-practices/#button)
+* [Checkbox](https://w3c.github.io/aria-practices/#checkbox)
+* [Combobox](https://w3c.github.io/aria-practices/#combobox)
+* [Dialog (Modal)](https://w3c.github.io/aria-practices/#dialog_modal)
+* [Disclosure (Show/Hide)](https://w3c.github.io/aria-practices/#disclosure)
+* [Grids : Interactive Tabular Data and Layout Containers](https://w3c.github.io/aria-practices/#grid)
+* [Landmark Regions](https://w3c.github.io/aria-practices/#aria_landmark)
+* [Link](https://w3c.github.io/aria-practices/#link)
+* [Listbox](https://w3c.github.io/aria-practices/#Listbox)
+* [Menu Button](https://w3c.github.io/aria-practices/#menubutton)
+* [Menu or Menu bar](https://w3c.github.io/aria-practices/#menu)
+* [Meter](https://w3c.github.io/aria-practices/#meter)
+* [Radio Group](https://w3c.github.io/aria-practices/#radiobutton)
+* [Slider](https://w3c.github.io/aria-practices/#slider)
+* [Slider (Multi-Thumb)](https://w3c.github.io/aria-practices/#slidertwothumb)
+* [Spinbutton](https://w3c.github.io/aria-practices/#spinbutton)
+* [Switch](https://w3c.github.io/aria-practices/#switch)
+* [Table](https://w3c.github.io/aria-practices/#table)
+* [Tabs](https://w3c.github.io/aria-practices/#tabpanel)
 
 </details>
 

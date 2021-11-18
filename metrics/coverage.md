@@ -15,7 +15,7 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 |---|---|---|---|---|
 |APG Design Patterns|20|66.67%|30|Including "Landmark Regions" section as a single pattern|
 |APG Examples|-|-|-|Including individual landmark region examples|
-|ARIA Roles|40|19.8%|202|Total includes abstract roles|
+|ARIA Roles|40|39.6%|101|Total includes abstract roles|
 |ARIA States and Properties|22|41.5%|53|N/A|
 
 ## Project Statistics

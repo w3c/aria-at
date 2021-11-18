@@ -21,7 +21,7 @@ Note: for the purposes of coverage measurement, no distinction is made between W
 ## Project Statistics
 
 * Test plans: 48
-* Tests across all plans: 1,305
+* Tests across all plans: 1,260
 * Assertions across all tests: -
 
 ## APG Design Patterns

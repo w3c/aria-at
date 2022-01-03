@@ -1,0 +1,68 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "trigger a meter update",
+    "title": "Trigger a meter update in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/meter/meter.html"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-11-10_142949/meter.setFocusOnButton.html",
+    "setupScript": {
+      "name": "setFocusOnButton",
+      "description": "sets focus on the 'Change Value' button",
+      "source": "// sets focus on the 'Change Value' button\ntestPageDocument.querySelector('button.play-meters').focus();\n",
+      "modulePath": "scripts/setFocusOnButton.module.js",
+      "jsonpPath": "scripts/setFocusOnButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Change Value' button, activate the button to trigger a meter update."
+    ],
+    "raw": "With the reading cursor on the 'Change Value' button, activate the button to trigger a meter update.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "SPACE",
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Updated value is not conveyed; the screen reader stays silent"
+    }
+  ]
+}

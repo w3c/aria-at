@@ -54,7 +54,9 @@ class Accordion {
 }
 
 // init accordions
-const accordions = document.querySelectorAll('.accordion h3');
-accordions.forEach((accordionEl) => {
-  new Accordion(accordionEl);
+const accordionElements = document.querySelectorAll('.accordion h3');
+let accordions = [];
+accordionElements.forEach((accordionEl) => {
+  accordions.push(new Accordion(accordionEl));
 });
+document.defaultView.accordions = accordions;

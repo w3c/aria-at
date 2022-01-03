@@ -116,3 +116,4 @@ export const PAGE_DOWN                                = "Page Down";
 export const PAGE_UP                                = "Page Up";
 export const THREE = "3";
 export const SHIFT_THREE = "Shift+3";
+export const SHIFT_H = "Shift+H";

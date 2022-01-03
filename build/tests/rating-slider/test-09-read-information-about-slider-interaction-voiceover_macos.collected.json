@@ -1,0 +1,112 @@
+{
+  "info": {
+    "testId": 9,
+    "task": "read information about slider",
+    "title": "Read information about a slider",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-rating.html"
+      },
+      {
+        "refId": "slider",
+        "value": "https://w3c.github.io/aria/#slider"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuetext",
+        "value": "https://w3c.github.io/aria/#aria-valuetext"
+      },
+      {
+        "refId": "aria-valuemin",
+        "value": "https://w3c.github.io/aria/#aria-valuemin"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-9-21_13436/slider-rating.setFocusOnSlider.html",
+    "setupScript": {
+      "name": "setFocusOnSlider",
+      "description": "sets focus on the slider",
+      "source": "// sets focus on the slider\ntestPageDocument.querySelector('[role=\"slider\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Rating' slider, read information about the slider."
+    ],
+    "raw": "With focus on the 'Rating' slider, read information about the slider.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_F3",
+      "keystroke": "Control+Option+F3",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F3",
+          "keystroke": "Control+Option+F3"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_OPT_F4",
+      "keystroke": "Control+Option+F4",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F4",
+          "keystroke": "Control+Option+F4"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'slider' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Rating' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Textual value 'zero of five stars' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Numeric value '0' is not conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Orientation 'horizontal' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Minimum value '0' is not conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Maximum value '5' is not conveyed"
+    }
+  ]
+}

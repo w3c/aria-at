@@ -1,0 +1,88 @@
+{
+  "info": {
+    "testId": 27,
+    "task": "read information about checked radio button",
+    "title": "Read information about a checked radio button in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/radio/radio.html"
+      },
+      {
+        "refId": "radio",
+        "value": "https://w3c.github.io/aria/#radio"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-15_144141/radio.setFocusOnAndCheckFirstRadioButton.html",
+    "setupScript": {
+      "name": "setFocusOnAndCheckFirstRadioButton",
+      "description": "sets focus on the first radio button, and sets its state to checked",
+      "source": "// sets focus on the first radio button, and sets its state to checked\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.tabIndex = -1;\n});\nradios[0].setAttribute('aria-checked', 'true');\nradios[0].tabIndex = 0;\nradios[0].focus();\n",
+      "modulePath": "scripts/setFocusOnAndCheckFirstRadioButton.module.js",
+      "jsonpPath": "scripts/setFocusOnAndCheckFirstRadioButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Regular crust' radio button, read information about the radio button"
+    ],
+    "raw": "With focus on the 'Regular crust' radio button, read information about the radio button",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
+    },
+    {
+      "id": "INS_UP",
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "role 'radio button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "name 'Regular crust' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the radio button, 'checked', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of the radio button, 1, is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of radio buttons in the group, 3, is conveyed"
+    }
+  ]
+}

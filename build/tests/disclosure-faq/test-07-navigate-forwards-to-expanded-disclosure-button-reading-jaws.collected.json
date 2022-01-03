@@ -1,0 +1,96 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "navigate forwards to expanded disclosure button",
+    "title": "Navigate forwards to an expanded disclosure button in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-faq.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2020-12-3_11559/disclosure-faq.moveFocusBeforeAndExpandFirstDisclosure.html",
+    "setupScript": {
+      "name": "moveFocusBeforeAndExpandFirstDisclosure",
+      "description": "sets focus on a link before the first disclosure button, and sets the state of the first button to expanded",
+      "source": "// sets focus on a link before the first disclosure button, and sets the state of the first button to expanded\nconst btn = testPageDocument.querySelector('button[aria-controls=\"faq1_desc\"]');\nconst answer = testPageDocument.querySelector('#faq1_desc');\nbtn.setAttribute('aria-expanded', 'true');\nanswer.style.display = 'block';\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/moveFocusBeforeAndExpandFirstDisclosure.module.js",
+      "jsonpPath": "scripts/moveFocusBeforeAndExpandFirstDisclosure.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the first disclosure button in the list of frequently asked questions. Note: it should be in the expanded state."
+    ],
+    "raw": "Navigate to the first disclosure button in the list of frequently asked questions. Note: it should be in the expanded state.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "B",
+      "keystroke": "B",
+      "keypresses": [
+        {
+          "id": "B",
+          "keystroke": "B"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name, 'What do I do if I have a permit for an assigned lot, but can't find a space there?', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the button (expanded) is conveyed"
+    }
+  ]
+}

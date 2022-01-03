@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Increment a slider to the maximum value in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/slider/slider-rating.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemax">
+
+<script>
+  var scripts = {
+		setFocusOnSlider: function(testPageDocument){
+			// sets focus on the slider
+			testPageDocument.querySelector('[role="slider"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the slider",
+  "setupTestPage": "setFocusOnSlider",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "increment slider to maximum value",
+  "specific_user_instruction": "With focus on the 'Rating' slider, set its value to five stars.",
+  "output_assertions": [
+    [
+      "1",
+      "Textual value 'five stars' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '5' is not conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "increment slider to maximum value": {
+    "interaction": {
+      "jaws": [ [ "END" ] ],
+      "nvda": [ [ "END" ] ],
+      "voiceover_macos": [ [ "END" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-9-21_13436/slider-rating.setFocusOnSlider.html");
+  });
+</script>
+  

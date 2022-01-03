@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to menubar in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html">
+<link rel="help" href="https://w3c.github.io/aria/#menubar">
+
+<script>
+  var scripts = {
+		focusonfirstlink: function(testPageDocument){
+			// Move focus to the link just before the meunbar
+			testPageDocument.querySelector('a').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link just before the menubar",
+  "setupTestPage": "focusonfirstlink",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate to menubar",
+  "specific_user_instruction": "Navigate to the 'Text Formatting' menubar",
+  "output_assertions": [
+    [
+      "1",
+      "The role 'menubar' is conveyed"
+    ],
+    [
+      "1",
+      "The menubar name 'Text Formatting' is conveyed"
+    ],
+    [
+      "1",
+      "The menu item name \"Font\" is conveyed"
+    ],
+    [
+      "1",
+      "Availability of a submenu is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to menubar": {
+    "reading": {
+      "jaws": [
+        [ "UP_AND_DOWN" ],
+        [ "F_AND_SHIFT_F" ]
+      ],
+      "nvda": [
+        [ "UP_AND_DOWN" ],
+        [ "INS_DOWN_OR_CAPS_DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB" ],
+        [ "CTRL_OPT_RIGHT" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175528/menubar-editor.focusonfirstlink.html");
+  });
+</script>
+  

@@ -1,0 +1,94 @@
+{
+  "info": {
+    "testId": 3,
+    "task": "open modal dialog",
+    "title": "Open a Modal Dialog",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html"
+      },
+      {
+        "refId": "dialog",
+        "value": "https://w3c.github.io/aria/#dialog"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-12-17_13353/dialog.moveFocusToAddDeliveryAddressButton.html",
+    "setupScript": {
+      "name": "moveFocusToAddDeliveryAddressButton",
+      "description": "sets focus on the 'Add Delivery Address' button",
+      "source": "// sets focus on the 'Add Delivery Address' button\ntestPageDocument.querySelector('#ex1 > button').focus();\n",
+      "modulePath": "scripts/moveFocusToAddDeliveryAddressButton.module.js",
+      "jsonpPath": "scripts/moveFocusToAddDeliveryAddressButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Add Delivery Address' button, open the dialog."
+    ],
+    "raw": "With focus on the 'Add Delivery Address' button, open the dialog.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_SPACE",
+      "keystroke": "Control+Option+Space",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_SPACE",
+          "keystroke": "Control+Option+Space"
+        }
+      ]
+    },
+    {
+      "id": "SPACE",
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'dialog' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Add Delivery Address' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the focused input ('Street') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The ability to enter text into the focused input is conveyed"
+    }
+  ]
+}

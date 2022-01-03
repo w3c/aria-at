@@ -1,0 +1,66 @@
+{
+  "info": {
+    "testId": 14,
+    "task": "read information about collapsed disclosure button",
+    "title": "Read information about a collapsed disclosure button in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-faq.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-12-3_11559/disclosure-faq.moveFocusToFirstDisclosure.html",
+    "setupScript": {
+      "name": "moveFocusToFirstDisclosure",
+      "description": "sets focus on the first disclosure button",
+      "source": "// sets focus on the first disclosure button\ntestPageDocument.querySelector('button[aria-controls=\"faq1_desc\"]').focus();\n",
+      "modulePath": "scripts/moveFocusToFirstDisclosure.module.js",
+      "jsonpPath": "scripts/moveFocusToFirstDisclosure.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the first disclosure button in the list of frequently asked questions, read information about the button."
+    ],
+    "raw": "With focus on the first disclosure button in the list of frequently asked questions, read information about the button.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name, 'What do I do if I have a permit for an assigned lot, but can't find a space there?', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the button (collapsed) is conveyed"
+    }
+  ]
+}

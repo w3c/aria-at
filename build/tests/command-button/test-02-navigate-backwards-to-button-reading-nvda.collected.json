@@ -1,0 +1,92 @@
+{
+  "info": {
+    "testId": 2,
+    "task": "navigate backwards to button",
+    "title": "Navigate backwards to a button in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/button/button.html"
+      },
+      {
+        "refId": "button",
+        "value": "https://w3c.github.io/aria/#button"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-3-29_132754/button.setFocusAfterButton.html",
+    "setupScript": {
+      "name": "setFocusAfterButton",
+      "description": "sets focus on a link after the button",
+      "source": "// sets focus on a link after the button\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterButton.module.js",
+      "jsonpPath": "scripts/setFocusAfterButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Print Page' button"
+    ],
+    "raw": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Print Page' button",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_B",
+      "keystroke": "Shift+B",
+      "keypresses": [
+        {
+          "id": "SHIFT_B",
+          "keystroke": "Shift+B"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_F",
+      "keystroke": "Shift+F",
+      "keypresses": [
+        {
+          "id": "SHIFT_F",
+          "keystroke": "Shift+F"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Print Page' is conveyed"
+    }
+  ]
+}

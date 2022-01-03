@@ -1,0 +1,70 @@
+{
+  "info": {
+    "testId": 9,
+    "task": "navigate forwards to pressed toggle button",
+    "title": "Navigate forwards to a pressed toggle button in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/button/button.html"
+      },
+      {
+        "refId": "button",
+        "value": "https://w3c.github.io/aria/#button"
+      },
+      {
+        "refId": "aria-pressed",
+        "value": "https://w3c.github.io/aria/#aria-pressed"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-29_145942/button.setFocusBeforeButtonAndSetStateToPressed.html",
+    "setupScript": {
+      "name": "setFocusBeforeButtonAndSetStateToPressed",
+      "description": "sets focus on a link before the button, and sets the state of the button to 'pressed'",
+      "source": "// sets focus on a link before the button, and sets the state of the button to 'pressed'\nlet button = testPageDocument.querySelector('#toggle');\nbutton.setAttribute('aria-pressed', 'true');\nbutton.querySelector('use').setAttribute('xlink:href', '#icon-sound');\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeButtonAndSetStateToPressed.module.js",
+      "jsonpPath": "scripts/setFocusBeforeButtonAndSetStateToPressed.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate forwards from here' link, navigate to the 'Mute' button."
+    ],
+    "raw": "With focus on the 'Navigate forwards from here' link, navigate to the 'Mute' button.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Mute' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'pressed' is conveyed"
+    }
+  ]
+}

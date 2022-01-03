@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards into a checkbox group in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/checkbox/checkbox-2/checkbox-2.html">
+
+<script>
+  var scripts = {
+		moveFocusBeforeFirstCheckbox: function(testPageDocument){
+			// sets focus on a link before the first checkbox
+			testPageDocument.querySelector('#beforelink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link before the first checkbox",
+  "setupTestPage": "moveFocusBeforeFirstCheckbox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate forwards into checkbox group",
+  "specific_user_instruction": "Navigate forwards into the checkbox group.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ],
+    [
+      "1",
+      "The group boundary is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards into checkbox group": {
+    "reading": {
+      "jaws": [ [ "X" ], [ "F" ], [ "TAB" ] ],
+      "nvda": [ [ "X" ], [ "F" ], [ "TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [ [ "TAB" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/checkbox-tri-state.moveFocusBeforeFirstCheckbox.html");
+  });
+</script>
+  

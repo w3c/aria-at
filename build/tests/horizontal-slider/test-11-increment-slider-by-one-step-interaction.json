@@ -1,0 +1,16 @@
+{
+  "setup_script_description": "sets focus on the 'Red' slider",
+  "setupTestPage": "setFocusOnRedSlider",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "increment slider by one step",
+  "specific_user_instruction": "With focus on the 'Red' slider, set its value to 129.",
+  "output_assertions": [
+    [
+      "1",
+      "Value '129' is conveyed"
+    ]
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "setup_script_description": "sets focus on the first checkbox",
+  "setupTestPage": "moveFocusToFirstCheckbox",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "read partially checked checkbox",
+  "specific_user_instruction": "When the focus is on the first checkbox, read the first checkbox. Note: it should be in the partially checked state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'All condiments' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (partially checked) is conveyed"
+    ]
+  ]
+}

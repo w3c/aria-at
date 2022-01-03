@@ -1,0 +1,74 @@
+{
+  "info": {
+    "testId": 27,
+    "task": "navigate to first option in listbox popup",
+    "title": "Navigate to the first option in a listbox popup in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html"
+      },
+      {
+        "refId": "option",
+        "value": "https://w3c.github.io/aria/#option"
+      },
+      {
+        "refId": "aria-selected",
+        "value": "https://w3c.github.io/aria/#aria-selected"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/combobox-select-only.openListboxToApple.html",
+    "setupScript": {
+      "name": "openListboxToApple",
+      "description": "sets focus on and expands the Combobox, and sets the focused option to 'Apple'",
+      "source": "// sets focus on and expands the Combobox, and sets the focused option to 'Apple'\ntestPageDocument.querySelector('[role=\"combobox\"]').focus();\ntestPageDocument.defaultView.selectController.updateMenuState(true);\ntestPageDocument.defaultView.selectController.onOptionChange(1);\n",
+      "modulePath": "scripts/openListboxToApple.module.js",
+      "jsonpPath": "scripts/openListboxToApple.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the listbox popup, navigate to the first option."
+    ],
+    "raw": "With focus on the listbox popup, navigate to the first option.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "HOME",
+      "keystroke": "Home",
+      "keypresses": [
+        {
+          "id": "HOME",
+          "keystroke": "Home"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the focused option in the popup ('Choose a Fruit') is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "State of the focused option in the popup (not selected) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of the focused option in the popup (1) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of options in the popup (13) is conveyed"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "info": {
+    "testId": 13,
+    "task": "decrement slider by one step",
+    "title": "Decrement a slider by one step",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-color-viewer.html"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-9-28_15392/slider-color-viewer.setFocusOnRedSlider.html",
+    "setupScript": {
+      "name": "setFocusOnRedSlider",
+      "description": "sets focus on the 'Red' slider",
+      "source": "// sets focus on the 'Red' slider\ntestPageDocument.querySelector('[role=\"slider\"].red').focus();\n",
+      "modulePath": "scripts/setFocusOnRedSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnRedSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Red' slider, set its value to 127."
+    ],
+    "raw": "With focus on the 'Red' slider, set its value to 127.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "LEFT",
+      "keystroke": "Left Arrow",
+      "keypresses": [
+        {
+          "id": "LEFT",
+          "keystroke": "Left Arrow"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Value '127' is conveyed"
+    }
+  ]
+}

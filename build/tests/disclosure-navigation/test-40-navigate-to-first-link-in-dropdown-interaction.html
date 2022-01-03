@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the first link in a dropdown in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html">
+
+<script>
+  var scripts = {
+		moveFocusToSecondLinkInDropdown: function(testPageDocument){
+			// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
+			testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+			testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown",
+  "setupTestPage": "moveFocusToSecondLinkInDropdown",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate to first link in dropdown",
+  "specific_user_instruction": "With focus on a link in the first dropdown, navigate to the first link.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Overview' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to first link in dropdown": {
+    "interaction": {
+      "jaws": [ [ "HOME" ] ],
+      "nvda": [ [ "HOME" ] ],
+      "voiceover_macos": [ [ "HOME" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/disclosure-navigation.moveFocusToSecondLinkInDropdown.html");
+  });
+</script>
+  

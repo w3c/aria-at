@@ -1,0 +1,62 @@
+{
+  "info": {
+    "testId": 23,
+    "task": "activate menu item",
+    "title": "Activate a menu item in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menu-button/menu-button-actions-active-descendant.html"
+      },
+      {
+        "refId": "aria-haspopup",
+        "value": "https://w3c.github.io/aria/#aria-haspopup"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html",
+    "setupScript": {
+      "name": "openMenuAndSetFocusToFirstItem",
+      "description": "opens the menu, and sets focus on 'Action 1'",
+      "source": "// opens the menu, and sets focus on 'Action 1'\ntestPageDocument.defaultView.menuController.openPopup();\ntestPageDocument.defaultView.menuController.setFocusToFirstMenuitem();\n",
+      "modulePath": "scripts/openMenuAndSetFocusToFirstItem.module.js",
+      "jsonpPath": "scripts/openMenuAndSetFocusToFirstItem.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Action 1' menu item, activate the menu item."
+    ],
+    "raw": "With focus on the 'Action 1' menu item, activate the menu item.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "ENTER",
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'menu button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Actions' is conveyed"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "setup_script_description": "sets focus on the first tab",
+  "setupTestPage": "setFocusOnFirstTab",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to tab panel",
+  "specific_user_instruction": "Navigate to the tab panel. Note: You may need to press certain commands (such as Control+Option+Right Arrow) multiple times to hear all information relating to the tab panel.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'tab panel' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Nils Frahm' is conveyed"
+    ],
+    [
+      "1",
+      "Textual content of the tab panel is conveyed as 'Nils Frahm is a German musician, composer and record producer based in Berlin. He is known for combining classical and electronic music and for an unconventional approach to the piano in which he mixes a grand piano, upright piano, Roland Juno-60, Rhodes piano, drum machine, and Moog Taurus.'"
+    ]
+  ]
+}

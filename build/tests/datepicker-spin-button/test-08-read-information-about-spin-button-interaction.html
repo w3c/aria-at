@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read information about a spin button in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/spinbutton/datepicker-spinbuttons.html">
+<link rel="help" href="https://w3c.github.io/aria/#spinbutton">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-label">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+
+<script>
+  var scripts = {
+		setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+			// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+			testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+			testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+			testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);
+			testPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+			testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button",
+  "setupTestPage": "setFocusOnSpinButtonAndSetPredefinedDate",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read information about spin button",
+  "specific_user_instruction": "With focus on the 'Day' spin button, read information about the button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'spin button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Day' is conveyed"
+    ],
+    [
+      "1",
+      "Value 'nineteenth' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about spin button": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-15_93728/datepicker-spinbuttons.setFocusOnSpinButtonAndSetPredefinedDate.html");
+  });
+</script>
+  

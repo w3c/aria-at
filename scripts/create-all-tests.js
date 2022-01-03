@@ -2,11 +2,6 @@ const path = require('path');
 const fs = require('fs');
 const { createExampleTests } = require('./create-example-tests');
 
-let successRunsCount = 0;
-let errorRunsCount = 0;
-let totalRunsCount = 0;
-let suppressedMessageCount = 0;
-
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
     h: 'help',
@@ -33,58 +28,79 @@ if (args.help) {
   process.exit();
 }
 
-// on some OSes, it seems the the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
-const TARGET_TEST_PLAN =
-  args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate test assets for
-const VERBOSE_CHECK = !!args.verbose;
-const VALIDATE_CHECK = !!args.validate;
+main();
 
-const scriptsDirectory = path.dirname(__filename);
-const rootDirectory = scriptsDirectory.split('scripts')[0];
-const testsDirectory = path.join(rootDirectory, 'tests');
+async function main() {
+  let successRunsCount = 0;
+  let errorRunsCount = 0;
+  let totalRunsCount = 0;
+  let suppressedMessageCount = 0;
 
-const filteredTestPlans = fs.readdirSync(testsDirectory).filter(f =>
-  TARGET_TEST_PLAN
-    ? f !== 'resources' &&
-      f === TARGET_TEST_PLAN &&
-      fs.statSync(path.join(testsDirectory, f)).isDirectory() // checking to see if individual test plan has been specified
-    : f !== 'resources' && fs.statSync(path.join(testsDirectory, f)).isDirectory()
-);
+  // on some OSes, it seems the the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
+  const TARGET_TEST_PLAN =
+    args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate test assets for
+  const VERBOSE_CHECK = !!args.verbose;
+  const VALIDATE_CHECK = !!args.validate;
 
-if (!filteredTestPlans.length) {
-  // most likely to happen if incorrect testPlan specified
-  console.error('ERROR: Unable to find valid test plan(s).');
-  process.exit();
-}
+  const scriptsDirectory = path.dirname(__filename);
+  const rootDirectory = scriptsDirectory.split('scripts')[0];
+  const testsDirectory = path.join(rootDirectory, 'tests');
 
-filteredTestPlans.forEach(async directory => {
-  const { isSuccessfulRun, suppressedMessages } = await createExampleTests({
-    directory: path.join('tests', directory),
-    args,
-  });
-  if (isSuccessfulRun) successRunsCount++;
-  else errorRunsCount++;
+  const filteredTestPlans = fs.readdirSync(testsDirectory).filter(f =>
+    TARGET_TEST_PLAN
+      ? f !== 'resources' &&
+        f === TARGET_TEST_PLAN &&
+        fs.statSync(path.join(testsDirectory, f)).isDirectory() // checking to see if individual test plan has been specified
+      : f !== 'resources' && fs.statSync(path.join(testsDirectory, f)).isDirectory()
+  );
 
-  // increment total runs completed
-  totalRunsCount = successRunsCount + errorRunsCount;
-
-  // report how many messages have been hidden by not running in verbose mode
-  suppressedMessageCount = suppressedMessages;
-
-  if (totalRunsCount === filteredTestPlans.length) {
-    // last test plan has been ran
-    if (VALIDATE_CHECK)
-      console.log(
-        `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed without any validation errors.\n`
-      );
-    else
-      console.log(
-        `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`
-      );
-
-    if (!VERBOSE_CHECK)
-      console.log(
-        `NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`
-      );
+  if (!filteredTestPlans.length) {
+    // most likely to happen if incorrect testPlan specified
+    console.error('ERROR: Unable to find valid test plan(s).');
+    process.exit();
   }
-});
+
+  await Promise.all(
+    filteredTestPlans.map(async directory => {
+      const { isSuccessfulRun, suppressedMessages } = await createExampleTests({
+        directory: path.join('tests', directory),
+        args,
+      });
+      if (isSuccessfulRun) {
+        successRunsCount++;
+      } else {
+        errorRunsCount++;
+      }
+
+      // increment total runs completed
+      totalRunsCount = successRunsCount + errorRunsCount;
+
+      // report how many messages have been hidden by not running in verbose mode
+      suppressedMessageCount = suppressedMessages;
+
+      if (totalRunsCount === filteredTestPlans.length) {
+        // last test plan has been ran
+        if (VALIDATE_CHECK) {
+          console.log(
+            `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed without any validation errors.\n`
+          );
+        } else {
+          console.log(
+            `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`
+          );
+        }
+
+        if (!VERBOSE_CHECK) {
+          console.log(
+            `NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`
+          );
+        }
+      }
+    })
+  );
+
+  if (errorRunsCount > 0) {
+    // Exit with a non-zero code to indicate failure to create tests without error in continuous integration.
+    process.exit(1);
+  }
+}

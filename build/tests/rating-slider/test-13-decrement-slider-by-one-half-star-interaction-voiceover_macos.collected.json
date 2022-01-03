@@ -1,0 +1,76 @@
+{
+  "info": {
+    "testId": 13,
+    "task": "decrement slider by one half star",
+    "title": "Decrement a slider by one half star",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-rating.html"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuetext",
+        "value": "https://w3c.github.io/aria/#aria-valuetext"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-9-21_13436/slider-rating.setFocusOnSliderAndSetValueToOneHalfStar.html",
+    "setupScript": {
+      "name": "setFocusOnSliderAndSetValueToOneHalfStar",
+      "description": "sets focus on the slider, and sets its value to one half star",
+      "source": "// sets focus on the slider, and sets its value to one half star\nlet slider = testPageDocument.querySelector('[role=\"slider\"]');\nslider.setAttribute('aria-valuenow', '0.5');\nslider.setAttribute('aria-valuetext', 'one half of five stars');\nslider.focus();\n",
+      "modulePath": "scripts/setFocusOnSliderAndSetValueToOneHalfStar.module.js",
+      "jsonpPath": "scripts/setFocusOnSliderAndSetValueToOneHalfStar.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Rating' slider, set its value to zero stars."
+    ],
+    "raw": "With focus on the 'Rating' slider, set its value to zero stars.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "LEFT",
+      "keystroke": "Left Arrow",
+      "keypresses": [
+        {
+          "id": "LEFT",
+          "keystroke": "Left Arrow"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Textual value 'zero stars' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Numeric value '0' is not conveyed"
+    }
+  ]
+}

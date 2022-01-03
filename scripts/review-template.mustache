@@ -50,10 +50,11 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
+          }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
           }
         }
       };
@@ -95,9 +96,9 @@
     </fieldset>
 
     {{#tests}}
-    <h2>Test {{testNumber}}: {{{name}}}</h2>
+    <h2 class="{{allRelevantATsSpaceSeparated}}">Test {{testNumber}}: {{{name}}}</h2>
     <p>
-      <ul>
+      <ul class="{{allRelevantATsSpaceSeparated}}">
         <li>Mode: {{mode}}</li>
         <li>Applies to: {{allRelevantATsFormatted}}</li>
         <li>Last edited: {{lastEdited}}</li>
@@ -117,7 +118,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-{{testNumber}}"
+      <button id="open-test-page-{{testNumber}}" class="{{allRelevantATsSpaceSeparated}}"
         onclick="openTestPage('../tests{{reference}}', {{testNumber}}, '{{setupScriptName}}');">Open Test {{testNumber}} Page</button>
     </p>
       {{#ATTests}}

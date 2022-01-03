@@ -50,16 +50,29 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
+          }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
           }
         }
       };
 
       var scripts = {
-        	checkFirstCheckbox: function(testPageDocument){
+        	setFocusOnButton: function(testPageDocument){
+	// sets focus on the 'Trigger Alert' button
+	testPageDocument.querySelector('#alert-trigger').focus();
+},	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link after the 'Breadcrumb Example' link
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeFirstBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link before the 'WAI-ARIA Authoring Practices' link
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on the 'Breadcrumb Example' link
+	testPageDocument.querySelector('[aria-current="page"]').focus();
+},	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -205,6 +218,27 @@
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
 	testPageDocument.querySelector('#action').focus();
+},	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
 	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
@@ -267,6 +301,15 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	setFocusAfterRedSlider: function(testPageDocument){
+	// sets focus on a link after the Red slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRedSlider: function(testPageDocument){
+	// sets focus on a link before the Red slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnRedSlider: function(testPageDocument){
+	// sets focus on the 'Red' slider
+	testPageDocument.querySelector('[role="slider"].red').focus();
 },	openMenuAndSetFocusToFirstItem: function(testPageDocument){
 	// opens the menu, and sets focus on 'Action 1'
 	testPageDocument.defaultView.menuController.openPopup();
@@ -545,6 +588,33 @@
 	let lastRadio = radios[radios.length - 1];
 	lastRadio.tabIndex = 0;
 	lastRadio.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
+},	setFocusOnSliderAndSetValueToFive: function(testPageDocument){
+	// sets focus on the slider, and sets its value to five stars
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '5');
+	slider.setAttribute('aria-valuetext', 'five of five stars');
+	slider.focus();
+},	setFocusOnSliderAndSetValueToOne: function(testPageDocument){
+	// sets focus on the slider, and sets its value to one star
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '1');
+	slider.setAttribute('aria-valuetext', 'one of five stars');
+	slider.focus();
+},	setFocusOnSliderAndSetValueToOneHalfStar: function(testPageDocument){
+	// sets focus on the slider, and sets its value to one half star
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '0.5');
+	slider.setAttribute('aria-valuetext', 'one half of five stars');
+	slider.focus();
 },	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
 	// activates the third tab in the tab list, and sets focus on the tab panel
 	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
@@ -578,8 +648,20 @@
 },	setFocusAfterButton: function(testPageDocument){
 	// sets focus on a link after the button
 	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusAfterButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link after the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
+	testPageDocument.querySelector('#afterlink').focus();
 },	setFocusBeforeButton: function(testPageDocument){
 	// sets focus on a link before the button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusBeforeButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link before the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	testPageDocument.querySelector('#beforelink').focus();
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
@@ -590,6 +672,15 @@
 	button.setAttribute('aria-pressed', 'true');
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
 }
       };
 
@@ -625,12 +716,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate forwards to an empty, collapsed combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Navigate forwards to an empty, collapsed combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-01-navigate-forwards-to-empty-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -647,7 +738,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
+      <button id="open-test-page-1" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusBeforeCombobox.html', 1, 'moveFocusBeforeCombobox');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
@@ -714,12 +805,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate backwards to an empty, collapsed combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 2: Navigate backwards to an empty, collapsed combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-02-navigate-backwards-to-empty-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -736,7 +827,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
+      <button id="open-test-page-2" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusAfterCombobox.html', 2, 'moveFocusAfterCombobox');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
@@ -803,12 +894,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Navigate forwards to an empty, collapsed combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 3: Navigate forwards to an empty, collapsed combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-03-navigate-forwards-to-empty-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -825,7 +916,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
+      <button id="open-test-page-3" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusBeforeCombobox.html', 3, 'moveFocusBeforeCombobox');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
@@ -884,12 +975,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate backwards to an empty, collapsed combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 4: Navigate backwards to an empty, collapsed combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-04-navigate-backwards-to-empty-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -906,7 +997,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
+      <button id="open-test-page-4" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusAfterCombobox.html', 4, 'moveFocusAfterCombobox');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
@@ -965,12 +1056,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate forwards to an empty, collapsed combobox</h2>
+    <h2 class="voiceover_macos">Test 5: Navigate forwards to an empty, collapsed combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-05-navigate-forwards-to-empty-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -986,7 +1077,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
+      <button id="open-test-page-5" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusBeforeCombobox.html', 5, 'moveFocusBeforeCombobox');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1019,12 +1110,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate backwards to an empty, collapsed combobox</h2>
+    <h2 class="voiceover_macos">Test 6: Navigate backwards to an empty, collapsed combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-06-navigate-backwards-to-empty-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1040,7 +1131,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
+      <button id="open-test-page-6" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusAfterCombobox.html', 6, 'moveFocusAfterCombobox');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1073,12 +1164,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Read information about an empty, collapsed combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Read information about an empty, collapsed combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-07-read-information-about-empty-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1095,7 +1186,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
+      <button id="open-test-page-7" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 7, 'moveFocusToCombobox');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
@@ -1156,12 +1247,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Read information about an empty, collapsed combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 8: Read information about an empty, collapsed combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-08-read-information-about-empty-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1178,7 +1269,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
+      <button id="open-test-page-8" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 8, 'moveFocusToCombobox');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
@@ -1237,12 +1328,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Read information about an empty, collapsed combobox</h2>
+    <h2 class="voiceover_macos">Test 9: Read information about an empty, collapsed combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-09-read-information-about-empty-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1258,7 +1349,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
+      <button id="open-test-page-9" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 9, 'moveFocusToCombobox');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1290,12 +1381,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 10: Navigate forwards to a filled in, collapsed combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 10: Navigate forwards to a filled in, collapsed combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-10-navigate-forwards-to-filled-in-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1312,7 +1403,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10"
+      <button id="open-test-page-10" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusBeforeComboboxAndSetValueToAlabama.html', 10, 'moveFocusBeforeComboboxAndSetValueToAlabama');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
@@ -1383,12 +1474,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 11: Navigate backwards to a filled in, collapsed combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 11: Navigate backwards to a filled in, collapsed combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-11-navigate-backwards-to-filled-in-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1405,7 +1496,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11"
+      <button id="open-test-page-11" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusAfterComboboxAndSetValueToAlabama.html', 11, 'moveFocusAfterComboboxAndSetValueToAlabama');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
@@ -1476,12 +1567,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Navigate forwards to a filled in, collapsed combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 12: Navigate forwards to a filled in, collapsed combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-12-navigate-forwards-to-filled-in-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1498,7 +1589,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12"
+      <button id="open-test-page-12" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusBeforeComboboxAndSetValueToAlabama.html', 12, 'moveFocusBeforeComboboxAndSetValueToAlabama');">Open Test 12 Page</button>
     </p>
       <div class="jaws">
@@ -1561,12 +1652,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 13: Navigate backwards to a filled in, collapsed combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 13: Navigate backwards to a filled in, collapsed combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-13-navigate-backwards-to-filled-in-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1583,7 +1674,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13"
+      <button id="open-test-page-13" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusAfterComboboxAndSetValueToAlabama.html', 13, 'moveFocusAfterComboboxAndSetValueToAlabama');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
@@ -1646,12 +1737,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 14: Navigate forwards to a filled in, collapsed combobox</h2>
+    <h2 class="voiceover_macos">Test 14: Navigate forwards to a filled in, collapsed combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-14-navigate-forwards-to-filled-in-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1667,7 +1758,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14"
+      <button id="open-test-page-14" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusBeforeComboboxAndSetValueToAlabama.html', 14, 'moveFocusBeforeComboboxAndSetValueToAlabama');">Open Test 14 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1702,12 +1793,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 15: Navigate backwards to a filled in, collapsed combobox</h2>
+    <h2 class="voiceover_macos">Test 15: Navigate backwards to a filled in, collapsed combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-15-navigate-backwards-to-filled-in-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1723,7 +1814,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15"
+      <button id="open-test-page-15" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusAfterComboboxAndSetValueToAlabama.html', 15, 'moveFocusAfterComboboxAndSetValueToAlabama');">Open Test 15 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1758,12 +1849,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Read information about a filled in, collapsed combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 16: Read information about a filled in, collapsed combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-16-read-information-about-filled-in-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1780,7 +1871,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16"
+      <button id="open-test-page-16" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToAlabama.html', 16, 'moveFocusToComboboxAndSetValueToAlabama');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
@@ -1845,12 +1936,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 17: Read information about a filled in, collapsed combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 17: Read information about a filled in, collapsed combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-17-read-information-about-filled-in-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1867,7 +1958,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17"
+      <button id="open-test-page-17" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToAlabama.html', 17, 'moveFocusToComboboxAndSetValueToAlabama');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
@@ -1930,12 +2021,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 18: Read information about a filled in, collapsed combobox</h2>
+    <h2 class="voiceover_macos">Test 18: Read information about a filled in, collapsed combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-18-read-information-about-filled-in-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1951,7 +2042,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18"
+      <button id="open-test-page-18" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToAlabama.html', 18, 'moveFocusToComboboxAndSetValueToAlabama');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1985,12 +2076,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 19: Open an empty, collapsed combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 19: Open an empty, collapsed combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-19-open-empty-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -2005,7 +2096,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19"
+      <button id="open-test-page-19" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 19, 'moveFocusToCombobox');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
@@ -2058,12 +2149,12 @@
             <tr><td>required</td><td>Change in state (to expanded) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 20: Open an empty, collapsed combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 20: Open an empty, collapsed combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-20-open-empty-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -2078,7 +2169,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20"
+      <button id="open-test-page-20" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 20, 'moveFocusToCombobox');">Open Test 20 Page</button>
     </p>
       <div class="jaws">
@@ -2131,12 +2222,12 @@
             <tr><td>required</td><td>Change in state (to expanded) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 21: Open an empty, collapsed combobox</h2>
+    <h2 class="voiceover_macos">Test 21: Open an empty, collapsed combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-21-open-empty-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2150,7 +2241,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21"
+      <button id="open-test-page-21" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 21, 'moveFocusToCombobox');">Open Test 21 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2178,12 +2269,12 @@
             <tr><td>required</td><td>Change in state (to expanded) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 22: Open a filled in, collapsed combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 22: Open a filled in, collapsed combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-22-open-filled-in-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -2198,7 +2289,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22"
+      <button id="open-test-page-22" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToAlabama.html', 22, 'moveFocusToComboboxAndSetValueToAlabama');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
@@ -2251,12 +2342,12 @@
             <tr><td>required</td><td>Change in state (to expanded) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 23: Open a filled in, collapsed combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 23: Open a filled in, collapsed combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-23-open-filled-in-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -2271,7 +2362,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23"
+      <button id="open-test-page-23" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToAlabama.html', 23, 'moveFocusToComboboxAndSetValueToAlabama');">Open Test 23 Page</button>
     </p>
       <div class="jaws">
@@ -2324,12 +2415,12 @@
             <tr><td>required</td><td>Change in state (to expanded) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 24: Open a filled in, collapsed combobox</h2>
+    <h2 class="voiceover_macos">Test 24: Open a filled in, collapsed combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-24-open-filled-in-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2343,7 +2434,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24"
+      <button id="open-test-page-24" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToAlabama.html', 24, 'moveFocusToComboboxAndSetValueToAlabama');">Open Test 24 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2371,12 +2462,12 @@
             <tr><td>required</td><td>Change in state (to expanded) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 25: Open an empty, collapsed combobox by typing a character in interaction mode</h2>
+    <h2 class="jaws nvda">Test 25: Open an empty, collapsed combobox by typing a character in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-25-open-empty-collapsed-combobox-by-typing-character-interaction.html?at=jaws">jaws</a></li>
@@ -2391,7 +2482,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-25"
+      <button id="open-test-page-25" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 25, 'moveFocusToCombobox');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
@@ -2446,12 +2537,12 @@
             <tr><td>required</td><td>State of the text in the input (selected) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 26: Open an empty, collapsed combobox by typing a character</h2>
+    <h2 class="voiceover_macos">Test 26: Open an empty, collapsed combobox by typing a character</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-26-open-an-empty-collapsed-combobox-by-typing-character-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2465,7 +2556,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-26"
+      <button id="open-test-page-26" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 26, 'moveFocusToCombobox');">Open Test 26 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2494,12 +2585,12 @@
             <tr><td>required</td><td>State of the text in the input (selected) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 27: Open a filled in, collapsed combobox by typing a character in interaction mode</h2>
+    <h2 class="jaws nvda">Test 27: Open a filled in, collapsed combobox by typing a character in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-27-open-a-filled-in-collapsed-combobox-by-typing-character-interaction.html?at=jaws">jaws</a></li>
@@ -2514,7 +2605,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-27"
+      <button id="open-test-page-27" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToA.html', 27, 'moveFocusToComboboxAndSetValueToA');">Open Test 27 Page</button>
     </p>
       <div class="jaws">
@@ -2569,12 +2660,12 @@
             <tr><td>required</td><td>State of the text in the input (selected) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 28: Open a filled in, collapsed combobox by typing a character</h2>
+    <h2 class="voiceover_macos">Test 28: Open a filled in, collapsed combobox by typing a character</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-28-open-filled-in-collapsed-combobox-by-typing-character-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2588,7 +2679,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-28"
+      <button id="open-test-page-28" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToA.html', 28, 'moveFocusToComboboxAndSetValueToA');">Open Test 28 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2617,12 +2708,12 @@
             <tr><td>required</td><td>State of the text in the input (selected) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 29: Read information about an empty, expanded combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 29: Read information about an empty, expanded combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-29-read-information-about-empty-expanded-combobox-reading.html?at=jaws">jaws</a></li>
@@ -2639,7 +2730,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-29"
+      <button id="open-test-page-29" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 29, 'moveFocusToAndExpandCombobox');">Open Test 29 Page</button>
     </p>
       <div class="jaws">
@@ -2700,12 +2791,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 30: Read information about an empty, expanded combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 30: Read information about an empty, expanded combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-30-read-information-about-empty-expanded-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -2722,7 +2813,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-30"
+      <button id="open-test-page-30" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 30, 'moveFocusToAndExpandCombobox');">Open Test 30 Page</button>
     </p>
       <div class="jaws">
@@ -2781,12 +2872,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 31: Read information about an empty, expanded combobox</h2>
+    <h2 class="voiceover_macos">Test 31: Read information about an empty, expanded combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-31-read-information-about-empty-expanded-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2802,7 +2893,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-31"
+      <button id="open-test-page-31" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 31, 'moveFocusToAndExpandCombobox');">Open Test 31 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2834,12 +2925,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 32: Read information about a filled in, expanded combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 32: Read information about a filled in, expanded combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-32-read-information-about-filled-in-expanded-combobox-reading.html?at=jaws">jaws</a></li>
@@ -2856,7 +2947,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-32"
+      <button id="open-test-page-32" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToAlabama.html', 32, 'moveFocusToAndExpandComboboxAndSetValueToAlabama');">Open Test 32 Page</button>
     </p>
       <div class="jaws">
@@ -2921,12 +3012,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 33: Read information about a filled in, expanded combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 33: Read information about a filled in, expanded combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-33-read-information-about-filled-in-expanded-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -2943,7 +3034,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-33"
+      <button id="open-test-page-33" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToAlabama.html', 33, 'moveFocusToAndExpandComboboxAndSetValueToAlabama');">Open Test 33 Page</button>
     </p>
       <div class="jaws">
@@ -3006,12 +3097,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 34: Read information about a filled in, expanded combobox</h2>
+    <h2 class="voiceover_macos">Test 34: Read information about a filled in, expanded combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-34-read-information-about-filled-in-expanded-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3027,7 +3118,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-34"
+      <button id="open-test-page-34" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToAlabama.html', 34, 'moveFocusToAndExpandComboboxAndSetValueToAlabama');">Open Test 34 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -3061,12 +3152,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 35: Narrow down the matching options in an empty, expanded combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 35: Narrow down the matching options in an empty, expanded combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-35-narrow-down-matching-options-in-empty-expanded-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -3080,7 +3171,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-35"
+      <button id="open-test-page-35" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 35, 'moveFocusToAndExpandCombobox');">Open Test 35 Page</button>
     </p>
       <div class="jaws">
@@ -3133,12 +3224,12 @@
             <tr><td>required</td><td>State of the text in the input (selected) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 36: Narrow down the matching options in an empty, expanded combobox</h2>
+    <h2 class="voiceover_macos">Test 36: Narrow down the matching options in an empty, expanded combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-36-narrow-down-matching-options-in-empty-expanded-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3151,7 +3242,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-36"
+      <button id="open-test-page-36" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 36, 'moveFocusToAndExpandCombobox');">Open Test 36 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -3179,12 +3270,12 @@
             <tr><td>required</td><td>State of the text in the input (selected) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 37: Narrow down the matching options in a filled in, expanded combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 37: Narrow down the matching options in a filled in, expanded combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-37-narrow-down-matching-options-in-filled-in-expanded-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -3198,7 +3289,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-37"
+      <button id="open-test-page-37" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected.html', 37, 'moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected');">Open Test 37 Page</button>
     </p>
       <div class="jaws">
@@ -3251,12 +3342,12 @@
             <tr><td>required</td><td>State of the text in the input (selected) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 38: Narrow down the matching options in a filled in, expanded combobox</h2>
+    <h2 class="voiceover_macos">Test 38: Narrow down the matching options in a filled in, expanded combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-38-narrow-down-matching-options-in-filled-in-expanded-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3269,7 +3360,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-38"
+      <button id="open-test-page-38" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected.html', 38, 'moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected');">Open Test 38 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -3297,12 +3388,12 @@
             <tr><td>required</td><td>State of the text in the input (selected) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 39: Close an empty combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 39: Close an empty combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-39-close-empty-combobox-reading.html?at=jaws">jaws</a></li>
@@ -3317,7 +3408,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-39"
+      <button id="open-test-page-39" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 39, 'moveFocusToAndExpandCombobox');">Open Test 39 Page</button>
     </p>
       <div class="jaws">
@@ -3368,12 +3459,12 @@
             <tr><td>required</td><td>Change in state (to collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 40: Close an empty combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 40: Close an empty combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-40-close-empty-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -3388,7 +3479,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-40"
+      <button id="open-test-page-40" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 40, 'moveFocusToAndExpandCombobox');">Open Test 40 Page</button>
     </p>
       <div class="jaws">
@@ -3441,12 +3532,12 @@
             <tr><td>required</td><td>Change in state (to collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 41: Close an empty combobox</h2>
+    <h2 class="voiceover_macos">Test 41: Close an empty combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-41-close-empty-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3460,7 +3551,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-41"
+      <button id="open-test-page-41" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 41, 'moveFocusToAndExpandCombobox');">Open Test 41 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -3488,12 +3579,12 @@
             <tr><td>required</td><td>Change in state (to collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 42: Close a filled in combobox in reading mode</h2>
+    <h2 class="jaws nvda">Test 42: Close a filled in combobox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-42-close-filled-in-combobox-reading.html?at=jaws">jaws</a></li>
@@ -3508,7 +3599,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-42"
+      <button id="open-test-page-42" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToAlabama.html', 42, 'moveFocusToAndExpandComboboxAndSetValueToAlabama');">Open Test 42 Page</button>
     </p>
       <div class="jaws">
@@ -3559,12 +3650,12 @@
             <tr><td>required</td><td>Change in state (to collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 43: Close a filled in combobox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 43: Close a filled in combobox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-43-close-filled-in-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -3579,7 +3670,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-43"
+      <button id="open-test-page-43" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToAlabama.html', 43, 'moveFocusToAndExpandComboboxAndSetValueToAlabama');">Open Test 43 Page</button>
     </p>
       <div class="jaws">
@@ -3632,12 +3723,12 @@
             <tr><td>required</td><td>Change in state (to collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 44: Close a filled in combobox</h2>
+    <h2 class="voiceover_macos">Test 44: Close a filled in combobox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-44-close-filled-in-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3651,7 +3742,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-44"
+      <button id="open-test-page-44" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToAlabama.html', 44, 'moveFocusToAndExpandComboboxAndSetValueToAlabama');">Open Test 44 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -3679,12 +3770,12 @@
             <tr><td>required</td><td>Change in state (to collapsed) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 45: Navigate from an empty, collapsed combobox to the first option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 45: Navigate from an empty, collapsed combobox to the first option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-45-navigate-from-empty-collapsed-combobox-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -3703,7 +3794,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-45"
+      <button id="open-test-page-45" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 45, 'moveFocusToCombobox');">Open Test 45 Page</button>
     </p>
       <div class="jaws">
@@ -3766,12 +3857,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 46: Navigate from an empty, collapsed combobox to the first option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 46: Navigate from an empty, collapsed combobox to the first option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-46-navigate-from-empty-collapsed-combobox-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3789,7 +3880,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-46"
+      <button id="open-test-page-46" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 46, 'moveFocusToCombobox');">Open Test 46 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -3822,12 +3913,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 47: Navigate from an empty, collapsed combobox to the last option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 47: Navigate from an empty, collapsed combobox to the last option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-47-navigate-from-empty-collapsed-combobox-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -3846,7 +3937,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-47"
+      <button id="open-test-page-47" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 47, 'moveFocusToCombobox');">Open Test 47 Page</button>
     </p>
       <div class="jaws">
@@ -3907,12 +3998,12 @@
             <tr><td>required</td><td>Position of the focused option in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 48: Navigate from an empty, collapsed combobox to the last option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 48: Navigate from an empty, collapsed combobox to the last option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-48-navigate-from-empty-collapsed-combobox-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3930,7 +4021,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-48"
+      <button id="open-test-page-48" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToCombobox.html', 48, 'moveFocusToCombobox');">Open Test 48 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -3962,12 +4053,12 @@
             <tr><td>required</td><td>Position of the focused option in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 49: Navigate from a filled in, collapsed combobox to the first option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 49: Navigate from a filled in, collapsed combobox to the first option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-49-navigate-from-filled-in-collapsed-combobox-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -3986,7 +4077,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-49"
+      <button id="open-test-page-49" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToA.html', 49, 'moveFocusToComboboxAndSetValueToA');">Open Test 49 Page</button>
     </p>
       <div class="jaws">
@@ -4049,12 +4140,12 @@
             <tr><td>required</td><td>Number of options in the popup (5) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 50: Navigate from a filled in, collapsed combobox to the first option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 50: Navigate from a filled in, collapsed combobox to the first option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-50-navigate-from-filled-in-collapsed-combobox-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4072,7 +4163,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-50"
+      <button id="open-test-page-50" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToA.html', 50, 'moveFocusToComboboxAndSetValueToA');">Open Test 50 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -4105,12 +4196,12 @@
             <tr><td>required</td><td>Number of options in the popup (5) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 51: Navigate from a filled in, collapsed combobox to the last option in a listbox popup interaction mode</h2>
+    <h2 class="jaws nvda">Test 51: Navigate from a filled in, collapsed combobox to the last option in a listbox popup interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-51-navigate-from-filled-in-collapsed-combobox-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4129,7 +4220,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-51"
+      <button id="open-test-page-51" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToA.html', 51, 'moveFocusToComboboxAndSetValueToA');">Open Test 51 Page</button>
     </p>
       <div class="jaws">
@@ -4192,12 +4283,12 @@
             <tr><td>required</td><td>Number of options in the popup (5) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 52: Navigate from a filled in, collapsed combobox to the last option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 52: Navigate from a filled in, collapsed combobox to the last option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-52-navigate-from-filled-in-collapsed-combobox-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4215,7 +4306,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-52"
+      <button id="open-test-page-52" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToComboboxAndSetValueToA.html', 52, 'moveFocusToComboboxAndSetValueToA');">Open Test 52 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -4248,12 +4339,12 @@
             <tr><td>required</td><td>Number of options in the popup (5) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 53: Navigate from an empty, expanded combobox to the first option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 53: Navigate from an empty, expanded combobox to the first option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-53-navigate-from-empty-expanded-combobox-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4272,7 +4363,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-53"
+      <button id="open-test-page-53" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 53, 'moveFocusToAndExpandCombobox');">Open Test 53 Page</button>
     </p>
       <div class="jaws">
@@ -4333,12 +4424,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 54: Navigate from an empty, expanded combobox to the first option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 54: Navigate from an empty, expanded combobox to the first option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-54-navigate-from-an-empty-expanded-combobox-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4356,7 +4447,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-54"
+      <button id="open-test-page-54" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 54, 'moveFocusToAndExpandCombobox');">Open Test 54 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -4388,12 +4479,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 55: Navigate from an empty, expanded combobox to the last option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 55: Navigate from an empty, expanded combobox to the last option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-55-navigate-from-empty-expanded-combobox-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4412,7 +4503,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-55"
+      <button id="open-test-page-55" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 55, 'moveFocusToAndExpandCombobox');">Open Test 55 Page</button>
     </p>
       <div class="jaws">
@@ -4473,12 +4564,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 56: Navigate from an empty, expanded combobox to the last option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 56: Navigate from an empty, expanded combobox to the last option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-56-navigate-from-empty-expanded-combobox-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4496,7 +4587,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-56"
+      <button id="open-test-page-56" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandCombobox.html', 56, 'moveFocusToAndExpandCombobox');">Open Test 56 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -4528,12 +4619,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 57: Navigate from a filled in, expanded combobox to the first option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 57: Navigate from a filled in, expanded combobox to the first option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-57-navigate-from-filled-in-expanded-combobox-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4552,7 +4643,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-57"
+      <button id="open-test-page-57" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToA.html', 57, 'moveFocusToAndExpandComboboxAndSetValueToA');">Open Test 57 Page</button>
     </p>
       <div class="jaws">
@@ -4613,12 +4704,12 @@
             <tr><td>required</td><td>Number of options in the popup (5) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 58: Navigate from a filled in, expanded combobox to the first option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 58: Navigate from a filled in, expanded combobox to the first option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-58-navigate-from-filled-in-expanded-combobox-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4636,7 +4727,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-58"
+      <button id="open-test-page-58" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToA.html', 58, 'moveFocusToAndExpandComboboxAndSetValueToA');">Open Test 58 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -4668,12 +4759,12 @@
             <tr><td>required</td><td>Number of options in the popup (5) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 59: Navigate from a filled in, expanded combobox to the last option in a listbox popup interaction mode</h2>
+    <h2 class="jaws nvda">Test 59: Navigate from a filled in, expanded combobox to the last option in a listbox popup interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-59-navigate-from-filled-in-expanded-combobox-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4692,7 +4783,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-59"
+      <button id="open-test-page-59" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToA.html', 59, 'moveFocusToAndExpandComboboxAndSetValueToA');">Open Test 59 Page</button>
     </p>
       <div class="jaws">
@@ -4753,12 +4844,12 @@
             <tr><td>required</td><td>Number of options in the popup (5) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 60: Navigate from a filled in, expanded combobox to the last option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 60: Navigate from a filled in, expanded combobox to the last option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-60-navigate-from-filled-in-expanded-combobox-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4776,7 +4867,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-60"
+      <button id="open-test-page-60" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAndExpandComboboxAndSetValueToA.html', 60, 'moveFocusToAndExpandComboboxAndSetValueToA');">Open Test 60 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -4808,12 +4899,12 @@
             <tr><td>required</td><td>Number of options in the popup (5) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 61: Navigate to the next option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 61: Navigate to the next option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-61-navigate-to-next-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4832,7 +4923,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-61"
+      <button id="open-test-page-61" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListbox.html', 61, 'moveFocusToAlabamaInListbox');">Open Test 61 Page</button>
     </p>
       <div class="jaws">
@@ -4895,12 +4986,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 62: Navigate to the next option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 62: Navigate to the next option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-62-navigate-to-next-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4918,7 +5009,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-62"
+      <button id="open-test-page-62" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListbox.html', 62, 'moveFocusToAlabamaInListbox');">Open Test 62 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -4952,12 +5043,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 63: Navigate to the  previous option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 63: Navigate to the  previous option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-63-navigate-to-previous-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4976,7 +5067,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-63"
+      <button id="open-test-page-63" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlaskaInListbox.html', 63, 'moveFocusToAlaskaInListbox');">Open Test 63 Page</button>
     </p>
       <div class="jaws">
@@ -5039,12 +5130,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 64: Navigate to the  previous option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 64: Navigate to the  previous option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-64-navigate-to-previous-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5062,7 +5153,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-64"
+      <button id="open-test-page-64" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlaskaInListbox.html', 64, 'moveFocusToAlaskaInListbox');">Open Test 64 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -5096,12 +5187,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 65: Read information about a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 65: Read information about a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-65-read-information-about-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -5119,7 +5210,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-65"
+      <button id="open-test-page-65" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListbox.html', 65, 'moveFocusToAlabamaInListbox');">Open Test 65 Page</button>
     </p>
       <div class="jaws">
@@ -5180,12 +5271,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 66: Read information about a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 66: Read information about a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-66-read-information-about-a-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5202,7 +5293,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-66"
+      <button id="open-test-page-66" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListbox.html', 66, 'moveFocusToAlabamaInListbox');">Open Test 66 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -5235,12 +5326,12 @@
             <tr><td>required</td><td>Number of options in the popup (56) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 67: Navigate out of a listbox popup by moving the editing cursor to the right in interaction mode</h2>
+    <h2 class="jaws nvda">Test 67: Navigate out of a listbox popup by moving the editing cursor to the right in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-67-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-right-interaction.html?at=jaws">jaws</a></li>
@@ -5257,7 +5348,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-67"
+      <button id="open-test-page-67" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning.html', 67, 'moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning');">Open Test 67 Page</button>
     </p>
       <div class="jaws">
@@ -5320,12 +5411,12 @@
             <tr><td>required</td><td>Cursor position (on the character &#39;l&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 68: Navigate out of a listbox popup by moving the editing cursor to the left in interaction mode</h2>
+    <h2 class="jaws nvda">Test 68: Navigate out of a listbox popup by moving the editing cursor to the left in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-68-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-left-interaction.html?at=jaws">jaws</a></li>
@@ -5342,7 +5433,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-68"
+      <button id="open-test-page-68" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtEnd.html', 68, 'moveFocusToAlabamaInListboxAndSetInputCursorAtEnd');">Open Test 68 Page</button>
     </p>
       <div class="jaws">
@@ -5405,12 +5496,12 @@
             <tr><td>required</td><td>Cursor position (on the character &#39;a&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 69: Navigate out of a listbox popup by moving the editing cursor to the right</h2>
+    <h2 class="voiceover_macos">Test 69: Navigate out of a listbox popup by moving the editing cursor to the right</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-69-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-right-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5426,7 +5517,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-69"
+      <button id="open-test-page-69" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning.html', 69, 'moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning');">Open Test 69 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -5459,12 +5550,12 @@
             <tr><td>required</td><td>Cursor position (on the character &#39;l&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 70: Navigate out of a listbox popup by moving the editing cursor to the left</h2>
+    <h2 class="voiceover_macos">Test 70: Navigate out of a listbox popup by moving the editing cursor to the left</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-70-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-left-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5480,7 +5571,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-70"
+      <button id="open-test-page-70" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtEnd.html', 70, 'moveFocusToAlabamaInListboxAndSetInputCursorAtEnd');">Open Test 70 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -5513,12 +5604,12 @@
             <tr><td>required</td><td>Cursor position (on the character &#39;a&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 71: Navigate out of a listbox popup by moving the editing cursor to the end of the textbox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 71: Navigate out of a listbox popup by moving the editing cursor to the end of the textbox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-71-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-end-of-textbox-interaction.html?at=jaws">jaws</a></li>
@@ -5535,7 +5626,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-71"
+      <button id="open-test-page-71" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning.html', 71, 'moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning');">Open Test 71 Page</button>
     </p>
       <div class="jaws">
@@ -5598,12 +5689,12 @@
             <tr><td>required</td><td>Cursor position (at the end of the textbox) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 72: Navigate out of a listbox popup by moving the editing cursor to the beginning of the textbox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 72: Navigate out of a listbox popup by moving the editing cursor to the beginning of the textbox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-72-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-beginning-of-textbox-interaction.html?at=jaws">jaws</a></li>
@@ -5620,7 +5711,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-72"
+      <button id="open-test-page-72" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtEnd.html', 72, 'moveFocusToAlabamaInListboxAndSetInputCursorAtEnd');">Open Test 72 Page</button>
     </p>
       <div class="jaws">
@@ -5683,12 +5774,12 @@
             <tr><td>required</td><td>Cursor position (on the character &#39;a&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 73: Navigate out of a listbox popup by moving the editing cursor to the end of the textbox</h2>
+    <h2 class="voiceover_macos">Test 73: Navigate out of a listbox popup by moving the editing cursor to the end of the textbox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-73-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-end-of-textbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5704,7 +5795,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-73"
+      <button id="open-test-page-73" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning.html', 73, 'moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning');">Open Test 73 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -5737,12 +5828,12 @@
             <tr><td>required</td><td>Cursor position (at the end of the textbox) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 74: Navigate out of a listbox popup by moving the editing cursor to the beginning of the textbox</h2>
+    <h2 class="voiceover_macos">Test 74: Navigate out of a listbox popup by moving the editing cursor to the beginning of the textbox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-74-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-beginning-of-textbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5758,7 +5849,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-74"
+      <button id="open-test-page-74" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtEnd.html', 74, 'moveFocusToAlabamaInListboxAndSetInputCursorAtEnd');">Open Test 74 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -5791,12 +5882,12 @@
             <tr><td>required</td><td>Cursor position (on the character &#39;a&#39;) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 75: Select an option in a listbox popup in interaction mode</h2>
+    <h2 class="jaws nvda">Test 75: Select an option in a listbox popup in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-75-select-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -5814,7 +5905,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-75"
+      <button id="open-test-page-75" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListbox.html', 75, 'moveFocusToAlabamaInListbox');">Open Test 75 Page</button>
     </p>
       <div class="jaws">
@@ -5877,12 +5968,12 @@
             <tr><td>required</td><td>The presence of autocomplete behavior is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 76: Select an option in a listbox popup</h2>
+    <h2 class="voiceover_macos">Test 76: Select an option in a listbox popup</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-76-select-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5899,7 +5990,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-76"
+      <button id="open-test-page-76" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;combobox-autocomplete-both-updated&#x2F;reference&#x2F;2020-12-11_16649&#x2F;combobox-autocomplete-both.moveFocusToAlabamaInListbox.html', 76, 'moveFocusToAlabamaInListbox');">Open Test 76 Page</button>
     </p>
       <div class="voiceover_macos">

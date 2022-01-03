@@ -50,16 +50,29 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
+          }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
           }
         }
       };
 
       var scripts = {
-        	checkFirstCheckbox: function(testPageDocument){
+        	setFocusOnButton: function(testPageDocument){
+	// sets focus on the 'Trigger Alert' button
+	testPageDocument.querySelector('#alert-trigger').focus();
+},	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link after the 'Breadcrumb Example' link
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeFirstBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link before the 'WAI-ARIA Authoring Practices' link
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on the 'Breadcrumb Example' link
+	testPageDocument.querySelector('[aria-current="page"]').focus();
+},	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -205,6 +218,27 @@
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
 	testPageDocument.querySelector('#action').focus();
+},	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
 	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
@@ -267,6 +301,15 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	setFocusAfterRedSlider: function(testPageDocument){
+	// sets focus on a link after the Red slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRedSlider: function(testPageDocument){
+	// sets focus on a link before the Red slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnRedSlider: function(testPageDocument){
+	// sets focus on the 'Red' slider
+	testPageDocument.querySelector('[role="slider"].red').focus();
 },	openMenuAndSetFocusToFirstItem: function(testPageDocument){
 	// opens the menu, and sets focus on 'Action 1'
 	testPageDocument.defaultView.menuController.openPopup();
@@ -545,6 +588,33 @@
 	let lastRadio = radios[radios.length - 1];
 	lastRadio.tabIndex = 0;
 	lastRadio.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
+},	setFocusOnSliderAndSetValueToFive: function(testPageDocument){
+	// sets focus on the slider, and sets its value to five stars
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '5');
+	slider.setAttribute('aria-valuetext', 'five of five stars');
+	slider.focus();
+},	setFocusOnSliderAndSetValueToOne: function(testPageDocument){
+	// sets focus on the slider, and sets its value to one star
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '1');
+	slider.setAttribute('aria-valuetext', 'one of five stars');
+	slider.focus();
+},	setFocusOnSliderAndSetValueToOneHalfStar: function(testPageDocument){
+	// sets focus on the slider, and sets its value to one half star
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '0.5');
+	slider.setAttribute('aria-valuetext', 'one half of five stars');
+	slider.focus();
 },	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
 	// activates the third tab in the tab list, and sets focus on the tab panel
 	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
@@ -578,8 +648,20 @@
 },	setFocusAfterButton: function(testPageDocument){
 	// sets focus on a link after the button
 	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusAfterButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link after the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
+	testPageDocument.querySelector('#afterlink').focus();
 },	setFocusBeforeButton: function(testPageDocument){
 	// sets focus on a link before the button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusBeforeButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link before the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	testPageDocument.querySelector('#beforelink').focus();
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
@@ -590,6 +672,15 @@
 	button.setAttribute('aria-pressed', 'true');
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
 }
       };
 
@@ -625,12 +716,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate to an unchecked checkbox in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Navigate to an unchecked checkbox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-01-navigate-to-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -646,7 +737,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
+      <button id="open-test-page-1" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 1, '');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
@@ -698,12 +789,12 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate to an unchecked checkbox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 2: Navigate to an unchecked checkbox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-02-navigate-to-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -719,7 +810,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
+      <button id="open-test-page-2" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 2, '');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
@@ -764,12 +855,12 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Navigate to an unchecked checkbox</h2>
+    <h2 class="voiceover_macos">Test 3: Navigate to an unchecked checkbox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-03-navigate-to-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -784,7 +875,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
+      <button id="open-test-page-3" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 3, '');">Open Test 3 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -810,12 +901,12 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate to a checked checkbox in reading mode</h2>
+    <h2 class="jaws nvda">Test 4: Navigate to a checked checkbox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-04-navigate-to-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -831,7 +922,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
+      <button id="open-test-page-4" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.checkFirstCheckbox.html', 4, 'checkFirstCheckbox');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
@@ -893,12 +984,12 @@
             <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate to a checked checkbox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 5: Navigate to a checked checkbox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-05-navigate-to-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -914,7 +1005,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
+      <button id="open-test-page-5" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.checkFirstCheckbox.html', 5, 'checkFirstCheckbox');">Open Test 5 Page</button>
     </p>
       <div class="jaws">
@@ -969,12 +1060,12 @@
             <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate to a checked checkbox</h2>
+    <h2 class="voiceover_macos">Test 6: Navigate to a checked checkbox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-06-navigate-to-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -989,7 +1080,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
+      <button id="open-test-page-6" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.checkFirstCheckbox.html', 6, 'checkFirstCheckbox');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1020,12 +1111,12 @@
             <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Operate a checkbox in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Operate a checkbox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-07-operate-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1040,7 +1131,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
+      <button id="open-test-page-7" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 7, '');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
@@ -1083,12 +1174,12 @@
             <tr><td>required</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Operate a checkbox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 8: Operate a checkbox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-08-operate-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1103,7 +1194,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
+      <button id="open-test-page-8" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 8, '');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
@@ -1144,12 +1235,12 @@
             <tr><td>required</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Operate a checkbox</h2>
+    <h2 class="voiceover_macos">Test 9: Operate a checkbox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-09-operate-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1163,7 +1254,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
+      <button id="open-test-page-9" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 9, '');">Open Test 9 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1186,12 +1277,12 @@
             <tr><td>required</td><td>Change in state is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 10: Read an unchecked checkbox in reading mode</h2>
+    <h2 class="jaws nvda">Test 10: Read an unchecked checkbox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-10-read-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1207,7 +1298,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10"
+      <button id="open-test-page-10" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusToFirstCheckbox.html', 10, 'moveFocusToFirstCheckbox');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
@@ -1264,12 +1355,12 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 11: Read an unchecked checkbox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 11: Read an unchecked checkbox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-11-read-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1285,7 +1376,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11"
+      <button id="open-test-page-11" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusToFirstCheckbox.html', 11, 'moveFocusToFirstCheckbox');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
@@ -1342,12 +1433,12 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Read an unchecked checkbox</h2>
+    <h2 class="voiceover_macos">Test 12: Read an unchecked checkbox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-12-read-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1362,7 +1453,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12"
+      <button id="open-test-page-12" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusToFirstCheckbox.html', 12, 'moveFocusToFirstCheckbox');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1392,12 +1483,12 @@
             <tr><td>required</td><td>State of the checkbox (not checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 13: Read a checked checkbox in reading mode</h2>
+    <h2 class="jaws nvda">Test 13: Read a checked checkbox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-13-read-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1413,7 +1504,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13"
+      <button id="open-test-page-13" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusAndCheckFirstCheckbox.html', 13, 'moveFocusAndCheckFirstCheckbox');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
@@ -1470,12 +1561,12 @@
             <tr><td>required</td><td>State of the checkbox ( checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 14: Read a checked checkbox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 14: Read a checked checkbox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-14-read-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1491,7 +1582,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14"
+      <button id="open-test-page-14" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusAndCheckFirstCheckbox.html', 14, 'moveFocusAndCheckFirstCheckbox');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
@@ -1548,12 +1639,12 @@
             <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 15: Read a checked checkbox</h2>
+    <h2 class="voiceover_macos">Test 15: Read a checked checkbox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-15-read-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1568,7 +1659,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15"
+      <button id="open-test-page-15" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.moveFocusAndCheckFirstCheckbox.html', 15, 'moveFocusAndCheckFirstCheckbox');">Open Test 15 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1598,12 +1689,12 @@
             <tr><td>required</td><td>State of the checkbox (checked) is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Read grouping information of a grouped checkbox in reading mode</h2>
+    <h2 class="jaws nvda">Test 16: Read grouping information of a grouped checkbox in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1619,7 +1710,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16"
+      <button id="open-test-page-16" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 16, '');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
@@ -1662,12 +1753,12 @@
             <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 17: Read grouping information of a grouped checkbox in interaction mode</h2>
+    <h2 class="jaws nvda">Test 17: Read grouping information of a grouped checkbox in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1683,7 +1774,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17"
+      <button id="open-test-page-17" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 17, '');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
@@ -1726,12 +1817,12 @@
             <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 18: Read grouping information of a grouped checkbox</h2>
+    <h2 class="voiceover_macos">Test 18: Read grouping information of a grouped checkbox</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1746,7 +1837,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18"
+      <button id="open-test-page-18" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 18, '');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1770,12 +1861,12 @@
             <tr><td>required</td><td>Group name &#39;Sandwich Condiments&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 19: Navigate sequentially through a checkbox group in reading mode</h2>
+    <h2 class="jaws nvda">Test 19: Navigate sequentially through a checkbox group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-19-navigate-sequentially-through-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1792,7 +1883,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19"
+      <button id="open-test-page-19" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 19, '');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
@@ -1839,12 +1930,12 @@
             <tr><td>required</td><td>Group boundaries at start and end of group are conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 20: Navigate sequentially through a checkbox group</h2>
+    <h2 class="voiceover_macos">Test 20: Navigate sequentially through a checkbox group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-20-navigate-sequentially-through-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1860,7 +1951,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20"
+      <button id="open-test-page-20" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 20, '');">Open Test 20 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1885,12 +1976,12 @@
             <tr><td>required</td><td>Group boundaries at start and end of group are conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 21: Navigate into a checkbox group in reading mode</h2>
+    <h2 class="jaws nvda">Test 21: Navigate into a checkbox group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-21-navigate-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1907,7 +1998,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21"
+      <button id="open-test-page-21" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 21, '');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
@@ -1962,12 +2053,12 @@
             <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 22: Navigate into a checkbox group in interaction mode</h2>
+    <h2 class="jaws nvda">Test 22: Navigate into a checkbox group in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-22-navigate-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1984,7 +2075,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22"
+      <button id="open-test-page-22" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 22, '');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
@@ -2031,12 +2122,12 @@
             <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 23: Navigate into a checkbox group</h2>
+    <h2 class="voiceover_macos">Test 23: Navigate into a checkbox group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-23-navigate-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2052,7 +2143,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23"
+      <button id="open-test-page-23" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 23, '');">Open Test 23 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2081,12 +2172,12 @@
             <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 24: Navigate out of a checkbox group  in reading mode</h2>
+    <h2 class="jaws nvda">Test 24: Navigate out of a checkbox group  in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-24-navigate-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -2103,7 +2194,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24"
+      <button id="open-test-page-24" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 24, '');">Open Test 24 Page</button>
     </p>
       <div class="jaws">
@@ -2150,12 +2241,12 @@
             <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 25: Navigate out of a checkbox group in interaction mode</h2>
+    <h2 class="jaws nvda">Test 25: Navigate out of a checkbox group in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-25-navigate-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2172,7 +2263,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-25"
+      <button id="open-test-page-25" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 25, '');">Open Test 25 Page</button>
     </p>
       <div class="jaws">
@@ -2219,12 +2310,12 @@
             <tr><td>optional</td><td>The group boundary is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 26: Navigate out of a checkbox group</h2>
+    <h2 class="voiceover_macos">Test 26: Navigate out of a checkbox group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-26-navigate-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2240,7 +2331,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-26"
+      <button id="open-test-page-26" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;checkbox&#x2F;reference&#x2F;2020-11-23_175030&#x2F;checkbox-1&#x2F;checkbox-1.html', 26, '');">Open Test 26 Page</button>
     </p>
       <div class="voiceover_macos">

@@ -8,8 +8,11 @@
 
 <script>
   var scripts = {
-		setFocusBeforeButton: function(testPageDocument){
-			// sets focus on a link before the button
+		setFocusBeforeButtonAndSetStateToPressed: function(testPageDocument){
+			// sets focus on a link before the button, and sets the state of the button to 'pressed'
+			let button = testPageDocument.querySelector('#toggle');
+			button.setAttribute('aria-pressed', 'true');
+			button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 			testPageDocument.querySelector('#beforelink').focus();
 		}
 	};
@@ -23,8 +26,8 @@
     })
   .then(supportJson => {
     const testJson = {
-  "setup_script_description": "sets focus on a link before the button",
-  "setupTestPage": "setFocusBeforeButton",
+  "setup_script_description": "sets focus on a link before the button, and sets the state of the button to 'pressed'",
+  "setupTestPage": "setFocusBeforeButtonAndSetStateToPressed",
   "applies_to": [
     "voiceover_macos"
   ],
@@ -75,7 +78,7 @@
 };
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
-    displayTestPageAndInstructions("reference/2021-3-29_145942/button.setFocusBeforeButton.html");
+    displayTestPageAndInstructions("reference/2021-3-29_145942/button.setFocusBeforeButtonAndSetStateToPressed.html");
   });
 </script>
   

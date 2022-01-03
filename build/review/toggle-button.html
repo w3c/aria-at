@@ -50,16 +50,29 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
+          }
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
           }
         }
       };
 
       var scripts = {
-        	checkFirstCheckbox: function(testPageDocument){
+        	setFocusOnButton: function(testPageDocument){
+	// sets focus on the 'Trigger Alert' button
+	testPageDocument.querySelector('#alert-trigger').focus();
+},	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link after the 'Breadcrumb Example' link
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeFirstBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link before the 'WAI-ARIA Authoring Practices' link
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on the 'Breadcrumb Example' link
+	testPageDocument.querySelector('[aria-current="page"]').focus();
+},	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -205,6 +218,27 @@
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
 	testPageDocument.querySelector('#action').focus();
+},	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
 	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
@@ -267,6 +301,15 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	setFocusAfterRedSlider: function(testPageDocument){
+	// sets focus on a link after the Red slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRedSlider: function(testPageDocument){
+	// sets focus on a link before the Red slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnRedSlider: function(testPageDocument){
+	// sets focus on the 'Red' slider
+	testPageDocument.querySelector('[role="slider"].red').focus();
 },	openMenuAndSetFocusToFirstItem: function(testPageDocument){
 	// opens the menu, and sets focus on 'Action 1'
 	testPageDocument.defaultView.menuController.openPopup();
@@ -545,6 +588,33 @@
 	let lastRadio = radios[radios.length - 1];
 	lastRadio.tabIndex = 0;
 	lastRadio.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
+},	setFocusOnSliderAndSetValueToFive: function(testPageDocument){
+	// sets focus on the slider, and sets its value to five stars
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '5');
+	slider.setAttribute('aria-valuetext', 'five of five stars');
+	slider.focus();
+},	setFocusOnSliderAndSetValueToOne: function(testPageDocument){
+	// sets focus on the slider, and sets its value to one star
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '1');
+	slider.setAttribute('aria-valuetext', 'one of five stars');
+	slider.focus();
+},	setFocusOnSliderAndSetValueToOneHalfStar: function(testPageDocument){
+	// sets focus on the slider, and sets its value to one half star
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '0.5');
+	slider.setAttribute('aria-valuetext', 'one half of five stars');
+	slider.focus();
 },	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
 	// activates the third tab in the tab list, and sets focus on the tab panel
 	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
@@ -578,8 +648,20 @@
 },	setFocusAfterButton: function(testPageDocument){
 	// sets focus on a link after the button
 	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusAfterButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link after the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
+	testPageDocument.querySelector('#afterlink').focus();
 },	setFocusBeforeButton: function(testPageDocument){
 	// sets focus on a link before the button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusBeforeButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link before the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	testPageDocument.querySelector('#beforelink').focus();
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
@@ -590,6 +672,15 @@
 	button.setAttribute('aria-pressed', 'true');
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
 }
       };
 
@@ -625,12 +716,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate forwards to a not pressed toggle button in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Navigate forwards to a not pressed toggle button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-01-navigate-forwards-to-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -646,7 +737,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
+      <button id="open-test-page-1" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButton.html', 1, 'setFocusBeforeButton');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
@@ -707,12 +798,12 @@
             <tr><td>required</td><td>State &#39;not pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate backwards to a not pressed toggle button in reading mode</h2>
+    <h2 class="jaws nvda">Test 2: Navigate backwards to a not pressed toggle button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-02-navigate-backwards-to-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -728,7 +819,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
+      <button id="open-test-page-2" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButton.html', 2, 'setFocusAfterButton');">Open Test 2 Page</button>
     </p>
       <div class="jaws">
@@ -789,12 +880,12 @@
             <tr><td>required</td><td>State &#39;not pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: Navigate forwards to a not pressed toggle button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 3: Navigate forwards to a not pressed toggle button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-03-navigate-forwards-to-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -810,7 +901,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
+      <button id="open-test-page-3" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButton.html', 3, 'setFocusBeforeButton');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
@@ -865,12 +956,12 @@
             <tr><td>required</td><td>State &#39;not pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate backwards to a not pressed toggle button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 4: Navigate backwards to a not pressed toggle button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-04-navigate-backwards-to-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -886,7 +977,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
+      <button id="open-test-page-4" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButton.html', 4, 'setFocusAfterButton');">Open Test 4 Page</button>
     </p>
       <div class="jaws">
@@ -941,12 +1032,12 @@
             <tr><td>required</td><td>State &#39;not pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate forwards to a not pressed toggle button</h2>
+    <h2 class="voiceover_macos">Test 5: Navigate forwards to a not pressed toggle button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-05-navigate-forwards-to-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -961,7 +1052,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
+      <button id="open-test-page-5" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButton.html', 5, 'setFocusBeforeButton');">Open Test 5 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -992,12 +1083,12 @@
             <tr><td>required</td><td>State &#39;not pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate backwards to a not pressed toggle button</h2>
+    <h2 class="voiceover_macos">Test 6: Navigate backwards to a not pressed toggle button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-06-navigate-backwards-to-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1012,7 +1103,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
+      <button id="open-test-page-6" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButton.html', 6, 'setFocusAfterButton');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1043,12 +1134,12 @@
             <tr><td>required</td><td>State &#39;not pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Navigate forwards to a pressed toggle button in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Navigate forwards to a pressed toggle button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-07-navigate-forwards-to-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1064,15 +1155,15 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButton.html', 7, 'setFocusBeforeButton');">Open Test 7 Page</button>
+      <button id="open-test-page-7" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButtonAndSetStateToPressed.html', 7, 'setFocusBeforeButtonAndSetStateToPressed');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link before the button</li>
+        <li>sets focus on a link before the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1101,7 +1192,7 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link before the button</li>
+        <li>sets focus on a link before the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1125,12 +1216,12 @@
             <tr><td>required</td><td>State &#39;pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Navigate backwards to a pressed toggle button in reading mode</h2>
+    <h2 class="jaws nvda">Test 8: Navigate backwards to a pressed toggle button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-08-navigate-backwards-to-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1146,15 +1237,15 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButton.html', 8, 'setFocusAfterButton');">Open Test 8 Page</button>
+      <button id="open-test-page-8" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButtonAndSetStateToPressed.html', 8, 'setFocusAfterButtonAndSetStateToPressed');">Open Test 8 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link after the button</li>
+        <li>sets focus on a link after the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1183,7 +1274,7 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link after the button</li>
+        <li>sets focus on a link after the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1207,12 +1298,12 @@
             <tr><td>required</td><td>State &#39;pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Navigate forwards to a pressed toggle button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 9: Navigate forwards to a pressed toggle button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-09-navigate-forwards-to-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1228,15 +1319,15 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButton.html', 9, 'setFocusBeforeButton');">Open Test 9 Page</button>
+      <button id="open-test-page-9" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButtonAndSetStateToPressed.html', 9, 'setFocusBeforeButtonAndSetStateToPressed');">Open Test 9 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link before the button</li>
+        <li>sets focus on a link before the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1262,7 +1353,7 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link before the button</li>
+        <li>sets focus on a link before the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1283,12 +1374,12 @@
             <tr><td>required</td><td>State &#39;pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 10: Navigate backwards to a pressed toggle button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 10: Navigate backwards to a pressed toggle button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-10-navigate-backwards-to-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1304,15 +1395,15 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButton.html', 10, 'setFocusAfterButton');">Open Test 10 Page</button>
+      <button id="open-test-page-10" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButtonAndSetStateToPressed.html', 10, 'setFocusAfterButtonAndSetStateToPressed');">Open Test 10 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link after the button</li>
+        <li>sets focus on a link after the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1338,7 +1429,7 @@
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link after the button</li>
+        <li>sets focus on a link after the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1359,12 +1450,12 @@
             <tr><td>required</td><td>State &#39;pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 11: Navigate forwards to a pressed toggle button</h2>
+    <h2 class="voiceover_macos">Test 11: Navigate forwards to a pressed toggle button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-11-navigate-forwards-to-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1379,15 +1470,15 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButton.html', 11, 'setFocusBeforeButton');">Open Test 11 Page</button>
+      <button id="open-test-page-11" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusBeforeButtonAndSetStateToPressed.html', 11, 'setFocusBeforeButtonAndSetStateToPressed');">Open Test 11 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link before the button</li>
+        <li>sets focus on a link before the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1410,12 +1501,12 @@
             <tr><td>required</td><td>State &#39;pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Navigate backwards to a pressed toggle button</h2>
+    <h2 class="voiceover_macos">Test 12: Navigate backwards to a pressed toggle button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-12-navigate-backwards-to-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1430,15 +1521,15 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12"
-        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButton.html', 12, 'setFocusAfterButton');">Open Test 12 Page</button>
+      <button id="open-test-page-12" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusAfterButtonAndSetStateToPressed.html', 12, 'setFocusAfterButtonAndSetStateToPressed');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
         <h4>Scripted Instructions</h4>
         The following instructions are executed by a script in the test page to initialize the widget:
         <ol>
-        <li>sets focus on a link after the button</li>
+        <li>sets focus on a link after the button, and sets the state of the button to &#39;pressed&#39;</li>
         </ol>
         <h4>Tester Instructions</h4>
         <p>
@@ -1461,12 +1552,12 @@
             <tr><td>required</td><td>State &#39;pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 13: Read information about a not pressed toggle button in reading mode</h2>
+    <h2 class="jaws nvda">Test 13: Read information about a not pressed toggle button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-13-read-information-about-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1482,7 +1573,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13"
+      <button id="open-test-page-13" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButton.html', 13, 'setFocusOnButton');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
@@ -1539,12 +1630,12 @@
             <tr><td>required</td><td>State &#39;not pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 14: Read information about a not pressed toggle button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 14: Read information about a not pressed toggle button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-14-read-information-about-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1560,7 +1651,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14"
+      <button id="open-test-page-14" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButton.html', 14, 'setFocusOnButton');">Open Test 14 Page</button>
     </p>
       <div class="jaws">
@@ -1617,12 +1708,12 @@
             <tr><td>required</td><td>State &#39;not pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 15: Read information about a not pressed toggle button</h2>
+    <h2 class="voiceover_macos">Test 15: Read information about a not pressed toggle button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-15-read-information-about-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1637,7 +1728,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15"
+      <button id="open-test-page-15" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButton.html', 15, 'setFocusOnButton');">Open Test 15 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1667,12 +1758,12 @@
             <tr><td>required</td><td>State &#39;not pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Read information about a pressed toggle button in reading mode</h2>
+    <h2 class="jaws nvda">Test 16: Read information about a pressed toggle button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-16-read-information-about-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1688,7 +1779,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16"
+      <button id="open-test-page-16" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButtonAndSetStateToPressed.html', 16, 'setFocusOnButtonAndSetStateToPressed');">Open Test 16 Page</button>
     </p>
       <div class="jaws">
@@ -1745,12 +1836,12 @@
             <tr><td>required</td><td>State &#39;pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 17: Read information about a pressed toggle button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 17: Read information about a pressed toggle button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-17-read-information-about-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1766,7 +1857,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17"
+      <button id="open-test-page-17" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButtonAndSetStateToPressed.html', 17, 'setFocusOnButtonAndSetStateToPressed');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
@@ -1823,12 +1914,12 @@
             <tr><td>required</td><td>State &#39;pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 18: Read information about a pressed toggle button</h2>
+    <h2 class="voiceover_macos">Test 18: Read information about a pressed toggle button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-18-read-information-about-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1843,7 +1934,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18"
+      <button id="open-test-page-18" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButtonAndSetStateToPressed.html', 18, 'setFocusOnButtonAndSetStateToPressed');">Open Test 18 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -1873,12 +1964,12 @@
             <tr><td>required</td><td>State &#39;pressed&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 19: Operate a not pressed toggle button in reading mode</h2>
+    <h2 class="jaws nvda">Test 19: Operate a not pressed toggle button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-19-operate-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1894,7 +1985,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19"
+      <button id="open-test-page-19" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButton.html', 19, 'setFocusOnButton');">Open Test 19 Page</button>
     </p>
       <div class="jaws">
@@ -1947,12 +2038,12 @@
             <tr><td>required</td><td>Change in state, to &#39;pressed&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 20: Operate a not pressed toggle button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 20: Operate a not pressed toggle button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-20-operate-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1968,7 +2059,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20"
+      <button id="open-test-page-20" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButton.html', 20, 'setFocusOnButton');">Open Test 20 Page</button>
     </p>
       <div class="jaws">
@@ -2021,12 +2112,12 @@
             <tr><td>required</td><td>Change in state, to &#39;pressed&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 21: Operate a not pressed toggle button</h2>
+    <h2 class="voiceover_macos">Test 21: Operate a not pressed toggle button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-21-operate-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2041,7 +2132,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21"
+      <button id="open-test-page-21" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButton.html', 21, 'setFocusOnButton');">Open Test 21 Page</button>
     </p>
       <div class="voiceover_macos">
@@ -2071,12 +2162,12 @@
             <tr><td>required</td><td>Change in state, to &#39;pressed&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 22: Operate a pressed toggle button in reading mode</h2>
+    <h2 class="jaws nvda">Test 22: Operate a pressed toggle button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-22-operate-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -2092,7 +2183,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22"
+      <button id="open-test-page-22" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButtonAndSetStateToPressed.html', 22, 'setFocusOnButtonAndSetStateToPressed');">Open Test 22 Page</button>
     </p>
       <div class="jaws">
@@ -2145,12 +2236,12 @@
             <tr><td>required</td><td>Change in state, to &#39;not pressed&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 23: Operate a pressed toggle button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 23: Operate a pressed toggle button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-23-operate-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -2166,7 +2257,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23"
+      <button id="open-test-page-23" class="jaws nvda"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButtonAndSetStateToPressed.html', 23, 'setFocusOnButtonAndSetStateToPressed');">Open Test 23 Page</button>
     </p>
       <div class="jaws">
@@ -2219,12 +2310,12 @@
             <tr><td>required</td><td>Change in state, to &#39;not pressed&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 24: Operate a pressed toggle button</h2>
+    <h2 class="voiceover_macos">Test 24: Operate a pressed toggle button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Oct 14 11:09:34 2021 -0400</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-24-operate-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2239,7 +2330,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24"
+      <button id="open-test-page-24" class="voiceover_macos"
         onclick="openTestPage('../tests&#x2F;toggle-button&#x2F;reference&#x2F;2021-3-29_145942&#x2F;button.setFocusOnButtonAndSetStateToPressed.html', 24, 'setFocusOnButtonAndSetStateToPressed');">Open Test 24 Page</button>
     </p>
       <div class="voiceover_macos">

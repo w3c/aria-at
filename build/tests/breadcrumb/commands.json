@@ -1,0 +1,72 @@
+{
+  "navigate to first breadcrumb link": {
+    "reading": {
+      "jaws": [
+        [ "U" ],
+        [ "I" ],
+        [ "TAB" ],
+        [ "DOWN,DOWN,DOWN" ]
+      ],
+      "nvda": [
+        [ "U" ],
+        [ "K" ],
+        [ "L" ],
+        [ "I" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT,CTRL_OPT_RIGHT"
+        ],
+        [ "CTRL_OPT_CMD_L" ]
+      ]
+    }
+  },
+  "navigate to last breadcrumb link": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_U" ],
+        [ "SHIFT_I" ],
+        [ "SHIFT_TAB" ],
+        [ "UP,UP,UP" ]
+      ],
+      "nvda": [
+        [ "SHIFT_U" ],
+        [ "SHIFT_K" ],
+        [ "SHIFT_L" ],
+        [ "SHIFT_I" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_LEFT,CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+        ],
+        [ "SHIFT_CTRL_OPT_CMD_L" ]
+      ]
+    }
+  },
+  "read information about breadcrumb link": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+}

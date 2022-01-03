@@ -36,7 +36,13 @@
   "commands": [
     {
       "id": "HOME",
-      "keystroke": "Home"
+      "keystroke": "Home",
+      "keypresses": [
+        {
+          "id": "HOME",
+          "keystroke": "Home"
+        }
+      ]
     }
   ],
   "assertions": [
@@ -46,7 +52,7 @@
     },
     {
       "priority": 1,
-      "expectation": "Name 'Administration' is conveyed"
+      "expectation": "Name 'Overview' is conveyed"
     }
   ]
 }

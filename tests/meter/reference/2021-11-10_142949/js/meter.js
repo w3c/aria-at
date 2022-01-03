@@ -85,31 +85,16 @@ window.addEventListener('load', function () {
 
   // randomly update meter values
 
-  // returns an id for setInterval
-  function playMeters() {
-    return window.setInterval(function () {
-      meters.forEach(function (meter) {
-        meter.setValue(Math.random() * 100);
-      });
-    }, 5000);
+  // changes the meter's value just once
+  function updateMeters() {
+    meters.forEach(function (meter) {
+      meter.setValue(Math.random() * 100);
+    });
   }
-
-  // start meters
-  var updateInterval = playMeters();
 
   // play/pause meter updates
   var playButton = document.querySelector('.play-meters');
   playButton.addEventListener('click', function () {
-    var isPaused = playButton.classList.contains('paused');
-
-    if (isPaused) {
-      updateInterval = playMeters();
-      playButton.classList.remove('paused');
-      playButton.innerHTML = 'Pause Updates';
-    } else {
-      clearInterval(updateInterval);
-      playButton.classList.add('paused');
-      playButton.innerHTML = 'Start Updates';
-    }
+    updateMeters();
   });
 });

@@ -222,22 +222,22 @@
 	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
 	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
 	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
-	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);
-	testPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
 	testPageDocument.querySelector('#afterlink').focus();
 },	setFocusBeforeSpinButtonAndSetPredefinedDate: function(testPageDocument){
 	// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button
 	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
 	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
-	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);
-	testPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
 	testPageDocument.querySelector('#beforelink').focus();
 },	setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
 	// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
 	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
 	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
-	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);
-	testPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
 	testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
@@ -721,7 +721,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-01-navigate-forwards-to-slider-reading.html?at=jaws">jaws</a></li>
@@ -808,7 +808,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-02-navigate-backwards-to-slider-reading.html?at=jaws">jaws</a></li>
@@ -895,7 +895,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-03-navigate-forwards-to-slider-interaction.html?at=jaws">jaws</a></li>
@@ -980,7 +980,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-04-navigate-backwards-to-slider-interaction.html?at=jaws">jaws</a></li>
@@ -1065,7 +1065,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-05-navigate-forwards-to-slider-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1121,7 +1121,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-06-navigate-backwards-to-slider-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1177,7 +1177,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-07-read-information-about-slider-reading.html?at=jaws">jaws</a></li>
@@ -1264,7 +1264,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-08-read-information-about-slider-interaction.html?at=jaws">jaws</a></li>
@@ -1351,7 +1351,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-09-read-information-about-slider-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1407,7 +1407,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-10-increment-slider-by-one-step-interaction.html?at=jaws">jaws</a></li>
@@ -1480,7 +1480,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-11-increment-slider-by-one-step-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1527,7 +1527,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-12-decrement-slider-by-one-step-interaction.html?at=jaws">jaws</a></li>
@@ -1600,7 +1600,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-13-decrement-slider-by-one-step-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1647,7 +1647,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-14-increment-slider-by-ten-steps-interaction.html?at=jaws">jaws</a></li>
@@ -1718,7 +1718,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-15-increment-slider-by-ten-steps-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1764,7 +1764,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-16-decrement-slider-by-ten-steps-interaction.html?at=jaws">jaws</a></li>
@@ -1835,7 +1835,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-17-decrement-slider-by-ten-steps-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1881,7 +1881,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-18-decrement-slider-to-minimum-value-interaction.html?at=jaws">jaws</a></li>
@@ -1953,7 +1953,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-19-decrement-slider-to-minimum-value-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2000,7 +2000,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-20-increment-slider-to-maximum-value-interaction.html?at=jaws">jaws</a></li>
@@ -2072,7 +2072,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Mon Jan 3 10:16:23 2022 -0600</li>
+        <li>Last edited: Mon Jan 3 10:22:10 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/horizontal-slider/test-21-increment-slider-to-maximum-value-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

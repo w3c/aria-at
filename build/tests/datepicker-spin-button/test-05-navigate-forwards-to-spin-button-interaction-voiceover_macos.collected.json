@@ -45,7 +45,7 @@
     "setupScript": {
       "name": "setFocusBeforeSpinButtonAndSetPredefinedDate",
       "description": "sets the date picker to March 19, 2021, hides the previous/next arrow buttons and sets focus on a link before the 'Day' spin button",
-      "source": "// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button\ntestPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);\ntestPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);\ntestPageDocument.defaultView.datepicker.spinbuttonYear.setValue(19);\ntestPageDocument.querySelectorAll('button').forEach(btn => btn.style.display = 'none');\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "source": "// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button\ntestPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);\ntestPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);\ntestPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);\ntestPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));\ntestPageDocument.querySelector('#beforelink').focus();\n",
       "modulePath": "scripts/setFocusBeforeSpinButtonAndSetPredefinedDate.module.js",
       "jsonpPath": "scripts/setFocusBeforeSpinButtonAndSetPredefinedDate.jsonp.js"
     }

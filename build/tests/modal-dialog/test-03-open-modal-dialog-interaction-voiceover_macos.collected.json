@@ -25,7 +25,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-12-17_13353/dialog.html",
+    "referencePage": "reference/2020-12-17_13353/dialog.moveFocusToAddDeliveryAddressButton.html",
     "setupScript": {
       "name": "moveFocusToAddDeliveryAddressButton",
       "description": "sets focus on the 'Add Delivery Address' button",
@@ -44,15 +44,33 @@
   "commands": [
     {
       "id": "CTRL_OPT_SPACE",
-      "keystroke": "Control+Option+Space"
+      "keystroke": "Control+Option+Space",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_SPACE",
+          "keystroke": "Control+Option+Space"
+        }
+      ]
     },
     {
       "id": "SPACE",
-      "keystroke": "Space"
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
     },
     {
       "id": "ENTER",
-      "keystroke": "Enter"
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
     }
   ],
   "assertions": [

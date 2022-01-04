@@ -5,4 +5,7 @@ testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
 let opt = testPageDocument.querySelector('#lb1-al');
 let optTextLength = opt.textContent.length;
 testPageDocument.defaultView.comboboxController.setOption(opt, true);
-testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);
+testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(
+  optTextLength,
+  optTextLength
+);

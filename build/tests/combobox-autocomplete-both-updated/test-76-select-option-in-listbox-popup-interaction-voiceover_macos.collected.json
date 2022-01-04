@@ -33,7 +33,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToAlabamaInListbox.html",
     "setupScript": {
       "name": "moveFocusToAlabamaInListbox",
       "description": "expands the Combobox and places focus on 'Alabama' in the listbox popup",
@@ -52,15 +52,33 @@
   "commands": [
     {
       "id": "CTRL_OPT_SPACE",
-      "keystroke": "Control+Option+Space"
+      "keystroke": "Control+Option+Space",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_SPACE",
+          "keystroke": "Control+Option+Space"
+        }
+      ]
     },
     {
       "id": "ENTER",
-      "keystroke": "Enter"
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
     },
     {
       "id": "ESC",
-      "keystroke": "Escape"
+      "keystroke": "Escape",
+      "keypresses": [
+        {
+          "id": "ESC",
+          "keystroke": "Escape"
+        }
+      ]
     }
   ],
   "assertions": [

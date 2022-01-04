@@ -21,7 +21,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-1-14_12348/menu-button-actions.html",
+    "referencePage": "reference/2021-1-14_12348/menu-button-actions.openMenuAndSetFocusToFirstItem.html",
     "setupScript": {
       "name": "openMenuAndSetFocusToFirstItem",
       "description": "opens the menu, and sets focus on 'Action 1'",
@@ -40,11 +40,23 @@
   "commands": [
     {
       "id": "INS_TAB",
-      "keystroke": "Insert+Tab"
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
     },
     {
       "id": "INS_UP",
-      "keystroke": "Insert+Up"
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
     }
   ],
   "assertions": [

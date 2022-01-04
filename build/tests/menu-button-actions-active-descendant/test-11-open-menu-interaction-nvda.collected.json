@@ -33,7 +33,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.html",
+    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.setFocusOnMenuButton.html",
     "setupScript": {
       "name": "setFocusOnMenuButton",
       "description": "sets focus on the menu button",
@@ -52,15 +52,33 @@
   "commands": [
     {
       "id": "SPACE",
-      "keystroke": "Space"
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
     },
     {
       "id": "ENTER",
-      "keystroke": "Enter"
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

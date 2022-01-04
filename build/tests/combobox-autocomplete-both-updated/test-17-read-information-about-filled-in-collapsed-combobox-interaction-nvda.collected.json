@@ -29,7 +29,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToComboboxAndSetValueToAlabama.html",
     "setupScript": {
       "name": "moveFocusToComboboxAndSetValueToAlabama",
       "description": "sets focus on the Combobox, and sets the combobox value to 'Alabama'",
@@ -48,7 +48,13 @@
   "commands": [
     {
       "id": "INS_TAB",
-      "keystroke": "Insert+Tab"
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

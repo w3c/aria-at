@@ -29,7 +29,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning.html",
     "setupScript": {
       "name": "moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning",
       "description": "expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the beginning of the textbox",
@@ -48,7 +48,13 @@
   "commands": [
     {
       "id": "END",
-      "keystroke": "End"
+      "keystroke": "End",
+      "keypresses": [
+        {
+          "id": "END",
+          "keystroke": "End"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-1-14_12348/menu-button-actions.html",
+    "referencePage": "reference/2021-1-14_12348/menu-button-actions.openMenuAndSetFocusToLastItem.html",
     "setupScript": {
       "name": "openMenuAndSetFocusToLastItem",
       "description": "opens the menu, and sets focus on 'Action 4'",
@@ -40,11 +40,23 @@
   "commands": [
     {
       "id": "HOME",
-      "keystroke": "Home"
+      "keystroke": "Home",
+      "keypresses": [
+        {
+          "id": "HOME",
+          "keystroke": "Home"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

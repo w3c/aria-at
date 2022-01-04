@@ -25,7 +25,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.html",
+    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.checkFirstCheckbox.html",
     "setupScript": {
       "name": "checkFirstCheckbox",
       "description": "sets the state of the first checkbox to checked",
@@ -44,7 +44,13 @@
   "commands": [
     {
       "id": "TAB_AND_SHIFT_TAB",
-      "keystroke": "Tab / Shift+Tab"
+      "keystroke": "Tab / Shift+Tab",
+      "keypresses": [
+        {
+          "id": "TAB_AND_SHIFT_TAB",
+          "keystroke": "Tab / Shift+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -17,7 +17,10 @@
 			let opt = testPageDocument.querySelector('#lb1-al');
 			let optTextLength = opt.textContent.length;
 			testPageDocument.defaultView.comboboxController.setOption(opt, true);
-			testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);
+			testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(
+			optTextLength,
+			optTextLength
+			);
 		}
 	};
 </script>
@@ -81,7 +84,7 @@
 };
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
-    displayTestPageAndInstructions("reference/2020-12-11_16649/combobox-autocomplete-both.html");
+    displayTestPageAndInstructions("reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToAlabamaInListboxAndSetInputCursorAtEnd.html");
   });
 </script>
   

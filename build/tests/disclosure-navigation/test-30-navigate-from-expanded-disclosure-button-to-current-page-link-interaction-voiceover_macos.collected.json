@@ -21,7 +21,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/disclosure-navigation.html",
+    "referencePage": "reference/disclosure-navigation.moveFocusToAndExpandFirstDisclosureAndSetCurrentPage.html",
     "setupScript": {
       "name": "moveFocusToAndExpandFirstDisclosureAndSetCurrentPage",
       "description": "sets focus on the first disclosure button, sets its state to expanded, and marks the first link in the associated dropdown as being the current page",
@@ -40,19 +40,43 @@
   "commands": [
     {
       "id": "CTRL_OPT_RIGHT",
-      "keystroke": "Control+Option+Right"
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
     },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_CMD_L",
-      "keystroke": "Control+Option+Command+L"
+      "keystroke": "Control+Option+Command+L",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_L",
+          "keystroke": "Control+Option+Command+L"
+        }
+      ]
     }
   ],
   "assertions": [

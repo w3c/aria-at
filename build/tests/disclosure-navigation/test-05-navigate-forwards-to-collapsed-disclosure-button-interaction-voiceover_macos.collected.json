@@ -21,7 +21,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/disclosure-navigation.html",
+    "referencePage": "reference/disclosure-navigation.moveFocusBeforeFirstDisclosure.html",
     "setupScript": {
       "name": "moveFocusBeforeFirstDisclosure",
       "description": "sets focus on a link before the first disclosure button",
@@ -40,15 +40,33 @@
   "commands": [
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_RIGHT",
-      "keystroke": "Control+Option+Right"
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_CMD_J",
-      "keystroke": "Control+Option+Command+J"
+      "keystroke": "Control+Option+Command+J",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_J",
+          "keystroke": "Control+Option+Command+J"
+        }
+      ]
     }
   ],
   "assertions": [

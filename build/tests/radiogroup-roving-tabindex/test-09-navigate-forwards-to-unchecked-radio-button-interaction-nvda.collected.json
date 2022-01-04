@@ -33,7 +33,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-15_144141/radio.html",
+    "referencePage": "reference/2021-3-15_144141/radio.setFocusBeforeRadioGroup.html",
     "setupScript": {
       "name": "setFocusBeforeRadioGroup",
       "description": "sets focus on a link before the radio group, and hides the group heading",
@@ -52,7 +52,13 @@
   "commands": [
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     }
   ],
   "assertions": [

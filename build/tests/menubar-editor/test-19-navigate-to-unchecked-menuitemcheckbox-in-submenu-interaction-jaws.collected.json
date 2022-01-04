@@ -25,7 +25,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-11-23_175528/menubar-editor.html",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.focusonstylecolor.html",
     "setupScript": {
       "name": "focusonstylecolor",
       "description": "sets focus on the 'Style/Color' menu item",
@@ -45,7 +45,13 @@
   "commands": [
     {
       "id": "UP_AND_DOWN",
-      "keystroke": "Up Arrow / Down Arrow"
+      "keystroke": "Up Arrow / Down Arrow",
+      "keypresses": [
+        {
+          "id": "UP_AND_DOWN",
+          "keystroke": "Up Arrow / Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

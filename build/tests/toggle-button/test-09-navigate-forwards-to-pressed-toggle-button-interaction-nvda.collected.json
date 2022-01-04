@@ -25,13 +25,13 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-29_145942/button.html",
+    "referencePage": "reference/2021-3-29_145942/button.setFocusBeforeButtonAndSetStateToPressed.html",
     "setupScript": {
-      "name": "setFocusBeforeButton",
-      "description": "sets focus on a link before the button",
-      "source": "// sets focus on a link before the button\ntestPageDocument.querySelector('#beforelink').focus();\n",
-      "modulePath": "scripts/setFocusBeforeButton.module.js",
-      "jsonpPath": "scripts/setFocusBeforeButton.jsonp.js"
+      "name": "setFocusBeforeButtonAndSetStateToPressed",
+      "description": "sets focus on a link before the button, and sets the state of the button to 'pressed'",
+      "source": "// sets focus on a link before the button, and sets the state of the button to 'pressed'\nlet button = testPageDocument.querySelector('#toggle');\nbutton.setAttribute('aria-pressed', 'true');\nbutton.querySelector('use').setAttribute('xlink:href', '#icon-sound');\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeButtonAndSetStateToPressed.module.js",
+      "jsonpPath": "scripts/setFocusBeforeButtonAndSetStateToPressed.jsonp.js"
     }
   },
   "instructions": {
@@ -44,7 +44,13 @@
   "commands": [
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     }
   ],
   "assertions": [

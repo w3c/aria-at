@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-2-15_124757/tabs.html",
+    "referencePage": "reference/2021-2-15_124757/tabs.setFocusOnSecondTab.html",
     "setupScript": {
       "name": "setFocusOnSecondTab",
       "description": "sets focus on the second tab",
@@ -40,11 +40,23 @@
   "commands": [
     {
       "id": "SPACE",
-      "keystroke": "Space"
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
     },
     {
       "id": "ENTER",
-      "keystroke": "Enter"
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
     }
   ],
   "assertions": [

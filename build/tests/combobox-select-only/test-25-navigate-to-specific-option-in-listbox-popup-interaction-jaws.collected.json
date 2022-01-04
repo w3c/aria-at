@@ -25,7 +25,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/combobox-select-only.html",
+    "referencePage": "reference/combobox-select-only.openListbox.html",
     "setupScript": {
       "name": "openListbox",
       "description": "sets focus on and expands the Combobox",
@@ -41,7 +41,18 @@
     "raw": "With focus on the listbox popup, type a printable character to set focus on a specific option.",
     "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
   },
-  "commands": [ { "id": "A", "keystroke": "A" } ],
+  "commands": [
+    {
+      "id": "A",
+      "keystroke": "A",
+      "keypresses": [
+        {
+          "id": "A",
+          "keystroke": "A"
+        }
+      ]
+    }
+  ],
   "assertions": [
     {
       "priority": 1,

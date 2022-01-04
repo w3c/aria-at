@@ -25,11 +25,11 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusBeforeGrid.html",
     "setupScript": {
       "name": "setFocusBeforeGrid",
       "description": "sets focus on a link before the grid",
-      "source": "// sets focus on a link before the grid\ntestPageDocument.querySelector('#beforelink').focus();",
+      "source": "// sets focus on a link before the grid\ntestPageDocument.querySelector('#beforelink').focus();\n",
       "modulePath": "scripts/setFocusBeforeGrid.module.js",
       "jsonpPath": "scripts/setFocusBeforeGrid.jsonp.js"
     }
@@ -44,11 +44,23 @@
   "commands": [
     {
       "id": "T_THEN_DOWN",
-      "keystroke": "T followed by Down Arrow"
+      "keystroke": "T followed by Down Arrow",
+      "keypresses": [
+        {
+          "id": "T_THEN_DOWN",
+          "keystroke": "T followed by Down Arrow"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -25,7 +25,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-11-23_175528/menubar-editor.html",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.focusontextalign.html",
     "setupScript": {
       "name": "focusontextalign",
       "description": "sets focus on the 'Text Align' menu item",
@@ -42,15 +42,33 @@
   "commands": [
     {
       "id": "ENTER",
-      "keystroke": "Enter"
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
     },
     {
       "id": "SPACE",
-      "keystroke": "Space"
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

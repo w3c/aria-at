@@ -21,11 +21,11 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-11-23_175528/menubar-editor.html",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.focusonfont.html",
     "setupScript": {
       "name": "focusonfont",
       "description": "sets focus on the 'Font' menu item",
-      "source": "// Move focus to the \"Font\" menu item\ntestPageDocument.querySelectorAll('[role=menuitem]')[0].focus();\n\n",
+      "source": "// Move focus to the \"Font\" menu item\ntestPageDocument.querySelectorAll('[role=menuitem]')[0].focus();\n",
       "modulePath": "scripts/focusonfont.module.js",
       "jsonpPath": "scripts/focusonfont.jsonp.js"
     }
@@ -40,7 +40,13 @@
   "commands": [
     {
       "id": "RIGHT",
-      "keystroke": "Right Arrow"
+      "keystroke": "Right Arrow",
+      "keypresses": [
+        {
+          "id": "RIGHT",
+          "keystroke": "Right Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

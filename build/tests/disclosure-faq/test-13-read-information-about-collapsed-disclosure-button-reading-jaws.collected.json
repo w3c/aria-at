@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2020-12-3_11559/disclosure-faq.html",
+    "referencePage": "reference/2020-12-3_11559/disclosure-faq.moveFocusToFirstDisclosure.html",
     "setupScript": {
       "name": "moveFocusToFirstDisclosure",
       "description": "sets focus on the first disclosure button",
@@ -40,11 +40,23 @@
   "commands": [
     {
       "id": "INS_TAB",
-      "keystroke": "Insert+Tab"
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
     },
     {
       "id": "INS_UP",
-      "keystroke": "Insert+Up"
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-1-14_12348/menu-button-actions.html",
+    "referencePage": "reference/2021-1-14_12348/menu-button-actions.openMenuAndSetFocusToFirstItem.html",
     "setupScript": {
       "name": "openMenuAndSetFocusToFirstItem",
       "description": "opens the menu, and sets focus on 'Action 1'",
@@ -40,7 +40,13 @@
   "commands": [
     {
       "id": "ESC",
-      "keystroke": "Escape"
+      "keystroke": "Escape",
+      "keypresses": [
+        {
+          "id": "ESC",
+          "keystroke": "Escape"
+        }
+      ]
     }
   ],
   "assertions": [

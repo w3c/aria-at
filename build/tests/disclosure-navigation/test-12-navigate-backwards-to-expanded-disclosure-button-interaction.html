@@ -63,18 +63,8 @@
       ]
     },
     "interaction": {
-      "jaws": [
-        [ "SHIFT_TAB" ],
-        [ "UP" ],
-        [ "LEFT" ],
-        [ "HOME" ]
-      ],
-      "nvda": [
-        [ "SHIFT_TAB" ],
-        [ "UP" ],
-        [ "LEFT" ],
-        [ "HOME" ]
-      ],
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
       "voiceover_macos": [
         [ "SHIFT_TAB" ],
         [ "CTRL_OPT_LEFT" ],
@@ -85,7 +75,7 @@
 };
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
-    displayTestPageAndInstructions("reference/disclosure-navigation.html");
+    displayTestPageAndInstructions("reference/disclosure-navigation.moveFocusToFirstLinkInDropdown.html");
   });
 </script>
   

@@ -33,7 +33,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToAlabamaInListbox.html",
     "setupScript": {
       "name": "moveFocusToAlabamaInListbox",
       "description": "expands the combobox, and places focus on the first option in the listbox popup",
@@ -52,7 +52,13 @@
   "commands": [
     {
       "id": "INS_TAB",
-      "keystroke": "Insert+Tab"
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

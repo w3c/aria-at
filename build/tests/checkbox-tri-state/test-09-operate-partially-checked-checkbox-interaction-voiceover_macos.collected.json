@@ -21,7 +21,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/checkbox-tri-state.html",
+    "referencePage": "reference/checkbox-tri-state.moveFocusToFirstCheckbox.html",
     "setupScript": {
       "name": "moveFocusToFirstCheckbox",
       "description": "sets focus on the first checkbox",
@@ -38,11 +38,23 @@
   "commands": [
     {
       "id": "CTRL_OPT_SPACE",
-      "keystroke": "Control+Option+Space"
+      "keystroke": "Control+Option+Space",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_SPACE",
+          "keystroke": "Control+Option+Space"
+        }
+      ]
     },
     {
       "id": "SPACE",
-      "keystroke": "Space"
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
     }
   ],
   "assertions": [

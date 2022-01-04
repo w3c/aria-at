@@ -29,11 +29,11 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-17_161413/radio-activedescendant.html",
+    "referencePage": "reference/2021-3-17_161413/radio-activedescendant.setFocusOnFirstRadioButton.html",
     "setupScript": {
       "name": "setFocusOnFirstRadioButton",
       "description": "sets focus on the first radio button",
-      "source": "// sets focus on the first radio button\nlet radioGroup = testPageDocument.querySelector('[role=\"radiogroup\"]');\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.classList.remove('focus');\n});\nradios[0].classList.add('focus');\nradioGroup.setAttribute('aria-activedescendant', radios[0].id);\nradioGroup.focus();\n",
+      "source": "// sets focus on the first radio button\nlet radioGroup = testPageDocument.querySelector('[role=\"radiogroup\"]');\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.classList.remove('focus');\n});\nradios[0].classList.add('focus');\nradioGroup.setAttribute('aria-activedescendant', radios[0].id);\nradioGroup.focus();\n",
       "modulePath": "scripts/setFocusOnFirstRadioButton.module.js",
       "jsonpPath": "scripts/setFocusOnFirstRadioButton.jsonp.js"
     }
@@ -48,11 +48,23 @@
   "commands": [
     {
       "id": "CTRL_OPT_F3",
-      "keystroke": "Control+Option+F3"
+      "keystroke": "Control+Option+F3",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F3",
+          "keystroke": "Control+Option+F3"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_F4",
-      "keystroke": "Control+Option+F4"
+      "keystroke": "Control+Option+F4",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F4",
+          "keystroke": "Control+Option+F4"
+        }
+      ]
     }
   ],
   "assertions": [

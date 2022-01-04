@@ -17,7 +17,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2020-12-17_13353/dialog.html",
+    "referencePage": "reference/2020-12-17_13353/dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html",
     "setupScript": {
       "name": "openAddDeliveryAddressDialogAndFocusFirstInput",
       "description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the first input",
@@ -36,7 +36,13 @@
   "commands": [
     {
       "id": "CTRL_HOME_THEN_DOWN",
-      "keystroke": "Control+Home followed by Down Arrow"
+      "keystroke": "Control+Home followed by Down Arrow",
+      "keypresses": [
+        {
+          "id": "CTRL_HOME_THEN_DOWN",
+          "keystroke": "Control+Home followed by Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

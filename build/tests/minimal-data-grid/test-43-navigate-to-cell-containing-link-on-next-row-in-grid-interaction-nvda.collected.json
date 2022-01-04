@@ -17,7 +17,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusOnFirstLinkedCell.html",
     "setupScript": {
       "name": "setFocusOnFirstLinkedCell",
       "description": "sets focus on the third cell of the second row in the grid",
@@ -36,7 +36,13 @@
   "commands": [
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

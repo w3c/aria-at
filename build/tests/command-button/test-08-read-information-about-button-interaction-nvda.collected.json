@@ -21,7 +21,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-29_132754/button.html",
+    "referencePage": "reference/2021-3-29_132754/button.setFocusOnButton.html",
     "setupScript": {
       "name": "setFocusOnButton",
       "description": "sets focus on the button",
@@ -40,11 +40,23 @@
   "commands": [
     {
       "id": "INS_TAB",
-      "keystroke": "Insert+Tab"
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
     },
     {
       "id": "INS_UP",
-      "keystroke": "Insert+Up"
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
     }
   ],
   "assertions": [

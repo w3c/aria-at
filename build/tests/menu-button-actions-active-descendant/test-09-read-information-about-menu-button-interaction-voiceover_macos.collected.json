@@ -21,7 +21,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.html",
+    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.setFocusOnMenuButton.html",
     "setupScript": {
       "name": "setFocusOnMenuButton",
       "description": "sets focus on the menu button",
@@ -40,11 +40,23 @@
   "commands": [
     {
       "id": "CTRL_OPT_F3",
-      "keystroke": "Control+Option+F3"
+      "keystroke": "Control+Option+F3",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F3",
+          "keystroke": "Control+Option+F3"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_F4",
-      "keystroke": "Control+Option+F4"
+      "keystroke": "Control+Option+F4",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F4",
+          "keystroke": "Control+Option+F4"
+        }
+      ]
     }
   ],
   "assertions": [

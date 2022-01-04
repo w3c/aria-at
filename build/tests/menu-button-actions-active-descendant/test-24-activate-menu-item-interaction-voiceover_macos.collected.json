@@ -21,7 +21,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.html",
+    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html",
     "setupScript": {
       "name": "openMenuAndSetFocusToFirstItem",
       "description": "opens the menu, and sets focus on 'Action 1'",
@@ -40,11 +40,23 @@
   "commands": [
     {
       "id": "CTRL_OPT_SPACE",
-      "keystroke": "Control+Option+Space"
+      "keystroke": "Control+Option+Space",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_SPACE",
+          "keystroke": "Control+Option+Space"
+        }
+      ]
     },
     {
       "id": "ENTER",
-      "keystroke": "Enter"
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
     }
   ],
   "assertions": [

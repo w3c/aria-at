@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/disclosure-navigation.html",
+    "referencePage": "reference/disclosure-navigation.moveFocusToFirstLinkInDropdown.html",
     "setupScript": {
       "name": "moveFocusToFirstLinkInDropdown",
       "description": "sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown",
@@ -40,19 +40,13 @@
   "commands": [
     {
       "id": "SHIFT_TAB",
-      "keystroke": "Shift+Tab"
-    },
-    {
-      "id": "UP",
-      "keystroke": "Up Arrow"
-    },
-    {
-      "id": "LEFT",
-      "keystroke": "Left Arrow"
-    },
-    {
-      "id": "HOME",
-      "keystroke": "Home"
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

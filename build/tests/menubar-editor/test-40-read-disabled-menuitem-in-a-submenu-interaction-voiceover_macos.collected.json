@@ -33,11 +33,11 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-11-23_175528/menubar-editor.html",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.focusonsize.html",
     "setupScript": {
       "name": "focusonsize",
       "description": "sets focus on the 'Size' menu item",
-      "source": "// Move focus to the \"Size\" menu item\ntestPageDocument.querySelectorAll('[role=menuitem]')[3].focus();\n\n",
+      "source": "// Move focus to the \"Size\" menu item\ntestPageDocument.querySelectorAll('[role=menuitem]')[3].focus();\n",
       "modulePath": "scripts/focusonsize.module.js",
       "jsonpPath": "scripts/focusonsize.jsonp.js"
     }
@@ -56,11 +56,23 @@
   "commands": [
     {
       "id": "CTRL_OPT_F3",
-      "keystroke": "Control+Option+F3"
+      "keystroke": "Control+Option+F3",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F3",
+          "keystroke": "Control+Option+F3"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_F4",
-      "keystroke": "Control+Option+F4"
+      "keystroke": "Control+Option+F4",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F4",
+          "keystroke": "Control+Option+F4"
+        }
+      ]
     }
   ],
   "assertions": [

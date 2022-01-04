@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToAndExpandCombobox.html",
     "setupScript": {
       "name": "moveFocusToAndExpandCombobox",
       "description": "sets focus on and expands the combobox",
@@ -40,7 +40,13 @@
   "commands": [
     {
       "id": "ESC",
-      "keystroke": "Escape"
+      "keystroke": "Escape",
+      "keypresses": [
+        {
+          "id": "ESC",
+          "keystroke": "Escape"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -17,7 +17,7 @@
       "name": "NVDA"
     },
     "mode": "reading",
-    "referencePage": "reference/checkbox-tri-state.html",
+    "referencePage": "reference/checkbox-tri-state.moveFocusBeforeFirstCheckbox.html",
     "setupScript": {
       "name": "moveFocusBeforeFirstCheckbox",
       "description": "sets focus on a link before the first checkbox",
@@ -34,11 +34,35 @@
     "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
   },
   "commands": [
-    { "id": "X", "keystroke": "X" },
-    { "id": "F", "keystroke": "F" },
+    {
+      "id": "X",
+      "keystroke": "X",
+      "keypresses": [
+        {
+          "id": "X",
+          "keystroke": "X"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -37,7 +37,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/combobox-select-only.html",
+    "referencePage": "reference/combobox-select-only.moveFocusToCombobox.html",
     "setupScript": {
       "name": "moveFocusToCombobox",
       "description": "sets focus on the combobox",
@@ -53,7 +53,18 @@
     "raw": "With focus on the combobox, open the combobox and set focus on a specific option by typing a printable character.",
     "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
   },
-  "commands": [ { "id": "A", "keystroke": "A" } ],
+  "commands": [
+    {
+      "id": "A",
+      "keystroke": "A",
+      "keypresses": [
+        {
+          "id": "A",
+          "keystroke": "A"
+        }
+      ]
+    }
+  ],
   "assertions": [
     {
       "priority": 1,

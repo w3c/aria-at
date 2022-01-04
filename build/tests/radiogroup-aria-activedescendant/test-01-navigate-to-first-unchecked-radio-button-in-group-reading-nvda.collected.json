@@ -37,7 +37,7 @@
       "name": "NVDA"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-3-17_161413/radio-activedescendant.html",
+    "referencePage": "reference/2021-3-17_161413/radio-activedescendant.setFocusBeforeRadioGroup.html",
     "setupScript": {
       "name": "setFocusBeforeRadioGroup",
       "description": "sets focus on a link before the radio group, and hides the group heading",
@@ -54,11 +54,35 @@
     "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
   },
   "commands": [
-    { "id": "F", "keystroke": "F" },
-    { "id": "R", "keystroke": "R" },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
+    {
+      "id": "R",
+      "keystroke": "R",
+      "keypresses": [
+        {
+          "id": "R",
+          "keystroke": "R"
+        }
+      ]
+    },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

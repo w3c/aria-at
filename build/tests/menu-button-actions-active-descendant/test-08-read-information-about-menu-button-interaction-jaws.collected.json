@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.html",
+    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.setFocusOnMenuButton.html",
     "setupScript": {
       "name": "setFocusOnMenuButton",
       "description": "sets focus on the menu button",
@@ -40,11 +40,23 @@
   "commands": [
     {
       "id": "INS_TAB",
-      "keystroke": "Insert+Tab"
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
     },
     {
       "id": "INS_UP",
-      "keystroke": "Insert+Up"
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
     }
   ],
   "assertions": [

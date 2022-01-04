@@ -29,7 +29,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusBeforeCombobox.html",
     "setupScript": {
       "name": "moveFocusBeforeCombobox",
       "description": "sets focus on a link before the Combobox",
@@ -48,7 +48,13 @@
   "commands": [
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -29,7 +29,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-1-14_12348/menu-button-actions.html",
+    "referencePage": "reference/2021-1-14_12348/menu-button-actions.setFocusOnMenuButton.html",
     "setupScript": {
       "name": "setFocusOnMenuButton",
       "description": "sets focus on the menu button",
@@ -48,11 +48,23 @@
   "commands": [
     {
       "id": "SPACE",
-      "keystroke": "Space"
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
     },
     {
       "id": "ENTER",
-      "keystroke": "Enter"
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
     }
   ],
   "assertions": [

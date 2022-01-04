@@ -29,11 +29,11 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-17_161413/radio-activedescendant.html",
+    "referencePage": "reference/2021-3-17_161413/radio-activedescendant.setFocusOnSecondRadioButton.html",
     "setupScript": {
       "name": "setFocusOnSecondRadioButton",
       "description": "sets focus on the second radio button",
-      "source": "// sets focus on the second radio button\nlet radioGroup = testPageDocument.querySelector('[role=\"radiogroup\"]');\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.classList.remove('focus');\n});\nradios[1].classList.add('focus');\nradioGroup.setAttribute('aria-activedescendant', radios[1].id);\nradioGroup.focus();\n",
+      "source": "// sets focus on the second radio button\nlet radioGroup = testPageDocument.querySelector('[role=\"radiogroup\"]');\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.classList.remove('focus');\n});\nradios[1].classList.add('focus');\nradioGroup.setAttribute('aria-activedescendant', radios[1].id);\nradioGroup.focus();\n",
       "modulePath": "scripts/setFocusOnSecondRadioButton.module.js",
       "jsonpPath": "scripts/setFocusOnSecondRadioButton.jsonp.js"
     }
@@ -48,11 +48,23 @@
   "commands": [
     {
       "id": "UP",
-      "keystroke": "Up Arrow"
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
     },
     {
       "id": "LEFT",
-      "keystroke": "Left Arrow"
+      "keystroke": "Left Arrow",
+      "keypresses": [
+        {
+          "id": "LEFT",
+          "keystroke": "Left Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

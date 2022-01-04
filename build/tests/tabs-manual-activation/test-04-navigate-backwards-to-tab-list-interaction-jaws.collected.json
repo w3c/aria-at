@@ -37,11 +37,11 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-2-15_124757/tabs.html",
+    "referencePage": "reference/2021-2-15_124757/tabs.activateThirdTabAndSetFocusOnTabpanel.html",
     "setupScript": {
       "name": "activateThirdTabAndSetFocusOnTabpanel",
       "description": "activates the third tab in the tab list, and sets focus on the tab panel",
-      "source": "// activates the third tab in the tab list, and sets focus on the tab panel\ntestPageDocument.querySelectorAll('[role=\"tab\"]').forEach(t => {\n\tt.setAttribute('tabindex', '-1');\n\tt.setAttribute('aria-selected', 'false');\n});\n\ntestPageDocument.querySelectorAll('[role=\"tabpanel\"]').forEach(p => {\n\tp.classList.add('is-hidden');\n});\n\nlet thirdTab = testPageDocument.querySelector('#complex');\nlet thirdPanel = testPageDocument.querySelector('#complex-complex');\n\nthirdTab.removeAttribute('tabindex');\nthirdTab.setAttribute('aria-selected', 'true');\nthirdPanel.classList.remove('is-hidden');\nthirdPanel.focus();\n",
+      "source": "// activates the third tab in the tab list, and sets focus on the tab panel\ntestPageDocument.querySelectorAll('[role=\"tab\"]').forEach(t => {\n  t.setAttribute('tabindex', '-1');\n  t.setAttribute('aria-selected', 'false');\n});\n\ntestPageDocument.querySelectorAll('[role=\"tabpanel\"]').forEach(p => {\n  p.classList.add('is-hidden');\n});\n\nlet thirdTab = testPageDocument.querySelector('#complex');\nlet thirdPanel = testPageDocument.querySelector('#complex-complex');\n\nthirdTab.removeAttribute('tabindex');\nthirdTab.setAttribute('aria-selected', 'true');\nthirdPanel.classList.remove('is-hidden');\nthirdPanel.focus();\n",
       "modulePath": "scripts/activateThirdTabAndSetFocusOnTabpanel.module.js",
       "jsonpPath": "scripts/activateThirdTabAndSetFocusOnTabpanel.jsonp.js"
     }
@@ -54,7 +54,13 @@
   "commands": [
     {
       "id": "SHIFT_TAB",
-      "keystroke": "Shift+Tab"
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

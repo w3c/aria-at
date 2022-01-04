@@ -33,7 +33,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-15_144141/radio.html",
+    "referencePage": "reference/2021-3-15_144141/radio.setFocusBeforeRadioGroup.html",
     "setupScript": {
       "name": "setFocusBeforeRadioGroup",
       "description": "sets focus on a link before the radio group, and hides the group heading",
@@ -52,11 +52,23 @@
   "commands": [
     {
       "id": "CTRL_OPT_RIGHT",
-      "keystroke": "Control+Option+Right"
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_CMD_J",
-      "keystroke": "Control+Option+Command+J"
+      "keystroke": "Control+Option+Command+J",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_J",
+          "keystroke": "Control+Option+Command+J"
+        }
+      ]
     }
   ],
   "assertions": [

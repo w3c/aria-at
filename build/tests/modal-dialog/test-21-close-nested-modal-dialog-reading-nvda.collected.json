@@ -25,7 +25,7 @@
       "name": "NVDA"
     },
     "mode": "reading",
-    "referencePage": "reference/2020-12-17_13353/dialog.html",
+    "referencePage": "reference/2020-12-17_13353/dialog.openVerificationResultDialogAndFocusCloseButton.html",
     "setupScript": {
       "name": "openVerificationResultDialogAndFocusCloseButton",
       "description": "opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog",
@@ -44,7 +44,13 @@
   "commands": [
     {
       "id": "ESC",
-      "keystroke": "Escape"
+      "keystroke": "Escape",
+      "keypresses": [
+        {
+          "id": "ESC",
+          "keystroke": "Escape"
+        }
+      ]
     }
   ],
   "assertions": [

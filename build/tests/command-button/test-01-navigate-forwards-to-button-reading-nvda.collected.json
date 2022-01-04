@@ -21,7 +21,7 @@
       "name": "NVDA"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-3-29_132754/button.html",
+    "referencePage": "reference/2021-3-29_132754/button.setFocusBeforeButton.html",
     "setupScript": {
       "name": "setFocusBeforeButton",
       "description": "sets focus on a link before the button",
@@ -40,13 +40,43 @@
   "commands": [
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     },
-    { "id": "B", "keystroke": "B" },
-    { "id": "F", "keystroke": "F" },
+    {
+      "id": "B",
+      "keystroke": "B",
+      "keypresses": [
+        {
+          "id": "B",
+          "keystroke": "B"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     }
   ],
   "assertions": [

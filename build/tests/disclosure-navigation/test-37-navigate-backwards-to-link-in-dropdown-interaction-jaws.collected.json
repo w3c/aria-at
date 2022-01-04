@@ -17,7 +17,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/disclosure-navigation.html",
+    "referencePage": "reference/disclosure-navigation.moveFocusToSecondLinkInDropdown.html",
     "setupScript": {
       "name": "moveFocusToSecondLinkInDropdown",
       "description": "sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown",
@@ -36,15 +36,33 @@
   "commands": [
     {
       "id": "UP",
-      "keystroke": "Up Arrow"
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
     },
     {
       "id": "LEFT",
-      "keystroke": "Left Arrow"
+      "keystroke": "Left Arrow",
+      "keypresses": [
+        {
+          "id": "LEFT",
+          "keystroke": "Left Arrow"
+        }
+      ]
     },
     {
       "id": "SHIFT_TAB",
-      "keystroke": "Shift+Tab"
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

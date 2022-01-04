@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.html",
+    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.setFocusBeforeMenuButton.html",
     "setupScript": {
       "name": "setFocusBeforeMenuButton",
       "description": "sets focus on a link before the menu button",
@@ -36,15 +36,45 @@
     "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
   },
   "commands": [
-    { "id": "B", "keystroke": "B" },
-    { "id": "F", "keystroke": "F" },
+    {
+      "id": "B",
+      "keystroke": "B",
+      "keypresses": [
+        {
+          "id": "B",
+          "keystroke": "B"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

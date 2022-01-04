@@ -33,11 +33,11 @@
       "name": "NVDA"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-3-15_144141/radio.html",
+    "referencePage": "reference/2021-3-15_144141/radio.checkFirstRadioButtonAndSetFocusBeforeRadioGroup.html",
     "setupScript": {
       "name": "checkFirstRadioButtonAndSetFocusBeforeRadioGroup",
       "description": "sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading",
-      "source": "// sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.tabIndex = -1;\n});\nradios[0].setAttribute('aria-checked', 'true');\nradios[0].tabIndex = 0;\ntestPageDocument.querySelector('#group_label_1').style.display = 'none';\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "source": "// sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.tabIndex = -1;\n});\nradios[0].setAttribute('aria-checked', 'true');\nradios[0].tabIndex = 0;\ntestPageDocument.querySelector('#group_label_1').style.display = 'none';\ntestPageDocument.querySelector('#beforelink').focus();\n",
       "modulePath": "scripts/checkFirstRadioButtonAndSetFocusBeforeRadioGroup.module.js",
       "jsonpPath": "scripts/checkFirstRadioButtonAndSetFocusBeforeRadioGroup.jsonp.js"
     }
@@ -50,11 +50,35 @@
     "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
   },
   "commands": [
-    { "id": "F", "keystroke": "F" },
-    { "id": "R", "keystroke": "R" },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
+    {
+      "id": "R",
+      "keystroke": "R",
+      "keypresses": [
+        {
+          "id": "R",
+          "keystroke": "R"
+        }
+      ]
+    },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

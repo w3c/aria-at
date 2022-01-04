@@ -33,7 +33,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-3-15_144141/radio.html",
+    "referencePage": "reference/2021-3-15_144141/radio.setFocusBeforeRadioGroup.html",
     "setupScript": {
       "name": "setFocusBeforeRadioGroup",
       "description": "sets focus on a link before the radio group, and hides the group heading",
@@ -50,11 +50,35 @@
     "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
   },
   "commands": [
-    { "id": "F", "keystroke": "F" },
-    { "id": "A", "keystroke": "A" },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
+    {
+      "id": "A",
+      "keystroke": "A",
+      "keypresses": [
+        {
+          "id": "A",
+          "keystroke": "A"
+        }
+      ]
+    },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

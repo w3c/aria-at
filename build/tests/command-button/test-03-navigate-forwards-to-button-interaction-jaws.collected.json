@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-29_132754/button.html",
+    "referencePage": "reference/2021-3-29_132754/button.setFocusBeforeButton.html",
     "setupScript": {
       "name": "setFocusBeforeButton",
       "description": "sets focus on a link before the button",
@@ -40,7 +40,13 @@
   "commands": [
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     }
   ],
   "assertions": [

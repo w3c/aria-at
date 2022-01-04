@@ -17,7 +17,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-12-17_13353/dialog.html",
+    "referencePage": "reference/2020-12-17_13353/dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html",
     "setupScript": {
       "name": "openAddDeliveryAddressDialogAndFocusFirstInput",
       "description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the first input",
@@ -36,7 +36,13 @@
   "commands": [
     {
       "id": "CTRL_OPT_HOME",
-      "keystroke": "Control+Option+Home"
+      "keystroke": "Control+Option+Home",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_HOME",
+          "keystroke": "Control+Option+Home"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/disclosure-navigation.html",
+    "referencePage": "reference/disclosure-navigation.moveFocusToFirstLinkInDropdown.html",
     "setupScript": {
       "name": "moveFocusToFirstLinkInDropdown",
       "description": "sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown",
@@ -40,7 +40,13 @@
   "commands": [
     {
       "id": "ESC",
-      "keystroke": "Escape"
+      "keystroke": "Escape",
+      "keypresses": [
+        {
+          "id": "ESC",
+          "keystroke": "Escape"
+        }
+      ]
     }
   ],
   "assertions": [

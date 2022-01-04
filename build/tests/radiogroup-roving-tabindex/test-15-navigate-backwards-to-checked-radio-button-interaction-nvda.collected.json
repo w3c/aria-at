@@ -33,11 +33,11 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-15_144141/radio.html",
+    "referencePage": "reference/2021-3-15_144141/radio.checkFirstRadioButtonAndSetFocusAfterRadioGroup.html",
     "setupScript": {
       "name": "checkFirstRadioButtonAndSetFocusAfterRadioGroup",
       "description": "sets the state of the first radio button to checked, and sets focus on a link after the radio group",
-      "source": "// sets the state of the first radio button to checked, and sets focus on a link after the radio group\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.tabIndex = -1;\n});\nradios[0].setAttribute('aria-checked', 'true');\nradios[0].tabIndex = 0;\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "source": "// sets the state of the first radio button to checked, and sets focus on a link after the radio group\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.tabIndex = -1;\n});\nradios[0].setAttribute('aria-checked', 'true');\nradios[0].tabIndex = 0;\ntestPageDocument.querySelector('#afterlink').focus();\n",
       "modulePath": "scripts/checkFirstRadioButtonAndSetFocusAfterRadioGroup.module.js",
       "jsonpPath": "scripts/checkFirstRadioButtonAndSetFocusAfterRadioGroup.jsonp.js"
     }
@@ -52,7 +52,13 @@
   "commands": [
     {
       "id": "SHIFT_TAB",
-      "keystroke": "Shift+Tab"
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

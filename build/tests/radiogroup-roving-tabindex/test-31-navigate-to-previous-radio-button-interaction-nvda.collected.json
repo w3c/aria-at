@@ -25,11 +25,11 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-15_144141/radio.html",
+    "referencePage": "reference/2021-3-15_144141/radio.setFocusOnSecondRadioButton.html",
     "setupScript": {
       "name": "setFocusOnSecondRadioButton",
       "description": "sets focus on the second radio button",
-      "source": "// sets focus on the second radio button\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.tabIndex = -1;\n});\nradios[1].tabIndex = 0;\nradios[1].focus();\n",
+      "source": "// sets focus on the second radio button\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.tabIndex = -1;\n});\nradios[1].tabIndex = 0;\nradios[1].focus();\n",
       "modulePath": "scripts/setFocusOnSecondRadioButton.module.js",
       "jsonpPath": "scripts/setFocusOnSecondRadioButton.jsonp.js"
     }
@@ -44,11 +44,23 @@
   "commands": [
     {
       "id": "UP",
-      "keystroke": "Up Arrow"
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
     },
     {
       "id": "LEFT",
-      "keystroke": "Left Arrow"
+      "keystroke": "Left Arrow",
+      "keypresses": [
+        {
+          "id": "LEFT",
+          "keystroke": "Left Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

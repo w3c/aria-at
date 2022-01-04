@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToCombobox.html",
     "setupScript": {
       "name": "moveFocusToCombobox",
       "description": "sets focus on the combobox",
@@ -40,11 +40,23 @@
   "commands": [
     {
       "id": "ALT_DOWN",
-      "keystroke": "Alt+Down"
+      "keystroke": "Alt+Down",
+      "keypresses": [
+        {
+          "id": "ALT_DOWN",
+          "keystroke": "Alt+Down"
+        }
+      ]
     },
     {
       "id": "ALT_UP",
-      "keystroke": "Alt+Up"
+      "keystroke": "Alt+Up",
+      "keypresses": [
+        {
+          "id": "ALT_UP",
+          "keystroke": "Alt+Up"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -25,7 +25,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/combobox-select-only.html",
+    "referencePage": "reference/combobox-select-only.openListbox.html",
     "setupScript": {
       "name": "openListbox",
       "description": "sets focus on and expands the Combobox",
@@ -44,15 +44,33 @@
   "commands": [
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_DOWN",
-      "keystroke": "Control+Option+Down"
+      "keystroke": "Control+Option+Down",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_DOWN",
+          "keystroke": "Control+Option+Down"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_RIGHT",
-      "keystroke": "Control+Option+Right"
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
     }
   ],
   "assertions": [

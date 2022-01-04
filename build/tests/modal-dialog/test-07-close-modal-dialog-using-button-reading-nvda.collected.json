@@ -17,7 +17,7 @@
       "name": "NVDA"
     },
     "mode": "reading",
-    "referencePage": "reference/2020-12-17_13353/dialog.html",
+    "referencePage": "reference/2020-12-17_13353/dialog.openAddDeliveryAddressDialogAndFocusCancelButton.html",
     "setupScript": {
       "name": "openAddDeliveryAddressDialogAndFocusCancelButton",
       "description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button",
@@ -36,11 +36,23 @@
   "commands": [
     {
       "id": "SPACE",
-      "keystroke": "Space"
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
     },
     {
       "id": "ENTER",
-      "keystroke": "Enter"
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
     }
   ],
   "assertions": [

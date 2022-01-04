@@ -25,11 +25,11 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-15_144141/radio.html",
+    "referencePage": "reference/2021-3-15_144141/radio.setFocusOnFirstRadioButton.html",
     "setupScript": {
       "name": "setFocusOnFirstRadioButton",
       "description": "sets focus on the first radio button",
-      "source": "// sets focus on the first radio button\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n\tr.setAttribute('aria-checked', 'false');\n\tr.tabIndex = -1;\n});\nradios[0].tabIndex = 0;\nradios[0].focus();\n",
+      "source": "// sets focus on the first radio button\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.tabIndex = -1;\n});\nradios[0].tabIndex = 0;\nradios[0].focus();\n",
       "modulePath": "scripts/setFocusOnFirstRadioButton.module.js",
       "jsonpPath": "scripts/setFocusOnFirstRadioButton.jsonp.js"
     }
@@ -44,11 +44,23 @@
   "commands": [
     {
       "id": "INS_TAB",
-      "keystroke": "Insert+Tab"
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
     },
     {
       "id": "INS_UP",
-      "keystroke": "Insert+Up"
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
     }
   ],
   "assertions": [

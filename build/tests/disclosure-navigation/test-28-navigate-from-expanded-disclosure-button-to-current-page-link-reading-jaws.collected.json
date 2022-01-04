@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/disclosure-navigation.html",
+    "referencePage": "reference/disclosure-navigation.moveFocusToAndExpandFirstDisclosureAndSetCurrentPage.html",
     "setupScript": {
       "name": "moveFocusToAndExpandFirstDisclosureAndSetCurrentPage",
       "description": "sets focus on the first disclosure button, sets its state to expanded, and marks the first link in the associated dropdown as being the current page",
@@ -38,14 +38,35 @@
     "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
   },
   "commands": [
-    { "id": "U", "keystroke": "U" },
+    {
+      "id": "U",
+      "keystroke": "U",
+      "keypresses": [
+        {
+          "id": "U",
+          "keystroke": "U"
+        }
+      ]
+    },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

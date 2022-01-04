@@ -29,7 +29,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusBeforeComboboxAndSetValueToAlabama.html",
     "setupScript": {
       "name": "moveFocusBeforeComboboxAndSetValueToAlabama",
       "description": "sets focus on a link before the Combobox, and sets the combobox value to 'Alabama'",
@@ -48,15 +48,33 @@
   "commands": [
     {
       "id": "CTRL_OPT_RIGHT",
-      "keystroke": "Control+Option+Right"
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
     },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_CMD_J",
-      "keystroke": "Control+Option+Command+J"
+      "keystroke": "Control+Option+Command+J",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_J",
+          "keystroke": "Control+Option+Command+J"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -25,7 +25,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusAfterGrid.html",
     "setupScript": {
       "name": "setFocusAfterGrid",
       "description": "sets focus on a link after the grid",
@@ -44,7 +44,13 @@
   "commands": [
     {
       "id": "SHIFT_TAB",
-      "keystroke": "Shift+Tab"
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

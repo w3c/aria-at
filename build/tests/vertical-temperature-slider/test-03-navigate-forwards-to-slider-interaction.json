@@ -1,0 +1,41 @@
+{
+  "setup_script_description": "sets focus on a link before the slider",
+  "setupTestPage": "setFocusBeforeSlider",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to slider",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Temperature' slider.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'slider' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Temperature' is conveyed"
+    ],
+    [
+      "1",
+      "Textual value '25.0 degrees Celsius' is conveyed"
+    ],
+    [
+      "1",
+      "numeric value '25.0' is not conveyed"
+    ],
+    [
+      "1",
+      "Orientation 'vertical' is conveyed"
+    ],
+    [
+      "1",
+      "Minimum value '10.0' is not conveyed"
+    ],
+    [
+      "1",
+      "Maximum value '38.0' is not conveyed"
+    ]
+  ]
+}

@@ -37,7 +37,7 @@
       "name": "NVDA"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-2-15_124757/tabs.html",
+    "referencePage": "reference/2021-2-15_124757/tabs.setFocusBeforeTablist.html",
     "setupScript": {
       "name": "setFocusBeforeTablist",
       "description": "sets focus on a link before the tab list",
@@ -56,11 +56,23 @@
   "commands": [
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

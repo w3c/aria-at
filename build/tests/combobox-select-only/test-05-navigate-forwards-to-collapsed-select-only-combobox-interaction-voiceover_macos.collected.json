@@ -29,7 +29,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/combobox-select-only.html",
+    "referencePage": "reference/combobox-select-only.moveFocusBeforeCombobox.html",
     "setupScript": {
       "name": "moveFocusBeforeCombobox",
       "description": "sets focus on a link before the Combobox",
@@ -48,15 +48,33 @@
   "commands": [
     {
       "id": "CTRL_OPT_RIGHT",
-      "keystroke": "Control+Option+Right"
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
     },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_CMD_J",
-      "keystroke": "Control+Option+Command+J"
+      "keystroke": "Control+Option+Command+J",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_J",
+          "keystroke": "Control+Option+Command+J"
+        }
+      ]
     }
   ],
   "assertions": [

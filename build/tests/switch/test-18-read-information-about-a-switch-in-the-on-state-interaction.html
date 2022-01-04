@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read information about a switch in the on state</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/switch/switch.html">
+<link rel="help" href="https://w3c.github.io/aria/#switch">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<link rel="help" href="https://w3c.github.io/aria/#aria-hidden">
+
+<script>
+  var scripts = {
+		setFocusOnAndTurnOnSwitch: function(testPageDocument){
+			// sets focus on the 'Notifications' switch, and sets its state to 'on'
+			testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+			testPageDocument.querySelector('[role="switch"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Notifications' switch, and sets its state to 'on'",
+  "setupTestPage": "setFocusOnAndTurnOnSwitch",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "read information about a switch in the on state",
+  "specific_user_instruction": "With focus on the 'Notifications' switch, read information about the switch.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'switch' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Notifications' is conveyed"
+    ],
+    [
+      "1",
+      "State 'on' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about a switch in the on state": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-24_132342/switch.setFocusOnAndTurnOnSwitch.html");
+  });
+</script>
+  

@@ -25,7 +25,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/combobox-select-only.html",
+    "referencePage": "reference/combobox-select-only.openListboxToHuckleberry.html",
     "setupScript": {
       "name": "openListboxToHuckleberry",
       "description": "sets focus on and expands the Combobox, and sets the focused option to 'Huckleberry'",
@@ -44,7 +44,13 @@
   "commands": [
     {
       "id": "PAGE_UP",
-      "keystroke": "Page Up"
+      "keystroke": "Page Up",
+      "keypresses": [
+        {
+          "id": "PAGE_UP",
+          "keystroke": "Page Up"
+        }
+      ]
     }
   ],
   "assertions": [

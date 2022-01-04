@@ -33,7 +33,7 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.html",
+    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.setFocusOnMenuButton.html",
     "setupScript": {
       "name": "setFocusOnMenuButton",
       "description": "sets focus on the menu button",
@@ -52,7 +52,13 @@
   "commands": [
     {
       "id": "UP",
-      "keystroke": "Up Arrow"
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

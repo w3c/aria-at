@@ -21,7 +21,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.html",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToComboboxAndSetValueToA.html",
     "setupScript": {
       "name": "moveFocusToComboboxAndSetValueToA",
       "description": "sets focus on the combobox, and sets the combobox value to 'a'",
@@ -37,7 +37,18 @@
     "raw": "With focus on the combobox, open the combobox without moving into the listbox popup.",
     "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
   },
-  "commands": [ { "id": "L", "keystroke": "L" } ],
+  "commands": [
+    {
+      "id": "L",
+      "keystroke": "L",
+      "keypresses": [
+        {
+          "id": "L",
+          "keystroke": "L"
+        }
+      ]
+    }
+  ],
   "assertions": [
     {
       "priority": 1,

@@ -25,7 +25,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.html",
+    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.moveFocusAndCheckFirstCheckbox.html",
     "setupScript": {
       "name": "moveFocusAndCheckFirstCheckbox",
       "description": "sets focus on the first checkbox and sets its state to checked",
@@ -44,11 +44,23 @@
   "commands": [
     {
       "id": "CTRL_OPT_F3",
-      "keystroke": "Control+Option+F3"
+      "keystroke": "Control+Option+F3",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F3",
+          "keystroke": "Control+Option+F3"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_F4",
-      "keystroke": "Control+Option+F4"
+      "keystroke": "Control+Option+F4",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F4",
+          "keystroke": "Control+Option+F4"
+        }
+      ]
     }
   ],
   "assertions": [

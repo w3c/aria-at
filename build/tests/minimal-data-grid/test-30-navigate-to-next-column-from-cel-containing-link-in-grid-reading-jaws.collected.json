@@ -17,7 +17,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusOnFirstLinkedCell.html",
     "setupScript": {
       "name": "setFocusOnFirstLinkedCell",
       "description": "sets focus on the third cell of the second row in the grid",
@@ -36,7 +36,13 @@
   "commands": [
     {
       "id": "CTRL_ALT_RIGHT",
-      "keystroke": "Control+Alt+Right"
+      "keystroke": "Control+Alt+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_ALT_RIGHT",
+          "keystroke": "Control+Alt+Right"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -25,7 +25,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/combobox-select-only.html",
+    "referencePage": "reference/combobox-select-only.openListbox.html",
     "setupScript": {
       "name": "openListbox",
       "description": "sets focus on and expands the Combobox",
@@ -44,7 +44,13 @@
   "commands": [
     {
       "id": "PAGE_DOWN",
-      "keystroke": "Page Down"
+      "keystroke": "Page Down",
+      "keypresses": [
+        {
+          "id": "PAGE_DOWN",
+          "keystroke": "Page Down"
+        }
+      ]
     }
   ],
   "assertions": [

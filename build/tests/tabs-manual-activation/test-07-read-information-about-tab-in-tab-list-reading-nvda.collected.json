@@ -29,7 +29,7 @@
       "name": "NVDA"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-2-15_124757/tabs.html",
+    "referencePage": "reference/2021-2-15_124757/tabs.setFocusOnFirstTab.html",
     "setupScript": {
       "name": "setFocusOnFirstTab",
       "description": "sets focus on the first tab",
@@ -48,11 +48,23 @@
   "commands": [
     {
       "id": "INS_TAB",
-      "keystroke": "Insert+Tab"
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
     },
     {
       "id": "INS_UP",
-      "keystroke": "Insert+Up"
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
     }
   ],
   "assertions": [

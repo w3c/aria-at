@@ -25,7 +25,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/combobox-select-only.html",
+    "referencePage": "reference/combobox-select-only.openListboxToApple.html",
     "setupScript": {
       "name": "openListboxToApple",
       "description": "sets focus on and expands the Combobox, and sets the focused option to 'Apple'",
@@ -44,15 +44,33 @@
   "commands": [
     {
       "id": "UP",
-      "keystroke": "Up Arrow"
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_UP",
-      "keystroke": "Control+Option+Up"
+      "keystroke": "Control+Option+Up",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_UP",
+          "keystroke": "Control+Option+Up"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_LEFT",
-      "keystroke": "Ctrl+Option+Left"
+      "keystroke": "Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
     }
   ],
   "assertions": [

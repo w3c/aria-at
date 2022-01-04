@@ -21,7 +21,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/disclosure-navigation.html",
+    "referencePage": "reference/disclosure-navigation.moveFocusBeforeFirstDisclosure.html",
     "setupScript": {
       "name": "moveFocusBeforeFirstDisclosure",
       "description": "sets focus on a link before the first disclosure button",
@@ -40,7 +40,13 @@
   "commands": [
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     }
   ],
   "assertions": [

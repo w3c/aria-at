@@ -29,7 +29,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/combobox-select-only.html",
+    "referencePage": "reference/combobox-select-only.openListboxToApple.html",
     "setupScript": {
       "name": "openListboxToApple",
       "description": "sets focus on and expands the Combobox, and sets the focused option to 'Apple' without selecting it",
@@ -48,15 +48,33 @@
   "commands": [
     {
       "id": "ENTER",
-      "keystroke": "Enter"
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
     },
     {
       "id": "SPACE",
-      "keystroke": "Space"
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
     },
     {
       "id": "ALT_UP",
-      "keystroke": "Alt+Up"
+      "keystroke": "Alt+Up",
+      "keypresses": [
+        {
+          "id": "ALT_UP",
+          "keystroke": "Alt+Up"
+        }
+      ]
     }
   ],
   "assertions": [

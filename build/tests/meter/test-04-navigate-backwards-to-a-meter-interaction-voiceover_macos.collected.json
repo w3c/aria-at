@@ -1,0 +1,90 @@
+{
+  "info": {
+    "testId": 4,
+    "task": "navigate backwards to a meter",
+    "title": "Navigate backwards to a meter",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/meter/meter.html"
+      },
+      {
+        "refId": "meter",
+        "value": "https://w3c.github.io/aria/#meter"
+      },
+      {
+        "refId": "aria-valuemin",
+        "value": "https://w3c.github.io/aria/#aria-valuemin"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "VOICEOVER_MACOS",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-11-10_142949/meter.setFocusAfterMeter.html",
+    "setupScript": {
+      "name": "setFocusAfterMeter",
+      "description": "sets focus on a link after the meter",
+      "source": "// sets focus on a link after the meter\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterMeter.module.js",
+      "jsonpPath": "scripts/setFocusAfterMeter.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate backwards from here' link, navigate to the meter."
+    ],
+    "raw": "With focus on the 'Navigate backwards from here' link, navigate to the meter.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'meter' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Central Processing Unit (CPU) Usage' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Numeric value '36.166519936288' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Minimum value '0' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Maximum value '100' is conveyed"
+    }
+  ]
+}

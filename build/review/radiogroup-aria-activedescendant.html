@@ -18,8 +18,10 @@
       }
 
     </style>
-    <script>
-      const filterATs = function(button) {
+    <script type="module">
+      import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
+
+      window.filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
@@ -48,27 +50,29 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
 
           }
-        }
-      }
 
-      function executeScriptInTestPage(setupScriptName, testPageWindow) {
-        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-            || testPageWindow.document.readyState !== 'complete'
-        ) {
-          window.setTimeout(() => {
-            executeScriptInTestPage(setupScriptName, testPageWindow);
-          }, 100);
-          return;
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
+          }
         }
+      };
 
-        if (setupScriptName) {
-          var scripts = {
-            	checkFirstCheckbox: function(testPageDocument){
+      var scripts = {
+        	setFocusOnButton: function(testPageDocument){
+	// sets focus on the 'Trigger Alert' button
+	testPageDocument.querySelector('#alert-trigger').focus();
+},	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link after the 'Breadcrumb Example' link
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeFirstBreadcrumbLink: function(testPageDocument){
+	// sets focus on a link before the 'WAI-ARIA Authoring Practices' link
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnLastBreadcrumbLink: function(testPageDocument){
+	// sets focus on the 'Breadcrumb Example' link
+	testPageDocument.querySelector('[aria-current="page"]').focus();
+},	checkFirstCheckbox: function(testPageDocument){
 	// Set aria-checked on first checkbox
 	testPageDocument.querySelector('[role="checkbox"]').setAttribute('aria-checked', 'true');
 },	moveFocusAndCheckFirstCheckbox: function(testPageDocument){
@@ -132,7 +136,10 @@
 	let opt = testPageDocument.querySelector('#lb1-al');
 	let optTextLength = opt.textContent.length;
 	testPageDocument.defaultView.comboboxController.setOption(opt, true);
-	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(optTextLength, optTextLength);
+	testPageDocument.defaultView.comboboxController.comboboxNode.setSelectionRange(
+	optTextLength,
+	optTextLength
+	);
 },	moveFocusToAlaskaInListbox: function(testPageDocument){
 	// expands the combobox, sets the combobox value to 'Alaska' and places focus on that option in the listbox popup
 	testPageDocument.defaultView.comboboxController.open();
@@ -211,6 +218,27 @@
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
 	testPageDocument.querySelector('#action').focus();
+},	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
 	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
@@ -273,6 +301,15 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	setFocusAfterRedSlider: function(testPageDocument){
+	// sets focus on a link after the Red slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRedSlider: function(testPageDocument){
+	// sets focus on a link before the Red slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnRedSlider: function(testPageDocument){
+	// sets focus on the 'Red' slider
+	testPageDocument.querySelector('[role="slider"].red').focus();
 },	openMenuAndSetFocusToFirstItem: function(testPageDocument){
 	// opens the menu, and sets focus on 'Action 1'
 	testPageDocument.defaultView.menuController.openPopup();
@@ -322,6 +359,18 @@
 },	focusontextalign: function(testPageDocument){
 	// Move focus to the "Text Align" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},	setFocusAfterMeter: function(testPageDocument){
+	// sets focus on a link after the meter
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeMeter: function(testPageDocument){
+	// sets focus on a link before the meter
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnButton: function(testPageDocument){
+	// sets focus on the 'Change Value' button
+	testPageDocument.querySelector('button.play-meters').focus();
+},	setFocusOnMeter: function(testPageDocument){
+	// sets focus on the meter
+	testPageDocument.querySelector('[role="meter"]').focus();
 },	setFocusAfterGrid: function(testPageDocument){
 	// sets focus on a link after the grid
 	testPageDocument.querySelector('#afterlink').focus();
@@ -551,6 +600,54 @@
 	let lastRadio = radios[radios.length - 1];
 	lastRadio.tabIndex = 0;
 	lastRadio.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
+},	setFocusOnSliderAndSetValueToFive: function(testPageDocument){
+	// sets focus on the slider, and sets its value to five stars
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '5');
+	slider.setAttribute('aria-valuetext', 'five of five stars');
+	slider.focus();
+},	setFocusOnSliderAndSetValueToOne: function(testPageDocument){
+	// sets focus on the slider, and sets its value to one star
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '1');
+	slider.setAttribute('aria-valuetext', 'one of five stars');
+	slider.focus();
+},	setFocusOnSliderAndSetValueToOneHalfStar: function(testPageDocument){
+	// sets focus on the slider, and sets its value to one half star
+	let slider = testPageDocument.querySelector('[role="slider"]');
+	slider.setAttribute('aria-valuenow', '0.5');
+	slider.setAttribute('aria-valuetext', 'one half of five stars');
+	slider.focus();
+},	setFocusAfterAndTurnOnSwitch: function(testPageDocument){
+	// sets focus on a link after the switch, and sets the switch state to 'on'
+	testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusAfterSwitch: function(testPageDocument){
+	// sets focus on a link after the switch
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeAndTurnOnSwitch: function(testPageDocument){
+	// sets focus on a link before the switch, and sets the state of the switch to 'on'
+	testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusBeforeSwitch: function(testPageDocument){
+	// sets focus on a link before the switch
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnAndTurnOnSwitch: function(testPageDocument){
+	// sets focus on the 'Notifications' switch, and sets its state to 'on'
+	testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+	testPageDocument.querySelector('[role="switch"]').focus();
+},	setFocusOnSwitch: function(testPageDocument){
+	// sets focus on the 'Notifications' switch
+	testPageDocument.querySelector('[role="switch"]').focus();
 },	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
 	// activates the third tab in the tab list, and sets focus on the tab panel
 	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
@@ -584,8 +681,20 @@
 },	setFocusAfterButton: function(testPageDocument){
 	// sets focus on a link after the button
 	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusAfterButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link after the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
+	testPageDocument.querySelector('#afterlink').focus();
 },	setFocusBeforeButton: function(testPageDocument){
 	// sets focus on a link before the button
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusBeforeButtonAndSetStateToPressed: function(testPageDocument){
+	// sets focus on a link before the button, and sets the state of the button to 'pressed'
+	let button = testPageDocument.querySelector('#toggle');
+	button.setAttribute('aria-pressed', 'true');
+	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	testPageDocument.querySelector('#beforelink').focus();
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
@@ -596,31 +705,36 @@
 	button.setAttribute('aria-pressed', 'true');
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
 }
-          };
+      };
 
-          scripts[setupScriptName](testPageWindow.document);
-        }
-      }
+      window.openTestPage = function(testPageUri, testNumber, setupScriptName) {
+        var openTestPageElement = document.getElementById('open-test-page-' + testNumber);
 
-      function openTestPage(testPageUri, testNumber, setupScriptName) {
-        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-        document.getElementById('open-test-page-' + testNumber).disabled = true;
-
-        // If the window is closed, re-enable open popup button
-        testPageWindow.onunload = function(event) {
-          window.setTimeout(() => {
-            if (testPageWindow.closed) {
-              testPageWindow = undefined;
-              document.getElementById('open-test-page-' + testNumber).disabled = false;
+        var testWindow = new TestWindow({
+          pageUri: testPageUri,
+          setupScriptName,
+          scripts,
+          hooks: {
+            windowOpened() {
+              openTestPageElement.disabled = true;
+            },
+            windowClosed() {
+              openTestPageElement.disabled = false;
             }
-          }, 100);
-
-        };
-
-        executeScriptInTestPage(setupScriptName, testPageWindow);
-      }
+          }
+        });
+        testWindow.open();
+      };
     </script>
   </head>
   <body>
@@ -635,12 +749,12 @@
         <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
-    <h2>Test 1: Navigate to the first unchecked radio button in a group in reading mode</h2>
+    <h2 class="jaws nvda">Test 1: Navigate to the first unchecked radio button in a group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-01-navigate-to-first-unchecked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -659,8 +773,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-1"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 1, 'setFocusBeforeRadioGroup');">Open Test 1 Page</button>
+      <button id="open-test-page-1" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusBeforeRadioGroup.html', 1, 'setFocusBeforeRadioGroup');">Open Test 1 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -726,12 +840,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 2: Navigate to the first unchecked radio button in a group</h2>
+    <h2 class="voiceover_macos">Test 2: Navigate to the first unchecked radio button in a group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-02-navigate-to-first-unchecked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -749,8 +863,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-2"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 2, 'setFocusBeforeRadioGroup');">Open Test 2 Page</button>
+      <button id="open-test-page-2" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusBeforeRadioGroup.html', 2, 'setFocusBeforeRadioGroup');">Open Test 2 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -783,12 +897,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 3: navigate to the last unchecked radio button in a group in reading mode</h2>
+    <h2 class="jaws nvda">Test 3: navigate to the last unchecked radio button in a group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-03-navigate-to-last-unchecked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -807,8 +921,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-3"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 3, 'setFocusAfterRadioGroup');">Open Test 3 Page</button>
+      <button id="open-test-page-3" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusAfterRadioGroup.html', 3, 'setFocusAfterRadioGroup');">Open Test 3 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -874,12 +988,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 4: Navigate to the last unchecked radio button in a group</h2>
+    <h2 class="voiceover_macos">Test 4: Navigate to the last unchecked radio button in a group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-04-navigate-to-last-unchecked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -897,8 +1011,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-4"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 4, 'setFocusAfterRadioGroup');">Open Test 4 Page</button>
+      <button id="open-test-page-4" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusAfterRadioGroup.html', 4, 'setFocusAfterRadioGroup');">Open Test 4 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -931,12 +1045,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 5: Navigate to the first checked radio button in a group in reading mode</h2>
+    <h2 class="jaws nvda">Test 5: Navigate to the first checked radio button in a group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-05-navigate-to-first-checked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -955,8 +1069,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-5"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 5, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 5 Page</button>
+      <button id="open-test-page-5" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.checkFirstRadioButtonAndSetFocusBeforeRadioGroup.html', 5, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 5 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1022,12 +1136,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 6: Navigate to the first checked radio button in a group</h2>
+    <h2 class="voiceover_macos">Test 6: Navigate to the first checked radio button in a group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-06-navigate-to-first-checked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1045,8 +1159,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-6"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 6, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 6 Page</button>
+      <button id="open-test-page-6" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.checkFirstRadioButtonAndSetFocusBeforeRadioGroup.html', 6, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 6 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1079,12 +1193,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 7: Navigate to the last checked radio button in a group in reading mode</h2>
+    <h2 class="jaws nvda">Test 7: Navigate to the last checked radio button in a group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-07-navigate-to-last-checked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -1103,8 +1217,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-7"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 7, 'checkThirdRadioButtonAndSetFocusAfterRadioGroup');">Open Test 7 Page</button>
+      <button id="open-test-page-7" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.checkThirdRadioButtonAndSetFocusAfterRadioGroup.html', 7, 'checkThirdRadioButtonAndSetFocusAfterRadioGroup');">Open Test 7 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1170,12 +1284,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 8: Navigate to the last checked radio button in a group</h2>
+    <h2 class="voiceover_macos">Test 8: Navigate to the last checked radio button in a group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-08-navigate-to-last-checked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1193,8 +1307,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-8"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 8, 'checkThirdRadioButtonAndSetFocusAfterRadioGroup');">Open Test 8 Page</button>
+      <button id="open-test-page-8" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.checkThirdRadioButtonAndSetFocusAfterRadioGroup.html', 8, 'checkThirdRadioButtonAndSetFocusAfterRadioGroup');">Open Test 8 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1227,12 +1341,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 9: Navigate forwards to an unchecked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 9: Navigate forwards to an unchecked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-09-navigate-forwards-to-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1251,8 +1365,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-9"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 9, 'setFocusBeforeRadioGroup');">Open Test 9 Page</button>
+      <button id="open-test-page-9" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusBeforeRadioGroup.html', 9, 'setFocusBeforeRadioGroup');">Open Test 9 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1314,12 +1428,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 10: Navigate forwards to an unchecked radio button</h2>
+    <h2 class="voiceover_macos">Test 10: Navigate forwards to an unchecked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-10-navigate-forwards-to-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1337,8 +1451,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-10"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 10, 'setFocusBeforeRadioGroup');">Open Test 10 Page</button>
+      <button id="open-test-page-10" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusBeforeRadioGroup.html', 10, 'setFocusBeforeRadioGroup');">Open Test 10 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1370,12 +1484,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 11: Navigate backwards to an unchecked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 11: Navigate backwards to an unchecked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-11-navigate-backwards-to-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1394,8 +1508,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-11"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 11, 'setFocusAfterRadioGroup');">Open Test 11 Page</button>
+      <button id="open-test-page-11" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusAfterRadioGroup.html', 11, 'setFocusAfterRadioGroup');">Open Test 11 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1457,12 +1571,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 12: Navigate backwards to an unchecked radio button</h2>
+    <h2 class="voiceover_macos">Test 12: Navigate backwards to an unchecked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-12-navigate-backwards-to-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1480,8 +1594,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-12"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 12, 'setFocusAfterRadioGroup');">Open Test 12 Page</button>
+      <button id="open-test-page-12" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusAfterRadioGroup.html', 12, 'setFocusAfterRadioGroup');">Open Test 12 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1513,12 +1627,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 13: Navigate forwards to a checked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 13: Navigate forwards to a checked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-13-navigate-forwards-to-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1537,8 +1651,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-13"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 13, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 13 Page</button>
+      <button id="open-test-page-13" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.checkFirstRadioButtonAndSetFocusBeforeRadioGroup.html', 13, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 13 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1600,12 +1714,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 14: Navigate forwards to a checked radio button</h2>
+    <h2 class="voiceover_macos">Test 14: Navigate forwards to a checked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-14-navigate-forwards-to-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1623,8 +1737,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-14"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 14, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 14 Page</button>
+      <button id="open-test-page-14" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.checkFirstRadioButtonAndSetFocusBeforeRadioGroup.html', 14, 'checkFirstRadioButtonAndSetFocusBeforeRadioGroup');">Open Test 14 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1656,12 +1770,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 15: Navigate backwards to a checked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 15: Navigate backwards to a checked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-15-navigate-backwards-to-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1680,8 +1794,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-15"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 15, 'checkFirstRadioButtonAndSetFocusAfterRadioGroup');">Open Test 15 Page</button>
+      <button id="open-test-page-15" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.checkFirstRadioButtonAndSetFocusAfterRadioGroup.html', 15, 'checkFirstRadioButtonAndSetFocusAfterRadioGroup');">Open Test 15 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1743,12 +1857,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 16: Navigate backwards to a checked radio button</h2>
+    <h2 class="voiceover_macos">Test 16: Navigate backwards to a checked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-16-navigate-backwards-to-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1766,8 +1880,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-16"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 16, 'checkFirstRadioButtonAndSetFocusAfterRadioGroup');">Open Test 16 Page</button>
+      <button id="open-test-page-16" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.checkFirstRadioButtonAndSetFocusAfterRadioGroup.html', 16, 'checkFirstRadioButtonAndSetFocusAfterRadioGroup');">Open Test 16 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -1799,12 +1913,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 17: Navigate out of the start of a radio group in reading mode</h2>
+    <h2 class="jaws nvda">Test 17: Navigate out of the start of a radio group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-17-navigate-out-of-start-of-radio-group-reading.html?at=jaws">jaws</a></li>
@@ -1820,8 +1934,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-17"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 17, 'setFocusOnFirstRadioButton');">Open Test 17 Page</button>
+      <button id="open-test-page-17" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 17, 'setFocusOnFirstRadioButton');">Open Test 17 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1881,12 +1995,12 @@
             <tr><td>required</td><td>name &#39;Navigate forwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 18: Navigate out of the start of a radio group in interaction mode</h2>
+    <h2 class="jaws nvda">Test 18: Navigate out of the start of a radio group in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-18-navigate-out-of-start-of-radio-group-interaction.html?at=jaws">jaws</a></li>
@@ -1902,8 +2016,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-18"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 18, 'setFocusOnFirstRadioButton');">Open Test 18 Page</button>
+      <button id="open-test-page-18" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 18, 'setFocusOnFirstRadioButton');">Open Test 18 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -1961,12 +2075,12 @@
             <tr><td>required</td><td>name &#39;Navigate forwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 19: Navigate out of the start of a radio group</h2>
+    <h2 class="voiceover_macos">Test 19: Navigate out of the start of a radio group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-19-navigate-out-of-start-of-radio-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1981,8 +2095,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-19"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 19, 'setFocusOnFirstRadioButton');">Open Test 19 Page</button>
+      <button id="open-test-page-19" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 19, 'setFocusOnFirstRadioButton');">Open Test 19 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2013,12 +2127,12 @@
             <tr><td>required</td><td>name &#39;Navigate forwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 20: Navigate out of the end of a radio group in reading mode</h2>
+    <h2 class="jaws nvda">Test 20: Navigate out of the end of a radio group in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-20-navigate-out-of-end-of-radio-group-reading.html?at=jaws">jaws</a></li>
@@ -2034,8 +2148,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-20"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 20, 'setFocusOnThirdRadioButton');">Open Test 20 Page</button>
+      <button id="open-test-page-20" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnThirdRadioButton.html', 20, 'setFocusOnThirdRadioButton');">Open Test 20 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2095,12 +2209,12 @@
             <tr><td>required</td><td>name &#39;Navigate backwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 21: Navigate out of the end of a radio group in interaction mode</h2>
+    <h2 class="jaws nvda">Test 21: Navigate out of the end of a radio group in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-21-navigate-out-of-end-of-radio-group-interaction.html?at=jaws">jaws</a></li>
@@ -2116,8 +2230,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-21"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 21, 'setFocusOnThirdRadioButton');">Open Test 21 Page</button>
+      <button id="open-test-page-21" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnThirdRadioButton.html', 21, 'setFocusOnThirdRadioButton');">Open Test 21 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2175,12 +2289,12 @@
             <tr><td>required</td><td>name &#39;Navigate backwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 22: Navigate out of the end of a radio group</h2>
+    <h2 class="voiceover_macos">Test 22: Navigate out of the end of a radio group</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-22-navigate-out-of-end-of-radio-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2195,8 +2309,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-22"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 22, 'setFocusOnThirdRadioButton');">Open Test 22 Page</button>
+      <button id="open-test-page-22" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnThirdRadioButton.html', 22, 'setFocusOnThirdRadioButton');">Open Test 22 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2227,12 +2341,12 @@
             <tr><td>required</td><td>name &#39;Navigate backwards from here&#39; is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 23: Read information about an unchecked radio button in reading mode</h2>
+    <h2 class="jaws nvda">Test 23: Read information about an unchecked radio button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-23-read-information-about-unchecked-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -2249,8 +2363,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-23"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 23, 'setFocusOnFirstRadioButton');">Open Test 23 Page</button>
+      <button id="open-test-page-23" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 23, 'setFocusOnFirstRadioButton');">Open Test 23 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2310,12 +2424,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 24: Read information about an unchecked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 24: Read information about an unchecked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-24-read-information-about-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2332,8 +2446,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-24"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 24, 'setFocusOnFirstRadioButton');">Open Test 24 Page</button>
+      <button id="open-test-page-24" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 24, 'setFocusOnFirstRadioButton');">Open Test 24 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2393,12 +2507,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 25: Read information about an unchecked radio button</h2>
+    <h2 class="voiceover_macos">Test 25: Read information about an unchecked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-25-read-information-about-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2414,8 +2528,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-25"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 25, 'setFocusOnFirstRadioButton');">Open Test 25 Page</button>
+      <button id="open-test-page-25" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 25, 'setFocusOnFirstRadioButton');">Open Test 25 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2446,12 +2560,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 26: Read information about a checked radio button in reading mode</h2>
+    <h2 class="jaws nvda">Test 26: Read information about a checked radio button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-26-read-information-about-checked-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -2468,8 +2582,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-26"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 26, 'setFocusOnAndCheckFirstRadioButton');">Open Test 26 Page</button>
+      <button id="open-test-page-26" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnAndCheckFirstRadioButton.html', 26, 'setFocusOnAndCheckFirstRadioButton');">Open Test 26 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2529,12 +2643,12 @@
             <tr><td>optional</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 27: Read information about a checked radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 27: Read information about a checked radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-27-read-information-about-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2551,8 +2665,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-27"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 27, 'setFocusOnAndCheckFirstRadioButton');">Open Test 27 Page</button>
+      <button id="open-test-page-27" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnAndCheckFirstRadioButton.html', 27, 'setFocusOnAndCheckFirstRadioButton');">Open Test 27 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2612,12 +2726,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 28: Read information about a checked radio button</h2>
+    <h2 class="voiceover_macos">Test 28: Read information about a checked radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-28-read-information-about-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2633,8 +2747,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-28"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 28, 'setFocusOnAndCheckFirstRadioButton');">Open Test 28 Page</button>
+      <button id="open-test-page-28" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnAndCheckFirstRadioButton.html', 28, 'setFocusOnAndCheckFirstRadioButton');">Open Test 28 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2665,12 +2779,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 29: Navigate to the next radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 29: Navigate to the next radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-29-navigate-to-next-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2687,8 +2801,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-29"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 29, 'setFocusOnFirstRadioButton');">Open Test 29 Page</button>
+      <button id="open-test-page-29" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 29, 'setFocusOnFirstRadioButton');">Open Test 29 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2748,12 +2862,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 30: Navigate to the next radio button</h2>
+    <h2 class="voiceover_macos">Test 30: Navigate to the next radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-30-navigate-to-next-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2769,8 +2883,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-30"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 30, 'setFocusOnFirstRadioButton');">Open Test 30 Page</button>
+      <button id="open-test-page-30" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 30, 'setFocusOnFirstRadioButton');">Open Test 30 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2802,12 +2916,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 31: Navigate to the previous radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 31: Navigate to the previous radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-31-navigate-to-previous-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2824,8 +2938,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-31"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 31, 'setFocusOnSecondRadioButton');">Open Test 31 Page</button>
+      <button id="open-test-page-31" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnSecondRadioButton.html', 31, 'setFocusOnSecondRadioButton');">Open Test 31 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -2885,12 +2999,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 32: Navigate to the previous radio button</h2>
+    <h2 class="voiceover_macos">Test 32: Navigate to the previous radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-32-navigate-to-previous-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2906,8 +3020,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-32"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 32, 'setFocusOnSecondRadioButton');">Open Test 32 Page</button>
+      <button id="open-test-page-32" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnSecondRadioButton.html', 32, 'setFocusOnSecondRadioButton');">Open Test 32 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -2939,12 +3053,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 33: Navigate to the first radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 33: Navigate to the first radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-33-navigate-to-first-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2961,8 +3075,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-33"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 33, 'setFocusOnThirdRadioButton');">Open Test 33 Page</button>
+      <button id="open-test-page-33" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnThirdRadioButton.html', 33, 'setFocusOnThirdRadioButton');">Open Test 33 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -3022,12 +3136,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 34: Navigate to the first radio button</h2>
+    <h2 class="voiceover_macos">Test 34: Navigate to the first radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-34-navigate-to-first-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3043,8 +3157,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-34"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 34, 'setFocusOnThirdRadioButton');">Open Test 34 Page</button>
+      <button id="open-test-page-34" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnThirdRadioButton.html', 34, 'setFocusOnThirdRadioButton');">Open Test 34 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -3075,12 +3189,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 35: Navigate to the last radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 35: Navigate to the last radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-35-navigate-to-last-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3097,8 +3211,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-35"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 35, 'setFocusOnFirstRadioButton');">Open Test 35 Page</button>
+      <button id="open-test-page-35" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 35, 'setFocusOnFirstRadioButton');">Open Test 35 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -3158,12 +3272,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 36: Navigate to the last radio button</h2>
+    <h2 class="voiceover_macos">Test 36: Navigate to the last radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-36-navigate-to-last-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3179,8 +3293,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-36"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 36, 'setFocusOnFirstRadioButton');">Open Test 36 Page</button>
+      <button id="open-test-page-36" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 36, 'setFocusOnFirstRadioButton');">Open Test 36 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>
@@ -3211,12 +3325,12 @@
             <tr><td>required</td><td>Number of radio buttons in the group, 3, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 37: Check a radio button in reading mode</h2>
+    <h2 class="jaws nvda">Test 37: Check a radio button in reading mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-37-check-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -3231,8 +3345,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-37"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 37, 'setFocusOnFirstRadioButton');">Open Test 37 Page</button>
+      <button id="open-test-page-37" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 37, 'setFocusOnFirstRadioButton');">Open Test 37 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -3282,12 +3396,12 @@
             <tr><td>required</td><td>Change in state, to &#39;checked&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 38: Check a radio button in interaction mode</h2>
+    <h2 class="jaws nvda">Test 38: Check a radio button in interaction mode</h2>
     <p>
-      <ul>
+      <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-38-check-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3302,8 +3416,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-38"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 38, 'setFocusOnFirstRadioButton');">Open Test 38 Page</button>
+      <button id="open-test-page-38" class="jaws nvda"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 38, 'setFocusOnFirstRadioButton');">Open Test 38 Page</button>
     </p>
       <div class="jaws">
         <h3>JAWS</h3>
@@ -3353,12 +3467,12 @@
             <tr><td>required</td><td>Change in state, to &#39;checked&#39;, is conveyed</td></tr>
         </table>
       </div>
-    <h2>Test 39: Check a radio button</h2>
+    <h2 class="voiceover_macos">Test 39: Check a radio button</h2>
     <p>
-      <ul>
+      <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Sep 9 10:51:51 2021 -0400</li>
+        <li>Last edited: Tue Jan 4 09:52:23 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-39-check-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3372,8 +3486,8 @@
         </li>
       </ul>
 
-      <button id="open-test-page-39"
-        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.html', 39, 'setFocusOnFirstRadioButton');">Open Test 39 Page</button>
+      <button id="open-test-page-39" class="voiceover_macos"
+        onclick="openTestPage('../tests&#x2F;radiogroup-aria-activedescendant&#x2F;reference&#x2F;2021-3-17_161413&#x2F;radio-activedescendant.setFocusOnFirstRadioButton.html', 39, 'setFocusOnFirstRadioButton');">Open Test 39 Page</button>
     </p>
       <div class="voiceover_macos">
         <h3>VoiceOver for macOS</h3>

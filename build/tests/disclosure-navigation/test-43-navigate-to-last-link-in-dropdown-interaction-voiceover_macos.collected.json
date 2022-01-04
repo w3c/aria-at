@@ -17,7 +17,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/disclosure-navigation.html",
+    "referencePage": "reference/disclosure-navigation.moveFocusToFirstLinkInDropdown.html",
     "setupScript": {
       "name": "moveFocusToFirstLinkInDropdown",
       "description": "sets the state of the first disclosure button to expanded, and sets focus on the first link of the associated dropdown",
@@ -36,7 +36,13 @@
   "commands": [
     {
       "id": "END",
-      "keystroke": "End"
+      "keystroke": "End",
+      "keypresses": [
+        {
+          "id": "END",
+          "keystroke": "End"
+        }
+      ]
     }
   ],
   "assertions": [
@@ -46,7 +52,7 @@
     },
     {
       "priority": 1,
-      "expectation": "Name 'Overview' is conveyed"
+      "expectation": "Name 'Campus Tours' is conveyed"
     }
   ]
 }

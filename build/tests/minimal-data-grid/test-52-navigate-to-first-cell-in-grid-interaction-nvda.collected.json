@@ -17,7 +17,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusOnLastDataCell.html",
     "setupScript": {
       "name": "setFocusOnLastDataCell",
       "description": "sets focus on the fifth cell of the seventh row in the grid",
@@ -36,7 +36,13 @@
   "commands": [
     {
       "id": "CTRL_HOME",
-      "keystroke": "Control+Home"
+      "keystroke": "Control+Home",
+      "keypresses": [
+        {
+          "id": "CTRL_HOME",
+          "keystroke": "Control+Home"
+        }
+      ]
     }
   ],
   "assertions": [

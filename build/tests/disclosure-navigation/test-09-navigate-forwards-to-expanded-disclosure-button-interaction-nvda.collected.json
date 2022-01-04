@@ -21,7 +21,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/disclosure-navigation.html",
+    "referencePage": "reference/disclosure-navigation.moveFocusBeforeAndExpandFirstDisclosure.html",
     "setupScript": {
       "name": "moveFocusBeforeAndExpandFirstDisclosure",
       "description": "sets focus on a link before the first disclosure button, and sets the state of the first button to expanded",
@@ -40,7 +40,13 @@
   "commands": [
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -33,7 +33,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2020-11-23_175528/menubar-editor.html",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.focusonfirstlink.html",
     "setupScript": {
       "name": "focusonfirstlink",
       "description": "sets focus on a link just before the menubar",
@@ -59,11 +59,23 @@
   "commands": [
     {
       "id": "INS_TAB",
-      "keystroke": "Insert+Tab"
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
     },
     {
       "id": "INS_UP",
-      "keystroke": "Insert+Up"
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
     }
   ],
   "assertions": [

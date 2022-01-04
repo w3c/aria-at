@@ -25,13 +25,13 @@
       "name": "JAWS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-29_145942/button.html",
+    "referencePage": "reference/2021-3-29_145942/button.setFocusAfterButtonAndSetStateToPressed.html",
     "setupScript": {
-      "name": "setFocusAfterButton",
-      "description": "sets focus on a link after the button",
-      "source": "// sets focus on a link after the button\ntestPageDocument.querySelector('#afterlink').focus();\n",
-      "modulePath": "scripts/setFocusAfterButton.module.js",
-      "jsonpPath": "scripts/setFocusAfterButton.jsonp.js"
+      "name": "setFocusAfterButtonAndSetStateToPressed",
+      "description": "sets focus on a link after the button, and sets the state of the button to 'pressed'",
+      "source": "// sets focus on a link after the button, and sets the state of the button to 'pressed'\nlet button = testPageDocument.querySelector('#toggle');\nbutton.setAttribute('aria-pressed', 'true');\nbutton.querySelector('use').setAttribute('xlink:href', '#icon-sound');\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterButtonAndSetStateToPressed.module.js",
+      "jsonpPath": "scripts/setFocusAfterButtonAndSetStateToPressed.jsonp.js"
     }
   },
   "instructions": {
@@ -44,7 +44,13 @@
   "commands": [
     {
       "id": "SHIFT_TAB",
-      "keystroke": "Shift+Tab"
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -25,7 +25,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.html",
+    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.checkFirstCheckbox.html",
     "setupScript": {
       "name": "checkFirstCheckbox",
       "description": "sets the state of the first checkbox to checked",
@@ -44,15 +44,33 @@
   "commands": [
     {
       "id": "TAB_AND_SHIFT_TAB",
-      "keystroke": "Tab / Shift+Tab"
+      "keystroke": "Tab / Shift+Tab",
+      "keypresses": [
+        {
+          "id": "TAB_AND_SHIFT_TAB",
+          "keystroke": "Tab / Shift+Tab"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT",
-      "keystroke": "Control+Option+Right / Ctrl+Option+Left"
+      "keystroke": "Control+Option+Right / Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT",
+          "keystroke": "Control+Option+Right / Ctrl+Option+Left"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J",
-      "keystroke": "Control+Option+Command+J / Shift+Control+Option+Command+J"
+      "keystroke": "Control+Option+Command+J / Shift+Control+Option+Command+J",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J",
+          "keystroke": "Control+Option+Command+J / Shift+Control+Option+Command+J"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -17,7 +17,7 @@
       "name": "NVDA"
     },
     "mode": "reading",
-    "referencePage": "reference/2020-12-17_13353/dialog.html",
+    "referencePage": "reference/2020-12-17_13353/dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html",
     "setupScript": {
       "name": "openAddDeliveryAddressDialogAndFocusFirstInput",
       "description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the first input",
@@ -36,7 +36,13 @@
   "commands": [
     {
       "id": "CTRL_HOME",
-      "keystroke": "Control+Home"
+      "keystroke": "Control+Home",
+      "keypresses": [
+        {
+          "id": "CTRL_HOME",
+          "keystroke": "Control+Home"
+        }
+      ]
     }
   ],
   "assertions": [

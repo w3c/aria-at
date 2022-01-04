@@ -25,7 +25,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.html",
+    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.checkFirstCheckbox.html",
     "setupScript": {
       "name": "checkFirstCheckbox",
       "description": "sets the state of the first checkbox to checked",
@@ -44,23 +44,53 @@
   "commands": [
     {
       "id": "X_AND_SHIFT_X",
-      "keystroke": "X / Shift+X"
+      "keystroke": "X / Shift+X",
+      "keypresses": [
+        {
+          "id": "X_AND_SHIFT_X",
+          "keystroke": "X / Shift+X"
+        }
+      ]
     },
     {
       "id": "F_AND_SHIFT_F",
-      "keystroke": "F / Shift+F"
+      "keystroke": "F / Shift+F",
+      "keypresses": [
+        {
+          "id": "F_AND_SHIFT_F",
+          "keystroke": "F / Shift+F"
+        }
+      ]
     },
     {
       "id": "TAB_AND_SHIFT_TAB",
-      "keystroke": "Tab / Shift+Tab"
+      "keystroke": "Tab / Shift+Tab",
+      "keypresses": [
+        {
+          "id": "TAB_AND_SHIFT_TAB",
+          "keystroke": "Tab / Shift+Tab"
+        }
+      ]
     },
     {
       "id": "UP_AND_DOWN",
-      "keystroke": "Up Arrow / Down Arrow"
+      "keystroke": "Up Arrow / Down Arrow",
+      "keypresses": [
+        {
+          "id": "UP_AND_DOWN",
+          "keystroke": "Up Arrow / Down Arrow"
+        }
+      ]
     },
     {
       "id": "LEFT_AND_RIGHT",
       "keystroke": "Left Arrow / Right Arrow",
+      "keypresses": [
+        {
+          "id": "LEFT_AND_RIGHT",
+          "keystroke": "Left Arrow / Right Arrow"
+        }
+      ],
       "extraInstruction": "(with Smart Navigation on)"
     }
   ],

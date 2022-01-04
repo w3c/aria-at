@@ -17,7 +17,7 @@
       "name": "VoiceOver for macOS"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-3-8_151542/dataGrids.html",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusOnSecondDataCell.html",
     "setupScript": {
       "name": "setFocusOnSecondDataCell",
       "description": "sets focus on the second cell of the second row in the grid",
@@ -36,15 +36,33 @@
   "commands": [
     {
       "id": "LEFT",
-      "keystroke": "Left Arrow"
+      "keystroke": "Left Arrow",
+      "keypresses": [
+        {
+          "id": "LEFT",
+          "keystroke": "Left Arrow"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_LEFT",
-      "keystroke": "Ctrl+Option+Left"
+      "keystroke": "Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
     },
     {
       "id": "SHIFT_CTRL_OPT_CMD_Y",
-      "keystroke": "Shift+Control+Option+Command+Y"
+      "keystroke": "Shift+Control+Option+Command+Y",
+      "keypresses": [
+        {
+          "id": "SHIFT_CTRL_OPT_CMD_Y",
+          "keystroke": "Shift+Control+Option+Command+Y"
+        }
+      ]
     }
   ],
   "assertions": [

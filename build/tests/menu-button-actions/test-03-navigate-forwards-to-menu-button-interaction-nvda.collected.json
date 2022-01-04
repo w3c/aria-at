@@ -21,7 +21,7 @@
       "name": "NVDA"
     },
     "mode": "interaction",
-    "referencePage": "reference/2021-1-14_12348/menu-button-actions.html",
+    "referencePage": "reference/2021-1-14_12348/menu-button-actions.setFocusBeforeMenuButton.html",
     "setupScript": {
       "name": "setFocusBeforeMenuButton",
       "description": "sets focus on a link before the menu button",
@@ -38,7 +38,13 @@
   "commands": [
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     }
   ],
   "assertions": [

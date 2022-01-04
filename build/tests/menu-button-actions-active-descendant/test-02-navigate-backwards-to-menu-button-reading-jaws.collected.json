@@ -21,7 +21,7 @@
       "name": "JAWS"
     },
     "mode": "reading",
-    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.html",
+    "referencePage": "reference/2021-1-14_171136/menu-button-actions-active-descendant.setFocusAfterMenuButton.html",
     "setupScript": {
       "name": "setFocusAfterMenuButton",
       "description": "sets focus on a link after the menu button",
@@ -38,19 +38,43 @@
   "commands": [
     {
       "id": "SHIFT_B",
-      "keystroke": "Shift+B"
+      "keystroke": "Shift+B",
+      "keypresses": [
+        {
+          "id": "SHIFT_B",
+          "keystroke": "Shift+B"
+        }
+      ]
     },
     {
       "id": "SHIFT_F",
-      "keystroke": "Shift+F"
+      "keystroke": "Shift+F",
+      "keypresses": [
+        {
+          "id": "SHIFT_F",
+          "keystroke": "Shift+F"
+        }
+      ]
     },
     {
       "id": "SHIFT_TAB",
-      "keystroke": "Shift+Tab"
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
     },
     {
       "id": "UP",
-      "keystroke": "Up Arrow"
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -1,0 +1,32 @@
+{
+  "setup_script_description": "sets focus on a link before the 'Personal Information' accordion header",
+  "setupTestPage": "setFocusBeforeFirstAccordionHeader",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to expanded accordion header",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Personal Information' accordion header.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'heading' is conveyed"
+    ],
+    [
+      "1",
+      "Heading level 3 is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Personal Information' is conveyed"
+    ],
+    [
+      "1",
+      "State 'expanded' is conveyed"
+    ]
+  ]
+}

@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate into an accordion panel</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/accordion/accordion.html">
+<link rel="help" href="https://w3c.github.io/aria/#region">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+
+<script>
+  var scripts = {
+		setFocusOnFirstAccordionHeader: function(testPageDocument){
+			// sets focus on the 'Personal Information' accordion header
+			testPageDocument.getElementById('accordion1id').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Personal Information' accordion header",
+  "setupTestPage": "setFocusOnFirstAccordionHeader",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate into accordion panel",
+  "specific_user_instruction": "With focus on the 'Personal Information' accordion header, navigate into the accordion panel.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'region' is conveyed"
+    ],
+    [
+      "1",
+      "Name of region ('Personal Information') is conveyed"
+    ],
+    [
+      "1",
+      "Name of input ('Name') is conveyed"
+    ],
+    [
+      "1",
+      "The ability to enter text into the input is conveyed"
+    ],
+    [
+      "1",
+      "State of the input (required) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate into accordion panel": {
+    "reading": {
+      "jaws": [ [ "DOWN,DOWN" ], [ "TAB" ] ],
+      "nvda": [ [ "DOWN,DOWN" ], [ "TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT,CTRL_OPT_RIGHT"
+        ],
+        [ "TAB" ],
+        [ "CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2022-1-3_122554/accordion.setFocusOnFirstAccordionHeader.html");
+  });
+</script>
+  

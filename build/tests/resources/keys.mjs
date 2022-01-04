@@ -114,3 +114,6 @@ export const SHIFT_CTRL_OPT_CMD_Y                                = "Shift+Contro
 export const Z                                = "Z";
 export const PAGE_DOWN                                = "Page Down";
 export const PAGE_UP                                = "Page Up";
+export const THREE = "3";
+export const SHIFT_THREE = "Shift+3";
+export const SHIFT_H = "Shift+H";

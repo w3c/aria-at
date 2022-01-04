@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards to an expanded accordion header in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/accordion/accordion.html">
+<link rel="help" href="https://w3c.github.io/aria/#heading">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script>
+  var scripts = {
+		setFocusBeforeFirstAccordionHeader: function(testPageDocument){
+			// sets focus on a link before the 'Personal Information' accordion header
+			testPageDocument.getElementById('beforelink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link before the 'Personal Information' accordion header",
+  "setupTestPage": "setFocusBeforeFirstAccordionHeader",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to expanded accordion header",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Personal Information' accordion header.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'heading' is conveyed"
+    ],
+    [
+      "1",
+      "Heading level 3 is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Personal Information' is conveyed"
+    ],
+    [
+      "1",
+      "State 'expanded' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards to expanded accordion header": {
+    "reading": {
+      "jaws": [
+        [ "B" ],
+        [ "F" ],
+        [ "H" ],
+        [ "THREE" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ],
+      "nvda": [
+        [ "B" ],
+        [ "F" ],
+        [ "H" ],
+        [ "THREE" ],
+        [ "TAB" ],
+        [ "DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "TAB" ],
+        [ "CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2022-1-3_122554/accordion.setFocusBeforeFirstAccordionHeader.html");
+  });
+</script>
+  

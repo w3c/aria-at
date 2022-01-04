@@ -1,0 +1,33 @@
+{
+  "setup_script_description": "sets focus on the 'Personal Information' accordion header",
+  "setupTestPage": "setFocusOnFirstAccordionHeader",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "read information about expanded accordion header",
+  "specific_user_instruction": "With the reading cursor on the 'Personal Information' accordion header, read information about the accordion header.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'heading' is conveyed"
+    ],
+    [
+      "1",
+      "Heading level 3 is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Personal Information' is conveyed"
+    ],
+    [
+      "1",
+      "State 'expanded' is conveyed"
+    ]
+  ]
+}

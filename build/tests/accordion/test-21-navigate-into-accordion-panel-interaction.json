@@ -1,0 +1,32 @@
+{
+  "setup_script_description": "sets focus on the 'Personal Information' accordion header",
+  "setupTestPage": "setFocusOnFirstAccordionHeader",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate into accordion panel",
+  "specific_user_instruction": "With focus on the 'Personal Information' accordion header, navigate into the accordion panel.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'region' is conveyed"
+    ],
+    [
+      "1",
+      "Name of region ('Personal Information') is conveyed"
+    ],
+    [
+      "1",
+      "Name of input ('Name') is conveyed"
+    ],
+    [
+      "1",
+      "The ability to enter text into the input is conveyed"
+    ],
+    [
+      "1",
+      "State of the input (required) is conveyed"
+    ]
+  ]
+}

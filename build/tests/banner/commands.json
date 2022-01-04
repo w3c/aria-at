@@ -2,10 +2,11 @@
   "navigate forwards into a banner landmark": {
     "reading": {
       "jaws": [
-        [ "R,DOWN" ],
-        [ "DOWN,DOWN" ],
+        [ "R" ],
+        [ "DOWN" ],
         [ "TAB" ],
-        [ "U" ]
+        [ "U" ],
+        [ "D" ]
       ],
       "nvda": [
         [ "D" ],
@@ -29,11 +30,14 @@
   "navigate backwards into a banner landmark": {
     "reading": {
       "jaws": [
+        [ "SHIFT_R" ],
         [ "UP" ],
         [ "SHIFT_TAB" ],
-        [ "SHIFT_U" ]
+        [ "SHIFT_U" ],
+        [ "SHIFT_D" ]
       ],
       "nvda": [
+        [ "SHIFT_D" ],
         [ "UP" ],
         [ "SHIFT_TAB" ],
         [ "SHIFT_U" ],
@@ -69,7 +73,7 @@
   },
   "navigate backwards out of a banner landmark": {
     "reading": {
-      "jaws": [ [ "UP,UP" ], [ "SHIFT_U" ] ],
+      "jaws": [ [ "UP" ], [ "SHIFT_U" ] ],
       "nvda": [
         [ "UP" ],
         [ "SHIFT_K" ],
@@ -115,7 +119,7 @@
   "navigate backwards to a button inside a banner landmark": {
     "reading": {
       "jaws": [
-        [ "UP" ],
+        [ "UP,UP" ],
         [ "SHIFT_B" ],
         [ "SHIFT_TAB" ]
       ],

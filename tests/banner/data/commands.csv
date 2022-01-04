@@ -1,11 +1,11 @@
 testId,task,mode,at,commandA,commandB,commandC,commandD,commandE
-1,Navigate forwards into a banner landmark,READING,JAWS,"R,DOWN","DOWN,DOWN",TAB,U,
+1,Navigate forwards into a banner landmark,READING,JAWS,R,DOWN,TAB,U,D
 1,Navigate forwards into a banner landmark,READING,NVDA,D,DOWN,TAB,U,K
 2,Navigate forwards into a banner landmark,INTERACTION,JAWS,TAB,,,,
 2,Navigate forwards into a banner landmark,INTERACTION,NVDA,TAB,,,,
 3,Navigate forwards into a banner landmark,INTERACTION,VOICEOVER_MACOS,"CTRL_OPT_RIGHT,CTRL_OPT_RIGHT",CTRL_OPT_CMD_L,,,
-4,Navigate backwards into a banner landmark,READING,JAWS,UP,SHIFT_TAB,SHIFT_U,,
-4,Navigate backwards into a banner landmark,READING,NVDA,UP,SHIFT_TAB,SHIFT_U,SHIFT_K,
+4,Navigate backwards into a banner landmark,READING,JAWS,SHIFT_R,UP,SHIFT_TAB,SHIFT_U,SHIFT_D
+4,Navigate backwards into a banner landmark,READING,NVDA,SHIFT_D,UP,SHIFT_TAB,SHIFT_U,SHIFT_K
 5,Navigate backwards into a banner landmark,INTERACTION,JAWS,SHIFT_TAB,,,,
 5,Navigate backwards into a banner landmark,INTERACTION,NVDA,SHIFT_TAB,,,,
 6,Navigate backwards into a banner landmark,INTERACTION,VOICEOVER_MACOS,"CTRL_OPT_LEFT,CTRL_OPT_LEFT",SHIFT_CTRL_OPT_CMD_L,,,
@@ -14,7 +14,7 @@ testId,task,mode,at,commandA,commandB,commandC,commandD,commandE
 8,Navigate forwards out of a banner landmark,INTERACTION,JAWS,TAB,,,,
 8,Navigate forwards out of a banner landmark,INTERACTION,NVDA,TAB,,,,
 9,Navigate forwards out of a banner landmark,INTERACTION,VOICEOVER_MACOS,"CTRL_OPT_RIGHT,CTRL_OPT_RIGHT",CTRL_OPT_CMD_L,,,
-10,Navigate backwards out of a banner landmark,READING,JAWS,"UP,UP",SHIFT_U,,,
+10,Navigate backwards out of a banner landmark,READING,JAWS,UP,SHIFT_U,,,
 10,Navigate backwards out of a banner landmark,READING,NVDA,UP,SHIFT_K,SHIFT_U,,
 11,Navigate backwards out of a banner landmark,INTERACTION,JAWS,SHIFT_TAB,,,,
 11,Navigate backwards out of a banner landmark,INTERACTION,NVDA,SHIFT_TAB,,,,
@@ -24,7 +24,7 @@ testId,task,mode,at,commandA,commandB,commandC,commandD,commandE
 14,Navigate forwards to a button inside a banner landmark,INTERACTION,JAWS,TAB,,,,
 14,Navigate forwards to a button inside a banner landmark,INTERACTION,NVDA,TAB,,,,
 15,Navigate forwards to a button inside a banner landmark,INTERACTION,VOICEOVER_MACOS,"CTRL_OPT_RIGHT,CTRL_OPT_RIGHT",CTRL_OPT_CMD_J,TAB,,
-16,Navigate backwards to a button inside a banner landmark,READING,JAWS,UP,SHIFT_B,SHIFT_TAB,,
+16,Navigate backwards to a button inside a banner landmark,READING,JAWS,"UP,UP",SHIFT_B,SHIFT_TAB,,
 16,Navigate backwards to a button inside a banner landmark,READING,NVDA,UP,SHIFT_B,SHIFT_TAB,,
 17,Navigate backwards to a button inside a banner landmark,INTERACTION,JAWS,SHIFT_TAB,,,,
 17,Navigate backwards to a button inside a banner landmark,INTERACTION,NVDA,SHIFT_TAB,,,,

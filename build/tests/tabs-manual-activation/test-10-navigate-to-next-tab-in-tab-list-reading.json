@@ -1,0 +1,29 @@
+{
+  "setup_script_description": "sets focus on the first tab",
+  "setupTestPage": "setFocusOnFirstTab",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate to next tab in tab list",
+  "specific_user_instruction": "With the reading cursor on the 'Nils Frahm' tab, navigate to the next tab.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'tab' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Agnes Obel' is conveyed"
+    ],
+    [
+      "2",
+      "Position of tab in the tab list, 2, is conveyed"
+    ],
+    [
+      "2",
+      "Number of tabs in the tab list, 3, is conveyed"
+    ]
+  ]
+}

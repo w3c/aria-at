@@ -1,0 +1,104 @@
+{
+  "info": {
+    "testId": 30,
+    "task": "navigate from expanded disclosure button to current page link",
+    "title": "Navigate from an expanded disclosure button to the current page link",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html"
+      },
+      {
+        "refId": "aria-current",
+        "value": "https://w3c.github.io/aria/#aria-current"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/disclosure-navigation.moveFocusToAndExpandFirstDisclosureAndSetCurrentPage.html",
+    "setupScript": {
+      "name": "moveFocusToAndExpandFirstDisclosureAndSetCurrentPage",
+      "description": "sets focus on the first disclosure button, sets its state to expanded, and marks the first link in the associated dropdown as being the current page",
+      "source": "// sets focus on the first disclosure button, sets its state to expanded, and marks the first link in the associated dropdown as being the current page\ntestPageDocument.defaultView.disclosureController.toggleExpand(0, true);\ntestPageDocument.querySelector('#id_about_menu a').setAttribute('aria-current', 'page');\ntestPageDocument.querySelector('button[aria-controls=\"id_about_menu\"]').focus();\n",
+      "modulePath": "scripts/moveFocusToAndExpandFirstDisclosureAndSetCurrentPage.module.js",
+      "jsonpPath": "scripts/moveFocusToAndExpandFirstDisclosureAndSetCurrentPage.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the first disclosure button in the navigation region, move into the button's associated list of links."
+    ],
+    "raw": "With focus on the first disclosure button in the navigation region, move into the button's associated list of links.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_RIGHT",
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_OPT_CMD_L",
+      "keystroke": "Control+Option+Command+L",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_L",
+          "keystroke": "Control+Option+Command+L"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role of the dropdown ('list') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of items in the dropdown (4) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role of the first item in the dropdown ('link') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the first item in the dropdown ('Overview') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the first item in the dropdown (as the current page) is conveyed"
+    }
+  ]
+}

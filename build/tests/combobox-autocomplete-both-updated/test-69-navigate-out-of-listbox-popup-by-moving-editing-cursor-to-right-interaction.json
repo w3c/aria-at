@@ -1,0 +1,40 @@
+{
+  "setup_script_description": "expands the combobox,  sets the combobox value to 'Alabama', places focus on that option in the listbox popup and positions the editing cursor at the beginning of the textbox",
+  "setupTestPage": "moveFocusToAlabamaInListboxAndSetInputCursorAtBeginning",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate out of listbox popup by moving editing cursor to right",
+  "specific_user_instruction": "With focus on an option in the listbox popupwith focus on the listbox popup, navigate back to the textbox by moving the editing cursor to the right.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the combobox ('State') is conveyed"
+    ],
+    [
+      "1",
+      "State of the combobox (expanded) is conveyed"
+    ],
+    [
+      "1",
+      "Text of the selected option ('Alabama') is conveyed"
+    ],
+    [
+      "1",
+      "The ability to enter or edit text is conveyed"
+    ],
+    [
+      "1",
+      "The presence of autocomplete behavior is conveyed"
+    ],
+    [
+      "1",
+      "Cursor position (on the character 'l') is conveyed"
+    ]
+  ]
+}

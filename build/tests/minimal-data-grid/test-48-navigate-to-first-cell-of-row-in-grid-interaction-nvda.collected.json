@@ -1,0 +1,62 @@
+{
+  "info": {
+    "testId": 48,
+    "task": "navigate to first cell of row in grid",
+    "title": "Navigate to the first cell of a row in a grid in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusOnFifthDataCell.html",
+    "setupScript": {
+      "name": "setFocusOnFifthDataCell",
+      "description": "sets focus on the fifth cell of the second row in the grid",
+      "source": "// sets focus on the fifth cell of the second row in the grid\ntestPageDocument.defaultView.ex1Grid.setFocusPointer(0, 4);\ntestPageDocument.defaultView.ex1Grid.focusCell(0, 4);\n",
+      "modulePath": "scripts/setFocusOnFifthDataCell.module.js",
+      "jsonpPath": "scripts/setFocusOnFifthDataCell.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the first cell of the current row in the grid."
+    ],
+    "raw": "Navigate to the first cell of the current row in the grid.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "HOME",
+      "keystroke": "Home",
+      "keypresses": [
+        {
+          "id": "HOME",
+          "keystroke": "Home"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the column header ('Date') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the cell ('01-Jan-16') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "coordinates of the cell (column 1, row 2) are conveyed"
+    }
+  ]
+}

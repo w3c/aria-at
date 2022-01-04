@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Decrement a slider by one half star in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/slider/slider-rating.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+
+<script>
+  var scripts = {
+		setFocusOnSliderAndSetValueToOneHalfStar: function(testPageDocument){
+			// sets focus on the slider, and sets its value to one half star
+			let slider = testPageDocument.querySelector('[role="slider"]');
+			slider.setAttribute('aria-valuenow', '0.5');
+			slider.setAttribute('aria-valuetext', 'one half of five stars');
+			slider.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the slider, and sets its value to one half star",
+  "setupTestPage": "setFocusOnSliderAndSetValueToOneHalfStar",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "decrement slider by one half star",
+  "specific_user_instruction": "With focus on the 'Rating' slider, set its value to zero stars.",
+  "output_assertions": [
+    [
+      "1",
+      "Textual value 'zero stars' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '0' is not conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "decrement slider by one half star": {
+    "interaction": {
+      "jaws": [ [ "LEFT" ], [ "DOWN" ] ],
+      "nvda": [ [ "LEFT" ], [ "DOWN" ] ],
+      "voiceover_macos": [ [ "LEFT" ], [ "DOWN" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-9-21_13436/slider-rating.setFocusOnSliderAndSetValueToOneHalfStar.html");
+  });
+</script>
+  

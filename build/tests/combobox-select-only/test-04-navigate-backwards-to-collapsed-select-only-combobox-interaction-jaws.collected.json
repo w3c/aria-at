@@ -1,0 +1,78 @@
+{
+  "info": {
+    "testId": 4,
+    "task": "navigate backwards to collapsed select-only combobox",
+    "title": "Navigate backwards to a collapsed select-only combobox in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html"
+      },
+      {
+        "refId": "combobox",
+        "value": "https://w3c.github.io/aria-practices/#combobox"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/combobox-select-only.moveFocusAfterCombobox.html",
+    "setupScript": {
+      "name": "moveFocusAfterCombobox",
+      "description": "sets focus on a link after the Combobox",
+      "source": "// sets focus on a link after the Combobox\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/moveFocusAfterCombobox.module.js",
+      "jsonpPath": "scripts/moveFocusAfterCombobox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the Combobox. Note: it should be in the collapsed state."
+    ],
+    "raw": "Navigate to the Combobox. Note: it should be in the collapsed state.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'combobox' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Favorite Fruit' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the selected option ('Choose a Fruit') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the combobox (collapsed) is conveyed"
+    }
+  ]
+}

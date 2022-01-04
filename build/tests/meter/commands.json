@@ -1,0 +1,47 @@
+{
+  "navigate forwards to a meter": {
+    "reading": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [ [ "CTRL_OPT_RIGHT" ] ]
+    }
+  },
+  "navigate backwards to a meter": {
+    "reading": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [ [ "CTRL_OPT_LEFT" ] ]
+    }
+  },
+  "read information about a meter": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  },
+  "trigger a meter update": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "info": {
+    "testId": 4,
+    "task": "navigate backwards to partially checked checkbox",
+    "title": "Navigate backwards to a partially checked checkbox in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-2/checkbox-2.html"
+      },
+      {
+        "refId": "checkbox",
+        "value": "https://w3c.github.io/aria/#checkbox"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/checkbox-tri-state.moveFocusAfterFirstCheckbox.html",
+    "setupScript": {
+      "name": "moveFocusAfterFirstCheckbox",
+      "description": "sets focus on a link after the first checkbox",
+      "source": "// sets focus on a link after the first checkbox\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/moveFocusAfterFirstCheckbox.module.js",
+      "jsonpPath": "scripts/moveFocusAfterFirstCheckbox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the first checkbox. Note: it should be in the partially checked state."
+    ],
+    "raw": "Navigate to the first checkbox. Note: it should be in the partially checked state.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'checkbox' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'All condiments' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the checkbox (partially checked) is conveyed"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "setup_script_description": "sets focus on a link before the first disclosure button, and sets the state of the first button to expanded",
+  "setupTestPage": "moveFocusBeforeAndExpandFirstDisclosure",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to expanded disclosure button",
+  "specific_user_instruction": "Navigate to the first disclosure button in the navigation region. Note: it should be in the expanded state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'About' is conveyed"
+    ],
+    [
+      "1",
+      "State of the button (expanded) is conveyed"
+    ]
+  ]
+}

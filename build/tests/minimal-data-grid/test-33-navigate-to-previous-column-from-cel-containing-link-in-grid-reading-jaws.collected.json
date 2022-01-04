@@ -1,0 +1,62 @@
+{
+  "info": {
+    "testId": 33,
+    "task": "navigate to previous column from cel containing link in grid",
+    "title": "Navigate to the previous column from a cel containing a link in a grid in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusOnFirstLinkedCell.html",
+    "setupScript": {
+      "name": "setFocusOnFirstLinkedCell",
+      "description": "sets focus on the third cell of the second row in the grid",
+      "source": "// sets focus on the third cell of the second row in the grid\ntestPageDocument.defaultView.ex1Grid.setFocusPointer(0, 2);\ntestPageDocument.defaultView.ex1Grid.focusCell(0, 2);\n",
+      "modulePath": "scripts/setFocusOnFirstLinkedCell.module.js",
+      "jsonpPath": "scripts/setFocusOnFirstLinkedCell.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "From a cell containing a link, navigate to the previous column in the grid."
+    ],
+    "raw": "From a cell containing a link, navigate to the previous column in the grid.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "CTRL_ALT_LEFT",
+      "keystroke": "Control+Alt+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_ALT_LEFT",
+          "keystroke": "Control+Alt+Left"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the column header ('Type') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the cell ('Deposit') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "coordinates of the cell (column 2, row 2) are conveyed"
+    }
+  ]
+}

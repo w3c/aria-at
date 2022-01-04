@@ -1,0 +1,32 @@
+{
+  "setup_script_description": "sets focus on a link just before the menubar",
+  "setupTestPage": "focusonfirstlink",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to menubar",
+  "specific_user_instruction": "Navigate to the 'Text Formatting' menubar",
+  "output_assertions": [
+    [
+      "1",
+      "The role 'menubar' is conveyed"
+    ],
+    [
+      "1",
+      "The menubar name 'Text Formatting' is conveyed"
+    ],
+    [
+      "1",
+      "The menu item name \"Font\" is conveyed"
+    ],
+    [
+      "1",
+      "Availability of a submenu is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar are conveyed"
+    ]
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "info": {
+    "testId": 4,
+    "task": "navigate to last breadcrumb link",
+    "title": "Navigate to the last breadcrumb link in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/breadcrumb/index.html"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "aria-current",
+        "value": "https://w3c.github.io/aria/#aria-current"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-4-16_152046/index.setFocusAfterLastBreadcrumbLink.html",
+    "setupScript": {
+      "name": "setFocusAfterLastBreadcrumbLink",
+      "description": "sets focus on a link after the 'Breadcrumb Example' link",
+      "source": "// sets focus on a link after the 'Breadcrumb Example' link\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterLastBreadcrumbLink.module.js",
+      "jsonpPath": "scripts/setFocusAfterLastBreadcrumbLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate backwards from here' link, navigate to the 'Breadcrumb Example' link."
+    ],
+    "raw": "With focus on the 'Navigate backwards from here' link, navigate to the 'Breadcrumb Example' link.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role of the landmark region, 'navigation', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the landmark region, 'Breadcrumb', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "'Role of the breadcrumbs container, 'list', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of list items, 4, is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Breadcrumb Example' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'current page' is conveyed"
+    }
+  ]
+}

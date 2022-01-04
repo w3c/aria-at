@@ -1,0 +1,58 @@
+{
+  "info": {
+    "testId": 12,
+    "task": "navigate to first focusable element in modal dialog",
+    "title": "Navigate to the first focusable element in a modal dialog in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-12-17_13353/dialog.openAddDeliveryAddressDialogAndFocusCancelButton.html",
+    "setupScript": {
+      "name": "openAddDeliveryAddressDialogAndFocusCancelButton",
+      "description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button",
+      "source": "// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button\nconst btn = testPageDocument.querySelector('#ex1 > button');\ntestPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_cancel');\n",
+      "modulePath": "scripts/openAddDeliveryAddressDialogAndFocusCancelButton.module.js",
+      "jsonpPath": "scripts/openAddDeliveryAddressDialogAndFocusCancelButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the last focusable element inside a modal dialog, navigate to the first focusable element in the same dialog."
+    ],
+    "raw": "With focus on the last focusable element inside a modal dialog, navigate to the first focusable element in the same dialog.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Name 'Street' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The ability to enter text is conveyed"
+    }
+  ]
+}

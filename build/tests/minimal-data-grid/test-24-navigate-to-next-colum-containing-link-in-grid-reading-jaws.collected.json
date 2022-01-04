@@ -34,10 +34,25 @@
     "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
   },
   "commands": [
-    { "id": "U", "keystroke": "U" },
+    {
+      "id": "U",
+      "keystroke": "U",
+      "keypresses": [
+        {
+          "id": "U",
+          "keystroke": "U"
+        }
+      ]
+    },
     {
       "id": "CTRL_ALT_RIGHT",
-      "keystroke": "Control+Alt+Right"
+      "keystroke": "Control+Alt+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_ALT_RIGHT",
+          "keystroke": "Control+Alt+Right"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "sets focus on a link after the banner landmark",
+  "setupTestPage": "setFocusAfterBanner",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate backwards to an image inside a banner landmark",
+  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'banner' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'image' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'W3C Logo' is conveyed"
+    ]
+  ]
+}

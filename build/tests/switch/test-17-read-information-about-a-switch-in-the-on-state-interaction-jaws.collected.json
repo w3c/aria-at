@@ -1,0 +1,84 @@
+{
+  "info": {
+    "testId": 17,
+    "task": "read information about a switch in the on state",
+    "title": "Read information about a switch in the on state in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/switch/switch.html"
+      },
+      {
+        "refId": "switch",
+        "value": "https://w3c.github.io/aria/#switch"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      },
+      {
+        "refId": "aria-hidden",
+        "value": "https://w3c.github.io/aria/#aria-hidden"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-10-24_132342/switch.setFocusOnAndTurnOnSwitch.html",
+    "setupScript": {
+      "name": "setFocusOnAndTurnOnSwitch",
+      "description": "sets focus on the 'Notifications' switch, and sets its state to 'on'",
+      "source": "// sets focus on the 'Notifications' switch, and sets its state to 'on'\ntestPageDocument.querySelector('[role=\"switch\"]').setAttribute('aria-checked', 'true');\ntestPageDocument.querySelector('[role=\"switch\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnAndTurnOnSwitch.module.js",
+      "jsonpPath": "scripts/setFocusOnAndTurnOnSwitch.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Notifications' switch, read information about the switch."
+    ],
+    "raw": "With focus on the 'Notifications' switch, read information about the switch.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
+    },
+    {
+      "id": "INS_UP",
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'switch' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Notifications' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'on' is conveyed"
+    }
+  ]
+}

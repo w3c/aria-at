@@ -56,11 +56,23 @@
   "commands": [
     {
       "id": "INS_TAB",
-      "keystroke": "Insert+Tab"
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
     },
     {
       "id": "INS_NUMPAD_5",
-      "keystroke": "Insert+Numpad 5 (or CapsLock+Numpad 5)"
+      "keystroke": "Insert+Numpad 5 (or CapsLock+Numpad 5)",
+      "keypresses": [
+        {
+          "id": "INS_NUMPAD_5",
+          "keystroke": "Insert+Numpad 5 (or CapsLock+Numpad 5)"
+        }
+      ]
     }
   ],
   "assertions": [

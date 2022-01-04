@@ -34,11 +34,35 @@
     "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
   },
   "commands": [
-    { "id": "U", "keystroke": "U" },
-    { "id": "K", "keystroke": "K" },
+    {
+      "id": "U",
+      "keystroke": "U",
+      "keypresses": [
+        {
+          "id": "U",
+          "keystroke": "U"
+        }
+      ]
+    },
+    {
+      "id": "K",
+      "keystroke": "K",
+      "keypresses": [
+        {
+          "id": "K",
+          "keystroke": "K"
+        }
+      ]
+    },
     {
       "id": "CTRL_ALT_RIGHT",
-      "keystroke": "Control+Alt+Right"
+      "keystroke": "Control+Alt+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_ALT_RIGHT",
+          "keystroke": "Control+Alt+Right"
+        }
+      ]
     }
   ],
   "assertions": [

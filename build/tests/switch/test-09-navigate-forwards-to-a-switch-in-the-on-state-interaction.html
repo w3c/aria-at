@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards to a switch in the on state</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/switch/switch.html">
+<link rel="help" href="https://w3c.github.io/aria/#switch">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<link rel="help" href="https://w3c.github.io/aria/#aria-hidden">
+
+<script>
+  var scripts = {
+		setFocusBeforeAndTurnOnSwitch: function(testPageDocument){
+			// sets focus on a link before the switch, and sets the state of the switch to 'on'
+			testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+			testPageDocument.getElementById('beforelink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link before the switch, and sets the state of the switch to 'on'",
+  "setupTestPage": "setFocusBeforeAndTurnOnSwitch",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to a switch in the on state",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Notifications' switch.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'switch' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Notifications' is conveyed"
+    ],
+    [
+      "1",
+      "State 'on' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards to a switch in the on state": {
+    "reading": {
+      "jaws": [
+        [ "X" ],
+        [ "DOWN" ],
+        [ "TAB" ]
+      ],
+      "nvda": [
+        [ "B" ],
+        [ "X" ],
+        [ "DOWN" ],
+        [ "TAB" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "TAB" ],
+        [ "CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-24_132342/switch.setFocusBeforeAndTurnOnSwitch.html");
+  });
+</script>
+  

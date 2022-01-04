@@ -1,0 +1,21 @@
+{
+  "setup_script_description": "sets focus on the slider",
+  "setupTestPage": "setFocusOnSlider",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "decrement slider to minimum value",
+  "specific_user_instruction": "With focus on the 'Seek' slider, set its value to 0 Seconds.",
+  "output_assertions": [
+    [
+      "1",
+      "Textual value '0 Seconds' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '0' is not conveyed"
+    ]
+  ]
+}

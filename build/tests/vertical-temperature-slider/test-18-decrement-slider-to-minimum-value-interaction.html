@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Decrement a slider to the minimum value in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/slider/slider-temperature.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemin">
+
+<script>
+  var scripts = {
+		setFocusOnSlider: function(testPageDocument){
+			// sets focus on the slider
+			testPageDocument.querySelector('[role="slider"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the slider",
+  "setupTestPage": "setFocusOnSlider",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "decrement slider to minimum value",
+  "specific_user_instruction": "With focus on the 'Temperature' slider, set its value to 10.0 degrees Celsius.",
+  "output_assertions": [
+    [
+      "1",
+      "Textual value '10.0 degrees Celsius' is conveyed"
+    ],
+    [
+      "1",
+      "numeric value '10.0' is not conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "decrement slider to minimum value": {
+    "interaction": {
+      "jaws": [ [ "HOME" ] ],
+      "nvda": [ [ "HOME" ] ],
+      "voiceover_macos": [ [ "HOME" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-9-21_142211/slider-temperature.setFocusOnSlider.html");
+  });
+</script>
+  

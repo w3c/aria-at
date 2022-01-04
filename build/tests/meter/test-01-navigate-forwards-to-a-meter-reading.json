@@ -1,0 +1,33 @@
+{
+  "setup_script_description": "sets focus on a link before the meter",
+  "setupTestPage": "setFocusBeforeMeter",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate forwards to a meter",
+  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the meter.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'meter' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Central Processing Unit (CPU) Usage' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '36.166519936288' is conveyed"
+    ],
+    [
+      "2",
+      "Minimum value '0' is conveyed"
+    ],
+    [
+      "2",
+      "Maximum value '100' is conveyed"
+    ]
+  ]
+}

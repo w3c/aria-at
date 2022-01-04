@@ -1,0 +1,78 @@
+{
+  "info": {
+    "testId": 20,
+    "task": "navigate into accordion panel",
+    "title": "Navigate into an accordion panel in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/accordion/accordion.html"
+      },
+      {
+        "refId": "region",
+        "value": "https://w3c.github.io/aria/#region"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2022-1-3_122554/accordion.setFocusOnFirstAccordionHeader.html",
+    "setupScript": {
+      "name": "setFocusOnFirstAccordionHeader",
+      "description": "sets focus on the 'Personal Information' accordion header",
+      "source": "// sets focus on the 'Personal Information' accordion header\ntestPageDocument.getElementById('accordion1id').focus();\n",
+      "modulePath": "scripts/setFocusOnFirstAccordionHeader.module.js",
+      "jsonpPath": "scripts/setFocusOnFirstAccordionHeader.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Personal Information' accordion header, navigate into the accordion panel."
+    ],
+    "raw": "With focus on the 'Personal Information' accordion header, navigate into the accordion panel.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'region' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of region ('Personal Information') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of input ('Name') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The ability to enter text into the input is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the input (required) is conveyed"
+    }
+  ]
+}

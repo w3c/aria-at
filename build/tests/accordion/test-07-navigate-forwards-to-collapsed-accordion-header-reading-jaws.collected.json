@@ -1,0 +1,132 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "navigate forwards to collapsed accordion header",
+    "title": "Navigate forwards to a collapsed accordion header in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/accordion/accordion.html"
+      },
+      {
+        "refId": "heading",
+        "value": "https://w3c.github.io/aria/#heading"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2022-1-3_122554/accordion.setFocusBeforeAndCollapseFirstAccordionHeader.html",
+    "setupScript": {
+      "name": "setFocusBeforeAndCollapseFirstAccordionHeader",
+      "description": "collapses the 'Personal Information' accordion header, and sets focus on a link before it",
+      "source": "// collapses the 'Personal Information' accordion header, and sets focus on a link before it\ntestPageDocument.defaultView.accordions[0].toggle(false);\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeAndCollapseFirstAccordionHeader.module.js",
+      "jsonpPath": "scripts/setFocusBeforeAndCollapseFirstAccordionHeader.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Personal Information' accordion header."
+    ],
+    "raw": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Personal Information' accordion header.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "B",
+      "keystroke": "B",
+      "keypresses": [
+        {
+          "id": "B",
+          "keystroke": "B"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
+    {
+      "id": "H",
+      "keystroke": "H",
+      "keypresses": [
+        {
+          "id": "H",
+          "keystroke": "H"
+        }
+      ]
+    },
+    {
+      "id": "THREE",
+      "keystroke": "3",
+      "keypresses": [
+        {
+          "id": "THREE",
+          "keystroke": "3"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'heading' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Heading level 3 is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Personal Information' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'collapsed' is conveyed"
+    }
+  ]
+}

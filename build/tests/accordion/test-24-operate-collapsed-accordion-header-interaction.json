@@ -1,0 +1,16 @@
+{
+  "setup_script_description": "sets focus on the 'Billing Address' accordion header",
+  "setupTestPage": "setFocusOnSecondAccordionHeader",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "operate collapsed accordion header",
+  "specific_user_instruction": "With focus on the 'Billing Address' accordion header, activate the acordion header.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state to 'expanded' is conveyed"
+    ]
+  ]
+}

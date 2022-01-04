@@ -1,0 +1,92 @@
+{
+  "info": {
+    "testId": 18,
+    "task": "read information about collapsed accordion header",
+    "title": "Read information about a collapsed accordion header",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/accordion/accordion.html"
+      },
+      {
+        "refId": "heading",
+        "value": "https://w3c.github.io/aria/#heading"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2022-1-3_122554/accordion.setFocusOnAndCollapseFirstAccordionHeader.html",
+    "setupScript": {
+      "name": "setFocusOnAndCollapseFirstAccordionHeader",
+      "description": "collapses and sets focus on the 'Personal Information' accordion header",
+      "source": "// collapses and sets focus on the 'Personal Information' accordion header\ntestPageDocument.defaultView.accordions[0].toggle(false);\ntestPageDocument.getElementById('accordion1id').focus();\n",
+      "modulePath": "scripts/setFocusOnAndCollapseFirstAccordionHeader.module.js",
+      "jsonpPath": "scripts/setFocusOnAndCollapseFirstAccordionHeader.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Personal Information' accordion header, read information about the accordion header."
+    ],
+    "raw": "With focus on the 'Personal Information' accordion header, read information about the accordion header.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_F3",
+      "keystroke": "Control+Option+F3",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F3",
+          "keystroke": "Control+Option+F3"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_OPT_F4",
+      "keystroke": "Control+Option+F4",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F4",
+          "keystroke": "Control+Option+F4"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'heading' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Heading level 3 is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Personal Information' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'collapsed' is conveyed"
+    }
+  ]
+}

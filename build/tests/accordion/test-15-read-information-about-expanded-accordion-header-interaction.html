@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read information about an expanded accordion header</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/accordion/accordion.html">
+<link rel="help" href="https://w3c.github.io/aria/#heading">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script>
+  var scripts = {
+		setFocusOnFirstAccordionHeader: function(testPageDocument){
+			// sets focus on the 'Personal Information' accordion header
+			testPageDocument.getElementById('accordion1id').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Personal Information' accordion header",
+  "setupTestPage": "setFocusOnFirstAccordionHeader",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "read information about expanded accordion header",
+  "specific_user_instruction": "With focus on the 'Personal Information' accordion header, read information about the accordion header.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'heading' is conveyed"
+    ],
+    [
+      "1",
+      "Heading level 3 is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Personal Information' is conveyed"
+    ],
+    [
+      "1",
+      "State 'expanded' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about expanded accordion header": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2022-1-3_122554/accordion.setFocusOnFirstAccordionHeader.html");
+  });
+</script>
+  

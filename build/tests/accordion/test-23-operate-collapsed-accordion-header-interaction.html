@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Operate a collapsed accordion header in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/accordion/accordion.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script>
+  var scripts = {
+		setFocusOnSecondAccordionHeader: function(testPageDocument){
+			// sets focus on the 'Billing Address' accordion header
+			testPageDocument.getElementById('accordion2id').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Billing Address' accordion header",
+  "setupTestPage": "setFocusOnSecondAccordionHeader",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "operate collapsed accordion header",
+  "specific_user_instruction": "With focus on the 'Billing Address' accordion header, activate the acordion header.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state to 'expanded' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "operate collapsed accordion header": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2022-1-3_122554/accordion.setFocusOnSecondAccordionHeader.html");
+  });
+</script>
+  

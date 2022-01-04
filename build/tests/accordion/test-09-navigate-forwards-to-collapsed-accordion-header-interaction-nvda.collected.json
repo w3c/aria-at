@@ -1,0 +1,82 @@
+{
+  "info": {
+    "testId": 9,
+    "task": "navigate forwards to collapsed accordion header",
+    "title": "Navigate forwards to a collapsed accordion header in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/accordion/accordion.html"
+      },
+      {
+        "refId": "heading",
+        "value": "https://w3c.github.io/aria/#heading"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2022-1-3_122554/accordion.setFocusBeforeAndCollapseFirstAccordionHeader.html",
+    "setupScript": {
+      "name": "setFocusBeforeAndCollapseFirstAccordionHeader",
+      "description": "collapses the 'Personal Information' accordion header, and sets focus on a link before it",
+      "source": "// collapses the 'Personal Information' accordion header, and sets focus on a link before it\ntestPageDocument.defaultView.accordions[0].toggle(false);\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeAndCollapseFirstAccordionHeader.module.js",
+      "jsonpPath": "scripts/setFocusBeforeAndCollapseFirstAccordionHeader.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate forwards from here' link, navigate to the 'Personal Information' accordion header."
+    ],
+    "raw": "With focus on the 'Navigate forwards from here' link, navigate to the 'Personal Information' accordion header.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'heading' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Heading level 3 is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Personal Information' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'collapsed' is conveyed"
+    }
+  ]
+}

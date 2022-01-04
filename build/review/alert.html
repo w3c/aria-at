@@ -63,6 +63,26 @@
         	setFocusOnButton: function(testPageDocument){
 	// sets focus on the 'Trigger Alert' button
 	testPageDocument.querySelector('#alert-trigger').focus();
+},	setFocusAfterBanner: function(testPageDocument){
+	// sets focus on a link after the banner landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusAfterBannerAndHideBottomLink: function(testPageDocument){
+	// sets focus on a link after the banner landmark, and hides the last link inside the landmark region
+	testPageDocument.getElementById('bottom').setAttribute('hidden', '');
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeBanner: function(testPageDocument){
+	// sets focus on a link before the banner landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusBeforeBannerAndHideTopLink: function(testPageDocument){
+	// sets focus on a link before the banner landmark, and hides the first link inside the landmark region
+	testPageDocument.getElementById('top').setAttribute('hidden', '');
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
 },	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
 	// sets focus on a link after the 'Breadcrumb Example' link
 	testPageDocument.querySelector('#afterlink').focus();
@@ -763,7 +783,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 13:16:37 2022 -0600</li>
+        <li>Last edited: Tue Jan 4 15:11:02 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-01-trigger-alert-reading.html?at=jaws">jaws</a></li>
@@ -838,7 +858,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 13:16:37 2022 -0600</li>
+        <li>Last edited: Tue Jan 4 15:11:02 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-02-trigger-alert-interaction.html?at=jaws">jaws</a></li>
@@ -913,7 +933,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jan 4 13:16:37 2022 -0600</li>
+        <li>Last edited: Tue Jan 4 15:11:02 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-03-trigger-alert-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

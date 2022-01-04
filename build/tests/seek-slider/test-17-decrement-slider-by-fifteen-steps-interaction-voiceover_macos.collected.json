@@ -1,0 +1,66 @@
+{
+  "info": {
+    "testId": 17,
+    "task": "decrement slider by fifteen steps",
+    "title": "Decrement a slider by fifteen steps",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-seek.html"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuetext",
+        "value": "https://w3c.github.io/aria/#aria-valuetext"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-9-21_14461/slider-seek.setFocusOnSlider.html",
+    "setupScript": {
+      "name": "setFocusOnSlider",
+      "description": "sets focus on the slider",
+      "source": "// sets focus on the slider\ntestPageDocument.querySelector('[role=\"slider\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Seek' slider, set its value to 1 Minute 15 Seconds."
+    ],
+    "raw": "With focus on the 'Seek' slider, set its value to 1 Minute 15 Seconds.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "PAGE_DOWN",
+      "keystroke": "Page Down",
+      "keypresses": [
+        {
+          "id": "PAGE_DOWN",
+          "keystroke": "Page Down"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Textual value '1 Minute 15 Seconds' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Numeric value '75' is not conveyed"
+    }
+  ]
+}

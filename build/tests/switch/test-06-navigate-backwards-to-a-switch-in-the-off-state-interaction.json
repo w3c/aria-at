@@ -1,0 +1,24 @@
+{
+  "setup_script_description": "sets focus on a link after the switch",
+  "setupTestPage": "setFocusAfterSwitch",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to a switch in the off state",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Notifications' switch.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'switch' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Notifications' is conveyed"
+    ],
+    [
+      "1",
+      "State 'off' is conveyed"
+    ]
+  ]
+}

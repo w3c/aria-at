@@ -1,0 +1,94 @@
+{
+  "info": {
+    "testId": 4,
+    "task": "navigate backwards to a switch in the off state",
+    "title": "Navigate backwards to a switch in the off state in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/switch/switch.html"
+      },
+      {
+        "refId": "switch",
+        "value": "https://w3c.github.io/aria/#switch"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      },
+      {
+        "refId": "aria-hidden",
+        "value": "https://w3c.github.io/aria/#aria-hidden"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_132342/switch.setFocusAfterSwitch.html",
+    "setupScript": {
+      "name": "setFocusAfterSwitch",
+      "description": "sets focus on a link after the switch",
+      "source": "// sets focus on a link after the switch\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterSwitch.module.js",
+      "jsonpPath": "scripts/setFocusAfterSwitch.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Notifications' switch."
+    ],
+    "raw": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Notifications' switch.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_X",
+      "keystroke": "Shift+X",
+      "keypresses": [
+        {
+          "id": "SHIFT_X",
+          "keystroke": "Shift+X"
+        }
+      ]
+    },
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'switch' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Notifications' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'off' is conveyed"
+    }
+  ]
+}

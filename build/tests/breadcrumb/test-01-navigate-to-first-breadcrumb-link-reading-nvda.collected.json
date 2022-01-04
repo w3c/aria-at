@@ -38,17 +38,65 @@
     "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
   },
   "commands": [
-    { "id": "U", "keystroke": "U" },
-    { "id": "K", "keystroke": "K" },
-    { "id": "L", "keystroke": "L" },
-    { "id": "I", "keystroke": "I" },
+    {
+      "id": "U",
+      "keystroke": "U",
+      "keypresses": [
+        {
+          "id": "U",
+          "keystroke": "U"
+        }
+      ]
+    },
+    {
+      "id": "K",
+      "keystroke": "K",
+      "keypresses": [
+        {
+          "id": "K",
+          "keystroke": "K"
+        }
+      ]
+    },
+    {
+      "id": "L",
+      "keystroke": "L",
+      "keypresses": [
+        {
+          "id": "L",
+          "keystroke": "L"
+        }
+      ]
+    },
+    {
+      "id": "I",
+      "keystroke": "I",
+      "keypresses": [
+        {
+          "id": "I",
+          "keystroke": "I"
+        }
+      ]
+    },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

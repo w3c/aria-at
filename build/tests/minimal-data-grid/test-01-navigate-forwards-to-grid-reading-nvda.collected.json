@@ -42,10 +42,25 @@
     "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
   },
   "commands": [
-    { "id": "T", "keystroke": "T" },
+    {
+      "id": "T",
+      "keystroke": "T",
+      "keypresses": [
+        {
+          "id": "T",
+          "keystroke": "T"
+        }
+      ]
+    },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -218,6 +218,27 @@
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
 	testPageDocument.querySelector('#action').focus();
+},	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
 	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
@@ -338,6 +359,18 @@
 },	focusontextalign: function(testPageDocument){
 	// Move focus to the "Text Align" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},	setFocusAfterMeter: function(testPageDocument){
+	// sets focus on a link after the meter
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeMeter: function(testPageDocument){
+	// sets focus on a link before the meter
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnButton: function(testPageDocument){
+	// sets focus on the 'Change Value' button
+	testPageDocument.querySelector('button.play-meters').focus();
+},	setFocusOnMeter: function(testPageDocument){
+	// sets focus on the meter
+	testPageDocument.querySelector('[role="meter"]').focus();
 },	setFocusAfterGrid: function(testPageDocument){
 	// sets focus on a link after the grid
 	testPageDocument.querySelector('#afterlink').focus();
@@ -651,6 +684,15 @@
 	button.setAttribute('aria-pressed', 'true');
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
 }
       };
 
@@ -691,7 +733,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Mon Jan 3 17:32:37 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-01-trigger-alert-reading.html?at=jaws">jaws</a></li>
@@ -766,7 +808,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Mon Jan 3 17:32:37 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-02-trigger-alert-interaction.html?at=jaws">jaws</a></li>
@@ -841,7 +883,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Mon Jan 3 17:32:37 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/alert/test-03-trigger-alert-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

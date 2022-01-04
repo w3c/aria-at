@@ -1,0 +1,17 @@
+{
+  "setup_script_description": "sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button",
+  "setupTestPage": "setFocusOnSpinButtonAndSetPredefinedDate",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "increment spin button to maximum value",
+  "specific_user_instruction": "With focus on the 'Day' spin button, set its value to 'thirty first'.",
+  "output_assertions": [
+    [
+      "1",
+      "Value 'thirty first' is conveyed"
+    ]
+  ]
+}

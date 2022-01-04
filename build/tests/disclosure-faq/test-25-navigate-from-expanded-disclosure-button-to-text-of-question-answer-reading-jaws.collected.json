@@ -36,9 +36,24 @@
   "commands": [
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     },
-    { "id": "P", "keystroke": "P" }
+    {
+      "id": "P",
+      "keystroke": "P",
+      "keypresses": [
+        {
+          "id": "P",
+          "keystroke": "P"
+        }
+      ]
+    }
   ],
   "assertions": [
     {

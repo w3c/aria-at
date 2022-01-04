@@ -1,0 +1,21 @@
+{
+  "setup_script_description": "sets focus on the slider",
+  "setupTestPage": "setFocusOnSlider",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "increment slider by twenty steps",
+  "specific_user_instruction": "With focus on the 'Temperature' slider, set its value to 27.0 degrees Celsius.",
+  "output_assertions": [
+    [
+      "1",
+      "Textual value '27.0 degrees Celsius' is conveyed"
+    ],
+    [
+      "1",
+      "numeric value '27.0' is not conveyed"
+    ]
+  ]
+}

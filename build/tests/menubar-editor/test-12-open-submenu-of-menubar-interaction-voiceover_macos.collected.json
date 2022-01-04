@@ -42,19 +42,43 @@
   "commands": [
     {
       "id": "ENTER",
-      "keystroke": "Enter"
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
     },
     {
       "id": "SPACE",
-      "keystroke": "Space"
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
     },
     {
       "id": "DOWN",
-      "keystroke": "Down Arrow"
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_SPACE_THEN_CTRL_OPT_RIGHT",
-      "keystroke": "Control+Option+Space followed by Control+Option+Right"
+      "keystroke": "Control+Option+Space followed by Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_SPACE_THEN_CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Space followed by Control+Option+Right"
+        }
+      ]
     }
   ],
   "assertions": [

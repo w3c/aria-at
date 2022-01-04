@@ -39,9 +39,13 @@
   },
   "commands": [
     {
-      "id": "UP",
-      "keystroke": "Up Arrow",
+      "id": "UP,UP",
+      "keystroke": "Up Arrow, then Up Arrow",
       "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        },
         {
           "id": "UP",
           "keystroke": "Up Arrow"

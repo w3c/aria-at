@@ -250,6 +250,18 @@
 },	setFocusOnTopLink: function(testPageDocument){
 	// sets focus on the 'Top' link
 	testPageDocument.getElementById('top').focus();
+},	setFocusAfterContentinfo: function(testPageDocument){
+	// sets focus on a link after the contentinfo landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeContentinfo: function(testPageDocument){
+	// sets focus on a link before the contentinfo landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
 },	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
 	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
 	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
@@ -795,7 +807,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-01-navigate-forwards-to-slider-reading.html?at=jaws">jaws</a></li>
@@ -885,7 +897,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-02-navigate-backwards-to-slider-reading.html?at=jaws">jaws</a></li>
@@ -975,7 +987,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-03-navigate-forwards-to-slider-interaction.html?at=jaws">jaws</a></li>
@@ -1063,7 +1075,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-04-navigate-backwards-to-slider-interaction.html?at=jaws">jaws</a></li>
@@ -1151,7 +1163,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-05-navigate-forwards-to-slider-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1209,7 +1221,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-06-navigate-backwards-to-slider-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1267,7 +1279,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-07-read-information-about-slider-reading.html?at=jaws">jaws</a></li>
@@ -1357,7 +1369,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-08-read-information-about-slider-interaction.html?at=jaws">jaws</a></li>
@@ -1447,7 +1459,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-09-read-information-about-slider-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1505,7 +1517,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-10-increment-slider-by-one-step-interaction.html?at=jaws">jaws</a></li>
@@ -1581,7 +1593,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-11-increment-slider-by-one-step-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1630,7 +1642,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-12-decrement-slider-by-one-step-interaction.html?at=jaws">jaws</a></li>
@@ -1706,7 +1718,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-13-decrement-slider-by-one-step-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1755,7 +1767,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-14-increment-slider-by-fifteen-steps-interaction.html?at=jaws">jaws</a></li>
@@ -1829,7 +1841,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-15-increment-slider-by-fifteen-steps-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1877,7 +1889,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-16-decrement-slider-by-fifteen-steps-interaction.html?at=jaws">jaws</a></li>
@@ -1951,7 +1963,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-17-decrement-slider-by-fifteen-steps-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1999,7 +2011,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-18-decrement-slider-to-minimum-value-interaction.html?at=jaws">jaws</a></li>
@@ -2074,7 +2086,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-19-decrement-slider-to-minimum-value-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2123,7 +2135,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-20-increment-slider-to-maximum-value-interaction.html?at=jaws">jaws</a></li>
@@ -2198,7 +2210,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/seek-slider/test-21-increment-slider-to-maximum-value-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

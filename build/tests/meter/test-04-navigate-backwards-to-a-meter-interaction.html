@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a meter</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/meter/meter.html">
+<link rel="help" href="https://w3c.github.io/aria/#meter">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemin">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemax">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+
+<script>
+  var scripts = {
+		setFocusAfterMeter: function(testPageDocument){
+			// sets focus on a link after the meter
+			testPageDocument.getElementById('afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link after the meter",
+  "setupTestPage": "setFocusAfterMeter",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to a meter",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the meter.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'meter' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Central Processing Unit (CPU) Usage' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '36.166519936288' is conveyed"
+    ],
+    [
+      "2",
+      "Minimum value '0' is conveyed"
+    ],
+    [
+      "2",
+      "Maximum value '100' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to a meter": {
+    "reading": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [ [ "CTRL_OPT_LEFT" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-11-10_142949/meter.setFocusAfterMeter.html");
+  });
+</script>
+  

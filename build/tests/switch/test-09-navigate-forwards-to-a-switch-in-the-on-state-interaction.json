@@ -1,0 +1,24 @@
+{
+  "setup_script_description": "sets focus on a link before the switch, and sets the state of the switch to 'on'",
+  "setupTestPage": "setFocusBeforeAndTurnOnSwitch",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to a switch in the on state",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Notifications' switch.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'switch' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Notifications' is conveyed"
+    ],
+    [
+      "1",
+      "State 'on' is conveyed"
+    ]
+  ]
+}

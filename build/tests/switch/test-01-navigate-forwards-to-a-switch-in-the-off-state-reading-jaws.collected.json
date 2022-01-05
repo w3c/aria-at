@@ -1,0 +1,94 @@
+{
+  "info": {
+    "testId": 1,
+    "task": "navigate forwards to a switch in the off state",
+    "title": "Navigate forwards to a switch in the off state in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/switch/switch.html"
+      },
+      {
+        "refId": "switch",
+        "value": "https://w3c.github.io/aria/#switch"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      },
+      {
+        "refId": "aria-hidden",
+        "value": "https://w3c.github.io/aria/#aria-hidden"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_132342/switch.setFocusBeforeSwitch.html",
+    "setupScript": {
+      "name": "setFocusBeforeSwitch",
+      "description": "sets focus on a link before the switch",
+      "source": "// sets focus on a link before the switch\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeSwitch.module.js",
+      "jsonpPath": "scripts/setFocusBeforeSwitch.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Notifications' switch."
+    ],
+    "raw": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Notifications' switch.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "X",
+      "keystroke": "X",
+      "keypresses": [
+        {
+          "id": "X",
+          "keystroke": "X"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'switch' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Notifications' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'off' is conveyed"
+    }
+  ]
+}

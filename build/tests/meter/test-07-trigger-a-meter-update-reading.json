@@ -1,0 +1,17 @@
+{
+  "setup_script_description": "sets focus on the 'Change Value' button",
+  "setupTestPage": "setFocusOnButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "trigger a meter update",
+  "specific_user_instruction": "With the reading cursor on the 'Change Value' button, activate the button to trigger a meter update.",
+  "output_assertions": [
+    [
+      "1",
+      "Updated value is not conveyed; the screen reader stays silent"
+    ]
+  ]
+}

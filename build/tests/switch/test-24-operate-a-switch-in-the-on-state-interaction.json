@@ -1,0 +1,16 @@
+{
+  "setup_script_description": "sets focus on the 'Notifications' switch, and sets its state to 'on'",
+  "setupTestPage": "setFocusOnAndTurnOnSwitch",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "operate a switch in the on state",
+  "specific_user_instruction": "With focus on the 'Notifications' switch, change its state to 'off'.",
+  "output_assertions": [
+    [
+      "1",
+      "Change in state, to 'off', is conveyed"
+    ]
+  ]
+}

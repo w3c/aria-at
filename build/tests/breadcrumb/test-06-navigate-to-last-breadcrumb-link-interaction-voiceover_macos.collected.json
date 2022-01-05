@@ -43,11 +43,32 @@
   },
   "commands": [
     {
-      "id": "CTRL_OPT_LEFT,CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+      "id": "CTRL_OPT_LEFT,CTRL_OPT_LEFT,CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left, then Ctrl+Option+Left, then Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        },
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        },
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
     },
     {
       "id": "SHIFT_CTRL_OPT_CMD_L",
-      "keystroke": "Shift+Control+Option+Command+L"
+      "keystroke": "Shift+Control+Option+Command+L",
+      "keypresses": [
+        {
+          "id": "SHIFT_CTRL_OPT_CMD_L",
+          "keystroke": "Shift+Control+Option+Command+L"
+        }
+      ]
     }
   ],
   "assertions": [

@@ -63,6 +63,26 @@
         	setFocusOnButton: function(testPageDocument){
 	// sets focus on the 'Trigger Alert' button
 	testPageDocument.querySelector('#alert-trigger').focus();
+},	setFocusAfterBanner: function(testPageDocument){
+	// sets focus on a link after the banner landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusAfterBannerAndHideBottomLink: function(testPageDocument){
+	// sets focus on a link after the banner landmark, and hides the last link inside the landmark region
+	testPageDocument.getElementById('bottom').setAttribute('hidden', '');
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeBanner: function(testPageDocument){
+	// sets focus on a link before the banner landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusBeforeBannerAndHideTopLink: function(testPageDocument){
+	// sets focus on a link before the banner landmark, and hides the first link inside the landmark region
+	testPageDocument.getElementById('top').setAttribute('hidden', '');
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
 },	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
 	// sets focus on a link after the 'Breadcrumb Example' link
 	testPageDocument.querySelector('#afterlink').focus();
@@ -218,6 +238,39 @@
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
 	testPageDocument.querySelector('#action').focus();
+},	setFocusAfterComplementary: function(testPageDocument){
+	// sets focus on a link after the complementary landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeComplementary: function(testPageDocument){
+	// sets focus on a link before the complementary landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
+},	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
 	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
@@ -338,6 +391,18 @@
 },	focusontextalign: function(testPageDocument){
 	// Move focus to the "Text Align" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},	setFocusAfterMeter: function(testPageDocument){
+	// sets focus on a link after the meter
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeMeter: function(testPageDocument){
+	// sets focus on a link before the meter
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnButton: function(testPageDocument){
+	// sets focus on the 'Change Value' button
+	testPageDocument.querySelector('button.play-meters').focus();
+},	setFocusOnMeter: function(testPageDocument){
+	// sets focus on the meter
+	testPageDocument.querySelector('[role="meter"]').focus();
 },	setFocusAfterGrid: function(testPageDocument){
 	// sets focus on a link after the grid
 	testPageDocument.querySelector('#afterlink').focus();
@@ -594,6 +659,36 @@
 	slider.setAttribute('aria-valuenow', '0.5');
 	slider.setAttribute('aria-valuetext', 'one half of five stars');
 	slider.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
+},	setFocusAfterAndTurnOnSwitch: function(testPageDocument){
+	// sets focus on a link after the switch, and sets the switch state to 'on'
+	testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusAfterSwitch: function(testPageDocument){
+	// sets focus on a link after the switch
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeAndTurnOnSwitch: function(testPageDocument){
+	// sets focus on a link before the switch, and sets the state of the switch to 'on'
+	testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusBeforeSwitch: function(testPageDocument){
+	// sets focus on a link before the switch
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnAndTurnOnSwitch: function(testPageDocument){
+	// sets focus on the 'Notifications' switch, and sets its state to 'on'
+	testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+	testPageDocument.querySelector('[role="switch"]').focus();
+},	setFocusOnSwitch: function(testPageDocument){
+	// sets focus on the 'Notifications' switch
+	testPageDocument.querySelector('[role="switch"]').focus();
 },	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
 	// activates the third tab in the tab list, and sets focus on the tab panel
 	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
@@ -651,6 +746,15 @@
 	button.setAttribute('aria-pressed', 'true');
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
 }
       };
 
@@ -691,7 +795,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-01-navigate-forwards-to-grid-reading.html?at=jaws">jaws</a></li>
@@ -775,7 +879,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-02-navigate-backwards-to-grid-reading.html?at=jaws">jaws</a></li>
@@ -857,7 +961,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-03-navigate-forwards-to-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -910,7 +1014,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-04-navigate-into-end-of-grid-reading.html?at=jaws">jaws</a></li>
@@ -995,7 +1099,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-05-navigate-into-end-of-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1048,7 +1152,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-06-move-focus-forwards-into-grid-reading.html?at=jaws">jaws</a></li>
@@ -1132,7 +1236,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-07-move-focus-backwards-into-grid-reading.html?at=jaws">jaws</a></li>
@@ -1216,7 +1320,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-08-move-focus-forwards-into-grid-interaction.html?at=jaws">jaws</a></li>
@@ -1300,7 +1404,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-09-move-focus-backwards-into-grid-interaction.html?at=jaws">jaws</a></li>
@@ -1384,7 +1488,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-10-move-focus-forwards-into-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1437,7 +1541,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-11-move-focus-backwards-into-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1490,7 +1594,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-12-read-information-about-grid-cell-reading.html?at=jaws">jaws</a></li>
@@ -1566,7 +1670,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-13-read-information-about-grid-cell-interaction.html?at=jaws">jaws</a></li>
@@ -1642,7 +1746,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-14-read-information-about-grid-cell-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1690,7 +1794,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-15-read-information-about-grid-cell-containing-link-reading.html?at=jaws">jaws</a></li>
@@ -1768,7 +1872,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-16-read-information-about-grid-cell-containing-link-interaction.html?at=jaws">jaws</a></li>
@@ -1846,7 +1950,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-17-read-information-about-grid-cell-containing-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1895,7 +1999,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-18-navigate-to-next-colum-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -1969,7 +2073,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-19-navigate-to-next-colum-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -2043,7 +2147,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-20-navigate-to-next-colum-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2092,7 +2196,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-21-navigate-to-previous-colum-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -2166,7 +2270,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-22-navigate-to-previous-colum-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -2240,7 +2344,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-23-navigate-to-previous-colum-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2289,7 +2393,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-24-navigate-to-next-colum-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -2368,7 +2472,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-25-navigate-to-next-colum-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -2445,7 +2549,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-26-navigate-to-next-colum-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2496,7 +2600,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-27-navigate-to-previous-colum-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -2575,7 +2679,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-28-navigate-to-previous-colum-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -2651,7 +2755,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-29-navigate-to-previous-colum-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2702,7 +2806,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-30-navigate-to-next-column-from-cel-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -2776,7 +2880,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-31-navigate-to-next-column-from-cel-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -2850,7 +2954,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-32-navigate-to-next-column-from-cel-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2899,7 +3003,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-33-navigate-to-previous-column-from-cel-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -2973,7 +3077,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-34-navigate-to-previous-column-from-cel-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3047,7 +3151,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-35-navigate-to-previous-column-from-cel-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3097,7 +3201,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-36-navigate-to-next-row-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -3171,7 +3275,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-37-navigate-to-next-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3245,7 +3349,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-38-navigate-to-next-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3293,7 +3397,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-39-navigate-to-previous-row-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -3367,7 +3471,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-40-navigate-to-previous-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3441,7 +3545,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-41-navigate-to-previous-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3489,7 +3593,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-42-navigate-to-cell-containing-link-on-next-row-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -3565,7 +3669,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-43-navigate-to-cell-containing-link-on-next-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3641,7 +3745,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-44-navigate-to-cell-containing-link-on-next-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3690,7 +3794,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-45-navigate-to-cell-containing-link-on-previous-row-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -3766,7 +3870,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-46-navigate-to-cell-containing-link-on-previous-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3842,7 +3946,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-47-navigate-to-cell-containing-link-on-previous-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3891,7 +3995,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-48-navigate-to-first-cell-of-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3965,7 +4069,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-49-navigate-to-first-cell-of-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4012,7 +4116,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-50-navigate-to-last-cell-of-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -4086,7 +4190,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-51-navigate-to-last-cell-of-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4133,7 +4237,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-52-navigate-to-first-cell-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -4207,7 +4311,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-53-navigate-to-first-cell-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4254,7 +4358,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-54-navigate-to-last-cell-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -4328,7 +4432,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-55-navigate-to-last-cell-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

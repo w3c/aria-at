@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Decrement a spin button to the minimum value in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/spinbutton/datepicker-spinbuttons.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemin">
+
+<script>
+  var scripts = {
+		setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+			// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+			testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+			testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+			testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+			testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+			testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button",
+  "setupTestPage": "setFocusOnSpinButtonAndSetPredefinedDate",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "decrement spin button to minimum value",
+  "specific_user_instruction": "With focus on the 'Day' spin button, set its value to 'first'.",
+  "output_assertions": [
+    [
+      "1",
+      "Value 'first' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "decrement spin button to minimum value": {
+    "interaction": {
+      "jaws": [ [ "HOME" ] ],
+      "nvda": [ [ "HOME" ] ],
+      "voiceover_macos": [ [ "HOME" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-15_93728/datepicker-spinbuttons.setFocusOnSpinButtonAndSetPredefinedDate.html");
+  });
+</script>
+  

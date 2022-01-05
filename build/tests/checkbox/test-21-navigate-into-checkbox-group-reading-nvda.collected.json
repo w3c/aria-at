@@ -39,23 +39,65 @@
     "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
   },
   "commands": [
-    { "id": "X", "keystroke": "X" },
+    {
+      "id": "X",
+      "keystroke": "X",
+      "keypresses": [
+        {
+          "id": "X",
+          "keystroke": "X"
+        }
+      ]
+    },
     {
       "id": "SHIFT_X",
-      "keystroke": "Shift+X"
+      "keystroke": "Shift+X",
+      "keypresses": [
+        {
+          "id": "SHIFT_X",
+          "keystroke": "Shift+X"
+        }
+      ]
     },
-    { "id": "F", "keystroke": "F" },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
     {
       "id": "SHIFT_F",
-      "keystroke": "Shift+F"
+      "keystroke": "Shift+F",
+      "keypresses": [
+        {
+          "id": "SHIFT_F",
+          "keystroke": "Shift+F"
+        }
+      ]
     },
     {
       "id": "TAB",
-      "keystroke": "Tab"
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
     },
     {
       "id": "SHIFT_TAB",
-      "keystroke": "Shift+Tab"
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

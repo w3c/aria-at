@@ -1,0 +1,68 @@
+{
+  "info": {
+    "testId": 23,
+    "task": "operate a switch in the on state",
+    "title": "Operate a switch in the on state in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/switch/switch.html"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-10-24_132342/switch.setFocusOnAndTurnOnSwitch.html",
+    "setupScript": {
+      "name": "setFocusOnAndTurnOnSwitch",
+      "description": "sets focus on the 'Notifications' switch, and sets its state to 'on'",
+      "source": "// sets focus on the 'Notifications' switch, and sets its state to 'on'\ntestPageDocument.querySelector('[role=\"switch\"]').setAttribute('aria-checked', 'true');\ntestPageDocument.querySelector('[role=\"switch\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnAndTurnOnSwitch.module.js",
+      "jsonpPath": "scripts/setFocusOnAndTurnOnSwitch.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Notifications' switch, change its state to 'off'."
+    ],
+    "raw": "With focus on the 'Notifications' switch, change its state to 'off'.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "SPACE",
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change in state, to 'off', is conveyed"
+    }
+  ]
+}

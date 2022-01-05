@@ -1,0 +1,106 @@
+{
+  "info": {
+    "testId": 15,
+    "task": "navigate forwards to a button inside a banner landmark",
+    "title": "Navigate forwards to a button inside a banner landmark",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/banner.html"
+      },
+      {
+        "refId": "banner",
+        "value": "https://w3c.github.io/aria/#banner"
+      },
+      {
+        "refId": "aria-haspopup",
+        "value": "https://w3c.github.io/aria/#aria-haspopup"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "VOICEOVER_MACOS",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-10-24_135455/banner.setFocusBeforeBannerAndHideTopLink.html",
+    "setupScript": {
+      "name": "setFocusBeforeBannerAndHideTopLink",
+      "description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+      "source": "// sets focus on a link before the banner landmark, and hides the first link inside the landmark region\ntestPageDocument.getElementById('top').setAttribute('hidden', '');\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeBannerAndHideTopLink.module.js",
+      "jsonpPath": "scripts/setFocusBeforeBannerAndHideTopLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button."
+    ],
+    "raw": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT",
+      "keystroke": "Control+Option+Right, then Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        },
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_OPT_CMD_J",
+      "keystroke": "Control+Option+Command+J",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_J",
+          "keystroke": "Control+Option+Command+J"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'banner' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'menu button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Skip To Content' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'collapsed' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Access key '0' is conveyed"
+    }
+  ]
+}

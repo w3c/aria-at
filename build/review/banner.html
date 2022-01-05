@@ -250,6 +250,18 @@
 },	setFocusOnTopLink: function(testPageDocument){
 	// sets focus on the 'Top' link
 	testPageDocument.getElementById('top').focus();
+},	setFocusAfterContentinfo: function(testPageDocument){
+	// sets focus on a link after the contentinfo landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeContentinfo: function(testPageDocument){
+	// sets focus on a link before the contentinfo landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
 },	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
 	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
 	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
@@ -795,7 +807,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-01-navigate-forwards-into-a-banner-landmark-reading.html?at=jaws">jaws</a></li>
@@ -877,7 +889,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-02-navigate-forwards-into-a-banner-landmark-interaction.html?at=jaws">jaws</a></li>
@@ -952,7 +964,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-03-navigate-forwards-into-a-banner-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1001,7 +1013,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-04-navigate-backwards-into-a-banner-landmark-reading.html?at=jaws">jaws</a></li>
@@ -1081,7 +1093,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-05-navigate-backwards-into-a-banner-landmark-interaction.html?at=jaws">jaws</a></li>
@@ -1156,7 +1168,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-06-navigate-backwards-into-a-banner-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1205,7 +1217,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-07-navigate-forwards-out-of-a-banner-landmark-reading.html?at=jaws">jaws</a></li>
@@ -1283,7 +1295,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-08-navigate-forwards-out-of-a-banner-landmark-interaction.html?at=jaws">jaws</a></li>
@@ -1358,7 +1370,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-09-navigate-forwards-out-of-a-banner-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1407,7 +1419,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-10-navigate-backwards-out-of-a-banner-landmark-reading.html?at=jaws">jaws</a></li>
@@ -1485,7 +1497,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-11-navigate-backwards-out-of-a-banner-landmark-interaction.html?at=jaws">jaws</a></li>
@@ -1560,7 +1572,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-12-navigate-backwards-out-of-a-banner-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1609,7 +1621,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-13-navigate-forwards-to-a-button-inside-a-banner-landmark-reading.html?at=jaws">jaws</a></li>
@@ -1694,7 +1706,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-14-navigate-forwards-to-a-button-inside-a-banner-landmark-interaction.html?at=jaws">jaws</a></li>
@@ -1775,7 +1787,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-15-navigate-forwards-to-a-button-inside-a-banner-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1829,7 +1841,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-16-navigate-backwards-to-a-button-inside-a-banner-landmark-reading.html?at=jaws">jaws</a></li>
@@ -1911,7 +1923,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-17-navigate-backwards-to-a-button-inside-a-banner-landmark-interaction.html?at=jaws">jaws</a></li>
@@ -1989,7 +2001,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-18-navigate-backwards-to-a-button-inside-a-banner-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2041,7 +2053,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-19-navigate-forwards-to-an-image-inside-a-banner-landmark-reading.html?at=jaws">jaws</a></li>
@@ -2116,7 +2128,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-20-navigate-forwards-to-an-image-inside-a-banner-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2164,7 +2176,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-21-navigate-backwards-to-an-image-inside-a-banner-landmark-reading.html?at=jaws">jaws</a></li>
@@ -2239,7 +2251,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-22-navigate-backwards-to-an-image-inside-a-banner-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2287,7 +2299,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-23-navigate-forwards-to-a-heading-inside-a-banner-landmark-reading.html?at=jaws">jaws</a></li>
@@ -2366,7 +2378,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-24-navigate-forwards-to-a-heading-inside-a-banner-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2415,7 +2427,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-25-navigate-backwards-to-a-heading-inside-a-banner-landmark-reading.html?at=jaws">jaws</a></li>
@@ -2494,7 +2506,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/banner/test-26-navigate-backwards-to-a-heading-inside-a-banner-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

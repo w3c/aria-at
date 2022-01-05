@@ -53,8 +53,17 @@
   },
   "navigate forwards out of a complementary landmark": {
     "reading": {
-      "jaws": [ [ "DOWN" ], [ "U" ] ],
-      "nvda": [ [ "DOWN" ], [ "U" ], [ "K" ] ]
+      "jaws": [
+        [ "DOWN" ],
+        [ "U" ],
+        [ "TAB" ]
+      ],
+      "nvda": [
+        [ "DOWN" ],
+        [ "U" ],
+        [ "K" ],
+        [ "TAB" ]
+      ]
     },
     "interaction": {
       "jaws": [ [ "TAB" ] ],
@@ -69,11 +78,16 @@
   },
   "navigate backwards out of a complementary landmark": {
     "reading": {
-      "jaws": [ [ "UP" ], [ "SHIFT_U" ] ],
+      "jaws": [
+        [ "UP" ],
+        [ "SHIFT_U" ],
+        [ "SHIFT_TAB" ]
+      ],
       "nvda": [
         [ "UP" ],
         [ "SHIFT_K" ],
-        [ "SHIFT_U" ]
+        [ "SHIFT_U" ],
+        [ "SHIFT_TAB" ]
       ]
     },
     "interaction": {

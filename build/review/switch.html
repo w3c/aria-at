@@ -238,6 +238,18 @@
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
 	testPageDocument.querySelector('#action').focus();
+},	setFocusAfterComplementary: function(testPageDocument){
+	// sets focus on a link after the complementary landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeComplementary: function(testPageDocument){
+	// sets focus on a link before the complementary landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
 },	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
 	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
 	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
@@ -783,7 +795,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-01-navigate-forwards-to-a-switch-in-the-off-state-reading.html?at=jaws">jaws</a></li>
@@ -865,7 +877,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-02-navigate-forwards-to-a-switch-in-the-off-state-interaction.html?at=jaws">jaws</a></li>
@@ -942,7 +954,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-03-navigate-forwards-to-a-switch-in-the-off-state-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -994,7 +1006,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-04-navigate-backwards-to-a-switch-in-the-off-state-reading.html?at=jaws">jaws</a></li>
@@ -1076,7 +1088,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-05-navigate-backwards-to-a-switch-in-the-off-state-interaction.html?at=jaws">jaws</a></li>
@@ -1153,7 +1165,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-06-navigate-backwards-to-a-switch-in-the-off-state-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1205,7 +1217,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-07-navigate-forwards-to-a-switch-in-the-on-state-reading.html?at=jaws">jaws</a></li>
@@ -1287,7 +1299,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-08-navigate-forwards-to-a-switch-in-the-on-state-interaction.html?at=jaws">jaws</a></li>
@@ -1364,7 +1376,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-09-navigate-forwards-to-a-switch-in-the-on-state-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1416,7 +1428,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-10-navigate-backwards-to-a-switch-in-the-on-state-reading.html?at=jaws">jaws</a></li>
@@ -1498,7 +1510,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-11-navigate-backwards-to-a-switch-in-the-on-state-interaction.html?at=jaws">jaws</a></li>
@@ -1575,7 +1587,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-12-navigate-backwards-to-a-switch-in-the-on-state-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1627,7 +1639,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-13-read-information-about-a-switch-in-the-off-state-reading.html?at=jaws">jaws</a></li>
@@ -1706,7 +1718,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-14-read-information-about-a-switch-in-the-off-state-interaction.html?at=jaws">jaws</a></li>
@@ -1785,7 +1797,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-15-read-information-about-a-switch-in-the-off-state-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1836,7 +1848,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-16-read-information-about-a-switch-in-the-on-state-reading.html?at=jaws">jaws</a></li>
@@ -1915,7 +1927,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-17-read-information-about-a-switch-in-the-on-state-interaction.html?at=jaws">jaws</a></li>
@@ -1994,7 +2006,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-18-read-information-about-a-switch-in-the-on-state-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2045,7 +2057,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-19-operate-a-switch-in-the-off-state-reading.html?at=jaws">jaws</a></li>
@@ -2118,7 +2130,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-20-operate-a-switch-in-the-off-state-interaction.html?at=jaws">jaws</a></li>
@@ -2191,7 +2203,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-21-operate-a-switch-in-the-off-state-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2239,7 +2251,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-22-operate-a-switch-in-the-on-state-reading.html?at=jaws">jaws</a></li>
@@ -2312,7 +2324,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-23-operate-a-switch-in-the-on-state-interaction.html?at=jaws">jaws</a></li>
@@ -2385,7 +2397,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Tue Jan 4 18:05:02 2022 -0600</li>
+        <li>Last edited: Wed Jan 5 16:06:26 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/switch/test-24-operate-a-switch-in-the-on-state-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "navigate forwards out of a complementary landmark",
+    "title": "Navigate forwards out of a complementary landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/complementary.html"
+      },
+      {
+        "refId": "complementary",
+        "value": "https://w3c.github.io/aria/#complementary"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_142522/complementary.setFocusOnBottomLink.html",
+    "setupScript": {
+      "name": "setFocusOnBottomLink",
+      "description": "sets focus on the 'Bottom' link",
+      "source": "// sets focus on the 'Bottom' link\ntestPageDocument.getElementById('bottom').focus();\n",
+      "modulePath": "scripts/setFocusOnBottomLink.module.js",
+      "jsonpPath": "scripts/setFocusOnBottomLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link."
+    ],
+    "raw": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
+    {
+      "id": "U",
+      "keystroke": "U",
+      "keypresses": [
+        {
+          "id": "U",
+          "keystroke": "U"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "complementary landmark boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Landmarks' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Navigate backwards from here' is conveyed"
+    }
+  ]
+}

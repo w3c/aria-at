@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 9,
+    "task": "navigate forwards out of a main landmark",
+    "title": "Navigate forwards out of a main landmark",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/main.html"
+      },
+      {
+        "refId": "main",
+        "value": "https://w3c.github.io/aria/#main"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "VOICEOVER_MACOS",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-10-24_181316/main.setFocusOnBottomLink.html",
+    "setupScript": {
+      "name": "setFocusOnBottomLink",
+      "description": "sets focus on the 'Bottom' link",
+      "source": "// sets focus on the 'Bottom' link\ntestPageDocument.getElementById('bottom').focus();\n",
+      "modulePath": "scripts/setFocusOnBottomLink.module.js",
+      "jsonpPath": "scripts/setFocusOnBottomLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link."
+    ],
+    "raw": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT",
+      "keystroke": "Control+Option+Right, then Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        },
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_OPT_CMD_L",
+      "keystroke": "Control+Option+Command+L",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_L",
+          "keystroke": "Control+Option+Command+L"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "main landmark boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Navigate backwards from here' is conveyed"
+    }
+  ]
+}

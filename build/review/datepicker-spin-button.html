@@ -375,6 +375,18 @@
 },	setFocusOnRedSlider: function(testPageDocument){
 	// sets focus on the 'Red' slider
 	testPageDocument.querySelector('[role="slider"].red').focus();
+},	setFocusAfterMain: function(testPageDocument){
+	// sets focus on a link after the main landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeMain: function(testPageDocument){
+	// sets focus on a link before the main landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
 },	openMenuAndSetFocusToFirstItem: function(testPageDocument){
 	// opens the menu, and sets focus on 'Action 1'
 	testPageDocument.defaultView.menuController.openPopup();
@@ -828,7 +840,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-01-navigate-forwards-to-spin-button-reading.html?at=jaws">jaws</a></li>
@@ -914,7 +926,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-02-navigate-backwards-to-spin-button-reading.html?at=jaws">jaws</a></li>
@@ -1000,7 +1012,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-03-navigate-forwards-to-spin-button-interaction.html?at=jaws">jaws</a></li>
@@ -1084,7 +1096,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-04-navigate-backwards-to-spin-button-interaction.html?at=jaws">jaws</a></li>
@@ -1168,7 +1180,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-05-navigate-forwards-to-spin-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1224,7 +1236,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-06-navigate-backwards-to-spin-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1280,7 +1292,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-07-read-information-about-spin-button-reading.html?at=jaws">jaws</a></li>
@@ -1361,7 +1373,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-08-read-information-about-spin-button-interaction.html?at=jaws">jaws</a></li>
@@ -1442,7 +1454,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-09-read-information-about-spin-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1495,7 +1507,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-10-decrement-spin-button-by-one-step-interaction.html?at=jaws">jaws</a></li>
@@ -1567,7 +1579,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-11-decrement-spin-button-by-one-step-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1614,7 +1626,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-12-increment-spin-button-by-one-step-interaction.html?at=jaws">jaws</a></li>
@@ -1686,7 +1698,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-13-increment-spin-button-by-one-step-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1733,7 +1745,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-14-decrement-spin-button-by-five-steps-interaction.html?at=jaws">jaws</a></li>
@@ -1805,7 +1817,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-15-decrement-spin-button-by-five-steps-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1852,7 +1864,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-16-increment-spin-button-by-five-steps-interaction.html?at=jaws">jaws</a></li>
@@ -1924,7 +1936,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-17-increment-spin-button-by-five-steps-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1971,7 +1983,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-18-decrement-spin-button-to-minimum-value-interaction.html?at=jaws">jaws</a></li>
@@ -2044,7 +2056,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-19-decrement-spin-button-to-minimum-value-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2092,7 +2104,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-20-increment-spin-button-to-maximum-value-interaction.html?at=jaws">jaws</a></li>
@@ -2164,7 +2176,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/datepicker-spin-button/test-21-increment-spin-button-to-maximum-value-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

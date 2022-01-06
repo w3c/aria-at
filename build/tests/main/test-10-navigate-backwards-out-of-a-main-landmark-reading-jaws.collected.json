@@ -1,0 +1,86 @@
+{
+  "info": {
+    "testId": 10,
+    "task": "navigate backwards out of a main landmark",
+    "title": "Navigate backwards out of a main landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/main.html"
+      },
+      {
+        "refId": "main",
+        "value": "https://w3c.github.io/aria/#main"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_181316/main.setFocusOnTopLink.html",
+    "setupScript": {
+      "name": "setFocusOnTopLink",
+      "description": "sets focus on the 'Top' link",
+      "source": "// sets focus on the 'Top' link\ntestPageDocument.getElementById('top').focus();\n",
+      "modulePath": "scripts/setFocusOnTopLink.module.js",
+      "jsonpPath": "scripts/setFocusOnTopLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link."
+    ],
+    "raw": "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_U",
+      "keystroke": "Shift+U",
+      "keypresses": [
+        {
+          "id": "SHIFT_U",
+          "keystroke": "Shift+U"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "main landmark boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Navigate forwards from here' is conveyed"
+    }
+  ]
+}

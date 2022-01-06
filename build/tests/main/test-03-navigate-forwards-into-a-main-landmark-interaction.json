@@ -1,0 +1,24 @@
+{
+  "setup_script_description": "sets focus on a link before the main landmark",
+  "setupTestPage": "setFocusBeforeMain",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards into a main landmark",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'main' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Top' is conveyed"
+    ]
+  ]
+}

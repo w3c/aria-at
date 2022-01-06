@@ -345,6 +345,27 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	setFocusAfterForm: function(testPageDocument){
+	// sets focus on a link after the form landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusAfterFormAndHideBottomControls: function(testPageDocument){
+	// sets focus on a link after the form landmark, and hides the 'Bottom' link and 'Add Contact' button
+	testPageDocument.querySelector('[type="submit"]').style.display = 'none';
+	testPageDocument.getElementById('bottom').setAttribute('hidden', '');
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeForm: function(testPageDocument){
+	// sets focus on a link before the form landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusBeforeFormAndHideTopLink: function(testPageDocument){
+	// sets focus on a link before the form landmark, and hides the 'Top' link
+	testPageDocument.getElementById('top').setAttribute('hidden', '');
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
 },	setFocusAfterRedSlider: function(testPageDocument){
 	// sets focus on a link after the Red slider
 	testPageDocument.querySelector('#afterlink').focus();
@@ -807,7 +828,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-01-navigate-forwards-to-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -889,7 +910,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-02-navigate-backwards-to-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -971,7 +992,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-03-navigate-forwards-to-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1047,7 +1068,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-04-navigate-backwards-to-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1123,7 +1144,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-05-navigate-forwards-to-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1174,7 +1195,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-06-navigate-backwards-to-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1225,7 +1246,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-07-operate-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1296,7 +1317,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-08-operate-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1367,7 +1388,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-09-operate-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1414,7 +1435,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-10-operate-unchecked-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1486,7 +1507,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-11-operate-unchecked-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1558,7 +1579,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-12-operate-unchecked-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1606,7 +1627,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-13-read-partially-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1684,7 +1705,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-14-read-partially-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1762,7 +1783,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-15-read-partially-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1812,7 +1833,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1884,7 +1905,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1956,7 +1977,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2003,7 +2024,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-19-navigate-forwards-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -2081,7 +2102,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-20-navigate-backwards-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -2155,7 +2176,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-21-navigate-forwards-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2229,7 +2250,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-22-navigate-backwards-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2303,7 +2324,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-23-navigate-forwards-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2350,7 +2371,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox-tri-state/test-24-navigate-backwards-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

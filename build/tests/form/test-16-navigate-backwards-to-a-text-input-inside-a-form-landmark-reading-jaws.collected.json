@@ -1,0 +1,92 @@
+{
+  "info": {
+    "testId": 16,
+    "task": "navigate backwards to a text input inside a form landmark",
+    "title": "Navigate backwards to a text input inside a form landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/form.html"
+      },
+      {
+        "refId": "form",
+        "value": "https://w3c.github.io/aria/#form"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_152221/form.setFocusAfterFormAndHideBottomControls.html",
+    "setupScript": {
+      "name": "setFocusAfterFormAndHideBottomControls",
+      "description": "sets focus on a link after the form landmark, and hides the 'Bottom' link and 'Add Contact' button",
+      "source": "// sets focus on a link after the form landmark, and hides the 'Bottom' link and 'Add Contact' button\ntestPageDocument.querySelector('[type=\"submit\"]').setAttribute('hidden', '');\ntestPageDocument.getElementById('bottom').setAttribute('hidden', '');\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterFormAndHideBottomControls.module.js",
+      "jsonpPath": "scripts/setFocusAfterFormAndHideBottomControls.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Phone' text input."
+    ],
+    "raw": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Phone' text input.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_F",
+      "keystroke": "Shift+F",
+      "keypresses": [
+        {
+          "id": "SHIFT_F",
+          "keystroke": "Shift+F"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_E",
+      "keystroke": "Shift+E",
+      "keypresses": [
+        {
+          "id": "SHIFT_E",
+          "keystroke": "Shift+E"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'form' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Add Contact' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the group, 'Add Contact', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the input, 'Phone', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The ability to enter text into the input is conveyed"
+    }
+  ]
+}

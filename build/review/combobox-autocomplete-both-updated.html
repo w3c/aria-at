@@ -345,6 +345,27 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	setFocusAfterForm: function(testPageDocument){
+	// sets focus on a link after the form landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusAfterFormAndHideBottomControls: function(testPageDocument){
+	// sets focus on a link after the form landmark, and hides the 'Bottom' link and 'Add Contact' button
+	testPageDocument.querySelector('[type="submit"]').setAttribute('hidden', '');
+	testPageDocument.getElementById('bottom').setAttribute('hidden', '');
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeForm: function(testPageDocument){
+	// sets focus on a link before the form landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusBeforeFormAndHideTopLink: function(testPageDocument){
+	// sets focus on a link before the form landmark, and hides the 'Top' link
+	testPageDocument.getElementById('top').setAttribute('hidden', '');
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
 },	setFocusAfterRedSlider: function(testPageDocument){
 	// sets focus on a link after the Red slider
 	testPageDocument.querySelector('#afterlink').focus();
@@ -807,7 +828,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-01-navigate-forwards-to-empty-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -896,7 +917,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-02-navigate-backwards-to-empty-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -985,7 +1006,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-03-navigate-forwards-to-empty-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1066,7 +1087,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-04-navigate-backwards-to-empty-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1147,7 +1168,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-05-navigate-forwards-to-empty-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1201,7 +1222,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-06-navigate-backwards-to-empty-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1255,7 +1276,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-07-read-information-about-empty-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1338,7 +1359,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-08-read-information-about-empty-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1419,7 +1440,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-09-read-information-about-empty-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1472,7 +1493,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-10-navigate-forwards-to-filled-in-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1565,7 +1586,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-11-navigate-backwards-to-filled-in-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -1658,7 +1679,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-12-navigate-forwards-to-filled-in-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1743,7 +1764,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-13-navigate-backwards-to-filled-in-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -1828,7 +1849,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-14-navigate-forwards-to-filled-in-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1884,7 +1905,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-15-navigate-backwards-to-filled-in-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1940,7 +1961,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-16-read-information-about-filled-in-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -2027,7 +2048,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-17-read-information-about-filled-in-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -2112,7 +2133,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-18-read-information-about-filled-in-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2167,7 +2188,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-19-open-empty-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -2240,7 +2261,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-20-open-empty-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -2313,7 +2334,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-21-open-empty-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2360,7 +2381,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-22-open-filled-in-collapsed-combobox-reading.html?at=jaws">jaws</a></li>
@@ -2433,7 +2454,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-23-open-filled-in-collapsed-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -2506,7 +2527,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-24-open-filled-in-collapsed-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2553,7 +2574,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-25-open-empty-collapsed-combobox-by-typing-character-interaction.html?at=jaws">jaws</a></li>
@@ -2628,7 +2649,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-26-open-an-empty-collapsed-combobox-by-typing-character-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2676,7 +2697,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-27-open-a-filled-in-collapsed-combobox-by-typing-character-interaction.html?at=jaws">jaws</a></li>
@@ -2751,7 +2772,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-28-open-filled-in-collapsed-combobox-by-typing-character-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2799,7 +2820,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-29-read-information-about-empty-expanded-combobox-reading.html?at=jaws">jaws</a></li>
@@ -2882,7 +2903,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-30-read-information-about-empty-expanded-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -2963,7 +2984,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-31-read-information-about-empty-expanded-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3016,7 +3037,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-32-read-information-about-filled-in-expanded-combobox-reading.html?at=jaws">jaws</a></li>
@@ -3103,7 +3124,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-33-read-information-about-filled-in-expanded-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -3188,7 +3209,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-34-read-information-about-filled-in-expanded-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3243,7 +3264,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-35-narrow-down-matching-options-in-empty-expanded-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -3315,7 +3336,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-36-narrow-down-matching-options-in-empty-expanded-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3361,7 +3382,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-37-narrow-down-matching-options-in-filled-in-expanded-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -3433,7 +3454,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-38-narrow-down-matching-options-in-filled-in-expanded-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3479,7 +3500,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-39-close-empty-combobox-reading.html?at=jaws">jaws</a></li>
@@ -3550,7 +3571,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-40-close-empty-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -3623,7 +3644,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-41-close-empty-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3670,7 +3691,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-42-close-filled-in-combobox-reading.html?at=jaws">jaws</a></li>
@@ -3741,7 +3762,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-43-close-filled-in-combobox-interaction.html?at=jaws">jaws</a></li>
@@ -3814,7 +3835,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-44-close-filled-in-combobox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3861,7 +3882,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-45-navigate-from-empty-collapsed-combobox-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -3948,7 +3969,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-46-navigate-from-empty-collapsed-combobox-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4004,7 +4025,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-47-navigate-from-empty-collapsed-combobox-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4089,7 +4110,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-48-navigate-from-empty-collapsed-combobox-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4144,7 +4165,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-49-navigate-from-filled-in-collapsed-combobox-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4231,7 +4252,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-50-navigate-from-filled-in-collapsed-combobox-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4287,7 +4308,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-51-navigate-from-filled-in-collapsed-combobox-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4374,7 +4395,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-52-navigate-from-filled-in-collapsed-combobox-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4430,7 +4451,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-53-navigate-from-empty-expanded-combobox-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4515,7 +4536,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-54-navigate-from-an-empty-expanded-combobox-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4570,7 +4591,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-55-navigate-from-empty-expanded-combobox-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4655,7 +4676,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-56-navigate-from-empty-expanded-combobox-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4710,7 +4731,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-57-navigate-from-filled-in-expanded-combobox-to-first-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4795,7 +4816,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-58-navigate-from-filled-in-expanded-combobox-to-first-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4850,7 +4871,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-59-navigate-from-filled-in-expanded-combobox-to-last-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -4935,7 +4956,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-60-navigate-from-filled-in-expanded-combobox-to-last-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4990,7 +5011,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-61-navigate-to-next-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -5077,7 +5098,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-62-navigate-to-next-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5134,7 +5155,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-63-navigate-to-previous-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -5221,7 +5242,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-64-navigate-to-previous-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5278,7 +5299,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-65-read-information-about-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -5362,7 +5383,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-66-read-information-about-a-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5417,7 +5438,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-67-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-right-interaction.html?at=jaws">jaws</a></li>
@@ -5502,7 +5523,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-68-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-left-interaction.html?at=jaws">jaws</a></li>
@@ -5587,7 +5608,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-69-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-right-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5641,7 +5662,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-70-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-left-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5695,7 +5716,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-71-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-end-of-textbox-interaction.html?at=jaws">jaws</a></li>
@@ -5780,7 +5801,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-72-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-beginning-of-textbox-interaction.html?at=jaws">jaws</a></li>
@@ -5865,7 +5886,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-73-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-end-of-textbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5919,7 +5940,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-74-navigate-out-of-listbox-popup-by-moving-editing-cursor-to-beginning-of-textbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -5973,7 +5994,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-75-select-option-in-listbox-popup-interaction.html?at=jaws">jaws</a></li>
@@ -6059,7 +6080,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Wed Jan 5 16:57:28 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 13:47:55 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/combobox-autocomplete-both-updated/test-76-select-option-in-listbox-popup-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

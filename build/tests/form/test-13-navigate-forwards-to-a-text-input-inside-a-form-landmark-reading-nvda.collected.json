@@ -1,0 +1,92 @@
+{
+  "info": {
+    "testId": 13,
+    "task": "navigate forwards to a text input inside a form landmark",
+    "title": "Navigate forwards to a text input inside a form landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/form.html"
+      },
+      {
+        "refId": "form",
+        "value": "https://w3c.github.io/aria/#form"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_152221/form.setFocusBeforeFormAndHideTopLink.html",
+    "setupScript": {
+      "name": "setFocusBeforeFormAndHideTopLink",
+      "description": "sets focus on a link before the form landmark, and hides the 'Top' link",
+      "source": "// sets focus on a link before the form landmark, and hides the 'Top' link\ntestPageDocument.getElementById('top').setAttribute('hidden', '');\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeFormAndHideTopLink.module.js",
+      "jsonpPath": "scripts/setFocusBeforeFormAndHideTopLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Name' text input."
+    ],
+    "raw": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Name' text input.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "keystroke": "E",
+      "keypresses": [
+        {
+          "id": "E",
+          "keystroke": "E"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'form' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Add Contact' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the group, 'Add Contact', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the input, 'Name', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The ability to enter text into the input is conveyed"
+    }
+  ]
+}

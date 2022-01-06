@@ -63,6 +63,26 @@
         	setFocusOnButton: function(testPageDocument){
 	// sets focus on the 'Trigger Alert' button
 	testPageDocument.querySelector('#alert-trigger').focus();
+},	setFocusAfterBanner: function(testPageDocument){
+	// sets focus on a link after the banner landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusAfterBannerAndHideBottomLink: function(testPageDocument){
+	// sets focus on a link after the banner landmark, and hides the last link inside the landmark region
+	testPageDocument.getElementById('bottom').setAttribute('hidden', '');
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeBanner: function(testPageDocument){
+	// sets focus on a link before the banner landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusBeforeBannerAndHideTopLink: function(testPageDocument){
+	// sets focus on a link before the banner landmark, and hides the first link inside the landmark region
+	testPageDocument.getElementById('top').setAttribute('hidden', '');
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
 },	setFocusAfterLastBreadcrumbLink: function(testPageDocument){
 	// sets focus on a link after the 'Breadcrumb Example' link
 	testPageDocument.querySelector('#afterlink').focus();
@@ -218,6 +238,51 @@
 },	setFocusOnButton: function(testPageDocument){
 	// sets focus on the button
 	testPageDocument.querySelector('#action').focus();
+},	setFocusAfterComplementary: function(testPageDocument){
+	// sets focus on a link after the complementary landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeComplementary: function(testPageDocument){
+	// sets focus on a link before the complementary landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
+},	setFocusAfterContentinfo: function(testPageDocument){
+	// sets focus on a link after the contentinfo landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeContentinfo: function(testPageDocument){
+	// sets focus on a link before the contentinfo landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
+},	setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+	// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+	testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+	testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+	testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+	testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+	testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
 },	moveFocusAfterAndExpandFirstDisclosure: function(testPageDocument){
 	// sets the state of the first disclosure button to expanded, and sets focus on a link after the button
 	const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
@@ -280,6 +345,27 @@
 	// sets the state of the first disclosure button to expanded, and sets focus on the second link of the associated dropdown
 	testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
 	testPageDocument.querySelectorAll('#id_about_menu a')[1].focus();
+},	setFocusAfterForm: function(testPageDocument){
+	// sets focus on a link after the form landmark
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusAfterFormAndHideBottomControls: function(testPageDocument){
+	// sets focus on a link after the form landmark, and hides the 'Bottom' link and 'Add Contact' button
+	testPageDocument.querySelector('[type="submit"]').style.display = 'none';
+	testPageDocument.getElementById('bottom').setAttribute('hidden', '');
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeForm: function(testPageDocument){
+	// sets focus on a link before the form landmark
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusBeforeFormAndHideTopLink: function(testPageDocument){
+	// sets focus on a link before the form landmark, and hides the 'Top' link
+	testPageDocument.getElementById('top').setAttribute('hidden', '');
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnBottomLink: function(testPageDocument){
+	// sets focus on the 'Bottom' link
+	testPageDocument.getElementById('bottom').focus();
+},	setFocusOnTopLink: function(testPageDocument){
+	// sets focus on the 'Top' link
+	testPageDocument.getElementById('top').focus();
 },	setFocusAfterRedSlider: function(testPageDocument){
 	// sets focus on a link after the Red slider
 	testPageDocument.querySelector('#afterlink').focus();
@@ -338,6 +424,18 @@
 },	focusontextalign: function(testPageDocument){
 	// Move focus to the "Text Align" menu item
 	testPageDocument.querySelectorAll('[role=menuitem]')[2].focus();
+},	setFocusAfterMeter: function(testPageDocument){
+	// sets focus on a link after the meter
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeMeter: function(testPageDocument){
+	// sets focus on a link before the meter
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnButton: function(testPageDocument){
+	// sets focus on the 'Change Value' button
+	testPageDocument.querySelector('button.play-meters').focus();
+},	setFocusOnMeter: function(testPageDocument){
+	// sets focus on the meter
+	testPageDocument.querySelector('[role="meter"]').focus();
 },	setFocusAfterGrid: function(testPageDocument){
 	// sets focus on a link after the grid
 	testPageDocument.querySelector('#afterlink').focus();
@@ -594,6 +692,36 @@
 	slider.setAttribute('aria-valuenow', '0.5');
 	slider.setAttribute('aria-valuetext', 'one half of five stars');
 	slider.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
+},	setFocusAfterAndTurnOnSwitch: function(testPageDocument){
+	// sets focus on a link after the switch, and sets the switch state to 'on'
+	testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusAfterSwitch: function(testPageDocument){
+	// sets focus on a link after the switch
+	testPageDocument.getElementById('afterlink').focus();
+},	setFocusBeforeAndTurnOnSwitch: function(testPageDocument){
+	// sets focus on a link before the switch, and sets the state of the switch to 'on'
+	testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusBeforeSwitch: function(testPageDocument){
+	// sets focus on a link before the switch
+	testPageDocument.getElementById('beforelink').focus();
+},	setFocusOnAndTurnOnSwitch: function(testPageDocument){
+	// sets focus on the 'Notifications' switch, and sets its state to 'on'
+	testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+	testPageDocument.querySelector('[role="switch"]').focus();
+},	setFocusOnSwitch: function(testPageDocument){
+	// sets focus on the 'Notifications' switch
+	testPageDocument.querySelector('[role="switch"]').focus();
 },	activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
 	// activates the third tab in the tab list, and sets focus on the tab panel
 	testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
@@ -651,6 +779,15 @@
 	button.setAttribute('aria-pressed', 'true');
 	button.querySelector('use').setAttribute('xlink:href', '#icon-sound');
 	button.focus();
+},	setFocusAfterSlider: function(testPageDocument){
+	// sets focus on a link after the slider
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeSlider: function(testPageDocument){
+	// sets focus on a link before the slider
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnSlider: function(testPageDocument){
+	// sets focus on the slider
+	testPageDocument.querySelector('[role="slider"]').focus();
 }
       };
 
@@ -691,7 +828,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-01-navigate-forwards-to-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -780,7 +917,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-02-navigate-backwards-to-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -869,7 +1006,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-03-navigate-forwards-to-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -956,7 +1093,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-04-navigate-backwards-to-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1043,7 +1180,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-05-navigate-forwards-to-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1101,7 +1238,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-06-navigate-backwards-to-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1159,7 +1296,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-07-read-information-about-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1242,7 +1379,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-08-read-information-about-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1325,7 +1462,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-09-read-information-about-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1378,7 +1515,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-10-navigate-to-next-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1456,7 +1593,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-11-navigate-to-next-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1534,7 +1671,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-12-navigate-to-next-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1584,7 +1721,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-13-navigate-to-previous-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -1665,7 +1802,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-14-navigate-to-previous-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1746,7 +1883,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-15-navigate-to-previous-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1798,7 +1935,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-16-navigate-to-first-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -1879,7 +2016,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-17-navigate-to-first-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1931,7 +2068,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-18-navigate-to-last-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2009,7 +2146,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-19-navigate-to-last-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2059,7 +2196,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-20-navigate-forwards-to-tab-panel-interaction.html?at=jaws">jaws</a></li>
@@ -2135,7 +2272,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-21-navigate-backwards-to-tab-panel-interaction.html?at=jaws">jaws</a></li>
@@ -2211,7 +2348,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-22-navigate-forwards-to-tab-panel-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2261,7 +2398,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-23-navigate-backwards-to-tab-panel-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2311,7 +2448,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-24-activate-tab-in-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -2384,7 +2521,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-25-activate-tab-in-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2457,7 +2594,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-26-activate-tab-in-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2505,7 +2642,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-27-delete-tab-from-tab-list-reading.html?at=jaws">jaws</a></li>
@@ -2586,7 +2723,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-28-delete-tab-from-tab-list-interaction.html?at=jaws">jaws</a></li>
@@ -2667,7 +2804,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Sat Oct 23 13:53:00 2021 -0500</li>
+        <li>Last edited: Thu Jan 6 13:53:57 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/tabs-manual-activation/test-29-delete-tab-from-tab-list-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

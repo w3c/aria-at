@@ -1,0 +1,33 @@
+{
+  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to a button inside a banner landmark",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'banner' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'menu button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Skip To Content' is conveyed"
+    ],
+    [
+      "1",
+      "State 'collapsed' is conveyed"
+    ],
+    [
+      "1",
+      "Access key '0' is conveyed"
+    ]
+  ]
+}

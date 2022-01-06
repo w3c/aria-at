@@ -1,0 +1,33 @@
+{
+  "setup_script_description": "sets focus on a link after the complementary landmark",
+  "setupTestPage": "setFocusAfterComplementary",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate backwards to a list inside a complementary landmark",
+  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the list.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'complementary' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Landmarks' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'list' is conveyed"
+    ],
+    [
+      "1",
+      "Number of items in the list (6) is conveyed"
+    ],
+    [
+      "1",
+      "Name of first list item, 'Banner', is conveyed"
+    ]
+  ]
+}

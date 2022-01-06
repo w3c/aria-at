@@ -1,0 +1,66 @@
+{
+  "info": {
+    "testId": 14,
+    "task": "increment slider by fifteen steps",
+    "title": "Increment a slider by fifteen steps in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-seek.html"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuetext",
+        "value": "https://w3c.github.io/aria/#aria-valuetext"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-9-21_14461/slider-seek.setFocusOnSlider.html",
+    "setupScript": {
+      "name": "setFocusOnSlider",
+      "description": "sets focus on the slider",
+      "source": "// sets focus on the slider\ntestPageDocument.querySelector('[role=\"slider\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Seek' slider, set its value to 1 Minute 45 Seconds."
+    ],
+    "raw": "With focus on the 'Seek' slider, set its value to 1 Minute 45 Seconds.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "PAGE_UP",
+      "keystroke": "Page Up",
+      "keypresses": [
+        {
+          "id": "PAGE_UP",
+          "keystroke": "Page Up"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "textual value '1 Minute 45 Seconds' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Numeric value '105' is not conveyed"
+    }
+  ]
+}

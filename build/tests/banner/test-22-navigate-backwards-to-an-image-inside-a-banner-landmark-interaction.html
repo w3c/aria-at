@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to an image inside a banner landmark</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/landmarks/banner.html">
+<link rel="help" href="https://w3c.github.io/aria/#banner">
+
+<script>
+  var scripts = {
+		setFocusAfterBanner: function(testPageDocument){
+			// sets focus on a link after the banner landmark
+			testPageDocument.getElementById('afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link after the banner landmark",
+  "setupTestPage": "setFocusAfterBanner",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to an image inside a banner landmark",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'banner' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'image' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'W3C Logo' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to an image inside a banner landmark": {
+    "reading": {
+      "jaws": [ [ "SHIFT_G" ] ],
+      "nvda": [ [ "SHIFT_G" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [ [ "SHIFT_CTRL_OPT_CMD_G" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-24_135455/banner.setFocusAfterBanner.html");
+  });
+</script>
+  

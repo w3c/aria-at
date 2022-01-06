@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "sets focus on a link before the contentinfo landmark",
+  "setupTestPage": "setFocusBeforeContentinfo",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards into a contentinfo landmark",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'contentinfo' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Top' is conveyed"
+    ]
+  ]
+}

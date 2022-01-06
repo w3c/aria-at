@@ -40,19 +40,13 @@
   "commands": [
     {
       "id": "SHIFT_TAB",
-      "keystroke": "Shift+Tab"
-    },
-    {
-      "id": "UP",
-      "keystroke": "Up Arrow"
-    },
-    {
-      "id": "LEFT",
-      "keystroke": "Left Arrow"
-    },
-    {
-      "id": "HOME",
-      "keystroke": "Home"
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
     }
   ],
   "assertions": [

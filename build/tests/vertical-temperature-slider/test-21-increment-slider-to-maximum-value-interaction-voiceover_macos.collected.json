@@ -1,0 +1,70 @@
+{
+  "info": {
+    "testId": 21,
+    "task": "increment slider to maximum value",
+    "title": "Increment a slider to the maximum value",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-temperature.html"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuetext",
+        "value": "https://w3c.github.io/aria/#aria-valuetext"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-9-21_142211/slider-temperature.setFocusOnSlider.html",
+    "setupScript": {
+      "name": "setFocusOnSlider",
+      "description": "sets focus on the slider",
+      "source": "// sets focus on the slider\ntestPageDocument.querySelector('[role=\"slider\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Temperature' slider, set its value to 38.0 degrees Celsius."
+    ],
+    "raw": "With focus on the 'Temperature' slider, set its value to 38.0 degrees Celsius.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "END",
+      "keystroke": "End",
+      "keypresses": [
+        {
+          "id": "END",
+          "keystroke": "End"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Textual value '38.0 degrees Celsius' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "numeric value '38.0' is not conveyed"
+    }
+  ]
+}

@@ -37,7 +37,18 @@
     "raw": "With focus on the 'Action 1' menu item, type a character to navigate to a different menu item.",
     "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
   },
-  "commands": [ { "id": "A", "keystroke": "A" } ],
+  "commands": [
+    {
+      "id": "A",
+      "keystroke": "A",
+      "keypresses": [
+        {
+          "id": "A",
+          "keystroke": "A"
+        }
+      ]
+    }
+  ],
   "assertions": [
     {
       "priority": 2,

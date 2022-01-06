@@ -1,0 +1,94 @@
+{
+  "info": {
+    "testId": 3,
+    "task": "navigate forwards to a switch in the off state",
+    "title": "Navigate forwards to a switch in the off state",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/switch/switch.html"
+      },
+      {
+        "refId": "switch",
+        "value": "https://w3c.github.io/aria/#switch"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      },
+      {
+        "refId": "aria-hidden",
+        "value": "https://w3c.github.io/aria/#aria-hidden"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "VOICEOVER_MACOS",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-10-24_132342/switch.setFocusBeforeSwitch.html",
+    "setupScript": {
+      "name": "setFocusBeforeSwitch",
+      "description": "sets focus on a link before the switch",
+      "source": "// sets focus on a link before the switch\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeSwitch.module.js",
+      "jsonpPath": "scripts/setFocusBeforeSwitch.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate forwards from here' link, navigate to the 'Notifications' switch."
+    ],
+    "raw": "With focus on the 'Navigate forwards from here' link, navigate to the 'Notifications' switch.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_RIGHT",
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_OPT_CMD_J",
+      "keystroke": "Control+Option+Command+J",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_J",
+          "keystroke": "Control+Option+Command+J"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'switch' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Notifications' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'off' is conveyed"
+    }
+  ]
+}

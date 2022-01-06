@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Decrement a slider by fifteen steps in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/slider/slider-seek.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+
+<script>
+  var scripts = {
+		setFocusOnSlider: function(testPageDocument){
+			// sets focus on the slider
+			testPageDocument.querySelector('[role="slider"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the slider",
+  "setupTestPage": "setFocusOnSlider",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "decrement slider by fifteen steps",
+  "specific_user_instruction": "With focus on the 'Seek' slider, set its value to 1 Minute 15 Seconds.",
+  "output_assertions": [
+    [
+      "1",
+      "Textual value '1 Minute 15 Seconds' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '75' is not conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "decrement slider by fifteen steps": {
+    "interaction": {
+      "jaws": [ [ "PAGE_DOWN" ] ],
+      "nvda": [ [ "PAGE_DOWN" ] ],
+      "voiceover_macos": [ [ "PAGE_DOWN" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-9-21_14461/slider-seek.setFocusOnSlider.html");
+  });
+</script>
+  

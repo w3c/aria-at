@@ -95,10 +95,12 @@ class KeysInput {
   /** @param {AriaATFile.CollectedTest} collectedTest */
   static fromCollectedTest(collectedTest) {
     return new KeysInput({
-      origin: "test.collected.json",
-      keys: collectedTest.commands.reduce((carry, {id, keystroke}) => {
-        carry[id] = keystroke;
-        return carry;
+      origin: 'test.collected.json',
+      keys: collectedTest.commands.reduce((carry, { keypresses }) => {
+        return keypresses.reduce((carry, { id, keystroke }) => {
+          carry[id] = keystroke;
+          return carry;
+        }, carry);
       }, {}),
       at: collectedTest.target.at.key,
       modeInstructions: collectedTest.instructions.mode,
@@ -569,7 +571,7 @@ class BehaviorInput {
         modeInstructions: instructions.mode,
         appliesTo: [target.at.name],
         specificUserInstruction: instructions.raw,
-        setupScriptDescription: target.setupScript ? target.setupScript.description : undefined,
+        setupScriptDescription: target.setupScript ? target.setupScript.description : '',
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
         commands: commandsInput.getCommands(info.task, target.mode),
         assertions: assertions.map(({priority, expectation: assertion}) => ({

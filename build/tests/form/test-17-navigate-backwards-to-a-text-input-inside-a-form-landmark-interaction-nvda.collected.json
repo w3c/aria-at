@@ -29,7 +29,7 @@
     "setupScript": {
       "name": "setFocusAfterFormAndHideBottomControls",
       "description": "sets focus on a link after the form landmark, and hides the 'Bottom' link and 'Add Contact' button",
-      "source": "// sets focus on a link after the form landmark, and hides the 'Bottom' link and 'Add Contact' button\ntestPageDocument.querySelector('[type=\"submit\"]').setAttribute('hidden', '');\ntestPageDocument.getElementById('bottom').setAttribute('hidden', '');\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "source": "// sets focus on a link after the form landmark, and hides the 'Bottom' link and 'Add Contact' button\ntestPageDocument.querySelector('[type=\"submit\"]').style.display = 'none';\ntestPageDocument.getElementById('bottom').setAttribute('hidden', '');\ntestPageDocument.getElementById('afterlink').focus();\n",
       "modulePath": "scripts/setFocusAfterFormAndHideBottomControls.module.js",
       "jsonpPath": "scripts/setFocusAfterFormAndHideBottomControls.jsonp.js"
     }

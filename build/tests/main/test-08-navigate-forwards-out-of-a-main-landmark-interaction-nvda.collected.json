@@ -25,7 +25,7 @@
     "setupScript": {
       "name": "setFocusOnBottomLink",
       "description": "sets focus on the 'Bottom' link",
-      "source": "// sets focus on the 'Bottom' link\ntestPageDocument.getElementById('bottom').focus();\n",
+      "source": "// sets focus on the 'Bottom' link\ntestPageDocument.querySelector('.button-run-test-setup').parentElement.style.display = 'none';\ntestPageDocument.getElementById('bottom').focus();\n",
       "modulePath": "scripts/setFocusOnBottomLink.module.js",
       "jsonpPath": "scripts/setFocusOnBottomLink.jsonp.js"
     }

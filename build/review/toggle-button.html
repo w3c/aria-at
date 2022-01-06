@@ -377,12 +377,14 @@
 	testPageDocument.querySelector('[role="slider"].red').focus();
 },	setFocusAfterMain: function(testPageDocument){
 	// sets focus on a link after the main landmark
+	testPageDocument.querySelector('.button-run-test-setup').parentElement.style.display = 'none';
 	testPageDocument.getElementById('afterlink').focus();
 },	setFocusBeforeMain: function(testPageDocument){
 	// sets focus on a link before the main landmark
 	testPageDocument.getElementById('beforelink').focus();
 },	setFocusOnBottomLink: function(testPageDocument){
 	// sets focus on the 'Bottom' link
+	testPageDocument.querySelector('.button-run-test-setup').parentElement.style.display = 'none';
 	testPageDocument.getElementById('bottom').focus();
 },	setFocusOnTopLink: function(testPageDocument){
 	// sets focus on the 'Top' link
@@ -840,7 +842,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-01-navigate-forwards-to-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -922,7 +924,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-02-navigate-backwards-to-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1004,7 +1006,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-03-navigate-forwards-to-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1080,7 +1082,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-04-navigate-backwards-to-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1156,7 +1158,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-05-navigate-forwards-to-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1207,7 +1209,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-06-navigate-backwards-to-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1258,7 +1260,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-07-navigate-forwards-to-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1340,7 +1342,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-08-navigate-backwards-to-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1422,7 +1424,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-09-navigate-forwards-to-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1498,7 +1500,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-10-navigate-backwards-to-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1574,7 +1576,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-11-navigate-forwards-to-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1625,7 +1627,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-12-navigate-backwards-to-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1676,7 +1678,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-13-read-information-about-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1754,7 +1756,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-14-read-information-about-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -1832,7 +1834,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-15-read-information-about-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1882,7 +1884,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-16-read-information-about-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -1960,7 +1962,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-17-read-information-about-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -2038,7 +2040,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-18-read-information-about-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2088,7 +2090,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-19-operate-not-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -2162,7 +2164,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-20-operate-not-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -2236,7 +2238,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-21-operate-not-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2286,7 +2288,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-22-operate-pressed-toggle-button-reading.html?at=jaws">jaws</a></li>
@@ -2360,7 +2362,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-23-operate-pressed-toggle-button-interaction.html?at=jaws">jaws</a></li>
@@ -2434,7 +2436,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Jan 6 14:39:17 2022 -0600</li>
+        <li>Last edited: Thu Jan 6 14:45:52 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/toggle-button/test-24-operate-pressed-toggle-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

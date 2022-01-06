@@ -25,7 +25,7 @@
     "setupScript": {
       "name": "setFocusAfterMain",
       "description": "sets focus on a link after the main landmark",
-      "source": "// sets focus on a link after the main landmark\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "source": "// sets focus on a link after the main landmark\ntestPageDocument.querySelector('.button-run-test-setup').parentElement.style.display = 'none';\ntestPageDocument.getElementById('afterlink').focus();\n",
       "modulePath": "scripts/setFocusAfterMain.module.js",
       "jsonpPath": "scripts/setFocusAfterMain.jsonp.js"
     }

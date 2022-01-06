@@ -1,0 +1,100 @@
+{
+  "info": {
+    "testId": 5,
+    "task": "read information about a meter",
+    "title": "Read information about a meter in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/meter/meter.html"
+      },
+      {
+        "refId": "meter",
+        "value": "https://w3c.github.io/aria/#meter"
+      },
+      {
+        "refId": "aria-valuemin",
+        "value": "https://w3c.github.io/aria/#aria-valuemin"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-11-10_142949/meter.setFocusOnMeter.html",
+    "setupScript": {
+      "name": "setFocusOnMeter",
+      "description": "sets focus on the meter",
+      "source": "// sets focus on the meter\ntestPageDocument.querySelector('[role=\"meter\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnMeter.module.js",
+      "jsonpPath": "scripts/setFocusOnMeter.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the meter, read information about the meter"
+    ],
+    "raw": "With the reading cursor on the meter, read information about the meter",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
+    },
+    {
+      "id": "INS_UP",
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'meter' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Central Processing Unit (CPU) Usage' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Numeric value '36.166519936288' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Minimum value '0' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Maximum value '100' is conveyed"
+    }
+  ]
+}

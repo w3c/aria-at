@@ -39,11 +39,32 @@
   },
   "commands": [
     {
-      "id": "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT,CTRL_OPT_RIGHT"
+      "id": "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT,CTRL_OPT_RIGHT",
+      "keystroke": "Control+Option+Right, then Control+Option+Right, then Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        },
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        },
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
     },
     {
       "id": "CTRL_OPT_CMD_L",
-      "keystroke": "Control+Option+Command+L"
+      "keystroke": "Control+Option+Command+L",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_CMD_L",
+          "keystroke": "Control+Option+Command+L"
+        }
+      ]
     }
   ],
   "assertions": [

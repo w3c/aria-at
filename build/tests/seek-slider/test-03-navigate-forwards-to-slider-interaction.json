@@ -1,0 +1,41 @@
+{
+  "setup_script_description": "sets focus on a link before the slider",
+  "setupTestPage": "setFocusBeforeSlider",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to slider",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Seek' slider.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'slider' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Seek' is conveyed"
+    ],
+    [
+      "1",
+      "Textual value '1 Minute 30 Seconds of 5 Minutes' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '90' is not conveyed"
+    ],
+    [
+      "1",
+      "Orientation 'horizontal' is conveyed"
+    ],
+    [
+      "1",
+      "Minimum value '0' is not conveyed"
+    ],
+    [
+      "1",
+      "Maximum value '300' is not conveyed"
+    ]
+  ]
+}

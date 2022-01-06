@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a switch in the off state in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/switch/switch.html">
+<link rel="help" href="https://w3c.github.io/aria/#switch">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<link rel="help" href="https://w3c.github.io/aria/#aria-hidden">
+
+<script>
+  var scripts = {
+		setFocusAfterSwitch: function(testPageDocument){
+			// sets focus on a link after the switch
+			testPageDocument.getElementById('afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link after the switch",
+  "setupTestPage": "setFocusAfterSwitch",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate backwards to a switch in the off state",
+  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Notifications' switch.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'switch' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Notifications' is conveyed"
+    ],
+    [
+      "1",
+      "State 'off' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to a switch in the off state": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_X" ],
+        [ "UP" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "nvda": [
+        [ "SHIFT_B" ],
+        [ "SHIFT_X" ],
+        [ "UP" ],
+        [ "SHIFT_TAB" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-24_132342/switch.setFocusAfterSwitch.html");
+  });
+</script>
+  

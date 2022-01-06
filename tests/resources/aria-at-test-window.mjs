@@ -24,7 +24,7 @@ export class TestWindow {
     this.window = window.open(
       this.pageUri,
       '_blank',
-      'toolbar=0,location=0,menubar=0,width=400,height=400'
+      'toolbar=0,location=0,menubar=0,width=800,height=800'
     );
 
     this.hooks.windowOpened();

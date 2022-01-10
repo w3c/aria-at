@@ -7,6 +7,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const { Readable } = require('stream');
 const {
   types: { isArrayBufferView, isArrayBuffer },
@@ -96,6 +97,9 @@ const createExampleTests = async ({ directory, args = {} }) => {
   const buildDirectory = path.join(rootDirectory, 'build');
   const testPlanBuildDirectory = path.join(buildDirectory, directory);
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
+
+  // create build directory if it doesn't exist
+  fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
 
   const existingBuildPromise = FileRecordChain.read(buildDirectory, {
     glob: [

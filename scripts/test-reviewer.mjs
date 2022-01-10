@@ -86,10 +86,17 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
       path.join(testPlanDirectory, 'data', 'references.csv'),
       'UTF-8'
     );
-    const reference = referencesCsv
+    const referenceLine = referencesCsv
       .split(/\r?\n/)
-      .find(s => s.startsWith('reference,'))
-      .split(',')[1];
+      .find(s => s.startsWith('reference,'));
+    const splitReferenceLine = referenceLine ? referenceLine.split(',') : null;
+    const reference = splitReferenceLine && splitReferenceLine.length > 1 && splitReferenceLine[1];
+
+    if (!reference) {
+      // force exit if file path reference not found
+      console.error(`'reference' not found in references.csv for ${directory}`);
+      process.exit(1);
+    }
 
     const scriptsPath = path.join(testPlanDirectory, 'data', 'js');
     fse.readdirSync(scriptsPath).forEach(function (scriptFile) {

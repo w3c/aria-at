@@ -945,7 +945,13 @@ function validateCommand(commandParsed, data, { addCommandError = () => {} } = {
         if (!key) {
           addCommandError(commandParsed.task, keypress.id);
         }
-        return key;
+        if (key) return key;
+        else {
+          console.error(
+            `Corresponding key for ${keypress.id} found in commands.csv not found in keys.mjs.`
+          );
+          process.exit(1);
+        }
       });
       return {
         id: id,

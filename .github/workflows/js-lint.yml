@@ -29,5 +29,5 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: Generate test files
+    - name: Run ESLint
       run: npm run lint

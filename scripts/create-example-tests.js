@@ -1160,6 +1160,15 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
  * @returns {AriaATFile.CollectedTest}
  */
 function collectTestData({ test, command, key, example, modeInstructionTemplate }) {
+  const referencePageLocation = example.where({
+    name: test.setupScript ? test.setupScript.name : '',
+  });
+
+  if (!referencePageLocation) {
+    console.error(`Unable to find setup script for ${test.setupScript.name}`);
+    process.exit(1);
+  }
+
   return {
     info: {
       testId: test.testId,
@@ -1170,7 +1179,7 @@ function collectTestData({ test, command, key, example, modeInstructionTemplate 
     target: {
       ...test.target,
       at: command.target.at,
-      referencePage: example.where({ name: test.setupScript ? test.setupScript.name : '' }).path,
+      referencePage: referencePageLocation.path,
       setupScript: test.setupScript,
     },
     instructions: {

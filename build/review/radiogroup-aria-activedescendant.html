@@ -21,37 +21,6 @@
     <script type="module">
       import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
 
-      function numberTests(value) {
-        let testNumber = 0;
-        let titleTextChanged = false;
-        let buttonTextChanged = false;
-
-        for (let result of document.querySelectorAll(value)) {
-          result.style.display = 'block';
-
-          if (titleTextChanged && buttonTextChanged) {
-            testNumber += 1;
-
-            titleTextChanged = false;
-            buttonTextChanged = false;
-          }
-
-          if (result.nodeName === 'H2') {
-            result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber + 1}:`);
-            titleTextChanged = true;
-          }
-
-          if (result.nodeName === 'BUTTON') {
-            result.value = `Open Test ${testNumber + 1} Page`;
-            result.innerText = `Open Test ${testNumber + 1} Page`;
-            buttonTextChanged = true;
-          }
-        }
-
-        let reviewPageTitle = document.querySelector('h1');
-        reviewPageTitle.innerText = reviewPageTitle.innerText.replace(/\(\d+\stest(s|)\)/g, `(${testNumber} test${testNumber !== 1 ? 's': ''})`);
-      }
-
       window.filterATs = function(button) {
         const val = button.value;
 
@@ -67,7 +36,6 @@
               at.checked = true;
             }
           }
-          numberTests('.nvda, .jaws, .voiceover_macos');
         }
         else {
           for (let at of document.querySelectorAll('input')) {
@@ -82,8 +50,12 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
+
           }
-          numberTests(`.${val}`);
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
+          }
         }
       };
 
@@ -860,9 +832,9 @@
     <fieldset>
       <legend>Filter tests by assistive technology</legend>
       <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
-      <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
-      <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
-      <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
+        <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
+        <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
+        <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
     <h2 class="jaws nvda">Test 1: Navigate to the first unchecked radio button in a group in reading mode</h2>
@@ -870,7 +842,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-01-navigate-to-first-unchecked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -934,7 +906,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the first radio button in the group. Note: You may need to press certain commands (such as Down Arrow) multiple times to hear all information relating to the radio button and group. using the following commands:
                <ul>
                    <li>F</li>
@@ -961,7 +933,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-02-navigate-to-first-unchecked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1018,7 +990,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-03-navigate-to-last-unchecked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -1082,7 +1054,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the last radio button in the group. Note: You may need to press certain commands (such as Up Arrow) multiple times to hear all information relating to the radio button and group. using the following commands:
                <ul>
                    <li>Shift+F</li>
@@ -1109,7 +1081,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-04-navigate-to-last-unchecked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1166,7 +1138,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-05-navigate-to-first-checked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -1230,7 +1202,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the first radio button in the group. using the following commands:
                <ul>
                    <li>F</li>
@@ -1257,7 +1229,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-06-navigate-to-first-checked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1314,7 +1286,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-07-navigate-to-last-checked-radio-button-in-group-reading.html?at=jaws">jaws</a></li>
@@ -1378,7 +1350,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the last radio button in the group. Note: You may need to press certain commands (such as Up Arrow) multiple times to hear all information relating to the radio button and group. using the following commands:
                <ul>
                    <li>Shift+F</li>
@@ -1405,7 +1377,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-08-navigate-to-last-checked-radio-button-in-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1462,7 +1434,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-09-navigate-forwards-to-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1549,7 +1521,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-10-navigate-forwards-to-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1605,7 +1577,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-11-navigate-backwards-to-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1692,7 +1664,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-12-navigate-backwards-to-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1748,7 +1720,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-13-navigate-forwards-to-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1835,7 +1807,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-14-navigate-forwards-to-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1891,7 +1863,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-15-navigate-backwards-to-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -1978,7 +1950,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-16-navigate-backwards-to-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2034,7 +2006,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-17-navigate-out-of-start-of-radio-group-reading.html?at=jaws">jaws</a></li>
@@ -2092,7 +2064,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Regular crust&#39; radio button, navigate out of the radio group. Note: You may need to press certain commands (such as Up Arrow) multiple times to hear all information relating to the group. using the following commands:
                <ul>
                    <li>Shift+Tab</li>
@@ -2116,7 +2088,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-18-navigate-out-of-start-of-radio-group-interaction.html?at=jaws">jaws</a></li>
@@ -2196,7 +2168,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-19-navigate-out-of-start-of-radio-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2248,7 +2220,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-20-navigate-out-of-end-of-radio-group-reading.html?at=jaws">jaws</a></li>
@@ -2306,7 +2278,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Thin crust&#39; radio button, navigate out of the radio group. Note: You may need to press certain commands (such as Down Arrow) multiple times to hear all information relating to the group. using the following commands:
                <ul>
                    <li>Tab</li>
@@ -2330,7 +2302,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-21-navigate-out-of-end-of-radio-group-interaction.html?at=jaws">jaws</a></li>
@@ -2410,7 +2382,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-22-navigate-out-of-end-of-radio-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2462,7 +2434,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-23-read-information-about-unchecked-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -2521,7 +2493,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Regular crust&#39; radio button, read information about the radio button. using the following commands:
                <ul>
                    <li>Insert+Tab</li>
@@ -2545,7 +2517,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-24-read-information-about-unchecked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2628,7 +2600,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-25-read-information-about-unchecked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2681,7 +2653,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-26-read-information-about-checked-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -2740,7 +2712,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Regular crust&#39; radio button, read information about the radio button. using the following commands:
                <ul>
                    <li>Insert+Tab</li>
@@ -2764,7 +2736,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-27-read-information-about-checked-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2847,7 +2819,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-28-read-information-about-checked-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2900,7 +2872,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-29-navigate-to-next-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -2983,7 +2955,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-30-navigate-to-next-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3037,7 +3009,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-31-navigate-to-previous-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3120,7 +3092,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-32-navigate-to-previous-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3174,7 +3146,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-33-navigate-to-first-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3257,7 +3229,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-34-navigate-to-first-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3310,7 +3282,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-35-navigate-to-last-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3393,7 +3365,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-36-navigate-to-last-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3446,7 +3418,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-37-check-radio-button-reading.html?at=jaws">jaws</a></li>
@@ -3498,7 +3470,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Regular crust&#39; radio button, check the radio button. using the following commands:
                <ul>
                    <li>Space</li>
@@ -3517,7 +3489,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-38-check-radio-button-interaction.html?at=jaws">jaws</a></li>
@@ -3588,7 +3560,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:27:05 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/radiogroup-aria-activedescendant/test-39-check-radio-button-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

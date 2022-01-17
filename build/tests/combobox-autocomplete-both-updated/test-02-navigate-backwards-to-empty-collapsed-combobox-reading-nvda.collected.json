@@ -40,10 +40,10 @@
   },
   "instructions": {
     "user": [
-      "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'State' Combobox."
+      "Navigate to the Combobox. Note: it should be in the collapsed state. You may need to press certain commands (such as Up Arrow) multiple times to hear all information relating to the combobox."
     ],
-    "raw": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'State' Combobox.",
-    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+    "raw": "Navigate to the Combobox. Note: it should be in the collapsed state. You may need to press certain commands (such as Up Arrow) multiple times to hear all information relating to the combobox.",
+    "mode": "Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
   },
   "commands": [
     {
@@ -87,13 +87,9 @@
       ]
     },
     {
-      "id": "UP,UP",
-      "keystroke": "Up Arrow, then Up Arrow",
+      "id": "UP",
+      "keystroke": "Up Arrow",
       "keypresses": [
-        {
-          "id": "UP",
-          "keystroke": "Up Arrow"
-        },
         {
           "id": "UP",
           "keystroke": "Up Arrow"

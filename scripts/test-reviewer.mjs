@@ -94,7 +94,7 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
 
     if (!reference) {
       // force exit if file path reference not found
-      console.error(`'reference' not found in references.csv for ${directory}`);
+      console.error(`ERROR: 'reference' value path defined in "tests/${directory}/data/references.csv" not found.`);
       process.exit(1);
     }
 

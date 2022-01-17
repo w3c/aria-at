@@ -673,17 +673,20 @@ ${rows}
   const commandQueryable = Queryable.from('command', commandsValidated);
   const testsCollected = testsValidated.flatMap(test => {
     return test.target.at.map(({ key }) =>
-      collectTestData({
-        test,
-        command: commandQueryable.where({
-          testId: test.testId,
-          target: { at: { key } },
-        }),
-        reference: referenceQueryable,
-        example: exampleScriptedFilesQueryable,
-        key: keyQueryable,
-        modeInstructionTemplate: MODE_INSTRUCTION_TEMPLATES_QUERYABLE,
-      })
+      collectTestData(
+        {
+          test,
+          command: commandQueryable.where({
+            testId: test.testId,
+            target: { at: { key } },
+          }),
+          reference: referenceQueryable,
+          example: exampleScriptedFilesQueryable,
+          key: keyQueryable,
+          modeInstructionTemplate: MODE_INSTRUCTION_TEMPLATES_QUERYABLE,
+        },
+        directory
+      )
     );
   });
 
@@ -1157,15 +1160,21 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
  * @param {Queryable<AriaATParsed.Key>} data.key
  * @param {Queryable<{name: string, path: string}>} data.example
  * @param {Queryable<{at: string, mode: string, render: function({key: *}): string}>} data.modeInstructionTemplate
+ * @param {string} testPlanDirectory
  * @returns {AriaATFile.CollectedTest}
  */
-function collectTestData({ test, command, key, example, modeInstructionTemplate }) {
+function collectTestData(
+  { test, command, key, example, modeInstructionTemplate },
+  testPlanDirectory
+) {
   const referencePageLocation = example.where({
     name: test.setupScript ? test.setupScript.name : '',
   });
 
   if (!referencePageLocation) {
-    console.error(`Unable to find setup script for ${test.setupScript.name}`);
+    console.error(
+      `ERROR: Setup script ${test.setupScript.name} found in "${testPlanDirectory}/tests.csv" for "test id ${test.testId}: ${test.task}" not defined in "${testPlanDirectory}/reference".`
+    );
     process.exit(1);
   }
 

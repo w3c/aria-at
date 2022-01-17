@@ -625,7 +625,7 @@ ${rows}
     support: supportQueryables,
   };
   const commandsValidated = commandsParsed.map(command =>
-    validateCommand(command, commandLookups, { addCommandError })
+    validateCommand(command, commandLookups, { addCommandError }, directory)
   );
 
   const referenceQueryable = Queryable.from('reference', referencesParsed);
@@ -925,9 +925,15 @@ function parseRefencesCSV(referenceRows) {
  * @param {Queryable<{key: string, name: string}>} data.support.at
  * @param {object} [options]
  * @param {function(string, string): void} [options.addCommandError]
+ * @param {string} testPlanDirectory
  * @returns {AriaATValidated.Command}
  */
-function validateCommand(commandParsed, data, { addCommandError = () => {} } = {}) {
+function validateCommand(
+  commandParsed,
+  data,
+  { addCommandError = () => {} } = {},
+  testPlanDirectory
+) {
   return {
     ...commandParsed,
     target: {
@@ -948,7 +954,7 @@ function validateCommand(commandParsed, data, { addCommandError = () => {} } = {
         if (key) return key;
         else {
           console.error(
-            `Corresponding key for ${keypress.id} found in commands.csv not found in keys.mjs.`
+            `ERROR: Key ${keypress.id} found in "${testPlanDirectory}/commands.csv" for "test id ${commandParsed.testId}: ${commandParsed.task}" not defined in "tests/resources/keys.mjs".`
           );
           process.exit(1);
         }

@@ -599,14 +599,14 @@ ${rows}
   ]);
 
   for (const row of refRows) {
-    refs[row.refId] = row.value.trim();
+    refs[row.refId || row[0]] = (row.value || row[1]).trim();
   }
 
   const scripts = loadScripts(scriptsRecord);
 
   const commandsParsed = atCommands.map(parseCommandCSVRow);
   const testsParsed = tests.map(parseTestCSVRow);
-  const referencesParsed = parseRefencesCSV(refRows);
+  const referencesParsed = parseReferencesCSV(refRows);
   const keysParsed = parseKeyMap(keyDefs);
   const supportParsed = parseSupport(support);
 
@@ -928,10 +928,13 @@ function parseKeyMap(keyDefs) {
  * @param {AriaATCSV.Reference[]} referenceRows
  * @returns {AriaATParsed.ReferenceMap}
  */
-function parseRefencesCSV(referenceRows) {
+function parseReferencesCSV(referenceRows) {
   const refMap = {};
-  for (const { refId, value } of referenceRows) {
-    refMap[refId] = { refId, value: value.trim() };
+  for (const row of referenceRows) {
+    refMap[row.refId || row[0]] = {
+      refId: row.refId || row[0],
+      value: (row.value || row[1]).trim(),
+    };
   }
   return refMap;
 }

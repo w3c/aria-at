@@ -599,7 +599,17 @@ ${rows}
   ]);
 
   for (const row of refRows) {
-    refs[row.refId || row[0]] = (row.value || row[1]).trim();
+    // assume refId and value column exists
+    const key = row.refId || row[0];
+    const value = row.value || row[1];
+
+    if (!value) {
+      log.warning(
+        `ERROR: value not found for refId "${key}" in "${directory}/data/references.csv"`
+      );
+      process.exit(1);
+    }
+    refs[key] = value.trim();
   }
 
   const scripts = loadScripts(scriptsRecord);
@@ -931,9 +941,11 @@ function parseKeyMap(keyDefs) {
 function parseReferencesCSV(referenceRows) {
   const refMap = {};
   for (const row of referenceRows) {
-    refMap[row.refId || row[0]] = {
-      refId: row.refId || row[0],
-      value: (row.value || row[1]).trim(),
+    const key = row.refId || row[0];
+    const value = row.value || row[1];
+    refMap[key] = {
+      refId: key,
+      value: value.trim(),
     };
   }
   return refMap;

@@ -62,39 +62,58 @@ async function main() {
 
   await Promise.all(
     filteredTestPlans.map(async directory => {
-      const { isSuccessfulRun, suppressedMessages } = await createExampleTests({
-        directory: path.join('tests', directory),
-        args,
-      });
-      if (isSuccessfulRun) {
-        successRunsCount++;
-      } else {
-        errorRunsCount++;
-      }
-
-      // increment total runs completed
-      totalRunsCount = successRunsCount + errorRunsCount;
-
-      // report how many messages have been hidden by not running in verbose mode
-      suppressedMessageCount = suppressedMessages;
-
-      if (totalRunsCount === filteredTestPlans.length) {
-        // last test plan has been ran
-        if (VALIDATE_CHECK) {
-          console.log(
-            `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed without any validation errors.\n`
-          );
+      try {
+        const { isSuccessfulRun, suppressedMessages } = await createExampleTests({
+          directory: path.join('tests', directory),
+          args,
+        });
+        if (isSuccessfulRun) {
+          successRunsCount++;
         } else {
-          console.log(
-            `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`
-          );
+          errorRunsCount++;
         }
 
+        // increment total runs completed
+        totalRunsCount = successRunsCount + errorRunsCount;
+
+        // report how many messages have been hidden by not running in verbose mode
+        suppressedMessageCount = suppressedMessages;
+
+        if (totalRunsCount === filteredTestPlans.length) {
+          // last test plan has been ran
+          if (VALIDATE_CHECK) {
+            console.log(
+              `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed without any validation errors.\n`
+            );
+          } else {
+            console.log(
+              `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`
+            );
+          }
+
+          if (!VERBOSE_CHECK) {
+            console.log(
+              `NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`
+            );
+          }
+        }
+      } catch (e) {
+        console.error(`ERROR: Unhandled exception thrown while processing "${directory}".`);
         if (!VERBOSE_CHECK) {
           console.log(
-            `NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`
+            `
+NOTE:
+  Run 'npm run create-all-tests -- --verbose' to view detailed information on error.
+  Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.
+  `
           );
+        } else {
+          console.error(`
+message: ${e.message}
+stacktrace: ${e.stack}
+          `);
         }
+        process.exit(1);
       }
     })
   );

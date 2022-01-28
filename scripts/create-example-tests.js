@@ -633,14 +633,12 @@ ${rows}
     ? referenceQueryable.where({ refId: 'reference' }).value
     : '';
   if (!examplePathOriginal) {
-    console.error(
-      `ERROR: Valid 'reference' value not found in "${directory}/data/references.csv".`
-    );
+    log.error(`ERROR: Valid 'reference' value not found in "${directory}/data/references.csv".`);
     process.exit(1);
   }
   const exampleRecord = testPlanRecord.find(examplePathOriginal);
   if (!exampleRecord.isFile()) {
-    console.error(
+    log.error(
       `ERROR: Invalid 'reference' value path "${examplePathOriginal}" found in "${directory}/data/references.csv".`
     );
     process.exit(1);

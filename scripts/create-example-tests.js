@@ -99,7 +99,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
 
   // create build directory if it doesn't exist
-  fs.existsSync(buildDirectory) || fs.mkdirSync(buildDirectory);
+  fs.mkdirSync(buildDirectory, { recursive: true });
 
   const existingBuildPromise = FileRecordChain.read(buildDirectory, {
     glob: [

@@ -634,14 +634,12 @@ ${rows}
     : '';
   if (!examplePathOriginal) {
     log.error(`ERROR: Valid 'reference' value not found in "${directory}/data/references.csv".`);
-    process.exit(1);
   }
   const exampleRecord = testPlanRecord.find(examplePathOriginal);
   if (!exampleRecord.isFile()) {
     log.error(
       `ERROR: Invalid 'reference' value path "${examplePathOriginal}" found in "${directory}/data/references.csv".`
     );
-    process.exit(1);
   }
   const testLookups = {
     command: Queryable.from('command', commandsValidated),

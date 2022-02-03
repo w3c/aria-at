@@ -1107,7 +1107,7 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
 
   if (testParsed.setupScript && !data.script.where({ name: testParsed.setupScript.name })) {
     addTestError(
-      `Setup script does not exist: "${testParsed.setupScript.name}" for "test id ${testParsed.testId}: ${testParsed.task}" not defined.`
+      `Setup script does not exist: "${testParsed.setupScript.name}" for task "${testParsed.task}"`
     );
   }
 

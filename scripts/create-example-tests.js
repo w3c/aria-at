@@ -568,10 +568,9 @@ ${rows}
     errors += '[Test ' + id + ']: ' + error + '\n';
   }
 
-  function addCommandError(task, key) {
+  function addCommandError({ testId, task }, key) {
     errorCount += 1;
-    errors +=
-      '[Command]: The key reference "' + key + '" is invalid for the "' + task + '" task.\n';
+    errors += `[Command]: The key reference "${key}" found in "${directory}/data/commands.csv" for "test id ${testId}: ${task}" is invalid. Command may not be defined in "tests/resources/keys.mjs".\n`;
   }
 
   const newTestPlan = newBuild.find(`tests/${path.basename(testPlanBuildDirectory)}`);
@@ -625,7 +624,7 @@ ${rows}
     support: supportQueryables,
   };
   const commandsValidated = commandsParsed.map(command =>
-    validateCommand(command, commandLookups, { addCommandError }, directory)
+    validateCommand(command, commandLookups, { addCommandError })
   );
 
   const referenceQueryable = Queryable.from('reference', referencesParsed);
@@ -924,16 +923,10 @@ function parseRefencesCSV(referenceRows) {
  * @param {object} data.support
  * @param {Queryable<{key: string, name: string}>} data.support.at
  * @param {object} [options]
- * @param {function(string, string): void} [options.addCommandError]
- * @param {string} testPlanDirectory
+ * @param {function(AriaATParsed.Command, string): void} [options.addCommandError]
  * @returns {AriaATValidated.Command}
  */
-function validateCommand(
-  commandParsed,
-  data,
-  { addCommandError = () => {} } = {},
-  testPlanDirectory
-) {
+function validateCommand(commandParsed, data, { addCommandError = () => {} } = {}) {
   return {
     ...commandParsed,
     target: {
@@ -949,15 +942,9 @@ function validateCommand(
       const keypresses = commandKeypresses.map(keypress => {
         const key = data.key.where(keypress);
         if (!key) {
-          addCommandError(commandParsed.task, keypress.id);
+          addCommandError(commandParsed, keypress.id);
         }
-        if (key) return key;
-        else {
-          console.error(
-            `ERROR: Key ${keypress.id} found in "${testPlanDirectory}/commands.csv" for "test id ${commandParsed.testId}: ${commandParsed.task}" not defined in "tests/resources/keys.mjs".`
-          );
-          process.exit(1);
-        }
+        return key || {};
       });
       return {
         id: id,

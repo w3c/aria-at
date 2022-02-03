@@ -207,6 +207,9 @@ const createExampleTests = async ({ directory, args = {} }) => {
   ) {
     let scripts = [];
 
+    // default setupScript if test has undefined setupScript
+    if (!scriptsRecord.find(`${test.setupScript}.js`).isFile()) test.setupScript = '';
+
     function getModeValue(value) {
       let v = value.trim().toLowerCase();
       if (!validModes.includes(v)) {
@@ -673,20 +676,17 @@ ${rows}
   const commandQueryable = Queryable.from('command', commandsValidated);
   const testsCollected = testsValidated.flatMap(test => {
     return test.target.at.map(({ key }) =>
-      collectTestData(
-        {
-          test,
-          command: commandQueryable.where({
-            testId: test.testId,
-            target: { at: { key } },
-          }),
-          reference: referenceQueryable,
-          example: exampleScriptedFilesQueryable,
-          key: keyQueryable,
-          modeInstructionTemplate: MODE_INSTRUCTION_TEMPLATES_QUERYABLE,
-        },
-        directory
-      )
+      collectTestData({
+        test,
+        command: commandQueryable.where({
+          testId: test.testId,
+          target: { at: { key } },
+        }),
+        reference: referenceQueryable,
+        example: exampleScriptedFilesQueryable,
+        key: keyQueryable,
+        modeInstructionTemplate: MODE_INSTRUCTION_TEMPLATES_QUERYABLE,
+      })
     );
   });
 
@@ -1106,7 +1106,9 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
   });
 
   if (testParsed.setupScript && !data.script.where({ name: testParsed.setupScript.name })) {
-    addTestError(`Setup script does not exist: ${testParsed.setupScript.name}`);
+    addTestError(
+      `Setup script does not exist: "${testParsed.setupScript.name}" for "test id ${testParsed.testId}: ${testParsed.task}" not defined.`
+    );
   }
 
   const assertions = testParsed.assertions.map(assertion => {
@@ -1143,12 +1145,13 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
       })),
       mode: testParsed.target.mode,
     },
-    setupScript: testParsed.setupScript
-      ? {
-          ...testParsed.setupScript,
-          ...data.script.where({ name: testParsed.setupScript.name }),
-        }
-      : undefined,
+    setupScript:
+      testParsed.setupScript && data.script.where({ name: testParsed.setupScript.name })
+        ? {
+            ...testParsed.setupScript,
+            ...data.script.where({ name: testParsed.setupScript.name }),
+          }
+        : undefined,
     assertions,
   };
 }
@@ -1160,24 +1163,9 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
  * @param {Queryable<AriaATParsed.Key>} data.key
  * @param {Queryable<{name: string, path: string}>} data.example
  * @param {Queryable<{at: string, mode: string, render: function({key: *}): string}>} data.modeInstructionTemplate
- * @param {string} testPlanDirectory
  * @returns {AriaATFile.CollectedTest}
  */
-function collectTestData(
-  { test, command, key, example, modeInstructionTemplate },
-  testPlanDirectory
-) {
-  const referencePageLocation = example.where({
-    name: test.setupScript ? test.setupScript.name : '',
-  });
-
-  if (!referencePageLocation) {
-    console.error(
-      `ERROR: Setup script ${test.setupScript.name} found in "${testPlanDirectory}/tests.csv" for "test id ${test.testId}: ${test.task}" not defined in "${testPlanDirectory}/reference".`
-    );
-    process.exit(1);
-  }
-
+function collectTestData({ test, command, key, example, modeInstructionTemplate }) {
   return {
     info: {
       testId: test.testId,
@@ -1188,7 +1176,7 @@ function collectTestData(
     target: {
       ...test.target,
       at: command.target.at,
-      referencePage: referencePageLocation.path,
+      referencePage: example.where({ name: test.setupScript ? test.setupScript.name : '' }).path,
       setupScript: test.setupScript,
     },
     instructions: {

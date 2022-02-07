@@ -21,37 +21,6 @@
     <script type="module">
       import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
 
-      function numberTests(value) {
-        let testNumber = 0;
-        let titleTextChanged = false;
-        let buttonTextChanged = false;
-
-        for (let result of document.querySelectorAll(value)) {
-          result.style.display = 'block';
-
-          if (titleTextChanged && buttonTextChanged) {
-            testNumber += 1;
-
-            titleTextChanged = false;
-            buttonTextChanged = false;
-          }
-
-          if (result.nodeName === 'H2') {
-            result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber + 1}:`);
-            titleTextChanged = true;
-          }
-
-          if (result.nodeName === 'BUTTON') {
-            result.value = `Open Test ${testNumber + 1} Page`;
-            result.innerText = `Open Test ${testNumber + 1} Page`;
-            buttonTextChanged = true;
-          }
-        }
-
-        let reviewPageTitle = document.querySelector('h1');
-        reviewPageTitle.innerText = reviewPageTitle.innerText.replace(/\(\d+\stest(s|)\)/g, `(${testNumber} test${testNumber !== 1 ? 's': ''})`);
-      }
-
       window.filterATs = function(button) {
         const val = button.value;
 
@@ -67,7 +36,6 @@
               at.checked = true;
             }
           }
-          numberTests('.nvda, .jaws, .voiceover_macos');
         }
         else {
           for (let at of document.querySelectorAll('input')) {
@@ -82,8 +50,12 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
+
           }
-          numberTests(`.${val}`);
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
+          }
         }
       };
 
@@ -860,9 +832,9 @@
     <fieldset>
       <legend>Filter tests by assistive technology</legend>
       <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
-      <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
-      <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
-      <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
+        <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
+        <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
+        <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
     <h2 class="jaws nvda">Test 1: Navigate forwards into a main landmark in reading mode</h2>
@@ -870,7 +842,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-01-navigate-forwards-into-a-main-landmark-reading.html?at=jaws">jaws</a></li>
@@ -928,7 +900,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Navigate forwards from here&#39; link, navigate to the &#39;Top&#39; link. using the following commands:
                <ul>
                    <li>D</li>
@@ -953,7 +925,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-02-navigate-forwards-into-a-main-landmark-interaction.html?at=jaws">jaws</a></li>
@@ -1028,7 +1000,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-03-navigate-forwards-into-a-main-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1077,7 +1049,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-04-navigate-backwards-into-a-main-landmark-reading.html?at=jaws">jaws</a></li>
@@ -1133,7 +1105,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Navigate backwards from here&#39; link, navigate to the &#39;Bottom&#39; link. using the following commands:
                <ul>
                    <li>Up Arrow</li>
@@ -1157,7 +1129,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-05-navigate-backwards-into-a-main-landmark-interaction.html?at=jaws">jaws</a></li>
@@ -1232,7 +1204,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-06-navigate-backwards-into-a-main-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1281,7 +1253,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-07-navigate-forwards-out-of-a-main-landmark-reading.html?at=jaws">jaws</a></li>
@@ -1337,7 +1309,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Bottom&#39; link, navigate to the &#39;Navigate backwards from here&#39; link. using the following commands:
                <ul>
                    <li>Down Arrow</li>
@@ -1361,7 +1333,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-08-navigate-forwards-out-of-a-main-landmark-interaction.html?at=jaws">jaws</a></li>
@@ -1436,7 +1408,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-09-navigate-forwards-out-of-a-main-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1485,7 +1457,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-10-navigate-backwards-out-of-a-main-landmark-reading.html?at=jaws">jaws</a></li>
@@ -1541,7 +1513,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Top&#39; link, navigate to the &#39;Navigate forwards from here&#39; link. using the following commands:
                <ul>
                    <li>Up Arrow</li>
@@ -1565,7 +1537,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-11-navigate-backwards-out-of-a-main-landmark-interaction.html?at=jaws">jaws</a></li>
@@ -1640,7 +1612,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-12-navigate-backwards-out-of-a-main-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1689,7 +1661,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-13-navigate-forwards-to-a-heading-inside-a-main-landmark-reading.html?at=jaws">jaws</a></li>
@@ -1745,7 +1717,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Navigate forwards from here&#39; link, navigate to the &#39;Main Landmark&#39; heading. using the following commands:
                <ul>
                    <li>H</li>
@@ -1768,7 +1740,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-14-navigate-forwards-to-a-heading-inside-a-main-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1817,7 +1789,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-15-navigate-backwards-to-a-heading-inside-a-main-landmark-reading.html?at=jaws">jaws</a></li>
@@ -1873,7 +1845,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Navigate backwards from here&#39; link, navigate to the &#39;Main Landmark&#39; heading. using the following commands:
                <ul>
                    <li>Shift+H</li>
@@ -1896,7 +1868,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Thu Jan 6 14:50:28 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/main/test-16-navigate-backwards-to-a-heading-inside-a-main-landmark-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

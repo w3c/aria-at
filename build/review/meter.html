@@ -21,37 +21,6 @@
     <script type="module">
       import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
 
-      function numberTests(value) {
-        let testNumber = 0;
-        let titleTextChanged = false;
-        let buttonTextChanged = false;
-
-        for (let result of document.querySelectorAll(value)) {
-          result.style.display = 'block';
-
-          if (titleTextChanged && buttonTextChanged) {
-            testNumber += 1;
-
-            titleTextChanged = false;
-            buttonTextChanged = false;
-          }
-
-          if (result.nodeName === 'H2') {
-            result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber + 1}:`);
-            titleTextChanged = true;
-          }
-
-          if (result.nodeName === 'BUTTON') {
-            result.value = `Open Test ${testNumber + 1} Page`;
-            result.innerText = `Open Test ${testNumber + 1} Page`;
-            buttonTextChanged = true;
-          }
-        }
-
-        let reviewPageTitle = document.querySelector('h1');
-        reviewPageTitle.innerText = reviewPageTitle.innerText.replace(/\(\d+\stest(s|)\)/g, `(${testNumber} test${testNumber !== 1 ? 's': ''})`);
-      }
-
       window.filterATs = function(button) {
         const val = button.value;
 
@@ -67,7 +36,6 @@
               at.checked = true;
             }
           }
-          numberTests('.nvda, .jaws, .voiceover_macos');
         }
         else {
           for (let at of document.querySelectorAll('input')) {
@@ -82,8 +50,12 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
+
           }
-          numberTests(`.${val}`);
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
+          }
         }
       };
 
@@ -860,9 +832,9 @@
     <fieldset>
       <legend>Filter tests by assistive technology</legend>
       <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
-      <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
-      <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
-      <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
+        <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
+        <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
+        <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
     <h2 class="jaws nvda">Test 1: Navigate forwards to a meter in reading mode</h2>
@@ -870,7 +842,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Mon Jan 3 17:38:49 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/meter/test-01-navigate-forwards-to-a-meter-reading.html?at=jaws">jaws</a></li>
@@ -930,7 +902,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Navigate forwards from here&#39; link, navigate to the meter. using the following commands:
                <ul>
                    <li>Down Arrow</li>
@@ -953,7 +925,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Mon Jan 3 17:38:49 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/meter/test-02-navigate-forwards-to-a-meter-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1007,7 +979,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Mon Jan 3 17:38:49 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/meter/test-03-navigate-backwards-to-a-meter-reading.html?at=jaws">jaws</a></li>
@@ -1067,7 +1039,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Navigate backwards from here&#39; link, navigate to the meter. using the following commands:
                <ul>
                    <li>Up Arrow</li>
@@ -1090,7 +1062,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Mon Jan 3 17:38:49 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/meter/test-04-navigate-backwards-to-a-meter-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1144,7 +1116,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Mon Jan 3 17:38:49 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/meter/test-05-read-information-about-a-meter-reading.html?at=jaws">jaws</a></li>
@@ -1205,7 +1177,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the meter, read information about the meter using the following commands:
                <ul>
                    <li>Insert+Tab</li>
@@ -1229,7 +1201,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Mon Jan 3 17:38:49 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/meter/test-06-read-information-about-a-meter-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1284,7 +1256,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Mon Jan 3 17:38:49 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/meter/test-07-trigger-a-meter-update-reading.html?at=jaws">jaws</a></li>
@@ -1337,7 +1309,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the &#39;Change Value&#39; button, activate the button to trigger a meter update. using the following commands:
                <ul>
                    <li>Space</li>
@@ -1357,7 +1329,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Mon Jan 3 17:38:49 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/meter/test-08-trigger-a-meter-update-interaction.html?at=jaws">jaws</a></li>
@@ -1430,7 +1402,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Mon Jan 3 17:38:49 2022 -0600</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/meter/test-09-trigger-a-meter-update-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

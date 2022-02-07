@@ -21,37 +21,6 @@
     <script type="module">
       import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
 
-      function numberTests(value) {
-        let testNumber = 0;
-        let titleTextChanged = false;
-        let buttonTextChanged = false;
-
-        for (let result of document.querySelectorAll(value)) {
-          result.style.display = 'block';
-
-          if (titleTextChanged && buttonTextChanged) {
-            testNumber += 1;
-
-            titleTextChanged = false;
-            buttonTextChanged = false;
-          }
-
-          if (result.nodeName === 'H2') {
-            result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber + 1}:`);
-            titleTextChanged = true;
-          }
-
-          if (result.nodeName === 'BUTTON') {
-            result.value = `Open Test ${testNumber + 1} Page`;
-            result.innerText = `Open Test ${testNumber + 1} Page`;
-            buttonTextChanged = true;
-          }
-        }
-
-        let reviewPageTitle = document.querySelector('h1');
-        reviewPageTitle.innerText = reviewPageTitle.innerText.replace(/\(\d+\stest(s|)\)/g, `(${testNumber} test${testNumber !== 1 ? 's': ''})`);
-      }
-
       window.filterATs = function(button) {
         const val = button.value;
 
@@ -67,7 +36,6 @@
               at.checked = true;
             }
           }
-          numberTests('.nvda, .jaws, .voiceover_macos');
         }
         else {
           for (let at of document.querySelectorAll('input')) {
@@ -82,8 +50,12 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
+
           }
-          numberTests(`.${val}`);
+
+          for (let result of document.querySelectorAll(`.${val}`)) {
+            result.style.display = 'block';
+          }
         }
       };
 
@@ -860,9 +832,9 @@
     <fieldset>
       <legend>Filter tests by assistive technology</legend>
       <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
-      <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
-      <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
-      <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
+        <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
+        <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
+        <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
     <h2 class="jaws nvda">Test 1: Navigate to an unchecked checkbox in reading mode</h2>
@@ -870,7 +842,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-01-navigate-to-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -919,7 +891,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the first checkbox. Note: it should be in the unchecked state. using the following commands:
                <ul>
                    <li>X &#x2F; Shift+X</li>
@@ -943,7 +915,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-02-navigate-to-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1009,7 +981,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-03-navigate-to-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1055,7 +1027,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-04-navigate-to-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1114,7 +1086,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the first checkbox. Note: it should be in the checked state. using the following commands:
                <ul>
                    <li>X &#x2F; Shift+X</li>
@@ -1138,7 +1110,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-05-navigate-to-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1214,7 +1186,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-06-navigate-to-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1265,7 +1237,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-07-operate-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1308,7 +1280,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Check and uncheck the first checkbox. using the following commands:
                <ul>
                    <li>Enter</li>
@@ -1328,7 +1300,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-08-operate-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1389,7 +1361,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-09-operate-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1431,7 +1403,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-10-read-unchecked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1487,7 +1459,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>When the reading cursor is on the first checkbox, read the first checkbox using the following commands:
                <ul>
                    <li>Insert+Tab</li>
@@ -1509,7 +1481,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-11-read-unchecked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1587,7 +1559,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-12-read-unchecked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1637,7 +1609,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-13-read-checked-checkbox-reading.html?at=jaws">jaws</a></li>
@@ -1693,7 +1665,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>When the reading cursor is on the first checkbox, read the first checkbox.  Note: it should be in the checked state. using the following commands:
                <ul>
                    <li>Insert+Tab</li>
@@ -1715,7 +1687,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-14-read-checked-checkbox-interaction.html?at=jaws">jaws</a></li>
@@ -1793,7 +1765,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Fri Oct 1 11:21:00 2021 -0400</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-15-read-checked-checkbox-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1843,7 +1815,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-16-read-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -1887,7 +1859,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>When reading cursor is on a checkbox, read its grouping information using the following commands:
                <ul>
                    <li>Insert+Tab</li>
@@ -1907,7 +1879,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-17-read-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -1971,7 +1943,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-18-read-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2015,7 +1987,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-19-navigate-sequentially-through-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -2062,7 +2034,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate both forward and backward into and out of  the checkbox group. using the following commands:
                <ul>
                    <li>Up Arrow</li>
@@ -2084,7 +2056,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-20-navigate-sequentially-through-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2130,7 +2102,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-21-navigate-into-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -2181,7 +2153,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate from outside the checkbox group to a checkbox inside the group. Test both navigating forward into the start and backward into the end. using the following commands:
                <ul>
                    <li>X</li>
@@ -2207,7 +2179,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-22-navigate-into-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2276,7 +2248,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-23-navigate-into-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2326,7 +2298,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-24-navigate-out-of-checkbox-group-reading.html?at=jaws">jaws</a></li>
@@ -2373,7 +2345,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start. using the following commands:
                <ul>
                    <li>Tab</li>
@@ -2395,7 +2367,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-25-navigate-out-of-checkbox-group-interaction.html?at=jaws">jaws</a></li>
@@ -2464,7 +2436,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 16:24:22 2022 +0000</li>
+        <li>Last edited: Tue Jun 29 16:13:31 2021 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/checkbox/test-26-navigate-out-of-checkbox-group-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

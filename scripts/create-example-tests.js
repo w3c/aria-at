@@ -801,7 +801,6 @@ function exampleTemplateParams(name, source) {
   };
 }
 
-
 function cleanObjectBOM(obj) {
   const result = {};
 

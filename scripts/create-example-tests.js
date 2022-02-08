@@ -583,11 +583,21 @@ ${rows}
     });
   }
 
+  function validateCSVKeys(result) {
+    for (const row of result) {
+      if (typeof row.refId !== 'string' || typeof row.value !== 'string')
+        log.error(
+          `ERROR: References CSV file processing failed: ${referencesCsvFilePath}. Ensure rows are properly formatted.`
+        );
+    }
+    log(`References CSV file successfully processed: ${referencesCsvFilePath}`);
+    return result;
+  }
+
   const [refRows, atCommands, tests] = await Promise.all([
-    readCSV(testPlanRecord.find('data/references.csv')).then(rows => {
-      log(`References CSV file successfully processed: ${referencesCsvFilePath}`);
-      return rows;
-    }),
+    readCSV(testPlanRecord.find('data/references.csv'))
+      .then(rows => rows)
+      .then(validateCSVKeys),
     readCSV(testPlanRecord.find('data/commands.csv')).then(rows => {
       log(`Commands CSV file successfully processed: ${atCommandsCsvFilePath}`);
       return rows;
@@ -599,17 +609,7 @@ ${rows}
   ]);
 
   for (const row of refRows) {
-    // assume refId and value column exists
-    const key = row.refId || row[0];
-    const value = row.value || row[1];
-
-    if (!value) {
-      log.warning(
-        `ERROR: value not found for refId "${key}" in "${directory}/data/references.csv"`
-      );
-      process.exit(1);
-    }
-    refs[key] = value.trim();
+    refs[row.refId] = row.value.trim();
   }
 
   const scripts = loadScripts(scriptsRecord);
@@ -940,13 +940,8 @@ function parseKeyMap(keyDefs) {
  */
 function parseReferencesCSV(referenceRows) {
   const refMap = {};
-  for (const row of referenceRows) {
-    const key = row.refId || row[0];
-    const value = row.value || row[1];
-    refMap[key] = {
-      refId: key,
-      value: value.trim(),
-    };
+  for (const { refId, value } of referenceRows) {
+    refMap[refId] = { refId, value: value.trim() };
   }
   return refMap;
 }

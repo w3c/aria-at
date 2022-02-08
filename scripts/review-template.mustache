@@ -22,6 +22,34 @@
       import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
 
       window.filterATs = function(button) {
+        function numberTests(value) {
+          let testNumber = 1;
+          let titleTextChanged = false;
+          let buttonTextChanged = false;
+
+          for (let result of document.querySelectorAll(`.${value}`)) {
+            result.style.display = 'block';
+
+            if (titleTextChanged && buttonTextChanged) {
+              testNumber += 1;
+
+              titleTextChanged = false;
+              buttonTextChanged = false;
+            }
+
+            if (result.nodeName === 'H2') {
+              result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber}:`);
+              titleTextChanged = true;
+            }
+
+            if (result.nodeName === 'BUTTON') {
+              result.value = `Open Test ${testNumber} Page`;
+              result.innerText = `Open Test ${testNumber} Page`;
+              buttonTextChanged = true;
+            }
+          }
+        }
+
         const val = button.value;
 
         if (val === 'all') {
@@ -56,33 +84,33 @@
         }
       };
 
-      window.numberTests = function(value) {
-        let testNumber = 1;
-        let titleTextChanged = false;
-        let buttonTextChanged = false;
-
-        for (let result of document.querySelectorAll(`.${value}`)) {
-          result.style.display = 'block';
-
-          if (titleTextChanged && buttonTextChanged) {
-            testNumber += 1;
-
-            titleTextChanged = false;
-            buttonTextChanged = false;
-          }
-
-          if (result.nodeName === 'H2') {
-            result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber}:`);
-            titleTextChanged = true;
-          }
-
-          if (result.nodeName === 'BUTTON') {
-            result.value = `Open Test ${testNumber} Page`;
-            result.innerText = `Open Test ${testNumber} Page`;
-            buttonTextChanged = true;
-          }
-        }
-      }
+      // window.numberTests = function(value) {
+      //   let testNumber = 1;
+      //   let titleTextChanged = false;
+      //   let buttonTextChanged = false;
+      //
+      //   for (let result of document.querySelectorAll(`.${value}`)) {
+      //     result.style.display = 'block';
+      //
+      //     if (titleTextChanged && buttonTextChanged) {
+      //       testNumber += 1;
+      //
+      //       titleTextChanged = false;
+      //       buttonTextChanged = false;
+      //     }
+      //
+      //     if (result.nodeName === 'H2') {
+      //       result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber}:`);
+      //       titleTextChanged = true;
+      //     }
+      //
+      //     if (result.nodeName === 'BUTTON') {
+      //       result.value = `Open Test ${testNumber} Page`;
+      //       result.innerText = `Open Test ${testNumber} Page`;
+      //       buttonTextChanged = true;
+      //     }
+      //   }
+      // }
 
       var scripts = {
         {{{setupScripts}}}

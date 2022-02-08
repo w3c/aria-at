@@ -801,6 +801,24 @@ function exampleTemplateParams(name, source) {
   };
 }
 
+
+function cleanObjectBOM(obj) {
+  const result = {};
+
+  Object.entries(obj).forEach(([key, value]) => {
+    if (key.toLowerCase().includes('\ufeff'))
+      console.error(
+        `Unwanted U+FEFF found for key in key, value pair (${key}: ${value}) while processing CSVs.`
+      );
+    if (value.toLowerCase().includes('\ufeff'))
+      console.error(
+        `Unwanted U+FEFF found for value in key, value pair (${key}: ${value}) while processing CSVs.`
+      );
+    result[key.replace(/^\uFEFF/g, '')] = value.replace(/^\uFEFF/g, '');
+  });
+  return result;
+}
+
 /**
  * @param {FileRecord.Record} record
  * @returns {Promise<string[][]>}
@@ -811,7 +829,7 @@ function readCSV(record) {
     Readable.from(record.buffer)
       .pipe(csv())
       .on('data', row => {
-        rows.push(row);
+        rows.push(cleanObjectBOM(row));
       })
       .on('end', () => {
         resolve(rows);

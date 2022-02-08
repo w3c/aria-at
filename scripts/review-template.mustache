@@ -21,6 +21,34 @@
     <script type="module">
       import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
 
+      function numberTests(value) {
+        let testNumber = 1;
+        let titleTextChanged = false;
+        let buttonTextChanged = false;
+
+        for (let result of document.querySelectorAll(`.${value}`)) {
+          result.style.display = 'block';
+
+          if (titleTextChanged && buttonTextChanged) {
+            testNumber += 1;
+
+            titleTextChanged = false;
+            buttonTextChanged = false;
+          }
+
+          if (result.nodeName === 'H2') {
+            result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber}:`);
+            titleTextChanged = true;
+          }
+
+          if (result.nodeName === 'BUTTON') {
+            result.value = `Open Test ${testNumber} Page`;
+            result.innerText = `Open Test ${testNumber} Page`;
+            buttonTextChanged = true;
+          }
+        }
+      }
+
       window.filterATs = function(button) {
         const val = button.value;
 
@@ -36,6 +64,7 @@
               at.checked = true;
             }
           }
+          numberTests(val);
         }
         else {
           for (let at of document.querySelectorAll('input')) {
@@ -50,12 +79,8 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-
           }
-
-          for (let result of document.querySelectorAll(`.${val}`)) {
-            result.style.display = 'block';
-          }
+          numberTests(val);
         }
       };
 
@@ -91,7 +116,7 @@
       <legend>Filter tests by assistive technology</legend>
       <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
       {{#AToptions}}
-        <input type="radio" onclick="filterATs(this)" id="{{key}}" value="{{key}}"><label for="{{key}}">{{name}}</label>
+      <input type="radio" onclick="filterATs(this)" id="{{key}}" value="{{key}}"><label for="{{key}}">{{name}}</label>
       {{/AToptions}}
     </fieldset>
 

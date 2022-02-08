@@ -801,23 +801,6 @@ function exampleTemplateParams(name, source) {
   };
 }
 
-function cleanObjectBOM(obj) {
-  const result = {};
-
-  Object.entries(obj).forEach(([key, value]) => {
-    if (key.toLowerCase().includes('\ufeff'))
-      console.error(
-        `Unwanted U+FEFF found for key in key, value pair (${key}: ${value}) while processing CSVs.`
-      );
-    if (value.toLowerCase().includes('\ufeff'))
-      console.error(
-        `Unwanted U+FEFF found for value in key, value pair (${key}: ${value}) while processing CSVs.`
-      );
-    result[key.replace(/^\uFEFF/g, '')] = value.replace(/^\uFEFF/g, '');
-  });
-  return result;
-}
-
 /**
  * @param {FileRecord.Record} record
  * @returns {Promise<string[][]>}
@@ -826,9 +809,24 @@ function readCSV(record) {
   const rows = [];
   return new Promise(resolve => {
     Readable.from(record.buffer)
-      .pipe(csv())
+      .pipe(
+        csv({
+          mapHeaders: ({ header, index }) => {
+            if (header.toLowerCase().includes('\ufeff'))
+              console.error(`Unwanted U+FEFF found for key ${header} at index ${index} while processing CSV.`);
+            return header.replace(/^\uFEFF/g, '');
+          },
+          mapValues: ({ header, value }) => {
+            if (value.toLowerCase().includes('\ufeff'))
+              console.error(
+                `Unwanted U+FEFF found for value in key, value pair (${header}: ${value}) while processing CSV.`
+              );
+            return value.replace(/^\uFEFF/g, '');
+          },
+        })
+      )
       .on('data', row => {
-        rows.push(cleanObjectBOM(row));
+        rows.push(row);
       })
       .on('end', () => {
         resolve(rows);

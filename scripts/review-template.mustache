@@ -21,7 +21,7 @@
     <script type="module">
       import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
 
-      function numberTests(value) {
+      window.numberTests = function(value) {
         let testNumber = 1;
         let titleTextChanged = false;
         let buttonTextChanged = false;

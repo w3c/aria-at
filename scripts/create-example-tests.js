@@ -813,7 +813,9 @@ function readCSV(record) {
         csv({
           mapHeaders: ({ header, index }) => {
             if (header.toLowerCase().includes('\ufeff'))
-              console.error(`Unwanted U+FEFF found for key ${header} at index ${index} while processing CSV.`);
+              console.error(
+                `Unwanted U+FEFF found for key ${header} at index ${index} while processing CSV.`
+              );
             return header.replace(/^\uFEFF/g, '');
           },
           mapValues: ({ header, value }) => {

@@ -21,6 +21,11 @@
         padding: .5em;
       }
 
+      tr:not(:first-of-type) th {
+        padding: .5em;
+        text-align: left;
+      }
+
     </style>
   </head>
   <body>
@@ -37,7 +42,7 @@
       </tr>
       {{#patterns}}
           <tr>
-            <td>{{name}}</td>
+            <th>{{name}}</th>
             <td><a href="./tests/{{name}}/index.html">Index</a></td>
             <td><a href="./review/{{name}}.html">Review</a></td>
             <td>{{numberOfTests}}</td>

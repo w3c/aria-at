@@ -629,8 +629,18 @@ ${rows}
   );
 
   const referenceQueryable = Queryable.from('reference', referencesParsed);
-  const examplePathOriginal = referenceQueryable.where({ refId: 'reference' }).value;
+  const examplePathOriginal = referenceQueryable.where({ refId: 'reference' })
+    ? referenceQueryable.where({ refId: 'reference' }).value
+    : '';
+  if (!examplePathOriginal) {
+    log.error(`ERROR: Valid 'reference' value not found in "${directory}/data/references.csv".`);
+  }
   const exampleRecord = testPlanRecord.find(examplePathOriginal);
+  if (!exampleRecord.isFile()) {
+    log.error(
+      `ERROR: Invalid 'reference' value path "${examplePathOriginal}" found in "${directory}/data/references.csv".`
+    );
+  }
   const testLookups = {
     command: Queryable.from('command', commandsValidated),
     mode: Queryable.from('mode', validModes),

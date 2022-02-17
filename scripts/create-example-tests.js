@@ -207,6 +207,9 @@ const createExampleTests = async ({ directory, args = {} }) => {
   ) {
     let scripts = [];
 
+    // default setupScript if test has undefined setupScript
+    if (!scriptsRecord.find(`${test.setupScript}.js`).isFile()) test.setupScript = '';
+
     function getModeValue(value) {
       let v = value.trim().toLowerCase();
       if (!validModes.includes(v)) {
@@ -1103,7 +1106,9 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
   });
 
   if (testParsed.setupScript && !data.script.where({ name: testParsed.setupScript.name })) {
-    addTestError(`Setup script does not exist: ${testParsed.setupScript.name}`);
+    addTestError(
+      `Setup script does not exist: "${testParsed.setupScript.name}" for task "${testParsed.task}"`
+    );
   }
 
   const assertions = testParsed.assertions.map(assertion => {
@@ -1140,12 +1145,13 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
       })),
       mode: testParsed.target.mode,
     },
-    setupScript: testParsed.setupScript
-      ? {
-          ...testParsed.setupScript,
-          ...data.script.where({ name: testParsed.setupScript.name }),
-        }
-      : undefined,
+    setupScript:
+      testParsed.setupScript && data.script.where({ name: testParsed.setupScript.name })
+        ? {
+            ...testParsed.setupScript,
+            ...data.script.where({ name: testParsed.setupScript.name }),
+          }
+        : undefined,
     assertions,
   };
 }

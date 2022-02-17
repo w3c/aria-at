@@ -809,7 +809,24 @@ function readCSV(record) {
   const rows = [];
   return new Promise(resolve => {
     Readable.from(record.buffer)
-      .pipe(csv())
+      .pipe(
+        csv({
+          mapHeaders: ({ header, index }) => {
+            if (header.toLowerCase().includes('\ufeff'))
+              console.error(
+                `Unwanted U+FEFF found for key ${header} at index ${index} while processing CSV.`
+              );
+            return header.replace(/^\uFEFF/g, '');
+          },
+          mapValues: ({ header, value }) => {
+            if (value.toLowerCase().includes('\ufeff'))
+              console.error(
+                `Unwanted U+FEFF found for value in key, value pair (${header}: ${value}) while processing CSV.`
+              );
+            return value.replace(/^\uFEFF/g, '');
+          },
+        })
+      )
       .on('data', row => {
         rows.push(row);
       })

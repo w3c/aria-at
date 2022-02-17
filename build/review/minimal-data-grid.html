@@ -21,6 +21,37 @@
     <script type="module">
       import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
 
+      function numberTests(value) {
+        let testNumber = 0;
+        let titleTextChanged = false;
+        let buttonTextChanged = false;
+
+        for (let result of document.querySelectorAll(value)) {
+          result.style.display = 'block';
+
+          if (titleTextChanged && buttonTextChanged) {
+            testNumber += 1;
+
+            titleTextChanged = false;
+            buttonTextChanged = false;
+          }
+
+          if (result.nodeName === 'H2') {
+            result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber + 1}:`);
+            titleTextChanged = true;
+          }
+
+          if (result.nodeName === 'BUTTON') {
+            result.value = `Open Test ${testNumber + 1} Page`;
+            result.innerText = `Open Test ${testNumber + 1} Page`;
+            buttonTextChanged = true;
+          }
+        }
+
+        let reviewPageTitle = document.querySelector('h1');
+        reviewPageTitle.innerText = reviewPageTitle.innerText.replace(/\(\d+\stest(s|)\)/g, `(${testNumber} test${testNumber !== 1 ? 's': ''})`);
+      }
+
       window.filterATs = function(button) {
         const val = button.value;
 
@@ -36,6 +67,7 @@
               at.checked = true;
             }
           }
+          numberTests('.nvda, .jaws, .voiceover_macos');
         }
         else {
           for (let at of document.querySelectorAll('input')) {
@@ -50,12 +82,8 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-
           }
-
-          for (let result of document.querySelectorAll(`.${val}`)) {
-            result.style.display = 'block';
-          }
+          numberTests(`.${val}`);
         }
       };
 
@@ -832,9 +860,9 @@
     <fieldset>
       <legend>Filter tests by assistive technology</legend>
       <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
-        <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
-        <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
-        <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
+      <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
+      <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
+      <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
     <h2 class="jaws nvda">Test 1: Navigate forwards to a grid in reading mode</h2>
@@ -842,7 +870,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-01-navigate-forwards-to-grid-reading.html?at=jaws">jaws</a></li>
@@ -872,9 +900,9 @@
         <p>
           <ol>
              <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
-             <li>Navigate to the first column header in the grid. using the following commands:
+             <li>Navigate to the first column header in the grid. Note: you may need to press  certain commands (such as Down Arrow) multiple times to hear all information relating to the grid and the first column header. using the following commands:
                <ul>
-                   <li>T, then Down Arrow</li>
+                   <li>T followed by Down Arrow</li>
                    <li>Down Arrow</li>
                </ul>
              </li>
@@ -902,7 +930,7 @@
         <p>
           <ol>
              <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
-             <li>Navigate to the first column header in the grid. using the following commands:
+             <li>Navigate to the first column header in the grid. Note: you may need to press  certain commands (such as Down Arrow) multiple times to hear all information relating to the grid and the first column header. using the following commands:
                <ul>
                    <li>T</li>
                    <li>Down Arrow</li>
@@ -926,7 +954,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-02-navigate-backwards-to-grid-reading.html?at=jaws">jaws</a></li>
@@ -958,7 +986,7 @@
              <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
              <li>Navigate to the first column header in the grid. using the following commands:
                <ul>
-                   <li>Shift+T, then Down Arrow</li>
+                   <li>Shift+T followed by Down Arrow</li>
                </ul>
              </li>
           </ol>
@@ -1008,7 +1036,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-03-navigate-forwards-to-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1037,7 +1065,7 @@
         <p>
           <ol>
              <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Navigate to the first column header in the grid. using the following commands:
+             <li>Navigate to the first column header in the grid. Note: you may need to press certain commands (such as Control+Option+Right) multiple times to hear all information relating to the grid and the first column header. using the following commands:
                <ul>
                    <li>Control+Option+Right</li>
                    <li>Control+Option+Command+T</li>
@@ -1061,7 +1089,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-04-navigate-into-end-of-grid-reading.html?at=jaws">jaws</a></li>
@@ -1090,7 +1118,7 @@
         <p>
           <ol>
              <li>Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z.</li>
-             <li>Navigate to the last cell in the grid. using the following commands:
+             <li>Navigate to the last cell in the grid. Note: you may need to press certain commands (such as Up Arrow) multiple times to hear all information relating to the grid and the last cell. using the following commands:
                <ul>
                    <li>Up Arrow</li>
                </ul>
@@ -1121,7 +1149,7 @@
         <p>
           <ol>
              <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
-             <li>Navigate to the last cell in the grid. using the following commands:
+             <li>Navigate to the last cell in the grid. Note: you may need to press certain commands (such as Up Arrow) multiple times to hear all information relating to the grid and the last cell. using the following commands:
                <ul>
                    <li>Up Arrow</li>
                </ul>
@@ -1146,7 +1174,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-05-navigate-into-end-of-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1174,7 +1202,7 @@
         <p>
           <ol>
              <li>Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time.</li>
-             <li>Navigate to the last cell in the grid. using the following commands:
+             <li>Navigate to the last cell in the grid. Note: you may need to press certain commands (such as Control+Option+Left) multiple times to hear all information relating to the grid and the last cell. using the following commands:
                <ul>
                    <li>Ctrl+Option+Left</li>
                </ul>
@@ -1199,7 +1227,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-06-move-focus-forwards-into-grid-reading.html?at=jaws">jaws</a></li>
@@ -1283,7 +1311,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-07-move-focus-backwards-into-grid-reading.html?at=jaws">jaws</a></li>
@@ -1367,7 +1395,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-08-move-focus-forwards-into-grid-interaction.html?at=jaws">jaws</a></li>
@@ -1451,7 +1479,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-09-move-focus-backwards-into-grid-interaction.html?at=jaws">jaws</a></li>
@@ -1535,7 +1563,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-10-move-focus-forwards-into-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1588,7 +1616,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-11-move-focus-backwards-into-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1641,7 +1669,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-12-read-information-about-grid-cell-reading.html?at=jaws">jaws</a></li>
@@ -1717,7 +1745,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-13-read-information-about-grid-cell-interaction.html?at=jaws">jaws</a></li>
@@ -1793,7 +1821,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-14-read-information-about-grid-cell-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -1841,7 +1869,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-15-read-information-about-grid-cell-containing-link-reading.html?at=jaws">jaws</a></li>
@@ -1919,7 +1947,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-16-read-information-about-grid-cell-containing-link-interaction.html?at=jaws">jaws</a></li>
@@ -1997,7 +2025,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-17-read-information-about-grid-cell-containing-link-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2041,12 +2069,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 18: Navigate to the next column in a grid in reading mode</h2>
+    <h2 class="jaws nvda">Test 18: Navigate to the next colum in a grid in reading mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-18-navigate-to-next-colum-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -2115,12 +2143,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 19: Navigate to the next column in a grid in interaction mode</h2>
+    <h2 class="jaws nvda">Test 19: Navigate to the next colum in a grid in interaction mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-19-navigate-to-next-colum-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -2189,12 +2217,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="voiceover_macos">Test 20: Navigate to the next column in a grid</h2>
+    <h2 class="voiceover_macos">Test 20: Navigate to the next colum in a grid</h2>
     <p>
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-20-navigate-to-next-colum-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2238,12 +2266,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 21: Navigate to the previous column in a grid in reading mode</h2>
+    <h2 class="jaws nvda">Test 21: Navigate to the previous colum in a grid in reading mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-21-navigate-to-previous-colum-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -2312,12 +2340,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 22: Navigate to the previous column in a grid in interaction mode</h2>
+    <h2 class="jaws nvda">Test 22: Navigate to the previous colum in a grid in interaction mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-22-navigate-to-previous-colum-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -2386,12 +2414,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="voiceover_macos">Test 23: Navigate to the previous column in a grid</h2>
+    <h2 class="voiceover_macos">Test 23: Navigate to the previous colum in a grid</h2>
     <p>
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-23-navigate-to-previous-colum-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2435,12 +2463,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 24: Navigate to the next column containing a link in a grid in reading mode</h2>
+    <h2 class="jaws nvda">Test 24: Navigate to the next colum containing a link in a grid in reading mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-24-navigate-to-next-colum-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -2514,12 +2542,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 25: Navigate to the next column containing a link in a grid in interaction mode</h2>
+    <h2 class="jaws nvda">Test 25: Navigate to the next colum containing a link in a grid in interaction mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-25-navigate-to-next-colum-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -2591,12 +2619,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="voiceover_macos">Test 26: Navigate to the next column containing a link in a grid</h2>
+    <h2 class="voiceover_macos">Test 26: Navigate to the next colum containing a link in a grid</h2>
     <p>
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-26-navigate-to-next-colum-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2642,12 +2670,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 27: Navigate to the previous column containing a link in a grid in reading mode</h2>
+    <h2 class="jaws nvda">Test 27: Navigate to the previous colum containing a link in a grid in reading mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-27-navigate-to-previous-colum-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -2721,12 +2749,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 28: Navigate to the previous column containing a link in a grid in interaction mode</h2>
+    <h2 class="jaws nvda">Test 28: Navigate to the previous colum containing a link in a grid in interaction mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-28-navigate-to-previous-colum-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -2797,12 +2825,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="voiceover_macos">Test 29: Navigate to the previous column containing a link in a grid</h2>
+    <h2 class="voiceover_macos">Test 29: Navigate to the previous colum containing a link in a grid</h2>
     <p>
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-29-navigate-to-previous-colum-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -2848,12 +2876,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 30: Navigate to the next column from a cell containing a link in a grid in reading mode</h2>
+    <h2 class="jaws nvda">Test 30: Navigate to the next column from a cel containing a link in a grid in reading mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-30-navigate-to-next-column-from-cel-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -2922,12 +2950,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 4, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 31: Navigate to the next column from a cell containing a link in a grid in interaction mode</h2>
+    <h2 class="jaws nvda">Test 31: Navigate to the next column from a cel containing a link in a grid in interaction mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-31-navigate-to-next-column-from-cel-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -2996,12 +3024,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 4, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="voiceover_macos">Test 32: Navigate to the next column from a cell containing a link in a grid</h2>
+    <h2 class="voiceover_macos">Test 32: Navigate to the next column from a cel containing a link in a grid</h2>
     <p>
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-32-navigate-to-next-column-from-cel-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3045,12 +3073,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 4, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 33: Navigate to the previous column from a cell containing a link in a grid in reading mode</h2>
+    <h2 class="jaws nvda">Test 33: Navigate to the previous column from a cel containing a link in a grid in reading mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-33-navigate-to-previous-column-from-cel-containing-link-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -3119,12 +3147,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="jaws nvda">Test 34: Navigate to the previous column from a cell containing a link in a grid in interaction mode</h2>
+    <h2 class="jaws nvda">Test 34: Navigate to the previous column from a cel containing a link in a grid in interaction mode</h2>
     <p>
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-34-navigate-to-previous-column-from-cel-containing-link-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3193,12 +3221,12 @@
             <tr><td>required</td><td>coordinates of the cell (column 2, row 2) are conveyed</td></tr>
         </table>
       </div>
-    <h2 class="voiceover_macos">Test 35: Navigate to the previous column from a cell containing a link in a grid</h2>
+    <h2 class="voiceover_macos">Test 35: Navigate to the previous column from a cel containing a link in a grid</h2>
     <p>
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-35-navigate-to-previous-column-from-cel-containing-link-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3230,6 +3258,7 @@
                    <li>Left Arrow</li>
                    <li>Ctrl+Option+Left</li>
                    <li>Shift+Control+Option+Command+Y</li>
+                   <li>Shift+Control+Option+Command+L</li>
                </ul>
              </li>
           </ol>
@@ -3247,7 +3276,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-36-navigate-to-next-row-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -3285,6 +3314,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Text of the cell (&#39;02-Jan-16&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 1, row 3) are conveyed</td></tr>
         </table>
@@ -3310,6 +3340,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Text of the cell (&#39;02-Jan-16&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 1, row 3) are conveyed</td></tr>
         </table>
@@ -3319,7 +3350,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-37-navigate-to-next-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3357,6 +3388,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Text of the cell (&#39;02-Jan-16&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 1, row 3) are conveyed</td></tr>
         </table>
@@ -3382,6 +3414,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Text of the cell (&#39;02-Jan-16&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 1, row 3) are conveyed</td></tr>
         </table>
@@ -3391,7 +3424,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-38-navigate-to-next-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3429,6 +3462,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Text of the cell (&#39;02-Jan-16&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 1, row 3) are conveyed</td></tr>
         </table>
@@ -3438,7 +3472,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-39-navigate-to-previous-row-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -3476,6 +3510,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
         </table>
@@ -3501,6 +3536,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
         </table>
@@ -3510,7 +3546,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-40-navigate-to-previous-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3548,6 +3584,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
         </table>
@@ -3573,6 +3610,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
         </table>
@@ -3582,7 +3620,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-41-navigate-to-previous-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3620,6 +3658,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Date&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Text of the cell (&#39;01-Jan-16&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 1, row 2) are conveyed</td></tr>
         </table>
@@ -3629,7 +3668,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-42-navigate-to-cell-containing-link-on-next-row-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -3667,6 +3706,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
             <tr><td>required</td><td>Name &#39;Down Town Grocery&#39; is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 3, row 3) are conveyed</td></tr>
@@ -3693,6 +3733,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
             <tr><td>required</td><td>Name &#39;Down Town Grocery&#39; is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 3, row 3) are conveyed</td></tr>
@@ -3703,7 +3744,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-43-navigate-to-cell-containing-link-on-next-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3741,6 +3782,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
             <tr><td>required</td><td>Name &#39;Down Town Grocery&#39; is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 3, row 3) are conveyed</td></tr>
@@ -3767,6 +3809,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
             <tr><td>required</td><td>Name &#39;Down Town Grocery&#39; is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 3, row 3) are conveyed</td></tr>
@@ -3777,7 +3820,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-44-navigate-to-cell-containing-link-on-next-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -3815,6 +3858,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
             <tr><td>required</td><td>Name &#39;Down Town Grocery&#39; is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 3, row 3) are conveyed</td></tr>
@@ -3825,7 +3869,7 @@
       <ul class="jaws nvda">
         <li>Mode: reading</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-45-navigate-to-cell-containing-link-on-previous-row-in-grid-reading.html?at=jaws">jaws</a></li>
@@ -3863,6 +3907,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
             <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
@@ -3889,6 +3934,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
             <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
@@ -3899,7 +3945,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-46-navigate-to-cell-containing-link-on-previous-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -3937,6 +3983,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
             <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
@@ -3963,6 +4010,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
             <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
@@ -3973,7 +4021,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-47-navigate-to-cell-containing-link-on-previous-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4011,6 +4059,7 @@
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>
+            <tr><td>required</td><td>Text of the column header (&#39;Description&#39;) is conveyed</td></tr>
             <tr><td>required</td><td>Role &#39;link&#39; is conveyed</td></tr>
             <tr><td>required</td><td>Name &#39;Cash Deposit&#39; is conveyed</td></tr>
             <tr><td>required</td><td>coordinates of the cell (column 3, row 2) are conveyed</td></tr>
@@ -4021,7 +4070,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-48-navigate-to-first-cell-of-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -4095,7 +4144,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-49-navigate-to-first-cell-of-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4142,7 +4191,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-50-navigate-to-last-cell-of-row-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -4216,7 +4265,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-51-navigate-to-last-cell-of-row-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4263,7 +4312,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-52-navigate-to-first-cell-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -4337,7 +4386,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-53-navigate-to-first-cell-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>
@@ -4384,7 +4433,7 @@
       <ul class="jaws nvda">
         <li>Mode: interaction</li>
         <li>Applies to: jaws, nvda</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-54-navigate-to-last-cell-in-grid-interaction.html?at=jaws">jaws</a></li>
@@ -4458,7 +4507,7 @@
       <ul class="voiceover_macos">
         <li>Mode: interaction</li>
         <li>Applies to: voiceover_macos</li>
-        <li>Last edited: Thu Feb 17 17:25:07 2022 +0000</li>
+        <li>Last edited: Wed Feb 9 10:31:50 2022 -0500</li>
         <li>Tests:
           <ul>
               <li><a href="../tests/minimal-data-grid/test-55-navigate-to-last-cell-in-grid-interaction.html?at=voiceover_macos">voiceover_macos</a></li>

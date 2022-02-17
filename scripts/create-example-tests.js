@@ -7,6 +7,7 @@
 'use strict';
 
 const path = require('path');
+const fs = require('fs');
 const { Readable } = require('stream');
 const {
   types: { isArrayBufferView, isArrayBuffer },
@@ -96,6 +97,9 @@ const createExampleTests = async ({ directory, args = {} }) => {
   const buildDirectory = path.join(rootDirectory, 'build');
   const testPlanBuildDirectory = path.join(buildDirectory, directory);
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
+
+  // create build directory if it doesn't exist
+  fs.mkdirSync(buildDirectory, { recursive: true });
 
   const existingBuildPromise = FileRecordChain.read(buildDirectory, {
     glob: [
@@ -202,6 +206,9 @@ const createExampleTests = async ({ directory, args = {} }) => {
     { addTestError, emitFile, scriptsRecord, exampleScriptedFilesQueryable }
   ) {
     let scripts = [];
+
+    // default setupScript if test has undefined setupScript
+    if (!scriptsRecord.find(`${test.setupScript}.js`).isFile()) test.setupScript = '';
 
     function getModeValue(value) {
       let v = value.trim().toLowerCase();
@@ -564,10 +571,9 @@ ${rows}
     errors += '[Test ' + id + ']: ' + error + '\n';
   }
 
-  function addCommandError(task, key) {
+  function addCommandError({ testId, task }, key) {
     errorCount += 1;
-    errors +=
-      '[Command]: The key reference "' + key + '" is invalid for the "' + task + '" task.\n';
+    errors += `[Command]: The key reference "${key}" found in "${directory}/data/commands.csv" for "test id ${testId}: ${task}" is invalid. Command may not be defined in "tests/resources/keys.mjs".\n`;
   }
 
   const newTestPlan = newBuild.find(`tests/${path.basename(testPlanBuildDirectory)}`);
@@ -577,11 +583,21 @@ ${rows}
     });
   }
 
+  function validateCSVKeys(result) {
+    for (const row of result) {
+      if (typeof row.refId !== 'string' || typeof row.value !== 'string')
+        log.error(
+          `ERROR: References CSV file processing failed: ${referencesCsvFilePath}. Ensure rows are properly formatted.`
+        );
+    }
+    log(`References CSV file successfully processed: ${referencesCsvFilePath}`);
+    return result;
+  }
+
   const [refRows, atCommands, tests] = await Promise.all([
-    readCSV(testPlanRecord.find('data/references.csv')).then(rows => {
-      log(`References CSV file successfully processed: ${referencesCsvFilePath}`);
-      return rows;
-    }),
+    readCSV(testPlanRecord.find('data/references.csv'))
+      .then(rows => rows)
+      .then(validateCSVKeys),
     readCSV(testPlanRecord.find('data/commands.csv')).then(rows => {
       log(`Commands CSV file successfully processed: ${atCommandsCsvFilePath}`);
       return rows;
@@ -600,7 +616,7 @@ ${rows}
 
   const commandsParsed = atCommands.map(parseCommandCSVRow);
   const testsParsed = tests.map(parseTestCSVRow);
-  const referencesParsed = parseRefencesCSV(refRows);
+  const referencesParsed = parseReferencesCSV(refRows);
   const keysParsed = parseKeyMap(keyDefs);
   const supportParsed = parseSupport(support);
 
@@ -625,8 +641,18 @@ ${rows}
   );
 
   const referenceQueryable = Queryable.from('reference', referencesParsed);
-  const examplePathOriginal = referenceQueryable.where({ refId: 'reference' }).value;
+  const examplePathOriginal = referenceQueryable.where({ refId: 'reference' })
+    ? referenceQueryable.where({ refId: 'reference' }).value
+    : '';
+  if (!examplePathOriginal) {
+    log.error(`ERROR: Valid 'reference' value not found in "${directory}/data/references.csv".`);
+  }
   const exampleRecord = testPlanRecord.find(examplePathOriginal);
+  if (!exampleRecord.isFile()) {
+    log.error(
+      `ERROR: Invalid 'reference' value path "${examplePathOriginal}" found in "${directory}/data/references.csv".`
+    );
+  }
   const testLookups = {
     command: Queryable.from('command', commandsValidated),
     mode: Queryable.from('mode', validModes),
@@ -793,7 +819,24 @@ function readCSV(record) {
   const rows = [];
   return new Promise(resolve => {
     Readable.from(record.buffer)
-      .pipe(csv())
+      .pipe(
+        csv({
+          mapHeaders: ({ header, index }) => {
+            if (header.toLowerCase().includes('\ufeff'))
+              console.error(
+                `Unwanted U+FEFF found for key ${header} at index ${index} while processing CSV.`
+              );
+            return header.replace(/^\uFEFF/g, '');
+          },
+          mapValues: ({ header, value }) => {
+            if (value.toLowerCase().includes('\ufeff'))
+              console.error(
+                `Unwanted U+FEFF found for value in key, value pair (${header}: ${value}) while processing CSV.`
+              );
+            return value.replace(/^\uFEFF/g, '');
+          },
+        })
+      )
       .on('data', row => {
         rows.push(row);
       })
@@ -895,7 +938,7 @@ function parseKeyMap(keyDefs) {
  * @param {AriaATCSV.Reference[]} referenceRows
  * @returns {AriaATParsed.ReferenceMap}
  */
-function parseRefencesCSV(referenceRows) {
+function parseReferencesCSV(referenceRows) {
   const refMap = {};
   for (const { refId, value } of referenceRows) {
     refMap[refId] = { refId, value: value.trim() };
@@ -910,7 +953,7 @@ function parseRefencesCSV(referenceRows) {
  * @param {object} data.support
  * @param {Queryable<{key: string, name: string}>} data.support.at
  * @param {object} [options]
- * @param {function(string, string): void} [options.addCommandError]
+ * @param {function(AriaATParsed.Command, string): void} [options.addCommandError]
  * @returns {AriaATValidated.Command}
  */
 function validateCommand(commandParsed, data, { addCommandError = () => {} } = {}) {
@@ -929,9 +972,9 @@ function validateCommand(commandParsed, data, { addCommandError = () => {} } = {
       const keypresses = commandKeypresses.map(keypress => {
         const key = data.key.where(keypress);
         if (!key) {
-          addCommandError(commandParsed.task, keypress.id);
+          addCommandError(commandParsed, keypress.id);
         }
-        return key;
+        return key || {};
       });
       return {
         id: id,
@@ -1090,7 +1133,9 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
   });
 
   if (testParsed.setupScript && !data.script.where({ name: testParsed.setupScript.name })) {
-    addTestError(`Setup script does not exist: ${testParsed.setupScript.name}`);
+    addTestError(
+      `Setup script does not exist: "${testParsed.setupScript.name}" for task "${testParsed.task}"`
+    );
   }
 
   const assertions = testParsed.assertions.map(assertion => {
@@ -1127,12 +1172,13 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
       })),
       mode: testParsed.target.mode,
     },
-    setupScript: testParsed.setupScript
-      ? {
-          ...testParsed.setupScript,
-          ...data.script.where({ name: testParsed.setupScript.name }),
-        }
-      : undefined,
+    setupScript:
+      testParsed.setupScript && data.script.where({ name: testParsed.setupScript.name })
+        ? {
+            ...testParsed.setupScript,
+            ...data.script.where({ name: testParsed.setupScript.name }),
+          }
+        : undefined,
     assertions,
   };
 }

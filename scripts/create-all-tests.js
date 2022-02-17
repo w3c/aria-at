@@ -31,11 +31,6 @@ if (args.help) {
 main();
 
 async function main() {
-  let successRunsCount = 0;
-  let errorRunsCount = 0;
-  let totalRunsCount = 0;
-  let suppressedMessageCount = 0;
-
   // on some OSes, it seems the the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
   const TARGET_TEST_PLAN =
     args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate test assets for
@@ -60,47 +55,67 @@ async function main() {
     process.exit();
   }
 
-  await Promise.all(
-    filteredTestPlans.map(async directory => {
-      const { isSuccessfulRun, suppressedMessages } = await createExampleTests({
+  const filteredTests = await Promise.all(
+    filteredTestPlans.map(directory =>
+      createExampleTests({
         directory: path.join('tests', directory),
         args,
-      });
-      if (isSuccessfulRun) {
-        successRunsCount++;
-      } else {
-        errorRunsCount++;
-      }
+      }).catch(error => {
+        error.directory = directory;
+        throw error;
+      })
+    )
+  ).catch(error => {
+    console.error(`ERROR: Unhandled exception thrown while processing "${error.directory}".`);
+    if (!VERBOSE_CHECK) {
+      console.log(
+        `
+NOTE:
+Run 'npm run create-all-tests -- --verbose' to view detailed information on error.
+Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.
+`
+      );
+    } else {
+      console.error(`
+message: ${error.message}
+stacktrace: ${error.stack}
+      `);
+    }
+    process.exit(1);
+  });
 
-      // increment total runs completed
-      totalRunsCount = successRunsCount + errorRunsCount;
+  /**
+   * @param {number[]} values
+   * @returns {number}
+   */
+  function sum(values) {
+    return values.reduce((carry, value) => carry + value, 0);
+  }
 
-      // report how many messages have been hidden by not running in verbose mode
-      suppressedMessageCount = suppressedMessages;
-
-      if (totalRunsCount === filteredTestPlans.length) {
-        // last test plan has been ran
-        if (VALIDATE_CHECK) {
-          console.log(
-            `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed without any validation errors.\n`
-          );
-        } else {
-          console.log(
-            `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`
-          );
-        }
-
-        if (!VERBOSE_CHECK) {
-          console.log(
-            `NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`
-          );
-        }
-      }
-    })
+  const totalRunsCount = filteredTests.length;
+  const successRunsCount = sum(
+    filteredTests.map(({ isSuccessfulRun }) => (isSuccessfulRun ? 1 : 0))
   );
 
-  if (errorRunsCount > 0) {
-    // Exit with a non-zero code to indicate failure to create tests without error in continuous integration.
-    process.exit(1);
+  // report how many messages have been hidden by not running in verbose mode
+  const suppressedMessageCount = sum(
+    filteredTests.map(({ suppressedMessages }) => suppressedMessages)
+  );
+
+  // last test plan has been run
+  if (VALIDATE_CHECK) {
+    console.log(
+      `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed without any validation errors.\n`
+    );
+  } else {
+    console.log(
+      `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`
+    );
+  }
+
+  if (!VERBOSE_CHECK) {
+    console.log(
+      `NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`
+    );
   }
 }

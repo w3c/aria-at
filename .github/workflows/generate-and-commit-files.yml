@@ -1,6 +1,9 @@
 name: Generate and Commit Files
 
-on: pull_request
+on:
+  pull_request:
+    branches-ignore:
+      - 'dependabot/**'
 
 jobs:
   generate-and-commit-files:

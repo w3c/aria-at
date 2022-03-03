@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Close a listbox popup in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-select-only.html">
+<link rel="help" href="https://w3c.github.io/aria-practices/#combobox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script>
+  var scripts = {
+		openListboxToApple: function(testPageDocument){
+			// sets focus on and expands the Combobox, and sets the focused option to 'Apple'
+			testPageDocument.querySelector('[role="combobox"]').focus();
+			testPageDocument.defaultView.selectController.updateMenuState(true);
+			testPageDocument.defaultView.selectController.onOptionChange(1);
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on and expands the Combobox, and sets the focused option to 'Apple' without selecting it",
+  "setupTestPage": "openListboxToApple",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "close listbox popup",
+  "specific_user_instruction": "with focus on the listbox popup, close the listbox popup without changing the selected value of the combobox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Favorite Fruit' is conveyed"
+    ],
+    [
+      "1",
+      "Text of the selected option ('Choose a Fruit') is conveyed"
+    ],
+    [
+      "1",
+      "State of the combobox (collapsed) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "close listbox popup": {
+    "interaction": {
+      "jaws": [ [ "ESC" ] ],
+      "nvda": [ [ "ESC" ] ],
+      "voiceover_macos": [ [ "ESC" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/combobox-select-only.openListboxToApple.html");
+  });
+</script>
+  

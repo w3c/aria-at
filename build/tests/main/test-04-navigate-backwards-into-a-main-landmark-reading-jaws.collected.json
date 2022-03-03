@@ -1,0 +1,86 @@
+{
+  "info": {
+    "testId": 4,
+    "task": "navigate backwards into a main landmark",
+    "title": "Navigate backwards into a main landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/main.html"
+      },
+      {
+        "refId": "main",
+        "value": "https://w3c.github.io/aria/#main"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_181316/main.setFocusAfterMain.html",
+    "setupScript": {
+      "name": "setFocusAfterMain",
+      "description": "sets focus on a link after the main landmark",
+      "source": "// sets focus on a link after the main landmark\ntestPageDocument.querySelector('.button-run-test-setup').parentElement.style.display = 'none';\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterMain.module.js",
+      "jsonpPath": "scripts/setFocusAfterMain.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Bottom' link."
+    ],
+    "raw": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_U",
+      "keystroke": "Shift+U",
+      "keypresses": [
+        {
+          "id": "SHIFT_U",
+          "keystroke": "Shift+U"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'main' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Bottom' is conveyed"
+    }
+  ]
+}

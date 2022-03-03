@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards out of a complementary landmark in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/landmarks/complementary.html">
+<link rel="help" href="https://w3c.github.io/aria/#complementary">
+
+<script>
+  var scripts = {
+		setFocusOnTopLink: function(testPageDocument){
+			// sets focus on the 'Top' link
+			testPageDocument.getElementById('top').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Top' link",
+  "setupTestPage": "setFocusOnTopLink",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate backwards out of a complementary landmark",
+  "specific_user_instruction": "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "output_assertions": [
+    [
+      "1",
+      "complementary landmark boundary is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Landmarks' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Navigate forwards from here' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards out of a complementary landmark": {
+    "reading": {
+      "jaws": [
+        [ "UP" ],
+        [ "SHIFT_U" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "nvda": [
+        [ "UP" ],
+        [ "SHIFT_K" ],
+        [ "SHIFT_U" ],
+        [ "SHIFT_TAB" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+        ],
+        [ "SHIFT_CTRL_OPT_CMD_L" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-24_142522/complementary.setFocusOnTopLink.html");
+  });
+</script>
+  

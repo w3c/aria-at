@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Increment a slider by ten steps in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/slider/slider-color-viewer.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+
+<script>
+  var scripts = {
+		setFocusOnRedSlider: function(testPageDocument){
+			// sets focus on the 'Red' slider
+			testPageDocument.querySelector('[role="slider"].red').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Red' slider",
+  "setupTestPage": "setFocusOnRedSlider",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "increment slider by ten steps",
+  "specific_user_instruction": "With focus on the 'Red' slider, set its value to 138.",
+  "output_assertions": [
+    [
+      "1",
+      "Value '138' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "increment slider by ten steps": {
+    "interaction": {
+      "jaws": [ [ "PAGE_UP" ] ],
+      "nvda": [ [ "PAGE_UP" ] ],
+      "voiceover_macos": [ [ "PAGE_UP" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-9-28_15392/slider-color-viewer.setFocusOnRedSlider.html");
+  });
+</script>
+  

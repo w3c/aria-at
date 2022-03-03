@@ -1,0 +1,82 @@
+{
+  "info": {
+    "testId": 19,
+    "task": "navigate forwards to a button inside a form landmark",
+    "title": "Navigate forwards to a button inside a form landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/form.html"
+      },
+      {
+        "refId": "form",
+        "value": "https://w3c.github.io/aria/#form"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_152221/form.setFocusBeforeForm.html",
+    "setupScript": {
+      "name": "setFocusBeforeForm",
+      "description": "sets focus on a link before the form landmark",
+      "source": "// sets focus on a link before the form landmark\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeForm.module.js",
+      "jsonpPath": "scripts/setFocusBeforeForm.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Add contact' button."
+    ],
+    "raw": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Add contact' button.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "B",
+      "keystroke": "B",
+      "keypresses": [
+        {
+          "id": "B",
+          "keystroke": "B"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'form' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Add Contact' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the group, 'Add Contact', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the button, 'Add Contact', is conveyed"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards out of a banner landmark</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/landmarks/banner.html">
+<link rel="help" href="https://w3c.github.io/aria/#banner">
+
+<script>
+  var scripts = {
+		setFocusOnBottomLink: function(testPageDocument){
+			// sets focus on the 'Bottom' link
+			testPageDocument.getElementById('bottom').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Bottom' link",
+  "setupTestPage": "setFocusOnBottomLink",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards out of a banner landmark",
+  "specific_user_instruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "output_assertions": [
+    [
+      "1",
+      "Banner landmark boundary is conveyed"
+    ],
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Navigate backwards from here' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards out of a banner landmark": {
+    "reading": {
+      "jaws": [ [ "DOWN" ], [ "U" ] ],
+      "nvda": [ [ "DOWN" ], [ "U" ], [ "K" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT"
+        ],
+        [ "CTRL_OPT_CMD_L" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-24_135455/banner.setFocusOnBottomLink.html");
+  });
+</script>
+  

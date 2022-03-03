@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the previous column containing a link in a grid</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/grid/dataGrids.html">
+
+<script>
+  var scripts = {
+		setFocusOnFourthDataCell: function(testPageDocument){
+			// sets focus on the fourth cell of the second row in the grid
+			testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 3);
+			testPageDocument.defaultView.ex1Grid.focusCell(0, 3);
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the fourth cell of the second row in the grid",
+  "setupTestPage": "setFocusOnFourthDataCell",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate to previous colum containing link in grid",
+  "specific_user_instruction": "Navigate to the previous column containing a link in the grid.",
+  "output_assertions": [
+    [
+      "1",
+      "Text of the column header ('Description') is conveyed"
+    ],
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Cash Deposit' is conveyed"
+    ],
+    [
+      "1",
+      "coordinates of the cell (column 3, row 2) are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to previous colum containing link in grid": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_U" ],
+        [ "CTRL_ALT_LEFT" ]
+      ],
+      "nvda": [
+        [ "SHIFT_U" ],
+        [ "SHIFT_K" ],
+        [ "CTRL_ALT_LEFT" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "LEFT" ] ],
+      "nvda": [ [ "LEFT" ] ],
+      "voiceover_macos": [
+        [ "LEFT" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_Y" ],
+        [ "SHIFT_CTRL_OPT_CMD_L" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-3-8_151542/dataGrids.setFocusOnFourthDataCell.html");
+  });
+</script>
+  

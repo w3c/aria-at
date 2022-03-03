@@ -1,0 +1,66 @@
+{
+  "info": {
+    "testId": 27,
+    "task": "open a filled in collapsed combobox by typing character",
+    "title": "Open a filled in, collapsed combobox by typing a character in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToComboboxAndSetValueToA.html",
+    "setupScript": {
+      "name": "moveFocusToComboboxAndSetValueToA",
+      "description": "sets focus on the combobox, and sets the combobox value to 'a'",
+      "source": "// sets focus on the combobox, and sets the combobox value to 'a'\ntestPageDocument.defaultView.comboboxController.setValue('a');\ntestPageDocument.defaultView.comboboxController.comboboxNode.select();\ntestPageDocument.defaultView.comboboxController.comboboxNode.focus();\n",
+      "modulePath": "scripts/moveFocusToComboboxAndSetValueToA.module.js",
+      "jsonpPath": "scripts/moveFocusToComboboxAndSetValueToA.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the combobox, open the combobox without moving into the listbox popup."
+    ],
+    "raw": "With focus on the combobox, open the combobox without moving into the listbox popup.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "L",
+      "keystroke": "L",
+      "keypresses": [
+        {
+          "id": "L",
+          "keystroke": "L"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change in state (to expanded) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the automatically completed option ('Alabama') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the text in the input (selected) is conveyed"
+    }
+  ]
+}

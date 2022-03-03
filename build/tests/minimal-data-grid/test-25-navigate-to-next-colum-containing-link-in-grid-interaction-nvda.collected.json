@@ -1,0 +1,76 @@
+{
+  "info": {
+    "testId": 25,
+    "task": "navigate to next colum containing link in grid",
+    "title": "Navigate to the next column containing a link in a grid in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusOnSecondDataCell.html",
+    "setupScript": {
+      "name": "setFocusOnSecondDataCell",
+      "description": "sets focus on the second cell of the second row in the grid",
+      "source": "// sets focus on the second cell of the second row in the grid\ntestPageDocument.defaultView.ex1Grid.setFocusPointer(0, 1);\ntestPageDocument.defaultView.ex1Grid.focusCell(0, 1);\n",
+      "modulePath": "scripts/setFocusOnSecondDataCell.module.js",
+      "jsonpPath": "scripts/setFocusOnSecondDataCell.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the next column containing a link in the grid."
+    ],
+    "raw": "Navigate to the next column containing a link in the grid.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "RIGHT",
+      "keystroke": "Right Arrow",
+      "keypresses": [
+        {
+          "id": "RIGHT",
+          "keystroke": "Right Arrow"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_ALT_RIGHT",
+      "keystroke": "Control+Alt+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_ALT_RIGHT",
+          "keystroke": "Control+Alt+Right"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the column header ('Description') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Cash Deposit' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "coordinates of the cell (column 3, row 2) are conveyed"
+    }
+  ]
+}

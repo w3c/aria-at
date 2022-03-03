@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards to a button inside a form landmark in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/landmarks/form.html">
+<link rel="help" href="https://w3c.github.io/aria/#form">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+
+<script>
+  var scripts = {
+		setFocusBeforeForm: function(testPageDocument){
+			// sets focus on a link before the form landmark
+			testPageDocument.getElementById('beforelink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on a link before the form landmark",
+  "setupTestPage": "setFocusBeforeForm",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "reading",
+  "task": "navigate forwards to a button inside a form landmark",
+  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Add contact' button.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'form' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Add Contact' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the group, 'Add Contact', is conveyed"
+    ],
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the button, 'Add Contact', is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards to a button inside a form landmark": {
+    "reading": {
+      "jaws": [ [ "B" ] ],
+      "nvda": [ [ "B" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-24_152221/form.setFocusBeforeForm.html");
+  });
+</script>
+  

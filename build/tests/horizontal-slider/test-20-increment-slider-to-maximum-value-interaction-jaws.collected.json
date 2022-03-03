@@ -1,0 +1,62 @@
+{
+  "info": {
+    "testId": 20,
+    "task": "increment slider to maximum value",
+    "title": "Increment a slider to the maximum value in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-color-viewer.html"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-9-28_15392/slider-color-viewer.setFocusOnRedSlider.html",
+    "setupScript": {
+      "name": "setFocusOnRedSlider",
+      "description": "sets focus on the 'Red' slider",
+      "source": "// sets focus on the 'Red' slider\ntestPageDocument.querySelector('[role=\"slider\"].red').focus();\n",
+      "modulePath": "scripts/setFocusOnRedSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnRedSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Red' slider, set its value to 255."
+    ],
+    "raw": "With focus on the 'Red' slider, set its value to 255.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "END",
+      "keystroke": "End",
+      "keypresses": [
+        {
+          "id": "END",
+          "keystroke": "End"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Value '255' is conveyed"
+    }
+  ]
+}

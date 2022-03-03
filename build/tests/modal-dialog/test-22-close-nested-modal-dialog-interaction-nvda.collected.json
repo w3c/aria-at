@@ -1,0 +1,74 @@
+{
+  "info": {
+    "testId": 22,
+    "task": "close nested modal dialog",
+    "title": "Close a nested modal dialog in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/dialog-modal/dialog.html"
+      },
+      {
+        "refId": "dialog",
+        "value": "https://w3c.github.io/aria/#dialog"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-12-17_13353/dialog.openVerificationResultDialogAndFocusCloseButton.html",
+    "setupScript": {
+      "name": "openVerificationResultDialogAndFocusCloseButton",
+      "description": "opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog",
+      "source": "// opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog\nconst btn = testPageDocument.querySelector('#ex1 > button');\ntestPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');\ntestPageDocument.defaultView.openDialog('dialog2', 'dialog1_verify', 'dialog2_close_btn');\n",
+      "modulePath": "scripts/openVerificationResultDialogAndFocusCloseButton.module.js",
+      "jsonpPath": "scripts/openVerificationResultDialogAndFocusCloseButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Close' button inside a modal dialog, close the dialog."
+    ],
+    "raw": "With focus on the 'Close' button inside a modal dialog, close the dialog.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "ESC",
+      "keystroke": "Escape",
+      "keypresses": [
+        {
+          "id": "ESC",
+          "keystroke": "Escape"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'dialog' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Add Delivery Address' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role of the focused element ('button') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the focused element ('Verify Address') is conveyed"
+    }
+  ]
+}

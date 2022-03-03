@@ -1,0 +1,82 @@
+{
+  "info": {
+    "testId": 3,
+    "task": "trigger alert",
+    "title": "Trigger an alert",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/alert/alert.html"
+      },
+      {
+        "refId": "alert",
+        "value": "https://w3c.github.io/aria/#alert"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-10-15_143458/alert.setFocusOnButton.html",
+    "setupScript": {
+      "name": "setFocusOnButton",
+      "description": "sets focus on the 'Trigger Alert' button",
+      "source": "// sets focus on the 'Trigger Alert' button\ntestPageDocument.querySelector('#alert-trigger').focus();\n",
+      "modulePath": "scripts/setFocusOnButton.module.js",
+      "jsonpPath": "scripts/setFocusOnButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Trigger Alert' button, activate the button to trigger the alert."
+    ],
+    "raw": "With focus on the 'Trigger Alert' button, activate the button to trigger the alert.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_SPACE",
+      "keystroke": "Control+Option+Space",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_SPACE",
+          "keystroke": "Control+Option+Space"
+        }
+      ]
+    },
+    {
+      "id": "SPACE",
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'alert' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text 'Hello' is conveyed"
+    }
+  ]
+}

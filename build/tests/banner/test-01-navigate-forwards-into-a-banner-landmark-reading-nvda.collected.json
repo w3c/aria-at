@@ -1,0 +1,106 @@
+{
+  "info": {
+    "testId": 1,
+    "task": "navigate forwards into a banner landmark",
+    "title": "Navigate forwards into a banner landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/banner.html"
+      },
+      {
+        "refId": "banner",
+        "value": "https://w3c.github.io/aria/#banner"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_135455/banner.setFocusBeforeBanner.html",
+    "setupScript": {
+      "name": "setFocusBeforeBanner",
+      "description": "sets focus on a link before the banner landmark",
+      "source": "// sets focus on a link before the banner landmark\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeBanner.module.js",
+      "jsonpPath": "scripts/setFocusBeforeBanner.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Top' link."
+    ],
+    "raw": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "D",
+      "keystroke": "D",
+      "keypresses": [
+        {
+          "id": "D",
+          "keystroke": "D"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    },
+    {
+      "id": "U",
+      "keystroke": "U",
+      "keypresses": [
+        {
+          "id": "U",
+          "keystroke": "U"
+        }
+      ]
+    },
+    {
+      "id": "K",
+      "keystroke": "K",
+      "keypresses": [
+        {
+          "id": "K",
+          "keystroke": "K"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'banner' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Top' is conveyed"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "info": {
+    "testId": 36,
+    "task": "navigate to next row in grid",
+    "title": "Navigate to the next row in a grid in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusOnFirstDataCell.html",
+    "setupScript": {
+      "name": "setFocusOnFirstDataCell",
+      "description": "sets focus on the first cell of the second row in the grid",
+      "source": "// sets focus on the first cell of the second row in the grid\ntestPageDocument.defaultView.ex1Grid.setFocusPointer(0, 0);\ntestPageDocument.defaultView.ex1Grid.focusCell(0, 0);\n",
+      "modulePath": "scripts/setFocusOnFirstDataCell.module.js",
+      "jsonpPath": "scripts/setFocusOnFirstDataCell.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the next row in the grid."
+    ],
+    "raw": "Navigate to the next row in the grid.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "CTRL_ALT_DOWN",
+      "keystroke": "Control+Alt+Down",
+      "keypresses": [
+        {
+          "id": "CTRL_ALT_DOWN",
+          "keystroke": "Control+Alt+Down"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the cell ('02-Jan-16') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "coordinates of the cell (column 1, row 3) are conveyed"
+    }
+  ]
+}

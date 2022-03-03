@@ -1,0 +1,88 @@
+{
+  "info": {
+    "testId": 19,
+    "task": "navigate out of start of radio group",
+    "title": "Navigate out of the start of a radio group",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/radio/radio.html"
+      },
+      {
+        "refId": "radiogroup",
+        "value": "https://w3c.github.io/aria/#radiogroup"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-15_144141/radio.setFocusOnFirstRadioButton.html",
+    "setupScript": {
+      "name": "setFocusOnFirstRadioButton",
+      "description": "sets focus on the first radio button",
+      "source": "// sets focus on the first radio button\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('aria-checked', 'false');\n  r.tabIndex = -1;\n});\nradios[0].tabIndex = 0;\nradios[0].focus();\n",
+      "modulePath": "scripts/setFocusOnFirstRadioButton.module.js",
+      "jsonpPath": "scripts/setFocusOnFirstRadioButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Regular crust' radio button, navigate out of the radio group."
+    ],
+    "raw": "With focus on the 'Regular crust' radio button, navigate out of the radio group.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 2,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Name of the group, 'Pizza Crust', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The group boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "name 'Navigate forwards from here' is conveyed"
+    }
+  ]
+}

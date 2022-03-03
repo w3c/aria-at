@@ -1,0 +1,74 @@
+{
+  "info": {
+    "testId": 5,
+    "task": "navigate backwards into a form landmark",
+    "title": "Navigate backwards into a form landmark in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/form.html"
+      },
+      {
+        "refId": "form",
+        "value": "https://w3c.github.io/aria/#form"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-10-24_152221/form.setFocusAfterForm.html",
+    "setupScript": {
+      "name": "setFocusAfterForm",
+      "description": "sets focus on a link after the form landmark",
+      "source": "// sets focus on a link after the form landmark\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterForm.module.js",
+      "jsonpPath": "scripts/setFocusAfterForm.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link."
+    ],
+    "raw": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'form' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Add Contact' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Bottom' is conveyed"
+    }
+  ]
+}

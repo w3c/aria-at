@@ -1,0 +1,96 @@
+{
+  "info": {
+    "testId": 25,
+    "task": "navigate from expanded disclosure button to link in dropdown",
+    "title": "Navigate from an expanded disclosure button to a link in the associated dropdown in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-navigation.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/disclosure-navigation.moveFocusToAndExpandFirstDisclosure.html",
+    "setupScript": {
+      "name": "moveFocusToAndExpandFirstDisclosure",
+      "description": "sets focus on the first disclosure button, and sets its state to expanded",
+      "source": "// sets focus on the first disclosure button, and sets its state to expanded\ntestPageDocument.defaultView.disclosureController.toggleExpand(0, true);\ntestPageDocument.querySelector('button[aria-controls=\"id_about_menu\"]').focus();\n",
+      "modulePath": "scripts/moveFocusToAndExpandFirstDisclosure.module.js",
+      "jsonpPath": "scripts/moveFocusToAndExpandFirstDisclosure.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the first disclosure button in the navigation region, move into the button's associated list of links. Note: you may need to press certain commands (such as Down Arrow) multiple times to hear all information about the dropdown and link."
+    ],
+    "raw": "With the reading cursor on the first disclosure button in the navigation region, move into the button's associated list of links. Note: you may need to press certain commands (such as Down Arrow) multiple times to hear all information about the dropdown and link.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "U",
+      "keystroke": "U",
+      "keypresses": [
+        {
+          "id": "U",
+          "keystroke": "U"
+        }
+      ]
+    },
+    {
+      "id": "K",
+      "keystroke": "K",
+      "keypresses": [
+        {
+          "id": "K",
+          "keystroke": "K"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role of the dropdown ('list') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of items in the dropdown (4) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role of the first item in the dropdown ('link') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the first item in the dropdown ('Overview') is conveyed"
+    }
+  ]
+}

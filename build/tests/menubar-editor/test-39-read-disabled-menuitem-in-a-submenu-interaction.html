@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read disabled menu item in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html">
+<link rel="help" href="https://w3c.github.io/aria/#group">
+<link rel="help" href="https://w3c.github.io/aria/#aria-label">
+<link rel="help" href="https://w3c.github.io/aria/#menuitem">
+<link rel="help" href="https://w3c.github.io/aria/#aria-disabled">
+
+<script>
+  var scripts = {
+		focusonsize: function(testPageDocument){
+			// Move focus to the "Size" menu item
+			testPageDocument.querySelectorAll('[role=menuitem]')[3].focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Size' menu item",
+  "setupTestPage": "focusonsize",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "read disabled menuitem in a submenu",
+  "specific_user_instruction": "Open 'Size' menu with  down arrow. | Navigate to 'X-Small' with down arrow. | Activate 'X-Small'. with Enter. | Open 'Size' menu with down arrow. | Read the 'Smaller' menu item",
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Smaller' is conveyed"
+    ],
+    [
+      "2",
+      " The role 'menu item' is conveyed"
+    ],
+    [
+      "1",
+      "The disabled state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menu  are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read disabled menuitem in a submenu": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175528/menubar-editor.focusonsize.html");
+  });
+</script>
+  

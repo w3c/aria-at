@@ -1,0 +1,86 @@
+{
+  "info": {
+    "testId": 27,
+    "task": "navigate to previous colum containing link in grid",
+    "title": "Navigate to the previous column containing a link in a grid in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusOnFourthDataCell.html",
+    "setupScript": {
+      "name": "setFocusOnFourthDataCell",
+      "description": "sets focus on the fourth cell of the second row in the grid",
+      "source": "// sets focus on the fourth cell of the second row in the grid\ntestPageDocument.defaultView.ex1Grid.setFocusPointer(0, 3);\ntestPageDocument.defaultView.ex1Grid.focusCell(0, 3);\n",
+      "modulePath": "scripts/setFocusOnFourthDataCell.module.js",
+      "jsonpPath": "scripts/setFocusOnFourthDataCell.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the previous column containing a link in the grid."
+    ],
+    "raw": "Navigate to the previous column containing a link in the grid.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_U",
+      "keystroke": "Shift+U",
+      "keypresses": [
+        {
+          "id": "SHIFT_U",
+          "keystroke": "Shift+U"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_K",
+      "keystroke": "Shift+K",
+      "keypresses": [
+        {
+          "id": "SHIFT_K",
+          "keystroke": "Shift+K"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_ALT_LEFT",
+      "keystroke": "Control+Alt+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_ALT_LEFT",
+          "keystroke": "Control+Alt+Left"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the column header ('Description') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Cash Deposit' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "coordinates of the cell (column 3, row 2) are conveyed"
+    }
+  ]
+}

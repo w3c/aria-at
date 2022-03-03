@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Trigger a meter update</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/meter/meter.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+
+<script>
+  var scripts = {
+		setFocusOnButton: function(testPageDocument){
+			// sets focus on the 'Change Value' button
+			testPageDocument.querySelector('button.play-meters').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "setup_script_description": "sets focus on the 'Change Value' button",
+  "setupTestPage": "setFocusOnButton",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "trigger a meter update",
+  "specific_user_instruction": "With focus on the 'Change Value' button, activate the button to trigger a meter update.",
+  "output_assertions": [
+    [
+      "1",
+      "Updated value is not conveyed; the screen reader stays silent"
+    ]
+  ]
+};
+    const commandJson = {
+  "trigger a meter update": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-11-10_142949/meter.setFocusOnButton.html");
+  });
+</script>
+  

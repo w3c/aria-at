@@ -1,0 +1,25 @@
+{
+  "setup_script_description": "sets focus on a link after the first checkbox",
+  "setupTestPage": "moveFocusAfterFirstCheckbox",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "navigate backwards to partially checked checkbox",
+  "specific_user_instruction": "Navigate to the first checkbox. Note: it should be in the partially checked state.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'All condiments' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (partially checked) is conveyed"
+    ]
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusCancelButton",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "mode": "interaction",
+  "task": "close modal dialog using button",
+  "specific_user_instruction": "With focus on the 'Cancel' button inside a modal dialog, press the button to close the dialog.",
+  "output_assertions": [
+    [
+      "1",
+      "Role of the focused element ('button') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused element ('Add Delivery Address') is conveyed"
+    ]
+  ]
+}

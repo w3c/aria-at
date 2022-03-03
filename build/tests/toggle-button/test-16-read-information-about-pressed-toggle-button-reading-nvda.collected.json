@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 16,
+    "task": "read information about pressed toggle button",
+    "title": "Read information about a pressed toggle button in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/button/button.html"
+      },
+      {
+        "refId": "button",
+        "value": "https://w3c.github.io/aria/#button"
+      },
+      {
+        "refId": "aria-pressed",
+        "value": "https://w3c.github.io/aria/#aria-pressed"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-3-29_145942/button.setFocusOnButtonAndSetStateToPressed.html",
+    "setupScript": {
+      "name": "setFocusOnButtonAndSetStateToPressed",
+      "description": "sets focus on the button, and sets its state to 'pressed'",
+      "source": "// sets focus on the button, and sets its state to 'pressed'\nlet button = testPageDocument.querySelector('#toggle');\nbutton.setAttribute('aria-pressed', 'true');\nbutton.querySelector('use').setAttribute('xlink:href', '#icon-sound');\nbutton.focus();\n",
+      "modulePath": "scripts/setFocusOnButtonAndSetStateToPressed.module.js",
+      "jsonpPath": "scripts/setFocusOnButtonAndSetStateToPressed.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Mute' button, read information about the button."
+    ],
+    "raw": "With the reading cursor on the 'Mute' button, read information about the button.",
+    "mode": "Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
+    },
+    {
+      "id": "INS_UP",
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Mute' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'pressed' is conveyed"
+    }
+  ]
+}

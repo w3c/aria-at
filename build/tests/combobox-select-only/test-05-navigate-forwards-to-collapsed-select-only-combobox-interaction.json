@@ -1,0 +1,28 @@
+{
+  "setup_script_description": "sets focus on a link before the Combobox",
+  "setupTestPage": "moveFocusBeforeCombobox",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "mode": "interaction",
+  "task": "navigate forwards to collapsed select-only combobox",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Favorite Fruit' Combobox.",
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Favorite Fruit' is conveyed"
+    ],
+    [
+      "1",
+      "Text of the selected option ('Choose a Fruit') is conveyed"
+    ],
+    [
+      "1",
+      "State of the combobox (collapsed) is conveyed"
+    ]
+  ]
+}

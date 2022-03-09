@@ -1035,7 +1035,7 @@ const MODE_INSTRUCTION_TEMPLATES_QUERYABLE = Queryable.from('modeInstructionTemp
     mode: 'reading',
     render: data => {
       const esc = data.key.where({ id: 'ESC' });
-      return `Insure NVDA is in browse mode by pressing ${esc.keystroke}. Note: This command has no effect if NVDA is already in browse mode.`;
+      return `Ensure NVDA is in browse mode by pressing ${esc.keystroke}. Note: This command has no effect if NVDA is already in browse mode.`;
     },
   },
   {

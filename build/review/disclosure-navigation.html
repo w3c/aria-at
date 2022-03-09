@@ -21,6 +21,37 @@
     <script type="module">
       import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
 
+      function numberTests(value) {
+        let testNumber = 0;
+        let titleTextChanged = false;
+        let buttonTextChanged = false;
+
+        for (let result of document.querySelectorAll(value)) {
+          result.style.display = 'block';
+
+          if (titleTextChanged && buttonTextChanged) {
+            testNumber += 1;
+
+            titleTextChanged = false;
+            buttonTextChanged = false;
+          }
+
+          if (result.nodeName === 'H2') {
+            result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber + 1}:`);
+            titleTextChanged = true;
+          }
+
+          if (result.nodeName === 'BUTTON') {
+            result.value = `Open Test ${testNumber + 1} Page`;
+            result.innerText = `Open Test ${testNumber + 1} Page`;
+            buttonTextChanged = true;
+          }
+        }
+
+        let reviewPageTitle = document.querySelector('h1');
+        reviewPageTitle.innerText = reviewPageTitle.innerText.replace(/\(\d+\stest(s|)\)/g, `(${testNumber} test${testNumber !== 1 ? 's': ''})`);
+      }
+
       window.filterATs = function(button) {
         const val = button.value;
 
@@ -36,6 +67,7 @@
               at.checked = true;
             }
           }
+          numberTests('.nvda, .jaws, .voiceover_macos');
         }
         else {
           for (let at of document.querySelectorAll('input')) {
@@ -50,12 +82,8 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-
           }
-
-          for (let result of document.querySelectorAll(`.${val}`)) {
-            result.style.display = 'block';
-          }
+          numberTests(`.${val}`);
         }
       };
 
@@ -832,9 +860,9 @@
     <fieldset>
       <legend>Filter tests by assistive technology</legend>
       <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
-        <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
-        <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
-        <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
+      <input type="radio" onclick="filterATs(this)" id="jaws" value="jaws"><label for="jaws">JAWS</label>
+      <input type="radio" onclick="filterATs(this)" id="nvda" value="nvda"><label for="nvda">NVDA</label>
+      <input type="radio" onclick="filterATs(this)" id="voiceover_macos" value="voiceover_macos"><label for="voiceover_macos">VoiceOver for macOS</label>
     </fieldset>
 
     <h2 class="jaws nvda">Test 1: Navigate forwards to a collapsed disclosure button in reading mode</h2>
@@ -899,7 +927,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the first disclosure button in the navigation region. Note: it should be in the collapsed state. using the following commands:
                <ul>
                    <li>B</li>
@@ -980,7 +1008,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the first disclosure button in the navigation region. Note: it should be in the collapsed state. using the following commands:
                <ul>
                    <li>Shift+B</li>
@@ -1317,7 +1345,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the first disclosure button in the navigation region. Note: it should be in the expanded state. using the following commands:
                <ul>
                    <li>B</li>
@@ -1398,7 +1426,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>Navigate to the first disclosure button in the navigation region. Note: it should be in the expanded state. using the following commands:
                <ul>
                    <li>Shift+B</li>
@@ -1726,7 +1754,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the first disclosure button in the navigation region, read information about the button. using the following commands:
                <ul>
                    <li>Insert+Tab</li>
@@ -1927,7 +1955,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the first disclosure button in the navigation region, read information about the button. using the following commands:
                <ul>
                    <li>Insert+Tab</li>
@@ -2126,7 +2154,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the first disclosure button in the navigation region, set the state of the button to expanded. using the following commands:
                <ul>
                    <li>Space</li>
@@ -2320,7 +2348,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the first disclosure button in the navigation region, set the state of the button to collapsed. using the following commands:
                <ul>
                    <li>Space</li>
@@ -2517,7 +2545,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the first disclosure button in the navigation region, move into the button&#39;s associated list of links. Note: you may need to press certain commands (such as Down Arrow) multiple times to hear all information about the dropdown and link. using the following commands:
                <ul>
                    <li>U</li>
@@ -2729,7 +2757,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on the first disclosure button in the navigation region, move into the button&#39;s associated list of links. Note: you may need to press certain commands (such as Down Arrow) multiple times to hear all information about the dropdown and link. using the following commands:
                <ul>
                    <li>U</li>
@@ -2943,7 +2971,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on a link in the first dropdown, close the dropdown and return focus to the associated disclosure button. using the following commands:
                <ul>
                    <li>Escape</li>
@@ -3141,7 +3169,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on a link in the first dropdown, navigate to the next link. using the following commands:
                <ul>
                    <li>U</li>
@@ -3218,7 +3246,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on a link in the first dropdown, navigate to the previous link. using the following commands:
                <ul>
                    <li>Shift+U</li>
@@ -3784,7 +3812,7 @@
         <h4>Tester Instructions</h4>
         <p>
           <ol>
-             <li>Insure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
+             <li>Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode.</li>
              <li>With the reading cursor on a link in the first dropdown, activate the link. using the following commands:
                <ul>
                    <li>Enter</li>

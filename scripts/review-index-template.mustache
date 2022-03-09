@@ -21,6 +21,10 @@
         padding: .5em;
       }
 
+      td > p {
+        margin: 0;
+      }
+
       tr:not(:first-of-type) th {
         padding: .5em;
         text-align: left;
@@ -43,9 +47,9 @@
       {{#patterns}}
           <tr>
             <th>{{name}}</th>
-            <td><a href="./tests/{{name}}/index.html">Index</a></td>
-            <td><a href="./review/{{name}}.html">Review</a></td>
-            <td>{{numberOfTests}}</td>
+            <td><a href="./tests/{{name}}/index.html" aria-label="Index: {{name}}">Index</a></td>
+            <td><a href="./review/{{name}}.html" aria-label="Review: {{name}}">Review</a></td>
+            <td><p aria-label="Number of Tests: {{numberOfTests}}">{{numberOfTests}}</p></td>
             <td><a href="https://github.com/w3c/aria-at/commit/{{commit}}" target="_blank">{{commitDescription}}</a></td>
           </tr>
       {{/patterns}}

@@ -33,7 +33,7 @@
   ],
   "mode": "interaction",
   "task": "navigate backwards to filled in collapsed combobox",
-  "specific_user_instruction": "Navigate to the Combobox. Note: it should be in the collapsed state. You may need to press certain commands (such as Control+Option+Left) multiple times to hear all information relating to the combobox.",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'State' Combobox.",
   "output_assertions": [
     [
       "1",
@@ -73,21 +73,23 @@
         [ "SHIFT_E" ],
         [ "SHIFT_C" ],
         [ "SHIFT_TAB" ],
-        [ "UP" ]
+        [ "UP,UP" ]
       ],
       "nvda": [
         [ "SHIFT_F" ],
         [ "SHIFT_E" ],
         [ "SHIFT_C" ],
         [ "SHIFT_TAB" ],
-        [ "UP" ]
+        [ "UP,UP" ]
       ]
     },
     "interaction": {
       "jaws": [ [ "SHIFT_TAB" ] ],
       "nvda": [ [ "SHIFT_TAB" ] ],
       "voiceover_macos": [
-        [ "CTRL_OPT_LEFT" ],
+        [
+          "CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+        ],
         [ "SHIFT_TAB" ],
         [ "SHIFT_CTRL_OPT_CMD_J" ]
       ]

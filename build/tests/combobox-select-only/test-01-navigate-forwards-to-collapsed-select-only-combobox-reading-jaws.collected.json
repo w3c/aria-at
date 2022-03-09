@@ -40,9 +40,9 @@
   },
   "instructions": {
     "user": [
-      "Navigate to the Combobox. Note: it should be in the collapsed state. You may need to press certain commands (such as Down Arrow) multiple times to hear all information relating to the combobox."
+      "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Favorite Fruit' Combobox."
     ],
-    "raw": "Navigate to the Combobox. Note: it should be in the collapsed state. You may need to press certain commands (such as Down Arrow) multiple times to hear all information relating to the combobox.",
+    "raw": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Favorite Fruit' Combobox.",
     "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
   },
   "commands": [
@@ -77,9 +77,17 @@
       ]
     },
     {
-      "id": "DOWN",
-      "keystroke": "Down Arrow",
+      "id": "DOWN,DOWN,DOWN",
+      "keystroke": "Down Arrow, then Down Arrow, then Down Arrow",
       "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        },
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        },
         {
           "id": "DOWN",
           "keystroke": "Down Arrow"

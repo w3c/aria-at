@@ -1,10 +1,7 @@
 {
   "navigate forwards to grid": {
     "reading": {
-      "jaws": [
-        [ "T_THEN_DOWN" ],
-        [ "DOWN" ]
-      ],
+      "jaws": [ [ "T,DOWN" ], [ "DOWN" ] ],
       "nvda": [ [ "T" ], [ "DOWN" ] ]
     },
     "interaction": {
@@ -16,7 +13,7 @@
   },
   "navigate backwards to grid": {
     "reading": {
-      "jaws": [ [ "SHIFT_T_THEN_DOWN" ] ],
+      "jaws": [ [ "SHIFT_T,DOWN" ] ],
       "nvda": [ [ "SHIFT_T" ] ]
     }
   },
@@ -184,8 +181,7 @@
       "voiceover_macos": [
         [ "LEFT" ],
         [ "CTRL_OPT_LEFT" ],
-        [ "SHIFT_CTRL_OPT_CMD_Y" ],
-        [ "SHIFT_CTRL_OPT_CMD_L" ]
+        [ "SHIFT_CTRL_OPT_CMD_Y" ]
       ]
     }
   },

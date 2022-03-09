@@ -1,7 +1,7 @@
 testId,task,mode,at,commandA,commandB,commandC,commandD,commandE,commandF
-1,navigate forwards to grid,reading,JAWS,T_THEN_DOWN,DOWN,,,,
+1,navigate forwards to grid,reading,JAWS,"T,DOWN",DOWN,,,,
 1,navigate forwards to grid,reading,NVDA,T,DOWN,,,,
-2,navigate backwards to grid,reading,JAWS,SHIFT_T_THEN_DOWN,,,,,
+2,navigate backwards to grid,reading,JAWS,"SHIFT_T,DOWN",,,,,
 2,navigate backwards to grid,reading,NVDA,SHIFT_T,,,,,
 3,navigate forwards to grid,interaction,voiceover_macos,CTRL_OPT_RIGHT,CTRL_OPT_CMD_T,,,,
 4,navigate into end of grid,reading,JAWS,UP,,,,,
@@ -56,7 +56,7 @@ testId,task,mode,at,commandA,commandB,commandC,commandD,commandE,commandF
 33,navigate to previous column from cel containing link in grid,reading,NVDA,CTRL_ALT_LEFT,,,,,
 34,navigate to previous column from cel containing link in grid,interaction,JAWS,LEFT,,,,,
 34,navigate to previous column from cel containing link in grid,interaction,NVDA,LEFT,,,,,
-35,navigate to previous column from cel containing link in grid,interaction,voiceover_macos,LEFT,CTRL_OPT_LEFT,SHIFT_CTRL_OPT_CMD_Y,SHIFT_CTRL_OPT_CMD_L,,
+35,navigate to previous column from cel containing link in grid,interaction,voiceover_macos,LEFT,CTRL_OPT_LEFT,SHIFT_CTRL_OPT_CMD_Y,,,
 36,navigate to next row in grid,reading,JAWS,CTRL_ALT_DOWN,,,,,
 36,navigate to next row in grid,reading,NVDA,CTRL_ALT_DOWN,,,,,
 37,navigate to next row in grid ,interaction,JAWS,DOWN,,,,,

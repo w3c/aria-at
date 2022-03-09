@@ -32,7 +32,7 @@
   ],
   "mode": "interaction",
   "task": "navigate forwards to collapsed select-only combobox",
-  "specific_user_instruction": "Navigate to the Combobox. Note: it should be in the collapsed state.",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Favorite Fruit' Combobox.",
   "output_assertions": [
     [
       "1",
@@ -59,7 +59,7 @@
         [ "F" ],
         [ "C" ],
         [ "TAB" ],
-        [ "DOWN" ]
+        [ "DOWN,DOWN,DOWN" ]
       ],
       "nvda": [
         [ "F" ],
@@ -72,7 +72,9 @@
       "jaws": [ [ "TAB" ] ],
       "nvda": [ [ "TAB" ] ],
       "voiceover_macos": [
-        [ "CTRL_OPT_RIGHT" ],
+        [
+          "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT"
+        ],
         [ "TAB" ],
         [ "CTRL_OPT_CMD_J" ]
       ]

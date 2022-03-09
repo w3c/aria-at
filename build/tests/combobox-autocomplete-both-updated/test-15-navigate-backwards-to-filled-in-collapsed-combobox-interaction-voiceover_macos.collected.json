@@ -40,16 +40,20 @@
   },
   "instructions": {
     "user": [
-      "Navigate to the Combobox. Note: it should be in the collapsed state. You may need to press certain commands (such as Control+Option+Left) multiple times to hear all information relating to the combobox."
+      "With focus on the 'Navigate backwards from here' link, navigate to the 'State' Combobox."
     ],
-    "raw": "Navigate to the Combobox. Note: it should be in the collapsed state. You may need to press certain commands (such as Control+Option+Left) multiple times to hear all information relating to the combobox.",
+    "raw": "With focus on the 'Navigate backwards from here' link, navigate to the 'State' Combobox.",
     "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
   },
   "commands": [
     {
-      "id": "CTRL_OPT_LEFT",
-      "keystroke": "Ctrl+Option+Left",
+      "id": "CTRL_OPT_LEFT,CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left, then Ctrl+Option+Left",
       "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        },
         {
           "id": "CTRL_OPT_LEFT",
           "keystroke": "Ctrl+Option+Left"

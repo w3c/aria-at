@@ -36,19 +36,23 @@
   },
   "instructions": {
     "user": [
-      "Navigate to the first column header in the grid. Note: you may need to press  certain commands (such as Down Arrow) multiple times to hear all information relating to the grid and the first column header."
+      "Navigate to the first column header in the grid."
     ],
-    "raw": "Navigate to the first column header in the grid. Note: you may need to press  certain commands (such as Down Arrow) multiple times to hear all information relating to the grid and the first column header.",
+    "raw": "Navigate to the first column header in the grid.",
     "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, turn on the Virtual Cursor by pressing Insert+Z."
   },
   "commands": [
     {
-      "id": "T_THEN_DOWN",
-      "keystroke": "T followed by Down Arrow",
+      "id": "T,DOWN",
+      "keystroke": "T, then Down Arrow",
       "keypresses": [
         {
-          "id": "T_THEN_DOWN",
-          "keystroke": "T followed by Down Arrow"
+          "id": "T",
+          "keystroke": "T"
+        },
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
         }
       ]
     },

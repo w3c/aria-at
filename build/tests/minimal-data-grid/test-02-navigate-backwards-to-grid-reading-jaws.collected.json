@@ -43,12 +43,16 @@
   },
   "commands": [
     {
-      "id": "SHIFT_T_THEN_DOWN",
-      "keystroke": "Shift+T followed by Down Arrow",
+      "id": "SHIFT_T,DOWN",
+      "keystroke": "Shift+T, then Down Arrow",
       "keypresses": [
         {
-          "id": "SHIFT_T_THEN_DOWN",
-          "keystroke": "Shift+T followed by Down Arrow"
+          "id": "SHIFT_T",
+          "keystroke": "Shift+T"
+        },
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
         }
       ]
     }

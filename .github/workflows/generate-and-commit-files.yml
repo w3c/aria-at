@@ -2,8 +2,6 @@ name: Generate and Commit Files
 
 on:
   pull_request:
-    branches-ignore:
-      - 'dependabot/**'
 
 jobs:
   generate-and-commit-files:
@@ -27,6 +25,7 @@ jobs:
         run: npm run build
 
       - uses: stefanzweifel/git-auto-commit-action@v4
+        if: ${{ github.actor != 'dependabot[bot]' }}
         with:
           commit_message: Generate test and review files automatically
 

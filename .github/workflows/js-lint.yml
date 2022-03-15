@@ -7,6 +7,8 @@ on:
       - "package*.json"
       - ".eslintrc.json"
       - ".github/workflows/js-lint.yml"
+    branches-ignore:
+      - "dependabot/**"
   pull_request:
     paths:
       - "**/*.js"

@@ -14,9 +14,10 @@ jobs:
           fetch-depth: 0
 
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '12.x'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -39,9 +40,10 @@ jobs:
           fetch-depth: 0
 
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: '12.x'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci

@@ -766,7 +766,7 @@ ${rows}
     );
     log.warning(errors);
   } else {
-    log('No validation errors detected\n');
+    log(`[${directory}] No validation errors detected\n`);
   }
 
   return { isSuccessfulRun: errorCount === 0, suppressedMessages };

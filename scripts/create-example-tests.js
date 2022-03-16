@@ -81,7 +81,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
 
   // cwd; @param rootDirectory is dependent on this file not moving from the scripts folder
   const scriptsDirectory = path.dirname(__filename);
-  const rootDirectory = scriptsDirectory.split('scripts')[0];
+  const rootDirectory = path.join(scriptsDirectory, '..');
 
   const testsDirectory = path.join(rootDirectory, 'tests');
   const testPlanDirectory = path.join(rootDirectory, directory);

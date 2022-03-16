@@ -38,7 +38,7 @@ async function main() {
   const VALIDATE_CHECK = !!args.validate;
 
   const scriptsDirectory = path.dirname(__filename);
-  const rootDirectory = path.join(scriptsDirectory, '../');
+  const rootDirectory = path.join(scriptsDirectory, '..');
   const testsDirectory = path.join(rootDirectory, 'tests');
 
   const filteredTestPlans = fs.readdirSync(testsDirectory).filter(f =>

@@ -565,6 +565,7 @@ ${rows}
   var errorCount = 0;
   var errors = '';
   var indexOfURLs = [];
+  var checkedSourceHtmlScriptFiles = [];
 
   function addTestError(id, error) {
     errorCount += 1;
@@ -581,6 +582,19 @@ ${rows}
     newTestPlan.add(path.relative(testPlanBuildDirectory, filepath), {
       buffer: toBuffer(content),
     });
+  }
+
+  function generateSourceHtmlScriptFile(filePath, content) {
+    // check that test plan's reference html file path is generated file
+    if (
+      filePath.includes('reference') &&
+      (filePath.split(path.sep).pop().match(/\./g) || []).length > 1
+    ) {
+      // generate file at `<root>/tests/<directory>/reference/<path>/<directory>.<script>.html
+      const sourceFilePath = filePath.replace(`build${path.sep}`, '');
+      emitFile(sourceFilePath, content);
+      checkedSourceHtmlScriptFiles.push(sourceFilePath);
+    }
   }
 
   function validateCSVKeys(result) {
@@ -713,7 +727,27 @@ ${rows}
       createCollectedTestHtmlFile(collectedTest, testPlanBuildDirectory)
     ),
   ];
-  files.forEach(file => emitFile(file.path, file.content));
+  files.forEach(file => {
+    generateSourceHtmlScriptFile(file.path, file.content);
+    return emitFile(file.path, file.content);
+  });
+
+  if (checkedSourceHtmlScriptFiles.length) {
+    const sourceFolder = checkedSourceHtmlScriptFiles[0]
+      .split(path.sep)
+      .slice(0, -1)
+      .join(path.sep);
+    fs.readdirSync(sourceFolder).forEach(function (file) {
+      const filePath = path.join(sourceFolder, file);
+      // check that test plan's reference html file path is generated file
+      if (file.includes('.html') && (file.split(path.sep).pop().match(/\./g) || []).length > 1) {
+        // remove generated html files from source which include scripts which are no longer generated
+        if (!checkedSourceHtmlScriptFiles.includes(filePath)) {
+          fs.rmSync(path.join(sourceFolder, file));
+        }
+      }
+    });
+  }
 
   const atCommandsMap = createCommandTuplesATModeTaskLookup(commandsValidated);
   emitFile(

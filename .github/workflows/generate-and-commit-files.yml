@@ -28,9 +28,9 @@ jobs:
       - uses: stefanzweifel/git-auto-commit-action@v4
         if: ${{ github.actor != 'dependabot[bot]' }}
         with:
-          commit_message: Generate test and review files automatically
+          commit_message: Generate .html source files with scripts automatically
 
-  generate-and-commit-files-windows:
+  generate-files-windows:
     runs-on: windows-latest
 
     steps:

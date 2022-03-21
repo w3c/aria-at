@@ -2,14 +2,11 @@ const path = require('path');
 const fs = require('fs');
 const csv = require('csv-parser');
 
-const args = require('minimist')(
-  process.argv.slice(2),
-  {
-    alias: {
-      h: 'help'
-    },
-  }
-);
+const args = require('minimist')(process.argv.slice(2), {
+  alias: {
+    h: 'help',
+  },
+});
 
 if (args.help) {
   console.log(`
@@ -37,13 +34,13 @@ function parseCSV(filename) {
     let data = [];
     fs.createReadStream(filename)
       .pipe(csv())
-      .on('data', (row) => {
+      .on('data', row => {
         data.push(row);
       })
       .on('end', () => {
         resolve(data);
       })
-      .on('error', (error) => {
+      .on('error', error => {
         reject(error);
       });
   });
@@ -53,7 +50,7 @@ function parseCSV(filename) {
 function countTests(tests, commands) {
   for (let [i, test] of tests.entries()) {
     const command = commands[i];
-    
+
     let numCommands = 0;
     for (let letter of ['A', 'B', 'C', 'D', 'E', 'F']) {
       if (command[`command${letter}`]) {
@@ -63,7 +60,7 @@ function countTests(tests, commands) {
 
     let numAssertions = 0;
     for (let j = 0; j < 7; j++) {
-      if (test[`assertion${j+1}`]) {
+      if (test[`assertion${j + 1}`]) {
         numAssertions++;
       }
     }
@@ -80,19 +77,19 @@ function count(directory) {
     totalTestPlans++;
 
     parseCSV(path.join(directory, 'data', 'tests.csv'))
-      .then((tests) => {
+      .then(tests => {
         parseCSV(path.join(directory, 'data', 'commands.csv'))
-          .then((commands) => {
+          .then(commands => {
             countTests(tests, commands);
             resolve();
           })
           .catch(error => {
             reject(error);
-          })
+          });
       })
       .catch(error => {
         reject(error);
-      })
+      });
   });
 }
 
@@ -109,29 +106,28 @@ if (args._.length) {
     process.exit(1);
   }
 
-  promises.push(
-    count(path.join(testsDirectory, directory))
-  );
+  promises.push(count(path.join(testsDirectory, directory)));
 
-// else, count all directories
+  // else, count all directories
 } else {
-  const directories = fs.readdirSync(testsDirectory)
+  const directories = fs
+    .readdirSync(testsDirectory)
     .filter(f => f !== 'resources' && fs.statSync(path.join(testsDirectory, f)).isDirectory());
 
   for (let directory of directories) {
-    promises.push(
-      count(path.join(testsDirectory, directory))
-    );
+    promises.push(count(path.join(testsDirectory, directory)));
   }
 }
 
 // wait for all promises to complete, then read totals
 Promise.all(promises)
   .then(() => {
-    console.log(`${totalTestPlans} test plans, ${totalTests} tests, ${totalAssertions} assertions, ${totalCommandAssertions} command/assertion pairs`);
+    console.log(
+      `${totalTestPlans} test plans, ${totalTests} tests, ${totalAssertions} assertions, ${totalCommandAssertions} command/assertion pairs`
+    );
     process.exit();
   })
-  .catch((error) => {
+  .catch(error => {
     console.error(error);
     process.exit(1);
-  })
+  });

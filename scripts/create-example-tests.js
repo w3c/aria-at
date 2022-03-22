@@ -440,9 +440,9 @@ ${references}
     const commandJson = ${getCommandsJson()};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
-    displayTestPageAndInstructions("${
+    displayTestPageAndInstructions(${JSON.stringify(
       exampleScriptedFilesQueryable.where({ name: test.setupScript ? test.setupScript : '' }).path
-    }");
+    )});
   });
 </script>
   `;

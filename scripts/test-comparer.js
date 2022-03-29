@@ -1,21 +1,6 @@
 'use strict';
-const path = require('path');
 const fse = require('fs-extra');
 const inquirer = require('inquirer');
-const util = require('util');
-
-const ATs = ['jaws', 'voiceover', 'nvda'];
-const ATNames = ['JAWS', 'VoiceOver', 'NVDA'];
-
-const getPriorityString = function (priority) {
-  priority = parseInt(priority);
-  if (priority === 1) {
-    return 'required';
-  } else if (priority === 2) {
-    return 'optional';
-  }
-  return '';
-};
 
 const args = require('minimist')(process.argv.slice(2), {
   alias: {

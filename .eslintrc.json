@@ -6,21 +6,30 @@
   },
   "extends": [
     "eslint:recommended",
+    "plugin:n/recommended",
     "plugin:import/errors",
     "plugin:import/warnings",
     "plugin:prettier/recommended"
   ],
   "globals": {
     "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
+    "SharedArrayBuffer": "readonly",
+    "testPageDocument": true
   },
   "parserOptions": {
-    "ecmaVersion": 2018,
+    "ecmaVersion": 2021,
     "sourceType": "module"
   },
   "rules": {
-    "no-dupe-keys": 0,
-    "no-undef": 0,
-    "no-unused-vars": 0
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "scripts/*"
+      ],
+      "rules": {
+        "n/no-process-exit": 0
+      }
+    }
+  ]
 }

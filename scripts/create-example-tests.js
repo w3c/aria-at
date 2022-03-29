@@ -289,7 +289,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
       }
     }
 
-    function getReferences(example, testRefs) {
+    function getReferences(example) {
       let links = '';
 
       if (typeof example === 'string' && example.length) {
@@ -389,7 +389,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
     let testPlanHtmlFileBuildPath = path.join(testPlanBuildDirectory, testFileName);
     let testPlanJsonFileBuildPath = path.join(testPlanBuildDirectory, testJSONFileName);
 
-    let references = getReferences(refs.example, test.refs);
+    let references = getReferences(refs.example);
     addSetupScript(test.setupScript);
 
     for (let i = 1; i < 31; i++) {
@@ -448,9 +448,6 @@ ${references}
   `;
 
     emitFile(testPlanHtmlFileBuildPath, testHTML, 'utf8');
-
-    /** @type {AriaATFile.CollectedTest} */
-    const collectedTest = {};
 
     const applies_to_at = [];
 

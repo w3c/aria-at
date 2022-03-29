@@ -27,7 +27,7 @@ if (args.help) {
   process.exit();
 }
 
-// on some OSes, it seems the the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
+// on some OSes, it seems the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
 const TARGET_TEST_PLAN =
   args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate review page assets for
 

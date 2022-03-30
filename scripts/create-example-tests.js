@@ -15,6 +15,7 @@ const {
 
 const csv = require('csv-parser');
 const beautify = require('json-beautify');
+const rimraf = require('rimraf');
 
 const { validate } = require('../lib/util/error');
 const { reindent } = require('../lib/util/lines');
@@ -743,7 +744,7 @@ ${rows}
       if (file.includes('.html') && (file.split(path.sep).pop().match(/\./g) || []).length > 1) {
         // remove generated html files from source which include scripts which are no longer generated
         if (!checkedSourceHtmlScriptFiles.includes(filePath)) {
-          fs.rmSync(path.join(sourceFolder, file));
+          rimraf.sync(path.join(sourceFolder, file));
         }
       }
     });

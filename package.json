@@ -16,6 +16,7 @@
   "dependencies": {
     "cross-var": "^1.1.0",
     "csv-parser": "^3.0.0",
+    "eslint-plugin-n": "^15.1.0",
     "fs-extra": "^10.0.1",
     "inquirer": "^8.2.2",
     "json-beautify": "^1.1.1",
@@ -46,5 +47,8 @@
   "homepage": "https://github.com/w3c/aria-at#readme",
   "lint-staged": {
     "*.js": "eslint --cache --fix"
+  },
+  "engines": {
+    "node": ">=14.14.0"
   }
 }

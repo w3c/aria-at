@@ -1,1 +1,1 @@
-// sets focus on the first radio button, and checks the  second radio button
+// sets focus on the second radio button, and checks the first radio button

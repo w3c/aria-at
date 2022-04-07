@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
+<meta charset="utf-8">
 <title>Modal Dialog Example</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,11 +16,11 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // openVerificationResultDialogAndFocusCloseButton
-      // opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog
+      // openAddressAddedDialogAndFocusYourProfileLink
+      // opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'your profile' link inside the second dialog
       const btn = testPageDocument.querySelector('#ex1 > button');
       testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
-      testPageDocument.defaultView.openDialog('dialog2', 'dialog1_verify', 'dialog2_close_btn');
+      testPageDocument.defaultView.replaceDialog('dialog3', undefined, 'dialog3_profile');
 
     };
     document.addEventListener('click', function(event) {
@@ -39,15 +39,14 @@
       Following is an example implementation of the
       <a href="https://w3c.github.io/aria-practices/#dialog_modal">design pattern for modal dialogs.</a>
       The below <q>Add Delivery Address</q> button opens a modal dialog that contains two buttons that open other dialogs.
-      The accessibility features section explains the rationale for initial focus placement and use of <code>aria-describedby</code> in each dialog.
     </p>
-    <section>
+   <section>
       <div class="example-header">
         <h2 id="ex_label">Example</h2>
       </div>
       <div role="separator" id="ex_start_sep" aria-labelledby="ex_start_sep ex_label" aria-label="Start of"></div>
-      <a id="beforelink" href="#beforelink">Navigate forwards from here</a>
       <div id="ex1">
+        <a id="beforelink" href="#beforelink">Navigate forwards from here</a>
         <button type="button" onclick="openDialog('dialog1', this)">Add Delivery Address</button>
         <div id="dialog_layer" class="dialogs">
           <div role="dialog" id="dialog1" aria-labelledby="dialog1_label" aria-modal="true" class="hidden">
@@ -182,8 +181,8 @@
             </div>
           </div>
         </div>
+        <a id="afterlink" href="#afterlink">Navigate backwards from here</a>
       </div>
-      <a id="afterlink" href="#afterlink">Navigate backwards from here</a>
       <div role="separator" id="ex_end_sep" aria-labelledby="ex_end_sep ex_label" aria-label="End of"></div>
     </section>
 

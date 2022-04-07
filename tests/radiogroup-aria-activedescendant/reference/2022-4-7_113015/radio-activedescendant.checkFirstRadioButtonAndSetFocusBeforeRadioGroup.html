@@ -1,8 +1,8 @@
 <!DOCTYPE html>
   <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <title>Radio Group Example Using aria-activedescendant | WAI-ARIA Authoring Practices 1.2</title>
+    <meta charset="utf-8">
+    <title>Radio Group Example Using aria-activedescendant</title>
 
 <!--  CSS and Javascript for this example -->
     <link rel="stylesheet" href="css/radio.css">
@@ -12,8 +12,8 @@
   <script>
     (function() {
       function setupScript(testPageDocument) {
-        // setFocusOnAndCheckFirstRadioButton
-        // sets focus on the first radio button, and sets its state to checked
+        // checkFirstRadioButtonAndSetFocusBeforeRadioGroup
+        // sets the state of the first radio button to checked, sets focus on a link before the radio group, and hides the group heading
         let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
         let radios = testPageDocument.querySelectorAll('[role="radio"]');
         radios.forEach(r => {
@@ -23,7 +23,8 @@
         radios[0].classList.add('focus');
         radios[0].setAttribute('aria-checked', 'true');
         radioGroup.setAttribute('aria-activedescendant', radios[0].id);
-        radioGroup.focus();
+        testPageDocument.querySelector('#beforelink').focus();
+        testPageDocument.querySelector('#group_label_1').style.display = 'none';
 
       };
       document.addEventListener('click', function(event) {

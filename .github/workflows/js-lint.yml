@@ -7,6 +7,8 @@ on:
       - "package*.json"
       - ".eslintrc.json"
       - ".github/workflows/js-lint.yml"
+    branches-ignore:
+      - "dependabot/**"
   pull_request:
     paths:
       - "**/*.js"
@@ -19,15 +21,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Use Node.js
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
-        node-version: '12.x'
+        node-version: '16.x'
+        cache: 'npm'
 
     - name: Install dependencies
       run: npm ci
 
-    - name: Generate test files
+    - name: Run linter
       run: npm run lint

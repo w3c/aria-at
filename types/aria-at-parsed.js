@@ -18,6 +18,8 @@
  * @property {string} target.mode
  * @property {object[]} commands
  * @property {string} commands[].id
+ * @property {object[]} commands[].keypresses
+ * @property {string} commands[].keypresses[].id
  * @property {string} [commands[].extraInstruction]
  */
 

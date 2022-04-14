@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Color Viewer Slider Example</title>
 
@@ -13,9 +13,9 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // setFocusAfterRedSlider
-      // sets focus on a link after the Red slider
-      testPageDocument.querySelector('#afterlink').focus();
+      // setFocusOnRedSlider
+      // sets focus on the 'Red' slider
+      testPageDocument.querySelector('[role="slider"].red').focus();
 
     };
     document.addEventListener('click', function(event) {
@@ -30,6 +30,7 @@
 <body>
   <main>
     <h1>Color Viewer Slider Example</h1>
+
    <p>
       Following is an example of a color viewer that demonstrates the
       <a href="https://w3c.github.io/aria-practices/#slider">slider design pattern.</a>

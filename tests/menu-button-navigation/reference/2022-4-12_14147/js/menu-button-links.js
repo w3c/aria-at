@@ -321,8 +321,6 @@ class MenuButtonLinks {
 // Initialize menu buttons
 
 window.addEventListener('load', function () {
-  var menuButtons = document.querySelectorAll('.menu-button-links');
-  for (let i = 0; i < menuButtons.length; i++) {
-    new MenuButtonLinks(menuButtons[i]);
-  }
+  var menuButton = document.querySelector('.menu-button-links');
+  document.defaultView.menuController = new MenuButtonLinks(menuButton);
 });

@@ -80,7 +80,7 @@ class KeysInput {
       modeInstructions: {
         reading: {
           jaws: `Verify the Virtual Cursor is active by pressing ${keys.ALT_DELETE}. If it is not, turn on the Virtual Cursor by pressing ${keys.INS_Z}.`,
-          nvda: `Insure NVDA is in browse mode by pressing ${keys.ESC}. Note: This command has no effect if NVDA is already in browse mode.`,
+          nvda: `Ensure NVDA is in browse mode by pressing ${keys.ESC}. Note: This command has no effect if NVDA is already in browse mode.`,
           voiceover_macos: `Toggle Quick Nav ON by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`,
         }[atKey],
         interaction: {
@@ -95,10 +95,12 @@ class KeysInput {
   /** @param {AriaATFile.CollectedTest} collectedTest */
   static fromCollectedTest(collectedTest) {
     return new KeysInput({
-      origin: "test.collected.json",
-      keys: collectedTest.commands.reduce((carry, {id, keystroke}) => {
-        carry[id] = keystroke;
-        return carry;
+      origin: 'test.collected.json',
+      keys: collectedTest.commands.reduce((carry, { keypresses }) => {
+        return keypresses.reduce((carry, { id, keystroke }) => {
+          carry[id] = keystroke;
+          return carry;
+        }, carry);
       }, {}),
       at: collectedTest.target.at.key,
       modeInstructions: collectedTest.instructions.mode,
@@ -569,7 +571,7 @@ class BehaviorInput {
         modeInstructions: instructions.mode,
         appliesTo: [target.at.name],
         specificUserInstruction: instructions.raw,
-        setupScriptDescription: target.setupScript ? target.setupScript.description : undefined,
+        setupScriptDescription: target.setupScript ? target.setupScript.description : '',
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
         commands: commandsInput.getCommands(info.task, target.mode),
         assertions: assertions.map(({priority, expectation: assertion}) => ({

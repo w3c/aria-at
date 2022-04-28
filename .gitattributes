@@ -13,3 +13,7 @@
 /build/tests/*/*.json   linguist-generated=true
 /build/tests/*/*.mjs    -diff -merge
 /build/tests/*/*.mjs    linguist-generated=true
+
+
+# ignore line endings changes for *.html files inside tests folder
+/tests/**/*.html -crlf

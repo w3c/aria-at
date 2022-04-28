@@ -18,8 +18,41 @@
       }
 
     </style>
-    <script>
-      const filterATs = function(button) {
+    <script type="module">
+      import {TestWindow} from '../tests/resources/aria-at-test-window.mjs';
+
+      function numberTests(value) {
+        let testNumber = 0;
+        let titleTextChanged = false;
+        let buttonTextChanged = false;
+
+        for (let result of document.querySelectorAll(value)) {
+          result.style.display = 'block';
+
+          if (titleTextChanged && buttonTextChanged) {
+            testNumber += 1;
+
+            titleTextChanged = false;
+            buttonTextChanged = false;
+          }
+
+          if (result.nodeName === 'H2') {
+            result.innerText = result.innerText.replace(/^Test\s\d+:/g, `Test ${testNumber + 1}:`);
+            titleTextChanged = true;
+          }
+
+          if (result.nodeName === 'BUTTON') {
+            result.value = `Open Test ${testNumber + 1} Page`;
+            result.innerText = `Open Test ${testNumber + 1} Page`;
+            buttonTextChanged = true;
+          }
+        }
+
+        let reviewPageTitle = document.querySelector('h1');
+        reviewPageTitle.innerText = reviewPageTitle.innerText.replace(/\(\d+\stest(s|)\)/g, `(${testNumber} test${testNumber !== 1 ? 's': ''})`);
+      }
+
+      window.filterATs = function(button) {
         const val = button.value;
 
         if (val === 'all') {
@@ -34,6 +67,7 @@
               at.checked = true;
             }
           }
+          numberTests('.nvda, .jaws, .voiceover_macos');
         }
         else {
           for (let at of document.querySelectorAll('input')) {
@@ -48,51 +82,33 @@
             for (let result of document.querySelectorAll(`.${at.value}`)) {
               result.style.display = 'none';
             }
-            for (let result of document.querySelectorAll(`.${val}`)) {
-              result.style.display = 'block';
-            }
-
           }
+          numberTests(`.${val}`);
         }
-      }
+      };
 
-      function executeScriptInTestPage(setupScriptName, testPageWindow) {
-        if (testPageWindow.location.origin !== window.location.origin // make sure the origin is the same, and prevent this from firing on an 'about' page
-            || testPageWindow.document.readyState !== 'complete'
-        ) {
-          window.setTimeout(() => {
-            executeScriptInTestPage(setupScriptName, testPageWindow);
-          }, 100);
-          return;
-        }
+      var scripts = {
+        {{{setupScripts}}}
+      };
 
-        if (setupScriptName) {
-          var scripts = {
-            {{{setupScripts}}}
-          };
+      window.openTestPage = function(testPageUri, testNumber, setupScriptName) {
+        var openTestPageElement = document.getElementById('open-test-page-' + testNumber);
 
-          scripts[setupScriptName](testPageWindow.document);
-        }
-      }
-
-      function openTestPage(testPageUri, testNumber, setupScriptName) {
-        testPageWindow = window.open(testPageUri, '_blank', 'toolbar=0,location=0,menubar=0,width=400,height=400');
-
-        document.getElementById('open-test-page-' + testNumber).disabled = true;
-
-        // If the window is closed, re-enable open popup button
-        testPageWindow.onunload = function(event) {
-          window.setTimeout(() => {
-            if (testPageWindow.closed) {
-              testPageWindow = undefined;
-              document.getElementById('open-test-page-' + testNumber).disabled = false;
+        var testWindow = new TestWindow({
+          pageUri: testPageUri,
+          setupScriptName,
+          scripts,
+          hooks: {
+            windowOpened() {
+              openTestPageElement.disabled = true;
+            },
+            windowClosed() {
+              openTestPageElement.disabled = false;
             }
-          }, 100);
-
-        };
-
-        executeScriptInTestPage(setupScriptName, testPageWindow);
-      }
+          }
+        });
+        testWindow.open();
+      };
     </script>
   </head>
   <body>
@@ -103,14 +119,14 @@
       <legend>Filter tests by assistive technology</legend>
       <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
       {{#AToptions}}
-        <input type="radio" onclick="filterATs(this)" id="{{key}}" value="{{key}}"><label for="{{key}}">{{name}}</label>
+      <input type="radio" onclick="filterATs(this)" id="{{key}}" value="{{key}}"><label for="{{key}}">{{name}}</label>
       {{/AToptions}}
     </fieldset>
 
     {{#tests}}
-    <h2>Test {{testNumber}}: {{{name}}}</h2>
+    <h2 class="{{allRelevantATsSpaceSeparated}}">Test {{testNumber}}: {{{name}}}</h2>
     <p>
-      <ul>
+      <ul class="{{allRelevantATsSpaceSeparated}}">
         <li>Mode: {{mode}}</li>
         <li>Applies to: {{allRelevantATsFormatted}}</li>
         <li>Last edited: {{lastEdited}}</li>
@@ -130,7 +146,7 @@
         </li>
       </ul>
 
-      <button id="open-test-page-{{testNumber}}"
+      <button id="open-test-page-{{testNumber}}" class="{{allRelevantATsSpaceSeparated}}"
         onclick="openTestPage('../tests{{reference}}', {{testNumber}}, '{{setupScriptName}}');">Open Test {{testNumber}} Page</button>
     </p>
       {{#ATTests}}

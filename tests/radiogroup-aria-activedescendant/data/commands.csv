@@ -45,26 +45,30 @@ testId,task,mode,at,commandA,commandB,commandC
 28,Read information about a checked radio button,INTERACTION,VOICEOVER_MACOS,CTRL_OPT_F3,CTRL_OPT_F4,
 29,Navigate to the next unchecked radio button,READING,JAWS,F,A,DOWN
 29,Navigate to the next unchecked radio button,READING,NVDA,F,R,
-30,Navigate to the previous unchecked radio button,READING,JAWS,SHIFT_F,SHIFT_A,UP
-30,Navigate to the previous unchecked radio button,READING,NVDA,SHIFT_F,SHIFT_R,
-31,Navigate to the next checked radio button,READING,JAWS,F,A,DOWN
-31,Navigate to the next checked radio button,READING,NVDA,F,R,
-32,Navigate to the previous checked radio button,READING,JAWS,SHIFT_F,SHIFT_A,UP
-32,Navigate to the previous checked radio button,READING,NVDA,SHIFT_F,SHIFT_R,
-33,Navigate to the next radio button,INTERACTION,JAWS,DOWN,RIGHT,
-33,Navigate to the next radio button,INTERACTION,NVDA,DOWN,RIGHT,
-34,Navigate to the next radio button,INTERACTION,VOICEOVER_MACOS,CTRL_OPT_RIGHT,DOWN,RIGHT
-35,Navigate to the previous radio button,INTERACTION,JAWS,UP,LEFT,
-35,Navigate to the previous radio button,INTERACTION,NVDA,UP,LEFT,
-36,Navigate to the previous radio button,INTERACTION,VOICEOVER_MACOS,CTRL_OPT_LEFT,UP,LEFT
-37,Navigate to the first radio button,INTERACTION,JAWS,DOWN,RIGHT,
-37,Navigate to the first radio button,INTERACTION,NVDA,DOWN,RIGHT,
-38,Navigate to the first radio button,INTERACTION,VOICEOVER_MACOS,DOWN,RIGHT,
-39,Navigate to the last radio button ,INTERACTION,JAWS,UP,LEFT,
-39,Navigate to the last radio button ,INTERACTION,NVDA,UP,LEFT,
-40,Navigate to the last radio button ,INTERACTION,VOICEOVER_MACOS,UP,LEFT,
-41,Check a radio button,READING,JAWS,SPACE,,
-41,Check a radio button,READING,NVDA,SPACE,,
-42,Check a radio button,INTERACTION,JAWS,SPACE,,
-42,Check a radio button,INTERACTION,NVDA,SPACE,,
-43,Check a radio button,INTERACTION,VOICEOVER_MACOS,SPACE,CTRL_OPT_SPACE,
+30,Navigate to the next unchecked radio button,INTERACTION,VOICEOVER_MACOS,CTRL_OPT_RIGHT,,
+31,Navigate to the previous unchecked radio button,READING,JAWS,SHIFT_F,SHIFT_A,UP
+31,Navigate to the previous unchecked radio button,READING,NVDA,SHIFT_F,SHIFT_R,
+32,Navigate to the previous unchecked radio button,INTERACTION,VOICEOVER_MACOS,CTRL_OPT_LEFT,,
+33,Navigate to the next checked radio button,READING,JAWS,F,A,DOWN
+33,Navigate to the next checked radio button,READING,NVDA,F,R,
+34,Navigate to the next checked radio button,INTERACTION,VOICEOVER_MACOS,CTRL_OPT_RIGHT,,
+35,Navigate to the previous checked radio button,READING,JAWS,SHIFT_F,SHIFT_A,UP
+35,Navigate to the previous checked radio button,READING,NVDA,SHIFT_F,SHIFT_R,
+36,Navigate to the previous checked radio button,INTERACTION,VOICEOVER_MACOS,CTRL_OPT_LEFT,,
+37,Navigate to the next radio button,INTERACTION,JAWS,DOWN,RIGHT,
+37,Navigate to the next radio button,INTERACTION,NVDA,DOWN,RIGHT,
+38,Navigate to the next radio button,INTERACTION,VOICEOVER_MACOS,DOWN,RIGHT,
+39,Navigate to the previous radio button,INTERACTION,JAWS,UP,LEFT,
+39,Navigate to the previous radio button,INTERACTION,NVDA,UP,LEFT,
+40,Navigate to the previous radio button,INTERACTION,VOICEOVER_MACOS,UP,LEFT,
+41,Navigate to the first radio button,INTERACTION,JAWS,DOWN,RIGHT,
+41,Navigate to the first radio button,INTERACTION,NVDA,DOWN,RIGHT,
+42,Navigate to the first radio button,INTERACTION,VOICEOVER_MACOS,DOWN,RIGHT,
+43,Navigate to the last radio button ,INTERACTION,JAWS,UP,LEFT,
+43,Navigate to the last radio button ,INTERACTION,NVDA,UP,LEFT,
+44,Navigate to the last radio button ,INTERACTION,VOICEOVER_MACOS,UP,LEFT,
+45,Check a radio button,READING,JAWS,SPACE,,
+45,Check a radio button,READING,NVDA,SPACE,,
+46,Check a radio button,INTERACTION,JAWS,SPACE,,
+46,Check a radio button,INTERACTION,NVDA,SPACE,,
+47,Check a radio button,INTERACTION,VOICEOVER_MACOS,SPACE,CTRL_OPT_SPACE,

@@ -75,10 +75,10 @@ export function component(shape, ...content) {
  */
 export function style(styleMap) {
   return attribute(
-    "style",
+    'style',
     Object.keys(styleMap)
       .map(key => `${key}: ${styleMap[key]};`)
-      .join(" ")
+      .join(' ')
   );
 }
 
@@ -87,7 +87,7 @@ export function style(styleMap) {
  * @returns {MemberNode}
  */
 export function className(names) {
-  return attribute("class", names.filter(Boolean).join(" "));
+  return attribute('class', names.filter(Boolean).join(' '));
 }
 
 /**
@@ -145,7 +145,7 @@ export function ref(value) {
   }
   return {
     type: REF_TYPE_NAME,
-    name: "ref",
+    name: 'ref',
     value: refHook,
   };
 }
@@ -158,13 +158,13 @@ const noop = function () {};
 export function focus(shouldFocus) {
   return {
     type: REF_TYPE_NAME,
-    name: "focus",
+    name: 'focus',
     value: shouldFocus ? element => element.focus() : noop,
   };
 }
 
 function asNode(item) {
-  if (typeof item === "string") {
+  if (typeof item === 'string') {
     return text(item);
   } else if (Array.isArray(item)) {
     return fragment(...item);
@@ -174,14 +174,14 @@ function asNode(item) {
   return item;
 }
 
-const ELEMENT_TYPE_NAME = "element";
-const FRAGMENT_TYPE_NAME = "fragment";
-const COMPONENT_TYPE_NAME = "component";
-const TEXT_TYPE_NAME = "text";
-const ATTRIBUTE_TYPE_NAME = "attribute";
-const PROPERTY_TYPE_NAME = "property";
-const REF_TYPE_NAME = "ref";
-const META_TYPE_NAME = "meta";
+const ELEMENT_TYPE_NAME = 'element';
+const FRAGMENT_TYPE_NAME = 'fragment';
+const COMPONENT_TYPE_NAME = 'component';
+const TEXT_TYPE_NAME = 'text';
+const ATTRIBUTE_TYPE_NAME = 'attribute';
+const PROPERTY_TYPE_NAME = 'property';
+const REF_TYPE_NAME = 'ref';
+const META_TYPE_NAME = 'meta';
 
 /** @type ElementStateType */
 const ElementType = {
@@ -228,7 +228,7 @@ const ElementType = {
   teardown: /** @type {TeardownFunction} */ (
     function (queue, /** @type {ElementState} */ state) {
       enqueueChange(queue, removeElement, state);
-      const {children} = state;
+      const { children } = state;
       if (children !== null) {
         for (let i = 0; i < children.length; i++) {
           children[i].type.softTeardown(children[i]);
@@ -257,7 +257,7 @@ const FragmentType = {
   diff: /** @type {DiffFunction} */ (diffFragment),
   teardown: /** @type {TeardownFunction} */ (
     function (queue, /** @type {FragmentState} */ state) {
-      const {children} = state;
+      const { children } = state;
       if (children !== null) {
         for (let i = 0; i < children.length; i++) {
           children[i].type.teardown(queue, children[i]);
@@ -448,7 +448,12 @@ const typeMap = {
 };
 
 /** @type DiffEntryFunction */
-function diffChildEntry(queue, parent, /** @type NodeStateType */ metaType, /** @type NodeNode */ element) {
+function diffChildEntry(
+  queue,
+  parent,
+  /** @type NodeStateType */ metaType,
+  /** @type NodeNode */ element
+) {
   if (!parent.children) {
     parent.children = [];
   }
@@ -458,7 +463,9 @@ function diffChildEntry(queue, parent, /** @type NodeStateType */ metaType, /** 
     if (state) {
       state.type.teardown(queue, state);
     }
-    state = /** @type {NodeState} */ (metaType.init(queue, parent, parent.children[index - 1] || null, element));
+    state = /** @type {NodeState} */ (
+      metaType.init(queue, parent, parent.children[index - 1] || null, element)
+    );
     parent.children[index] = state;
 
     const sibling = parent.children[index + 1];
@@ -476,7 +483,7 @@ function diffFragment(
   /** @type {ElementNode | FragmentNode} */ newValue
 ) {
   lastValue.rewriteChildIndex = 0;
-  const {content} = newValue;
+  const { content } = newValue;
   for (let i = 0; i < content.length; i++) {
     const node = content[i];
     const metaType = typeMap[node.type];
@@ -531,7 +538,7 @@ function diffMemberEntry(
 
 /** @type {SoftTeardownFunction} */
 function softTeardownElement(/** @type {ElementState} */ state) {
-  const {children} = state;
+  const { children } = state;
   if (children !== null) {
     for (let i = 0; i < children.length; i++) {
       children[i].type.softTeardown(children[i]);
@@ -544,14 +551,14 @@ function softTeardownElement(/** @type {ElementState} */ state) {
  * @returns {node is MemberNode}
  */
 function isOptions(node) {
-  return node.type === META_TYPE_NAME && node.name === "options";
+  return node.type === META_TYPE_NAME && node.name === 'options';
 }
 
 /**
  * @param {Queue} queue
  */
 function runQueue(queue) {
-  const {prepare, changes: apply, post} = queue;
+  const { prepare, changes: apply, post } = queue;
   for (let i = 0; i < prepare.length; i++) {
     changeViewRender(prepare[i], queue);
   }
@@ -638,12 +645,12 @@ function deepestDescendant(after) {
   if (after === null) {
     return after;
   } else if (after.type === FragmentType) {
-    const {children} = /** @type {FragmentState} */ (after);
+    const { children } = /** @type {FragmentState} */ (after);
     if (children !== null) {
       return deepestDescendant(children[children.length - 1]);
     }
   } else if (after.type === ComponentType) {
-    const {rendered} = /** @type {ComponentState} */ (after);
+    const { rendered } = /** @type {ComponentState} */ (after);
     if (rendered !== null) {
       return deepestDescendant(rendered);
     }
@@ -672,10 +679,10 @@ function insertAfterSibling(element) {
   } while (after === null || (after.type !== ElementType && after.type !== TextType));
 
   if (after !== null) {
-    const {ref} = /** @type {ElementState | TextState} */ (after);
+    const { ref } = /** @type {ElementState | TextState} */ (after);
     ref.parentNode.insertBefore(element.ref, ref.nextSibling);
   } else {
-    const {ref} = /** @type {ElementState} */ (state.parent);
+    const { ref } = /** @type {ElementState} */ (state.parent);
     if (ref.childNodes.length) {
       ref.insertBefore(element.ref, ref.childNodes[0]);
     } else {
@@ -745,7 +752,7 @@ function shallowEquals(a, b) {
  * @returns {Queue}
  */
 function newQueue() {
-  return {prepare: [], changes: [], post: []};
+  return { prepare: [], changes: [], post: [] };
 }
 
 /**

@@ -3,7 +3,7 @@ name: Apple Candidate Phase Review
 about: Issue to gather feedback from Apple relating to a specific test plan
 title: 'Candidate review: Test Plan Name (Apple)'
 labels: Apple, Candidate Review
-assignees: ''
+assignees: cookiecrook
 
 ---
 

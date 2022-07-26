@@ -1051,8 +1051,8 @@ const MODE_INSTRUCTION_TEMPLATES_QUERYABLE = Queryable.from('modeInstructionTemp
     mode: 'reading',
     render: data => {
       const altDelete = data.key.where({ id: 'ALT_DELETE' });
-      const insZ = data.key.where({ id: 'INS_Z' });
-      return `Verify the Virtual Cursor is active by pressing ${altDelete.keystroke}. If it is not, turn on the Virtual Cursor by pressing ${insZ.keystroke}.`;
+      const esc = data.key.where({ id: 'ESC' });
+      return `Verify the Virtual Cursor is active by pressing ${altDelete.keystroke}. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing ${esc.keystroke}.`;
     },
   },
   {

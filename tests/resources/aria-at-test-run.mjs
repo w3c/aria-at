@@ -4,7 +4,7 @@ export class TestRun {
    * @param {Partial<TestRunHooks>} [param0.hooks]
    * @param {TestRunState} param0.state
    */
-  constructor({hooks, state}) {
+  constructor({ hooks, state }) {
     /** @type {TestRunState} */
     this.state = state;
 
@@ -76,7 +76,7 @@ export function createEnumMap(map) {
 }
 
 export const WhitespaceStyleMap = createEnumMap({
-  LINE_BREAK: "lineBreak",
+  LINE_BREAK: 'lineBreak',
 });
 
 function bind(fn, ...args) {
@@ -99,13 +99,15 @@ export function instructionDocument(resultState, hooks) {
   // As a hack, special case mode instructions for VoiceOver for macOS until we
   // support modeless tests. ToDo: remove this when resolving issue #194
   const modePhrase =
-    resultState.config.at.name === "VoiceOver for macOS"
-      ? "Describe "
+    resultState.config.at.name === 'VoiceOver for macOS'
+      ? 'Describe '
       : `With ${resultState.config.at.name} in ${mode} mode, describe `;
 
-  const commands = resultState.commands.map(({description}) => description);
-  const assertions = resultState.commands[0].assertions.map(({description}) => description);
-  const additionalAssertions = resultState.commands[0].additionalAssertions.map(({description}) => description);
+  const commands = resultState.commands.map(({ description }) => description);
+  const assertions = resultState.commands[0].assertions.map(({ description }) => description);
+  const additionalAssertions = resultState.commands[0].additionalAssertions.map(
+    ({ description }) => description
+  );
 
   let firstRequired = true;
   function focusFirstRequired() {
@@ -119,7 +121,7 @@ export function instructionDocument(resultState, hooks) {
   return {
     errors: {
       visible: resultState.errors && resultState.errors.length > 0 ? true : false,
-      header: "Test cannot be performed due to error(s)!",
+      header: 'Test cannot be performed due to error(s)!',
       errors: resultState.errors || [],
     },
     instructions: {
@@ -129,13 +131,13 @@ export function instructionDocument(resultState, hooks) {
       },
       description: `${modePhrase} how ${resultState.config.at.name} behaves when performing task "${lastInstruction}"`,
       instructions: {
-        header: "Test instructions",
+        header: 'Test instructions',
         instructions: [
           [
             `Restore default settings for ${resultState.config.at.name}. For help, read `,
             {
-              href: "https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing",
-              description: "Configuring Screen Readers for Testing",
+              href: 'https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing',
+              description: 'Configuring Screen Readers for Testing',
             },
             `.`,
           ],
@@ -148,26 +150,26 @@ export function instructionDocument(resultState, hooks) {
         },
       },
       assertions: {
-        header: "Success Criteria",
+        header: 'Success Criteria',
         description: `To pass this test, ${resultState.config.at.name} needs to meet all the following assertions when each  specified command is executed:`,
         assertions,
       },
       openTestPage: {
-        button: "Open Test Page",
+        button: 'Open Test Page',
         enabled: resultState.openTest.enabled,
         click: hooks.openTestPage,
       },
     },
     results: {
       header: {
-        header: "Record Results",
+        header: 'Record Results',
         description: `${resultState.info.description}`,
       },
       commands: commands.map(commandResult),
     },
     submit: resultState.config.displaySubmitButton
       ? {
-          button: "Submit Results",
+          button: 'Submit Results',
           click: hooks.submit,
         }
       : null,
@@ -185,7 +187,7 @@ export function instructionDocument(resultState, hooks) {
       ...partialChoice,
       checked: resultAssertion.result === resultValue,
       focus:
-        resultState.currentUserAction === "validateResults" &&
+        resultState.currentUserAction === 'validateResults' &&
         resultAssertion.highlightRequired &&
         focusFirstRequired(),
     };
@@ -207,20 +209,20 @@ export function instructionDocument(resultState, hooks) {
           {
             required: true,
             highlightRequired: resultStateCommand.atOutput.highlightRequired,
-            description: "(required)",
+            description: '(required)',
           },
         ],
         value: resultStateCommand.atOutput.value,
         focus:
-          resultState.currentUserAction === "validateResults" &&
+          resultState.currentUserAction === 'validateResults' &&
           resultStateCommand.atOutput.highlightRequired &&
           focusFirstRequired(),
-        change: atOutput => hooks.setCommandOutput({commandIndex, atOutput}),
+        change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
       assertionsHeader: {
-        descriptionHeader: "Assertion",
-        passHeader: "Success case",
-        failHeader: "Failure cases",
+        descriptionHeader: 'Assertion',
+        passHeader: 'Success case',
+        failHeader: 'Failure cases',
       },
       assertions: [
         ...assertions.map(bind(assertionResult, commandIndex)),
@@ -228,18 +230,20 @@ export function instructionDocument(resultState, hooks) {
       ],
       unexpectedBehaviors: {
         description: [
-          "Were there additional undesirable behaviors?",
+          'Were there additional undesirable behaviors?',
           {
             required: true,
             highlightRequired: resultStateCommand.unexpected.highlightRequired,
-            description: "(required)",
+            description: '(required)',
           },
         ],
         passChoice: {
-          label: "No, there were no additional undesirable behaviors.",
-          checked: resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.DOES_NOT_HAVE_UNEXPECTED,
+          label: 'No, there were no additional undesirable behaviors.',
+          checked:
+            resultUnexpectedBehavior.hasUnexpected ===
+            HasUnexpectedBehaviorMap.DOES_NOT_HAVE_UNEXPECTED,
           focus:
-            resultState.currentUserAction === "validateResults" &&
+            resultState.currentUserAction === 'validateResults' &&
             resultUnexpectedBehavior.highlightRequired &&
             resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.NOT_SET &&
             focusFirstRequired(),
@@ -250,10 +254,11 @@ export function instructionDocument(resultState, hooks) {
             }),
         },
         failChoice: {
-          label: "Yes, there were additional undesirable behaviors",
-          checked: resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
+          label: 'Yes, there were additional undesirable behaviors',
+          checked:
+            resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
           focus:
-            resultState.currentUserAction === "validateResults" &&
+            resultState.currentUserAction === 'validateResults' &&
             resultUnexpectedBehavior.highlightRequired &&
             resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.NOT_SET &&
             focusFirstRequired(),
@@ -263,27 +268,35 @@ export function instructionDocument(resultState, hooks) {
               hasUnexpected: HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
             }),
           options: {
-            header: "Undesirable behaviors",
+            header: 'Undesirable behaviors',
             options: resultUnexpectedBehavior.behaviors.map((behavior, unexpectedIndex) => {
               return {
                 description: behavior.description,
-                enabled: resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
+                enabled:
+                  resultUnexpectedBehavior.hasUnexpected ===
+                  HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
                 tabbable: resultUnexpectedBehavior.tabbedBehavior === unexpectedIndex,
                 checked: behavior.checked,
                 focus:
-                  typeof resultState.currentUserAction === "object" &&
+                  typeof resultState.currentUserAction === 'object' &&
                   resultState.currentUserAction.action === UserObjectActionMap.FOCUS_UNDESIRABLE
                     ? resultState.currentUserAction.commandIndex === commandIndex &&
                       resultUnexpectedBehavior.tabbedBehavior === unexpectedIndex
                     : resultState.currentUserAction === UserActionMap.VALIDATE_RESULTS &&
-                      resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED &&
-                      resultUnexpectedBehavior.behaviors.every(({checked}) => !checked) &&
+                      resultUnexpectedBehavior.hasUnexpected ===
+                        HasUnexpectedBehaviorMap.HAS_UNEXPECTED &&
+                      resultUnexpectedBehavior.behaviors.every(({ checked }) => !checked) &&
                       focusFirstRequired(),
-                change: checked => hooks.setCommandUnexpectedBehavior({commandIndex, unexpectedIndex, checked}),
+                change: checked =>
+                  hooks.setCommandUnexpectedBehavior({ commandIndex, unexpectedIndex, checked }),
                 keydown: key => {
                   const increment = keyToFocusIncrement(key);
                   if (increment) {
-                    hooks.focusCommandUnexpectedBehavior({commandIndex, unexpectedIndex, increment});
+                    hooks.focusCommandUnexpectedBehavior({
+                      commandIndex,
+                      unexpectedIndex,
+                      increment,
+                    });
                     return true;
                   }
                   return false;
@@ -295,17 +308,21 @@ export function instructionDocument(resultState, hooks) {
                         {
                           required: true,
                           highlightRequired: behavior.more.highlightRequired,
-                          description: "(required)",
+                          description: '(required)',
                         },
                       ]),
                       enabled: behavior.checked,
                       value: behavior.more.value,
                       focus:
-                        resultState.currentUserAction === "validateResults" &&
+                        resultState.currentUserAction === 'validateResults' &&
                         behavior.more.highlightRequired &&
                         focusFirstRequired(),
                       change: value =>
-                        hooks.setCommandUnexpectedBehaviorMore({commandIndex, unexpectedIndex, more: value}),
+                        hooks.setCommandUnexpectedBehaviorMore({
+                          commandIndex,
+                          unexpectedIndex,
+                          more: value,
+                        }),
                     }
                   : null,
               };
@@ -329,7 +346,7 @@ export function instructionDocument(resultState, hooks) {
         {
           required: true,
           highlightRequired: resultAssertion.highlightRequired,
-          description: "(required: mark output)",
+          description: '(required: mark output)',
         },
       ],
       passChoice: assertionChoice(resultAssertion, CommonResultMap.PASS, {
@@ -337,10 +354,11 @@ export function instructionDocument(resultState, hooks) {
           `Good Output `,
           {
             offScreen: true,
-            description: "for assertion",
+            description: 'for assertion',
           },
         ],
-        click: () => hooks.setCommandAssertion({commandIndex, assertionIndex, result: CommonResultMap.PASS}),
+        click: () =>
+          hooks.setCommandAssertion({ commandIndex, assertionIndex, result: CommonResultMap.PASS }),
       }),
       failChoices: [
         assertionChoice(resultAssertion, AssertionResultMap.FAIL_MISSING, {
@@ -348,22 +366,30 @@ export function instructionDocument(resultState, hooks) {
             `No Output `,
             {
               offScreen: true,
-              description: "for assertion",
+              description: 'for assertion',
             },
           ],
           click: () =>
-            hooks.setCommandAssertion({commandIndex, assertionIndex, result: AssertionResultMap.FAIL_MISSING}),
+            hooks.setCommandAssertion({
+              commandIndex,
+              assertionIndex,
+              result: AssertionResultMap.FAIL_MISSING,
+            }),
         }),
         assertionChoice(resultAssertion, AssertionResultMap.FAIL_INCORRECT, {
           label: [
             `Incorrect Output `,
             {
               offScreen: true,
-              description: "for assertion",
+              description: 'for assertion',
             },
           ],
           click: () =>
-            hooks.setCommandAssertion({commandIndex, assertionIndex, result: AssertionResultMap.FAIL_INCORRECT}),
+            hooks.setCommandAssertion({
+              commandIndex,
+              assertionIndex,
+              result: AssertionResultMap.FAIL_INCORRECT,
+            }),
         }),
       ],
     });
@@ -375,18 +401,19 @@ export function instructionDocument(resultState, hooks) {
    * @param {number} assertionIndex
    */
   function additionalAssertionResult(commandIndex, assertion, assertionIndex) {
-    const resultAdditionalAssertion = resultState.commands[commandIndex].additionalAssertions[assertionIndex];
+    const resultAdditionalAssertion =
+      resultState.commands[commandIndex].additionalAssertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
       description: [
         assertion,
         {
           required: true,
           highlightRequired: resultAdditionalAssertion.highlightRequired,
-          description: "(required: mark support)",
+          description: '(required: mark support)',
         },
       ],
       passChoice: assertionChoice(resultAdditionalAssertion, AdditionalAssertionResultMap.PASS, {
-        label: ["Good Support ", {offScreen: true, description: "for assertion"}],
+        label: ['Good Support ', { offScreen: true, description: 'for assertion' }],
         click: () =>
           hooks.setCommandAdditionalAssertion({
             commandIndex,
@@ -396,7 +423,7 @@ export function instructionDocument(resultState, hooks) {
       }),
       failChoices: [
         assertionChoice(resultAdditionalAssertion, AdditionalAssertionResultMap.FAIL_SUPPORT, {
-          label: ["No Support ", {offScreen: true, description: "for assertion"}],
+          label: ['No Support ', { offScreen: true, description: 'for assertion' }],
           click: () =>
             hooks.setCommandAdditionalAssertion({
               commandIndex,
@@ -414,13 +441,13 @@ export function instructionDocument(resultState, hooks) {
  */
 
 export const UserActionMap = createEnumMap({
-  LOAD_PAGE: "loadPage",
-  OPEN_TEST_WINDOW: "openTestWindow",
-  CLOSE_TEST_WINDOW: "closeTestWindow",
-  VALIDATE_RESULTS: "validateResults",
-  CHANGE_TEXT: "changeText",
-  CHANGE_SELECTION: "changeSelection",
-  SHOW_RESULTS: "showResults",
+  LOAD_PAGE: 'loadPage',
+  OPEN_TEST_WINDOW: 'openTestWindow',
+  CLOSE_TEST_WINDOW: 'closeTestWindow',
+  VALIDATE_RESULTS: 'validateResults',
+  CHANGE_TEXT: 'changeText',
+  CHANGE_SELECTION: 'changeSelection',
+  SHOW_RESULTS: 'showResults',
 });
 
 /**
@@ -428,7 +455,7 @@ export const UserActionMap = createEnumMap({
  */
 
 export const UserObjectActionMap = createEnumMap({
-  FOCUS_UNDESIRABLE: "focusUndesirable",
+  FOCUS_UNDESIRABLE: 'focusUndesirable',
 });
 
 /**
@@ -440,14 +467,14 @@ export const UserObjectActionMap = createEnumMap({
  */
 
 export const HasUnexpectedBehaviorMap = createEnumMap({
-  NOT_SET: "notSet",
-  HAS_UNEXPECTED: "hasUnexpected",
-  DOES_NOT_HAVE_UNEXPECTED: "doesNotHaveUnexpected",
+  NOT_SET: 'notSet',
+  HAS_UNEXPECTED: 'hasUnexpected',
+  DOES_NOT_HAVE_UNEXPECTED: 'doesNotHaveUnexpected',
 });
 
 export const CommonResultMap = createEnumMap({
-  NOT_SET: "notSet",
-  PASS: "pass",
+  NOT_SET: 'notSet',
+  PASS: 'pass',
 });
 
 /**
@@ -456,7 +483,7 @@ export const CommonResultMap = createEnumMap({
 
 export const AdditionalAssertionResultMap = createEnumMap({
   ...CommonResultMap,
-  FAIL_SUPPORT: "failSupport",
+  FAIL_SUPPORT: 'failSupport',
 });
 
 /**
@@ -465,8 +492,8 @@ export const AdditionalAssertionResultMap = createEnumMap({
 
 export const AssertionResultMap = createEnumMap({
   ...CommonResultMap,
-  FAIL_MISSING: "failMissing",
-  FAIL_INCORRECT: "failIncorrect",
+  FAIL_MISSING: 'failMissing',
+  FAIL_INCORRECT: 'failIncorrect',
 });
 
 /**
@@ -475,7 +502,7 @@ export const AssertionResultMap = createEnumMap({
  * @param {string} props.atOutput
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandOutput({commandIndex, atOutput}) {
+export function userChangeCommandOutput({ commandIndex, atOutput }) {
   return function (state) {
     return {
       ...state,
@@ -502,7 +529,7 @@ export function userChangeCommandOutput({commandIndex, atOutput}) {
  * @param {AssertionResult} props.result
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandAssertion({commandIndex, assertionIndex, result}) {
+export function userChangeCommandAssertion({ commandIndex, assertionIndex, result }) {
   return function (state) {
     return {
       ...state,
@@ -513,7 +540,7 @@ export function userChangeCommandAssertion({commandIndex, assertionIndex, result
           : {
               ...command,
               assertions: command.assertions.map((assertion, assertionI) =>
-                assertionI !== assertionIndex ? assertion : {...assertion, result}
+                assertionI !== assertionIndex ? assertion : { ...assertion, result }
               ),
             }
       ),
@@ -528,7 +555,11 @@ export function userChangeCommandAssertion({commandIndex, assertionIndex, result
  * @param {AdditionalAssertionResult} props.result
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandAdditionalAssertion({commandIndex, additionalAssertionIndex, result}) {
+export function userChangeCommandAdditionalAssertion({
+  commandIndex,
+  additionalAssertionIndex,
+  result,
+}) {
   return function (state) {
     return {
       ...state,
@@ -539,7 +570,7 @@ export function userChangeCommandAdditionalAssertion({commandIndex, additionalAs
           : {
               ...command,
               additionalAssertions: command.additionalAssertions.map((assertion, assertionI) =>
-                assertionI !== additionalAssertionIndex ? assertion : {...assertion, result}
+                assertionI !== additionalAssertionIndex ? assertion : { ...assertion, result }
               ),
             }
       ),
@@ -553,7 +584,7 @@ export function userChangeCommandAdditionalAssertion({commandIndex, additionalAs
  * @param {HasUnexpectedBehavior} props.hasUnexpected
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandHasUnexpectedBehavior({commandIndex, hasUnexpected}) {
+export function userChangeCommandHasUnexpectedBehavior({ commandIndex, hasUnexpected }) {
   return function (state) {
     return {
       ...state,
@@ -570,7 +601,7 @@ export function userChangeCommandHasUnexpectedBehavior({commandIndex, hasUnexpec
                 behaviors: command.unexpected.behaviors.map(behavior => ({
                   ...behavior,
                   checked: false,
-                  more: behavior.more ? {...behavior.more, value: ""} : null,
+                  more: behavior.more ? { ...behavior.more, value: '' } : null,
                 })),
               },
             }
@@ -586,7 +617,7 @@ export function userChangeCommandHasUnexpectedBehavior({commandIndex, hasUnexpec
  * @param {boolean} props.checked
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandUnexpectedBehavior({commandIndex, unexpectedIndex, checked}) {
+export function userChangeCommandUnexpectedBehavior({ commandIndex, unexpectedIndex, checked }) {
   return function (state) {
     return {
       ...state,
@@ -620,7 +651,7 @@ export function userChangeCommandUnexpectedBehavior({commandIndex, unexpectedInd
  * @param {string} props.more
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandUnexpectedBehaviorMore({commandIndex, unexpectedIndex, more}) {
+export function userChangeCommandUnexpectedBehaviorMore({ commandIndex, unexpectedIndex, more }) {
   return function (state) {
     return {
       ...state,
@@ -656,17 +687,17 @@ export function userChangeCommandUnexpectedBehaviorMore({commandIndex, unexpecte
  */
 function keyToFocusIncrement(key) {
   switch (key) {
-    case "Up":
-    case "ArrowUp":
-    case "Left":
-    case "ArrowLeft":
-      return "previous";
+    case 'Up':
+    case 'ArrowUp':
+    case 'Left':
+    case 'ArrowLeft':
+      return 'previous';
 
-    case "Down":
-    case "ArrowDown":
-    case "Right":
-    case "ArrowRight":
-      return "next";
+    case 'Down':
+    case 'ArrowDown':
+    case 'Right':
+    case 'ArrowRight':
+      return 'next';
   }
 }
 
@@ -709,7 +740,10 @@ function submitResult(app) {
 
 export function userShowResults() {
   return function (/** @type {TestRunState} */ state) {
-    return /** @type {TestRunState} */ ({...state, currentUserAction: UserActionMap.SHOW_RESULTS});
+    return /** @type {TestRunState} */ ({
+      ...state,
+      currentUserAction: UserActionMap.SHOW_RESULTS,
+    });
   };
 }
 
@@ -720,14 +754,16 @@ export function userShowResults() {
 function isSomeFieldRequired(state) {
   return state.commands.some(
     command =>
-      command.atOutput.value.trim() === "" ||
+      command.atOutput.value.trim() === '' ||
       command.assertions.some(assertion => assertion.result === CommonResultMap.NOT_SET) ||
-      command.additionalAssertions.some(assertion => assertion.result === CommonResultMap.NOT_SET) ||
+      command.additionalAssertions.some(
+        assertion => assertion.result === CommonResultMap.NOT_SET
+      ) ||
       command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.NOT_SET ||
       (command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED &&
-        (command.unexpected.behaviors.every(({checked}) => !checked) ||
+        (command.unexpected.behaviors.every(({ checked }) => !checked) ||
           command.unexpected.behaviors.some(
-            behavior => behavior.checked && behavior.more && behavior.more.value.trim() === ""
+            behavior => behavior.checked && behavior.more && behavior.more.value.trim() === ''
           )))
   );
 }
@@ -741,78 +777,81 @@ function resultsTableDocument(state) {
     header: state.info.description,
     status: {
       header: [
-        "Test result: ",
+        'Test result: ',
         state.commands.some(
-          ({assertions, additionalAssertions, unexpected}) =>
+          ({ assertions, additionalAssertions, unexpected }) =>
             [...assertions, ...additionalAssertions].some(
-              ({priority, result}) => priority === 1 && result !== CommonResultMap.PASS
-            ) || unexpected.behaviors.some(({checked}) => checked)
+              ({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS
+            ) || unexpected.behaviors.some(({ checked }) => checked)
         )
-          ? "FAIL"
-          : "PASS",
+          ? 'FAIL'
+          : 'PASS',
       ],
     },
     table: {
       headers: {
-        description: "Command",
-        support: "Support",
-        details: "Details",
+        description: 'Command',
+        support: 'Support',
+        details: 'Details',
       },
       commands: state.commands.map(command => {
         const allAssertions = [...command.assertions, ...command.additionalAssertions];
 
-        let passingAssertions = ["No passing assertions."];
-        let failingAssertions = ["No failing assertions."];
-        let unexpectedBehaviors = ["No unexpect behaviors."];
+        let passingAssertions = ['No passing assertions.'];
+        let failingAssertions = ['No failing assertions.'];
+        let unexpectedBehaviors = ['No unexpect behaviors.'];
 
-        if (allAssertions.some(({result}) => result === CommonResultMap.PASS)) {
+        if (allAssertions.some(({ result }) => result === CommonResultMap.PASS)) {
           passingAssertions = allAssertions
-            .filter(({result}) => result === CommonResultMap.PASS)
-            .map(({description}) => description);
+            .filter(({ result }) => result === CommonResultMap.PASS)
+            .map(({ description }) => description);
         }
-        if (allAssertions.some(({result}) => result !== CommonResultMap.PASS)) {
+        if (allAssertions.some(({ result }) => result !== CommonResultMap.PASS)) {
           failingAssertions = allAssertions
-            .filter(({result}) => result !== CommonResultMap.PASS)
-            .map(({description}) => description);
+            .filter(({ result }) => result !== CommonResultMap.PASS)
+            .map(({ description }) => description);
         }
-        if (command.unexpected.behaviors.some(({checked}) => checked)) {
+        if (command.unexpected.behaviors.some(({ checked }) => checked)) {
           unexpectedBehaviors = command.unexpected.behaviors
-            .filter(({checked}) => checked)
-            .map(({description, more}) => (more ? more.value : description));
+            .filter(({ checked }) => checked)
+            .map(({ description, more }) => (more ? more.value : description));
         }
 
         return {
           description: command.description,
           support:
-            allAssertions.some(({priority, result}) => priority === 1 && result !== CommonResultMap.PASS) ||
-            command.unexpected.behaviors.some(({checked}) => checked)
-              ? "FAILING"
-              : allAssertions.some(({priority, result}) => priority === 2 && result !== CommonResultMap.PASS)
-              ? "ALL_REQUIRED"
-              : "FULL",
+            allAssertions.some(
+              ({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS
+            ) || command.unexpected.behaviors.some(({ checked }) => checked)
+              ? 'FAILING'
+              : allAssertions.some(
+                  ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
+                )
+              ? 'ALL_REQUIRED'
+              : 'FULL',
           details: {
             output: /** @type {Description} */ [
-              "output:",
-              /** @type {DescriptionWhitespace} */ ({whitespace: WhitespaceStyleMap.LINE_BREAK}),
-              " ",
-              ...command.atOutput.value
-                .split(/(\r\n|\r|\n)/g)
-                .map(output =>
-                  /\r\n|\r|\n/.test(output)
-                    ? /** @type {DescriptionWhitespace} */ ({whitespace: WhitespaceStyleMap.LINE_BREAK})
-                    : output
-                ),
+              'output:',
+              /** @type {DescriptionWhitespace} */ ({ whitespace: WhitespaceStyleMap.LINE_BREAK }),
+              ' ',
+              ...command.atOutput.value.split(/(\r\n|\r|\n)/g).map(output =>
+                /\r\n|\r|\n/.test(output)
+                  ? /** @type {DescriptionWhitespace} */ ({
+                      whitespace: WhitespaceStyleMap.LINE_BREAK,
+                    })
+                  : output
+              ),
             ],
             passingAssertions: {
-              description: "Passing Assertions:",
+              description: 'Passing Assertions:',
               items: passingAssertions,
             },
             failingAssertions: {
-              description: "Failing Assertions:",
+              description: 'Failing Assertions:',
               items: failingAssertions,
             },
             unexpectedBehaviors: {
-              description: "Unexpected Behavior",
+              description: 'Unexpected Behavior',
               items: unexpectedBehaviors,
             },
           },
@@ -827,7 +866,7 @@ export function userOpenWindow() {
     /** @type {TestRunState} */ ({
       ...state,
       currentUserAction: UserActionMap.OPEN_TEST_WINDOW,
-      openTest: {...state.openTest, enabled: false},
+      openTest: { ...state.openTest, enabled: false },
     });
 }
 
@@ -836,7 +875,7 @@ export function userCloseWindow() {
     /** @type {TestRunState} */ ({
       ...state,
       currentUserAction: UserActionMap.CLOSE_TEST_WINDOW,
-      openTest: {...state.openTest, enabled: true},
+      openTest: { ...state.openTest, enabled: true },
     });
 }
 
@@ -847,11 +886,12 @@ export function userCloseWindow() {
  * @param {TestRunFocusIncrement} props.increment
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userFocusCommandUnexpectedBehavior({commandIndex, unexpectedIndex, increment}) {
+export function userFocusCommandUnexpectedBehavior({ commandIndex, unexpectedIndex, increment }) {
   return function (state) {
     const unexpectedLength = state.commands[commandIndex].unexpected.behaviors.length;
-    const incrementValue = increment === "next" ? 1 : -1;
-    const newUnexpectedIndex = (unexpectedIndex + incrementValue + unexpectedLength) % unexpectedLength;
+    const incrementValue = increment === 'next' ? 1 : -1;
+    const newUnexpectedIndex =
+      (unexpectedIndex + incrementValue + unexpectedLength) % unexpectedLength;
 
     return {
       ...state,
@@ -863,7 +903,8 @@ export function userFocusCommandUnexpectedBehavior({commandIndex, unexpectedInde
       commands: state.commands.map((command, commandI) => {
         const tabbed = command.unexpected.tabbedBehavior;
         const unexpectedLength = command.unexpected.behaviors.length;
-        const newTabbed = (tabbed + (increment === "next" ? 1 : -1) + unexpectedLength) % unexpectedLength;
+        const newTabbed =
+          (tabbed + (increment === 'next' ? 1 : -1) + unexpectedLength) % unexpectedLength;
         return commandI !== commandIndex
           ? command
           : {
@@ -906,7 +947,7 @@ export function userValidateState() {
             highlightRequired:
               command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.NOT_SET ||
               (command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED &&
-                command.unexpected.behaviors.every(({checked}) => !checked)),
+                command.unexpected.behaviors.every(({ checked }) => !checked)),
             behaviors: command.unexpected.behaviors.map(unexpected => {
               return unexpected.more
                 ? {

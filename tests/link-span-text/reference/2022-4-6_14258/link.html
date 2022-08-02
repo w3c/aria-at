@@ -21,13 +21,15 @@
     <h2 id="ex_label">Example</h2>
     <div role="separator" id="ex_start_sep" aria-labelledby="ex_start_sep ex_label" aria-label="Start of"></div>
       <a id="beforelink" href="#beforelink">Navigate forwards from here</a>
-      <span id="link"
-      tabindex="0"
-      role="link"
-      onclick="goToLink(event, 'https://www.w3.org/')"
-      onkeydown="goToLink(event, 'https://www.w3.org/')">
-      W3C website
-      </span>
+      <div>
+        <span id="link"
+        tabindex="0"
+        role="link"
+        onclick="goToLink(event, 'https://www.w3.org/')"
+        onkeydown="goToLink(event, 'https://www.w3.org/')">
+        W3C website
+        </span>
+      </div>
       <a id="afterlink" href="#afterlink">Navigate backwards from here</a>
       <div role="separator" id="ex_end_sep" aria-labelledby="ex_end_sep ex_label" aria-label="End of"></div>
   </section>

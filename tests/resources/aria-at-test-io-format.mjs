@@ -9,15 +9,15 @@ import {
   AssertionResultMap,
   UserActionMap,
   CommonResultMap,
-} from "./aria-at-test-run.mjs";
-import * as keysModule from "./keys.mjs";
+} from './aria-at-test-run.mjs';
+import * as keysModule from './keys.mjs';
 
 const UNEXPECTED_BEHAVIORS = [
-  "Output is excessively verbose, e.g., includes redundant and/or irrelevant speech",
-  "Reading cursor position changed in an unexpected manner",
-  "Screen reader became extremely sluggish",
-  "Screen reader crashed",
-  "Browser crashed",
+  'Output is excessively verbose, e.g., includes redundant and/or irrelevant speech',
+  'Reading cursor position changed in an unexpected manner',
+  'Screen reader became extremely sluggish',
+  'Screen reader crashed',
+  'Browser crashed',
 ];
 
 /** Depends on ConfigInput. */
@@ -56,25 +56,25 @@ class KeysInput {
     if (this._value.modeInstructions[atMode]) {
       return this._value.modeInstructions[atMode];
     }
-    return "";
+    return '';
   }
 
   /**
    * @param {object} data
    * @param {ConfigInput} data.configInput
    */
-  static fromBuiltinAndConfig({configInput}) {
+  static fromBuiltinAndConfig({ configInput }) {
     const keys = keysModule;
     const atKey = configInput.at().key;
 
     invariant(
-      ["jaws", "nvda", "voiceover_macos"].includes(atKey),
+      ['jaws', 'nvda', 'voiceover_macos'].includes(atKey),
       '%s is one of "jaws", "nvda", or "voiceover_macos"',
       atKey
     );
 
     return new KeysInput({
-      origin: "resources/keys.mjs",
+      origin: 'resources/keys.mjs',
       keys,
       at: atKey,
       modeInstructions: {
@@ -130,7 +130,7 @@ class SupportInput {
    */
   findAT(atKey) {
     const lowercaseATKey = atKey.toLowerCase();
-    return this._value.ats.find(({key}) => key === lowercaseATKey);
+    return this._value.ats.find(({ key }) => key === lowercaseATKey);
   }
 
   /**
@@ -145,7 +145,7 @@ class SupportInput {
    */
   static fromCollectedTest(collectedTest) {
     return new SupportInput({
-      ats: [{key: collectedTest.target.at.key, name: collectedTest.target.at.name}],
+      ats: [{ key: collectedTest.target.at.key, name: collectedTest.target.at.name }],
       applies_to: {},
       examples: [],
     });
@@ -180,7 +180,9 @@ class CommandsInput {
     const assistiveTech = this._value.at;
 
     if (!this._value.commands[task]) {
-      throw new Error(`Task "${task}" does not exist, please add to at-commands or correct your spelling.`);
+      throw new Error(
+        `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
+      );
     } else if (!this._value.commands[task][atMode]) {
       throw new Error(
         `Mode "${atMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
@@ -192,10 +194,10 @@ class CommandsInput {
 
     for (let c of commandsData) {
       let innerCommands = [];
-      let commandSequence = c[0].split(",");
+      let commandSequence = c[0].split(',');
       for (let command of commandSequence) {
         command = this._keysInput.keysForCommand(command);
-        if (typeof command === "undefined") {
+        if (typeof command === 'undefined') {
           throw new Error(
             `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
           );
@@ -205,7 +207,7 @@ class CommandsInput {
         command = furtherInstruction ? `${command} ${furtherInstruction}` : command;
         innerCommands.push(command);
       }
-      commands.push(innerCommands.join(", then "));
+      commands.push(innerCommands.join(', then '));
     }
 
     return commands;
@@ -217,8 +219,8 @@ class CommandsInput {
    * @param {ConfigInput} data.configInput
    * @param {KeysInput} data.keysInput
    */
-  static fromJSONAndConfigKeys(json, {configInput, keysInput}) {
-    return new CommandsInput({commands: json, at: configInput.at()}, keysInput);
+  static fromJSONAndConfigKeys(json, { configInput, keysInput }) {
+    return new CommandsInput({ commands: json, at: configInput.at() }, keysInput);
   }
 
   /**
@@ -226,14 +228,14 @@ class CommandsInput {
    * @param {object} data
    * @param {KeysInput} data.keysInput
    */
-  static fromCollectedTestKeys(collectedTest, {keysInput}) {
+  static fromCollectedTestKeys(collectedTest, { keysInput }) {
     return new CommandsInput(
       {
         commands: {
           [collectedTest.info.task]: {
             [collectedTest.target.mode]: {
-              [collectedTest.target.at.key]: collectedTest.commands.map(({id, extraInstruction}) =>
-                extraInstruction ? [id, extraInstruction] : [id]
+              [collectedTest.target.at.key]: collectedTest.commands.map(
+                ({ id, extraInstruction }) => (extraInstruction ? [id, extraInstruction] : [id])
               ),
             },
           },
@@ -291,17 +293,17 @@ class ConfigInput {
    * @param {object} data
    * @param {SupportInput} data.supportInput
    */
-  static fromQueryParamsAndSupport(queryParams, {supportInput}) {
+  static fromQueryParamsAndSupport(queryParams, { supportInput }) {
     const errors = [];
 
     let at = supportInput.defaultAT();
     let displaySubmitButton = true;
     let renderResultsAfterSubmit = true;
-    let resultFormat = "SubmitResultsJSON";
+    let resultFormat = 'SubmitResultsJSON';
     let resultJSON = null;
 
     for (const [key, value] of queryParams) {
-      if (key === "at") {
+      if (key === 'at') {
         const requestedAT = value;
         const knownAt = supportInput.findAT(requestedAT);
         if (knownAt) {
@@ -311,17 +313,19 @@ class ConfigInput {
             `Harness does not have commands for the requested assistive technology ('${requestedAT}'), showing commands for assistive technology '${at.name}' instead. To test '${requestedAT}', please contribute command mappings to this project.`
           );
         }
-      } else if (key === "showResults") {
+      } else if (key === 'showResults') {
         displaySubmitButton = decodeBooleanParam(value, displaySubmitButton);
-      } else if (key === "showSubmitButton") {
+      } else if (key === 'showSubmitButton') {
         renderResultsAfterSubmit = decodeBooleanParam(value, renderResultsAfterSubmit);
-      } else if (key === "resultFormat") {
-        if (value !== "SubmitResultsJSON" && value !== "TestResultJSON") {
-          errors.push(`resultFormat can be 'SubmitResultsJSON' or 'TestResultJSON'. '${value}' is not supported.`);
+      } else if (key === 'resultFormat') {
+        if (value !== 'SubmitResultsJSON' && value !== 'TestResultJSON') {
+          errors.push(
+            `resultFormat can be 'SubmitResultsJSON' or 'TestResultJSON'. '${value}' is not supported.`
+          );
           continue;
         }
         resultFormat = value;
-      } else if (key === "resultJSON") {
+      } else if (key === 'resultJSON') {
         try {
           resultJSON = JSON.parse(value);
         } catch (error) {
@@ -330,7 +334,7 @@ class ConfigInput {
       }
     }
 
-    if (resultJSON && resultFormat !== "TestResultJSON") {
+    if (resultJSON && resultFormat !== 'TestResultJSON') {
       errors.push(`resultJSON requires resultFormat to be set to 'TestResultJSON'.`);
       resultJSON = null;
     }
@@ -349,9 +353,9 @@ class ConfigInput {
      * @returns {boolean}
      */
     function decodeBooleanParam(param, defaultValue) {
-      if (param === "true") {
+      if (param === 'true') {
         return true;
-      } else if (param === "false") {
+      } else if (param === 'false') {
         return false;
       }
       return defaultValue;
@@ -380,7 +384,7 @@ class ScriptsInput {
    * @param {SetupScripts} scripts
    */
   static fromScriptsMap(scripts) {
-    return new ScriptsInput({scripts});
+    return new ScriptsInput({ scripts });
   }
 
   /**
@@ -388,7 +392,7 @@ class ScriptsInput {
    * @private
    */
   static scriptsFromSource(script) {
-    return {[script.name]: new Function("testPageDocument", script.source)};
+    return { [script.name]: new Function('testPageDocument', script.source) };
   }
 
   /**
@@ -409,11 +413,13 @@ class ScriptsInput {
     return await Promise.race([
       new Promise(resolve => {
         window.scriptsJsonpLoaded = resolve;
-        const scriptTag = document.createElement("script");
+        const scriptTag = document.createElement('script');
         scriptTag.src = script.jsonpPath;
         document.body.appendChild(scriptTag);
       }),
-      new Promise((_, reject) => setTimeout(() => reject(new Error("Loading scripts timeout error")), 10000)),
+      new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Loading scripts timeout error')), 10000)
+      ),
     ]);
   }
 
@@ -421,20 +427,26 @@ class ScriptsInput {
    * @param {AriaATFile.CollectedTest} collectedAsync
    * @param {string} dataUrl url to directory where CollectedTest was loaded from
    */
-  static async fromCollectedTestAsync({target: {setupScript}}, dataUrl) {
+  static async fromCollectedTestAsync({ target: { setupScript } }, dataUrl) {
     if (!setupScript) {
-      return new ScriptsInput({scripts: {}});
+      return new ScriptsInput({ scripts: {} });
     }
     try {
-      return new ScriptsInput({scripts: ScriptsInput.scriptsFromSource(setupScript)});
+      return new ScriptsInput({ scripts: ScriptsInput.scriptsFromSource(setupScript) });
     } catch (error) {
       try {
-        return new ScriptsInput({scripts: await ScriptsInput.scriptsFromModuleAsync(setupScript, dataUrl)});
+        return new ScriptsInput({
+          scripts: await ScriptsInput.scriptsFromModuleAsync(setupScript, dataUrl),
+        });
       } catch (error2) {
         try {
-          return new ScriptsInput({scripts: await ScriptsInput.scriptsFromJsonpAsync(setupScript, dataUrl)});
+          return new ScriptsInput({
+            scripts: await ScriptsInput.scriptsFromJsonpAsync(setupScript, dataUrl),
+          });
         } catch (error3) {
-          throw new Error([error, error2, error3].map(error => error.stack || error.message).join("\n\n"));
+          throw new Error(
+            [error, error2, error3].map(error => error.stack || error.message).join('\n\n')
+          );
         }
       }
     }
@@ -460,8 +472,8 @@ class UnexpectedInput {
   static fromBuiltin() {
     return new UnexpectedInput({
       behaviors: [
-        ...UNEXPECTED_BEHAVIORS.map(description => ({description, requireExplanation: false})),
-        {description: "Other", requireExplanation: true},
+        ...UNEXPECTED_BEHAVIORS.map(description => ({ description, requireExplanation: false })),
+        { description: 'Other', requireExplanation: true },
       ],
     });
   }
@@ -521,7 +533,7 @@ class BehaviorInput {
    */
   static fromJSONCommandsConfigKeysTitleUnexpected(
     json,
-    {commandsInput, configInput, keysInput, titleInput, unexpectedInput}
+    { commandsInput, configInput, keysInput, titleInput, unexpectedInput }
   ) {
     const mode = Array.isArray(json.mode) ? json.mode[0] : json.mode;
     const at = configInput.at();
@@ -541,12 +553,13 @@ class BehaviorInput {
           priority: Number(assertionTuple[0]),
           assertion: assertionTuple[1],
         })),
-        additionalAssertions: (json.additional_assertions ? json.additional_assertions[at.key] || [] : []).map(
-          assertionTuple => ({
-            priority: Number(assertionTuple[0]),
-            assertion: assertionTuple[1],
-          })
-        ),
+        additionalAssertions: (json.additional_assertions
+          ? json.additional_assertions[at.key] || []
+          : []
+        ).map(assertionTuple => ({
+          priority: Number(assertionTuple[0]),
+          assertion: assertionTuple[1],
+        })),
         unexpectedBehaviors: unexpectedInput.behaviors(),
       },
     });
@@ -560,8 +573,8 @@ class BehaviorInput {
    * @param {UnexpectedInput} data.unexpectedInput
    */
   static fromCollectedTestCommandsKeysUnexpected(
-    {info, target, instructions, assertions},
-    {commandsInput, keysInput, unexpectedInput}
+    { info, target, instructions, assertions },
+    { commandsInput, keysInput, unexpectedInput }
   ) {
     return new BehaviorInput({
       behavior: {
@@ -574,7 +587,7 @@ class BehaviorInput {
         setupScriptDescription: target.setupScript ? target.setupScript.description : '',
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
         commands: commandsInput.getCommands(info.task, target.mode),
-        assertions: assertions.map(({priority, expectation: assertion}) => ({
+        assertions: assertions.map(({ priority, expectation: assertion }) => ({
           priority,
           assertion,
         })),
@@ -604,7 +617,7 @@ class PageUriInput {
    * @param {string} pageUri
    */
   static fromPageUri(pageUri) {
-    return new PageUriInput({pageUri});
+    return new PageUriInput({ pageUri });
   }
 }
 
@@ -639,35 +652,35 @@ export class TestRunInputOutput {
   setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected(behaviorJSON) {
     invariant(
       this.commandsInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setCommandsInput.name,
       this.setCommandsInputFromJSONAndConfigKeys.name,
       this.setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected.name
     );
     invariant(
       this.configInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setConfigInput.name,
       this.setConfigInputFromQueryParamsAndSupport.name,
       this.setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected.name
     );
     invariant(
       this.keysInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setKeysInput.name,
       this.setKeysInputFromBuiltinAndConfig.name,
       this.setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected.name
     );
     invariant(
       this.titleInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setTitleInput.name,
       this.setTitleInputFromTitle.name,
       this.setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected.name
     );
     invariant(
       this.unexpectedInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setUnexpectedInput.name,
       this.setUnexpectedInputFromBuiltin.name,
       this.setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected.name
@@ -697,7 +710,7 @@ export class TestRunInputOutput {
 
     const unexpectedInput = UnexpectedInput.fromBuiltin();
     const keysInput = KeysInput.fromCollectedTest(collectedTest);
-    const commandsInput = CommandsInput.fromCollectedTestKeys(collectedTest, {keysInput});
+    const commandsInput = CommandsInput.fromCollectedTestKeys(collectedTest, { keysInput });
     const behaviorInput = BehaviorInput.fromCollectedTestCommandsKeysUnexpected(collectedTest, {
       commandsInput,
       keysInput,
@@ -724,14 +737,14 @@ export class TestRunInputOutput {
   setCommandsInputFromJSONAndConfigKeys(commandsJSON) {
     invariant(
       this.configInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setConfigInput.name,
       this.setConfigInputFromQueryParamsAndSupport.name,
       this.setCommandsInputFromJSONAndConfigKeys.name
     );
     invariant(
       this.keysInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setKeysInput.name,
       this.setKeysInputFromBuiltinAndConfig.name,
       this.setCommandsInputFromJSONAndConfigKeys.name
@@ -754,7 +767,7 @@ export class TestRunInputOutput {
   setConfigInputFromQueryParamsAndSupport(queryParams) {
     invariant(
       this.supportInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setSupportInput.name,
       this.setSupportInputFromJSON.name,
       this.setConfigInputFromQueryParamsAndSupport.name
@@ -775,13 +788,13 @@ export class TestRunInputOutput {
   setKeysInputFromBuiltinAndConfig() {
     invariant(
       this.configInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setConfigInput.name,
       this.setConfigInputFromQueryParamsAndSupport.name,
       this.setCommandsInputFromJSONAndConfigKeys.name
     );
 
-    this.setKeysInput(KeysInput.fromBuiltinAndConfig({configInput: this.configInput}));
+    this.setKeysInput(KeysInput.fromBuiltinAndConfig({ configInput: this.configInput }));
   }
 
   /** @param {PageUriInput} pageUriInput */
@@ -837,20 +850,24 @@ export class TestRunInputOutput {
   testRunState() {
     invariant(
       this.behaviorInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setBehaviorInput.name,
       this.setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected.name,
       this.testRunState.name
     );
     invariant(
       this.configInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setConfigInput.name,
       this.setConfigInputFromQueryParamsAndSupport.name,
       this.testRunState.name
     );
 
-    const errors = [...this.behaviorInput.errors, ...this.commandsInput.errors, ...this.configInput.errors];
+    const errors = [
+      ...this.behaviorInput.errors,
+      ...this.commandsInput.errors,
+      ...this.configInput.errors,
+    ];
     const test = this.behaviorInput.behavior();
     const config = this.configInput;
 
@@ -861,7 +878,7 @@ export class TestRunInputOutput {
         task: test.task,
         mode: test.mode,
         modeInstructions: test.modeInstructions,
-        userInstructions: test.specificUserInstruction.split("|"),
+        userInstructions: test.specificUserInstruction.split('|'),
         setupScriptDescription: test.setupScriptDescription,
       },
       config: {
@@ -879,7 +896,7 @@ export class TestRunInputOutput {
             description: command,
             atOutput: {
               highlightRequired: false,
-              value: "",
+              value: '',
             },
             assertions: test.assertions.map(assertion => ({
               description: assertion.assertion,
@@ -897,10 +914,10 @@ export class TestRunInputOutput {
               highlightRequired: false,
               hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
               tabbedBehavior: 0,
-              behaviors: test.unexpectedBehaviors.map(({description, requireExplanation}) => ({
+              behaviors: test.unexpectedBehaviors.map(({ description, requireExplanation }) => ({
                 description,
                 checked: false,
-                more: requireExplanation ? {highlightRequired: false, value: ""} : null,
+                more: requireExplanation ? { highlightRequired: false, value: '' } : null,
               })),
             },
           })
@@ -917,21 +934,21 @@ export class TestRunInputOutput {
   testWindowOptions() {
     invariant(
       this.behaviorInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setBehaviorInput.name,
       this.setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected.name,
       this.testWindowOptions.name
     );
     invariant(
       this.pageUriInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setPageUriInput.name,
       this.setPageUriInputFromPageUri.name,
       this.testWindowOptions.name
     );
     invariant(
       this.scriptsInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setScriptsInput.name,
       this.setScriptsInputFromMap.name,
       this.testWindowOptions.name
@@ -951,7 +968,7 @@ export class TestRunInputOutput {
   submitResultsJSON(state) {
     invariant(
       this.behaviorInput !== null,
-      "Call %s or %s before calling %s.",
+      'Call %s or %s before calling %s.',
       this.setBehaviorInput.name,
       this.setBehaviorInputFromJSONAndCommandsConfigKeysTitleUnexpected.name,
       this.submitResultsJSON.name
@@ -966,28 +983,40 @@ export class TestRunInputOutput {
       specific_user_instruction: behavior.specificUserInstruction,
       summary: {
         1: {
-          pass: countAssertions(({priority, result}) => priority === 1 && result === CommonResultMap.PASS),
-          fail: countAssertions(({priority, result}) => priority === 1 && result !== CommonResultMap.PASS),
+          pass: countAssertions(
+            ({ priority, result }) => priority === 1 && result === CommonResultMap.PASS
+          ),
+          fail: countAssertions(
+            ({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS
+          ),
         },
         2: {
-          pass: countAssertions(({priority, result}) => priority === 2 && result === CommonResultMap.PASS),
-          fail: countAssertions(({priority, result}) => priority === 2 && result !== CommonResultMap.PASS),
+          pass: countAssertions(
+            ({ priority, result }) => priority === 2 && result === CommonResultMap.PASS
+          ),
+          fail: countAssertions(
+            ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
+          ),
         },
-        unexpectedCount: countUnexpectedBehaviors(({checked}) => checked),
+        unexpectedCount: countUnexpectedBehaviors(({ checked }) => checked),
       },
       commands: state.commands.map(command => ({
         command: command.description,
         output: command.atOutput.value,
         support: commandSupport(command),
-        assertions: [...command.assertions, ...command.additionalAssertions].map(assertionToAssertion),
+        assertions: [...command.assertions, ...command.additionalAssertions].map(
+          assertionToAssertion
+        ),
         unexpected_behaviors: command.unexpected.behaviors
-          .filter(({checked}) => checked)
-          .map(({description, more}) => (more ? more.value : description)),
+          .filter(({ checked }) => checked)
+          .map(({ description, more }) => (more ? more.value : description)),
       })),
     };
 
     /** @type {SubmitResultStatusJSON} */
-    const status = state.commands.map(commandSupport).some(support => support === CommandSupportJSONMap.FAILING)
+    const status = state.commands
+      .map(commandSupport)
+      .some(support => support === CommandSupportJSONMap.FAILING)
       ? StatusJSONMap.FAIL
       : StatusJSONMap.PASS;
 
@@ -999,10 +1028,13 @@ export class TestRunInputOutput {
 
     function commandSupport(command) {
       const allAssertions = [...command.assertions, ...command.additionalAssertions];
-      return allAssertions.some(({priority, result}) => priority === 1 && result !== CommonResultMap.PASS) ||
-        command.unexpected.behaviors.some(({checked}) => checked)
+      return allAssertions.some(
+        ({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS
+      ) || command.unexpected.behaviors.some(({ checked }) => checked)
         ? CommandSupportJSONMap.FAILING
-        : allAssertions.some(({priority, result}) => priority === 2 && result !== CommonResultMap.PASS)
+        : allAssertions.some(
+            ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
+          )
         ? CommandSupportJSONMap.ALL_REQUIRED
         : CommandSupportJSONMap.FULL;
     }
@@ -1013,7 +1045,8 @@ export class TestRunInputOutput {
      */
     function countAssertions(filter) {
       return state.commands.reduce(
-        (carry, command) => carry + [...command.assertions, ...command.additionalAssertions].filter(filter).length,
+        (carry, command) =>
+          carry + [...command.assertions, ...command.additionalAssertions].filter(filter).length,
         0
       );
     }
@@ -1023,7 +1056,10 @@ export class TestRunInputOutput {
      * @returns {number}
      */
     function countUnexpectedBehaviors(filter) {
-      return state.commands.reduce((carry, command) => carry + command.unexpected.behaviors.filter(filter).length, 0);
+      return state.commands.reduce(
+        (carry, command) => carry + command.unexpected.behaviors.filter(filter).length,
+        0
+      );
     }
 
     /**
@@ -1073,15 +1109,15 @@ export class TestRunInputOutput {
         output: command.atOutput.value,
         assertionResults: command.assertions.map(assertion => ({
           assertion: {
-            priority: assertion.priority === 1 ? "REQUIRED" : "OPTIONAL",
+            priority: assertion.priority === 1 ? 'REQUIRED' : 'OPTIONAL',
             text: assertion.description,
           },
-          passed: assertion.result === "pass",
+          passed: assertion.result === 'pass',
           failedReason:
-            assertion.result === "failIncorrect"
-              ? "INCORRECT_OUTPUT"
-              : assertion.result === "failMissing"
-              ? "NO_OUTPUT"
+            assertion.result === 'failIncorrect'
+              ? 'INCORRECT_OUTPUT'
+              : assertion.result === 'failMissing'
+              ? 'NO_OUTPUT'
               : null,
         })),
         unexpectedBehaviors: command.unexpected.behaviors
@@ -1106,7 +1142,7 @@ export class TestRunInputOutput {
     // If ConfigInput is available and resultFormat is TestResultJSON return result in that format.
     if (this.configInput !== null) {
       const resultFormat = this.configInput.resultFormat();
-      if (resultFormat === "TestResultJSON") {
+      if (resultFormat === 'TestResultJSON') {
         return this.testResultJSON(state);
       }
     }
@@ -1128,25 +1164,28 @@ export class TestRunInputOutput {
         const scenarioResult = testResult.scenarioResults[commandIndex];
         return {
           ...command,
-          atOutput: {highlightRequired: false, value: scenarioResult.output},
+          atOutput: { highlightRequired: false, value: scenarioResult.output },
           assertions: command.assertions.map((assertion, assertionIndex) => {
             const assertionResult = scenarioResult.assertionResults[assertionIndex];
             return {
               ...assertion,
               highlightRequired: false,
               result: assertionResult.passed
-                ? "pass"
-                : assertionResult.failedReason === "INCORRECT_OUTPUT"
-                ? "failIncorrect"
-                : assertionResult.failedReason === "NO_OUTPUT"
-                ? "failMissing"
-                : "notSet",
+                ? 'pass'
+                : assertionResult.failedReason === 'INCORRECT_OUTPUT'
+                ? 'failIncorrect'
+                : assertionResult.failedReason === 'NO_OUTPUT'
+                ? 'failMissing'
+                : 'notSet',
             };
           }),
           unexpected: {
             ...command.unexpected,
             highlightRequired: false,
-            hasUnexpected: scenarioResult.unexpectedBehaviors.length > 0 ? "hasUnexpected" : "doesNotHaveUnexpected",
+            hasUnexpected:
+              scenarioResult.unexpectedBehaviors.length > 0
+                ? 'hasUnexpected'
+                : 'doesNotHaveUnexpected',
             tabbedBehavior: 0,
             behaviors: command.unexpected.behaviors.map(behavior => {
               const behaviorResult = scenarioResult.unexpectedBehaviors.find(
@@ -1158,7 +1197,7 @@ export class TestRunInputOutput {
                 more: behavior.more
                   ? {
                       highlightRequired: false,
-                      value: behaviorResult ? behaviorResult.otherUnexpectedBehaviorText : "",
+                      value: behaviorResult ? behaviorResult.otherUnexpectedBehaviorText : '',
                     }
                   : behavior.more,
               };
@@ -1178,7 +1217,7 @@ export class TestRunExport extends TestRun {
   /**
    * @param {TestRunOptions & TestRunExportOptions} options
    */
-  constructor({resultsJSON, ...parentOptions}) {
+  constructor({ resultsJSON, ...parentOptions }) {
     super(parentOptions);
 
     this.resultsJSON = resultsJSON;
@@ -1186,7 +1225,7 @@ export class TestRunExport extends TestRun {
 
   testPageAndResults() {
     const testPage = this.testPage();
-    if ("results" in testPage) {
+    if ('results' in testPage) {
       return {
         ...testPage,
         resultsJSON: this.resultsJSON(this.state),
@@ -1195,7 +1234,9 @@ export class TestRunExport extends TestRun {
     return {
       ...testPage,
       resultsJSON:
-        this.state.currentUserAction === UserActionMap.CLOSE_TEST_WINDOW ? this.resultsJSON(this.state) : null,
+        this.state.currentUserAction === UserActionMap.CLOSE_TEST_WINDOW
+          ? this.resultsJSON(this.state)
+          : null,
     };
   }
 }
@@ -1215,7 +1256,7 @@ export class TestRunExport extends TestRun {
  */
 
 const AssertionPassJSONMap = createEnumMap({
-  GOOD_OUTPUT: "Good Output",
+  GOOD_OUTPUT: 'Good Output',
 });
 
 /**
@@ -1234,9 +1275,9 @@ const AssertionPassJSONMap = createEnumMap({
  */
 
 const AssertionFailJSONMap = createEnumMap({
-  NO_OUTPUT: "No Output",
-  INCORRECT_OUTPUT: "Incorrect Output",
-  NO_SUPPORT: "No Support",
+  NO_OUTPUT: 'No Output',
+  INCORRECT_OUTPUT: 'Incorrect Output',
+  NO_SUPPORT: 'No Support',
 });
 
 /** @typedef {SubmitResultDetailsCommandsAssertionsPass | SubmitResultDetailsCommandsAssertionsFail} SubmitResultAssertionsJSON */
@@ -1253,9 +1294,9 @@ const AssertionFailJSONMap = createEnumMap({
  */
 
 const CommandSupportJSONMap = createEnumMap({
-  FULL: "FULL",
-  FAILING: "FAILING",
-  ALL_REQUIRED: "ALL REQUIRED",
+  FULL: 'FULL',
+  FAILING: 'FAILING',
+  ALL_REQUIRED: 'ALL REQUIRED',
 });
 
 /**
@@ -1267,8 +1308,8 @@ const CommandSupportJSONMap = createEnumMap({
  */
 
 const StatusJSONMap = createEnumMap({
-  PASS: "PASS",
-  FAIL: "FAIL",
+  PASS: 'PASS',
+  FAIL: 'FAIL',
 });
 
 /**
@@ -1280,7 +1321,7 @@ const StatusJSONMap = createEnumMap({
 function invariant(test, message, ...args) {
   if (!test) {
     let index = 0;
-    throw new Error(message.replace(/%%|%\w/g, match => (match[0] !== "%%" ? args[index++] : "%")));
+    throw new Error(message.replace(/%%|%\w/g, match => (match[0] !== '%%' ? args[index++] : '%')));
   }
 }
 

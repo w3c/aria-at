@@ -16,23 +16,24 @@
   "dependencies": {
     "cross-var": "^1.1.0",
     "csv-parser": "^3.0.0",
-    "fs-extra": "^10.0.1",
+    "eslint-plugin-n": "^15.2.3",
+    "fs-extra": "^10.1.0",
     "inquirer": "^8.2.2",
     "json-beautify": "^1.1.1",
     "minimist": "^1.2.6",
     "mustache": "^4.2.0",
     "node-html-parser": "^5.3.3",
     "rimraf": "^3.0.2",
-    "simple-git": "^3.4.0"
+    "simple-git": "^3.10.0"
   },
   "devDependencies": {
-    "eslint": "^8.12.0",
+    "eslint": "^8.18.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.0",
-    "lint-staged": "^12.3.7",
-    "prettier": "^2.6.1"
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.1.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1"
   },
   "repository": {
     "type": "git",
@@ -46,5 +47,8 @@
   "homepage": "https://github.com/w3c/aria-at#readme",
   "lint-staged": {
     "*.js": "eslint --cache --fix"
+  },
+  "engines": {
+    "node": ">=14.14.0"
   }
 }

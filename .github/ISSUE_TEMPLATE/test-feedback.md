@@ -1,9 +1,12 @@
 ---
 name: Feedback about tests
-about: "Use this template to give feedback about tests."
-title: "Feedback on test:"
-labels: tests feedback
+about: Use this template to give feedback about tests.
+title: 'Feedback on test:'
+labels: ''
+assignees: ''
+
 ---
+
 <!--
   Each test plan should have an issue, linked from the appropriate card in https://github.com/w3c/aria-at/projects/1
 

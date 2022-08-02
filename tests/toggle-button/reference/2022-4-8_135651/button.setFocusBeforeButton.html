@@ -47,12 +47,14 @@
 
         <p>This <q>Mute</q> toggle button uses an <code>a</code> element.</p>
         <a id="beforelink" href="#beforelink">Navigate forwards from here</a>
-        <a tabindex="0" role="button" id="toggle" aria-pressed="false">
-          Mute
-          <svg aria-hidden="true" focusable="false">
-            <use xlink:href="#icon-sound"></use>
-          </svg>
-        </a>
+        <div>
+          <a tabindex="0" role="button" id="toggle" aria-pressed="false">
+            Mute
+            <svg aria-hidden="true" focusable="false">
+              <use xlink:href="#icon-sound"></use>
+            </svg>
+          </a>
+        </div>
         <a id="afterlink" href="#afterlink">Navigate backwards from here</a>
 
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none" id="svg_definitions">

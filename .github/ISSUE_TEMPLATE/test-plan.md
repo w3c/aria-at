@@ -1,9 +1,13 @@
 ---
 name: Create a new test plan for APG design pattern
-about: "Use this template when converting a card to an issue from the Test Plan Workflow project board."
-title: "Create tests for APG design pattern: [TEST PLAN]"
+about: Use this template when converting a card to an issue from the Test Plan Workflow
+  project board.
+title: 'Create tests for APG design pattern: [TEST PLAN]'
 labels: tests
+assignees: ''
+
 ---
+
 <!--
 Replace [TEST PLAN] above with an Example title from https://w3c.github.io/aria-practices/examples/
 For example: "Checkbox (Two State)"

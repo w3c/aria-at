@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>Switch Example</title>
 
   <!--  js and css for this example. -->
@@ -12,10 +12,9 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // setFocusOnAndTurnOnSwitch
-      // sets focus on the 'Notifications' switch, and sets its state to 'on'
-      testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
-      testPageDocument.querySelector('[role="switch"]').focus();
+      // setFocusAfterSwitch
+      // sets focus on a link after the switch
+      testPageDocument.getElementById('afterlink').focus();
 
     };
     document.addEventListener('click', function(event) {
@@ -34,6 +33,7 @@
       This example illustrates implementation of the <a href="https://w3c.github.io/aria-practices/#switch">switch design pattern</a> for a notification preferences control.
       It uses a <code>div</code> element for the switch and CSS borders to provide graphical rendering of switch states.
     </p>
+
     <section>
       <div class="example-header">
         <h2 id="ex_label">Example</h2>

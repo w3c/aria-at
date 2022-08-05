@@ -129,3 +129,5 @@ export const TWO = "2";
 export const SHIFT_ONE = "Shift+1";
 export const SHIFT_TWO = "Shift+2";
 export const SHIFT_P = "Shift+P";
+export const COMMA = "Comma";
+export const SHIFT_PERIOD = "Shift+Period";

@@ -1,4 +1,4 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>Main Landmark Example</title>
@@ -14,10 +14,10 @@
   <script>
     (function() {
       function setupScript(testPageDocument) {
-        // setFocusOnBottomLink
-        // sets focus on the 'Bottom' link
+        // setFocusAfterMain
+        // sets focus on a link after the main landmark
         testPageDocument.querySelector('.button-run-test-setup').parentElement.style.display = 'none';
-        testPageDocument.getElementById('bottom').focus();
+        testPageDocument.getElementById('afterlink').focus();
 
       };
       document.addEventListener('click', function(event) {

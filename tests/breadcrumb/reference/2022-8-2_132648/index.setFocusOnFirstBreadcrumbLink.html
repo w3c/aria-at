@@ -10,9 +10,9 @@
   <script>
     (function() {
       function setupScript(testPageDocument) {
-        // setFocusBeforeFirstBreadcrumbLink
-        // sets focus on a link before the 'WAI-ARIA Authoring Practices' link
-        testPageDocument.querySelector('#beforelink').focus();
+        // setFocusOnFirstBreadcrumbLink
+        // sets focus on the 'WAI-ARIA Authoring Practices' link
+        testPageDocument.getElementById('breadcrumb1').focus();
 
       };
       document.addEventListener('click', function(event) {

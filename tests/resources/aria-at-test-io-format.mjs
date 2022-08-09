@@ -80,7 +80,7 @@ class KeysInput {
       modeInstructions: {
         reading: {
           jaws: `Verify the Virtual Cursor is active by pressing ${keys.ALT_DELETE}. If it is not, turn on the Virtual Cursor by pressing ${keys.INS_Z}.`,
-          nvda: `Ensure NVDA is in browse mode by pressing ${keys.ESC}. Note: This command has no effect if NVDA is already in browse mode.`,
+          nvda: `Insure NVDA is in browse mode by pressing ${keys.ESC}. Note: This command has no effect if NVDA is already in browse mode.`,
           voiceover_macos: `Toggle Quick Nav ON by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`,
         }[atKey],
         interaction: {
@@ -234,8 +234,9 @@ class CommandsInput {
         commands: {
           [collectedTest.info.task]: {
             [collectedTest.target.mode]: {
-              [collectedTest.target.at.key]: collectedTest.commands.map(
-                ({ id, extraInstruction }) => (extraInstruction ? [id, extraInstruction] : [id])
+              [collectedTest.target.at
+                .key]: collectedTest.commands.map(({ id, extraInstruction }) =>
+                extraInstruction ? [id, extraInstruction] : [id]
               ),
             },
           },
@@ -891,36 +892,39 @@ export class TestRunInputOutput {
         enabled: true,
       },
       commands: test.commands.map(
-        command =>
-          /** @type {import("./aria-at-test-run.mjs").TestRunCommand} */ ({
-            description: command,
-            atOutput: {
+        command => /** @type {import("./aria-at-test-run.mjs").TestRunCommand} */ ({
+          description: command,
+          atOutput: {
+            highlightRequired: false,
+            value: '',
+          },
+          assertions: test.assertions.map(assertion => ({
+            description: assertion.assertion,
+            highlightRequired: false,
+            priority: assertion.priority,
+            result: CommonResultMap.NOT_SET,
+          })),
+          additionalAssertions: test.additionalAssertions.map(assertion => ({
+            description: assertion.assertion,
+            highlightRequired: false,
+            priority: assertion.priority,
+            result: CommonResultMap.NOT_SET,
+          })),
+          unexpected: {
+            highlightRequired: false,
+            hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
+            tabbedBehavior: 0,
+            behaviors: test.unexpectedBehaviors.map(({ description, requireExplanation }) => ({
+              description,
+              checked: false,
+              requireExplanation,
+            })),
+            note: {
               highlightRequired: false,
               value: '',
             },
-            assertions: test.assertions.map(assertion => ({
-              description: assertion.assertion,
-              highlightRequired: false,
-              priority: assertion.priority,
-              result: CommonResultMap.NOT_SET,
-            })),
-            additionalAssertions: test.additionalAssertions.map(assertion => ({
-              description: assertion.assertion,
-              highlightRequired: false,
-              priority: assertion.priority,
-              result: CommonResultMap.NOT_SET,
-            })),
-            unexpected: {
-              highlightRequired: false,
-              hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
-              tabbedBehavior: 0,
-              behaviors: test.unexpectedBehaviors.map(({ description, requireExplanation }) => ({
-                description,
-                checked: false,
-                more: requireExplanation ? { highlightRequired: false, value: '' } : null,
-              })),
-            },
-          })
+          },
+        })
       ),
     };
 
@@ -1009,7 +1013,7 @@ export class TestRunInputOutput {
         ),
         unexpected_behaviors: command.unexpected.behaviors
           .filter(({ checked }) => checked)
-          .map(({ description, more }) => (more ? more.value : description)),
+          .map(({ description }) => description),
       })),
     };
 
@@ -1125,11 +1129,11 @@ export class TestRunInputOutput {
             behavior.checked
               ? {
                   text: behavior.description,
-                  otherUnexpectedBehaviorText: behavior.more ? behavior.more.value : null,
                 }
               : null
           )
           .filter(Boolean),
+        unexpectedBehaviorNote: command.unexpected.note.value || null,
       })),
     };
   }
@@ -1194,14 +1198,12 @@ export class TestRunInputOutput {
               return {
                 ...behavior,
                 checked: behaviorResult ? true : false,
-                more: behavior.more
-                  ? {
-                      highlightRequired: false,
-                      value: behaviorResult ? behaviorResult.otherUnexpectedBehaviorText : '',
-                    }
-                  : behavior.more,
               };
             }),
+            note: {
+              highlightRequired: false,
+              value: scenarioResult.unexpectedBehaviorNote || '',
+            },
           },
         };
       }),

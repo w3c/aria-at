@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
+<meta charset="utf-8">
 <title>Editable Combobox With Both List and Inline Autocomplete Example</title>
 
 <!--  js and css for this example. -->
@@ -12,11 +12,13 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // moveFocusToComboboxAndSetValueToA
-      // sets focus on the combobox, and sets the combobox value to 'a'
-      testPageDocument.defaultView.comboboxController.setValue('a');
-      testPageDocument.defaultView.comboboxController.comboboxNode.select();
+      // moveFocusToAlaskaInListbox
+      // expands the combobox, sets the combobox value to 'Alaska' and places focus on that option in the listbox popup
+      testPageDocument.defaultView.comboboxController.open();
       testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+      testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+      let opt = testPageDocument.querySelector('#lb1-ak');
+      testPageDocument.defaultView.comboboxController.setOption(opt, true);
 
     };
     document.addEventListener('click', function(event) {

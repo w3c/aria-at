@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
+<meta charset="utf-8">
 <title>Editable Combobox With Both List and Inline Autocomplete Example</title>
 
 <!--  js and css for this example. -->
@@ -12,9 +12,9 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // moveFocusBeforeCombobox
-      // sets focus on a link before the Combobox
-      testPageDocument.querySelector('#beforelink').focus();
+      // moveFocusToCombobox
+      // sets focus on the combobox
+      testPageDocument.defaultView.comboboxController.comboboxNode.focus();
 
     };
     document.addEventListener('click', function(event) {

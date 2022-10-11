@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rating Slider Example</title>
 
@@ -13,12 +13,9 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // setFocusOnSliderAndSetValueToFive
-      // sets focus on the slider, and sets its value to five stars
-      let slider = testPageDocument.querySelector('[role="slider"]');
-      slider.setAttribute('aria-valuenow', '5');
-      slider.setAttribute('aria-valuetext', 'five of five stars');
-      slider.focus();
+      // setFocusBeforeSlider
+      // sets focus on a link before the slider
+      testPageDocument.querySelector('#beforelink').focus();
 
     };
     document.addEventListener('click', function(event) {
@@ -36,6 +33,8 @@
    <p>
       Following is an example of a rating input that demonstrates the
       <a href="https://w3c.github.io/aria-practices/#slider">slider design pattern.</a>
+      This rating widget employs a slider because the slider pattern supports step values of any size.
+      This particular input enables half-star steps.
     </p>
     <section>
       <div class="example-header">

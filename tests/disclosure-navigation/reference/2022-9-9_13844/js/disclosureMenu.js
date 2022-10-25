@@ -183,46 +183,30 @@ class DisclosureNav {
 window.addEventListener(
   'load',
   function () {
-    var menus = document.querySelectorAll('.disclosure-nav');
-    var disclosureMenus = [];
-
-    for (var i = 0; i < menus.length; i++) {
-      disclosureMenus[i] = new DisclosureNav(menus[i]);
-    }
-
-    // listen to arrow key checkbox
-    var arrowKeySwitch = document.getElementById('arrow-behavior-switch');
-    if (arrowKeySwitch) {
-      arrowKeySwitch.addEventListener('change', function () {
-        var checked = arrowKeySwitch.checked;
-        for (var i = 0; i < disclosureMenus.length; i++) {
-          disclosureMenus[i].updateKeyControls(checked);
-        }
-      });
-    }
+    var menu = document.querySelector('.disclosure-nav');
+    var disclosureMenu = new DisclosureNav(menu);
+    document.defaultView.disclosureController = disclosureMenu;
 
     // fake link behavior
-    disclosureMenus.forEach((disclosureNav, i) => {
-      var links = menus[i].querySelectorAll('[href="#mythical-page-content"]');
-      var examplePageHeading = document.getElementById('mythical-page-heading');
-      for (var k = 0; k < links.length; k++) {
-        // The codepen export script updates the internal link href with a full URL
-        // we're just manually fixing that behavior here
-        links[k].href = '#mythical-page-content';
+    var links = menu.querySelectorAll('[href="#mythical-page-content"]');
+    var examplePageHeading = document.getElementById('mythical-page-heading');
+    for (var k = 0; k < links.length; k++) {
+      // The codepen export script updates the internal link href with a full URL
+      // we're just manually fixing that behavior here
+      links[k].href = '#mythical-page-content';
 
-        links[k].addEventListener('click', (event) => {
-          // change the heading text to fake a page change
-          var pageTitle = event.target.innerText;
-          examplePageHeading.innerText = pageTitle;
+      links[k].addEventListener('click', (event) => {
+        // change the heading text to fake a page change
+        var pageTitle = event.target.innerText;
+        examplePageHeading.innerText = pageTitle;
 
-          // handle aria-current
-          for (var n = 0; n < links.length; n++) {
-            links[n].removeAttribute('aria-current');
-          }
-          event.target.setAttribute('aria-current', 'page');
-        });
-      }
-    });
+        // handle aria-current
+        for (var n = 0; n < links.length; n++) {
+          links[n].removeAttribute('aria-current');
+        }
+        event.target.setAttribute('aria-current', 'page');
+      });
+    }
   },
   false
 );

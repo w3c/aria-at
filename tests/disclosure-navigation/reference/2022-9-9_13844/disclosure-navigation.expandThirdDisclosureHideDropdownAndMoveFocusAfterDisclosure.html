@@ -15,6 +15,9 @@
     function setupScript(testPageDocument) {
       // expandThirdDisclosureHideDropdownAndMoveFocusAfterDisclosure
       // sets the state of the third disclosure button to expanded, hides the associated dropdown and sets focus on the link after the disclosure
+      testPageDocument.defaultView.disclosureController.toggleExpand(2, true);
+      testPageDocument.getElementById('id_academics_menu').style.display = 'none';
+      testPageDocument.getElementById('afterlink').focus();
 
     };
     document.addEventListener('click', function(event) {
@@ -58,7 +61,7 @@
                 <a href="#mythical-page-content">Facts</a>
               </li>
               <li>
-                <a href="#mythical-page-content">Campus Tours</a>
+                <a id="campus-tours-link" href="#mythical-page-content">Campus Tours</a>
               </li>
             </ul>
           </li>

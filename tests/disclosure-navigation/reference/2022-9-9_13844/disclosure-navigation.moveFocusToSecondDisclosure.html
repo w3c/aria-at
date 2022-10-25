@@ -14,7 +14,7 @@
   (function() {
     function setupScript(testPageDocument) {
       // moveFocusToSecondDisclosure
-      // sets focus on the second disclosure button in the navigation region
+      // sets focus on the second disclosure button
       testPageDocument.querySelector('button[aria-controls="id_admissions_menu"]').focus();
 
     };
@@ -59,7 +59,7 @@
                 <a href="#mythical-page-content">Facts</a>
               </li>
               <li>
-                <a href="#mythical-page-content">Campus Tours</a>
+                <a id="campus-tours-link" href="#mythical-page-content">Campus Tours</a>
               </li>
             </ul>
           </li>

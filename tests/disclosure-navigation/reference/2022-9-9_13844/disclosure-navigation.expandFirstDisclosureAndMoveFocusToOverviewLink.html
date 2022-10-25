@@ -13,8 +13,10 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // expandThirdDisclosureAndMoveFocusToFirstDisclosure
-      // sets the state of the third disclosure button to expanded and sets focus on the first disclosure button
+      // expandFirstDisclosureAndMoveFocusToOverviewLink
+      // expands the first disclosure and sets focus on the 'Overview' link
+      testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+      testPageDocument.querySelector('#id_about_menu a').focus();
 
     };
     document.addEventListener('click', function(event) {
@@ -58,7 +60,7 @@
                 <a href="#mythical-page-content">Facts</a>
               </li>
               <li>
-                <a href="#mythical-page-content">Campus Tours</a>
+                <a id="campus-tours-link" href="#mythical-page-content">Campus Tours</a>
               </li>
             </ul>
           </li>

@@ -13,9 +13,10 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // setFocusAfterThirdDisclosure
-      // sets focus on a link after the disclosure button
-      testPageDocument.querySelector('#afterlink').focus();
+      // expandFirstDisclosureAndMoveFocusToCampusToursLink
+      // expands the first disclosure and sets focus on the 'Campus Tours' link
+      testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+      testPageDocument.getElementById('campus-tours-link').focus();
 
     };
     document.addEventListener('click', function(event) {
@@ -59,7 +60,7 @@
                 <a href="#mythical-page-content">Facts</a>
               </li>
               <li>
-                <a href="#mythical-page-content">Campus Tours</a>
+                <a id="campus-tours-link" href="#mythical-page-content">Campus Tours</a>
               </li>
             </ul>
           </li>

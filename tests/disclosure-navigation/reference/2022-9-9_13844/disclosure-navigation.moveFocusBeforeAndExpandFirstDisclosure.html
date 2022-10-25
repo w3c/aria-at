@@ -14,7 +14,7 @@
   (function() {
     function setupScript(testPageDocument) {
       // moveFocusBeforeAndExpandFirstDisclosure
-      // sets focus on a link before the first disclosure button, and sets the state of the first button to expanded
+      // sets focus on a link before the first disclosure button, and sets the state of the first button to 'expanded'
       testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
       testPageDocument.querySelector('#beforelink').focus();
 
@@ -60,7 +60,7 @@
                 <a href="#mythical-page-content">Facts</a>
               </li>
               <li>
-                <a href="#mythical-page-content">Campus Tours</a>
+                <a id="campus-tours-link" href="#mythical-page-content">Campus Tours</a>
               </li>
             </ul>
           </li>

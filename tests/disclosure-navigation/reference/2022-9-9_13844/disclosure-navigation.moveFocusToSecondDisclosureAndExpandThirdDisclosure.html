@@ -15,6 +15,8 @@
     function setupScript(testPageDocument) {
       // moveFocusToSecondDisclosureAndExpandThirdDisclosure
       // sets the state of the third disclosure button to expanded and sets focus on the second disclosure button
+      testPageDocument.defaultView.disclosureController.toggleExpand(2, true);
+      testPageDocument.querySelector('button[aria-controls="id_admissions_menu"]').focus();
 
     };
     document.addEventListener('click', function(event) {
@@ -58,7 +60,7 @@
                 <a href="#mythical-page-content">Facts</a>
               </li>
               <li>
-                <a href="#mythical-page-content">Campus Tours</a>
+                <a id="campus-tours-link" href="#mythical-page-content">Campus Tours</a>
               </li>
             </ul>
           </li>

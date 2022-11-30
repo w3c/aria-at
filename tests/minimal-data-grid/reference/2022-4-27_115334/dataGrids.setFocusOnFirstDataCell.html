@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
+<meta charset="utf-8">
 <title>Data Grid Examples</title>
 
 <!--  js and css for this example. -->
@@ -14,9 +14,10 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // setFocusBeforeGrid
-      // sets focus on a link before the grid
-      testPageDocument.querySelector('#beforelink').focus();
+      // setFocusOnFirstDataCell
+      // sets focus on the first cell of the second row in the grid
+      testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 0);
+      testPageDocument.defaultView.ex1Grid.focusCell(0, 0);
 
     };
     document.addEventListener('click', function(event) {

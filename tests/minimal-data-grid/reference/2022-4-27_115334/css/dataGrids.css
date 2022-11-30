@@ -45,6 +45,20 @@
   position: relative;
 }
 
+.edit-text-button::after {
+  background-image: url("../imgs/pencil-icon.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 44px;
+  content: " ";
+  height: 17px;
+  opacity: 0.6;
+  position: absolute;
+  right: -24px;
+  top: 0;
+  width: 20px;
+}
+
 .edit-text-button:hover,
 .edit-text-button:focus {
   color: black;

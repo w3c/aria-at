@@ -201,6 +201,5 @@ window.addEventListener('load', function () {
   spinButtons.forEach(function (spinButton) {
     var datepicker = new DatePickerSpinButtons(spinButton);
     datepicker.init();
-    document.defaultView.datepicker = datepicker;
   });
 });

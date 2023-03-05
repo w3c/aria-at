@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<meta charset="utf-8">
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf-8">
     <title>Test plan review for pattern: {{pattern}}</title>
     <style>
       table {
@@ -117,7 +117,7 @@
 
     <fieldset>
       <legend>Filter tests by assistive technology</legend>
-      <input type="radio" onclick="filterATs(this)" id="all" value="all" checked="true"><label for="all">All assistive technologies</label>
+      <input type="radio" onclick="filterATs(this)" id="all" value="all" checked><label for="all">All assistive technologies</label>
       {{#AToptions}}
       <input type="radio" onclick="filterATs(this)" id="{{key}}" value="{{key}}"><label for="{{key}}">{{name}}</label>
       {{/AToptions}}
@@ -125,30 +125,29 @@
 
     {{#tests}}
     <h2 class="{{allRelevantATsSpaceSeparated}}">Test {{testNumber}}: {{{name}}}</h2>
-    <p>
-      <ul class="{{allRelevantATsSpaceSeparated}}">
-        <li>Mode: {{mode}}</li>
-        <li>Applies to: {{allRelevantATsFormatted}}</li>
-        <li>Last edited: {{lastEdited}}</li>
-        <li>Tests:
-          <ul>
-            {{#allRelevantATs}}
-              <li><a href="../tests{{{location}}}?at={{{.}}}">{{{.}}}</a></li>
-            {{/allRelevantATs}}
-          </ul>
-        </li>
-        <li>Relevant Specifications:
-          <ul>
-            {{#helpLinks}}
-              <li><a href="{{link}}">{{text}}</a></li>
-            {{/helpLinks}}
-          </ul>
-        </li>
-      </ul>
+    <ul class="{{allRelevantATsSpaceSeparated}}">
+      <li>Mode: {{mode}}</li>
+      <li>Applies to: {{allRelevantATsFormatted}}</li>
+      <li>Last edited: {{lastEdited}}</li>
+      <li>Tests:
+        <ul>
+          {{#allRelevantATs}}
+            <li><a href="../tests{{{location}}}?at={{{.}}}">{{{.}}}</a></li>
+          {{/allRelevantATs}}
+        </ul>
+      </li>
+      <li>Relevant Specifications:
+        <ul>
+          {{#helpLinks}}
+            <li><a href="{{link}}">{{text}}</a></li>
+          {{/helpLinks}}
+        </ul>
+      </li>
+    </ul>
 
-      <button id="open-test-page-{{testNumber}}" class="{{allRelevantATsSpaceSeparated}}"
+    <button id="open-test-page-{{testNumber}}" class="{{allRelevantATsSpaceSeparated}}"
         onclick="openTestPage('../tests{{reference}}', {{testNumber}}, '{{setupScriptName}}');">Open Test {{testNumber}} Page</button>
-    </p>
+
       {{#ATTests}}
       <div class="{{atKey}}">
         <h3>{{atName}}</h3>
@@ -160,21 +159,19 @@
         </ol>
         {{/setupScriptDescription}}
         <h4>Tester Instructions</h4>
-        <p>
-          <ol>
-             <li>{{modeInstruction}}</li>
-             <li>{{userInstruction}} using the following commands:
-               <ul>
-                 {{#commands}}
-                   <li>{{.}}</li>
-                 {{/commands}}
-                 {{^commands}}
-                   <li>No commands have been added for this test for {{atName}}. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
-                 {{/commands}}
-               </ul>
-             </li>
-          </ol>
-        </p>
+        <ol>
+          <li>{{modeInstruction}}</li>
+          <li>{{userInstruction}} using the following commands:
+            <ul>
+              {{#commands}}
+                <li>{{.}}</li>
+              {{/commands}}
+              {{^commands}}
+                <li>No commands have been added for this test for {{atName}}. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
+              {{/commands}}
+            </ul>
+          </li>
+        </ol>
         <h4>Assertions</h4>
         <table>
           <tr><th>Priority</th><th>Assertion</th></tr>

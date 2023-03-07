@@ -1,5 +1,7 @@
 const path = require('path');
-const fs = require('fs');
+
+const fs = require('graceful-fs');
+
 const { createExampleTests } = require('./create-example-tests');
 
 const args = require('minimist')(process.argv.slice(2), {

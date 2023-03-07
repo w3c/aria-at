@@ -7,13 +7,13 @@
 'use strict';
 
 const path = require('path');
-const fs = require('fs');
 const { Readable } = require('stream');
 const {
   types: { isArrayBufferView, isArrayBuffer },
 } = require('util');
 
 const csv = require('csv-parser');
+const fs = require('graceful-fs');
 const beautify = require('json-beautify');
 
 const { validate } = require('../lib/util/error');

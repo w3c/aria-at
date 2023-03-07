@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('graceful-fs');
 const fse = require('fs-extra');
 const path = require('path');
 const simpleGit = require('simple-git');

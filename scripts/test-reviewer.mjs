@@ -1,5 +1,5 @@
 import path from 'path';
-import fs from 'fs';
+import fs from 'graceful-fs';
 import fse from 'fs-extra';
 import { spawnSync } from 'child_process';
 import np from 'node-html-parser';

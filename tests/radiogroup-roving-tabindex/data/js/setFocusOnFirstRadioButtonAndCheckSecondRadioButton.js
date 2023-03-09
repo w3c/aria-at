@@ -1,4 +1,4 @@
-// sets focus on the first radio button, and sets its state to checked
+// sets focus on the first radio button, and checks the  second radio button
 let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
 let radios = testPageDocument.querySelectorAll('[role="radio"]');
 radios.forEach(r => {
@@ -6,6 +6,6 @@ radios.forEach(r => {
   r.classList.remove('focus');
 });
 radios[0].classList.add('focus');
-radios[0].setAttribute('aria-checked', 'true');
+radios[1].setAttribute('aria-checked', 'true');
 radioGroup.setAttribute('aria-activedescendant', radios[0].id);
 radioGroup.focus();

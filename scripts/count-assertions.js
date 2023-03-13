@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
-const csv = require('csv-parser');
+
+const csv = require('../lib/util/csv');
 
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
@@ -24,42 +25,38 @@ Default use:
 
 const testsDirectory = path.resolve(__dirname, '..', 'tests');
 
-let totalTestPlans = 0;
-let totalTests = 0;
-let totalAssertions = 0;
-let totalCommandAssertions = 0;
-
-function parseCSV(filename) {
-  return new Promise((resolve, reject) => {
-    let data = [];
-    fs.createReadStream(filename)
-      .pipe(csv())
-      .on('data', row => {
-        data.push(row);
-      })
-      .on('end', () => {
-        resolve(data);
-      })
-      .on('error', error => {
-        reject(error);
-      });
+/**
+ * @param {string} filepath
+ * @returns {Promise<object[]>}
+ */
+function parseCSV(filepath) {
+  return csv.read(fs.createReadStream(filepath), {
+    logError: (...args) => console.error(`[${path.relative(testsDirectory, filepath)}]`, ...args),
   });
 }
 
-// count metrics for tests / commands
+/**
+ * Count metrics for arrays of test and command objects.
+ * @param {AriaATCSV.Test[]} tests
+ * @param {AriaATCSV.Command[]} commands
+ */
 function countTests(tests, commands) {
-  for (let [i, test] of tests.entries()) {
+  let totalTests = 0;
+  let totalAssertions = 0;
+  let totalCommandAssertions = 0;
+
+  for (const [i, test] of tests.entries()) {
     const command = commands[i];
 
     let numCommands = 0;
-    for (let letter of ['A', 'B', 'C', 'D', 'E', 'F']) {
+    for (const letter of ['A', 'B', 'C', 'D', 'E', 'F']) {
       if (command[`command${letter}`]) {
         numCommands++;
       }
     }
 
     let numAssertions = 0;
-    for (let j = 0; j < 7; j++) {
+    for (let j = 0; j < 30; j++) {
       if (test[`assertion${j + 1}`]) {
         numAssertions++;
       }
@@ -67,67 +64,100 @@ function countTests(tests, commands) {
 
     totalTests++;
     totalAssertions += numAssertions;
-    totalCommandAssertions += numAssertions * numCommands;
-  }
-}
-
-// count metrics for test plan directory
-function count(directory) {
-  return new Promise((resolve, reject) => {
-    totalTestPlans++;
-
-    parseCSV(path.join(directory, 'data', 'tests.csv'))
-      .then(tests => {
-        parseCSV(path.join(directory, 'data', 'commands.csv'))
-          .then(commands => {
-            countTests(tests, commands);
-            resolve();
-          })
-          .catch(error => {
-            reject(error);
-          });
-      })
-      .catch(error => {
-        reject(error);
-      });
-  });
-}
-
-let promises = [];
-
-// if test plan given as argument, count one test plan directory
-if (args._.length) {
-  const directory = args._[0];
-
-  try {
-    fs.statSync(path.join(testsDirectory, directory));
-  } catch (error) {
-    console.error('The specified directory does not exist.');
-    process.exit(1);
+    totalCommandAssertions += numCommands * numAssertions;
   }
 
-  promises.push(count(path.join(testsDirectory, directory)));
+  return {
+    tests: totalTests,
+    assertions: totalAssertions,
+    commandAssertions: totalCommandAssertions,
+  };
+}
 
-  // else, count all directories
-} else {
-  const directories = fs
+/**
+ * @typedef TestPlanCount
+ * @property {number} testPlans
+ * @property {number} tests
+ * @property {number} assertions
+ * @property {number} commandAssertions
+ */
+
+/**
+ * Count metrics for a test plan directory.
+ * @param {string} directory
+ * @return {Promise<TestPlanCount>}
+ */
+async function count(directory) {
+  return {
+    testPlans: 1,
+    ...countTests(
+      await parseCSV(path.join(directory, 'data', 'tests.csv')),
+      await parseCSV(path.join(directory, 'data', 'commands.csv'))
+    ),
+  };
+}
+
+/**
+ * @param {TestPlanCount} first
+ * @param {TestPlanCount} second
+ * @returns {TestPlanCount}
+ */
+function addCounts(first, second) {
+  return {
+    testPlans: first.testPlans + second.testPlans,
+    tests: first.tests + second.tests,
+    assertions: first.assertions + second.assertions,
+    commandAssertions: first.commandAssertions + second.commandAssertions,
+  };
+}
+
+/**
+ * Detect list of test plan directories.
+ * @returns {Promise<string[]>}
+ */
+async function detectDirectories() {
+  // if test plan given as argument, pick its directory
+  if (args._.length) {
+    const directory = args._[0];
+
+    try {
+      fs.statSync(path.join(testsDirectory, directory));
+    } catch (error) {
+      console.error('The specified directory does not exist.');
+      process.exit(1);
+    }
+
+    return [directory];
+  }
+
+  // pick all directories, excluding "resources"
+  return fs
     .readdirSync(testsDirectory)
-    .filter(f => f !== 'resources' && fs.statSync(path.join(testsDirectory, f)).isDirectory());
-
-  for (let directory of directories) {
-    promises.push(count(path.join(testsDirectory, directory)));
-  }
+    .filter(
+      name => name !== 'resources' && fs.statSync(path.join(testsDirectory, name)).isDirectory()
+    );
 }
 
-// wait for all promises to complete, then read totals
-Promise.all(promises)
-  .then(() => {
-    console.log(
-      `${totalTestPlans} test plans, ${totalTests} tests, ${totalAssertions} assertions, ${totalCommandAssertions} command/assertion pairs`
-    );
-    process.exit();
-  })
-  .catch(error => {
-    console.error(error);
-    process.exit(1);
-  });
+async function main() {
+  // Choose one specified test plan directory or all test plan directories.
+  const directories = await detectDirectories();
+
+  // Count each test plan on its own.
+  const countsPerPlan = await Promise.all(
+    directories.map(name => count(path.join(testsDirectory, name)))
+  );
+
+  // Sum all test plan counts.
+  const totals = countsPerPlan.reduce(addCounts);
+
+  // Report total counts.
+  console.log(
+    `${totals.testPlans} test plans, ${totals.tests} tests, ${totals.assertions} assertions, ${totals.commandAssertions} command/assertion pairs`
+  );
+  process.exit();
+}
+
+main().catch(error => {
+  console.error(error);
+  process.exit(1);
+});

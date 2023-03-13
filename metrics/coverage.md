@@ -2,7 +2,7 @@
 
 Last updated: November 18, 2021
 
-This document outlines the WAI-ARIA specification coverage by the current test plans within the ARIA-AT project. Looking for other project-related materials?  You can view the [ARIA-AT App Test Queue](https://aria-at.w3.org/test-queue), the [ARIA-AT test result reports](https://aria-at.w3.org/reports), or the [collection of all current test plans](https://w3c.github.io/aria-at/build/).  Also see the [ARIA-AT App Home page, at aria-at.w3.org](https://aria-at.w3.org/).
+This document outlines the WAI-ARIA specification coverage by the current test plans within the ARIA-AT project. Looking for other project-related materials?  You can view the [ARIA-AT App Test Queue](https://aria-at.w3.org/test-queue), the [ARIA-AT test result reports](https://aria-at.w3.org/reports), or the [collection of all current test plans](https://aria-at.netlify.app).  Also see the [ARIA-AT App Home page, at aria-at.w3.org](https://aria-at.w3.org/).
 
 The following shorthand terminology is used throughout:
 

@@ -27,7 +27,7 @@ if (args.help) {
   process.exit();
 }
 
-// on some OSes, it seems the the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
+// on some OSes, it seems the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
 const TARGET_TEST_PLAN =
   args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate review page assets for
 
@@ -86,15 +86,15 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
       path.join(testPlanDirectory, 'data', 'references.csv'),
       'UTF-8'
     );
-    const referenceLine = referencesCsv
-      .split(/\r?\n/)
-      .find(s => s.startsWith('reference,'));
+    const referenceLine = referencesCsv.split(/\r?\n/).find(s => s.startsWith('reference,'));
     const splitReferenceLine = referenceLine ? referenceLine.split(',') : null;
     const reference = splitReferenceLine && splitReferenceLine.length > 1 && splitReferenceLine[1];
 
     if (!reference) {
       // force exit if file path reference not found
-      console.error(`ERROR: 'reference' value path defined in "tests/${directory}/data/references.csv" not found.`);
+      console.error(
+        `ERROR: 'reference' value path defined in "tests/${directory}/data/references.csv" not found.`
+      );
       process.exit(1);
     }
 

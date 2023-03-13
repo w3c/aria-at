@@ -1,7 +1,7 @@
 const fs = require('fs');
 const fse = require('fs-extra');
 const path = require('path');
-const git = require('nodegit');
+const simpleGit = require('simple-git');
 const mustache = require('mustache');
 const np = require('node-html-parser');
 
@@ -108,7 +108,8 @@ async function copyExampleToRepo(exampleName) {
     if (!args.r) {
       await fse.remove(tmpPath);
       console.log('Cloning the aria-practice repo.');
-      await git.Clone(cloneURL, tmpPath);
+      const git = simpleGit();
+      await git.clone(cloneURL, tmpPath);
     } else {
       repoBasePath = args.r;
     }

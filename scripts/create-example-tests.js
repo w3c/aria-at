@@ -2,30 +2,36 @@
 /// <reference path="../types/aria-at-parsed.js" />
 /// <reference path="../types/aria-at-validated.js" />
 /// <reference path="../types/aria-at-file.js" />
+/// <reference path="../lib/util/file-record-types.js" />
 
 'use strict';
-const fs = require('fs');
+
 const path = require('path');
+const fs = require('fs');
 const { Readable } = require('stream');
+const {
+  types: { isArrayBufferView, isArrayBuffer },
+} = require('util');
 
 const csv = require('csv-parser');
 const beautify = require('json-beautify');
-const nodeHTMLParser = require('node-html-parser');
 
-const { validate, invariant } = require('../lib/util/error');
+const { validate } = require('../lib/util/error');
 const { reindent } = require('../lib/util/lines');
 const { Queryable } = require('../lib/util/queryable');
 const { FileRecordChain } = require('../lib/util/file-record-chain');
 
 const { parseSupport } = require('../lib/data/parse-support');
 const { parseTestCSVRow } = require('../lib/data/parse-test-csv-row');
+const { parseCommandCSVRow } = require('../lib/data/parse-command-csv-row');
+const {
+  createCommandTuplesATModeTaskLookup,
+} = require('../lib/data/command-tuples-at-mode-task-lookup');
 
 const {
   renderHTML: renderCollectedTestHtml,
 } = require('../lib/data/templates/collected-test.html');
-const {
-  types: { isArrayBufferView, isArrayBuffer },
-} = require('util');
+const { createExampleScriptsTemplate } = require('../lib/data/example-scripts-template');
 
 /**
  * @param {string} directory - path to directory of data to be used to generate test
@@ -64,7 +70,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
    */
   log.error = message => {
     log.warning(message);
-    process.exit();
+    process.exit(1);
   };
 
   // setup from arguments passed to npm script
@@ -75,7 +81,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
 
   // cwd; @param rootDirectory is dependent on this file not moving from the scripts folder
   const scriptsDirectory = path.dirname(__filename);
-  const rootDirectory = scriptsDirectory.split('scripts')[0];
+  const rootDirectory = path.join(scriptsDirectory, '..');
 
   const testsDirectory = path.join(rootDirectory, 'tests');
   const testPlanDirectory = path.join(rootDirectory, directory);
@@ -91,6 +97,9 @@ const createExampleTests = async ({ directory, args = {} }) => {
   const buildDirectory = path.join(rootDirectory, 'build');
   const testPlanBuildDirectory = path.join(buildDirectory, directory);
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
+
+  // create build directory if it doesn't exist
+  fs.mkdirSync(buildDirectory, { recursive: true });
 
   const existingBuildPromise = FileRecordChain.read(buildDirectory, {
     glob: [
@@ -179,84 +188,8 @@ const createExampleTests = async ({ directory, args = {} }) => {
     log.warning(err);
   }
 
-  // delete test files
-  var deleteFilesFromDirectory = function (dirPath) {
-    try {
-      var files = fs.readdirSync(dirPath);
-    } catch (e) {
-      return;
-    }
-    if (files.length > 0) {
-      for (var i = 0; i < files.length; i++) {
-        var filePath = dirPath + '/' + files[i];
-        if (fs.statSync(filePath).isFile()) {
-          fs.unlinkSync(filePath);
-        }
-      }
-    }
-  };
-
   function cleanTask(task) {
     return task.replace(/'/g, '').replace(/;/g, '').trim().toLowerCase();
-  }
-
-  /**
-   * Create AT commands file
-   * @param commands
-   * @returns {{}}
-   */
-  function createATCommandFile(commands, { emitFile }) {
-    const testPlanAtCommandsJsonFilePath = path.join(testPlanBuildDirectory, 'commands.json');
-    let data = {};
-
-    function addCommand(task, mode, at, key) {
-      task = cleanTask(task);
-      mode = mode.trim().toLowerCase();
-      at = at.trim().toLowerCase();
-
-      if (typeof key !== 'string' || key.length === 0) {
-        return;
-      }
-
-      if (typeof data[task] !== 'object') {
-        data[task] = {};
-      }
-
-      if (typeof data[task][mode] !== 'object') {
-        data[task][mode] = {};
-      }
-
-      if (typeof data[task][mode][at] !== 'object') {
-        data[task][mode][at] = [];
-      }
-
-      let items = key.split('(');
-
-      items[0] = items[0].trim();
-
-      if (typeof keyDefs[items[0]] !== 'string') {
-        addCommandError(task, items[0]);
-      }
-
-      if (items.length === 2) {
-        items[1] = '(' + items[1].trim();
-      }
-
-      data[task][mode][at].push(items);
-    }
-
-    commands.forEach(function (command) {
-      addCommand(command.task, command.mode, command.at, command.commandA);
-      addCommand(command.task, command.mode, command.at, command.commandB);
-      addCommand(command.task, command.mode, command.at, command.commandC);
-      addCommand(command.task, command.mode, command.at, command.commandD);
-      addCommand(command.task, command.mode, command.at, command.commandE);
-      addCommand(command.task, command.mode, command.at, command.commandF);
-    });
-
-    emitFile(testPlanAtCommandsJsonFilePath, beautify(data, null, 2, 40));
-
-    return data;
   }
 
   /**
@@ -273,6 +206,9 @@ const createExampleTests = async ({ directory, args = {} }) => {
     { addTestError, emitFile, scriptsRecord, exampleScriptedFilesQueryable }
   ) {
     let scripts = [];
+
+    // default setupScript if test has undefined setupScript
+    if (!scriptsRecord.find(`${test.setupScript}.js`).isFile()) test.setupScript = '';
 
     function getModeValue(value) {
       let v = value.trim().toLowerCase();
@@ -504,9 +440,9 @@ ${references}
     const commandJson = ${getCommandsJson()};
     initialize(supportJson, commandJson);
     verifyATBehavior(testJson);
-    displayTestPageAndInstructions("${
+    displayTestPageAndInstructions(${JSON.stringify(
       exampleScriptedFilesQueryable.where({ name: test.setupScript ? test.setupScript : '' }).path
-    }");
+    )});
   });
 </script>
   `;
@@ -629,16 +565,16 @@ ${rows}
   var errorCount = 0;
   var errors = '';
   var indexOfURLs = [];
+  var checkedSourceHtmlScriptFiles = [];
 
   function addTestError(id, error) {
     errorCount += 1;
     errors += '[Test ' + id + ']: ' + error + '\n';
   }
 
-  function addCommandError(task, key) {
+  function addCommandError({ testId, task }, key) {
     errorCount += 1;
-    errors +=
-      '[Command]: The key reference "' + key + '" is invalid for the "' + task + '" task.\n';
+    errors += `[Command]: The key reference "${key}" found in "${directory}/data/commands.csv" for "test id ${testId}: ${task}" is invalid. Command may not be defined in "tests/resources/keys.mjs".\n`;
   }
 
   const newTestPlan = newBuild.find(`tests/${path.basename(testPlanBuildDirectory)}`);
@@ -648,11 +584,34 @@ ${rows}
     });
   }
 
+  function generateSourceHtmlScriptFile(filePath, content) {
+    // check that test plan's reference html file path is generated file
+    if (
+      filePath.includes('reference') &&
+      (filePath.split(path.sep).pop().match(/\./g) || []).length > 1
+    ) {
+      // generate file at `<root>/tests/<directory>/reference/<path>/<directory>.<script>.html
+      const sourceFilePath = filePath.replace(`build${path.sep}`, '');
+      emitFile(sourceFilePath, content);
+      checkedSourceHtmlScriptFiles.push(sourceFilePath);
+    }
+  }
+
+  function validateCSVKeys(result) {
+    for (const row of result) {
+      if (typeof row.refId !== 'string' || typeof row.value !== 'string')
+        log.error(
+          `ERROR: References CSV file processing failed: ${referencesCsvFilePath}. Ensure rows are properly formatted.`
+        );
+    }
+    log(`References CSV file successfully processed: ${referencesCsvFilePath}`);
+    return result;
+  }
+
   const [refRows, atCommands, tests] = await Promise.all([
-    readCSV(testPlanRecord.find('data/references.csv')).then(rows => {
-      log(`References CSV file successfully processed: ${referencesCsvFilePath}`);
-      return rows;
-    }),
+    readCSV(testPlanRecord.find('data/references.csv'))
+      .then(rows => rows)
+      .then(validateCSVKeys),
     readCSV(testPlanRecord.find('data/commands.csv')).then(rows => {
       log(`Commands CSV file successfully processed: ${atCommandsCsvFilePath}`);
       return rows;
@@ -671,7 +630,7 @@ ${rows}
 
   const commandsParsed = atCommands.map(parseCommandCSVRow);
   const testsParsed = tests.map(parseTestCSVRow);
-  const referencesParsed = parseRefencesCSV(refRows);
+  const referencesParsed = parseReferencesCSV(refRows);
   const keysParsed = parseKeyMap(keyDefs);
   const supportParsed = parseSupport(support);
 
@@ -696,8 +655,18 @@ ${rows}
   );
 
   const referenceQueryable = Queryable.from('reference', referencesParsed);
-  const examplePathOriginal = referenceQueryable.where({ refId: 'reference' }).value;
+  const examplePathOriginal = referenceQueryable.where({ refId: 'reference' })
+    ? referenceQueryable.where({ refId: 'reference' }).value
+    : '';
+  if (!examplePathOriginal) {
+    log.error(`ERROR: Valid 'reference' value not found in "${directory}/data/references.csv".`);
+  }
   const exampleRecord = testPlanRecord.find(examplePathOriginal);
+  if (!exampleRecord.isFile()) {
+    log.error(
+      `ERROR: Invalid 'reference' value path "${examplePathOriginal}" found in "${directory}/data/references.csv".`
+    );
+  }
   const testLookups = {
     command: Queryable.from('command', commandsValidated),
     mode: Queryable.from('mode', validModes),
@@ -758,11 +727,33 @@ ${rows}
       createCollectedTestHtmlFile(collectedTest, testPlanBuildDirectory)
     ),
   ];
-  files.forEach(file => emitFile(file.path, file.content));
-
-  const atCommandsMap = createATCommandFile(atCommands, {
-    emitFile,
+  files.forEach(file => {
+    generateSourceHtmlScriptFile(file.path, file.content);
+    return emitFile(file.path, file.content);
   });
+
+  if (checkedSourceHtmlScriptFiles.length) {
+    const sourceFolder = checkedSourceHtmlScriptFiles[0]
+      .split(path.sep)
+      .slice(0, -1)
+      .join(path.sep);
+    fs.readdirSync(sourceFolder).forEach(function (file) {
+      const filePath = path.join(sourceFolder, file);
+      // check that test plan's reference html file path is generated file
+      if (file.includes('.html') && (file.split(path.sep).pop().match(/\./g) || []).length > 1) {
+        // remove generated html files from source which include scripts which are no longer generated
+        if (!checkedSourceHtmlScriptFiles.includes(filePath)) {
+          fs.rmSync(path.join(sourceFolder, file));
+        }
+      }
+    });
+  }
+
+  const atCommandsMap = createCommandTuplesATModeTaskLookup(commandsValidated);
+  emitFile(
+    path.join(testPlanBuildDirectory, 'commands.json'),
+    beautify(atCommandsMap, null, 2, 40)
+  );
 
   log('Creating the following test files: ');
   tests.forEach(function (test) {
@@ -862,7 +853,24 @@ function readCSV(record) {
   const rows = [];
   return new Promise(resolve => {
     Readable.from(record.buffer)
-      .pipe(csv())
+      .pipe(
+        csv({
+          mapHeaders: ({ header, index }) => {
+            if (header.toLowerCase().includes('\ufeff'))
+              console.error(
+                `Unwanted U+FEFF found for key ${header} at index ${index} while processing CSV.`
+              );
+            return header.replace(/^\uFEFF/g, '');
+          },
+          mapValues: ({ header, value }) => {
+            if (value.toLowerCase().includes('\ufeff'))
+              console.error(
+                `Unwanted U+FEFF found for value in key, value pair (${header}: ${value}) while processing CSV.`
+              );
+            return value.replace(/^\uFEFF/g, '');
+          },
+        })
+      )
       .on('data', row => {
         rows.push(row);
       })
@@ -949,45 +957,6 @@ function createScriptFiles(scripts, testPlanBuildDirectory) {
 }
 
 /**
- * @param {AriaATCSV.Command} commandRow
- * @returns {AriaATParsed.Command}
- */
-function parseCommandCSVRow(commandRow) {
-  return {
-    testId: Number(commandRow.testId),
-    task: commandRow.task.replace(/[';]/g, '').trim().toLowerCase(),
-    target: {
-      at: {
-        key: commandRow.at.trim().toLowerCase(),
-        raw: commandRow.at,
-      },
-      mode: commandRow.mode.trim().toLowerCase(),
-    },
-    commands: [
-      commandRow.commandA,
-      commandRow.commandB,
-      commandRow.commandC,
-      commandRow.commandD,
-      commandRow.commandE,
-      commandRow.commandF,
-    ]
-      .filter(Boolean)
-      .map(command => {
-        const paranIndex = command.indexOf('(');
-        if (paranIndex >= 0) {
-          return {
-            id: command.substring(0, paranIndex).trim(),
-            extraInstruction: command.substring(paranIndex).trim(),
-          };
-        }
-        return {
-          id: command.trim(),
-        };
-      }),
-  };
-}
-
-/**
  * @param {Object<string, string>} keyLines
  * @returns {AriaATParsed.KeyMap}
  */
@@ -1003,7 +972,7 @@ function parseKeyMap(keyDefs) {
  * @param {AriaATCSV.Reference[]} referenceRows
  * @returns {AriaATParsed.ReferenceMap}
  */
-function parseRefencesCSV(referenceRows) {
+function parseReferencesCSV(referenceRows) {
   const refMap = {};
   for (const { refId, value } of referenceRows) {
     refMap[refId] = { refId, value: value.trim() };
@@ -1018,7 +987,7 @@ function parseRefencesCSV(referenceRows) {
  * @param {object} data.support
  * @param {Queryable<{key: string, name: string}>} data.support.at
  * @param {object} [options]
- * @param {function(string, string): void} [options.addCommandError]
+ * @param {function(AriaATParsed.Command, string): void} [options.addCommandError]
  * @returns {AriaATValidated.Command}
  */
 function validateCommand(commandParsed, data, { addCommandError = () => {} } = {}) {
@@ -1028,19 +997,24 @@ function validateCommand(commandParsed, data, { addCommandError = () => {} } = {
       ...commandParsed.target,
       at: {
         ...commandParsed.target.at,
-        ...map(data.support.at.where({ key: commandParsed.target.at.key }), ({ name }) => ({
+        ...mapDefined(data.support.at.where({ key: commandParsed.target.at.key }), ({ name }) => ({
           name,
         })),
       },
     },
-    commands: commandParsed.commands.map(command => {
-      const key = data.key.where({ id: command.id });
-      if (!key) {
-        addCommandError(commandParsed.task, command.id);
-      }
+    commands: commandParsed.commands.map(({ id, keypresses: commandKeypresses, ...rest }) => {
+      const keypresses = commandKeypresses.map(keypress => {
+        const key = data.key.where(keypress);
+        if (!key) {
+          addCommandError(commandParsed, keypress.id);
+        }
+        return key || {};
+      });
       return {
-        ...key,
-        ...command,
+        id: id,
+        keystroke: keypresses.map(({ keystroke }) => keystroke).join(', then '),
+        keypresses,
+        ...rest,
       };
     }),
   };
@@ -1077,8 +1051,8 @@ const MODE_INSTRUCTION_TEMPLATES_QUERYABLE = Queryable.from('modeInstructionTemp
     mode: 'reading',
     render: data => {
       const altDelete = data.key.where({ id: 'ALT_DELETE' });
-      const insZ = data.key.where({ id: 'INS_Z' });
-      return `Verify the Virtual Cursor is active by pressing ${altDelete.keystroke}. If it is not, turn on the Virtual Cursor by pressing ${insZ.keystroke}.`;
+      const esc = data.key.where({ id: 'ESC' });
+      return `Verify the Virtual Cursor is active by pressing ${altDelete.keystroke}. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing ${esc.keystroke}.`;
     },
   },
   {
@@ -1095,7 +1069,7 @@ const MODE_INSTRUCTION_TEMPLATES_QUERYABLE = Queryable.from('modeInstructionTemp
     mode: 'reading',
     render: data => {
       const esc = data.key.where({ id: 'ESC' });
-      return `Insure NVDA is in browse mode by pressing ${esc.keystroke}. Note: This command has no effect if NVDA is already in browse mode.`;
+      return `Ensure NVDA is in browse mode by pressing ${esc.keystroke}. Note: This command has no effect if NVDA is already in browse mode.`;
     },
   },
   {
@@ -1127,72 +1101,17 @@ const MODE_INSTRUCTION_TEMPLATES_QUERYABLE = Queryable.from('modeInstructionTemp
 ]);
 
 /**
- * @param {T} value
+ * @param {T} maybeDefined
  * @param {function(T): U} goal
  * @returns {T}
  * @template T
  * @template {T} U
  */
-function map(value, goal) {
-  if (value) {
-    return goal(value);
+function mapDefined(maybeDefined, goal) {
+  if (maybeDefined) {
+    return goal(maybeDefined);
   }
-  return value;
-}
-
-function last(ary) {
-  return ary[ary.length - 1];
-}
-
-const SCRIPTS_HEAD_MARKER = 'marker7dfe2e54ee48e64f02dbb8f1ce4f3878';
-const SCRIPTS_CONTENT_MARKER = 'marker255b3ead39a8eac8bf74ec15235bcd27';
-function createExampleScriptsTemplate(exampleRecord) {
-  const source = exampleRecord.text;
-  const html = nodeHTMLParser.parse(source);
-  if (!(html instanceof nodeHTMLParser.HTMLElement)) {
-    return;
-  }
-
-  const head = html.querySelector('head');
-  invariant(head, `Example html does not have a 'head' element.`);
-
-  const body = html.querySelector('body');
-  const main = html.querySelector('main');
-  validate(main, `Example html does not have a 'main' element. Using 'body' instead.`);
-  invariant(body, `Example html does not have a 'body' element.`);
-  const content = main || body;
-
-  const scriptsHeadMarkerTag = `<${SCRIPTS_HEAD_MARKER}></${SCRIPTS_HEAD_MARKER}>`;
-  const lastHeadChild = last(head.querySelectorAll('*'));
-  if (lastHeadChild) {
-    lastHeadChild.insertAdjacentHTML('afterend', scriptsHeadMarkerTag);
-  } else {
-    head.insertAdjacentHTML('afterbegin', scriptsHeadMarkerTag);
-  }
-
-  const scriptsContentMarkerTag = `<${SCRIPTS_CONTENT_MARKER}></${SCRIPTS_CONTENT_MARKER}>`;
-  const lastContentChild = last(content.querySelectorAll('*'));
-  if (lastContentChild) {
-    lastContentChild.insertAdjacentHTML('afterend', scriptsContentMarkerTag);
-  } else {
-    content.insertAdjacentHTML('afterbegin', scriptsContentMarkerTag);
-  }
-
-  const modifiedSource = html.toString();
-  const modifiedSourceSplit = modifiedSource.split(
-    new RegExp(`${scriptsHeadMarkerTag}|${scriptsContentMarkerTag}`, 'g')
-  );
-
-  return {
-    /**
-     * @param {object} param0
-     * @param {string} param0.script
-     * @param {string} param0.button
-     */
-    render({ script, button }) {
-      return reindent(modifiedSourceSplit, script, button);
-    },
-  };
+  return maybeDefined;
 }
 
 /**
@@ -1248,7 +1167,9 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
   });
 
   if (testParsed.setupScript && !data.script.where({ name: testParsed.setupScript.name })) {
-    addTestError(`Setup script does not exist: ${testParsed.setupScript.name}`);
+    addTestError(
+      `Setup script does not exist: "${testParsed.setupScript.name}" for task "${testParsed.task}"`
+    );
   }
 
   const assertions = testParsed.assertions.map(assertion => {
@@ -1279,18 +1200,19 @@ function validateTest(testParsed, data, { addTestError = () => {} } = {}) {
     target: {
       at: testParsed.target.at.map(at => ({
         ...at,
-        ...map(data.support.at.where({ key: at.key }), ({ name }) => ({
+        ...mapDefined(data.support.at.where({ key: at.key }), ({ name }) => ({
           name,
         })),
       })),
       mode: testParsed.target.mode,
     },
-    setupScript: testParsed.setupScript
-      ? {
-          ...testParsed.setupScript,
-          ...data.script.where({ name: testParsed.setupScript.name }),
-        }
-      : undefined,
+    setupScript:
+      testParsed.setupScript && data.script.where({ name: testParsed.setupScript.name })
+        ? {
+            ...testParsed.setupScript,
+            ...data.script.where({ name: testParsed.setupScript.name }),
+          }
+        : undefined,
     assertions,
   };
 }

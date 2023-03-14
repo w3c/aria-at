@@ -49,7 +49,34 @@ function countTests(tests, commands) {
     const command = commands[i];
 
     let numCommands = 0;
-    for (const letter of ['A', 'B', 'C', 'D', 'E', 'F']) {
+    for (const letter of [
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F',
+      'G',
+      'H',
+      'I',
+      'J',
+      'K',
+      'L',
+      'M',
+      'N',
+      'O',
+      'P',
+      'Q',
+      'R',
+      'S',
+      'T',
+      'U',
+      'V',
+      'W',
+      'X',
+      'Y',
+      'Z',
+    ]) {
       if (command[`command${letter}`]) {
         numCommands++;
       }

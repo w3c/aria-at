@@ -4,6 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
+    "count": "node ./scripts/count-assertions.js",
     "lint": "eslint .",
     "build": "npm run create-all-tests && npm run review-tests",
     "validate": "npm run create-all-tests -- --validate",

@@ -1,5 +1,4 @@
 import path from 'path';
-import fs from 'graceful-fs';
 import fse from 'fs-extra';
 import { spawnSync } from 'child_process';
 import np from 'node-html-parser';
@@ -47,7 +46,7 @@ const reviewIndexTemplateFilePath = path.resolve(
 );
 
 // create directories if not exists
-fs.existsSync(reviewBuildDirectory) || fs.mkdirSync(reviewBuildDirectory);
+fse.existsSync(reviewBuildDirectory) || fse.mkdirSync(reviewBuildDirectory);
 
 const allTestsForPattern = {};
 const support = JSON.parse(fse.readFileSync(supportFilePath));
@@ -82,7 +81,7 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
 
     const tests = [];
 
-    const referencesCsv = fs.readFileSync(
+    const referencesCsv = fse.readFileSync(
       path.join(testPlanDirectory, 'data', 'references.csv'),
       'UTF-8'
     );
@@ -102,7 +101,7 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
     fse.readdirSync(scriptsPath).forEach(function (scriptFile) {
       let script = '';
       try {
-        const data = fs.readFileSync(path.join(scriptsPath, scriptFile), 'UTF-8');
+        const data = fse.readFileSync(path.join(scriptsPath, scriptFile), 'UTF-8');
         const lines = data.split(/\r?\n/);
         lines.forEach(line => {
           if (line.trim().length) script += '\t' + line.trim() + '\n';

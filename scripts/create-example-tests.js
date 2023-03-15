@@ -13,7 +13,7 @@ const {
 } = require('util');
 
 const csv = require('csv-parser');
-const fs = require('graceful-fs');
+const fse = require('fs-extra');
 const beautify = require('json-beautify');
 
 const { validate } = require('../lib/util/error');
@@ -99,7 +99,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
 
   // create build directory if it doesn't exist
-  fs.mkdirSync(buildDirectory, { recursive: true });
+  fse.mkdirSync(buildDirectory, { recursive: true });
 
   const existingBuildPromise = FileRecordChain.read(buildDirectory, {
     glob: [
@@ -737,13 +737,13 @@ ${rows}
       .split(path.sep)
       .slice(0, -1)
       .join(path.sep);
-    fs.readdirSync(sourceFolder).forEach(function (file) {
+    fse.readdirSync(sourceFolder).forEach(function (file) {
       const filePath = path.join(sourceFolder, file);
       // check that test plan's reference html file path is generated file
       if (file.includes('.html') && (file.split(path.sep).pop().match(/\./g) || []).length > 1) {
         // remove generated html files from source which include scripts which are no longer generated
         if (!checkedSourceHtmlScriptFiles.includes(filePath)) {
-          fs.rmSync(path.join(sourceFolder, file));
+          fse.rmSync(path.join(sourceFolder, file));
         }
       }
     });

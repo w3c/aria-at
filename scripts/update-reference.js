@@ -1,4 +1,3 @@
-const fs = require('graceful-fs');
 const fse = require('fs-extra');
 const path = require('path');
 const simpleGit = require('simple-git');
@@ -39,10 +38,10 @@ if (args._.length !== 1) {
 }
 
 function locateFile(startPath, fileToFind) {
-  const files = fs.readdirSync(startPath);
+  const files = fse.readdirSync(startPath);
   for (let i = 0; i < files.length; i++) {
     const filename = path.join(startPath, files[i]);
-    const stat = fs.lstatSync(filename);
+    const stat = fse.lstatSync(filename);
     if (stat.isDirectory()) {
       const result = locateFile(filename, fileToFind);
       if (result) {
@@ -86,7 +85,7 @@ async function copyExampleToRepo(exampleName) {
       );
       process.exit();
     }
-    const referencesCsv = fs.readFileSync(referencesCsvFile, 'UTF-8');
+    const referencesCsv = fse.readFileSync(referencesCsvFile, 'UTF-8');
     const exampleUrl = (
       (referencesCsv || '').split(/\r?\n/).find(s => s.startsWith('example,')) || ''
     ).split(',')[1];

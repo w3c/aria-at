@@ -25,29 +25,27 @@
 
 /**
  * 1 or 2 member tuples of strings.
- * @typedef {string[]} AriaATFile.CommandAT
+ * @typedef {string[]} AriaATFile.CommandExtraInstructionTuple
  */
 
 /**
- * @typedef {Object<string, AriaATFile.CommandAT[]>} AriaATFile.CommandMode
+ * @typedef {Object<string, AriaATFile.CommandExtraInstructionTuple[]>} AriaATFile.CommandTuplesATLookup
  */
 
-/** @typedef {"reading" | "interaction"} AriaATFile.ATMode */
-
 /**
- * @typedef AriaATFile.Command
- * @property {AriaATFile.CommandMode} [reading]
- * @property {AriaATFile.CommandMode} [interaction]
+ * @typedef {Object<string, AriaATFile.CommandTuplesATLookup>} AriaATFile.CommandTuplesATModeLookup
  */
 
 /**
  * An object with keys that have sentence-long descriptions of their value.
- * @typedef {Object<string, AriaATFile.Command>} AriaATFile.CommandStore
+ * @typedef {Object<string, AriaATFile.CommandTuplesATModeLookup>} AriaATFile.CommandTuplesATModeTaskLookup
  */
 
 /**
  * @typedef {number | string} AriaATFile.StringNumber
  */
+
+/** @typedef {"reading" | "interaction"} AriaATFile.ATMode */
 
 /**
  * @typedef AriaATFile.Behavior
@@ -78,7 +76,7 @@
  * @property {object} target
  * @property {object} target.at
  * @property {string} target.at.key
- * @property {string} target.at.raw
+ * @property {string} target.at.raw original test plan file assistive tech id
  * @property {string} target.at.name
  * @property {string} target.mode
  * @property {string} target.referencePage
@@ -90,8 +88,11 @@
  * @property {string} target.setupScript.jsonpPath load with `<script src="...">`
  * @property {object[]} commands
  * @property {string} commands[].id
- * @property {string} commands[].keystroke
- * @property {string} [commands[].extraInstruction]
+ * @property {string} commands[].keystroke human-readable sequence of key and key chord presses
+ * @property {object[]} commands[].keypresses
+ * @property {string} commands[].keypresses[].id
+ * @property {string} commands[].keypresses[].keystroke single human-readable key or key chord press
+ * @property {string} [commands[].extraInstruction] human-readable additional instruction to follow
  * @property {object[]} assertions[]
  * @property {1 | 2} assertions[].priority
  * @property {string} assertions[].expectation

@@ -129,7 +129,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
         entries: [
           {
             name: path.basename(directory),
-            entries: testPlanRecord.filter({ glob: 'reference{,/**}' }).record.entries,
+            entries: testPlanRecord.filter({ glob: 'reference/*/*{,/**}' }).record.entries,
           },
           { name: 'resources', ...resourcesRecord.record },
           { name: 'support.json', ...supportRecord.record },

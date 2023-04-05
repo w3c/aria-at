@@ -510,7 +510,7 @@ export const AssertionResultMap = createEnumMap({
  * @returns {(state: TestRunState) => TestRunState}
  */
 export function userChangeCommandOutput({ commandIndex, atOutput }) {
-  return function(state) {
+  return function (state) {
     return {
       ...state,
       currentUserAction: UserActionMap.CHANGE_TEXT,
@@ -537,7 +537,7 @@ export function userChangeCommandOutput({ commandIndex, atOutput }) {
  * @returns {(state: TestRunState) => TestRunState}
  */
 export function userChangeCommandAssertion({ commandIndex, assertionIndex, result }) {
-  return function(state) {
+  return function (state) {
     return {
       ...state,
       currentUserAction: UserActionMap.CHANGE_SELECTION,
@@ -567,7 +567,7 @@ export function userChangeCommandAdditionalAssertion({
   additionalAssertionIndex,
   result,
 }) {
-  return function(state) {
+  return function (state) {
     return {
       ...state,
       currentUserAction: UserActionMap.CHANGE_SELECTION,
@@ -592,7 +592,7 @@ export function userChangeCommandAdditionalAssertion({
  * @returns {(state: TestRunState) => TestRunState}
  */
 export function userChangeCommandHasUnexpectedBehavior({ commandIndex, hasUnexpected }) {
-  return function(state) {
+  return function (state) {
     return {
       ...state,
       currentUserAction: UserActionMap.CHANGE_SELECTION,
@@ -628,7 +628,7 @@ export function userChangeCommandHasUnexpectedBehavior({ commandIndex, hasUnexpe
  * @returns {(state: TestRunState) => TestRunState}
  */
 export function userChangeCommandUnexpectedBehavior({ commandIndex, unexpectedIndex, checked }) {
-  return function(state) {
+  return function (state) {
     return {
       ...state,
       currentUserAction: UserActionMap.CHANGE_SELECTION,
@@ -661,7 +661,7 @@ export function userChangeCommandUnexpectedBehavior({ commandIndex, unexpectedIn
  * @returns {(state: TestRunState) => TestRunState}
  */
 export function userChangeCommandUnexpectedBehaviorNote({ commandIndex, note }) {
-  return function(state) {
+  return function (state) {
     return {
       ...state,
       currentUserAction: UserActionMap.CHANGE_TEXT,
@@ -741,7 +741,7 @@ function submitResult(app) {
 }
 
 export function userShowResults() {
-  return function(/** @type {TestRunState} */ state) {
+  return function (/** @type {TestRunState} */ state) {
     return /** @type {TestRunState} */ ({
       ...state,
       currentUserAction: UserActionMap.SHOW_RESULTS,
@@ -873,19 +873,21 @@ function resultsTableDocument(state) {
 }
 
 export function userOpenWindow() {
-  return (/** @type {TestRunState} */ state) => /** @type {TestRunState} */ ({
-    ...state,
-    currentUserAction: UserActionMap.OPEN_TEST_WINDOW,
-    openTest: { ...state.openTest, enabled: false },
-  });
+  return (/** @type {TestRunState} */ state) =>
+    /** @type {TestRunState} */ ({
+      ...state,
+      currentUserAction: UserActionMap.OPEN_TEST_WINDOW,
+      openTest: { ...state.openTest, enabled: false },
+    });
 }
 
 export function userCloseWindow() {
-  return (/** @type {TestRunState} */ state) => /** @type {TestRunState} */ ({
-    ...state,
-    currentUserAction: UserActionMap.CLOSE_TEST_WINDOW,
-    openTest: { ...state.openTest, enabled: true },
-  });
+  return (/** @type {TestRunState} */ state) =>
+    /** @type {TestRunState} */ ({
+      ...state,
+      currentUserAction: UserActionMap.CLOSE_TEST_WINDOW,
+      openTest: { ...state.openTest, enabled: true },
+    });
 }
 
 /**
@@ -896,7 +898,7 @@ export function userCloseWindow() {
  * @returns {(state: TestRunState) => TestRunState}
  */
 export function userFocusCommandUnexpectedBehavior({ commandIndex, unexpectedIndex, increment }) {
-  return function(state) {
+  return function (state) {
     const unexpectedLength = state.commands[commandIndex].unexpected.behaviors.length;
     const incrementValue = increment === 'next' ? 1 : -1;
     const newUnexpectedIndex =
@@ -932,7 +934,7 @@ export function userFocusCommandUnexpectedBehavior({ commandIndex, unexpectedInd
  * @returns {(state: TestRunState) => TestRunState}
  */
 export function userValidateState() {
-  return function(state) {
+  return function (state) {
     return {
       ...state,
       currentUserAction: UserActionMap.VALIDATE_RESULTS,

@@ -166,7 +166,7 @@ function displayInstructionsForBehaviorTest() {
   if (window.parent && window.parent.postMessage) {
     // results can be submitted by parent posting a message to the
     // iFrame with a data.type property of 'submit'
-    window.addEventListener('message', function(message) {
+    window.addEventListener('message', function (message) {
       if (!validateMessage(message, 'submit')) return;
       app.hooks.submit();
     });
@@ -451,7 +451,9 @@ function renderVirtualInstructionDocument(doc) {
               value(unexpected.failChoice.note.value),
               disabled(!unexpected.failChoice.note.enabled),
               onchange(ev =>
-                unexpected.failChoice.note.change(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
+                unexpected.failChoice.note.change(
+                  /** @type {HTMLInputElement} */ (ev.currentTarget).value
+                )
               )
             )
           )
@@ -598,12 +600,8 @@ function renderVirtualResultsTable(results) {
     return div(
       description,
       ul(
-        ...items.map(
-          description => li(rich(description)),
-        ),
-        noteValue.length
-          ? li(rich(noteDescription), ' ', em(noteValue))
-          : fragment()
+        ...items.map(description => li(rich(description))),
+        noteValue.length ? li(rich(noteDescription), ' ', em(noteValue)) : fragment()
       )
     );
   }

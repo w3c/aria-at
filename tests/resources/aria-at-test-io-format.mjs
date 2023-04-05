@@ -234,9 +234,8 @@ class CommandsInput {
         commands: {
           [collectedTest.info.task]: {
             [collectedTest.target.mode]: {
-              [collectedTest.target.at
-                .key]: collectedTest.commands.map(({ id, extraInstruction }) =>
-                extraInstruction ? [id, extraInstruction] : [id]
+              [collectedTest.target.at.key]: collectedTest.commands.map(
+                ({ id, extraInstruction }) => (extraInstruction ? [id, extraInstruction] : [id])
               ),
             },
           },
@@ -892,39 +891,40 @@ export class TestRunInputOutput {
         enabled: true,
       },
       commands: test.commands.map(
-        command => /** @type {import("./aria-at-test-run.mjs").TestRunCommand} */ ({
-          description: command,
-          atOutput: {
-            highlightRequired: false,
-            value: '',
-          },
-          assertions: test.assertions.map(assertion => ({
-            description: assertion.assertion,
-            highlightRequired: false,
-            priority: assertion.priority,
-            result: CommonResultMap.NOT_SET,
-          })),
-          additionalAssertions: test.additionalAssertions.map(assertion => ({
-            description: assertion.assertion,
-            highlightRequired: false,
-            priority: assertion.priority,
-            result: CommonResultMap.NOT_SET,
-          })),
-          unexpected: {
-            highlightRequired: false,
-            hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
-            tabbedBehavior: 0,
-            behaviors: test.unexpectedBehaviors.map(({ description, requireExplanation }) => ({
-              description,
-              checked: false,
-              requireExplanation,
-            })),
-            note: {
+        command =>
+          /** @type {import("./aria-at-test-run.mjs").TestRunCommand} */ ({
+            description: command,
+            atOutput: {
               highlightRequired: false,
               value: '',
             },
-          },
-        })
+            assertions: test.assertions.map(assertion => ({
+              description: assertion.assertion,
+              highlightRequired: false,
+              priority: assertion.priority,
+              result: CommonResultMap.NOT_SET,
+            })),
+            additionalAssertions: test.additionalAssertions.map(assertion => ({
+              description: assertion.assertion,
+              highlightRequired: false,
+              priority: assertion.priority,
+              result: CommonResultMap.NOT_SET,
+            })),
+            unexpected: {
+              highlightRequired: false,
+              hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
+              tabbedBehavior: 0,
+              behaviors: test.unexpectedBehaviors.map(({ description, requireExplanation }) => ({
+                description,
+                checked: false,
+                requireExplanation,
+              })),
+              note: {
+                highlightRequired: false,
+                value: '',
+              },
+            },
+          })
       ),
     };
 

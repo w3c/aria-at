@@ -1,8 +1,11 @@
 // sets focus on the first radio button
+let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
 let radios = testPageDocument.querySelectorAll('[role="radio"]');
 radios.forEach(r => {
   r.setAttribute('aria-checked', 'false');
-  r.tabIndex = -1;
+  r.classList.remove('focus');
 });
-radios[0].tabIndex = 0;
-radios[0].focus();
+radios[0].classList.add('focus');
+radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+testPageDocument.querySelector('#group_label_1').style.display = 'none';
+radioGroup.focus();

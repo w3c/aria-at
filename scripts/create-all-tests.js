@@ -1,5 +1,7 @@
 const path = require('path');
-const fs = require('fs');
+
+const fse = require('fs-extra');
+
 const { createExampleTests } = require('./create-example-tests');
 
 const args = require('minimist')(process.argv.slice(2), {
@@ -41,12 +43,12 @@ async function main() {
   const rootDirectory = path.join(scriptsDirectory, '..');
   const testsDirectory = path.join(rootDirectory, 'tests');
 
-  const filteredTestPlans = fs.readdirSync(testsDirectory).filter(f =>
+  const filteredTestPlans = fse.readdirSync(testsDirectory).filter(f =>
     TARGET_TEST_PLAN
       ? f !== 'resources' &&
         f === TARGET_TEST_PLAN &&
-        fs.statSync(path.join(testsDirectory, f)).isDirectory() // checking to see if individual test plan has been specified
-      : f !== 'resources' && fs.statSync(path.join(testsDirectory, f)).isDirectory()
+        fse.statSync(path.join(testsDirectory, f)).isDirectory() // checking to see if individual test plan has been specified
+      : f !== 'resources' && fse.statSync(path.join(testsDirectory, f)).isDirectory()
   );
 
   if (!filteredTestPlans.length) {

@@ -79,7 +79,7 @@ class KeysInput {
       at: atKey,
       modeInstructions: {
         reading: {
-          jaws: `Verify the Virtual Cursor is active by pressing ${keys.ALT_DELETE}. If it is not, turn on the Virtual Cursor by pressing ${keys.INS_Z}.`,
+          jaws: `Verify the Virtual Cursor is active by pressing ${keys.ALT_DELETE}. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing ${keys.ESC}.`,
           nvda: `Insure NVDA is in browse mode by pressing ${keys.ESC}. Note: This command has no effect if NVDA is already in browse mode.`,
           voiceover_macos: `Toggle Quick Nav ON by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`,
         }[atKey],

@@ -7,13 +7,13 @@
 'use strict';
 
 const path = require('path');
-const fs = require('fs');
 const { Readable } = require('stream');
 const {
   types: { isArrayBufferView, isArrayBuffer },
 } = require('util');
 
 const csv = require('csv-parser');
+const fse = require('fs-extra');
 const beautify = require('json-beautify');
 
 const { validate } = require('../lib/util/error');
@@ -99,7 +99,7 @@ const createExampleTests = async ({ directory, args = {} }) => {
   const indexFileBuildOutputPath = path.join(testPlanBuildDirectory, 'index.html');
 
   // create build directory if it doesn't exist
-  fs.mkdirSync(buildDirectory, { recursive: true });
+  fse.mkdirSync(buildDirectory, { recursive: true });
 
   const existingBuildPromise = FileRecordChain.read(buildDirectory, {
     glob: [
@@ -737,13 +737,13 @@ ${rows}
       .split(path.sep)
       .slice(0, -1)
       .join(path.sep);
-    fs.readdirSync(sourceFolder).forEach(function (file) {
+    fse.readdirSync(sourceFolder).forEach(function (file) {
       const filePath = path.join(sourceFolder, file);
       // check that test plan's reference html file path is generated file
       if (file.includes('.html') && (file.split(path.sep).pop().match(/\./g) || []).length > 1) {
         // remove generated html files from source which include scripts which are no longer generated
         if (!checkedSourceHtmlScriptFiles.includes(filePath)) {
-          fs.rmSync(path.join(sourceFolder, file));
+          fse.rmSync(path.join(sourceFolder, file));
         }
       }
     });
@@ -1051,8 +1051,8 @@ const MODE_INSTRUCTION_TEMPLATES_QUERYABLE = Queryable.from('modeInstructionTemp
     mode: 'reading',
     render: data => {
       const altDelete = data.key.where({ id: 'ALT_DELETE' });
-      const insZ = data.key.where({ id: 'INS_Z' });
-      return `Verify the Virtual Cursor is active by pressing ${altDelete.keystroke}. If it is not, turn on the Virtual Cursor by pressing ${insZ.keystroke}.`;
+      const esc = data.key.where({ id: 'ESC' });
+      return `Verify the Virtual Cursor is active by pressing ${altDelete.keystroke}. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing ${esc.keystroke}.`;
     },
   },
   {

@@ -256,7 +256,8 @@ export function instructionDocument(resultState, hooks) {
         failChoice: {
           label: 'Yes, there were additional unexpected behaviors.',
           checked:
-            resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
+            resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED ||
+            resultUnexpectedBehavior.expand,
           focus:
             resultState.currentUserAction === 'validateResults' &&
             resultUnexpectedBehavior.highlightRequired &&
@@ -603,6 +604,7 @@ export function userChangeCommandHasUnexpectedBehavior({ commandIndex, hasUnexpe
               ...command,
               unexpected: {
                 ...command.unexpected,
+                expand: hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
                 hasUnexpected: hasUnexpected,
                 tabbedBehavior: hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED ? 0 : -1,
                 behaviors: command.unexpected.behaviors.map(behavior => ({

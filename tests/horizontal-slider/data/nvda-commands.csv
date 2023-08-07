@@ -1,0 +1,20 @@
+testId,title,commandSettings,command,invalidAssertions
+1,Navigate forwards to a slider,NVDA_BROWSE_MODE,"DOWN,DOWN",7
+1,Navigate forwards to a slider,NVDA_BROWSE_MODE,TAB,
+1,Navigate forwards to a slider,NVDA_FOCUS_MODE,TAB,7
+2,Navigate backwards to a slider,NVDA_BROWSE_MODE,"UP,UP",7
+2,Navigate backwards to a slider,NVDA_BROWSE_MODE,SHIFT_TAB,
+2,Navigate backwards to a slider,NVDA_FOCUS_MODE,SHIFT_TAB,7
+3,Request information about a slider,NVDA_BROWSE_MODE,INS_TAB,7
+3,Request information about a slider,NVDA_BROWSE_MODE,"ENTER,INS_TAB",
+3,Request information about a slider,NVDA_FOCUS_MODE,INS_TAB,7
+3,Request information about a slider,NVDA_BROWSE_MODE,INS_UP,7
+3,Request information about a slider,NVDA_FOCUS_MODE,INS_UP,7
+4,Increment a slider by one step,NVDA_FOCUS_MODE,RIGHT,
+4,Increment a slider by one step,NVDA_FOCUS_MODE,UP,
+5,Decrement a slider by one step,NVDA_FOCUS_MODE,LEFT,
+5,Decrement a slider by one step,NVDA_FOCUS_MODE,DOWN,
+6,Increment a slider by ten steps,NVDA_FOCUS_MODE,PAGE_UP,
+7,Decrement a slider by ten steps,NVDA_FOCUS_MODE,PAGE_DOWN,
+8,Decrement a slider to the minimum value,NVDA_FOCUS_MODE,HOME,
+9,Increment a slider to the maximum value,NVDA_FOCUS_MODE,END,

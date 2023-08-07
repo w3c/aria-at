@@ -1,0 +1,20 @@
+testId,title,commandSettings,command,invalidAssertions
+1,Navigate forwards to a slider,JAWS_VIRTUAL_CURSOR,"DOWN,DOWN",7
+1,Navigate forwards to a slider,JAWS_VIRTUAL_CURSOR,TAB,
+1,Navigate forwards to a slider,JAWS_PC_CURSOR,TAB,7
+2,Navigate backwards to a slider,JAWS_VIRTUAL_CURSOR,"UP,UP",7
+2,Navigate backwards to a slider,JAWS_VIRTUAL_CURSOR,SHIFT_TAB,
+2,Navigate backwards to a slider,JAWS_PC_CURSOR,SHIFT_TAB,7
+3,Request information about a slider,JAWS_VIRTUAL_CURSOR,INS_TAB,7
+3,Request information about a slider,JAWS_VIRTUAL_CURSOR,"ENTER,INS_TAB",
+3,Request information about a slider,JAWS_PC_CURSOR,INS_TAB,7
+3,Request information about a slider,JAWS_VIRTUAL_CURSOR,INS_UP,7
+3,Request information about a slider,JAWS_PC_CURSOR,INS_UP,7
+4,Increment a slider by one step,JAWS_PC_CURSOR,RIGHT,
+4,Increment a slider by one step,JAWS_PC_CURSOR,UP,
+5,Decrement a slider by one step,JAWS_PC_CURSOR,LEFT,
+5,Decrement a slider by one step,JAWS_PC_CURSOR,DOWN,
+6,Increment a slider by ten steps,JAWS_PC_CURSOR,PAGE_UP,
+7,Decrement a slider by ten steps,JAWS_PC_CURSOR,PAGE_DOWN,
+8,Decrement a slider to the minimum value,JAWS_PC_CURSOR,HOME,
+9,Increment a slider to the maximum value,JAWS_PC_CURSOR,END,

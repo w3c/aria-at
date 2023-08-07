@@ -1,0 +1,19 @@
+testId,title,commandSettings,command,invalidAssertions
+1,Navigate forwards to a slider,,"CTRL_OPT_RIGHT,CTRL_OPT_RIGHT",7
+1,Navigate forwards to a slider,,TAB,7
+1,Navigate forwards to a slider,VOICEOVER_QUICKNAV_ON,J,7
+2,Navigate backwards to a slider,,"CTRL_OPT_LEFT,CTRL_OPT_LEFT",7
+2,Navigate backwards to a slider,,SHIFT_TAB,7
+2,Navigate backwards to a slider,VOICEOVER_QUICKNAV_ON,SHIFT_J,7
+3,Request information about a slider,,CTRL_OPT_F3,7
+3,Request information about a slider,,CTRL_OPT_F4,7
+4,Increment a slider by one step,VOICEOVER_QUICKNAV_OFF,RIGHT,
+4,Increment a slider by one step,VOICEOVER_QUICKNAV_OFF,UP,
+4,Increment a slider by one step,,"CTRL_OPT_SHIFT_DOWN,CTRL_OPT_UP",
+5,Decrement a slider by one step,VOICEOVER_QUICKNAV_OFF,LEFT,
+5,Decrement a slider by one step,VOICEOVER_QUICKNAV_OFF,DOWN,
+5,Decrement a slider by one step,,"CTRL_OPT_SHIFT_DOWN,CTRL_OPT_DOWN",
+6,Increment a slider by ten steps,,PAGE_UP,
+7,Decrement a slider by ten steps,JAWS_PC_CURSOR,PAGE_DOWN,
+8,Decrement a slider to the minimum value,,HOME,
+9,Increment a slider to the maximum value,,END,

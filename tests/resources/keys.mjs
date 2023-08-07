@@ -21,6 +21,7 @@ export const CTRL_ALT_RIGHT                   = "Control+Alt+Right";
 export const CTRL_OPT_UP                   = "Control+Option+Up";
 export const CTRL_OPT_DOWN                   = "Control+Option+Down";
 export const CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT = "Control+Option+Right / Ctrl+Option+Left";
+export const CTRL_OPT_SHIFT_DOWN = "Controll+Option+Shift+Down";
 export const CTRL_OPT_A                       = "Control+Option+A";
 export const CTRL_OPT_CMD_J                   = "Control+Option+Command+J";
 export const CTRL_OPT_CMD_L                   = "Control+Option+Command+L";

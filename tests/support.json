@@ -2,15 +2,27 @@
   "ats": [
     {
       "name": "JAWS",
-      "key": "jaws"
+      "key": "jaws",
+      "settings": [
+        {"name": "VIRTUAL_CURSOR", "text": "virtual cursor active", "instructions": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."},
+        {"name": "PC_CURSOR", "text": "PC cursor active", "instructions": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."}
+      ]
     },
     {
       "name": "NVDA",
-      "key": "nvda"
+      "key": "nvda",
+      "settings": [
+        {"name": "BROWSE_MODE", "text": "browse mode on", "instructions": "If NVDA made the focus mode sound when the test page loaded, press Insert+Space to turn browse mode on."},
+        {"name": "FOCUS_MODE", "text": "focus mode on", "instructions": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."}
+      ]
     },
     {
       "name": "VoiceOver for macOS",
-      "key": "voiceover_macos"
+      "key": "voiceover_macos",
+      "settings": [
+        {"name": "QUICK_NAV_ON", "text": "quick nav on", "instructions": "Simultaneously press left and right arrow keys. If VoiceOver says 'quick nav off', press left and right arrows again."},
+        {"name": "QUICK_NAV_OFF", "text": "quick nav off", "instructions": "Simultaneously press left and right arrow keys. If VoiceOver says 'quick nav on', press left and right arrows again."}
+      ]
     }
   ],
   "applies_to": {

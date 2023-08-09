@@ -4,19 +4,19 @@
       "name": "JAWS",
       "key": "jaws",
       "assertionTokens": [
-        {"name": "AT", "string": "JAWS"},
-        {"name": "READING_MODE", "string": "virtual cursor active"},
-        {"name": "INTERACTION_MODE", "string": "PC cursor active"}
+        {"name": "AT", "screenText": "JAWS"},
+        {"name": "READING_MODE", "screenText": "virtual cursor active"},
+        {"name": "INTERACTION_MODE", "screenText": "PC cursor active"}
       ],
       "settings": [
         {
           "name": "VIRTUAL_CURSOR",
-          "text": "virtual cursor active",
+          "screenText": "virtual cursor active",
           "instructions": ["Press Alt+Delete to determine which cursor is active.", "If the PC cursor is active, press Escape to activate the virtual cursor."]
         },
         {
           "name": "PC_CURSOR",
-          "text": "PC cursor active",
+          "screenText": "PC cursor active",
           "instructions": ["Press Alt+Delete to determine which cursor is active.", "If the virtual cursor is active, press Insert+z to disable the virtual cursor."]
         }
       ]
@@ -25,19 +25,19 @@
       "name": "NVDA",
       "key": "nvda",
       "assertionTokens": [
-        {"name": "AT", "string": "NVDA"},
-        {"name": "READING_MODE", "string": "browse mode"},
-        {"name": "INTERACTION_MODE", "string": "focus mode"}
+        {"name": "AT", "screenText": "NVDA"},
+        {"name": "READING_MODE", "screenText": "browse mode"},
+        {"name": "INTERACTION_MODE", "screenText": "focus mode"}
       ],
       "settings": [
         {
           "name": "BROWSE_MODE",
-          "text": "browse mode on",
+          "screenText": "browse mode on",
           "instructions": ["Press insert+Space.", "If NVDA made the focus mode sound , press Insert+Space again to turn browse mode back on."]
         },
         {
           "name": "FOCUS_MODE",
-          "text": "focus mode on",
+          "screenText": "focus mode on",
           "instructions": ["Press insert+Space.", "If NVDA made the browse mode sound , press Insert+Space again to turn focus mode back on."]
         }
       ]
@@ -48,12 +48,12 @@
       "settings": [
         {
           "name": "QUICK_NAV_ON",
-          "text": "quick nav on",
+          "screenText": "quick nav on",
           "instructions": ["Simultaneously press left and right arrow keys.", "If VoiceOver said 'quick nav off', press the left and right arrow keys again to turn it back on."]
         },
         {
           "name": "QUICK_NAV_OFF",
-          "text": "quick nav off",
+          "screenText": "quick nav off",
           "instructions": ["Simultaneously press left and right arrow keys.", "If VoiceOver said 'quick nav on', press the left and right arrow keys again to turn it back off."]
         }
       ]

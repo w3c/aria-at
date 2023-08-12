@@ -1,7 +1,7 @@
 testId,title,presentationNumber,setupScript,instructions,assertions
-NAV_FORWARDS,Navigate forwards to a slider,1,setFocusBeforeRedSlider,"Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.","ROLE,NAME,VALUE_128,ORIENTATION,MIN_VALUE,MAX_VALUE,INTERACTION_ON"
-Nnav_BACKWARDS,Navigate backwards to a slider,2,setFocusAfterRedSlider,"Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.","ROLE,NAME,VALUE_128,ORIENTATION,MIN_VALUE,MAX_VALUE,INTERACTION_ON"
-REQUEST_INFO,Request information about a slider,3,setFocusOnRedSlider,"With focus on the 'Red' slider, request information about the slider.","ROLE,NAME,VALUE_128,ORIENTATION,MIN_VALUE,MAX_VALUE,INTERACTION_ON"
+NAV_FORWARDS,Navigate forwards to a slider,1,setFocusBeforeRedSlider,"Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",ROLE NAME VALUE_128 ORIENTATION MIN_VALUE MAX_VALUE INTERACTION_ON
+Nnav_BACKWARDS,Navigate backwards to a slider,2,setFocusAfterRedSlider,"Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",ROLE NAME VALUE_128 ORIENTATION MIN_VALUE MAX_VALUE INTERACTION_ON
+REQUEST_INFO,Request information about a slider,3,setFocusOnRedSlider,"With focus on the 'Red' slider, request information about the slider.",ROLE NAME VALUE_128 ORIENTATION MIN_VALUE MAX_VALUE INTERACTION_ON
 INCREMENT_1,Increment a slider by one step,4,setFocusOnRedSlider,"With focus on the 'Red' slider, increase its value one step to 129.",VALUE_129
 DECREMENT_1,Decrement a slider by one step,5,setFocusOnRedSlider,"With focus on the 'Red' slider, decrease its value one step to 127.",VALUE_127
 INCREMENT_10,Increment a slider by ten steps,6,setFocusOnRedSlider,"With focus on the 'Red' slider, increase its value 10 steps to 138.",VALUE_138

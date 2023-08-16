@@ -597,29 +597,88 @@ ${rows}
     }
   }
 
-  function validateCSVKeys(result) {
-    for (const row of result) {
-      if (typeof row.refId !== 'string' || typeof row.value !== 'string')
-        log.error(
-          `ERROR: References CSV file processing failed: ${referencesCsvFilePath}. Ensure rows are properly formatted.`
-        );
+  // intended to be an internal helper to reduce some code duplication and make logging for csv errors simpler
+  async function readCSVFile(filePath, rowValidator = identity => identity) {
+    const rawCSV = await readCSV(testPlanRecord.find(filePath));
+    let index = 0;
+    function printError(message) {
+      log.warning(
+        `WARNING: Error parsing ${path.join(testPlanDirectory, filePath)} row ${
+          index + 1
+        }: ${message}`
+      );
     }
-    log(`References CSV file successfully processed: ${referencesCsvFilePath}`);
-    return result;
+    try {
+      for (; index < rawCSV.length; index++) {
+        if (!rowValidator(rawCSV[index])) {
+          printError('validator returned false result');
+          return;
+        }
+      }
+    } catch (err) {
+      printError(err);
+      return;
+    }
+    log(`Successfully parsed ${path.join(testPlanDirectory, filePath)}`);
+    return rawCSV;
+  }
+
+  function validateReferencesKeys(row) {
+    if (typeof row.refId !== 'string' || typeof row.value !== 'string') {
+      throw new Error('Row missing refId or value');
+    }
+    return row;
+  }
+
+  const validCommandKeys = /^(?:testId|task|mode|at|command[A-Z])$/;
+  function validateCommandsKeys(row) {
+    // example header:
+    //    testId,task,mode,at,commandA,commandB,commandC,commandD,commandE,commandF
+    for (const key of Object.keys(row)) {
+      if (!validCommandKeys.test(key))
+        throw new Error(`Unknown commands.csv key: ${key} - check header row?`);
+    }
+    if (
+      !(
+        row.testId?.length &&
+        row.task?.length &&
+        row.mode?.length &&
+        row.at?.length &&
+        row.commandA?.length
+      )
+    ) {
+      throw new Error('Missing one of required testId, task, mode, at, commandA');
+    }
+    return row;
+  }
+
+  const validTestsKeys =
+    /^(?:testId|title|appliesTo|mode|task|setupScript|setupScriptDescription|refs|instructions|assertion(?:[1-9]|[1-2][0-9]|30))$/;
+  function validateTestsKeys(row) {
+    // example header:
+    // testId,title,appliesTo,mode,task,setupScript,setupScriptDescription,refs,instructions,assertion1,assertion2,assertion3,assertion4,assertion5,assertion6,assertion7
+    for (const key of Object.keys(row)) {
+      if (!validTestsKeys.test(key))
+        throw new Error(`Unknown tests.csv key: ${key} - check header row?`);
+    }
+    if (
+      !(
+        row.testId?.length &&
+        row.title?.length &&
+        row.appliesTo?.length &&
+        row.mode?.length &&
+        row.task?.length
+      )
+    ) {
+      throw new Error('Missing one of required testId, title, appliesTo, mode, task');
+    }
+    return row;
   }
 
   const [refRows, atCommands, tests] = await Promise.all([
-    readCSV(testPlanRecord.find('data/references.csv'))
-      .then(rows => rows)
-      .then(validateCSVKeys),
-    readCSV(testPlanRecord.find('data/commands.csv')).then(rows => {
-      log(`Commands CSV file successfully processed: ${atCommandsCsvFilePath}`);
-      return rows;
-    }),
-    readCSV(testPlanRecord.find('data/tests.csv')).then(rows => {
-      log(`Test CSV file successfully processed: ${testsCsvFilePath}`);
-      return rows;
-    }),
+    readCSVFile('data/references.csv', validateReferencesKeys),
+    readCSVFile('data/commands.csv', validateCommandsKeys),
+    readCSVFile('data/tests.csv', validateTestsKeys),
   ]);
 
   for (const row of refRows) {

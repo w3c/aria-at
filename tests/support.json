@@ -4,11 +4,11 @@
       "name": "JAWS",
       "key": "jaws",
       "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
-      "assertionTokens": [
-        {"name": "AT", "screenText": "JAWS"},
-        {"name": "READING_MODE", "screenText": "virtual cursor active"},
-        {"name": "INTERACTION_MODE", "screenText": "PC cursor active"}
-      ],
+      "assertionTokens": {
+        "at": "JAWS",
+        "readingMode": "virtual cursor active",
+        "interactionMode": "PC cursor active"
+      },
       "settings": [
         {
           "name": "VIRTUAL_CURSOR",
@@ -26,11 +26,11 @@
       "name": "NVDA",
       "key": "nvda",
       "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
-      "assertionTokens": [
-        {"name": "AT", "screenText": "NVDA"},
-        {"name": "READING_MODE", "screenText": "browse mode"},
-        {"name": "INTERACTION_MODE", "screenText": "focus mode"}
-      ],
+      "assertionTokens": {
+        "AT": "NVDA",
+        "readingMode": "browse mode",
+        "interactionMode": "focus mode"
+      },
       "settings": [
         {
           "name": "BROWSE_MODE",

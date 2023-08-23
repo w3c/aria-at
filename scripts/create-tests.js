@@ -1,5 +1,5 @@
 'use strict';
-const { createExampleTests } = require('./create-example-tests');
+const { processTestDirectory } = require('../lib/data/process-test-directory');
 
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
@@ -29,4 +29,4 @@ if (args._.length !== 1) {
   process.exit();
 }
 
-createExampleTests({ directory: args._[0] });
+processTestDirectory({ directory: args._[0] });

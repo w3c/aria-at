@@ -2,7 +2,7 @@ const path = require('path');
 
 const fse = require('fs-extra');
 
-const { createExampleTests } = require('./create-example-tests');
+const { processTestDirectory } = require('../lib/data/process-test-directory');
 
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
@@ -59,7 +59,7 @@ async function main() {
 
   const filteredTests = await Promise.all(
     filteredTestPlans.map(directory =>
-      createExampleTests({
+      processTestDirectory({
         directory: path.join('tests', directory),
         args,
       }).catch(error => {

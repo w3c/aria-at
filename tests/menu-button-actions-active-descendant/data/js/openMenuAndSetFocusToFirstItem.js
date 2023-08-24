@@ -1,3 +1,4 @@
 // opens the menu, and sets focus on 'Action 1'
-testPageDocument.defaultView.menuController.openPopup();
-testPageDocument.defaultView.menuController.setFocusToFirstMenuitem();
+const btn = testPageDocument.getElementById('menubutton1');
+btn.focus();
+btn.click();

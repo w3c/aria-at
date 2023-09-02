@@ -1,18 +1,22 @@
-assertionId,priority,assertionStatement,assertionPhrase,refId
-roleRadio,1,Role 'radio button' is conveyed,Convey role 'radio button',radio
-roleGroup,1,Role 'group' is conveyed,Convey role 'group',radioGroup
-roleLink,1,Role 'link' is conveyed,Convey role 'link',htmlLink
-nameRegular,1,Name 'Regular crust' is conveyed,Convey name 'Regular crust',
-nameDeep,1,Name 'Deep dish' is conveyed,Convey name 'Deep dish',
-nameThin,1,Name 'Thin crust' is conveyed,Convey name 'Thin crust',
-namePizzaCrust,1,"Name of the group, 'Pizza Crust', is conveyed","Convey name of the group, 'Pizza Crust'",aria-labelledby
-nameNavForwards,1,name 'Navigate forwards from here' is conveyed,Convey name 'Navigate forwards from here',htmlLink
-nameNavBackwards,1,name 'Navigate backwards from here' is conveyed,Convey name 'Navigate backwards from here',htmlLink
-position1,2,"Position of the radio button, '1', is conveyed","Convey position of the radio button, '1'",aria-posinset
-position2,2,"Position of the radio button, '2', is conveyed","Convey position of the radio button, '2'",aria-posinset
-position3,2,"Position of the radio button, '3', is conveyed","Convey position of the radio button, '3'",aria-posinset
-setSize3,2,"Number of radio buttons in the group, '3', is conveyed","Convey number of radio buttons in the group, '3'",aria-setsize
-groupBoundary,2,Group boundary is conveyed,Convey group boundary,radioGroup
-stateChecked,1,State 'checked' is conveyed,Convey state 'checked',aria-checked
-stateUnchecked,1,State 'unchecked' is conveyed,Convey state 'unchecked',aria-checked
-changeToChecked,2,"Change in state, to 'checked', is conveyed","Convey change in state, to 'checked'",aria-checked
+assertionId,priority,assertionStatement,assertionPhrase,refIds
+groupBoundary,1,Group boundary is conveyed,convey group boundary,
+nameDeepDish,1,Name 'Deep dish' is conveyed,convey name 'Deep dish',
+nameGroupPizzaCrust,1,"Name of the group, 'Pizza Crust', is conveyed","convey name of the group, 'Pizza Crust'",
+nameNavigateBackFromHere,1,Name 'Navigate backwards from here' is conveyed,convey name 'Navigate backwards from here',
+nameNavigateForwardsFromHere,1,Name 'Navigate forwards from here' is conveyed,convey name 'Navigate forwards from here',
+nameRadioRegularCrust,1,"Name of the radio button, 'Regular crust', is conveyed","convey name of the radio button, 'Regular crust'",
+nameRadioThinCrust,1,"Name of the radio button, 'Thin crust', is conveyed","convey name of the radio button, 'Thin crust'",
+nameRegularCrust,1,Name 'Regular crust' is conveyed,convey name 'Regular crust',
+nameThinCrust,1,Name 'Thin crust' is conveyed,convey name 'Thin crust',
+numberRadioButtonsGroup3,2,"Number of radio buttons in the group, 3, is conveyed","convey number of radio buttons in the group, 3",
+positionRadio1,2,"Position of the radio button, 1, is conveyed","convey position of the radio button, 1",
+positionRadio2,2,"Position of the radio button, 2, is conveyed","convey position of the radio button, 2",
+positionRadio3,2,"Position of the radio button, 3, is conveyed","convey position of the radio button, 3",
+roleGroup,1,Role 'group' is conveyed,convey role 'group',
+roleLink,1,Role 'link' is conveyed,convey role 'link',
+roleRadio,1,Role 'radio button' is conveyed,convey role 'radio button',
+stateChangeToChecked,1,"Change in state, to 'checked', is conveyed","convey change in state, to 'checked'",
+stateChecked,1,State 'checked' is conveyed,convey state 'checked',
+stateRadioChecked,1,"State of the radio button, 'checked', is conveyed","convey state of the radio button, 'checked'",
+stateRadioUnchecked,1,"State of the radio button, 'unchecked', is conveyed","convey state of the radio button, 'unchecked'",
+stateUnchecked,1,State 'unchecked' is conveyed,convey state 'unchecked',

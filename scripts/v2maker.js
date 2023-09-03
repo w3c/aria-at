@@ -354,7 +354,7 @@ async function makeTestsCsvData(allInputCsvData, assertionRows) {
     return 0;
   });
 
-  /* 
+  /*
     We will be filtering testRows to keep only the rows for the VoiceOver tests. We want to get rid of all the tests that specify reading mode or interaction mode.
     However, before removing those obsolete tests, there is some data we need to collect from them:
     1. A map of all the v1 testIds to v2 testIds to use during conversion of commands.csv.
@@ -430,7 +430,7 @@ async function makeTestsCsvData(allInputCsvData, assertionRows) {
 }
 
 async function makeCommandsCsvData(allInputCsvData, v1ToV2testIds) {
-  /* 
+  /*
     The V1 columns are:
     testId,task,mode,at,commandA,commandB,commandC...
     The V2 columns are:

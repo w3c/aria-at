@@ -66,6 +66,7 @@ async function main() {
     const v1ToV2testIdMap = await makeTestsCsvData(csvData, assertionRows);
     await makeCommandsCsvData(csvData, v1ToV2testIdMap);
     await makeScriptsCsvData(csvData);
+    await makeReferencesCsvData(csvData);
     await util.logMessage(`\nFinished conversion at ${new Date().toISOString()}`);
   } catch (error) {
     console.error('Error!', error);

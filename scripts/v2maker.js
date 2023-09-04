@@ -516,34 +516,51 @@ async function makeReferencesCsvData(allInputCsvData) {
     // properties in the row objects match columns in the input file:
     // refId, value
     let newRow = {};
-    newRow.setupScript = row.setupScript;
-    newRow.setupScriptDescription = row.setupScriptDescription;
+    newRow.refId = row.refId;
+    if (row.refId.trim().search(/^author$/i) >= 0) {
+      newRow.type = 'metadata';
+      newRow.value = row.value;
+      newRow.linkText = '';
+    } else if (row.refId.trim().search(/^authorEmail$/i) >= 0) {
+      newRow.type = 'metadata';
+      newRow.linkText = '';
+      newRow.value = row.value;
+    } else if (row.refId.trim().search(/^title$/i) >= 0) {
+      newRow.type = 'metadata';
+      newRow.value = row.value;
+      newRow.linkText = '';
+    } else if (row.refId.trim().search(/^reference$/i) >= 0) {
+      newRow.type = 'metadata';
+      newRow.value = row.value;
+      const planTitle = allInputCsvData.v1references.find(
+        row => row.refId.trim().search(/^title$/i) >= 0
+      ).value;
+      newRow.linkText = `Test Case Page for ${planTitle}`;
+    } else if (row.refId.trim().search(/^example$/i) >= 0) {
+      newRow.type = 'metadata';
+      newRow.value = row.value;
+      newRow.linkText = 'APG';
+    } else if (row.refId.trim().search(/^designPattern$/i) >= 0) {
+      newRow.type = 'metadata';
+      newRow.value = row.value;
+      newRow.linkText = 'APG Pattern';
+    } else if (row.refId.trim().search(/^developmentDocumentation$/i) >= 0) {
+      newRow.type = 'metadata';
+      newRow.value = row.value;
+      newRow.linkText = `Development Documentation for ${row.title} Test Plan`;
+    } else {
+      newRow.type = 'aria';
+      newRow.value = row.refId;
+      newRow.linkText = row.refId;
+    }
     refRows.push(newRow);
   }
 
-  // Get rid of duplicates.
-  refRows = util.removeDuplicateAndBlankRows(refRows);
-
-  // Sort rows by script ascending
-  refRows.sort((a, b) => {
-    const valueA = a.setupScript;
-    const valueB = b.setupScript;
-    if (valueA < valueB) {
-      return -1;
-    }
-    if (valueA > valueB) {
-      return 1;
-    }
-    return 0;
-  });
-
   // Write rows to CSV file
   const rowWriter = createCsvWriter({
-    path: scriptsFile,
+    path: referencesFile,
     header: Object.keys(refRows[0]).map(column => ({ id: column, title: column })),
   });
   await rowWriter.writeRecords(refRows);
-  await util.logMessage(
-    `Wrote ${refRows.length} script names and descriptions to ${path.basename(scriptsFile)}`
-  );
+  await util.logMessage(`Wrote ${refRows.length} references to ${path.basename(referencesFile)}`);
 }

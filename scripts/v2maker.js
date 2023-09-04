@@ -505,3 +505,44 @@ async function makeScriptsCsvData(allInputCsvData) {
     `Wrote ${scriptRows.length} script names and descriptions to ${path.basename(scriptsFile)}`
   );
 }
+
+async function makeReferencesCsvData(allInputCsvData) {
+  await util.logMessage(`\nCreating ${path.basename(referencesFile)}.`);
+
+  // pull data from the refId and value columns of the v1references aray.
+  let refRows = [];
+  for (const row of allInputCsvData.v1references) {
+    // properties in the row objects match columns in the input file:
+    // refId, value
+    let newRow = {};
+    newRow.setupScript = row.setupScript;
+    newRow.setupScriptDescription = row.setupScriptDescription;
+    refRows.push(newRow);
+  }
+
+  // Get rid of duplicates.
+  refRows = util.removeDuplicateAndBlankRows(refRows);
+
+  // Sort rows by script ascending
+  refRows.sort((a, b) => {
+    const valueA = a.setupScript;
+    const valueB = b.setupScript;
+    if (valueA < valueB) {
+      return -1;
+    }
+    if (valueA > valueB) {
+      return 1;
+    }
+    return 0;
+  });
+
+  // Write rows to CSV file
+  const rowWriter = createCsvWriter({
+    path: scriptsFile,
+    header: Object.keys(refRows[0]).map(column => ({ id: column, title: column })),
+  });
+  await rowWriter.writeRecords(refRows);
+  await util.logMessage(
+    `Wrote ${refRows.length} script names and descriptions to ${path.basename(scriptsFile)}`
+  );
+}

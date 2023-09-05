@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const csv = require('csv-parser');
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-const util = require(__dirname + '/v2makerUtil.js');
+const util = require(path.join(__dirname, 'v2makerUtil.js'));
+const v2json = require(path.join(__dirname, 'v2maker.json'));
 
 // inputs
 const csvInputFiles = new Map([
@@ -523,8 +524,8 @@ async function makeReferencesCsvData(allInputCsvData) {
       newRow.linkText = '';
     } else if (row.refId.trim().search(/^authorEmail$/i) >= 0) {
       newRow.type = 'metadata';
-      newRow.linkText = '';
       newRow.value = row.value;
+      newRow.linkText = '';
     } else if (row.refId.trim().search(/^title$/i) >= 0) {
       newRow.type = 'metadata';
       newRow.value = row.value;
@@ -539,11 +540,39 @@ async function makeReferencesCsvData(allInputCsvData) {
     } else if (row.refId.trim().search(/^example$/i) >= 0) {
       newRow.type = 'metadata';
       newRow.value = row.value;
-      newRow.linkText = 'APG';
+      newRow.linkText = '';
+      // See if we can update value and link text to represent new APG
+      if (row.value.toLowerCase().includes('github')) {
+        let newValue = 'New URL is Required';
+        const indexOfDotIo = row.value.toLowerCase().indexOf('.io');
+        if (indexOfDotIo >= 0) {
+          const oldUrlPath = row.value.substring(indexOfDotIo + 3);
+          newRow.value = v2json.oldToNewAPGExamples[oldUrlPath];
+          const indexOfSlashApg = newRow.value.indexOf('/apg');
+          if (indexOfSlashApg >= 0) {
+            const newUrlPath = newRow.value.substring(indexOfSlashApg + 4);
+            newRow.linkText = `APG Example: ${v2json.apgExamples[newUrlPath]}`;
+          }
+        }
+      }
     } else if (row.refId.trim().search(/^designPattern$/i) >= 0) {
       newRow.type = 'metadata';
       newRow.value = row.value;
-      newRow.linkText = 'APG Pattern';
+      newRow.linkText = 'APG Design Pattern';
+      // See if we can update value and link text to represent new APG
+      if (row.value.toLowerCase().includes('github')) {
+        let newValue = 'New URL is Required';
+        const indexOfHash = row.value.toLowerCase().indexOf('#');
+        if (indexOfHash >= 0) {
+          const oldUrlPath = row.value.substring(indexOfHash);
+          newRow.value = v2json.oldToNewAPGPatterns[oldUrlPath];
+          const indexOfSlashApg = newRow.value.indexOf('/apg');
+          if (indexOfSlashApg >= 0) {
+            const newUrlPath = newRow.value.substring(indexOfSlashApg + 4);
+            newRow.linkText = v2json.apgPatterns[newUrlPath];
+          }
+        }
+      }
     } else if (row.refId.trim().search(/^developmentDocumentation$/i) >= 0) {
       newRow.type = 'metadata';
       newRow.value = row.value;

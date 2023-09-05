@@ -86,32 +86,14 @@
       "JAWS"
     ]
   },
-  "testPlanStrings": [
-    {
-      "name": "ariaSpecsPreface",
-      "string": "Tested ARIA features:"
-    },
-    {
-      "name": "openExampleInstruction",
-      "string": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that"
-    },
-    {
-      "name": "commandListPreface",
-      "string": "Do this with each of the following commands or command sequences."
-    },
-    {
-      "name": "commandListSettingsPreface",
-      "string": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence."
-    },
-    {
-      "name": "settingInstructionsPreface",
-      "string": "To perform a task with"
-    },
-    {
-      "name": "assertionResponseQuestion",
-      "string": "Which statements are true about the response to"
-    }
-  ],
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
   "references": {
     "aria": {
       "baseUrl": "https://www.w3.org/TR/wai-aria/",
@@ -273,7 +255,7 @@
     },
     "htmlAam": {
       "baseUrl": "https://www.w3.org/TR/html-aam-1.0/",
-      "linkText": "HTML Mapping",
+      "linkText": "Accessibility API Mapping",
       "fragmentIds": {
         "a": "#el-a",
         "aNoHref": "#el-a-no-href",

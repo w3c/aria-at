@@ -1,19 +1,15 @@
 testId,command,settings,assertionExceptions,presentationNumber
-NAV_FORWARDS,ctrl+opt+right ctrl+opt+right,,0:INTERACTION_ON,1
-NAV_FORWARDS,tab,,0:INTERACTION_ON,2
-NAV_FORWARDS,j,QUICK_NAV_ON,0:INTERACTION_ON,3
-NAV_BACKWARDS,ctrl+opt+left ctrl+opt+left,,0:INTERACTION_ON,4
-NAV_BACKWARDS,shift+tab,,0:INTERACTION_ON,5
-NAV_BACKWARDS,shift+j,QUICK_NAV_ON,0:INTERACTION_ON,6
-REQUEST_INFO,ctrl+opt+f3,,0:INTERACTION_ON,7
-REQUEST_INFO,ctrl+opt+f4,,0:INTERACTION_ON,8
-INCREMENT_1,right,QUICK_NAV_OFF,,9
-INCREMENT_1,up,QUICK_NAV_OFF,,10
-INCREMENT_1,ctrl+opt+shift+down ctrl+opt+up,,,11
-DECREMENT_1,left,QUICK_NAV_OFF,,12
-DECREMENT_1,down,QUICK_NAV_OFF,,13
-DECREMENT_1,ctrl+opt+shift+down ctrl+opt+down,,,14
-INCREMENT_10,pageUp,,,15
-DECREMENT_10,pageDown,,,16
-DECREMENT_MIN,home,,,17
-INCREMENT_MAX,end,,,18
+navForwardsToSlider,ctrl+opt+right ctrl+opt+right,,,5.0
+navForwardsToSlider,tab,,,5.1
+navBackToSlider,ctrl+opt+left ctrl+opt+left,,,6.0
+navBackToSlider,shift+tab,,,6.1
+reqInfoAboutSlider,ctrl+opt+f3,,,9.0
+reqInfoAboutSlider,ctrl+opt+f4,,,9.1
+incrementSliderByOneStep,RIGHT,quickNavOff,,11.0
+incrementSliderByOneStep,UP,quickNavOff,,11.1
+decrementSliderByOneStep,LEFT,quickNavOff,,13.0
+decrementSliderByOneStep,DOWN,quickNavOff,,13.1
+incrementSliderByTenSteps,page+up,,,15.0
+decrementSliderByTenSteps,page+down,,,17.0
+decrementSliderToMinimumValue,home,,,19.0
+incrementSliderToMaximumValue,end,,,21.0

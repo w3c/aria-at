@@ -63,6 +63,8 @@ async function main() {
     await util.startLoggingTo(path.join(testDataPath, 'log.txt'), 'both');
     await setupFilePaths(testDataPath);
     const csvData = await readCsvFiles();
+    const haveRequiredData = await isV1dataAvailable(csvData);
+    if (!haveRequiredData) process.exit(1);
     let assertionRows = await makeAssertionsCsvData(csvData);
     const v1ToV2testIdMap = await makeTestsCsvData(csvData, assertionRows);
     await makeCommandsCsvData(csvData, v1ToV2testIdMap);
@@ -146,6 +148,45 @@ async function readCsvFiles() {
 
   await Promise.all(filePromises);
   return csvData;
+}
+
+async function isV1dataAvailable(allInputCsvData) {
+  /**
+   * Make sure the testsV1.csv has V1 columns.
+   * If it  does not, assume it contains V2 data and the V1 data is not available in the data  directory.
+   * If V1 data is not available, delete the testsV1.csv file that was  most likely created by the setupFilePaths method.
+   */
+
+  let v1dataAvailable = true;
+
+  // Make sure that the testsV1 columns include the following. Require only 1 assertion column.
+  const v1columns = [
+    'testId',
+    'title',
+    'appliesTo',
+    'mode',
+    'task',
+    'setupScript',
+    'setupScriptDescription',
+    'refs',
+    'instructions',
+    'assertion1',
+  ];
+  let missingColumns = [];
+  const inputRow = allInputCsvData.v1tests[0];
+  for (column of v1columns) {
+    if (!(column in inputRow)) missingColumns.push(column);
+  }
+  if (missingColumns.length > 0) {
+    v1dataAvailable = false;
+    await util.deleteFile(csvInputFiles.get('v1tests'));
+    await util.logMessage(`
+  ${path.basename(csvInputFiles.get('v1tests'))} is missing the following columns: ${missingColumns}
+  Deleted ${path.basename(csvInputFiles.get('v1tests'))}.
+  `);
+  }
+
+  return v1dataAvailable;
 }
 
 async function makeAssertionsCsvData(allInputCsvData) {

@@ -77,9 +77,11 @@ testRunIO.setScriptsInputFromMap(typeof scripts === 'object' ? scripts : {});
 /**
  * @param {SupportJSON} newSupport
  * @param {CommandsJSON} newCommandsData
+ * @param {AllCommandsJSON} allCommands
  */
-export function initialize(newSupport, newCommandsData) {
+export function initialize(newSupport, newCommandsData, allCommands) {
   testRunIO.setSupportInputFromJSON(newSupport);
+  testRunIO.setAllCommandsInputFromJSON(allCommands);
   testRunIO.setConfigInputFromQueryParamsAndSupport(
     Array.from(new URL(document.location).searchParams)
   );
@@ -222,6 +224,7 @@ const br = bind(element, 'br');
 const button = bind(element, 'button');
 const div = bind(element, 'div');
 const em = bind(element, 'em');
+const kbd = bind(element, 'kbd');
 const fieldset = bind(element, 'fieldset');
 const h1 = bind(element, 'h1');
 const h2 = bind(element, 'h2');
@@ -270,6 +273,8 @@ function rich(value) {
     return value;
   } else if (Array.isArray(value)) {
     return fragment(...value.map(rich));
+  } else if (value.kbd) {
+    return kbd.bind(value.kbd)(rich(value.kbd))
   } else {
     if ('whitespace' in value) {
       if (value.whitespace === WhitespaceStyleMap.LINE_BREAK) {
@@ -599,6 +604,7 @@ function renderVirtualResultsTable(results) {
 }
 
 /** @typedef {import('./aria-at-test-io-format.mjs').SupportJSON} SupportJSON */
+/** @typedef {import('./aria-at-test-io-format.mjs').AllCommandsJSON} AllCommandsJSON */
 /** @typedef {import('./aria-at-test-io-format.mjs').CommandsJSON} CommandsJSON */
 /** @typedef {import('./aria-at-test-io-format.mjs').BehaviorJSON} BehaviorJSON */
 

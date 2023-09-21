@@ -118,6 +118,24 @@ export function instructionDocument(resultState, hooks) {
     return false;
   }
 
+  function convertModeInstructionsToKbdArray(inputString) {
+    const container = document.createElement('div');
+    container.innerHTML = inputString;
+
+    const resultArray = [];
+    for (const node of container.childNodes) {
+      if (node.nodeName === 'KBD') {
+        // Handle <kbd> elements
+        resultArray.push({ kbd: node.innerText.trim() });
+      } else {
+        // Handle text nodes
+        resultArray.push(node.textContent);
+      }
+    }
+
+    return resultArray;
+  }
+
   return {
     errors: {
       visible: resultState.errors && resultState.errors.length > 0 ? true : false,
@@ -143,7 +161,7 @@ export function instructionDocument(resultState, hooks) {
           ],
           `Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}`,
         ],
-        strongInstructions: [modeInstructions, ...userInstructions],
+        strongInstructions: [convertModeInstructionsToKbdArray(modeInstructions), ...userInstructions],
         commands: {
           description: `Using the following commands, ${lastInstruction}`,
           commands,

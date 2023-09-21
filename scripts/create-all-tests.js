@@ -3,6 +3,7 @@ const path = require('path');
 const fse = require('fs-extra');
 
 const { processTestDirectory } = require('../lib/data/process-test-directory');
+const { processTestDirectory: processTestDirectoryOld } = require('../lib/data/process-test-directory-v1');
 
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
@@ -10,6 +11,7 @@ const args = require('minimist')(process.argv.slice(2), {
     t: 'testplan',
     v: 'verbose',
     V: 'validate',
+    v2: 'version2',
   },
 });
 
@@ -26,6 +28,8 @@ if (args.help) {
        Generate tests and view a detailed report summary.
     -V, --validate
        Determine whether current test plans are valid (no errors present).
+    -v2, --version2
+       Build the tests with the v2 format of the tests
 `);
   process.exit();
 }
@@ -36,8 +40,10 @@ async function main() {
   // on some OSes, it seems the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
   const TARGET_TEST_PLAN =
     args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate test assets for
+
   const VERBOSE_CHECK = !!args.verbose;
   const VALIDATE_CHECK = !!args.validate;
+  const V2_CHECK = !!args.v2;
 
   const scriptsDirectory = path.dirname(__filename);
   const rootDirectory = path.join(scriptsDirectory, '..');
@@ -58,15 +64,24 @@ async function main() {
   }
 
   const filteredTests = await Promise.all(
-    filteredTestPlans.map(directory =>
-      processTestDirectory({
-        directory: path.join('tests', directory),
-        args,
-      }).catch(error => {
-        error.directory = directory;
-        throw error;
-      })
-    )
+    filteredTestPlans.map(directory => {
+      if (V2_CHECK)
+        return processTestDirectory({
+          directory: path.join('tests', directory),
+          args,
+        }).catch(error => {
+          error.directory = directory;
+          throw error;
+        });
+      else
+        return processTestDirectoryOld({
+          directory: path.join('tests', directory),
+          args,
+        }).catch(error => {
+          error.directory = directory;
+          throw error;
+        });
+    })
   ).catch(error => {
     console.error(`ERROR: Unhandled exception thrown while processing "${error.directory}".`);
     if (!VERBOSE_CHECK) {

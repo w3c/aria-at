@@ -152,6 +152,133 @@ class SupportInput {
   }
 }
 
+class AllCommandsInput {
+  /**
+   * @param {AllCommandsJSON} value
+   * @private
+   */
+  constructor(value) {
+    this.errors = [];
+
+    /** @private */
+    this._value = value;
+
+    /** @private */
+    this._flattened = this.flattenObject(this._value)
+  }
+
+  flattenObject(obj, parentKey) {
+    const flattened = {};
+
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        const subObject = this.flattenObject(obj[key], parentKey + key + '.');
+        Object.assign(flattened, subObject);
+      } else {
+        flattened[parentKey + key] = obj[key];
+      }
+    }
+
+    return flattened;
+  }
+
+  findValueByKey(keyToFind) {
+    const keys = Object.keys(this._flattened);
+
+    // Need to specially handle VO modifier key combination
+    if (keyToFind === 'vo')
+      return this.findValuesByKeys([this._flattened['modifierAliases.vo']])[0];
+
+    if (keyToFind.includes('modifiers.') || keyToFind.includes('keys.')) {
+      const parts = keyToFind.split('.');
+      const keyToCheck = parts[parts.length - 1]; // value after the '.'
+
+      if (this._flattened[keyToFind])
+        return {
+          value: this._flattened[keyToFind],
+          key: keyToCheck,
+        };
+
+      return null;
+    }
+
+    for (const key of keys) {
+      const parts = key.split('.');
+      const parentKey = parts[0];
+      const keyToCheck = parts[parts.length - 1]; // value after the '.'
+
+      if (keyToCheck === keyToFind) {
+        if (parentKey === 'modifierAliases') {
+          return this.findValueByKey(`modifiers.${this._flattened[key]}`);
+        } else if (parentKey === 'keyAliases') {
+          return this.findValueByKey(`keys.${this._flattened[key]}`);
+        }
+
+        return {
+          value: this._flattened[key],
+          key: keyToCheck,
+        };
+      }
+    }
+
+    // Return null if the key is not found
+    return null;
+  }
+
+  findValuesByKeys(keysToFind = []) {
+    const result = [];
+
+    const patternSepWithReplacement = (keyToFind, pattern, replacement) => {
+      if (keyToFind.includes(pattern)) {
+        let value = '';
+        let validKeys = true;
+        const keys = keyToFind.split(pattern);
+
+        for (const key of keys) {
+          const keyResult = this.findValueByKey(key);
+          if (keyResult) value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
+          else validKeys = false;
+        }
+        if (validKeys) return { value, key: keyToFind };
+      }
+
+      return null;
+    };
+
+    const patternSepHandler = keyToFind => {
+      let value = '';
+
+      if (keyToFind.includes(' ') && keyToFind.includes('+')) {
+        const keys = keyToFind.split(' ');
+        for (let [index, key] of keys.entries()) {
+          const keyToFindResult = this.findValueByKey(key);
+          if (keyToFindResult) keys[index] = keyToFindResult.value;
+          if (key.includes('+')) keys[index] = patternSepWithReplacement(key, '+', '+').value;
+        }
+        value = keys.join(' then ');
+
+        return { value, key: keyToFind };
+      } else if (keyToFind.includes(' ')) return patternSepWithReplacement(keyToFind, ' ', ' then ');
+      else if (keyToFind.includes('+')) return patternSepWithReplacement(keyToFind, '+', '+');
+    };
+
+    for (const keyToFind of keysToFind) {
+      if (keyToFind.includes(' ') || keyToFind.includes('+')) {
+        result.push(patternSepHandler(keyToFind));
+      } else {
+        const keyToFindResult = this.findValueByKey(keyToFind);
+        if (keyToFindResult) result.push(keyToFindResult);
+      }
+    }
+
+    return result;
+  }
+
+  static fromJSON(json) {
+    return new AllCommandsInput(json);
+  }
+}
+
 /** Depends on ConfigInput and KeysInput. */
 class CommandsInput {
   /**
@@ -161,7 +288,7 @@ class CommandsInput {
    * @param {KeysInput} keysInput
    * @private
    */
-  constructor(value, keysInput) {
+  constructor(value, keysInput, allCommandsInput) {
     this.errors = [];
 
     /** @private */
@@ -169,15 +296,18 @@ class CommandsInput {
 
     /** @private */
     this._keysInput = keysInput;
+
+    this._allCommandsInput = allCommandsInput;
   }
 
   /**
    * @param {string} task
-   * @param {ATMode} atMode
+   * @param {ATMode} mode
    * @returns {string[]}
    */
-  getCommands(task, atMode) {
+  getCommands(task, mode) {
     const assistiveTech = this._value.at;
+    const [atMode] = deriveModeWithTextAndInstructions(mode, assistiveTech);
 
     if (!this._value.commands[task]) {
       throw new Error(
@@ -196,10 +326,21 @@ class CommandsInput {
       let innerCommands = [];
       let commandSequence = c[0].split(',');
       for (let command of commandSequence) {
-        command = this._keysInput.keysForCommand(command);
+        if (command.toLowerCase() === command) {
+          // Accounting for V2
+          const foundCommandKV = this._allCommandsInput.findValuesByKeys([command]);
+          if (!foundCommandKV.length) command = undefined
+          else {
+            const { value } = this._allCommandsInput.findValuesByKeys([command])[0];
+            command = value;
+          }
+        } else {
+          // V1
+          command = this._keysInput.keysForCommand(command);
+        }
         if (typeof command === 'undefined') {
           throw new Error(
-            `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+            `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
           );
         }
 
@@ -219,8 +360,8 @@ class CommandsInput {
    * @param {ConfigInput} data.configInput
    * @param {KeysInput} data.keysInput
    */
-  static fromJSONAndConfigKeys(json, { configInput, keysInput }) {
-    return new CommandsInput({ commands: json, at: configInput.at() }, keysInput);
+  static fromJSONAndConfigKeys(json, { configInput, keysInput, allCommandsInput }) {
+    return new CommandsInput({ commands: json, at: configInput.at() }, keysInput, allCommandsInput);
   }
 
   /**
@@ -228,7 +369,7 @@ class CommandsInput {
    * @param {object} data
    * @param {KeysInput} data.keysInput
    */
-  static fromCollectedTestKeys(collectedTest, { keysInput }) {
+  static fromCollectedTestKeys(collectedTest, { keysInput, allCommandsInput }) {
     return new CommandsInput(
       {
         commands: {
@@ -242,7 +383,7 @@ class CommandsInput {
         },
         at: collectedTest.target.at,
       },
-      keysInput
+      keysInput, allCommandsInput
     );
   }
 }
@@ -549,10 +690,21 @@ class BehaviorInput {
         setupScriptDescription: json.setup_script_description,
         setupTestPage: json.setupTestPage,
         commands: commandsInput.getCommands(json.task, mode),
-        assertions: (json.output_assertions ? json.output_assertions : []).map(assertionTuple => ({
-          priority: Number(assertionTuple[0]),
-          assertion: assertionTuple[1],
-        })),
+        assertions: (json.output_assertions ? json.output_assertions : []).map(assertion => {
+          // Tuple array [ priorityNumber, assertionText ]
+          if (Array.isArray(assertion)) {
+            return {
+              priority: Number(assertion[0]),
+              assertion: assertion[1]
+            }
+          }
+
+          // Object { assertionId, priority, assertionStatement, assertionPhrase, refIds }
+          return {
+            priority: assertion.priority,
+            assertion: assertion.assertionStatement
+          }
+        }),
         additionalAssertions: (json.additional_assertions
           ? json.additional_assertions[at.key] || []
           : []
@@ -637,6 +789,8 @@ export class TestRunInputOutput {
     this.scriptsInput = null;
     /** @type {SupportInput} */
     this.supportInput = null;
+    /** @type {AllCommandsInput} */
+    this.allCommandsInput = null;
     /** @type {TitleInput} */
     this.titleInput = null;
     /** @type {UnexpectedInput} */
@@ -710,7 +864,8 @@ export class TestRunInputOutput {
 
     const unexpectedInput = UnexpectedInput.fromBuiltin();
     const keysInput = KeysInput.fromCollectedTest(collectedTest);
-    const commandsInput = CommandsInput.fromCollectedTestKeys(collectedTest, { keysInput });
+    const allCommandsInput = this.allCommandsInput;
+    const commandsInput = CommandsInput.fromCollectedTestKeys(collectedTest, { keysInput, allCommandsInput });
     const behaviorInput = BehaviorInput.fromCollectedTestCommandsKeysUnexpected(collectedTest, {
       commandsInput,
       keysInput,
@@ -754,6 +909,7 @@ export class TestRunInputOutput {
       CommandsInput.fromJSONAndConfigKeys(commandsJSON, {
         configInput: this.configInput,
         keysInput: this.keysInput,
+        allCommandsInput: this.allCommandsInput
       })
     );
   }
@@ -827,6 +983,16 @@ export class TestRunInputOutput {
     this.setSupportInput(SupportInput.fromJSON(supportJSON));
   }
 
+  /** @param {AllCommandsInput} allCommandsInput */
+  setAllCommandsInput(allCommandsInput) {
+    this.allCommandsInput = allCommandsInput;
+  }
+
+  /** @param {AllCommandsJSON} allCommandsJSON */
+  setAllCommandsInputFromJSON(allCommandsJSON) {
+    this.setAllCommandsInput(AllCommandsInput.fromJSON(allCommandsJSON))
+  }
+
   /** @param {TitleInput} titleInput */
   setTitleInput(titleInput) {
     this.titleInput = titleInput;
@@ -871,13 +1037,21 @@ export class TestRunInputOutput {
     const test = this.behaviorInput.behavior();
     const config = this.configInput;
 
+    function unescapeHTML(input) {
+      const textarea = document.createElement("textarea");
+      textarea.innerHTML = input;
+      return textarea.value;
+    }
+
+    const [atMode, screenText, instructions] = deriveModeWithTextAndInstructions(test.mode, config.at())
+
     let state = {
       errors,
       info: {
         description: test.description,
         task: test.task,
-        mode: test.mode,
-        modeInstructions: test.modeInstructions,
+        mode: screenText || atMode,
+        modeInstructions: Array.isArray(instructions) ? unescapeHTML(`${instructions[0]} ${instructions[1]}`) : test.modeInstructions,
         userInstructions: test.specificUserInstruction.split('|'),
         setupScriptDescription: test.setupScriptDescription,
       },
@@ -1313,6 +1487,34 @@ const StatusJSONMap = createEnumMap({
 });
 
 /**
+ *
+ * @param {ATMode} mode
+ * @param {ATJSON} at
+ * @returns {[ATMode, string, [string]]}
+ */
+function deriveModeWithTextAndInstructions(mode, at) {
+  let atMode = mode;
+  let screenText = '';
+  let instructions = [];
+
+  if (mode.includes('_')) {
+    const atModes = mode.split('_')
+    for (const _atMode of atModes) {
+      if (at.settings[_atMode]) {
+        atMode = _atMode
+        screenText = at.settings[_atMode].screenText
+        instructions = at.settings[_atMode].instructions
+      }
+    }
+  } else {
+    screenText = at.settings[atMode]?.screenText
+    instructions = at.settings[atMode]?.instructions
+  }
+
+  return [atMode, screenText, instructions]
+}
+
+/**
  * @param {boolean} test
  * @param {string} message
  * @param {any[]} args
@@ -1335,6 +1537,8 @@ function invariant(test, message, ...args) {
  * @typedef ATJSON
  * @property {string} name
  * @property {string} key
+ * @property {string} defaultConfigurationInstructionsHTML
+ * @property {object} settings
  */
 
 /**
@@ -1344,6 +1548,14 @@ function invariant(test, message, ...args) {
  * @property {object[]} examples
  * @property {string} examples[].directory
  * @property {string} examples[].name
+ */
+
+/**
+ * @typedef AllCommandsJSON
+ * @property {object} modifiers
+ * @property {object} modifierAliases
+ * @property {object} keys
+ * @property {object} keyAliases
  */
 
 /**
@@ -1368,7 +1580,15 @@ function invariant(test, message, ...args) {
  * @typedef {["at" | "showSubmitButton" | "showResults" | string, string][]} ConfigQueryParams
  */
 
-/** @typedef {"reading" | "interaction"} ATMode */
+/** @typedef {"reading" | "interaction" | "virtualCursor", "pcCursor", "browseMode" | "focusMode" | "quickNavOn" | "quickNavOff"} ATMode */
+
+/** @typedef OutputAssertion
+ *  @property {string} assertionId
+ *  @property {Number} priority
+ *  @property {string} assertionStatement
+ *  @property {string} assertionPhrase
+ *  @property {string} refIds
+ */
 
 /**
  * @typedef BehaviorJSON
@@ -1378,7 +1598,7 @@ function invariant(test, message, ...args) {
  * @property {ATMode | ATMode[]} mode
  * @property {string} task
  * @property {string} specific_user_instruction
- * @property {[string, string][]} [output_assertions]
+ * @property {[string, string][] | [OutputAssertion]} [output_assertions]
  * @property {{[atKey: string]: [number, string][]}} [additional_assertions]
  */
 

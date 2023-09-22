@@ -28,7 +28,8 @@ if (args.help) {
 
 // on some OSes, it seems the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
 const TARGET_TEST_PLAN =
-  args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate review page assets for
+  // args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate review page assets for
+  'alert';
 
 // folders and file paths setup
 const buildDirectory = path.resolve('.', 'build');
@@ -68,12 +69,13 @@ const getPriorityString = function (priority) {
   return '';
 };
 
+// TODO: If TARGET_TEST_PLAN is set, only check that directory
 fse.readdirSync(testsDirectory).forEach(function (directory) {
   const testPlanDirectory = path.join(testsDirectory, directory);
   const testPlanBuildDirectory = path.join(testsBuildDirectory, directory);
   const stat = fse.statSync(testPlanDirectory);
 
-  if (stat.isDirectory() && directory !== 'resources') {
+  if (stat.isDirectory() && directory !== 'resources' && directory === 'alert') {
     // Initialize the commands API
     const commandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
     const commands = JSON.parse(fse.readFileSync(commandsJSONFile));
@@ -85,9 +87,44 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
       path.join(testPlanDirectory, 'data', 'references.csv'),
       'UTF-8'
     );
-    const referenceLine = referencesCsv.split(/\r?\n/).find(s => s.startsWith('reference,'));
-    const splitReferenceLine = referenceLine ? referenceLine.split(',') : null;
-    const reference = splitReferenceLine && splitReferenceLine.length > 1 && splitReferenceLine[1];
+    const lines = referencesCsv.trim().split(/\r?\n/);
+    const headers = lines[0].split(',');
+    const referencesCsvData = lines.slice(1).map(line => line.split(','));
+
+    let referencesData = referencesCsvData.map(row => {
+      const obj = {};
+      headers.forEach((header, index) => {
+        obj[header] = row[index];
+      });
+      return obj;
+    });
+
+    const { references: { aria, htmlAam } } = support;
+    referencesData = referencesData.map(({ refId: _refId, type: _type, value: _value, linkText: _linkText }) => {
+      let refId = _refId.trim();
+      let type = _type.trim();
+      let value = _value.trim();
+      let linkText = _linkText.trim();
+
+      if (type === 'aria') {
+        value = `${aria.baseUrl}${aria.fragmentIds[value]}`;
+        linkText = `${linkText} ${aria.linkText}`;
+      }
+
+      if (type === 'htmlAam') {
+        value = `${htmlAam.baseUrl}${htmlAam.fragmentIds[value]}`;
+        linkText = `${linkText} ${htmlAam.linkText}`;
+      }
+
+      return {refId, type, value, linkText}
+    });
+
+    const reference = referencesData.find(({ refId }) => refId === 'reference');
+    const title = referencesData.find(({ refId }) => refId === 'title');
+
+    // const referenceLine = referencesCsv.split(/\r?\n/).find(s => s.startsWith('reference,'));
+    // const splitReferenceLine = referenceLine ? referenceLine.split(',') : null;
+    // const reference = splitReferenceLine && splitReferenceLine.length > 1 && splitReferenceLine[2];
 
     if (!reference) {
       // force exit if file path reference not found
@@ -96,6 +133,8 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
       );
       process.exit(1);
     }
+
+    console.log('reference', reference, referencesCsv, referencesData)
 
     const scriptsPath = path.join(testPlanDirectory, 'data', 'js');
     fse.readdirSync(scriptsPath).forEach(function (scriptFile) {
@@ -189,10 +228,19 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
             commands: commands && commands.length ? commands : undefined,
             assertions:
               assertions && assertions.length
-                ? assertions.map(a => ({
-                    priority: getPriorityString(a[0]),
-                    description: a[1],
-                  }))
+                ? assertions.map(a => {
+                  if (Array.isArray(a)) {
+                    return {
+                      priority: getPriorityString(a[0]),
+                      description: a[1]
+                    };
+                  }
+
+                  return {
+                    priority: a.priority,
+                    description: a.assertionStatement
+                  }
+                })
                 : undefined,
             userInstruction,
             modeInstruction: commandsAPI.getModeInstructions(mode, at),
@@ -208,11 +256,12 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
 
         tests.push({
           testNumber: tests.length + 1,
+          title: title.value,
           name: testFullName,
           location: `/${directory}/${test}`,
           reference: `/${directory}/${path.posix.join(
-            path.dirname(reference),
-            path.basename(reference, '.html')
+            path.dirname(reference.value),
+            path.basename(reference.value, '.html')
           )}${testData.setupTestPage ? `.${testData.setupTestPage}` : ''}.html`,
           allRelevantATsFormatted: testData.applies_to.join(', '),
           allRelevantATsSpaceSeparated: testData.applies_to.join(' '),
@@ -283,6 +332,7 @@ const renderedIndex = mustache.render(indexTemplate, {
     ]).stdout.toString();
     return {
       name: pattern,
+      title: allTestsForPattern[pattern][0].title,
       numberOfTests: allTestsForPattern[pattern].length,
       commit: lastCommit.split(' ')[0],
       commitDescription: lastCommit,

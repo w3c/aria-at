@@ -103,6 +103,7 @@ export function instructionDocument(resultState, hooks) {
       ? 'Describe '
       : `With ${resultState.config.at.name} in ${mode} mode, describe `;
 
+  // TODO: Wrap each command token in <kbd>
   const commands = resultState.commands.map(({ description }) => description);
   const assertions = resultState.commands[0].assertions.map(({ description }) => description);
   const additionalAssertions = resultState.commands[0].additionalAssertions.map(

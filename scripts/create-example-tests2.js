@@ -642,6 +642,7 @@ ${rows}
   const testsParsed = tests.map(parseTestCSVRow);
   console.info('testsParsed', JSON.stringify(testsParsed, null, 2), testsParsed.length);
   const referencesParsed = parseReferencesCSV(refRows);
+  console.info('referencesParsed', referencesParsed);
   const keysParsed = parseKeyMap(keyDefs);
   const supportParsed = parseSupport(support);
 

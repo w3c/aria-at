@@ -61,9 +61,11 @@ const scripts = [];
 const getPriorityString = function (priority) {
   priority = parseInt(priority);
   if (priority === 1) {
-    return 'required';
+    return 'MUST';
   } else if (priority === 2) {
-    return 'optional';
+    return 'SHOULD';
+  } else if (priority === 3) {
+    return 'MAY'
   }
   return '';
 };
@@ -236,7 +238,7 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
                   }
 
                   return {
-                    priority: a.priority,
+                    priority: getPriorityString(a.priority),
                     description: a.assertionStatement
                   }
                 })

@@ -28,8 +28,7 @@ if (args.help) {
 
 // on some OSes, it seems the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
 const TARGET_TEST_PLAN =
-  // args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate review page assets for
-  'alert';
+  args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate review page assets for
 
 // folders and file paths setup
 const buildDirectory = path.resolve('.', 'build');
@@ -75,7 +74,7 @@ fse.readdirSync(testsDirectory).forEach(function (directory) {
   const testPlanBuildDirectory = path.join(testsBuildDirectory, directory);
   const stat = fse.statSync(testPlanDirectory);
 
-  if (stat.isDirectory() && directory !== 'resources' && directory === 'alert') {
+  if (stat.isDirectory() && directory !== 'resources' && (TARGET_TEST_PLAN ? directory === TARGET_TEST_PLAN : true)) {
     // Initialize the commands API
     const commandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
     const commands = JSON.parse(fse.readFileSync(commandsJSONFile));

@@ -4,7 +4,7 @@ const fse = require('fs-extra');
 
 const { processTestDirectory } = require('../lib/data/process-test-directory');
 const {
-  processTestDirectory: processTestDirectoryOld,
+  processTestDirectory: processTestDirectoryV1,
 } = require('../lib/data/process-test-directory-v1');
 
 const args = require('minimist')(process.argv.slice(2), {
@@ -76,7 +76,7 @@ async function main() {
           throw error;
         });
       else
-        return processTestDirectoryOld({
+        return processTestDirectoryV1({
           directory: path.join('tests', directory),
           args,
         }).catch(error => {

@@ -3,7 +3,9 @@ const path = require('path');
 const fse = require('fs-extra');
 
 const { processTestDirectory } = require('../lib/data/process-test-directory');
-const { processTestDirectory: processTestDirectoryOld } = require('../lib/data/process-test-directory-v1');
+const {
+  processTestDirectory: processTestDirectoryOld,
+} = require('../lib/data/process-test-directory-v1');
 
 const args = require('minimist')(process.argv.slice(2), {
   alias: {

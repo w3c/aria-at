@@ -71,7 +71,7 @@ const getPriorityString = function (priority) {
 };
 
 // TODO: If TARGET_TEST_PLAN is set, only check that directory
-fse.readdirSync(testsDirectory).forEach(function (directory) {
+fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
   const testPlanDirectory = path.join(testsDirectory, directory);
   const testPlanBuildDirectory = path.join(testsBuildDirectory, directory);
   const stat = fse.statSync(testPlanDirectory);

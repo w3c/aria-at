@@ -157,7 +157,11 @@ function translateCommand(screenReader, commandSequence, substitutions) {
     commandSequence = newCommandSequence.join(' ');
     if (newCommandSettings.length > 0) commandSettings = newCommandSettings.join(' ');
   }
-  commandSequence = commandSequence.replaceAll('_', '+');
+  commandSequence = commandSequence
+    .replaceAll('_', '+')
+    .replaceAll('one', '1')
+    .replaceAll('two', '2')
+    .trim();
   return { commandSequence, commandSettings };
 }
 

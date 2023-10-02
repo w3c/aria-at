@@ -388,6 +388,10 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
         });
       }
     });
+
+    if (tests.length) {
+      allTestsForPattern[directory] = tests;
+    }
   }
 });
 

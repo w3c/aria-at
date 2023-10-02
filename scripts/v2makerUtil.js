@@ -161,6 +161,8 @@ function translateCommand(screenReader, commandSequence, substitutions) {
     .replaceAll('_', '+')
     .replaceAll('one', '1')
     .replaceAll('two', '2')
+    .replaceAll('page+up', 'pageUp')
+    .replaceAll('page+down', 'pageDown')
     .trim();
   return { commandSequence, commandSettings };
 }

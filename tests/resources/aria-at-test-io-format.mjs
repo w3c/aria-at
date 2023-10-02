@@ -326,8 +326,11 @@ class CommandsInput {
       let innerCommands = [];
       let commandSequence = c[0].split(',');
       for (let command of commandSequence) {
-        if (command.toLowerCase() === command) {
-          // Accounting for V2
+        // V1
+        const commandValue = this._keysInput.keysForCommand(command);
+
+        // Accounting for V2
+        if (commandValue === undefined) {
           const foundCommandKV = this._allCommandsInput.findValuesByKeys([command]);
           if (!foundCommandKV.length) command = undefined
           else {
@@ -335,8 +338,7 @@ class CommandsInput {
             command = value;
           }
         } else {
-          // V1
-          command = this._keysInput.keysForCommand(command);
+          command = undefined;
         }
         if (typeof command === 'undefined') {
           throw new Error(

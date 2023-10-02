@@ -1,0 +1,27 @@
+testId,command,settings,assertionExceptions,presentationNumber
+openModalDialog,space,browseMode,,1.0
+openModalDialog,enter,browseMode,,1.1
+openModalDialog,space,focusMode,,2.0
+openModalDialog,enter,focusMode,,2.1
+closeModalDialog,esc,browseMode,,4.0
+closeModalDialog,esc esc,focusMode,,5.0
+closeModalDialogUsingButton,space,browseMode,,7.0
+closeModalDialogUsingButton,enter,browseMode,,7.1
+closeModalDialogUsingButton,space,focusMode,,8.0
+closeModalDialogUsingButton,enter,focusMode,,8.1
+navToLastFocusableElementModalDialog,shift+tab,focusMode,,10.0
+navToFirstFocusableElementModalDialog,tab,focusMode,,12.0
+navToBeginningModalDialog,ctrl+home,browseMode,,14.0
+navToEndModalDialog,ctrl+end,browseMode,,16.0
+openNestedModalDialog,space,browseMode,,18.0
+openNestedModalDialog,enter,browseMode,,18.1
+openNestedModalDialog,space,focusMode,,19.0
+openNestedModalDialog,enter,focusMode,,19.1
+closeNestedModalDialog,esc,browseMode,,21.0
+closeNestedModalDialog,esc,focusMode,,22.0
+closeNestedModalDialogUsingButton,space,browseMode,,24.0
+closeNestedModalDialogUsingButton,enter,browseMode,,24.1
+closeNestedModalDialogUsingButton,space,focusMode,,25.0
+closeNestedModalDialogUsingButton,enter,focusMode,,25.1
+openNestedModalDialogUsingLink,enter,browseMode,,27.0
+openNestedModalDialogUsingLink,enter,focusMode,,28.0

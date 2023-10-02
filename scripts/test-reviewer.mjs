@@ -39,6 +39,7 @@ const reviewBuildDirectory = path.resolve(buildDirectory, 'review');
 
 const indexFileBuildOutputPath = path.resolve(buildDirectory, 'index.html');
 const supportFilePath = path.join(testsDirectory, 'support.json');
+const allCommandsFilePath = path.join(testsDirectory, 'commands.json');
 const reviewTemplateFilePath = path.resolve(scriptsDirectory, 'review-template.mustache');
 const reviewIndexTemplateFilePath = path.resolve(
   scriptsDirectory,
@@ -49,7 +50,9 @@ const reviewIndexTemplateFilePath = path.resolve(
 fse.existsSync(reviewBuildDirectory) || fse.mkdirSync(reviewBuildDirectory);
 
 const allTestsForPattern = {};
+const referencesForPattern = {};
 const support = JSON.parse(fse.readFileSync(supportFilePath));
+const allCommands = JSON.parse(fse.readFileSync(allCommandsFilePath));
 
 let allATKeys = [];
 support.ats.forEach(at => {
@@ -70,7 +73,24 @@ const getPriorityString = function (priority) {
   return '';
 };
 
-// TODO: If TARGET_TEST_PLAN is set, only check that directory
+const getReferenceForDirectory = (references, refId) => {
+  const { type, value, linkText } = references.find(el => el.refId === refId) || {};
+  return { type, value, linkText };
+}
+
+const unescapeHTML = string =>
+    string.replace(
+        /&amp;|&lt;|&gt;|&#39;|&quot;/g,
+        tag =>
+            ({
+              '&amp;': '&',
+              '&lt;': '<',
+              '&gt;': '>',
+              '&#39;': "'",
+              '&quot;': '"'
+            }[tag] || tag)
+    );
+
 fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
   const testPlanDirectory = path.join(testsDirectory, directory);
   const testPlanBuildDirectory = path.join(testsBuildDirectory, directory);
@@ -80,7 +100,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
     // Initialize the commands API
     const commandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
     const commands = JSON.parse(fse.readFileSync(commandsJSONFile));
-    const commandsAPI = new CommandsAPI(commands, support);
+    const commandsAPI = new CommandsAPI(commands, support, allCommands);
 
     const tests = [];
 
@@ -100,7 +120,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
       return obj;
     });
 
-    const { references: { aria, htmlAam } } = support;
+    const { references: { aria, htmlAam }, testPlanStrings: { ariaSpecsPreface, openExampleInstruction, commandListPreface, commandListSettingsPreface, settingInstructionsPreface, assertionResponseQuestion } } = support;
     referencesData = referencesData.map(({ refId: _refId, type: _type, value: _value, linkText: _linkText }) => {
       let refId = _refId.trim();
       let type = _type.trim();
@@ -120,12 +140,8 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
       return {refId, type, value, linkText}
     });
 
-    const reference = referencesData.find(({ refId }) => refId === 'reference');
-    const title = referencesData.find(({ refId }) => refId === 'title');
-
-    // const referenceLine = referencesCsv.split(/\r?\n/).find(s => s.startsWith('reference,'));
-    // const splitReferenceLine = referenceLine ? referenceLine.split(',') : null;
-    // const reference = splitReferenceLine && splitReferenceLine.length > 1 && splitReferenceLine[2];
+    const reference = getReferenceForDirectory(referencesData, 'reference')
+    const title = getReferenceForDirectory(referencesData, 'title')
 
     if (!reference) {
       // force exit if file path reference not found
@@ -135,7 +151,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
       process.exit(1);
     }
 
-    console.log('reference', reference, referencesCsv, referencesData)
+    referencesForPattern[directory] = referencesData;
 
     const scriptsPath = path.join(testPlanDirectory, 'data', 'js');
     fse.readdirSync(scriptsPath).forEach(function (scriptFile) {
@@ -167,11 +183,16 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
         for (let link of root.querySelectorAll('link')) {
           if (link.attributes.rel === 'help') {
             let href = link.attributes.href;
-            let text;
-            if (href.indexOf('#') >= 0) {
-              text = `ARIA specification: ${href.split('#')[1]}`;
-            } else {
-              text = `APG example: ${href.split('examples/')[1]}`;
+            // V2
+            let text = link.attributes.title;
+
+            // V1
+            if (!text) {
+              if (href.indexOf('#') >= 0) {
+                text = `ARIA specification: ${href.split('#')[1]}`;
+              } else {
+                text = `APG example: ${href.split('examples/')[1]}`;
+              }
             }
 
             helpLinks.push({
@@ -180,6 +201,8 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
             });
           }
         }
+        const helpLinksTitle = ariaSpecsPreface;
+        const helpLinksExist = !!helpLinks.length;
 
         let testData = JSON.parse(
           fse.readFileSync(
@@ -188,13 +211,14 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
           )
         );
 
-        const userInstruction = testData.specific_user_instruction;
+        const openExampleInstructions = unescapeHTML(openExampleInstruction) + ' ' + testData.setup_script_description + '.';
+        let userInstruction = testData.specific_user_instruction + ' ' + commandListPreface + ' ' + commandListSettingsPreface;
+
         const task = testData.task;
 
         // This is temporary while transitioning from lists to strings
         const mode = typeof testData.mode === 'string' ? testData.mode : testData.mode[0];
-
-        const ATTests = [];
+        const atTests = [];
 
         // TODO: These apply_to strings are not standardized yet.
         let allRelevantATs = [];
@@ -208,44 +232,124 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
         }
 
         for (const atKey of allRelevantATs.map(a => a.toLowerCase())) {
-          let commands, assertions;
+          let assertionsInstructions, assertionsForCommandsInstructions, commandsValuesForInstructions, modeInstructions = undefined;
           let at = commandsAPI.isKnownAT(atKey);
+          const defaultConfigurationInstructions = unescapeHTML(commandsAPI.defaultConfigurationInstructions(atKey));
+
+          if (testData.additional_assertions && testData.additional_assertions[at.key]) {
+            assertionsInstructions = testData.additional_assertions[at.key];
+          } else {
+            assertionsInstructions = testData.output_assertions;
+          }
+
+          const defaultAssertionsInstructions =
+            assertionsInstructions && assertionsInstructions.length ? assertionsInstructions.map(a => {
+              // V1 support
+              if (Array.isArray(a)) {
+                return {
+                  assertionId: null,
+                  priority: getPriorityString(a[0]),
+                  assertionPhrase: 'N/A',
+                  assertionStatement: a[1],
+                  commandInfo: null
+                };
+              }
+
+              // V2 support
+              return {
+                assertionId: a.assertionId,
+                priority: getPriorityString(a.priority),
+                assertionPhrase: a.assertionPhrase,
+                assertionStatement: a.assertionStatement,
+                commandInfo: a.commandInfo
+              }
+            })
+            : undefined
 
           try {
-            commands = commandsAPI.getATCommands(mode, task, at);
+            assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, at);
+            if (assertionsForCommandsInstructions.length && typeof assertionsForCommandsInstructions[0] === 'object') {
+              commandsValuesForInstructions = assertionsForCommandsInstructions.map(each => each.value);
+            } else {
+              // V1 came in as array of strings
+              if (assertionsForCommandsInstructions.every(each => typeof each === 'string')) {
+                commandsValuesForInstructions = assertionsForCommandsInstructions;
+                assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(each => ({ value: each }))
+              }
+            }
+
+            // For V2 to handle assertion exceptions
+            assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(assertionForCommand => {
+              const assertionsInstructions = defaultAssertionsInstructions.map((assertion, index) => {
+                let priority = assertion.priority;
+
+                // Check to see if there is any command info for current at key
+                if (assertion.commandInfo && assertion.commandInfo[at.key]) {
+                  assertion.commandInfo[at.key].forEach(commandInfoForAt => {
+                    if (commandInfoForAt.command === assertionForCommand.key && commandInfoForAt.assertionExceptions.includes(assertion.assertionId) && commandInfoForAt.testId === task) {
+                      for (const exceptionPair of commandInfoForAt.assertionExceptions.split(' ')) {
+                        let [exceptionPriority, exceptionAssertion] = exceptionPair.split(':');
+                        exceptionPriority = Number(exceptionPriority)
+
+                        if (assertion.assertionId === exceptionAssertion) {
+                          priority = getPriorityString(exceptionPriority);
+                        }
+                      }
+                    }
+                  })
+                }
+
+                return {
+                  ...assertion,
+                  priority
+                }
+              });
+
+              return ({
+                ...assertionForCommand,
+                assertionsInstructions,
+                mustCount: assertionsInstructions.reduce((acc, curr) => acc + (curr.priority === "MUST" ? 1 : 0), 0),
+                shouldCount: assertionsInstructions.reduce((acc, curr) => acc + (curr.priority === "SHOULD" ? 1 : 0), 0),
+                mayCount: assertionsInstructions.reduce((acc, curr) => acc + (curr.priority === "MAY" ? 1 : 0), 0)
+              });
+            })
+
+            if (commandsValuesForInstructions) {
+              if (!commandsValuesForInstructions.length) {
+                commandsValuesForInstructions = undefined;
+                userInstruction = testData.specific_user_instruction + ' ' + commandListPreface;
+              }
+            }
           } catch (error) {
             // An error will occur if there is no data for a screen reader, ignore it
           }
 
-          if (testData.additional_assertions && testData.additional_assertions[at.key]) {
-            assertions = testData.additional_assertions[at.key];
-          } else {
-            assertions = testData.output_assertions;
+          for (const atMode of mode.split('_')) {
+            if (at.settings.hasOwnProperty(atMode)) {
+              let settings = at.settings[atMode]
+              const modifiedSettings = {
+                ...settings,
+                screenText: settingInstructionsPreface + ' ' + settings.screenText + ':',
+                instructions: settings.instructions.map(instruction => {
+                  return unescapeHTML(instruction)
+                })
+              }
+              if (!modeInstructions) modeInstructions = [modifiedSettings]
+              else modeInstructions = [...modeInstructions, modifiedSettings]
+            }
           }
 
-          ATTests.push({
+          // TODO: This needs to be sorted based on presentation number of commands for V2
+          atTests.push({
             atName: at.name,
             atKey: at.key,
-            commands: commands && commands.length ? commands : undefined,
-            assertions:
-              assertions && assertions.length
-                ? assertions.map(a => {
-                  if (Array.isArray(a)) {
-                    return {
-                      priority: getPriorityString(a[0]),
-                      description: a[1]
-                    };
-                  }
-
-                  return {
-                    priority: getPriorityString(a.priority),
-                    description: a.assertionStatement
-                  }
-                })
-                : undefined,
+            commandsValuesForInstructions,
+            assertionsForCommandsInstructions,
+            defaultConfigurationInstructions,
+            openExampleInstructions,
+            modeInstructions,
+            // TODO: Need to handle case where the mode can switch during the instructions
             userInstruction,
-            modeInstruction: commandsAPI.getModeInstructions(mode, at),
-            setupScriptDescription: testData.setup_script_description,
           });
         }
 
@@ -266,35 +370,65 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
           )}${testData.setupTestPage ? `.${testData.setupTestPage}` : ''}.html`,
           allRelevantATsFormatted: testData.applies_to.join(', '),
           allRelevantATsSpaceSeparated: testData.applies_to.join(' '),
-          allRelevantATs: testData.applies_to,
+          allRelevantATs: testData.applies_to.map(each => {
+            const at = support.ats.find(at => at.key === each);
+            return {
+              key: at.key,
+              name: at.name
+            }
+          }),
           setupScriptName: testData.setupTestPage,
           task,
           mode,
-          ATTests,
+          atTests,
           helpLinks,
+          helpLinksTitle,
+          helpLinksExist,
           lastEdited,
         });
       }
     });
-
-    if (tests.length) {
-      allTestsForPattern[directory] = tests;
-    }
   }
 });
 
 let template = fse.readFileSync(reviewTemplateFilePath, 'utf8');
 let indexTemplate = fse.readFileSync(reviewIndexTemplateFilePath, 'utf8');
 
+const getRenderValues = (
+  references,
+  { pattern, totalTests, tests, atOptions = support.ats, setupScripts = scripts }
+) => {
+  const supportingDocs = [];
+
+  const { value: title } = getReferenceForDirectory(references, 'title');
+  const { value: exampleLink, linkText: exampleLinkText } = getReferenceForDirectory(references, 'example');
+  const { value: designPatternLink, linkText: designPatternLinkText } = getReferenceForDirectory(references, 'designPattern');
+  const { value: developmentDocumentationLink, linkText: developmentDocumentationLinkText } = getReferenceForDirectory(references, 'developmentDocumentation');
+
+  if (exampleLink) supportingDocs.push({ link: exampleLink, text: exampleLinkText });
+  if (designPatternLink) supportingDocs.push({ link: designPatternLink, text: designPatternLinkText });
+  if (developmentDocumentationLink) supportingDocs.push({ link: developmentDocumentationLink, text: developmentDocumentationLinkText });
+
+  return {
+    title,
+    pattern,
+    totalTests,
+    tests,
+    atOptions,
+    setupScripts,
+    supportingDocs
+  };
+};
+
 if (TARGET_TEST_PLAN) {
   if (allTestsForPattern[TARGET_TEST_PLAN]) {
-    let rendered = mustache.render(template, {
+    const references = referencesForPattern[TARGET_TEST_PLAN];
+    const renderValues = getRenderValues(references, {
       pattern: TARGET_TEST_PLAN,
-      totalTests: allTestsForPattern[TARGET_TEST_PLAN].length,
       tests: allTestsForPattern[TARGET_TEST_PLAN],
-      AToptions: support.ats,
-      setupScripts: scripts,
+      totalTests: allTestsForPattern[TARGET_TEST_PLAN].length,
     });
+    let rendered = mustache.render(template, renderValues);
 
     let summaryBuildFile = path.resolve(reviewBuildDirectory, `${TARGET_TEST_PLAN}.html`);
     fse.writeFileSync(summaryBuildFile, rendered);
@@ -307,13 +441,13 @@ if (TARGET_TEST_PLAN) {
   }
 } else {
   for (let pattern in allTestsForPattern) {
-    let rendered = mustache.render(template, {
+    const references = referencesForPattern[pattern];
+    const renderValues = getRenderValues(references, {
       pattern: pattern,
-      totalTests: allTestsForPattern[pattern].length,
       tests: allTestsForPattern[pattern],
-      AToptions: support.ats,
-      setupScripts: scripts,
+      totalTests: allTestsForPattern[pattern].length,
     });
+    let rendered = mustache.render(template, renderValues);
 
     let summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
     fse.writeFileSync(summaryBuildFile, rendered);

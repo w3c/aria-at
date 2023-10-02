@@ -21,13 +21,17 @@ export class commandsAPI {
    *     }
    *   }
    */
-  constructor(commands, support) {
+  constructor(commands, support, allCommands) {
     if (!commands) {
       throw new Error('You must initialize commandsAPI with a commands data object');
     }
 
     if (!support) {
       throw new Error('You must initialize commandsAPI with a support data object');
+    }
+
+    if (!allCommands) {
+      throw new Error('You must initialize commandsAPI with an allCommands data object');
     }
 
     this.AT_COMMAND_MAP = commands;
@@ -46,13 +50,14 @@ export class commandsAPI {
     };
 
     this.support = support;
+    this.allCommands = this.flattenObject(allCommands);
   }
 
   /**
    * Get AT-specific instruction
    * @param {string} mode - The mode of the screen reader, "reading" or "interaction"
    * @param {string} task - The task of the test.
-   * @param {string} assitiveTech - The assistive technology.
+   * @param {string} assistiveTech - The assistive technology.
    * @return {Array} - A list of commands (strings)
    */
   getATCommands(mode, task, assistiveTech) {
@@ -60,7 +65,18 @@ export class commandsAPI {
       throw new Error(
         `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
       );
-    } else if (!this.AT_COMMAND_MAP[task][mode]) {
+    }
+
+    if (mode.includes('_')) {
+      const atModes = mode.split('_');
+      for (const _atMode of atModes) {
+        if (this.AT_COMMAND_MAP[task][_atMode][assistiveTech.key]) {
+          mode = _atMode;
+        }
+      }
+    }
+
+    if (!this.AT_COMMAND_MAP[task][mode]) {
       throw new Error(
         `Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
       );
@@ -69,22 +85,39 @@ export class commandsAPI {
     let commandsData = this.AT_COMMAND_MAP[task][mode][assistiveTech.key] || [];
     let commands = [];
 
-    for (let c of commandsData) {
-      let innerCommands = [];
-      let commandSequence = c[0].split(',');
-      for (let command of commandSequence) {
-        command = keys[command];
-        if (typeof command === 'undefined') {
+    // V1
+    if (mode === 'reading' || mode === 'interaction') {
+      for (let c of commandsData) {
+        let innerCommands = [];
+        let commandSequence = c[0].split(',');
+        for (let command of commandSequence) {
+          command = keys[command];
+          if (typeof command === 'undefined') {
+            throw new Error(
+                `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+            );
+          }
+
+          let furtherInstruction = c[1];
+          command = furtherInstruction ? `${command} ${furtherInstruction}` : command;
+          innerCommands.push(command);
+        }
+        commands.push(innerCommands.join(', then '));
+      }
+    }
+
+    // V2
+    if (!commands.length) {
+      for (let c of commandsData) {
+        const commandKVs = this.findValuesByKeys(c)
+        if (!commandKVs.length) {
           throw new Error(
-            `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+              `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to tests/commands.json.`
           );
         }
 
-        let furtherInstruction = c[1];
-        command = furtherInstruction ? `${command} ${furtherInstruction}` : command;
-        innerCommands.push(command);
+        commands.push(...commandKVs);
       }
-      commands.push(innerCommands.join(', then '));
     }
 
     return commands;
@@ -110,5 +143,116 @@ export class commandsAPI {
    */
   isKnownAT(at) {
     return this.support.ats.find(o => o.key === at.toLowerCase());
+  }
+
+  defaultConfigurationInstructions(at) {
+    return this.support.ats.find(o => o.key === at.toLowerCase()).defaultConfigurationInstructionsHTML;
+  }
+
+  flattenObject(obj, parentKey) {
+    const flattened = {};
+
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        const subObject = this.flattenObject(obj[key], parentKey + key + '.');
+        Object.assign(flattened, subObject);
+      } else {
+        flattened[parentKey + key] = obj[key];
+      }
+    }
+
+    return flattened;
+  }
+
+  findValueByKey(keyToFind) {
+    const keys = Object.keys(this.allCommands);
+
+    // Need to specially handle VO modifier key combination
+    if (keyToFind === 'vo')
+      return this.findValuesByKeys([this.allCommands['modifierAliases.vo']])[0];
+
+    if (keyToFind.includes('modifiers.') || keyToFind.includes('keys.')) {
+      const parts = keyToFind.split('.');
+      const keyToCheck = parts[parts.length - 1]; // value after the '.'
+
+      if (this.allCommands[keyToFind])
+        return {
+          value: this.allCommands[keyToFind],
+          key: keyToCheck,
+        };
+
+      return null;
+    }
+
+    for (const key of keys) {
+      const parts = key.split('.');
+      const parentKey = parts[0];
+      const keyToCheck = parts[parts.length - 1]; // value after the '.'
+
+      if (keyToCheck === keyToFind) {
+        if (parentKey === 'modifierAliases') {
+          return this.findValueByKey(`modifiers.${this.allCommands[key]}`);
+        } else if (parentKey === 'keyAliases') {
+          return this.findValueByKey(`keys.${this.allCommands[key]}`);
+        }
+
+        return {
+          value: this.allCommands[key],
+          key: keyToCheck,
+        };
+      }
+    }
+
+    // Return null if the key is not found
+    return null;
+  }
+
+  findValuesByKeys(keysToFind = []) {
+    const result = [];
+
+    const patternSepWithReplacement = (keyToFind, pattern, replacement) => {
+      if (keyToFind.includes(pattern)) {
+        let value = '';
+        let validKeys = true;
+        const keys = keyToFind.split(pattern);
+
+        for (const key of keys) {
+          const keyResult = this.findValueByKey(key);
+          if (keyResult) value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
+          else validKeys = false;
+        }
+        if (validKeys) return { value, key: keyToFind };
+      }
+
+      return null;
+    };
+
+    const patternSepHandler = keyToFind => {
+      let value = '';
+
+      if (keyToFind.includes(' ') && keyToFind.includes('+')) {
+        const keys = keyToFind.split(' ');
+        for (let [index, key] of keys.entries()) {
+          const keyToFindResult = this.findValueByKey(key);
+          if (keyToFindResult) keys[index] = keyToFindResult.value;
+          if (key.includes('+')) keys[index] = patternSepWithReplacement(key, '+', '+').value;
+        }
+        value = keys.join(' then ');
+
+        return { value, key: keyToFind };
+      } else if (keyToFind.includes(' ')) return patternSepWithReplacement(keyToFind, ' ', ' then ');
+      else if (keyToFind.includes('+')) return patternSepWithReplacement(keyToFind, '+', '+');
+    };
+
+    for (const keyToFind of keysToFind) {
+      if (keyToFind.includes(' ') || keyToFind.includes('+')) {
+        result.push(patternSepHandler(keyToFind));
+      } else {
+        const keyToFindResult = this.findValueByKey(keyToFind);
+        if (keyToFindResult) result.push(keyToFindResult);
+      }
+    }
+
+    return result;
   }
 }

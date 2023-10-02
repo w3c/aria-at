@@ -1,0 +1,19 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToSlider,down down down,virtualCursor,,1.0
+navForwardsToSlider,tab,virtualCursor,,1.1
+navBackToSlider,up up,virtualCursor,,2.0
+navBackToSlider,shift+tab,virtualCursor,,2.1
+navForwardsToSlider,tab,pcCursor,3:value128 0:roleSlider,3.0
+navBackToSlider,shift+tab,pcCursor,,4.0
+reqInfoAboutSlider,ins+tab,virtualCursor,,7.0
+reqInfoAboutSlider,ins+up,virtualCursor,,7.1
+reqInfoAboutSlider,ins+tab,pcCursor,,8.0
+reqInfoAboutSlider,ins+up,pcCursor,,8.1
+incrementSliderByOneStep,right,pcCursor,,10.0
+incrementSliderByOneStep,up,pcCursor,,10.1
+decrementSliderByOneStep,left,pcCursor,,12.0
+decrementSliderByOneStep,down,pcCursor,,12.1
+incrementSliderByTenSteps,pageUp,pcCursor,,14.0
+decrementSliderByTenSteps,pageDown,pcCursor,,16.0
+decrementSliderToMinimumValue,home,pcCursor,,18.0
+incrementSliderToMaximumValue,end,pcCursor,,20.0

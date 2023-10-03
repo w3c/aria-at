@@ -288,7 +288,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
                     assertionId: a.assertionId,
                     priority: getPriorityString(a.priority),
                     assertionPhrase: a.assertionPhrase,
-                    assertionStatement: a.assertionStatement,
+                    assertionStatement: a.tokenizedAssertionStatements?.[at.key] || a.assertionStatement,
                     commandInfo: a.commandInfo,
                   };
                 })

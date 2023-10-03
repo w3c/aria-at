@@ -164,7 +164,7 @@ class AllCommandsInput {
     this._value = value;
 
     /** @private */
-    this._flattened = this.flattenObject(this._value)
+    this._flattened = this.flattenObject(this._value);
   }
 
   flattenObject(obj, parentKey) {
@@ -236,7 +236,8 @@ class AllCommandsInput {
 
         for (const key of keys) {
           const keyResult = this.findValueByKey(key);
-          if (keyResult) value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
+          if (keyResult)
+            value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
           else validKeys = false;
         }
         if (validKeys) return { value, key: keyToFind };
@@ -258,7 +259,8 @@ class AllCommandsInput {
         value = keys.join(' then ');
 
         return { value, key: keyToFind };
-      } else if (keyToFind.includes(' ')) return patternSepWithReplacement(keyToFind, ' ', ' then ');
+      } else if (keyToFind.includes(' '))
+        return patternSepWithReplacement(keyToFind, ' ', ' then ');
       else if (keyToFind.includes('+')) return patternSepWithReplacement(keyToFind, '+', '+');
     };
 
@@ -332,7 +334,7 @@ class CommandsInput {
         // Accounting for V2
         if (commandValue === undefined) {
           const foundCommandKV = this._allCommandsInput.findValuesByKeys([command]);
-          if (!foundCommandKV.length) command = undefined
+          if (!foundCommandKV.length) command = undefined;
           else {
             const { value } = this._allCommandsInput.findValuesByKeys([command])[0];
             command = value;
@@ -385,7 +387,8 @@ class CommandsInput {
         },
         at: collectedTest.target.at,
       },
-      keysInput, allCommandsInput
+      keysInput,
+      allCommandsInput
     );
   }
 }
@@ -697,15 +700,15 @@ class BehaviorInput {
           if (Array.isArray(assertion)) {
             return {
               priority: Number(assertion[0]),
-              assertion: assertion[1]
-            }
+              assertion: assertion[1],
+            };
           }
 
           // Object { assertionId, priority, assertionStatement, assertionPhrase, refIds }
           return {
             priority: assertion.priority,
-            assertion: assertion.assertionStatement
-          }
+            assertion: assertion.assertionStatement,
+          };
         }),
         additionalAssertions: (json.additional_assertions
           ? json.additional_assertions[at.key] || []
@@ -867,7 +870,10 @@ export class TestRunInputOutput {
     const unexpectedInput = UnexpectedInput.fromBuiltin();
     const keysInput = KeysInput.fromCollectedTest(collectedTest);
     const allCommandsInput = this.allCommandsInput;
-    const commandsInput = CommandsInput.fromCollectedTestKeys(collectedTest, { keysInput, allCommandsInput });
+    const commandsInput = CommandsInput.fromCollectedTestKeys(collectedTest, {
+      keysInput,
+      allCommandsInput,
+    });
     const behaviorInput = BehaviorInput.fromCollectedTestCommandsKeysUnexpected(collectedTest, {
       commandsInput,
       keysInput,
@@ -911,7 +917,7 @@ export class TestRunInputOutput {
       CommandsInput.fromJSONAndConfigKeys(commandsJSON, {
         configInput: this.configInput,
         keysInput: this.keysInput,
-        allCommandsInput: this.allCommandsInput
+        allCommandsInput: this.allCommandsInput,
       })
     );
   }
@@ -992,7 +998,7 @@ export class TestRunInputOutput {
 
   /** @param {AllCommandsJSON} allCommandsJSON */
   setAllCommandsInputFromJSON(allCommandsJSON) {
-    this.setAllCommandsInput(AllCommandsInput.fromJSON(allCommandsJSON))
+    this.setAllCommandsInput(AllCommandsInput.fromJSON(allCommandsJSON));
   }
 
   /** @param {TitleInput} titleInput */
@@ -1040,12 +1046,15 @@ export class TestRunInputOutput {
     const config = this.configInput;
 
     function unescapeHTML(input) {
-      const textarea = document.createElement("textarea");
+      const textarea = document.createElement('textarea');
       textarea.innerHTML = input;
       return textarea.value;
     }
 
-    const [atMode, screenText, instructions] = deriveModeWithTextAndInstructions(test.mode, config.at())
+    const [atMode, screenText, instructions] = deriveModeWithTextAndInstructions(
+      test.mode,
+      config.at()
+    );
 
     let state = {
       errors,
@@ -1053,7 +1062,9 @@ export class TestRunInputOutput {
         description: test.description,
         task: test.task,
         mode: screenText || atMode,
-        modeInstructions: Array.isArray(instructions) ? unescapeHTML(`${instructions[0]} ${instructions[1]}`) : test.modeInstructions,
+        modeInstructions: Array.isArray(instructions)
+          ? unescapeHTML(`${instructions[0]} ${instructions[1]}`)
+          : test.modeInstructions,
         userInstructions: test.specificUserInstruction.split('|'),
         setupScriptDescription: test.setupScriptDescription,
       },
@@ -1500,20 +1511,20 @@ function deriveModeWithTextAndInstructions(mode, at) {
   let instructions = [];
 
   if (mode.includes('_')) {
-    const atModes = mode.split('_')
+    const atModes = mode.split('_');
     for (const _atMode of atModes) {
       if (at.settings[_atMode]) {
-        atMode = _atMode
-        screenText = at.settings[_atMode].screenText
-        instructions = at.settings[_atMode].instructions
+        atMode = _atMode;
+        screenText = at.settings[_atMode].screenText;
+        instructions = at.settings[_atMode].instructions;
       }
     }
   } else {
-    screenText = at.settings[atMode]?.screenText
-    instructions = at.settings[atMode]?.instructions
+    screenText = at.settings[atMode]?.screenText;
+    instructions = at.settings[atMode]?.instructions;
   }
 
-  return [atMode, screenText, instructions]
+  return [atMode, screenText, instructions];
 }
 
 /**

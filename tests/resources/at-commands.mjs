@@ -94,7 +94,7 @@ export class commandsAPI {
           command = keys[command];
           if (typeof command === 'undefined') {
             throw new Error(
-                `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+              `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
             );
           }
 
@@ -109,10 +109,10 @@ export class commandsAPI {
     // V2
     if (!commands.length) {
       for (let c of commandsData) {
-        const commandKVs = this.findValuesByKeys(c)
+        const commandKVs = this.findValuesByKeys(c);
         if (!commandKVs.length) {
           throw new Error(
-              `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to tests/commands.json.`
+            `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to tests/commands.json.`
           );
         }
 
@@ -146,7 +146,8 @@ export class commandsAPI {
   }
 
   defaultConfigurationInstructions(at) {
-    return this.support.ats.find(o => o.key === at.toLowerCase()).defaultConfigurationInstructionsHTML;
+    return this.support.ats.find(o => o.key === at.toLowerCase())
+      .defaultConfigurationInstructionsHTML;
   }
 
   flattenObject(obj, parentKey) {
@@ -218,7 +219,8 @@ export class commandsAPI {
 
         for (const key of keys) {
           const keyResult = this.findValueByKey(key);
-          if (keyResult) value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
+          if (keyResult)
+            value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
           else validKeys = false;
         }
         if (validKeys) return { value, key: keyToFind };
@@ -240,7 +242,8 @@ export class commandsAPI {
         value = keys.join(' then ');
 
         return { value, key: keyToFind };
-      } else if (keyToFind.includes(' ')) return patternSepWithReplacement(keyToFind, ' ', ' then ');
+      } else if (keyToFind.includes(' '))
+        return patternSepWithReplacement(keyToFind, ' ', ' then ');
       else if (keyToFind.includes('+')) return patternSepWithReplacement(keyToFind, '+', '+');
     };
 

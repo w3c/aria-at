@@ -162,7 +162,10 @@ export function instructionDocument(resultState, hooks) {
           ],
           `Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}`,
         ],
-        strongInstructions: [convertModeInstructionsToKbdArray(modeInstructions), ...userInstructions],
+        strongInstructions: [
+          convertModeInstructionsToKbdArray(modeInstructions),
+          ...userInstructions,
+        ],
         commands: {
           description: `Using the following commands, ${lastInstruction}`,
           commands,

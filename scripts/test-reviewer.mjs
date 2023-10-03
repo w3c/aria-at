@@ -68,7 +68,7 @@ const getPriorityString = function (priority) {
   } else if (priority === 2) {
     return 'SHOULD';
   } else if (priority === 3) {
-    return 'MAY'
+    return 'MAY';
   }
   return '';
 };
@@ -76,27 +76,31 @@ const getPriorityString = function (priority) {
 const getReferenceForDirectory = (references, refId) => {
   const { type, value, linkText } = references.find(el => el.refId === refId) || {};
   return { type, value, linkText };
-}
+};
 
 const unescapeHTML = string =>
-    string.replace(
-        /&amp;|&lt;|&gt;|&#39;|&quot;/g,
-        tag =>
-            ({
-              '&amp;': '&',
-              '&lt;': '<',
-              '&gt;': '>',
-              '&#39;': "'",
-              '&quot;': '"'
-            }[tag] || tag)
-    );
+  string.replace(
+    /&amp;|&lt;|&gt;|&#39;|&quot;/g,
+    tag =>
+      ({
+        '&amp;': '&',
+        '&lt;': '<',
+        '&gt;': '>',
+        '&#39;': "'",
+        '&quot;': '"',
+      }[tag] || tag)
+  );
 
 fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
   const testPlanDirectory = path.join(testsDirectory, directory);
   const testPlanBuildDirectory = path.join(testsBuildDirectory, directory);
   const stat = fse.statSync(testPlanDirectory);
 
-  if (stat.isDirectory() && directory !== 'resources' && (TARGET_TEST_PLAN ? directory === TARGET_TEST_PLAN : true)) {
+  if (
+    stat.isDirectory() &&
+    directory !== 'resources' &&
+    (TARGET_TEST_PLAN ? directory === TARGET_TEST_PLAN : true)
+  ) {
     // Initialize the commands API
     const commandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
     const commands = JSON.parse(fse.readFileSync(commandsJSONFile));
@@ -120,28 +124,40 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
       return obj;
     });
 
-    const { references: { aria, htmlAam }, testPlanStrings: { ariaSpecsPreface, openExampleInstruction, commandListPreface, commandListSettingsPreface, settingInstructionsPreface, assertionResponseQuestion } } = support;
-    referencesData = referencesData.map(({ refId: _refId, type: _type, value: _value, linkText: _linkText }) => {
-      let refId = _refId.trim();
-      let type = _type.trim();
-      let value = _value.trim();
-      let linkText = _linkText.trim();
+    const {
+      references: { aria, htmlAam },
+      testPlanStrings: {
+        ariaSpecsPreface,
+        openExampleInstruction,
+        commandListPreface,
+        commandListSettingsPreface,
+        settingInstructionsPreface,
+        assertionResponseQuestion,
+      },
+    } = support;
+    referencesData = referencesData.map(
+      ({ refId: _refId, type: _type, value: _value, linkText: _linkText }) => {
+        let refId = _refId.trim();
+        let type = _type.trim();
+        let value = _value.trim();
+        let linkText = _linkText.trim();
 
-      if (type === 'aria') {
-        value = `${aria.baseUrl}${aria.fragmentIds[value]}`;
-        linkText = `${linkText} ${aria.linkText}`;
+        if (type === 'aria') {
+          value = `${aria.baseUrl}${aria.fragmentIds[value]}`;
+          linkText = `${linkText} ${aria.linkText}`;
+        }
+
+        if (type === 'htmlAam') {
+          value = `${htmlAam.baseUrl}${htmlAam.fragmentIds[value]}`;
+          linkText = `${linkText} ${htmlAam.linkText}`;
+        }
+
+        return { refId, type, value, linkText };
       }
+    );
 
-      if (type === 'htmlAam') {
-        value = `${htmlAam.baseUrl}${htmlAam.fragmentIds[value]}`;
-        linkText = `${linkText} ${htmlAam.linkText}`;
-      }
-
-      return {refId, type, value, linkText}
-    });
-
-    const reference = getReferenceForDirectory(referencesData, 'reference')
-    const title = getReferenceForDirectory(referencesData, 'title')
+    const reference = getReferenceForDirectory(referencesData, 'reference');
+    const title = getReferenceForDirectory(referencesData, 'title');
 
     if (!reference) {
       // force exit if file path reference not found
@@ -211,8 +227,14 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
           )
         );
 
-        const openExampleInstructions = unescapeHTML(openExampleInstruction) + ' ' + testData.setup_script_description + '.';
-        let userInstruction = testData.specific_user_instruction + ' ' + commandListPreface + ' ' + commandListSettingsPreface;
+        const openExampleInstructions =
+          unescapeHTML(openExampleInstruction) + ' ' + testData.setup_script_description + '.';
+        let userInstruction =
+          testData.specific_user_instruction +
+          ' ' +
+          commandListPreface +
+          ' ' +
+          commandListSettingsPreface;
 
         const task = testData.task;
 
@@ -232,9 +254,14 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
         }
 
         for (const atKey of allRelevantATs.map(a => a.toLowerCase())) {
-          let assertionsInstructions, assertionsForCommandsInstructions, commandsValuesForInstructions, modeInstructions = undefined;
+          let assertionsInstructions,
+            assertionsForCommandsInstructions,
+            commandsValuesForInstructions,
+            modeInstructions = undefined;
           let at = commandsAPI.isKnownAT(atKey);
-          const defaultConfigurationInstructions = unescapeHTML(commandsAPI.defaultConfigurationInstructions(atKey));
+          const defaultConfigurationInstructions = unescapeHTML(
+            commandsAPI.defaultConfigurationInstructions(atKey)
+          );
 
           if (testData.additional_assertions && testData.additional_assertions[at.key]) {
             assertionsInstructions = testData.additional_assertions[at.key];
@@ -243,76 +270,103 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
           }
 
           const defaultAssertionsInstructions =
-            assertionsInstructions && assertionsInstructions.length ? assertionsInstructions.map(a => {
-              // V1 support
-              if (Array.isArray(a)) {
-                return {
-                  assertionId: null,
-                  priority: getPriorityString(a[0]),
-                  assertionPhrase: 'N/A',
-                  assertionStatement: a[1],
-                  commandInfo: null
-                };
-              }
+            assertionsInstructions && assertionsInstructions.length
+              ? assertionsInstructions.map(a => {
+                  // V1 support
+                  if (Array.isArray(a)) {
+                    return {
+                      assertionId: null,
+                      priority: getPriorityString(a[0]),
+                      assertionPhrase: 'N/A',
+                      assertionStatement: a[1],
+                      commandInfo: null,
+                    };
+                  }
 
-              // V2 support
-              return {
-                assertionId: a.assertionId,
-                priority: getPriorityString(a.priority),
-                assertionPhrase: a.assertionPhrase,
-                assertionStatement: a.assertionStatement,
-                commandInfo: a.commandInfo
-              }
-            })
-            : undefined
+                  // V2 support
+                  return {
+                    assertionId: a.assertionId,
+                    priority: getPriorityString(a.priority),
+                    assertionPhrase: a.assertionPhrase,
+                    assertionStatement: a.assertionStatement,
+                    commandInfo: a.commandInfo,
+                  };
+                })
+              : undefined;
 
           try {
             assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, at);
-            if (assertionsForCommandsInstructions.length && typeof assertionsForCommandsInstructions[0] === 'object') {
-              commandsValuesForInstructions = assertionsForCommandsInstructions.map(each => each.value);
+            if (
+              assertionsForCommandsInstructions.length &&
+              typeof assertionsForCommandsInstructions[0] === 'object'
+            ) {
+              commandsValuesForInstructions = assertionsForCommandsInstructions.map(
+                each => each.value
+              );
             } else {
               // V1 came in as array of strings
               if (assertionsForCommandsInstructions.every(each => typeof each === 'string')) {
                 commandsValuesForInstructions = assertionsForCommandsInstructions;
-                assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(each => ({ value: each }))
+                assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(each => ({
+                  value: each,
+                }));
               }
             }
 
             // For V2 to handle assertion exceptions
-            assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(assertionForCommand => {
-              const assertionsInstructions = defaultAssertionsInstructions.map((assertion, index) => {
-                let priority = assertion.priority;
+            assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(
+              assertionForCommand => {
+                const assertionsInstructions = defaultAssertionsInstructions.map(
+                  (assertion, index) => {
+                    let priority = assertion.priority;
 
-                // Check to see if there is any command info for current at key
-                if (assertion.commandInfo && assertion.commandInfo[at.key]) {
-                  assertion.commandInfo[at.key].forEach(commandInfoForAt => {
-                    if (commandInfoForAt.command === assertionForCommand.key && commandInfoForAt.assertionExceptions.includes(assertion.assertionId) && commandInfoForAt.testId === task) {
-                      for (const exceptionPair of commandInfoForAt.assertionExceptions.split(' ')) {
-                        let [exceptionPriority, exceptionAssertion] = exceptionPair.split(':');
-                        exceptionPriority = Number(exceptionPriority)
+                    // Check to see if there is any command info for current at key
+                    if (assertion.commandInfo && assertion.commandInfo[at.key]) {
+                      assertion.commandInfo[at.key].forEach(commandInfoForAt => {
+                        if (
+                          commandInfoForAt.command === assertionForCommand.key &&
+                          commandInfoForAt.assertionExceptions.includes(assertion.assertionId) &&
+                          commandInfoForAt.testId === task
+                        ) {
+                          for (const exceptionPair of commandInfoForAt.assertionExceptions.split(
+                            ' '
+                          )) {
+                            let [exceptionPriority, exceptionAssertion] = exceptionPair.split(':');
+                            exceptionPriority = Number(exceptionPriority);
 
-                        if (assertion.assertionId === exceptionAssertion) {
-                          priority = getPriorityString(exceptionPriority);
+                            if (assertion.assertionId === exceptionAssertion) {
+                              priority = getPriorityString(exceptionPriority);
+                            }
+                          }
                         }
-                      }
+                      });
                     }
-                  })
-                }
+
+                    return {
+                      ...assertion,
+                      priority,
+                    };
+                  }
+                );
 
                 return {
-                  ...assertion,
-                  priority
-                }
-              });
-
-              return ({
-                ...assertionForCommand,
-                assertionsInstructions,
-                mustCount: assertionsInstructions.reduce((acc, curr) => acc + (curr.priority === "MUST" ? 1 : 0), 0),
-                shouldCount: assertionsInstructions.reduce((acc, curr) => acc + (curr.priority === "SHOULD" ? 1 : 0), 0),
-                mayCount: assertionsInstructions.reduce((acc, curr) => acc + (curr.priority === "MAY" ? 1 : 0), 0)
-              });
-            })
+                  ...assertionForCommand,
+                  assertionsInstructions,
+                  mustCount: assertionsInstructions.reduce(
+                    (acc, curr) => acc + (curr.priority === 'MUST' ? 1 : 0),
+                    0
+                  ),
+                  shouldCount: assertionsInstructions.reduce(
+                    (acc, curr) => acc + (curr.priority === 'SHOULD' ? 1 : 0),
+                    0
+                  ),
+                  mayCount: assertionsInstructions.reduce(
+                    (acc, curr) => acc + (curr.priority === 'MAY' ? 1 : 0),
+                    0
+                  ),
+                };
+              }
+            );
 
             if (commandsValuesForInstructions) {
               if (!commandsValuesForInstructions.length) {
@@ -326,16 +380,16 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
 
           for (const atMode of mode.split('_')) {
             if (at.settings.hasOwnProperty(atMode)) {
-              let settings = at.settings[atMode]
+              let settings = at.settings[atMode];
               const modifiedSettings = {
                 ...settings,
                 screenText: settingInstructionsPreface + ' ' + settings.screenText + ':',
                 instructions: settings.instructions.map(instruction => {
-                  return unescapeHTML(instruction)
-                })
-              }
-              if (!modeInstructions) modeInstructions = [modifiedSettings]
-              else modeInstructions = [...modeInstructions, modifiedSettings]
+                  return unescapeHTML(instruction);
+                }),
+              };
+              if (!modeInstructions) modeInstructions = [modifiedSettings];
+              else modeInstructions = [...modeInstructions, modifiedSettings];
             }
           }
 
@@ -374,8 +428,8 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
             const at = support.ats.find(at => at.key === each);
             return {
               key: at.key,
-              name: at.name
-            }
+              name: at.name,
+            };
           }),
           setupScriptName: testData.setupTestPage,
           task,
@@ -405,13 +459,25 @@ const getRenderValues = (
   const supportingDocs = [];
 
   const { value: title } = getReferenceForDirectory(references, 'title');
-  const { value: exampleLink, linkText: exampleLinkText } = getReferenceForDirectory(references, 'example');
-  const { value: designPatternLink, linkText: designPatternLinkText } = getReferenceForDirectory(references, 'designPattern');
-  const { value: developmentDocumentationLink, linkText: developmentDocumentationLinkText } = getReferenceForDirectory(references, 'developmentDocumentation');
+  const { value: exampleLink, linkText: exampleLinkText } = getReferenceForDirectory(
+    references,
+    'example'
+  );
+  const { value: designPatternLink, linkText: designPatternLinkText } = getReferenceForDirectory(
+    references,
+    'designPattern'
+  );
+  const { value: developmentDocumentationLink, linkText: developmentDocumentationLinkText } =
+    getReferenceForDirectory(references, 'developmentDocumentation');
 
   if (exampleLink) supportingDocs.push({ link: exampleLink, text: exampleLinkText });
-  if (designPatternLink) supportingDocs.push({ link: designPatternLink, text: designPatternLinkText });
-  if (developmentDocumentationLink) supportingDocs.push({ link: developmentDocumentationLink, text: developmentDocumentationLinkText });
+  if (designPatternLink)
+    supportingDocs.push({ link: designPatternLink, text: designPatternLinkText });
+  if (developmentDocumentationLink)
+    supportingDocs.push({
+      link: developmentDocumentationLink,
+      text: developmentDocumentationLinkText,
+    });
 
   return {
     title,
@@ -420,7 +486,7 @@ const getRenderValues = (
     tests,
     atOptions,
     setupScripts,
-    supportingDocs
+    supportingDocs,
   };
 };
 

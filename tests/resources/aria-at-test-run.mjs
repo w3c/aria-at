@@ -134,7 +134,7 @@ export function instructionDocument(resultState, hooks) {
       }
     }
 
-    return resultArray;
+    return resultArray.length ? resultArray : null;
   }
 
   return {
@@ -165,7 +165,7 @@ export function instructionDocument(resultState, hooks) {
         strongInstructions: [
           convertModeInstructionsToKbdArray(modeInstructions),
           ...userInstructions,
-        ],
+        ].filter(el => el),
         commands: {
           description: `Using the following commands, ${lastInstruction}`,
           commands,

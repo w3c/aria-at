@@ -374,15 +374,21 @@ async function makeTestsCsvData(allInputCsvData, assertionRows) {
   const v1tasks = new Set(allInputCsvData.v1tests.map(row => row.task));
   // iterate through the tasks and compare the VoiceOver assertions to the the JAWS and NVDA assertions.
   for (const task of v1tasks) {
-    // Find the v1testId for the VoiceOver test for this task in the v1testRows array.
-    const voiceOverV1TestId = allInputCsvData.v1tests.find(
+    let voiceOverV1TestId;
+    let voiceOverAssertions;
+    const voiceOverV1 = allInputCsvData.v1tests.find(
       row => row.task === task && row.appliesTo.toLowerCase().includes('voiceover')
-    ).testId;
-    // Use the v1testId to extract the VoiceOver assertions column for this task from the v2testRows. It contains a space-delimited set of assertionIds.
-    // Note that the v1testId was stored in the presentationNumber property in v2testRows.
-    const voiceOverAssertions = v2testRows.find(
-      row => row.presentationNumber === voiceOverV1TestId
-    ).assertions;
+    );
+    if (voiceOverV1) {
+      // Find the v1testId for the VoiceOver test for this task in the v1testRows array.
+      voiceOverV1TestId = voiceOverV1.testId;
+
+      // Use the v1testId to extract the VoiceOver assertions column for this task from the v2testRows. It contains a space-delimited set of assertionIds.
+      // Note that the v1testId was stored in the presentationNumber property in v2testRows.
+      voiceOverAssertions = v2testRows.find(
+        row => row.presentationNumber === voiceOverV1TestId
+      ).assertions;
+    }
     // Get array of v1testIds for JAWS and NVDA for this task.
     const jawsAndNvdaV1testIds = allInputCsvData.v1tests
       .filter(row => row.task === task && row.appliesTo.toLowerCase().search(/jaws|nvda/) >= 0)
@@ -393,7 +399,7 @@ async function makeTestsCsvData(allInputCsvData, assertionRows) {
         .assertions.split(' ');
       let loggedWarnings = '';
       for (const assertion of jawsAndNvdaAssertions) {
-        if (!voiceOverAssertions.includes(assertion)) {
+        if (voiceOverAssertions && !voiceOverAssertions.includes(assertion)) {
           if (!loggedWarnings.includes(assertion)) {
             const v2testId = v2testRows.find(row => row.presentationNumber === v1testId).testId;
             const msg =

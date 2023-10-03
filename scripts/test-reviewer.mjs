@@ -103,6 +103,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
   ) {
     // Initialize the commands API
     const commandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
+    console.log('uhuh', commandsJSONFile)
     const commands = JSON.parse(fse.readFileSync(commandsJSONFile));
     const commandsAPI = new CommandsAPI(commands, support, allCommands);
 

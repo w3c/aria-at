@@ -704,10 +704,10 @@ class BehaviorInput {
             };
           }
 
-          // Object { assertionId, priority, assertionStatement, assertionPhrase, refIds }
+          // { assertionId, priority, assertionStatement, assertionPhrase, refIds, commandInfo, tokenizedAssertionStatements }
           return {
             priority: assertion.priority,
-            assertion: assertion.assertionStatement,
+            assertion: assertion.tokenizedAssertionStatements?.[at.key] || assertion.assertionStatement,
           };
         }),
         additionalAssertions: (json.additional_assertions

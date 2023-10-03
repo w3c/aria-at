@@ -274,7 +274,7 @@ function rich(value) {
   } else if (Array.isArray(value)) {
     return fragment(...value.map(rich));
   } else if (value.kbd) {
-    return kbd.bind(value.kbd)(rich(value.kbd))
+    return kbd.bind(value.kbd)(rich(value.kbd));
   } else {
     if ('whitespace' in value) {
       if (value.whitespace === WhitespaceStyleMap.LINE_BREAK) {

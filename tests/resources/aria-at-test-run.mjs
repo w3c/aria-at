@@ -105,6 +105,7 @@ export function instructionDocument(resultState, hooks) {
 
   // TODO: Wrap each command token in <kbd>
   const commands = resultState.commands.map(({ description }) => description);
+  const commandSettings = resultState.commands.map(({ commandSettings }) => commandSettings);
   const assertions = resultState.commands[0].assertions.map(({ description }) => description);
   const additionalAssertions = resultState.commands[0].additionalAssertions.map(
     ({ description }) => description
@@ -168,7 +169,10 @@ export function instructionDocument(resultState, hooks) {
         ].filter(el => el),
         commands: {
           description: `Using the following commands, ${lastInstruction}`,
-          commands,
+          commands: commands.map(command => {
+            const commandSetting = commandSettings.find(setting => command === setting.command);
+            return `${command}${commandSetting.text ? ` (${commandSetting.text})` : ''}`;
+          }),
         },
       },
       assertions: {
@@ -223,8 +227,11 @@ export function instructionDocument(resultState, hooks) {
   function commandResult(command, commandIndex) {
     const resultStateCommand = resultState.commands[commandIndex];
     const resultUnexpectedBehavior = resultStateCommand.unexpected;
+
+    const { commandSettings: { text: settingsText } } = resultStateCommand;
+
     return {
-      header: `After '${command}'`,
+      header: `After '${command}'${settingsText ? ` (${settingsText})` : ''}`,
       atOutput: {
         description: [
           `${resultState.config.at.name} output after ${command}`,

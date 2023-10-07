@@ -167,6 +167,8 @@ function translateCommand(screenReader, commandSequence, substitutions) {
     .replaceAll('DOWN', 'down')
     .replaceAll('LEFT', 'left')
     .replaceAll('RIGHT', 'right')
+    .replaceAll('+then+', ' ')
+    .replaceAll('(with smart navigation on)', '')
     .trim();
   return { commandSequence, commandSettings };
 }

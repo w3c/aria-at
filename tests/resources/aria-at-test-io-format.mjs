@@ -3,12 +3,12 @@
 /// <reference path="./types/aria-at-test-result.js" />
 
 import {
-  HasUnexpectedBehaviorMap,
-  createEnumMap,
-  TestRun,
   AssertionResultMap,
-  UserActionMap,
   CommonResultMap,
+  createEnumMap,
+  HasUnexpectedBehaviorMap,
+  TestRun,
+  UserActionMap,
 } from './aria-at-test-run.mjs';
 import * as keysModule from './keys.mjs';
 
@@ -308,43 +308,38 @@ class CommandsInput {
    * @returns {string[]}
    */
   getCommands(task, mode) {
+    if (mode === 'reading' || mode === 'interaction') {
+      const v1Commands = this.getCommandsV1(task, mode);
+      return { commands: v1Commands, commandsAndSettings: v1Commands.map(command => ({ command })) };
+    } else {
+      return this.getCommandsV2(task, mode);
+    }
+  }
+
+  getCommandsV1(task, mode) {
     const assistiveTech = this._value.at;
-    const [atMode] = deriveModeWithTextAndInstructions(mode, assistiveTech);
 
     if (!this._value.commands[task]) {
       throw new Error(
-        `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
+          `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
       );
-    } else if (!this._value.commands[task][atMode]) {
+    } else if (!this._value.commands[task][mode]) {
       throw new Error(
-        `Mode "${atMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
+          `Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
       );
     }
 
-    let commandsData = this._value.commands[task][atMode][assistiveTech.key] || [];
+    let commandsData = this._value.commands[task][mode][assistiveTech.key] || [];
     let commands = [];
 
     for (let c of commandsData) {
       let innerCommands = [];
       let commandSequence = c[0].split(',');
       for (let command of commandSequence) {
-        // V1
-        const commandValue = this._keysInput.keysForCommand(command);
-
-        // Accounting for V2
-        if (commandValue === undefined) {
-          const foundCommandKV = this._allCommandsInput.findValuesByKeys([command]);
-          if (!foundCommandKV.length) command = undefined;
-          else {
-            const { value } = this._allCommandsInput.findValuesByKeys([command])[0];
-            command = value;
-          }
-        } else {
-          command = undefined;
-        }
+        command = this._keysInput.keysForCommand(command);
         if (typeof command === 'undefined') {
           throw new Error(
-            `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+              `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
           );
         }
 
@@ -356,6 +351,61 @@ class CommandsInput {
     }
 
     return commands;
+  }
+
+  getCommandsV2(task, mode) {
+    const assistiveTech = this._value.at;
+    let commandsAndSettings = [];
+    let commands = [];
+
+    // Mode could be in the format of mode1_mode2
+    // If they are from the same AT, this needs to return the function in the format of [ [[commands], settings], [[commands], settings], ... ]
+    for (const _atMode of mode.split('_')) {
+      if (assistiveTech.settings[_atMode] || _atMode === 'defaultMode') {
+        const [atMode] = deriveModeWithTextAndInstructions(_atMode, assistiveTech);
+
+        if (!this._value.commands[task]) {
+          throw new Error(
+              `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
+          );
+        } else if (!this._value.commands[task][atMode]) {
+          throw new Error(
+              `Mode "${atMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
+          );
+        }
+
+        let commandsData = this._value.commands[task][atMode][assistiveTech.key] || [];
+        for (let commandSequence of commandsData) {
+          for (let command of commandSequence) {
+            const foundCommandKV = this._allCommandsInput.findValuesByKeys([command]);
+            if (!foundCommandKV.length) command = undefined;
+            else {
+              const { value } = this._allCommandsInput.findValuesByKeys([command])[0];
+              command = value;
+            }
+
+            if (typeof command === 'undefined') {
+              throw new Error(
+                  `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+              );
+            }
+
+            commands.push(command);
+
+            commandsAndSettings.push({
+              command,
+              settings: _atMode,
+              settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
+              settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
+                assistiveTech.defaultConfigurationInstructionsHTML,
+              ],
+            });
+          }
+        }
+      }
+    }
+
+    return { commands, commandsAndSettings };
   }
 
   /**
@@ -684,6 +734,8 @@ class BehaviorInput {
     const mode = Array.isArray(json.mode) ? json.mode[0] : json.mode;
     const at = configInput.at();
 
+    const { commandsAndSettings } = commandsInput.getCommands(json.task, mode);
+
     return new BehaviorInput({
       behavior: {
         description: titleInput.title(),
@@ -694,7 +746,7 @@ class BehaviorInput {
         specificUserInstruction: json.specific_user_instruction,
         setupScriptDescription: json.setup_script_description,
         setupTestPage: json.setupTestPage,
-        commands: commandsInput.getCommands(json.task, mode),
+        commands: commandsAndSettings,
         assertions: (json.output_assertions ? json.output_assertions : []).map(assertion => {
           // Tuple array [ priorityNumber, assertionText ]
           if (Array.isArray(assertion)) {
@@ -707,7 +759,8 @@ class BehaviorInput {
           // { assertionId, priority, assertionStatement, assertionPhrase, refIds, commandInfo, tokenizedAssertionStatements }
           return {
             priority: assertion.priority,
-            assertion: assertion.tokenizedAssertionStatements?.[at.key] || assertion.assertionStatement,
+            assertion:
+              assertion.tokenizedAssertionStatements?.[at.key] || assertion.assertionStatement,
           };
         }),
         additionalAssertions: (json.additional_assertions
@@ -733,6 +786,8 @@ class BehaviorInput {
     { info, target, instructions, assertions },
     { commandsInput, keysInput, unexpectedInput }
   ) {
+    let { commandsAndSettings } = commandsInput.getCommands(info.task, target.mode);
+
     return new BehaviorInput({
       behavior: {
         description: info.title,
@@ -743,10 +798,10 @@ class BehaviorInput {
         specificUserInstruction: instructions.raw,
         setupScriptDescription: target.setupScript ? target.setupScript.description : '',
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
-        commands: commandsInput.getCommands(info.task, target.mode),
-        assertions: assertions.map(({ priority, expectation: assertion }) => ({
+        commands: commandsAndSettings,
+        assertions: assertions.map(({ priority, expectation, assertionStatement }) => ({
           priority,
-          assertion,
+          assertion: expectation || assertionStatement,
         })),
         additionalAssertions: [],
         unexpectedBehaviors: unexpectedInput.behaviors(),
@@ -1080,7 +1135,13 @@ export class TestRunInputOutput {
       commands: test.commands.map(
         command =>
           /** @type {import("./aria-at-test-run.mjs").TestRunCommand} */ ({
-            description: command,
+            description: command.command,
+            commandSettings: {
+              command: command.command,
+              description: command.settings,
+              text: command.settingsText,
+              instructions: command.settingsInstructions,
+            },
             atOutput: {
               highlightRequired: false,
               value: '',

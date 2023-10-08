@@ -103,7 +103,6 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
   ) {
     // Initialize the commands API
     const commandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
-    console.log('uhuh', commandsJSONFile)
     const commands = JSON.parse(fse.readFileSync(commandsJSONFile));
     const commandsAPI = new CommandsAPI(commands, support, allCommands);
 
@@ -138,10 +137,10 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
     } = support;
     referencesData = referencesData.map(
       ({ refId: _refId, type: _type, value: _value, linkText: _linkText }) => {
-        let refId = _refId.trim();
-        let type = _type.trim();
-        let value = _value.trim();
-        let linkText = _linkText.trim();
+        let refId = _refId?.trim();
+        let type = _type?.trim();
+        let value = _value?.trim();
+        let linkText = _linkText?.trim();
 
         if (type === 'aria') {
           value = `${aria.baseUrl}${aria.fragmentIds[value]}`;
@@ -253,6 +252,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
         } else {
           allRelevantATs = testData.applies_to;
         }
+        allRelevantATs = [...new Set(allRelevantATs)];
 
         for (const atKey of allRelevantATs.map(a => a.toLowerCase())) {
           let assertionsInstructions,
@@ -296,7 +296,10 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
               : undefined;
 
           try {
-            assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, at);
+            assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, { ...at, settings: { ...at.settings, defaultMode: {
+                  screenText: 'default mode active',
+                  instructions: [at.defaultConfigurationInstructionsHTML]
+                }} });
             if (
               assertionsForCommandsInstructions.length &&
               typeof assertionsForCommandsInstructions[0] === 'object'
@@ -321,7 +324,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
                   (assertion, index) => {
                     let priority = assertion.priority;
 
-                    // Check to see if there is any command info for current at key
+                    // Check to see if there is any command info exceptions for current at key
                     if (assertion.commandInfo && assertion.commandInfo[at.key]) {
                       assertion.commandInfo[at.key].forEach(commandInfoForAt => {
                         if (
@@ -369,19 +372,26 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
               }
             );
 
-            if (commandsValuesForInstructions) {
-              if (!commandsValuesForInstructions.length) {
-                commandsValuesForInstructions = undefined;
-                userInstruction = testData.specific_user_instruction + ' ' + commandListPreface;
-              }
+            if (commandsValuesForInstructions && !commandsValuesForInstructions.length) {
+              // Invalid state to reflect that no commands have been added to the related .csv in the template
+              commandsValuesForInstructions = undefined;
+              userInstruction = testData.specific_user_instruction + ' ' + commandListPreface;
             }
           } catch (error) {
             // An error will occur if there is no data for a screen reader, ignore it
           }
 
           for (const atMode of mode.split('_')) {
-            if (at.settings.hasOwnProperty(atMode)) {
-              let settings = at.settings[atMode];
+            const atSettingsWithDefault = {
+              ...at.settings,
+              defaultMode: {
+                screenText: 'default mode active',
+                instructions: [at.defaultConfigurationInstructionsHTML]
+              }
+            }
+
+            if (atSettingsWithDefault.hasOwnProperty(atMode)) {
+              let settings = atSettingsWithDefault[atMode];
               const modifiedSettings = {
                 ...settings,
                 screenText: settingInstructionsPreface + ' ' + settings.screenText + ':',
@@ -423,9 +433,9 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
             path.dirname(reference.value),
             path.basename(reference.value, '.html')
           )}${testData.setupTestPage ? `.${testData.setupTestPage}` : ''}.html`,
-          allRelevantATsFormatted: testData.applies_to.join(', '),
-          allRelevantATsSpaceSeparated: testData.applies_to.join(' '),
-          allRelevantATs: testData.applies_to.map(each => {
+          allRelevantATsFormatted: allRelevantATs.join(', '),
+          allRelevantATsSpaceSeparated: allRelevantATs.join(' '),
+          allRelevantATs: allRelevantATs.map(each => {
             const at = support.ats.find(at => at.key === each);
             return {
               key: at.key,

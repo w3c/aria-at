@@ -228,7 +228,9 @@ export function instructionDocument(resultState, hooks) {
     const resultStateCommand = resultState.commands[commandIndex];
     const resultUnexpectedBehavior = resultStateCommand.unexpected;
 
-    const { commandSettings: { text: settingsText } } = resultStateCommand;
+    const {
+      commandSettings: { text: settingsText },
+    } = resultStateCommand;
 
     return {
       header: `After '${command}'${settingsText ? ` (${settingsText})` : ''}`,

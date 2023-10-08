@@ -310,7 +310,10 @@ class CommandsInput {
   getCommands(task, mode) {
     if (mode === 'reading' || mode === 'interaction') {
       const v1Commands = this.getCommandsV1(task, mode);
-      return { commands: v1Commands, commandsAndSettings: v1Commands.map(command => ({ command })) };
+      return {
+        commands: v1Commands,
+        commandsAndSettings: v1Commands.map(command => ({ command })),
+      };
     } else {
       return this.getCommandsV2(task, mode);
     }
@@ -321,11 +324,11 @@ class CommandsInput {
 
     if (!this._value.commands[task]) {
       throw new Error(
-          `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
+        `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
       );
     } else if (!this._value.commands[task][mode]) {
       throw new Error(
-          `Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
+        `Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
       );
     }
 
@@ -339,7 +342,7 @@ class CommandsInput {
         command = this._keysInput.keysForCommand(command);
         if (typeof command === 'undefined') {
           throw new Error(
-              `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+            `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
           );
         }
 
@@ -366,11 +369,11 @@ class CommandsInput {
 
         if (!this._value.commands[task]) {
           throw new Error(
-              `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
+            `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
           );
         } else if (!this._value.commands[task][atMode]) {
           throw new Error(
-              `Mode "${atMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
+            `Mode "${atMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
           );
         }
 
@@ -386,7 +389,7 @@ class CommandsInput {
 
             if (typeof command === 'undefined') {
               throw new Error(
-                  `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+                `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
               );
             }
 

@@ -69,13 +69,13 @@ export class commandsAPI {
 
         if (!this.AT_COMMAND_MAP[task]) {
           throw new Error(
-              `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
+            `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
           );
         }
 
         if (!this.AT_COMMAND_MAP[task][mode]) {
           throw new Error(
-              `Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
+            `Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
           );
         }
 
@@ -90,7 +90,7 @@ export class commandsAPI {
               command = keys[command];
               if (typeof command === 'undefined') {
                 throw new Error(
-                    `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+                  `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
                 );
               }
 
@@ -106,11 +106,16 @@ export class commandsAPI {
             const commandKVs = this.findValuesByKeys(c);
             if (!commandKVs.length) {
               throw new Error(
-                  `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to tests/commands.json.`
+                `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to tests/commands.json.`
               );
             }
 
-            commands.push(...commandKVs.map(({ value, key }) => ({ value: `${value} (${assistiveTech.settings[mode].screenText})`, key })));
+            commands.push(
+              ...commandKVs.map(({ value, key }) => ({
+                value: `${value} (${assistiveTech.settings[mode].screenText})`,
+                key,
+              }))
+            );
           }
         }
       }

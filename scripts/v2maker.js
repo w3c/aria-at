@@ -485,22 +485,29 @@ async function makeCommandsCsvData(allInputCsvData, v1ToV2testIds) {
 
       // Make a new row for each command.
       for (const [index, command] of commands.entries()) {
-        let newRow = {};
-        newRow.testId = v1ToV2testIds.get(row.testId);
-        const { commandSequence, commandSettings } = util.translateCommand(
-          screenReader,
-          command,
-          allInputCsvData.commandSubstitutions
-        );
-        newRow.command = commandSequence;
-        if (commandSettings.trim() !== '') newRow.settings = commandSettings;
-        else if (row.mode.toLowerCase().includes('reading')) newRow.settings = readingModeSetting;
-        else if (row.mode.toLowerCase().includes('interaction'))
-          newRow.settings = interactionModeSetting;
-        else newRow.settings = '';
-        newRow.assertionExceptions = '';
-        newRow.presentationNumber = (Number(row.testId) + 0.1 * index).toFixed(1);
-        v2commandRows.push(newRow);
+        // Create additional rows in the instance of `commandSeq1 / commandSeq2`.
+        // For eg. F / Shift + F and is defined as F_AND_SHIFT_F in keys.mjs
+        for (const [_index, _command] of command.split('_AND_').entries()) {
+          // console.log('what is command', command, _command, innerIndex)
+          let newRow = {};
+          newRow.testId = v1ToV2testIds.get(row.testId);
+          const { commandSequence, commandSettings } = util.translateCommand(
+            screenReader,
+            _command,
+            allInputCsvData.commandSubstitutions
+          );
+          newRow.command = commandSequence;
+          if (commandSettings.trim() !== '') newRow.settings = commandSettings.trim();
+          else if (row.mode.toLowerCase().includes('reading')) newRow.settings = readingModeSetting;
+          else if (row.mode.toLowerCase().includes('interaction'))
+            newRow.settings = interactionModeSetting;
+          else newRow.settings = '';
+          newRow.assertionExceptions = '';
+          const isAdditionalCommand = command.includes('_AND_');
+          const control = isAdditionalCommand ? index + index : index;
+          newRow.presentationNumber = (Number(row.testId) + 0.1 * (control + _index)).toFixed(1);
+          v2commandRows.push(newRow);
+        }
       }
     }
 

@@ -210,12 +210,11 @@ async function makeAssertionsCsvData(allInputCsvData) {
   // Separate p1 and p2 assertions.
   let p1assertions = assertions.filter(assertion => !assertion.includes('2:'));
   let p2assertions = assertions.filter(assertion => assertion.includes('2:'));
-  // Remove the prefixes from the assertions.
-  p1assertions = p1assertions.map(assertion => assertion.replace('1:', ''));
+  // Remove the prefixes from the p2 assertions.
   p2assertions = p2assertions.map(assertion => assertion.replace('2:', ''));
   // Get rid of duplicates.
-  p1assertions = [...new Set(p1assertions.map(a => a.replace(/\s+/g, ' ').trim()))];
-  p2assertions = [...new Set(p2assertions.map(a => a.replace(/\s+/g, ' ').trim()))];
+  p1assertions = [...new Set(p1assertions)];
+  p2assertions = [...new Set(p2assertions)];
   // Remove p1 assertions that are the same as a p2 assertion.
   for (const p2assertion of p2assertions) {
     if (p1assertions.includes(p2assertion)) {
@@ -327,11 +326,7 @@ async function makeTestsCsvData(allInputCsvData, assertionRows) {
       if (colName.startsWith('assertion')) {
         if (row[colName].trim() !== '') {
           // Remove priority prefix if present.
-          const v1assertion = row[colName]
-            .replace('1:', '')
-            .replace('2:', '')
-            .replace(/\s+/g, ' ')
-            .trim();
+          const v1assertion = row[colName].replace('2:', '');
           // get the v2 assertion Id and add it to the assertions string. Do lookups and comparisons using lowercase. Keeping the original case for the log in the event the assertion is not found.
           if (assertionStatementsToIds.has(v1assertion.toLowerCase())) {
             assertions += ` ${assertionStatementsToIds.get(v1assertion.toLowerCase())}`;
@@ -419,8 +414,7 @@ async function makeTestsCsvData(allInputCsvData, assertionRows) {
     }
   }
 
-  // Now filter v2testRows down to just the VoiceOver rows (because they don't
-  // specify the reading or interaction mode).
+  // Now filter v2testRows down to just the VoiceOver rows.
   // First, get an array of just the voiceOver rows from v1tests.
   const v1voiceOverRows = allInputCsvData.v1tests.filter(row =>
     row.appliesTo.toLowerCase().includes('voiceover')
@@ -428,32 +422,7 @@ async function makeTestsCsvData(allInputCsvData, assertionRows) {
   // Build a set  of the v1 testIds for the VoiceOver tests.
   const voiceOverV1testIds = new Set(v1voiceOverRows.map(row => row.testId));
   // Filter v2testRows. Note that the presentationNumber property contains the v1testId.
-  const v2voiceOverTestRows = v2testRows.filter(row =>
-    voiceOverV1testIds.has(row.presentationNumber)
-  );
-
-  // Needs to also cover cases where there are tests which have no matching
-  // voiceover tests (for jaws, nvda). Eg. form test 19 and 20 from v1
-  const v2uniqueVoiceOverTestIds = v2voiceOverTestRows.map(({ testId }) => testId);
-  const unhandledV2testRows = v2testRows.filter(
-    row => !v2uniqueVoiceOverTestIds.includes(row.testId)
-  );
-
-  const v2uniqueNonVoiceOverTestRows = [];
-  const v2NonVoiceOverFoundTestIds = new Set();
-
-  for (const row of unhandledV2testRows) {
-    if (!v2NonVoiceOverFoundTestIds.has(row.testId)) {
-      v2uniqueNonVoiceOverTestRows.push({
-        ...row,
-        // Need to manually update these instances
-        title: row.title.replace('in reading mode', '').replace('in interaction mode', '').trim(),
-        instructions: row.instructions.replace('the reading cursor', 'focus'),
-      });
-      v2NonVoiceOverFoundTestIds.add(row.testId);
-    }
-  }
-  v2testRows = [...v2voiceOverTestRows, ...v2uniqueNonVoiceOverTestRows];
+  v2testRows = v2testRows.filter(row => voiceOverV1testIds.has(row.presentationNumber));
 
   // Write rows to CSV file
   const rowWriter = createCsvWriter({
@@ -516,15 +485,10 @@ async function makeCommandsCsvData(allInputCsvData, v1ToV2testIds) {
 
       // Make a new row for each command.
       for (const [index, command] of commands.entries()) {
-        let splitValue = ' ';
         // Create additional rows in the instance of `commandSeq1 / commandSeq2`.
         // For eg. F / Shift + F and is defined as F_AND_SHIFT_F in keys.mjs
-        if (command.includes('_AND_')) splitValue = '_AND_';
-        // Create additional rows in the instance of `commandSeq1 (or commandSeq2)`.
-        // For eg. Insert+F7 (or CapsLock+F7) and is defined as INS_F7_OR_CAPS_F7 in keys.mjs
-        if (command.includes('_OR_')) splitValue = '_OR_';
-
-        for (const [_index, _command] of command.split(splitValue).entries()) {
+        for (const [_index, _command] of command.split('_AND_').entries()) {
+          // console.log('what is command', command, _command, innerIndex)
           let newRow = {};
           newRow.testId = v1ToV2testIds.get(row.testId);
           const { commandSequence, commandSettings } = util.translateCommand(
@@ -539,7 +503,7 @@ async function makeCommandsCsvData(allInputCsvData, v1ToV2testIds) {
             newRow.settings = interactionModeSetting;
           else newRow.settings = '';
           newRow.assertionExceptions = '';
-          const isAdditionalCommand = command.includes(splitValue);
+          const isAdditionalCommand = command.includes('_AND_');
           const control = isAdditionalCommand ? index + index : index;
           newRow.presentationNumber = (Number(row.testId) + 0.1 * (control + _index)).toFixed(1);
           v2commandRows.push(newRow);

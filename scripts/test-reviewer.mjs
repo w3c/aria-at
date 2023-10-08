@@ -488,9 +488,24 @@ const getRenderValues = (
   const { value: developmentDocumentationLink, linkText: developmentDocumentationLinkText } =
     getReferenceForDirectory(references, 'developmentDocumentation');
 
-  if (exampleLink) supportingDocs.push({ link: exampleLink, text: exampleLinkText });
+  // Handle special cases where text could be null
+  let defaultExampleLinkText;
+  let defaultDesignPatternLinkText;
+
+  if (exampleLink) {
+    defaultExampleLinkText = `APG example: ${exampleLink.split('examples/')[1]}`;
+  }
+  if (designPatternLink) {
+    defaultDesignPatternLinkText = `ARIA specification: ${designPatternLink.split('#')[1]}`;
+  }
+
+  if (exampleLink)
+    supportingDocs.push({ link: exampleLink, text: exampleLinkText || defaultExampleLinkText });
   if (designPatternLink)
-    supportingDocs.push({ link: designPatternLink, text: designPatternLinkText });
+    supportingDocs.push({
+      link: designPatternLink,
+      text: designPatternLinkText || defaultDesignPatternLinkText,
+    });
   if (developmentDocumentationLink)
     supportingDocs.push({
       link: developmentDocumentationLink,

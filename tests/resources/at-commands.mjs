@@ -61,62 +61,58 @@ export class commandsAPI {
    * @return {Array} - A list of commands (strings)
    */
   getATCommands(mode, task, assistiveTech) {
-    if (!this.AT_COMMAND_MAP[task]) {
-      throw new Error(
-        `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
-      );
-    }
-
-    if (mode.includes('_')) {
-      const atModes = mode.split('_');
-      for (const _atMode of atModes) {
-        if (this.AT_COMMAND_MAP[task][_atMode][assistiveTech.key]) {
-          mode = _atMode;
-        }
-      }
-    }
-
-    if (!this.AT_COMMAND_MAP[task][mode]) {
-      throw new Error(
-        `Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
-      );
-    }
-
-    let commandsData = this.AT_COMMAND_MAP[task][mode][assistiveTech.key] || [];
     let commands = [];
 
-    // V1
-    if (mode === 'reading' || mode === 'interaction') {
-      for (let c of commandsData) {
-        let innerCommands = [];
-        let commandSequence = c[0].split(',');
-        for (let command of commandSequence) {
-          command = keys[command];
-          if (typeof command === 'undefined') {
-            throw new Error(
-              `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
-            );
-          }
+    for (const _atMode of mode.split('_')) {
+      if (this.AT_COMMAND_MAP[task][_atMode][assistiveTech.key]) {
+        mode = _atMode;
 
-          let furtherInstruction = c[1];
-          command = furtherInstruction ? `${command} ${furtherInstruction}` : command;
-          innerCommands.push(command);
-        }
-        commands.push(innerCommands.join(', then '));
-      }
-    }
-
-    // V2
-    if (!commands.length) {
-      for (let c of commandsData) {
-        const commandKVs = this.findValuesByKeys(c);
-        if (!commandKVs.length) {
+        if (!this.AT_COMMAND_MAP[task]) {
           throw new Error(
-            `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to tests/commands.json.`
+              `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
           );
         }
 
-        commands.push(...commandKVs);
+        if (!this.AT_COMMAND_MAP[task][mode]) {
+          throw new Error(
+              `Mode "${mode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
+          );
+        }
+
+        let commandsData = this.AT_COMMAND_MAP[task][mode][assistiveTech.key] || [];
+
+        // V1
+        if (mode === 'reading' || mode === 'interaction') {
+          for (let c of commandsData) {
+            let innerCommands = [];
+            let commandSequence = c[0].split(',');
+            for (let command of commandSequence) {
+              command = keys[command];
+              if (typeof command === 'undefined') {
+                throw new Error(
+                    `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+                );
+              }
+
+              let furtherInstruction = c[1];
+              command = furtherInstruction ? `${command} ${furtherInstruction}` : command;
+              innerCommands.push(command);
+            }
+            commands.push(innerCommands.join(', then '));
+          }
+        } else {
+          // V2
+          for (let c of commandsData) {
+            const commandKVs = this.findValuesByKeys(c);
+            if (!commandKVs.length) {
+              throw new Error(
+                  `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to tests/commands.json.`
+              );
+            }
+
+            commands.push(...commandKVs.map(({ value, key }) => ({ value: `${value} (${assistiveTech.settings[mode].screenText})`, key })));
+          }
+        }
       }
     }
 

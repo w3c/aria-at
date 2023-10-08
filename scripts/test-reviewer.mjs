@@ -289,17 +289,24 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
                     assertionId: a.assertionId,
                     priority: getPriorityString(a.priority),
                     assertionPhrase: a.assertionPhrase,
-                    assertionStatement: a.tokenizedAssertionStatements?.[at.key] || a.assertionStatement,
+                    assertionStatement:
+                      a.tokenizedAssertionStatements?.[at.key] || a.assertionStatement,
                     commandInfo: a.commandInfo,
                   };
                 })
               : undefined;
 
           try {
-            assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, { ...at, settings: { ...at.settings, defaultMode: {
+            assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, {
+              ...at,
+              settings: {
+                ...at.settings,
+                defaultMode: {
                   screenText: 'default mode active',
-                  instructions: [at.defaultConfigurationInstructionsHTML]
-                }} });
+                  instructions: [at.defaultConfigurationInstructionsHTML],
+                },
+              },
+            });
             if (
               assertionsForCommandsInstructions.length &&
               typeof assertionsForCommandsInstructions[0] === 'object'
@@ -386,9 +393,9 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
               ...at.settings,
               defaultMode: {
                 screenText: 'default mode active',
-                instructions: [at.defaultConfigurationInstructionsHTML]
-              }
-            }
+                instructions: [at.defaultConfigurationInstructionsHTML],
+              },
+            };
 
             if (atSettingsWithDefault.hasOwnProperty(atMode)) {
               let settings = atSettingsWithDefault[atMode];

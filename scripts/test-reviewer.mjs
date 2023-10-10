@@ -607,6 +607,13 @@ const renderedIndex = mustache.render(indexTemplate, {
       commit: lastCommit.split(' ')[0],
       commitDescription: lastCommit,
     };
+  }).sort((a, b) => {
+    const titleA = a.title.toUpperCase();
+    const titleB = b.title.toUpperCase();
+
+    if (titleA < titleB) return -1;
+    if (titleA > titleB) return 1;
+    return 0;
   }),
 });
 

@@ -2,7 +2,9 @@ const path = require('path');
 
 const fse = require('fs-extra');
 
-const { processTestDirectory } = require('../lib/data/process-test-directory');
+const {
+  processTestDirectory: processTestDirectoryV2,
+} = require('../lib/data/process-test-directory');
 const {
   processTestDirectory: processTestDirectoryV1,
 } = require('../lib/data/process-test-directory-v1');
@@ -13,6 +15,7 @@ const args = require('minimist')(process.argv.slice(2), {
     t: 'testplan',
     v: 'verbose',
     V: 'validate',
+    v1: 'version1',
     v2: 'version2',
   },
 });
@@ -30,6 +33,8 @@ if (args.help) {
        Generate tests and view a detailed report summary.
     -V, --validate
        Determine whether current test plans are valid (no errors present).
+    -v1, --version1
+       Build the tests with the v1 format of the tests
     -v2, --version2
        Build the tests with the v2 format of the tests
 `);
@@ -45,6 +50,7 @@ async function main() {
 
   const VERBOSE_CHECK = !!args.verbose;
   const VALIDATE_CHECK = !!args.validate;
+  const V1_CHECK = !!args.v1;
   const V2_CHECK = !!args.v2;
 
   const scriptsDirectory = path.dirname(__filename);
@@ -67,15 +73,34 @@ async function main() {
 
   const filteredTests = await Promise.all(
     filteredTestPlans.map(directory => {
-      if (V2_CHECK)
-        return processTestDirectory({
+      let FALLBACK_V1_CHECK = false;
+      let FALLBACK_V2_CHECK = false;
+
+      // Check if files exist for doing v2 build by default first, then try v1
+      if (!V1_CHECK && !V2_CHECK) {
+        // Use existence of assertions.csv to determine if v2 format files exist for now
+        const assertionsCsvPath = path.join(
+          __dirname,
+          '../',
+          'tests',
+          directory,
+          'data',
+          'assertions.csv'
+        );
+
+        if (fse.existsSync(assertionsCsvPath)) FALLBACK_V2_CHECK = true;
+        else FALLBACK_V1_CHECK = true;
+      }
+
+      if (FALLBACK_V2_CHECK || V2_CHECK) {
+        return processTestDirectoryV2({
           directory: path.join('tests', directory),
           args,
         }).catch(error => {
           error.directory = directory;
           throw error;
         });
-      else
+      } else if (FALLBACK_V1_CHECK || V1_CHECK) {
         return processTestDirectoryV1({
           directory: path.join('tests', directory),
           args,
@@ -83,6 +108,7 @@ async function main() {
           error.directory = directory;
           throw error;
         });
+      }
     })
   ).catch(error => {
     console.error(`ERROR: Unhandled exception thrown while processing "${error.directory}".`);

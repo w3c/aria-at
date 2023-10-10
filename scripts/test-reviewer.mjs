@@ -279,7 +279,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
         const atTests = [];
 
         // TODO: These applies_to strings are not standardized yet.
-        let allRelevantATs = [];
+        let allRelevantATs;
         if (
           testData.applies_to[0].toLowerCase() === 'desktop screen readers' ||
           testData.applies_to[0].toLowerCase() === 'screen readers'

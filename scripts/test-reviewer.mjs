@@ -432,7 +432,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
               },
             };
 
-            if (atSettingsWithDefault.hasOwnProperty(atMode)) {
+            if (atSettingsWithDefault.atMode) {
               let settings = atSettingsWithDefault[atMode];
               const modifiedSettings = {
                 ...settings,

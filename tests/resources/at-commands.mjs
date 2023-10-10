@@ -20,18 +20,20 @@ export class commandsAPI {
    *       }
    *     }
    *   }
+   * @param {object} supportJson - The data object found in `tests/support.json`
+   * @param {object} commandsJson - The data object found in `tests/commands.json`
    */
-  constructor(commands, support, allCommands) {
+  constructor(commands, supportJson, commandsJson) {
     if (!commands) {
       throw new Error('You must initialize commandsAPI with a commands data object');
     }
 
-    if (!support) {
-      throw new Error('You must initialize commandsAPI with a support data object');
+    if (!supportJson) {
+      throw new Error('You must initialize commandsAPI with a supportJson data object');
     }
 
-    if (!allCommands) {
-      throw new Error('You must initialize commandsAPI with an allCommands data object');
+    if (!commandsJson) {
+      throw new Error('You must initialize commandsAPI with a commandsJson data object');
     }
 
     this.AT_COMMAND_MAP = commands;
@@ -49,8 +51,8 @@ export class commandsAPI {
       },
     };
 
-    this.support = support;
-    this.allCommands = this.flattenObject(allCommands);
+    this.supportJson = supportJson;
+    this.commandsJson = this.flattenObject(commandsJson);
   }
 
   /**
@@ -143,11 +145,11 @@ export class commandsAPI {
    * @return {string} - if this API knows instructions for `at`, it will return the `at` with proper capitalization
    */
   isKnownAT(at) {
-    return this.support.ats.find(o => o.key === at.toLowerCase());
+    return this.supportJson.ats.find(o => o.key === at.toLowerCase());
   }
 
   defaultConfigurationInstructions(at) {
-    return this.support.ats.find(o => o.key === at.toLowerCase())
+    return this.supportJson.ats.find(o => o.key === at.toLowerCase())
       .defaultConfigurationInstructionsHTML;
   }
 
@@ -167,19 +169,19 @@ export class commandsAPI {
   }
 
   findValueByKey(keyToFind) {
-    const keys = Object.keys(this.allCommands);
+    const keys = Object.keys(this.commandsJson);
 
     // Need to specially handle VO modifier key combination
     if (keyToFind === 'vo')
-      return this.findValuesByKeys([this.allCommands['modifierAliases.vo']])[0];
+      return this.findValuesByKeys([this.commandsJson['modifierAliases.vo']])[0];
 
     if (keyToFind.includes('modifiers.') || keyToFind.includes('keys.')) {
       const parts = keyToFind.split('.');
       const keyToCheck = parts[parts.length - 1]; // value after the '.'
 
-      if (this.allCommands[keyToFind])
+      if (this.commandsJson[keyToFind])
         return {
-          value: this.allCommands[keyToFind],
+          value: this.commandsJson[keyToFind],
           key: keyToCheck,
         };
 
@@ -193,13 +195,13 @@ export class commandsAPI {
 
       if (keyToCheck === keyToFind) {
         if (parentKey === 'modifierAliases') {
-          return this.findValueByKey(`modifiers.${this.allCommands[key]}`);
+          return this.findValueByKey(`modifiers.${this.commandsJson[key]}`);
         } else if (parentKey === 'keyAliases') {
-          return this.findValueByKey(`keys.${this.allCommands[key]}`);
+          return this.findValueByKey(`keys.${this.commandsJson[key]}`);
         }
 
         return {
-          value: this.allCommands[key],
+          value: this.commandsJson[key],
           key: keyToCheck,
         };
       }

@@ -38,8 +38,8 @@
 
     <table>
       <tr>
-        <th>Pattern</th>
         <th>Title</th>
+        <th>Pattern</th>
         <th>Index Page</th>
         <th>Review Page</th>
         <th>Number of Tests</th>
@@ -47,8 +47,8 @@
       </tr>
       {{#patterns}}
           <tr>
-            <th>{{name}}</th>
-            <td>{{title}}</td>
+            <th>{{title}}</th>
+            <td>{{patternName}}</td>
             <td><a href="./tests/{{name}}/index.html" aria-label="Index: {{name}}">Index</a></td>
             <td><a href="./review/{{name}}.html" aria-label="Review: {{name}}">Review</a></td>
             <td><p aria-label="Number of Tests: {{numberOfTests}}">{{numberOfTests}}</p></td>

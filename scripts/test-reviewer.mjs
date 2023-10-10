@@ -107,6 +107,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
     const commandsAPI = new CommandsAPI(commands, support, allCommands);
 
     const tests = [];
+    const collectedTestsData = [];
 
     const referencesCsv = fse.readFileSync(
       path.join(testPlanDirectory, 'data', 'references.csv'),
@@ -193,7 +194,15 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
         const testFile = path.join(testsBuildDirectory, directory, test);
         const root = np.parse(fse.readFileSync(testFile, 'utf8'), { script: true });
 
-        // Get metadata
+        // Get testData from test-review-{presentationNumber}-{testId}-{modes}.json
+        const testData = JSON.parse(
+          fse.readFileSync(
+            path.join(testPlanBuildDirectory, path.parse(test).name + '.json'),
+            'utf8'
+          )
+        );
+
+        // Get metadata help links
         const testFullName = root.querySelector('title').innerHTML;
         const helpLinks = [];
         for (let link of root.querySelectorAll('link')) {
@@ -217,15 +226,42 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
             });
           }
         }
+
+        collectedTestsData.push({ ...testData, test, testFullName, helpLinks });
+      }
+    });
+
+    collectedTestsData
+      .sort((a, b) => {
+        const commandsInfoA = a.commandsInfo;
+        const commandsInfoB = b.commandsInfo;
+
+        // The whole number will always be the same in the collection
+        function extractPresentationNumber(data) {
+          let presentationNumber;
+
+          // Loop through the keys in testData
+          for (const key in data) {
+            // Check if the key has data
+            if (data[key].length > 0) {
+              // Extract presentation number from the first item in the array
+              presentationNumber = parseInt(data[key][0].presentationNumber);
+            }
+          }
+
+          return presentationNumber;
+        }
+
+        const wholeNumberA = extractPresentationNumber(commandsInfoA);
+        const wholeNumberB = extractPresentationNumber(commandsInfoB);
+
+        return wholeNumberA - wholeNumberB;
+      })
+      .forEach(({ test, testFullName, helpLinks, ...testData }) => {
+        const testNumber = tests.length + 1;
+
         const helpLinksTitle = ariaSpecsPreface;
         const helpLinksExist = !!helpLinks.length;
-
-        let testData = JSON.parse(
-          fse.readFileSync(
-            path.join(testPlanBuildDirectory, path.parse(test).name + '.json'),
-            'utf8'
-          )
-        );
 
         const openExampleInstructions =
           unescapeHTML(openExampleInstruction) + ' ' + testData.setup_script_description + '.';
@@ -242,7 +278,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
         const mode = typeof testData.mode === 'string' ? testData.mode : testData.mode[0];
         const atTests = [];
 
-        // TODO: These apply_to strings are not standardized yet.
+        // TODO: These applies_to strings are not standardized yet.
         let allRelevantATs = [];
         if (
           testData.applies_to[0].toLowerCase() === 'desktop screen readers' ||
@@ -326,43 +362,42 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
 
             // For V2 to handle assertion exceptions
             assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(
-              assertionForCommand => {
-                const assertionsInstructions = defaultAssertionsInstructions.map(
-                  (assertion, index) => {
-                    let priority = assertion.priority;
+              (assertionForCommand, assertionForCommandIndex) => {
+                const assertionsInstructions = defaultAssertionsInstructions.map(assertion => {
+                  let priority = assertion.priority;
 
-                    // Check to see if there is any command info exceptions for current at key
-                    if (assertion.commandInfo && assertion.commandInfo[at.key]) {
-                      assertion.commandInfo[at.key].forEach(commandInfoForAt => {
-                        if (
-                          commandInfoForAt.command === assertionForCommand.key &&
-                          commandInfoForAt.assertionExceptions.includes(assertion.assertionId) &&
-                          commandInfoForAt.testId === task
-                        ) {
-                          for (const exceptionPair of commandInfoForAt.assertionExceptions.split(
-                            ' '
-                          )) {
-                            let [exceptionPriority, exceptionAssertion] = exceptionPair.split(':');
-                            exceptionPriority = Number(exceptionPriority);
+                  // Check to see if there is any command info exceptions for current at key
+                  if (assertion.commandInfo && assertion.commandInfo[at.key]) {
+                    assertion.commandInfo[at.key].forEach(commandInfoForAt => {
+                      if (
+                        commandInfoForAt.command === assertionForCommand.key &&
+                        commandInfoForAt.assertionExceptions.includes(assertion.assertionId) &&
+                        commandInfoForAt.testId === task
+                      ) {
+                        for (const exceptionPair of commandInfoForAt.assertionExceptions.split(
+                          ' '
+                        )) {
+                          let [exceptionPriority, exceptionAssertion] = exceptionPair.split(':');
+                          exceptionPriority = Number(exceptionPriority);
 
-                            if (assertion.assertionId === exceptionAssertion) {
-                              priority = getPriorityString(exceptionPriority);
-                            }
+                          if (assertion.assertionId === exceptionAssertion) {
+                            priority = getPriorityString(exceptionPriority);
                           }
                         }
-                      });
-                    }
-
-                    return {
-                      ...assertion,
-                      priority,
-                    };
+                      }
+                    });
                   }
-                );
+
+                  return {
+                    ...assertion,
+                    priority,
+                  };
+                });
 
                 return {
                   ...assertionForCommand,
                   assertionsInstructions,
+                  elemId: `t${testNumber}-${at.key}-c${assertionForCommandIndex + 1}`,
                   mustCount: assertionsInstructions.reduce(
                     (acc, curr) => acc + (curr.priority === 'MUST' ? 1 : 0),
                     0
@@ -411,7 +446,6 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
             }
           }
 
-          // TODO: This needs to be sorted based on presentation number of commands for V2
           atTests.push({
             atName: at.name,
             atKey: at.key,
@@ -420,19 +454,18 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
             defaultConfigurationInstructions,
             openExampleInstructions,
             modeInstructions,
-            // TODO: Need to handle case where the mode can switch during the instructions
             userInstruction,
           });
         }
 
         // Create the test review pages
-        const testFilePath = path.join(testsBuildDirectory, directory, test);
+        const testFilePath = path.join(testsDirectory, directory);
         // TODO: useful for determining smart-diffs
         const output = spawnSync('git', ['log', '-1', '--format="%ad"', testFilePath]);
         const lastEdited = output.stdout.toString().replace(/"/gi, '').replace('\n', '');
 
         tests.push({
-          testNumber: tests.length + 1,
+          testNumber,
           title: title.value,
           name: testFullName,
           location: `/${directory}/${test}`,
@@ -458,8 +491,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
           helpLinksExist,
           lastEdited,
         });
-      }
-    });
+      });
 
     if (tests.length) {
       allTestsForPattern[directory] = tests;
@@ -569,7 +601,7 @@ const renderedIndex = mustache.render(indexTemplate, {
       path.join('.', 'tests', pattern),
     ]).stdout.toString();
     return {
-      name: pattern,
+      patternName: pattern,
       title: allTestsForPattern[pattern][0].title,
       numberOfTests: allTestsForPattern[pattern].length,
       commit: lastCommit.split(' ')[0],

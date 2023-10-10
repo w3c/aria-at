@@ -181,8 +181,8 @@
           </ol>
         {{/modeInstructions}}
         {{#assertionsForCommandsInstructions}}
-          <h4>{{value}}: {{mustCount}} MUST, {{shouldCount}} SHOULD, AND {{mayCount}} MAY assertions</h4>
-          <table>
+          <h4 id="{{elemId}}">{{value}}: {{mustCount}} MUST, {{shouldCount}} SHOULD, AND {{mayCount}} MAY assertions</h4>
+          <table aria-labelledby="{{elemId}}">
             <tr><th>Priority</th><th>Assertion Phrase</th><th>Assertion Statement</th></tr>
             {{#assertionsInstructions}}
               {{#priority}}

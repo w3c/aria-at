@@ -57,6 +57,7 @@
  * @property {string} specific_user_instruction
  * @property {string[][]} [output_assertions]
  * @property {Object<string, AriaATFile.StringNumber[][]>} [additional_assertions]
+ * @property {Object<string, AriaATCSV.AssertionCommandInfo[]>} commandsInfo
  */
 
 /**

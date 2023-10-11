@@ -288,6 +288,7 @@ class CommandsInput {
    * @param {CommandsJSON} value.commands
    * @param {ATJSON} value.at
    * @param {KeysInput} keysInput
+   * @param {AllCommandsInput} allCommandsInput
    * @private
    */
   constructor(value, keysInput, allCommandsInput) {
@@ -303,11 +304,13 @@ class CommandsInput {
   }
 
   /**
-   * @param {string} task
+   * @param {object} config
+   * @param {string} config.task
+   * @param {number} config.commandPresentationNumber
    * @param {ATMode} mode
    * @returns {string[]}
    */
-  getCommands(task, mode, commandsInfo) {
+  getCommands({ task, commandPresentationNumber }, mode) {
     if (mode === 'reading' || mode === 'interaction') {
       const v1Commands = this.getCommandsV1(task, mode);
       return {
@@ -315,7 +318,7 @@ class CommandsInput {
         commandsAndSettings: v1Commands.map(command => ({ command })),
       };
     } else {
-      return this.getCommandsV2(task, mode, commandsInfo);
+      return this.getCommandsV2({ task, commandPresentationNumber }, mode);
     }
   }
 
@@ -356,7 +359,7 @@ class CommandsInput {
     return commands;
   }
 
-  getCommandsV2(task, mode, commandsInfo) {
+  getCommandsV2({ task, commandPresentationNumber }, mode) {
     const assistiveTech = this._value.at;
     let commandsAndSettings = [];
     let commands = [];
@@ -379,7 +382,9 @@ class CommandsInput {
 
         let commandsData = this._value.commands[task][atMode][assistiveTech.key] || [];
         for (let commandSequence of commandsData) {
-          for (const commandId of commandSequence) {
+          for (const commandWithPresentationNumber of commandSequence) {
+            const [commandId, presentationNumber] = commandWithPresentationNumber.split('|');
+
             let command;
             const foundCommandKV = this._allCommandsInput.findValuesByKeys([commandId]);
             if (!foundCommandKV.length) command = undefined;
@@ -394,24 +399,13 @@ class CommandsInput {
               );
             }
 
-            if (commandsInfo) {
-              if (commandsInfo.find(({command, settings}) => command === commandId && settings === atMode)) {
-                commands.push(command);
-                commandsAndSettings.push({
-                  command,
-                  settings: _atMode,
-                  settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
-                  settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
-                    assistiveTech.defaultConfigurationInstructionsHTML,
-                  ],
-                });
-              }
-            } else {
+            if (commandPresentationNumber === parseInt(presentationNumber)) {
               commands.push(command);
               commandsAndSettings.push({
                 command,
                 settings: _atMode,
-                settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
+                settingsText:
+                  assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
                 settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
                   assistiveTech.defaultConfigurationInstructionsHTML,
                 ],
@@ -751,7 +745,10 @@ class BehaviorInput {
     const mode = Array.isArray(json.mode) ? json.mode[0] : json.mode;
     const at = configInput.at();
 
-    const { commandsAndSettings } = commandsInput.getCommands(json.task, mode, json.commandsInfo[at.key]);
+    const { commandsAndSettings } = commandsInput.getCommands(
+      { task: json.task, commandPresentationNumber: json.commandPresentationNumber },
+      mode
+    );
 
     return new BehaviorInput({
       behavior: {
@@ -803,7 +800,10 @@ class BehaviorInput {
     { info, target, instructions, assertions },
     { commandsInput, keysInput, unexpectedInput }
   ) {
-    let { commandsAndSettings } = commandsInput.getCommands(info.task, target.mode);
+    let { commandsAndSettings } = commandsInput.getCommands(
+      { task: info.task, commandPresentationNumber: info.commandPresentationNumber },
+      target.mode
+    );
 
     return new BehaviorInput({
       behavior: {
@@ -1671,7 +1671,7 @@ function invariant(test, message, ...args) {
  * @typedef {["at" | "showSubmitButton" | "showResults" | string, string][]} ConfigQueryParams
  */
 
-/** @typedef {"reading" | "interaction" | "virtualCursor", "pcCursor", "browseMode" | "focusMode" | "quickNavOn" | "quickNavOff"} ATMode */
+/** @typedef {"reading" | "interaction" | "virtualCursor", "pcCursor", "browseMode" | "focusMode" | "quickNavOn" | "quickNavOff" | "defaultMode"} ATMode */
 
 /** @typedef OutputAssertion
  *  @property {string} assertionId

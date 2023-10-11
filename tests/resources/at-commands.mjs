@@ -59,10 +59,11 @@ export class commandsAPI {
    * Get AT-specific instruction
    * @param {string} mode - The mode of the screen reader, "reading" or "interaction"
    * @param {string} task - The task of the test.
-   * @param {string} assistiveTech - The assistive technology.
+   * @param {object} assistiveTech - The assistive technology.
+   * @param {number} commandPresentationNumber - The presentationNumber value of the command from commands.json.
    * @return {Array} - A list of commands (strings)
    */
-  getATCommands(mode, task, assistiveTech, commandsInfo) {
+  getATCommands(mode, task, assistiveTech, commandPresentationNumber) {
     let commands = [];
 
     for (const _atMode of mode.split('_')) {
@@ -105,31 +106,22 @@ export class commandsAPI {
         } else {
           // V2
           for (let c of commandsData) {
-            const commandKVs = this.findValuesByKeys(c);
+            const commandWithPresentationNumber = c[0];
+            const [commandId, presentationNumber] = commandWithPresentationNumber.split('|');
+
+            const commandKVs = this.findValuesByKeys([commandId]);
             if (!commandKVs.length) {
               throw new Error(
-                `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to tests/commands.json.`
+                `Key instruction identifier "${commandId}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to tests/commands.json.`
               );
             }
 
-            // TODO: Consider including presentationNumber in the AT_COMMANDS_MAP to make this comparison and
-            //  commandsInfo dependence unnecessary
-            if (commandsInfo) {
-              const commandString = c[0];
-              if (commandsInfo.find(({ command, settings }) => commandString === command && mode === settings)) {
-                commands.push(
-                    ...commandKVs.map(({ value, key }) => ({
-                      value: `${value} (${assistiveTech.settings[mode].screenText})`,
-                      key,
-                    }))
-                );
-              }
-            } else {
+            if (commandPresentationNumber === parseInt(presentationNumber)) {
               commands.push(
-                  ...commandKVs.map(({ value, key }) => ({
-                    value: `${value} (${assistiveTech.settings[mode].screenText})`,
-                    key,
-                  }))
+                ...commandKVs.map(({ value, key }) => ({
+                  value: `${value} (${assistiveTech.settings[mode].screenText})`,
+                  key,
+                }))
               );
             }
           }

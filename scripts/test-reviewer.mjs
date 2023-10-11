@@ -102,9 +102,9 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
     (TARGET_TEST_PLAN ? directory === TARGET_TEST_PLAN : true)
   ) {
     // Initialize the commands API
-    const commandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
-    const commands = JSON.parse(fse.readFileSync(commandsJSONFile));
-    const commandsAPI = new CommandsAPI(commands, support, allCommands);
+    const testPlanCommandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
+    const testPlanCommands = JSON.parse(fse.readFileSync(testPlanCommandsJSONFile));
+    const commandsAPI = new CommandsAPI(testPlanCommands, support, allCommands);
 
     const tests = [];
     const collectedTestsData = [];
@@ -342,7 +342,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
                   instructions: [at.defaultConfigurationInstructionsHTML],
                 },
               },
-            });
+            }, testData?.commandsInfo?.[atKey]);
             if (
               assertionsForCommandsInstructions.length &&
               typeof assertionsForCommandsInstructions[0] === 'object'

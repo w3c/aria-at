@@ -62,7 +62,7 @@ export class commandsAPI {
    * @param {string} assistiveTech - The assistive technology.
    * @return {Array} - A list of commands (strings)
    */
-  getATCommands(mode, task, assistiveTech) {
+  getATCommands(mode, task, assistiveTech, commandsInfo) {
     let commands = [];
 
     for (const _atMode of mode.split('_')) {
@@ -112,12 +112,26 @@ export class commandsAPI {
               );
             }
 
-            commands.push(
-              ...commandKVs.map(({ value, key }) => ({
-                value: `${value} (${assistiveTech.settings[mode].screenText})`,
-                key,
-              }))
-            );
+            // TODO: Consider including presentationNumber in the AT_COMMANDS_MAP to make this comparison and
+            //  commandsInfo dependence unnecessary
+            if (commandsInfo) {
+              const commandString = c[0];
+              if (commandsInfo.find(({ command, settings }) => commandString === command && mode === settings)) {
+                commands.push(
+                    ...commandKVs.map(({ value, key }) => ({
+                      value: `${value} (${assistiveTech.settings[mode].screenText})`,
+                      key,
+                    }))
+                );
+              }
+            } else {
+              commands.push(
+                  ...commandKVs.map(({ value, key }) => ({
+                    value: `${value} (${assistiveTech.settings[mode].screenText})`,
+                    key,
+                  }))
+              );
+            }
           }
         }
       }

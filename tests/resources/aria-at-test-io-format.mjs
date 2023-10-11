@@ -343,7 +343,7 @@ class CommandsInput {
       let commandSequence = c[0].split(',');
       for (let command of commandSequence) {
         command = this._keysInput.keysForCommand(command);
-        if (typeof command === undefined) {
+        if (typeof command === 'undefined') {
           throw new Error(
             `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
           );
@@ -393,7 +393,7 @@ class CommandsInput {
               command = value;
             }
 
-            if (typeof command === undefined) {
+            if (typeof command === 'undefined') {
               throw new Error(
                 `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
               );

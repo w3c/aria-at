@@ -333,16 +333,21 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
               : undefined;
 
           try {
-            assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, {
-              ...at,
-              settings: {
-                ...at.settings,
-                defaultMode: {
-                  screenText: 'default mode active',
-                  instructions: [at.defaultConfigurationInstructionsHTML],
+            assertionsForCommandsInstructions = commandsAPI.getATCommands(
+              mode,
+              task,
+              {
+                ...at,
+                settings: {
+                  ...at.settings,
+                  defaultMode: {
+                    screenText: 'default mode active',
+                    instructions: [at.defaultConfigurationInstructionsHTML],
+                  },
                 },
               },
-            }, testData?.commandsInfo?.[atKey]);
+              testData.commandPresentationNumber
+            );
             if (
               assertionsForCommandsInstructions.length &&
               typeof assertionsForCommandsInstructions[0] === 'object'

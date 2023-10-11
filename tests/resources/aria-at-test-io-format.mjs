@@ -307,7 +307,7 @@ class CommandsInput {
    * @param {ATMode} mode
    * @returns {string[]}
    */
-  getCommands(task, mode) {
+  getCommands(task, mode, commandsInfo) {
     if (mode === 'reading' || mode === 'interaction') {
       const v1Commands = this.getCommandsV1(task, mode);
       return {
@@ -315,7 +315,7 @@ class CommandsInput {
         commandsAndSettings: v1Commands.map(command => ({ command })),
       };
     } else {
-      return this.getCommandsV2(task, mode);
+      return this.getCommandsV2(task, mode, commandsInfo);
     }
   }
 
@@ -340,7 +340,7 @@ class CommandsInput {
       let commandSequence = c[0].split(',');
       for (let command of commandSequence) {
         command = this._keysInput.keysForCommand(command);
-        if (typeof command === 'undefined') {
+        if (typeof command === undefined) {
           throw new Error(
             `Key instruction identifier "${c}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identified. Update you commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
           );
@@ -356,7 +356,7 @@ class CommandsInput {
     return commands;
   }
 
-  getCommandsV2(task, mode) {
+  getCommandsV2(task, mode, commandsInfo) {
     const assistiveTech = this._value.at;
     let commandsAndSettings = [];
     let commands = [];
@@ -379,30 +379,44 @@ class CommandsInput {
 
         let commandsData = this._value.commands[task][atMode][assistiveTech.key] || [];
         for (let commandSequence of commandsData) {
-          for (let command of commandSequence) {
-            const foundCommandKV = this._allCommandsInput.findValuesByKeys([command]);
+          for (const commandId of commandSequence) {
+            let command;
+            const foundCommandKV = this._allCommandsInput.findValuesByKeys([commandId]);
             if (!foundCommandKV.length) command = undefined;
             else {
-              const { value } = this._allCommandsInput.findValuesByKeys([command])[0];
+              const { value } = this._allCommandsInput.findValuesByKeys([commandId])[0];
               command = value;
             }
 
-            if (typeof command === 'undefined') {
+            if (typeof command === undefined) {
               throw new Error(
                 `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
               );
             }
 
-            commands.push(command);
-
-            commandsAndSettings.push({
-              command,
-              settings: _atMode,
-              settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
-              settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
-                assistiveTech.defaultConfigurationInstructionsHTML,
-              ],
-            });
+            if (commandsInfo) {
+              if (commandsInfo.find(({command, settings}) => command === commandId && settings === atMode)) {
+                commands.push(command);
+                commandsAndSettings.push({
+                  command,
+                  settings: _atMode,
+                  settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
+                  settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
+                    assistiveTech.defaultConfigurationInstructionsHTML,
+                  ],
+                });
+              }
+            } else {
+              commands.push(command);
+              commandsAndSettings.push({
+                command,
+                settings: _atMode,
+                settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
+                settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
+                  assistiveTech.defaultConfigurationInstructionsHTML,
+                ],
+              });
+            }
           }
         }
       }
@@ -737,7 +751,7 @@ class BehaviorInput {
     const mode = Array.isArray(json.mode) ? json.mode[0] : json.mode;
     const at = configInput.at();
 
-    const { commandsAndSettings } = commandsInput.getCommands(json.task, mode);
+    const { commandsAndSettings } = commandsInput.getCommands(json.task, mode, json.commandsInfo[at.key]);
 
     return new BehaviorInput({
       behavior: {

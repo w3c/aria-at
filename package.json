@@ -6,13 +6,13 @@
   "scripts": {
     "count": "node ./scripts/count-assertions.js",
     "lint": "eslint .",
-    "build": "npm run create-all-tests -- && npm run review-tests",
+    "build": "npm run create-all-tests && npm run review-tests",
     "build-v1": "npm run create-all-tests -- --version1 --verbose && npm run review-tests",
     "build-v2": "npm run create-all-tests -- --version2 --verbose && npm run review-tests",
     "validate": "npm run create-all-tests -- --verbose --validate",
     "cleanup": "rimraf build",
     "create-all-tests": "cross-var node scripts/create-all-tests.js --testplan=$npm_config_testplan",
-    "review-tests": "cross-var node scripts/test-reviewer.mjs --testplan=$npm_config_testplan",
+    "review-tests": "cross-var node --experimental-modules scripts/test-reviewer.mjs --testplan=$npm_config_testplan",
     "update-reference": "node scripts/update-reference.js",
     "make-v2": "node scripts/v2maker.js",
     "prepare": "husky install"

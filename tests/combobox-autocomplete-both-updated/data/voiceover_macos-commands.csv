@@ -1,0 +1,54 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToEmptyCollapsedCombobox,ctrl+opt+right ctrl+opt+right,,,5.0
+navForwardsToEmptyCollapsedCombobox,tab,,,5.1
+navForwardsToEmptyCollapsedCombobox,j,quickNavOn,,5.2
+navBackToEmptyCollapsedCombobox,ctrl+opt+left ctrl+opt+left,,,6.0
+navBackToEmptyCollapsedCombobox,shift+tab,,,6.1
+navBackToEmptyCollapsedCombobox,j,quickNavOn,,6.2
+reqInfoAboutEmptyCollapsedCombobox,ctrl+opt+f3,,,9.0
+reqInfoAboutEmptyCollapsedCombobox,ctrl+opt+f4,,,9.1
+navForwardsToFilledCollapsedCombobox,ctrl+opt+right ctrl+opt+right,,,14.0
+navForwardsToFilledCollapsedCombobox,tab,,,14.1
+navForwardsToFilledCollapsedCombobox,j,quickNavOn,,14.2
+navBackToFilledCollapsedCombobox,ctrl+opt+left ctrl+opt+left,,,15.0
+navBackToFilledCollapsedCombobox,shift+tab,,,15.1
+navBackToFilledCollapsedCombobox,j,quickNavOn,,15.2
+reqInfoAboutFilledCollapsedCombobox,ctrl+opt+f3,,,18.0
+reqInfoAboutFilledCollapsedCombobox,ctrl+opt+f4,,,18.1
+openEmptyCollapsedCombobox,opt+down,,,21.0
+openEmptyCollapsedCombobox,opt+up,,,21.1
+openFilledCollapsedCombobox,opt+down,,,24.0
+openFilledCollapsedCombobox,opt+up,,,24.1
+openEmptyCollapsedComboboxByTypingCharacter,a,,,26.0
+openFilledCollapsedComboboxByTypingCharacter,l,,,28.0
+reqInfoAboutEmptyExpandedCombobox,ctrl+opt+f3,,,31.0
+reqInfoAboutEmptyExpandedCombobox,ctrl+opt+f4,,,31.1
+reqInfoAboutFilledExpandedCombobox,ctrl+opt+f3,,,34.0
+reqInfoAboutFilledExpandedCombobox,ctrl+opt+f4,,,34.1
+narrowDownMatchingOptionsEmptyExpandedCombobox,a,,,36.0
+narrowDownMatchingOptionsFilledExpandedCombobox,l,,,38.0
+closeEmptyCombobox,enter,,,41.0
+closeEmptyCombobox,esc,,,41.1
+closeFilledCombobox,enter,,,44.0
+closeFilledCombobox,esc,,,44.1
+navFromEmptyCollapsedComboboxToFirstOptionListboxPopup,down,quickNavOff,,46.0
+navFromEmptyCollapsedComboboxToLastOptionListboxPopup,up,quickNavOff,,48.0
+navFromFilledCollapsedComboboxToFirstOptionListboxPopup,down,quickNavOff,,50.0
+navFromFilledCollapsedComboboxToLastOptionListboxPopup,up,quickNavOff,,52.0
+navFromEmptyExpandedComboboxToFirstOptionListboxPopup,down,quickNavOff,,54.0
+navFromEmptyExpandedComboboxToLastOptionListboxPopup,up,quickNavOff,,56.0
+navFromFilledExpandedComboboxToFirstOptionListboxPopup,down,quickNavOff,,58.0
+navFromFilledExpandedComboboxToLastOptionListboxPopup,up,quickNavOff,,60.0
+navToNextOptionListboxPopup,ctrl+opt+right,,,62.0
+navToNextOptionListboxPopup,down,quickNavOff,,62.1
+navToPrevOptionListboxPopup,ctrl+opt+left,,,64.0
+navToPrevOptionListboxPopup,up,quickNavOff,,64.1
+reqInfoAboutListboxPopup,ctrl+opt+f3,,,66.0
+reqInfoAboutListboxPopup,ctrl+opt+f4,,,66.1
+navOutListboxPopupByMovingEditingCursorToRight,right,quickNavOff,,69.0
+navOutListboxPopupByMovingEditingCursorToLeft,left,quickNavOff,,70.0
+navOutListboxPopupByMovingEditingCursorToEndTextbox,end,,,73.0
+navOutListboxPopupByMovingEditingCursorToBeginningTextbox,home,,,74.0
+selectOptionListboxPopup,ctrl+opt+space,,,76.0
+selectOptionListboxPopup,enter,,,76.1
+selectOptionListboxPopup,esc,,,76.2

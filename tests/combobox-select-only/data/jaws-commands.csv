@@ -1,0 +1,35 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToCollapsedSelectOnlyCombobox,f,virtualCursor,,1.0
+navForwardsToCollapsedSelectOnlyCombobox,c,virtualCursor,,1.1
+navForwardsToCollapsedSelectOnlyCombobox,tab,virtualCursor,,1.2
+navForwardsToCollapsedSelectOnlyCombobox,down down down,virtualCursor,,1.3
+navBackToCollapsedSelectOnlyCombobox,shift+f,virtualCursor,,2.0
+navBackToCollapsedSelectOnlyCombobox,shift+c,virtualCursor,,2.1
+navBackToCollapsedSelectOnlyCombobox,shift+tab,virtualCursor,,2.2
+navBackToCollapsedSelectOnlyCombobox,up up,virtualCursor,,2.3
+navForwardsToCollapsedSelectOnlyCombobox,tab,pcCursor,,3.0
+navBackToCollapsedSelectOnlyCombobox,shift+tab,pcCursor,,4.0
+reqInfoAboutCollapsedSelectOnlyCombobox,ins+tab,virtualCursor,,7.0
+reqInfoAboutCollapsedSelectOnlyCombobox,ins+up,virtualCursor,,7.1
+reqInfoAboutCollapsedSelectOnlyCombobox,ins+tab,pcCursor,,8.0
+openCollapsedSelectOnlyCombobox,alt+down,virtualCursor,,10.0
+openCollapsedSelectOnlyCombobox,down,pcCursor,,11.0
+openCollapsedSelectOnlyCombobox,alt+down,pcCursor,,11.1
+openCollapsedSelectOnlyCombobox,up,pcCursor,,11.2
+openCollapsedSelectOnlyCombobox,enter,pcCursor,,11.3
+openCollapsedSelectOnlyCombobox,space,pcCursor,,11.4
+openCollapsedSelectOnlyComboboxToFirstOption,home,pcCursor,,13.0
+openCollapsedSelectOnlyComboboxToSpecificOption,a,pcCursor,,15.0
+openCollapsedSelectOnlyComboboxToLastOption,end,pcCursor,,17.0
+reqInfoAboutListboxPopup,ins+tab,pcCursor,,19.0
+navForwardsToOptionListboxPopup,down,pcCursor,,21.0
+navBackToOptionListboxPopup,up,pcCursor,,22.0
+navToSpecificOptionListboxPopup,a,pcCursor,,25.0
+navToFirstOptionListboxPopup,home,pcCursor,,27.0
+navToLastOptionListboxPopup,end,pcCursor,,28.0
+navForwardsByTenOptionsListboxPopup,pageDown,pcCursor,,31.0
+navBackByTenOptionsListboxPopup,pageUp,pcCursor,,32.0
+selectOptionListboxPopup,enter,pcCursor,,35.0
+selectOptionListboxPopup,space,pcCursor,,35.1
+selectOptionListboxPopup,alt+up,pcCursor,,35.2
+closeListboxPopup,esc,pcCursor,,37.0

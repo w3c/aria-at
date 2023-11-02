@@ -1,4 +1,4 @@
 testId,title,presentationNumber,setupScript,instructions,assertions
-navForwardsToButton,Navigate forwards to a button in reading mode,1,setFocusBeforeButton,"With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Print Page' button",roleButton namePrintPage
-navBackToButton,Navigate backwards to a button in reading mode,2,setFocusAfterButton,"With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Print Page' button",roleButton namePrintPage
-reqInfoAboutButton,Request information about a button in reading mode,7,setFocusOnButton,"With the reading cursor on the 'Print Page' button, read information about the button.",roleButton namePrintPage
+navForwardsToButton,Navigate forwards to a button,5,setFocusBeforeButton,"With focus on the 'Navigate forwards from here' link, navigate to the 'Print Page' button.",roleButton namePrintPage
+navBackToButton,Navigate backwards to a button,6,setFocusAfterButton,"With focus on the 'Navigate backwards from here' link, navigate to the 'Print Page' button.",roleButton namePrintPage
+reqInfoAboutButton,Request information about a button,9,setFocusOnButton,"With focus on the 'Print Page' button, read information about the button.",roleButton namePrintPage

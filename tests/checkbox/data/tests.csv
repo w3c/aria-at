@@ -1,10 +1,10 @@
 testId,title,presentationNumber,setupScript,instructions,assertions
-navToUncheckedCheckbox,Navigate to an unchecked checkbox in reading mode,1,,Navigate to the first checkbox. Note: it should be in the unchecked state.,roleCheckbox nameLettuce stateCheckboxNotChecked
-navToCheckedCheckbox,Navigate to a checked checkbox in reading mode,4,checkFirstCheckbox,Navigate to the first checkbox. Note: it should be in the checked state.,roleCheckbox nameLettuce stateCheckboxChecked
-operateCheckbox,Operate a checkbox in reading mode,7,,Check and uncheck the first checkbox.,stateChange
-reqUncheckedCheckbox,Read an unchecked checkbox in reading mode,10,moveFocusToFirstCheckbox,"When the reading cursor is on the first checkbox, read the first checkbox",roleCheckbox nameLettuce stateCheckboxNotChecked
-reqCheckedCheckbox,Read a checked checkbox in reading mode,13,moveFocusAndCheckFirstCheckbox,"When the reading cursor is on the first checkbox, read the first checkbox.  Note: it should be in the checked state.",roleCheckbox nameLettuce stateCheckboxChecked
-reqGroupingInfoGroupedCheckbox,Read grouping information of a grouped checkbox in reading mode,16,,"When reading cursor is on a checkbox, read its grouping information",roleGroup groupNameSandwichCondiments
-navSequentiallyThroughCheckboxGroup,Navigate sequentially through a checkbox group in reading mode,19,,Navigate both forward and backward into and out of  the checkbox group.,roleGroup groupNameSandwichCondiments groupBoundariesAtStartAndEndGroupAreConveyed
-navIntoCheckboxGroup,Navigate into a checkbox group in reading mode,21,,Navigate from outside the checkbox group to a checkbox inside the group. Test both navigating forward into the start and backward into the end.,roleGroup groupNameSandwichCondiments theGroupBoundary
-navOutCheckboxGroup,Navigate out of a checkbox group  in reading mode,24,,Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start.,roleGroup groupNameSandwichCondiments theGroupBoundary
+navToUncheckedCheckbox,Navigate to an unchecked checkbox,3,,Navigate to the first checkbox. Note: it should be in the unchecked state.,roleCheckbox nameLettuce stateCheckboxNotChecked
+navToCheckedCheckbox,Navigate to a checked checkbox,6,checkFirstCheckbox,Navigate to the first checkbox. Note: it should be in the checked state.,roleCheckbox nameLettuce stateCheckboxChecked
+operateCheckbox,Operate a checkbox,9,,Check and uncheck the first checkbox.,stateChange
+reqUncheckedCheckbox,Read an unchecked checkbox,12,moveFocusToFirstCheckbox,"When the focus is on the first checkbox, read the first checkbox",roleCheckbox nameLettuce stateCheckboxNotChecked
+reqCheckedCheckbox,Read a checked checkbox,15,moveFocusAndCheckFirstCheckbox,"When the focus is on the first checkbox, read the first checkbox.  Note: it should be in the checked state.",roleCheckbox nameLettuce stateCheckboxChecked
+reqGroupingInfoGroupedCheckbox,Read grouping information of a grouped checkbox,18,,"When focus is on a checkbox, read its grouping information",roleGroup groupNameSandwichCondiments
+navSequentiallyThroughCheckboxGroup,Navigate sequentially through a checkbox group,20,,Navigate both forward and backward into and out of  the checkbox group.,roleGroup groupNameSandwichCondiments groupBoundariesAtStartAndEndGroupAreConveyed
+navIntoCheckboxGroup,Navigate into a checkbox group,23,,Navigate from outside the checkbox group to a checkbox inside the group. Test both navigating forward into the start and backward into the end.,roleGroup groupNameSandwichCondiments theGroupBoundary
+navOutCheckboxGroup,Navigate out of a checkbox group,26,,Navigate from a checkbox inside the checkbox group to an element outside the checkbox group. Test both navigating forward out of the end and backward out of the start.,roleGroup groupNameSandwichCondiments theGroupBoundary

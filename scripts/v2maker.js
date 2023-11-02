@@ -419,16 +419,41 @@ async function makeTestsCsvData(allInputCsvData, assertionRows) {
     }
   }
 
-  const v2uniqueTestRows = [];
-  const seenTestIds = new Set();
+  // Now filter v2testRows down to just the VoiceOver rows (because they don't
+  // specify the reading or interaction mode).
+  // First, get an array of just the voiceOver rows from v1tests.
+  const v1voiceOverRows = allInputCsvData.v1tests.filter(row =>
+    row.appliesTo.toLowerCase().includes('voiceover')
+  );
+  // Build a set  of the v1 testIds for the VoiceOver tests.
+  const voiceOverV1testIds = new Set(v1voiceOverRows.map(row => row.testId));
+  // Filter v2testRows. Note that the presentationNumber property contains the v1testId.
+  const v2voiceOverTestRows = v2testRows.filter(row =>
+    voiceOverV1testIds.has(row.presentationNumber)
+  );
 
-  for (const row of v2testRows) {
-    if (!seenTestIds.has(row.testId)) {
-      v2uniqueTestRows.push(row);
-      seenTestIds.add(row.testId);
+  // Needs to also cover cases where there are tests which have no matching
+  // voiceover tests (for jaws, nvda). Eg. form test 19 and 20 from v1
+  const v2uniqueVoiceOverTestIds = v2voiceOverTestRows.map(({ testId }) => testId);
+  const unhandledV2testRows = v2testRows.filter(
+    row => !v2uniqueVoiceOverTestIds.includes(row.testId)
+  );
+
+  const v2uniqueNonVoiceOverTestRows = [];
+  const v2NonVoiceOverFoundTestIds = new Set();
+
+  for (const row of unhandledV2testRows) {
+    if (!v2NonVoiceOverFoundTestIds.has(row.testId)) {
+      v2uniqueNonVoiceOverTestRows.push({
+        ...row,
+        // Need to manually update these instances
+        title: row.title.replace('in reading mode', '').replace('in interaction mode', '').trim(),
+        instructions: row.instructions.replace('the reading cursor', 'focus'),
+      });
+      v2NonVoiceOverFoundTestIds.add(row.testId);
     }
   }
-  v2testRows = v2uniqueTestRows;
+  v2testRows = [...v2voiceOverTestRows, ...v2uniqueNonVoiceOverTestRows];
 
   // Write rows to CSV file
   const rowWriter = createCsvWriter({

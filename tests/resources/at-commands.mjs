@@ -60,10 +60,9 @@ export class commandsAPI {
    * @param {string} mode - The mode of the screen reader, "reading" or "interaction"
    * @param {string} task - The task of the test.
    * @param {object} assistiveTech - The assistive technology.
-   * @param {number} commandPresentationNumber - The presentationNumber value of the command from commands.json.
    * @return {Array} - A list of commands (strings)
    */
-  getATCommands(mode, task, assistiveTech, commandPresentationNumber) {
+  getATCommands(mode, task, assistiveTech) {
     let commands = [];
 
     for (const _atMode of mode.split('_')) {
@@ -116,14 +115,17 @@ export class commandsAPI {
               );
             }
 
-            if (commandPresentationNumber === parseInt(presentationNumber)) {
-              commands.push(
-                ...commandKVs.map(({ value, key }) => ({
-                  value: `${value} (${assistiveTech.settings[mode].screenText})`,
+            commands.push(
+              ...commandKVs.map(({ value, key }) => {
+                value = assistiveTech.settings[mode].screenText
+                  ? `${value} (${assistiveTech.settings[mode].screenText})`
+                  : value;
+                return {
+                  value,
                   key,
-                }))
-              );
-            }
+                };
+              })
+            );
           }
         }
       }

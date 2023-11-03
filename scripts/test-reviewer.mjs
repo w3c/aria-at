@@ -333,21 +333,18 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
               : undefined;
 
           try {
-            assertionsForCommandsInstructions = commandsAPI.getATCommands(
-              mode,
-              task,
-              {
-                ...at,
-                settings: {
-                  ...at.settings,
-                  defaultMode: {
-                    screenText: 'default mode active',
-                    instructions: [at.defaultConfigurationInstructionsHTML],
-                  },
+            assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, {
+              ...at,
+              settings: {
+                ...at.settings,
+                defaultMode: {
+                  // TODO: If there is a need to explicitly state that the
+                  //  default mode is active for an AT
+                  screenText: '',
+                  // instructions: [at.defaultConfigurationInstructionsHTML],
                 },
               },
-              testData.commandPresentationNumber
-            );
+            });
             if (
               assertionsForCommandsInstructions.length &&
               typeof assertionsForCommandsInstructions[0] === 'object'
@@ -429,16 +426,18 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
           }
 
           for (const atMode of mode.split('_')) {
-            const atSettingsWithDefault = {
-              ...at.settings,
-              defaultMode: {
-                screenText: 'default mode active',
-                instructions: [at.defaultConfigurationInstructionsHTML],
-              },
-            };
+            // TODO: If there is ever need to explicitly show the instructions
+            //  for an AT with the default mode active
+            // const atSettingsWithDefault = {
+            //   ...at.settings,
+            //   defaultMode: {
+            //     screenText: 'default mode active',
+            //     instructions: [at.defaultConfigurationInstructionsHTML],
+            //   },
+            // };
 
-            if (atSettingsWithDefault[atMode]) {
-              let settings = atSettingsWithDefault[atMode];
+            if (at.settings[atMode]) {
+              let settings = at.settings[atMode];
               const modifiedSettings = {
                 ...settings,
                 screenText: settingInstructionsPreface + ' ' + settings.screenText + ':',

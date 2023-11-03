@@ -97,7 +97,7 @@ export function instructionDocument(resultState, hooks) {
     ? ` and runs a script that ${resultState.info.setupScriptDescription}.`
     : resultState.info.setupScriptDescription;
   // As a hack, special case mode instructions for VoiceOver for macOS until we
-  // support modeless tests. ToDo: remove this when resolving issue #194
+  // support modeless tests.
   const modePhrase =
     resultState.config.at.name === 'VoiceOver for macOS'
       ? 'Describe '
@@ -138,6 +138,15 @@ export function instructionDocument(resultState, hooks) {
     return resultArray.length ? resultArray : null;
   }
 
+  const convertedModeInstructions =
+    typeof modeInstructions !== undefined && !modeInstructions.includes('undefined')
+      ? convertModeInstructionsToKbdArray(modeInstructions)
+      : null;
+
+  let strongInstructions = [...userInstructions];
+  if (convertedModeInstructions)
+    strongInstructions = [convertedModeInstructions, ...strongInstructions];
+
   return {
     errors: {
       visible: resultState.errors && resultState.errors.length > 0 ? true : false,
@@ -163,15 +172,14 @@ export function instructionDocument(resultState, hooks) {
           ],
           `Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}`,
         ],
-        strongInstructions: [
-          convertModeInstructionsToKbdArray(modeInstructions),
-          ...userInstructions,
-        ].filter(el => el),
+        strongInstructions: strongInstructions.filter(el => el),
         commands: {
           description: `Using the following commands, ${lastInstruction}`,
-          commands: commands.map(command => {
-            const commandSetting = commandSettings.find(setting => command === setting.command);
-            return `${command}${commandSetting.text ? ` (${commandSetting.text})` : ''}`;
+          commands: commands.map((command, index) => {
+            const { description: settings, text: settingsText } = commandSettings[index];
+            return `${command}${
+              settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
+            }`;
           }),
         },
       },
@@ -229,11 +237,13 @@ export function instructionDocument(resultState, hooks) {
     const resultUnexpectedBehavior = resultStateCommand.unexpected;
 
     const {
-      commandSettings: { text: settingsText },
+      commandSettings: { description: settings, text: settingsText },
     } = resultStateCommand;
 
     return {
-      header: `After '${command}'${settingsText ? ` (${settingsText})` : ''}`,
+      header: `After '${command}'${
+        settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
+      }`,
       atOutput: {
         description: [
           `${resultState.config.at.name} output after ${command}`,

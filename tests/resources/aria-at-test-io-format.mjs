@@ -306,11 +306,10 @@ class CommandsInput {
   /**
    * @param {object} config
    * @param {string} config.task
-   * @param {number} config.commandPresentationNumber
    * @param {ATMode} mode
    * @returns {string[]}
    */
-  getCommands({ task, commandPresentationNumber }, mode) {
+  getCommands({ task }, mode) {
     if (mode === 'reading' || mode === 'interaction') {
       const v1Commands = this.getCommandsV1(task, mode);
       return {
@@ -318,7 +317,7 @@ class CommandsInput {
         commandsAndSettings: v1Commands.map(command => ({ command })),
       };
     } else {
-      return this.getCommandsV2({ task, commandPresentationNumber }, mode);
+      return this.getCommandsV2({ task }, mode);
     }
   }
 
@@ -359,7 +358,7 @@ class CommandsInput {
     return commands;
   }
 
-  getCommandsV2({ task, commandPresentationNumber }, mode) {
+  getCommandsV2({ task }, mode) {
     const assistiveTech = this._value.at;
     let commandsAndSettings = [];
     let commands = [];
@@ -399,18 +398,15 @@ class CommandsInput {
               );
             }
 
-            if (commandPresentationNumber === parseInt(presentationNumber)) {
-              commands.push(command);
-              commandsAndSettings.push({
-                command,
-                settings: _atMode,
-                settingsText:
-                  assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
-                settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
-                  assistiveTech.defaultConfigurationInstructionsHTML,
-                ],
-              });
-            }
+            commands.push(command);
+            commandsAndSettings.push({
+              command,
+              settings: _atMode,
+              settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
+              settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
+                assistiveTech.defaultConfigurationInstructionsHTML,
+              ],
+            });
           }
         }
       }
@@ -745,11 +741,7 @@ class BehaviorInput {
     const mode = Array.isArray(json.mode) ? json.mode[0] : json.mode;
     const at = configInput.at();
 
-    const { commandsAndSettings } = commandsInput.getCommands(
-      { task: json.task, commandPresentationNumber: json.commandPresentationNumber },
-      mode
-    );
-
+    const { commandsAndSettings } = commandsInput.getCommands({ task: json.task }, mode);
     return new BehaviorInput({
       behavior: {
         description: titleInput.title(),
@@ -800,10 +792,7 @@ class BehaviorInput {
     { info, target, instructions, assertions },
     { commandsInput, keysInput, unexpectedInput }
   ) {
-    let { commandsAndSettings } = commandsInput.getCommands(
-      { task: info.task, commandPresentationNumber: info.commandPresentationNumber },
-      target.mode
-    );
+    let { commandsAndSettings } = commandsInput.getCommands({ task: info.task }, target.mode);
 
     return new BehaviorInput({
       behavior: {

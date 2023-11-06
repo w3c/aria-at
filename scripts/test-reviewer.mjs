@@ -371,10 +371,18 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
                   // Check to see if there is any command info exceptions for current at key
                   if (assertion.commandInfo && assertion.commandInfo[at.key]) {
                     assertion.commandInfo[at.key].forEach(commandInfoForAt => {
+                      // Reconfirm against the known testData.commandsInfo;
+                      // order should be maintained as presorted during build
+                      // process
+                      const testDataCommandInfoForAt =
+                        testData.commandsInfo[at.key][assertionForCommandIndex];
+
                       if (
+                        commandInfoForAt.testId === task &&
                         commandInfoForAt.command === assertionForCommand.key &&
                         commandInfoForAt.assertionExceptions.includes(assertion.assertionId) &&
-                        commandInfoForAt.testId === task
+                        commandInfoForAt.presentationNumber ===
+                          testDataCommandInfoForAt.presentationNumber
                       ) {
                         for (const exceptionPair of commandInfoForAt.assertionExceptions.split(
                           ' '

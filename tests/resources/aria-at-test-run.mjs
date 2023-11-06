@@ -139,7 +139,7 @@ export function instructionDocument(resultState, hooks) {
   }
 
   const convertedModeInstructions =
-    typeof modeInstructions !== undefined && !modeInstructions.includes('undefined')
+    modeInstructions !== undefined && !modeInstructions.includes('undefined')
       ? convertModeInstructionsToKbdArray(modeInstructions)
       : null;
 

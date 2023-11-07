@@ -516,7 +516,7 @@ let indexTemplate = fse.readFileSync(reviewIndexTemplateFilePath, 'utf8');
 
 const getRenderValues = (
   references,
-  { pattern, totalTests, tests, atOptions = support.ats, setupScripts = scripts }
+  { pattern, tests, atOptions = support.ats, setupScripts = scripts }
 ) => {
   const supportingDocs = [];
 
@@ -556,10 +556,13 @@ const getRenderValues = (
       text: developmentDocumentationLinkText,
     });
 
+  const testsLength = tests.length;
+  const h1Heading = `${title} Test Plan (${tests.length} test${testsLength === 1 ? '' : 's'})`;
+
   return {
     title,
     pattern,
-    totalTests,
+    h1Heading,
     tests,
     atOptions,
     setupScripts,
@@ -573,7 +576,6 @@ if (TARGET_TEST_PLAN) {
     const renderValues = getRenderValues(references, {
       pattern: TARGET_TEST_PLAN,
       tests: allTestsForPattern[TARGET_TEST_PLAN],
-      totalTests: allTestsForPattern[TARGET_TEST_PLAN].length,
     });
     let rendered = mustache.render(template, renderValues);
 
@@ -592,7 +594,6 @@ if (TARGET_TEST_PLAN) {
     const renderValues = getRenderValues(references, {
       pattern: pattern,
       tests: allTestsForPattern[pattern],
-      totalTests: allTestsForPattern[pattern].length,
     });
     let rendered = mustache.render(template, renderValues);
 

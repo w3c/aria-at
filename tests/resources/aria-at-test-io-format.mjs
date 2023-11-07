@@ -145,7 +145,11 @@ class SupportInput {
    */
   static fromCollectedTest(collectedTest) {
     return new SupportInput({
-      ats: [{ key: collectedTest.target.at.key, name: collectedTest.target.at.name }],
+      ats: [
+        typeof collectedTest.target.at.raw === 'object'
+          ? collectedTest.target.at.raw
+          : { key: collectedTest.target.at.key, name: collectedTest.target.at.name },
+      ],
       applies_to: {},
       examples: [],
     });
@@ -434,15 +438,18 @@ class CommandsInput {
     return new CommandsInput(
       {
         commands: {
-          [collectedTest.info.task]: {
-            [collectedTest.target.mode]: {
+          [collectedTest.info.task || collectedTest.info.testId]: {
+            [collectedTest.target.mode || collectedTest.target.at.settings]: {
               [collectedTest.target.at.key]: collectedTest.commands.map(
                 ({ id, extraInstruction }) => (extraInstruction ? [id, extraInstruction] : [id])
               ),
             },
           },
         },
-        at: collectedTest.target.at,
+        at:
+          typeof collectedTest.target.at.raw === 'object'
+            ? collectedTest.target.at.raw
+            : collectedTest.target.at,
       },
       keysInput,
       allCommandsInput
@@ -742,6 +749,7 @@ class BehaviorInput {
     const at = configInput.at();
 
     const { commandsAndSettings } = commandsInput.getCommands({ task: json.task }, mode);
+
     return new BehaviorInput({
       behavior: {
         description: titleInput.title(),
@@ -792,23 +800,36 @@ class BehaviorInput {
     { info, target, instructions, assertions },
     { commandsInput, keysInput, unexpectedInput }
   ) {
-    let { commandsAndSettings } = commandsInput.getCommands({ task: info.task }, target.mode);
+    // v1:info.task, v2: info.testId | v1:target.mode, v2:target.at.settings
+    const { commandsAndSettings } = commandsInput.getCommands(
+      { task: info.task || info.testId },
+      target.mode || target.at.settings
+    );
 
     return new BehaviorInput({
       behavior: {
         description: info.title,
-        task: info.task,
-        mode: target.mode,
+        task: info.task || info.testId,
+        mode: target.mode || target.at.settings,
         modeInstructions: instructions.mode,
         appliesTo: [target.at.name],
-        specificUserInstruction: instructions.raw,
+        specificUserInstruction: instructions.raw || instructions.instructions,
         setupScriptDescription: target.setupScript ? target.setupScript.description : '',
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
         commands: commandsAndSettings,
-        assertions: assertions.map(({ priority, expectation, assertionStatement }) => ({
-          priority,
-          assertion: expectation || assertionStatement,
-        })),
+        assertions: assertions.map(
+          ({ priority, expectation, assertionStatement, tokenizedAssertionStatements }) => {
+            let assertion = tokenizedAssertionStatements
+              ? tokenizedAssertionStatements[target.at.key]
+              : null;
+            assertion = assertion || expectation || assertionStatement;
+
+            return {
+              priority,
+              assertion,
+            };
+          }
+        ),
         additionalAssertions: [],
         unexpectedBehaviors: unexpectedInput.behaviors(),
       },
@@ -1587,8 +1608,10 @@ function deriveModeWithTextAndInstructions(mode, at) {
       }
     }
   } else {
-    screenText = at.settings[atMode]?.screenText;
-    instructions = at.settings[atMode]?.instructions;
+    if (at.settings && at.settings[atMode]) {
+      screenText = at.settings[atMode]?.screenText;
+      instructions = at.settings[atMode]?.instructions;
+    }
   }
 
   return [atMode, screenText, instructions];

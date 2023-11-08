@@ -8,7 +8,12 @@ import {
   focus,
   render,
 } from './vrender.mjs';
-import { userCloseWindow, userOpenWindow, WhitespaceStyleMap } from './aria-at-test-run.mjs';
+import {
+  AssertionResultMap,
+  userCloseWindow,
+  userOpenWindow,
+  WhitespaceStyleMap,
+} from './aria-at-test-run.mjs';
 import { TestRunExport, TestRunInputOutput } from './aria-at-test-io-format.mjs';
 import { TestWindow } from './aria-at-test-window.mjs';
 
@@ -489,7 +494,7 @@ function renderVirtualInstructionDocument(doc) {
       input(
         type('checkbox'),
         id(`cmd-${commandIndex}-${assertionIndex}`),
-        checked(assertion.choice !== undefined)
+        checked(assertion.passed === AssertionResultMap.PASS)
       ),
       rich(assertion.description)
     );

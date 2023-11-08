@@ -384,57 +384,17 @@ export function instructionDocument(resultState, hooks) {
   function assertionResult(commandIndex, assertion, assertionIndex) {
     const resultAssertion = resultState.commands[commandIndex].assertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
-      description: [
-        assertion,
-        {
-          required: true,
-          highlightRequired: resultAssertion.highlightRequired,
-          description: '(required: mark output)',
-        },
-      ],
-      passChoice: assertionChoice(resultAssertion, CommonResultMap.PASS, {
-        label: [
-          `Good Output `,
-          {
-            offScreen: true,
-            description: 'for assertion',
-          },
-        ],
-        click: () =>
-          hooks.setCommandAssertion({ commandIndex, assertionIndex, result: CommonResultMap.PASS }),
-      }),
-      failChoices: [
-        assertionChoice(resultAssertion, AssertionResultMap.FAIL_MISSING, {
-          label: [
-            `No Output `,
-            {
-              offScreen: true,
-              description: 'for assertion',
-            },
-          ],
-          click: () =>
-            hooks.setCommandAssertion({
-              commandIndex,
-              assertionIndex,
-              result: AssertionResultMap.FAIL_MISSING,
-            }),
+      description: [assertion],
+      passed: resultAssertion.result === AssertionResultMap.PASS,
+      click: () =>
+        hooks.setCommandAssertion({
+          commandIndex,
+          assertionIndex,
+          result:
+            resultAssertion.result === AssertionResultMap.PASS
+              ? AssertionResultMap.FAIL
+              : AssertionResultMap.PASS,
         }),
-        assertionChoice(resultAssertion, AssertionResultMap.FAIL_INCORRECT, {
-          label: [
-            `Incorrect Output `,
-            {
-              offScreen: true,
-              description: 'for assertion',
-            },
-          ],
-          click: () =>
-            hooks.setCommandAssertion({
-              commandIndex,
-              assertionIndex,
-              result: AssertionResultMap.FAIL_INCORRECT,
-            }),
-        }),
-      ],
     });
   }
 
@@ -447,34 +407,17 @@ export function instructionDocument(resultState, hooks) {
     const resultAdditionalAssertion =
       resultState.commands[commandIndex].additionalAssertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
-      description: [
-        assertion,
-        {
-          required: true,
-          highlightRequired: resultAdditionalAssertion.highlightRequired,
-          description: '(required: mark support)',
-        },
-      ],
-      passChoice: assertionChoice(resultAdditionalAssertion, AdditionalAssertionResultMap.PASS, {
-        label: ['Good Support ', { offScreen: true, description: 'for assertion' }],
-        click: () =>
-          hooks.setCommandAdditionalAssertion({
-            commandIndex,
-            additionalAssertionIndex: assertionIndex,
-            result: AdditionalAssertionResultMap.PASS,
-          }),
-      }),
-      failChoices: [
-        assertionChoice(resultAdditionalAssertion, AdditionalAssertionResultMap.FAIL_SUPPORT, {
-          label: ['No Support ', { offScreen: true, description: 'for assertion' }],
-          click: () =>
-            hooks.setCommandAdditionalAssertion({
-              commandIndex,
-              additionalAssertionIndex: assertionIndex,
-              result: AdditionalAssertionResultMap.FAIL_SUPPORT,
-            }),
+      description: [assertion],
+      passed: resultAdditionalAssertion.result === CommonResultMap.PASS,
+      click: () =>
+        hooks.setCommandAssertion({
+          commandIndex,
+          assertionIndex,
+          result:
+            resultAdditionalAssertion.result === AssertionResultMap.PASS
+              ? AssertionResultMap.FAIL
+              : AssertionResultMap.PASS,
         }),
-      ],
     });
   }
 }
@@ -537,6 +480,7 @@ export const AssertionResultMap = createEnumMap({
   ...CommonResultMap,
   FAIL_MISSING: 'failMissing',
   FAIL_INCORRECT: 'failIncorrect',
+  FAIL: 'fail',
 });
 
 /**
@@ -1102,8 +1046,9 @@ export function userValidateState() {
 /**
  * @typedef InstructionDocumentResultsCommandsAssertion
  * @property {Description} description
- * @property {InstructionDocumentAssertionChoice} passChoice
- * @property {InstructionDocumentAssertionChoice[]} failChoices
+ * @property {Boolean} passed
+ * @property {boolean} [focus]
+ * @property {() => void} click
  */
 
 /**

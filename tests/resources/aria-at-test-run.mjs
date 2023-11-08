@@ -261,7 +261,9 @@ export function instructionDocument(resultState, hooks) {
         change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
       assertionsHeader: {
-        descriptionHeader: 'Assertion',
+        descriptionHeader: `Which statements are true about the response to '${command}'${
+          settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
+        }?`,
         passHeader: 'Success case',
         failHeader: 'Failure cases',
       },
@@ -1107,8 +1109,6 @@ export function userValidateState() {
 /**
  * @typedef InstructionDocumentResultsCommandsAssertionsHeader
  * @property {Description} descriptionHeader
- * @property {Description} passHeader
- * @property {Description} failHeader
  */
 
 /**

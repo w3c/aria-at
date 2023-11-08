@@ -51,6 +51,7 @@
  * @typedef AriaATFile.Behavior
  * @property {string} setup_script_description
  * @property {string} setupTestPage
+ * @property {string} assertionResponseQuestion
  * @property {string[]} applies_to
  * @property {AriaATFile.ATMode | AriaATFile.ATMode[]} mode
  * @property {string} task

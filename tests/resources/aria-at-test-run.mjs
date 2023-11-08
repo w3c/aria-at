@@ -210,24 +210,6 @@ export function instructionDocument(resultState, hooks) {
   };
 
   /**
-   * @param {T} resultAssertion
-   * @param {T["result"]} resultValue
-   * @param {Omit<InstructionDocumentAssertionChoice, 'checked' | 'focus'>} partialChoice
-   * @returns {InstructionDocumentAssertionChoice}
-   * @template {TestRunAssertion | TestRunAdditionalAssertion} T
-   */
-  function assertionChoice(resultAssertion, resultValue, partialChoice) {
-    return {
-      ...partialChoice,
-      checked: resultAssertion.result === resultValue,
-      focus:
-        resultState.currentUserAction === 'validateResults' &&
-        resultAssertion.highlightRequired &&
-        focusFirstRequired(),
-    };
-  }
-
-  /**
    * @param {string} command
    * @param {number} commandIndex
    * @returns {InstructionDocumentResultsCommand}
@@ -261,11 +243,9 @@ export function instructionDocument(resultState, hooks) {
         change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
       assertionsHeader: {
-        descriptionHeader: `Which statements are true about the response to '${command}'${
-          settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
-        }?`,
-        passHeader: 'Success case',
-        failHeader: 'Failure cases',
+        descriptionHeader: `${
+          resultState.assertionResponseQuestion ?? 'Which statements are true about the response to'
+        } ${command}${settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''}?`,
       },
       assertions: [
         ...assertions.map(bind(assertionResult, commandIndex)),
@@ -742,10 +722,6 @@ function isSomeFieldRequired(state) {
   return state.commands.some(
     command =>
       command.atOutput.value.trim() === '' ||
-      command.assertions.some(assertion => assertion.result === CommonResultMap.NOT_SET) ||
-      command.additionalAssertions.some(
-        assertion => assertion.result === CommonResultMap.NOT_SET
-      ) ||
       command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.NOT_SET ||
       (command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED &&
         (command.unexpected.behaviors.every(({ checked }) => !checked) ||

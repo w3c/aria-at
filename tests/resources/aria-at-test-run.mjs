@@ -897,14 +897,6 @@ export function userValidateState() {
             ...command.atOutput,
             highlightRequired: !command.atOutput.value.trim(),
           },
-          assertions: command.assertions.map(assertion => ({
-            ...assertion,
-            highlightRequired: assertion.result === CommonResultMap.NOT_SET,
-          })),
-          additionalAssertions: command.additionalAssertions.map(assertion => ({
-            ...assertion,
-            highlightRequired: assertion.result === CommonResultMap.NOT_SET,
-          })),
           unexpected: {
             ...command.unexpected,
             highlightRequired:

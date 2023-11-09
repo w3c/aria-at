@@ -494,7 +494,8 @@ function renderVirtualInstructionDocument(doc) {
       input(
         type('checkbox'),
         id(`cmd-${commandIndex}-${assertionIndex}`),
-        checked(assertion.passed === AssertionResultMap.PASS)
+        checked(assertion.passed === AssertionResultMap.PASS),
+        onclick(assertion.click)
       ),
       rich(assertion.description)
     );

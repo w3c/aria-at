@@ -435,16 +435,33 @@ class CommandsInput {
    * @param {KeysInput} data.keysInput
    */
   static fromCollectedTestKeys(collectedTest, { keysInput, allCommandsInput }) {
+    let settingsForTest = {};
+
+    // For v2 test format
+    const settings = collectedTest.target.at.settings;
+    if (settings) {
+      for (const _atMode of settings.split('_')) {
+        settingsForTest[_atMode] = {
+          // Use settings attribute to verify in filter if available
+          [collectedTest.target.at.key]: collectedTest.commands
+            .filter(({ settings }) => (settings ? settings === _atMode : true))
+            .map(({ id, extraInstruction }) => (extraInstruction ? [id, extraInstruction] : [id])),
+        };
+      }
+    } else {
+      settingsForTest = {
+        [collectedTest.target.mode]: {
+          [collectedTest.target.at.key]: collectedTest.commands.map(({ id, extraInstruction }) =>
+            extraInstruction ? [id, extraInstruction] : [id]
+          ),
+        },
+      };
+    }
+
     return new CommandsInput(
       {
         commands: {
-          [collectedTest.info.task || collectedTest.info.testId]: {
-            [collectedTest.target.mode || collectedTest.target.at.settings]: {
-              [collectedTest.target.at.key]: collectedTest.commands.map(
-                ({ id, extraInstruction }) => (extraInstruction ? [id, extraInstruction] : [id])
-              ),
-            },
-          },
+          [collectedTest.info.task || collectedTest.info.testId]: settingsForTest,
         },
         at:
           typeof collectedTest.target.at.raw === 'object'

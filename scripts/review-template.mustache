@@ -183,10 +183,22 @@
         {{#assertionsForCommandsInstructions}}
           <h4 id="{{elemId}}">{{value}}: {{mustCount}} MUST, {{shouldCount}} SHOULD, AND {{mayCount}} MAY assertions</h4>
           <table aria-labelledby="{{elemId}}">
-            <tr><th>Priority</th><th>Assertion Phrase</th><th>Assertion Statement</th></tr>
+            <tr>
+              <th>Priority</th>
+              {{#isV2}}
+              <th>Assertion Phrase</th>
+              {{/isV2}}
+              <th>Assertion Statement</th>
+            </tr>
             {{#assertionsInstructions}}
               {{#priority}}
-                <tr><td>{{priority}}</td><td>{{assertionPhrase}}</td><td>{{assertionStatement}}</td></tr>
+                <tr>
+                  <td>{{priority}}</td>
+                  {{#isV2}}
+                  <td>{{assertionPhrase}}</td>
+                  {{/isV2}}
+                  <td>{{assertionStatement}}</td>
+                </tr>
               {{/priority}}
             {{/assertionsInstructions}}
             {{^assertionsInstructions}}

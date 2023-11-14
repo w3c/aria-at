@@ -259,6 +259,9 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
       })
       .forEach(({ test, testFullName, helpLinks, ...testData }) => {
         const testNumber = tests.length + 1;
+        // TODO: Using a property unique to the v2 test format to identify if v2; consider a metadata property in the
+        //  future if newer versions are to be supported
+        const isV2 = !!testData.commandsInfo;
 
         const helpLinksTitle = ariaSpecsPreface;
         const helpLinksExist = !!helpLinks.length;
@@ -502,6 +505,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
           helpLinksTitle,
           helpLinksExist,
           lastEdited,
+          isV2,
         });
       });
 

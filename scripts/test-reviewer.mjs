@@ -268,12 +268,6 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
 
         const openExampleInstructions =
           unescapeHTML(openExampleInstruction) + ' ' + testData.setup_script_description + '.';
-        let userInstruction =
-          testData.specific_user_instruction +
-          ' ' +
-          commandListPreface +
-          ' ' +
-          commandListSettingsPreface;
 
         const task = testData.task;
 
@@ -294,6 +288,8 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
         allRelevantATs = [...new Set(allRelevantATs)];
 
         for (const atKey of allRelevantATs.map(a => a.toLowerCase())) {
+          let userInstruction = testData.specific_user_instruction + ' ' + commandListPreface;
+
           let assertionsInstructions,
             assertionsForCommandsInstructions,
             commandsValuesForInstructions,
@@ -430,7 +426,6 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
             if (commandsValuesForInstructions && !commandsValuesForInstructions.length) {
               // Invalid state to reflect that no commands have been added to the related .csv in the template
               commandsValuesForInstructions = undefined;
-              userInstruction = testData.specific_user_instruction + ' ' + commandListPreface;
             }
           } catch (error) {
             // An error will occur if there is no data for a screen reader, ignore it
@@ -460,6 +455,10 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
               else modeInstructions = [...modeInstructions, modifiedSettings];
             }
           }
+
+          // Append commandListSettingsPreface only if 1+ command exists that specifies a setting
+          if (modeInstructions)
+            userInstruction = userInstruction + ' ' + commandListSettingsPreface;
 
           atTests.push({
             atName: at.name,

@@ -35,7 +35,7 @@ async function logMessage(message) {
     const logEntry = `${message}\n`;
     await fs.appendFile(logFile, logEntry, err => {
       if (err) {
-        throw new Error(`Error writing to ${logFilePath}: ${err}`);
+        throw new Error(`Error writing to ${logFile}: ${err}`);
       }
     });
   }

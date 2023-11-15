@@ -243,9 +243,9 @@ export function instructionDocument(resultState, hooks) {
         change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
       assertionsHeader: {
-        descriptionHeader: `${
-          resultState.assertionResponseQuestion ?? 'Which statements are true about the response to'
-        } ${command}${settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''}?`,
+        descriptionHeader: `${resultState.assertionResponseQuestion} ${command}${
+          settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
+        }?`,
       },
       assertions: [
         ...assertions.map(bind(assertionResult, commandIndex)),

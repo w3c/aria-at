@@ -8,7 +8,12 @@ import {
   focus,
   render,
 } from './vrender.mjs';
-import { userCloseWindow, userOpenWindow, WhitespaceStyleMap } from './aria-at-test-run.mjs';
+import {
+  AssertionResultMap,
+  userCloseWindow,
+  userOpenWindow,
+  WhitespaceStyleMap,
+} from './aria-at-test-run.mjs';
 import { TestRunExport, TestRunInputOutput } from './aria-at-test-io-format.mjs';
 import { TestWindow } from './aria-at-test-window.mjs';
 
@@ -37,6 +42,14 @@ const PAGE_STYLES = `
   fieldset.problem-select {
    margin-top: 1em;
    margin-left: 1em;
+  }
+
+  fieldset.assertions {
+    margin-bottom: 1em;
+  }
+
+  label.assertion {
+    display: block;
   }
 
   .required:not(.highlight-required) {
@@ -382,12 +395,9 @@ function renderVirtualInstructionDocument(doc) {
           )
         )
       ),
-      table(
-        tr(
-          th(rich(command.assertionsHeader.descriptionHeader)),
-          th(rich(command.assertionsHeader.passHeader)),
-          th(rich(command.assertionsHeader.failHeader))
-        ),
+      fieldset(
+        className(['assertions']),
+        legend(rich(command.assertionsHeader.descriptionHeader)),
         ...command.assertions.map(bind(commandResultAssertion, commandIndex))
       ),
       ...[command.unexpectedBehaviors].map(bind(commandResultUnexpectedBehavior, commandIndex))
@@ -479,26 +489,15 @@ function renderVirtualInstructionDocument(doc) {
    * @param {number} assertionIndex
    */
   function commandResultAssertion(commandIndex, assertion, assertionIndex) {
-    return tr(
-      td(rich(assertion.description)),
-      td(
-        ...[assertion.passChoice].map(choice =>
-          radioChoice(
-            `pass-${commandIndex}-${assertionIndex}`,
-            `result-${commandIndex}-${assertionIndex}`,
-            choice
-          )
-        )
+    return label(
+      className(['assertion']),
+      input(
+        type('checkbox'),
+        id(`cmd-${commandIndex}-${assertionIndex}`),
+        checked(assertion.passed === AssertionResultMap.PASS),
+        onclick(assertion.click)
       ),
-      td(
-        ...assertion.failChoices.map((choice, failIndex) =>
-          radioChoice(
-            `${failIndex === 0 ? 'missing' : 'fail'}-${commandIndex}-${assertionIndex}`,
-            `result-${commandIndex}-${assertionIndex}`,
-            choice
-          )
-        )
-      )
+      rich(assertion.description)
     );
   }
 

@@ -777,6 +777,7 @@ class BehaviorInput {
         specificUserInstruction: json.specific_user_instruction,
         setupScriptDescription: json.setup_script_description,
         setupTestPage: json.setupTestPage,
+        assertionResponseQuestion: json.assertionResponseQuestion,
         commands: commandsAndSettings,
         assertions: (json.output_assertions ? json.output_assertions : []).map(assertion => {
           // Tuple array [ priorityNumber, assertionText ]
@@ -1176,6 +1177,7 @@ export class TestRunInputOutput {
       openTest: {
         enabled: true,
       },
+      assertionResponseQuestion: test.assertionResponseQuestion,
       commands: test.commands.map(
         command =>
           /** @type {import("./aria-at-test-run.mjs").TestRunCommand} */ ({
@@ -1468,7 +1470,7 @@ export class TestRunInputOutput {
                 ? 'failIncorrect'
                 : assertionResult.failedReason === 'NO_OUTPUT'
                 ? 'failMissing'
-                : 'notSet',
+                : 'fail',
             };
           }),
           unexpected: {
@@ -1549,6 +1551,7 @@ export class TestRunExport extends TestRun {
 
 const AssertionPassJSONMap = createEnumMap({
   GOOD_OUTPUT: 'Good Output',
+  PASS: 'Pass',
 });
 
 /**
@@ -1570,6 +1573,7 @@ const AssertionFailJSONMap = createEnumMap({
   NO_OUTPUT: 'No Output',
   INCORRECT_OUTPUT: 'Incorrect Output',
   NO_SUPPORT: 'No Support',
+  FAIL: 'Fail',
 });
 
 /** @typedef {SubmitResultDetailsCommandsAssertionsPass | SubmitResultDetailsCommandsAssertionsFail} SubmitResultAssertionsJSON */

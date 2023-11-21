@@ -133,6 +133,10 @@ class SupportInput {
     return this._value.ats.find(({ key }) => key === lowercaseATKey);
   }
 
+  testPlanStrings() {
+    return this._value.testPlanStrings;
+  }
+
   /**
    * @param {SupportJSON} json
    */
@@ -152,6 +156,7 @@ class SupportInput {
       ],
       applies_to: {},
       examples: [],
+      testPlanStrings: collectedTest.supportJson.testPlanStrings || {},
     });
   }
 }
@@ -1144,6 +1149,7 @@ export class TestRunInputOutput {
     ];
     const test = this.behaviorInput.behavior();
     const config = this.configInput;
+    const support = this.supportInput;
 
     function unescapeHTML(input) {
       const textarea = document.createElement('textarea');
@@ -1177,7 +1183,8 @@ export class TestRunInputOutput {
       openTest: {
         enabled: true,
       },
-      assertionResponseQuestion: test.assertionResponseQuestion,
+      assertionResponseQuestion:
+        test.assertionResponseQuestion || support.testPlanStrings().assertionResponseQuestion,
       commands: test.commands.map(
         command =>
           /** @type {import("./aria-at-test-run.mjs").TestRunCommand} */ ({
@@ -1672,6 +1679,7 @@ function invariant(test, message, ...args) {
  * @property {object[]} examples
  * @property {string} examples[].directory
  * @property {string} examples[].name
+ * @property {object} testPlanStrings
  */
 
 /**

@@ -254,6 +254,8 @@ const h3 = bind(element, 'h3');
 const hr = bind(element, 'hr');
 const input = bind(element, 'input');
 const label = bind(element, 'label');
+const select = bind(element, 'select');
+const option = bind(element, 'option');
 const legend = bind(element, 'legend');
 const li = bind(element, 'li');
 const ol = bind(element, 'ol');
@@ -436,7 +438,8 @@ function renderVirtualInstructionDocument(doc) {
         id(`cmd-${commandIndex}-problem-checkboxes`),
         legend(rich(unexpected.failChoice.options.header)),
         ...unexpected.failChoice.options.options.map(failOption =>
-          fragment(
+          fieldset(
+            legend(rich(failOption.description)),
             input(
               type('checkbox'),
               value(failOption.description),
@@ -456,32 +459,37 @@ function renderVirtualInstructionDocument(doc) {
                 }
               })
             ),
-            label(
-              forInput(`${failOption.description}-${commandIndex}`),
-              rich(failOption.description)
+            label(forInput(`${failOption.description}-${commandIndex}`), rich('Behavior occurred')),
+            br(),
+            label(forInput(`${failOption.description}-${commandIndex}-severity`), rich('Impact: ')),
+            select(
+              id(`${failOption.description}-${commandIndex}-severity`),
+              name(`${failOption.description}-${commandIndex}-severity`),
+              option('Moderate'),
+              option('High'),
+              disabled(!failOption.checked),
+              onchange(ev =>
+                failOption.severitychange(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
+              )
             ),
             br(),
-            failOption.more
-              ? div(
-                  label(
-                    forInput(`${failOption.description}-${commandIndex}-input`),
-                    rich(failOption.more.description)
-                  ),
-                  input(
-                    type('text'),
-                    id(`${failOption.description}-${commandIndex}-input`),
-                    name(`${failOption.description}-${commandIndex}-input`),
-                    className(['undesirable-other-input']),
-                    disabled(!failOption.more.enabled),
-                    value(failOption.more.value),
-                    onchange(ev =>
-                      failOption.more.change(
-                        /** @type {HTMLInputElement} */ (ev.currentTarget).value
-                      )
-                    )
-                  )
+            div(
+              label(
+                forInput(`${failOption.description}-${commandIndex}-input`),
+                rich(failOption.more.description)
+              ),
+              input(
+                type('text'),
+                id(`${failOption.description}-${commandIndex}-input`),
+                name(`${failOption.description}-${commandIndex}-input`),
+                className(['undesirable-other-input']),
+                disabled(!failOption.more.enabled),
+                value(failOption.more.value),
+                onchange(ev =>
+                  failOption.more.change(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
                 )
-              : fragment()
+              )
+            )
           )
         )
       )

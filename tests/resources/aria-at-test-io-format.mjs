@@ -699,8 +699,8 @@ class UnexpectedInput {
   static fromBuiltin() {
     return new UnexpectedInput({
       behaviors: [
-        ...UNEXPECTED_BEHAVIORS.map(description => ({ description, requireExplanation: false })),
-        { description: 'Other', requireExplanation: true },
+        ...UNEXPECTED_BEHAVIORS.map(description => ({ description })),
+        { description: 'Other' },
       ],
     });
   }
@@ -1208,10 +1208,11 @@ export class TestRunInputOutput {
               highlightRequired: false,
               hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
               tabbedBehavior: 0,
-              behaviors: test.unexpectedBehaviors.map(({ description, requireExplanation }) => ({
+              behaviors: test.unexpectedBehaviors.map(({ description }) => ({
                 description,
                 checked: false,
-                more: requireExplanation ? { highlightRequired: false, value: '' } : null,
+                severity: 'Moderate',
+                more: { highlightRequired: false, value: '' },
               })),
             },
           })
@@ -1735,7 +1736,6 @@ function invariant(test, message, ...args) {
 /**
  * @typedef BehaviorUnexpectedItem
  * @property {string} description
- * @property {boolean} requireExplanation
  */
 
 /**

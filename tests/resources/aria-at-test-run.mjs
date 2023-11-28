@@ -298,6 +298,7 @@ export function instructionDocument(resultState, hooks) {
             options: resultUnexpectedBehavior.behaviors.map((behavior, unexpectedIndex) => {
               return {
                 description: behavior.description,
+                severity: behavior.severity,
                 enabled:
                   resultUnexpectedBehavior.hasUnexpected ===
                   HasUnexpectedBehaviorMap.HAS_UNEXPECTED,

@@ -1211,7 +1211,7 @@ export class TestRunInputOutput {
               behaviors: test.unexpectedBehaviors.map(({ description }) => ({
                 description,
                 checked: false,
-                severity: 'Moderate',
+                severity: UnexpectedBehaviorSeverityMap.MODERATE,
                 more: { highlightRequired: false, value: '' },
               })),
             },
@@ -1420,7 +1420,8 @@ export class TestRunInputOutput {
             behavior.checked
               ? {
                   text: behavior.description,
-                  otherUnexpectedBehaviorText: behavior.more ? behavior.more.value : null,
+                  severity: behavior.severity,
+                  unexpectedBehaviorText: behavior.more.value,
                 }
               : null
           )
@@ -1492,6 +1493,9 @@ export class TestRunInputOutput {
                 more: behavior.more
                   ? {
                       highlightRequired: false,
+                      severity: behaviorResult
+                        ? behavior.severity
+                        : UnexpectedBehaviorSeverityMap.MODERATE,
                       value: behaviorResult ? behaviorResult.otherUnexpectedBehaviorText : '',
                     }
                   : behavior.more,
@@ -1575,6 +1579,11 @@ const AssertionFailJSONMap = createEnumMap({
   INCORRECT_OUTPUT: 'Incorrect Output',
   NO_SUPPORT: 'No Support',
   FAIL: 'Fail',
+});
+
+const UnexpectedBehaviorSeverityMap = createEnumMap({
+  MODERATE: 'Moderate',
+  HIGH: 'High',
 });
 
 /** @typedef {SubmitResultDetailsCommandsAssertionsPass | SubmitResultDetailsCommandsAssertionsFail} SubmitResultAssertionsJSON */

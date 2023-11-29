@@ -1496,7 +1496,7 @@ export class TestRunInputOutput {
                       severity: behaviorResult
                         ? behavior.severity
                         : UnexpectedBehaviorSeverityMap.MODERATE,
-                      value: behaviorResult ? behaviorResult.otherUnexpectedBehaviorText : '',
+                      value: behaviorResult ? behaviorResult.unexpectedBehaviorText : '',
                     }
                   : behavior.more,
               };

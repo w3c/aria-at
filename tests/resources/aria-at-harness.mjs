@@ -13,6 +13,7 @@ import {
   userCloseWindow,
   userOpenWindow,
   WhitespaceStyleMap,
+  UnexpectedBehaviorSeverityMap,
 } from './aria-at-test-run.mjs';
 import { TestRunExport, TestRunInputOutput } from './aria-at-test-io-format.mjs';
 import { TestWindow } from './aria-at-test-window.mjs';
@@ -460,8 +461,8 @@ function renderVirtualInstructionDocument(doc) {
             select(
               id(`${failOption.description}-${commandIndex}-severity`),
               name(`${failOption.description}-${commandIndex}-severity`),
-              option('Moderate'),
-              option('High'),
+              option(UnexpectedBehaviorSeverityMap.MODERATE),
+              option(UnexpectedBehaviorSeverityMap.HIGH),
               disabled(!failOption.checked),
               onchange(ev =>
                 failOption.severitychange(/** @type {HTMLInputElement} */ (ev.currentTarget).value)

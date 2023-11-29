@@ -472,6 +472,15 @@ export const AssertionResultMap = createEnumMap({
 });
 
 /**
+ * @typedef {EnumValues<typeof UnexpectedBehaviorSeverityMap>} UnexpectedBehaviorSeverity
+ */
+
+export const UnexpectedBehaviorSeverityMap = createEnumMap({
+  MODERATE: 'Moderate',
+  HIGH: 'High',
+});
+
+/**
  * @param {object} props
  * @param {number} props.commandIndex
  * @param {string} props.atOutput

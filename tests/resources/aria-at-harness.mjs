@@ -8,7 +8,12 @@ import {
   focus,
   render,
 } from './vrender.mjs';
-import { userCloseWindow, userOpenWindow, WhitespaceStyleMap } from './aria-at-test-run.mjs';
+import {
+  AssertionResultMap,
+  userCloseWindow,
+  userOpenWindow,
+  WhitespaceStyleMap,
+} from './aria-at-test-run.mjs';
 import { TestRunExport, TestRunInputOutput } from './aria-at-test-io-format.mjs';
 import { TestWindow } from './aria-at-test-window.mjs';
 
@@ -37,6 +42,14 @@ const PAGE_STYLES = `
   fieldset.problem-select {
    margin-top: 1em;
    margin-left: 1em;
+  }
+
+  fieldset.assertions {
+    margin-bottom: 1em;
+  }
+
+  label.assertion {
+    display: block;
   }
 
   .required:not(.highlight-required) {
@@ -77,9 +90,11 @@ testRunIO.setScriptsInputFromMap(typeof scripts === 'object' ? scripts : {});
 /**
  * @param {SupportJSON} newSupport
  * @param {CommandsJSON} newCommandsData
+ * @param {AllCommandsJSON} allCommands
  */
-export function initialize(newSupport, newCommandsData) {
+export function initialize(newSupport, newCommandsData, allCommands) {
   testRunIO.setSupportInputFromJSON(newSupport);
+  testRunIO.setAllCommandsInputFromJSON(allCommands);
   testRunIO.setConfigInputFromQueryParamsAndSupport(
     Array.from(new URL(document.location).searchParams)
   );
@@ -99,8 +114,12 @@ export function verifyATBehavior(atBehavior) {
 }
 
 export async function loadCollectedTestAsync(testRoot, testFileName) {
+  const commandsJsonResponse = await fetch(`../commands.json`);
+  const commandsJson = await commandsJsonResponse.json();
+
   const collectedTestResponse = await fetch(`${testRoot}/${testFileName}`);
   const collectedTestJson = await collectedTestResponse.json();
+  testRunIO.setAllCommandsInputFromJSON(commandsJson);
   await testRunIO.setInputsFromCollectedTestAsync(collectedTestJson, testRoot);
   testRunIO.setConfigInputFromQueryParamsAndSupport([
     ['at', collectedTestJson.target.at.key],
@@ -222,6 +241,7 @@ const br = bind(element, 'br');
 const button = bind(element, 'button');
 const div = bind(element, 'div');
 const em = bind(element, 'em');
+const kbd = bind(element, 'kbd');
 const fieldset = bind(element, 'fieldset');
 const h1 = bind(element, 'h1');
 const h2 = bind(element, 'h2');
@@ -270,6 +290,8 @@ function rich(value) {
     return value;
   } else if (Array.isArray(value)) {
     return fragment(...value.map(rich));
+  } else if (value.kbd) {
+    return kbd.bind(value.kbd)(rich(value.kbd));
   } else {
     if ('whitespace' in value) {
       if (value.whitespace === WhitespaceStyleMap.LINE_BREAK) {
@@ -373,12 +395,9 @@ function renderVirtualInstructionDocument(doc) {
           )
         )
       ),
-      table(
-        tr(
-          th(rich(command.assertionsHeader.descriptionHeader)),
-          th(rich(command.assertionsHeader.passHeader)),
-          th(rich(command.assertionsHeader.failHeader))
-        ),
+      fieldset(
+        className(['assertions']),
+        legend(rich(command.assertionsHeader.descriptionHeader)),
         ...command.assertions.map(bind(commandResultAssertion, commandIndex))
       ),
       ...[command.unexpectedBehaviors].map(bind(commandResultUnexpectedBehavior, commandIndex))
@@ -470,26 +489,15 @@ function renderVirtualInstructionDocument(doc) {
    * @param {number} assertionIndex
    */
   function commandResultAssertion(commandIndex, assertion, assertionIndex) {
-    return tr(
-      td(rich(assertion.description)),
-      td(
-        ...[assertion.passChoice].map(choice =>
-          radioChoice(
-            `pass-${commandIndex}-${assertionIndex}`,
-            `result-${commandIndex}-${assertionIndex}`,
-            choice
-          )
-        )
+    return label(
+      className(['assertion']),
+      input(
+        type('checkbox'),
+        id(`cmd-${commandIndex}-${assertionIndex}`),
+        checked(assertion.passed === AssertionResultMap.PASS),
+        onclick(assertion.click)
       ),
-      td(
-        ...assertion.failChoices.map((choice, failIndex) =>
-          radioChoice(
-            `${failIndex === 0 ? 'missing' : 'fail'}-${commandIndex}-${assertionIndex}`,
-            `result-${commandIndex}-${assertionIndex}`,
-            choice
-          )
-        )
-      )
+      rich(assertion.description)
     );
   }
 
@@ -599,6 +607,7 @@ function renderVirtualResultsTable(results) {
 }
 
 /** @typedef {import('./aria-at-test-io-format.mjs').SupportJSON} SupportJSON */
+/** @typedef {import('./aria-at-test-io-format.mjs').AllCommandsJSON} AllCommandsJSON */
 /** @typedef {import('./aria-at-test-io-format.mjs').CommandsJSON} CommandsJSON */
 /** @typedef {import('./aria-at-test-io-format.mjs').BehaviorJSON} BehaviorJSON */
 

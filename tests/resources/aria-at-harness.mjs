@@ -114,12 +114,19 @@ export function verifyATBehavior(atBehavior) {
 }
 
 export async function loadCollectedTestAsync(testRoot, testFileName) {
-  const commandsJsonResponse = await fetch(`../commands.json`);
-  const commandsJson = await commandsJsonResponse.json();
+  let commandsJsonResponse;
+  let commandsJson;
+  try {
+    // v2 commands.json
+    commandsJsonResponse = await fetch(`../commands.json`);
+    commandsJson = await commandsJsonResponse.json();
+  } catch (e) {
+    // v2 commands.json isn't available
+  }
 
   const collectedTestResponse = await fetch(`${testRoot}/${testFileName}`);
   const collectedTestJson = await collectedTestResponse.json();
-  testRunIO.setAllCommandsInputFromJSON(commandsJson);
+  if (commandsJson) testRunIO.setAllCommandsInputFromJSON(commandsJson);
   await testRunIO.setInputsFromCollectedTestAsync(collectedTestJson, testRoot);
   testRunIO.setConfigInputFromQueryParamsAndSupport([
     ['at', collectedTestJson.target.at.key],

@@ -120,7 +120,7 @@ export async function loadCollectedTestAsync(testRoot, testFileName) {
   const supportJsonResponse = await fetch('../support.json');
   const supportJson = await supportJsonResponse.json();
 
-try {
+  try {
     // v2 commands.json
     const commandsJsonResponse = await fetch(`../commands.json`);
     const commandsJson = await commandsJsonResponse.json();

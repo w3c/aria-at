@@ -51,12 +51,14 @@
  * @typedef AriaATFile.Behavior
  * @property {string} setup_script_description
  * @property {string} setupTestPage
+ * @property {string} assertionResponseQuestion
  * @property {string[]} applies_to
  * @property {AriaATFile.ATMode | AriaATFile.ATMode[]} mode
  * @property {string} task
  * @property {string} specific_user_instruction
  * @property {string[][]} [output_assertions]
  * @property {Object<string, AriaATFile.StringNumber[][]>} [additional_assertions]
+ * @property {Object<string, AriaATCSV.AssertionCommandInfo[]>} commandsInfo
  */
 
 /**

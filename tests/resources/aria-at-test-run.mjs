@@ -97,13 +97,15 @@ export function instructionDocument(resultState, hooks) {
     ? ` and runs a script that ${resultState.info.setupScriptDescription}.`
     : resultState.info.setupScriptDescription;
   // As a hack, special case mode instructions for VoiceOver for macOS until we
-  // support modeless tests. ToDo: remove this when resolving issue #194
+  // support modeless tests.
   const modePhrase =
     resultState.config.at.name === 'VoiceOver for macOS'
       ? 'Describe '
       : `With ${resultState.config.at.name} in ${mode} mode, describe `;
 
+  // TODO: Wrap each command token in <kbd>
   const commands = resultState.commands.map(({ description }) => description);
+  const commandSettings = resultState.commands.map(({ commandSettings }) => commandSettings);
   const assertions = resultState.commands[0].assertions.map(({ description }) => description);
   const additionalAssertions = resultState.commands[0].additionalAssertions.map(
     ({ description }) => description
@@ -117,6 +119,33 @@ export function instructionDocument(resultState, hooks) {
     }
     return false;
   }
+
+  function convertModeInstructionsToKbdArray(inputString) {
+    const container = document.createElement('div');
+    container.innerHTML = inputString;
+
+    const resultArray = [];
+    for (const node of container.childNodes) {
+      if (node.nodeName === 'KBD') {
+        // Handle <kbd> elements
+        resultArray.push({ kbd: node.innerText.trim() });
+      } else {
+        // Handle text nodes
+        resultArray.push(node.textContent);
+      }
+    }
+
+    return resultArray.length ? resultArray : null;
+  }
+
+  const convertedModeInstructions =
+    modeInstructions !== undefined && !modeInstructions.includes('undefined')
+      ? convertModeInstructionsToKbdArray(modeInstructions)
+      : null;
+
+  let strongInstructions = [...userInstructions];
+  if (convertedModeInstructions)
+    strongInstructions = [convertedModeInstructions, ...strongInstructions];
 
   return {
     errors: {
@@ -143,10 +172,15 @@ export function instructionDocument(resultState, hooks) {
           ],
           `Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}`,
         ],
-        strongInstructions: [modeInstructions, ...userInstructions],
+        strongInstructions: strongInstructions.filter(el => el),
         commands: {
           description: `Using the following commands, ${lastInstruction}`,
-          commands,
+          commands: commands.map((command, index) => {
+            const { description: settings, text: settingsText } = commandSettings[index];
+            return `${command}${
+              settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
+            }`;
+          }),
         },
       },
       assertions: {
@@ -176,24 +210,6 @@ export function instructionDocument(resultState, hooks) {
   };
 
   /**
-   * @param {T} resultAssertion
-   * @param {T["result"]} resultValue
-   * @param {Omit<InstructionDocumentAssertionChoice, 'checked' | 'focus'>} partialChoice
-   * @returns {InstructionDocumentAssertionChoice}
-   * @template {TestRunAssertion | TestRunAdditionalAssertion} T
-   */
-  function assertionChoice(resultAssertion, resultValue, partialChoice) {
-    return {
-      ...partialChoice,
-      checked: resultAssertion.result === resultValue,
-      focus:
-        resultState.currentUserAction === 'validateResults' &&
-        resultAssertion.highlightRequired &&
-        focusFirstRequired(),
-    };
-  }
-
-  /**
    * @param {string} command
    * @param {number} commandIndex
    * @returns {InstructionDocumentResultsCommand}
@@ -201,8 +217,15 @@ export function instructionDocument(resultState, hooks) {
   function commandResult(command, commandIndex) {
     const resultStateCommand = resultState.commands[commandIndex];
     const resultUnexpectedBehavior = resultStateCommand.unexpected;
+
+    const {
+      commandSettings: { description: settings, text: settingsText },
+    } = resultStateCommand;
+
     return {
-      header: `After '${command}'`,
+      header: `After '${command}'${
+        settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
+      }`,
       atOutput: {
         description: [
           `${resultState.config.at.name} output after ${command}`,
@@ -220,9 +243,9 @@ export function instructionDocument(resultState, hooks) {
         change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
       assertionsHeader: {
-        descriptionHeader: 'Assertion',
-        passHeader: 'Success case',
-        failHeader: 'Failure cases',
+        descriptionHeader: `${resultState.assertionResponseQuestion} ${command}${
+          settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
+        }?`,
       },
       assertions: [
         ...assertions.map(bind(assertionResult, commandIndex)),
@@ -341,57 +364,17 @@ export function instructionDocument(resultState, hooks) {
   function assertionResult(commandIndex, assertion, assertionIndex) {
     const resultAssertion = resultState.commands[commandIndex].assertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
-      description: [
-        assertion,
-        {
-          required: true,
-          highlightRequired: resultAssertion.highlightRequired,
-          description: '(required: mark output)',
-        },
-      ],
-      passChoice: assertionChoice(resultAssertion, CommonResultMap.PASS, {
-        label: [
-          `Good Output `,
-          {
-            offScreen: true,
-            description: 'for assertion',
-          },
-        ],
-        click: () =>
-          hooks.setCommandAssertion({ commandIndex, assertionIndex, result: CommonResultMap.PASS }),
-      }),
-      failChoices: [
-        assertionChoice(resultAssertion, AssertionResultMap.FAIL_MISSING, {
-          label: [
-            `No Output `,
-            {
-              offScreen: true,
-              description: 'for assertion',
-            },
-          ],
-          click: () =>
-            hooks.setCommandAssertion({
-              commandIndex,
-              assertionIndex,
-              result: AssertionResultMap.FAIL_MISSING,
-            }),
+      description: [assertion],
+      passed: resultAssertion.result === AssertionResultMap.PASS,
+      click: () =>
+        hooks.setCommandAssertion({
+          commandIndex,
+          assertionIndex,
+          result:
+            resultAssertion.result === AssertionResultMap.PASS
+              ? AssertionResultMap.FAIL
+              : AssertionResultMap.PASS,
         }),
-        assertionChoice(resultAssertion, AssertionResultMap.FAIL_INCORRECT, {
-          label: [
-            `Incorrect Output `,
-            {
-              offScreen: true,
-              description: 'for assertion',
-            },
-          ],
-          click: () =>
-            hooks.setCommandAssertion({
-              commandIndex,
-              assertionIndex,
-              result: AssertionResultMap.FAIL_INCORRECT,
-            }),
-        }),
-      ],
     });
   }
 
@@ -404,34 +387,17 @@ export function instructionDocument(resultState, hooks) {
     const resultAdditionalAssertion =
       resultState.commands[commandIndex].additionalAssertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
-      description: [
-        assertion,
-        {
-          required: true,
-          highlightRequired: resultAdditionalAssertion.highlightRequired,
-          description: '(required: mark support)',
-        },
-      ],
-      passChoice: assertionChoice(resultAdditionalAssertion, AdditionalAssertionResultMap.PASS, {
-        label: ['Good Support ', { offScreen: true, description: 'for assertion' }],
-        click: () =>
-          hooks.setCommandAdditionalAssertion({
-            commandIndex,
-            additionalAssertionIndex: assertionIndex,
-            result: AdditionalAssertionResultMap.PASS,
-          }),
-      }),
-      failChoices: [
-        assertionChoice(resultAdditionalAssertion, AdditionalAssertionResultMap.FAIL_SUPPORT, {
-          label: ['No Support ', { offScreen: true, description: 'for assertion' }],
-          click: () =>
-            hooks.setCommandAdditionalAssertion({
-              commandIndex,
-              additionalAssertionIndex: assertionIndex,
-              result: AdditionalAssertionResultMap.FAIL_SUPPORT,
-            }),
+      description: [assertion],
+      passed: resultAdditionalAssertion.result === CommonResultMap.PASS,
+      click: () =>
+        hooks.setCommandAssertion({
+          commandIndex,
+          assertionIndex,
+          result:
+            resultAdditionalAssertion.result === AssertionResultMap.PASS
+              ? AssertionResultMap.FAIL
+              : AssertionResultMap.PASS,
         }),
-      ],
     });
   }
 }
@@ -494,6 +460,7 @@ export const AssertionResultMap = createEnumMap({
   ...CommonResultMap,
   FAIL_MISSING: 'failMissing',
   FAIL_INCORRECT: 'failIncorrect',
+  FAIL: 'fail',
 });
 
 /**
@@ -755,10 +722,6 @@ function isSomeFieldRequired(state) {
   return state.commands.some(
     command =>
       command.atOutput.value.trim() === '' ||
-      command.assertions.some(assertion => assertion.result === CommonResultMap.NOT_SET) ||
-      command.additionalAssertions.some(
-        assertion => assertion.result === CommonResultMap.NOT_SET
-      ) ||
       command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.NOT_SET ||
       (command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED &&
         (command.unexpected.behaviors.every(({ checked }) => !checked) ||
@@ -934,14 +897,6 @@ export function userValidateState() {
             ...command.atOutput,
             highlightRequired: !command.atOutput.value.trim(),
           },
-          assertions: command.assertions.map(assertion => ({
-            ...assertion,
-            highlightRequired: assertion.result === CommonResultMap.NOT_SET,
-          })),
-          additionalAssertions: command.additionalAssertions.map(assertion => ({
-            ...assertion,
-            highlightRequired: assertion.result === CommonResultMap.NOT_SET,
-          })),
           unexpected: {
             ...command.unexpected,
             highlightRequired:
@@ -1059,15 +1014,14 @@ export function userValidateState() {
 /**
  * @typedef InstructionDocumentResultsCommandsAssertion
  * @property {Description} description
- * @property {InstructionDocumentAssertionChoice} passChoice
- * @property {InstructionDocumentAssertionChoice[]} failChoices
+ * @property {Boolean} passed
+ * @property {boolean} [focus]
+ * @property {() => void} click
  */
 
 /**
  * @typedef InstructionDocumentResultsCommandsAssertionsHeader
  * @property {Description} descriptionHeader
- * @property {Description} passHeader
- * @property {Description} failHeader
  */
 
 /**

@@ -1,9 +1,9 @@
 testId,title,presentationNumber,setupScript,instructions,assertions
-navForwardsToNotPressedToggleButton,Navigate forwards to a not pressed toggle button,5,setFocusBeforeButton,"With focus on the 'Navigate forwards from here' link, navigate to the 'Mute' button.",roleButton nameMute stateNotPressed
-navBackToNotPressedToggleButton,Navigate backwards to a not pressed toggle button,6,setFocusAfterButton,"With focus on the 'Navigate backwards from here' link, navigate to the 'Mute' button.",roleButton nameMute stateNotPressed
-navForwardsToPressedToggleButton,Navigate forwards to a pressed toggle button,11,setFocusBeforeButtonAndSetStateToPressed,"With focus on the 'Navigate backwards from here' link, navigate to the 'Mute' button.",roleButton nameMute statePressed
-navBackToPressedToggleButton,Navigate backwards to a pressed toggle button,12,setFocusAfterButtonAndSetStateToPressed,"With focus on the 'Navigate backwards from here' link, navigate to the 'Mute' button.",roleButton nameMute statePressed
-reqInfoAboutNotPressedToggleButton,Request information about a not pressed toggle button,15,setFocusOnButton,"With focus on the 'Mute' button, read information about the button.",roleButton nameMute stateNotPressed
-reqInfoAboutPressedToggleButton,Request information about a pressed toggle button,18,setFocusOnButtonAndSetStateToPressed,"With focus on the 'Mute' button, read information about the button.",roleButton nameMute statePressed
-operateNotPressedToggleButton,Operate a not pressed toggle button,21,setFocusOnButton,"With focus on the 'Mute' button, activate the button.",stateChangeToPressed
-operatePressedToggleButton,Operate a pressed toggle button,24,setFocusOnButtonAndSetStateToPressed,"With focus on the 'Mute' button, activate the button.",stateChangeToNotPressed
+navForwardsToNotPressedToggleButton,Navigate forwards to a not pressed toggle button,5,setFocusBeforeButton,"Starting at the 'Navigate forwards from here' link, navigate to the 'Mute' button.",roleButton nameMute stateNotPressed
+navBackToNotPressedToggleButton,Navigate backwards to a not pressed toggle button,6,setFocusAfterButton,"Starting at the 'Navigate backwards from here' link, navigate to the 'Mute' button.",roleButton nameMute stateNotPressed
+navForwardsToPressedToggleButton,Navigate forwards to a pressed toggle button,11,setFocusBeforeButtonAndSetStateToPressed,"Starting at the 'Navigate backwards from here' link, navigate to the 'Mute' button.",roleButton nameMute statePressed
+navBackToPressedToggleButton,Navigate backwards to a pressed toggle button,12,setFocusAfterButtonAndSetStateToPressed,"Starting at the 'Navigate backwards from here' link, navigate to the 'Mute' button.",roleButton nameMute statePressed
+reqInfoAboutNotPressedToggleButton,Request information about a not pressed toggle button,15,setFocusOnButton,"Starting at the 'Mute' button, read information about the button.",roleButton nameMute stateNotPressed
+reqInfoAboutPressedToggleButton,Request information about a pressed toggle button,18,setFocusOnButtonAndSetStateToPressed,"Starting at the 'Mute' button, read information about the button.",roleButton nameMute statePressed
+operateNotPressedToggleButton,Operate a not pressed toggle button,21,setFocusOnButton,"Starting at the 'Mute' button, activate the button.",stateChangeToPressed
+operatePressedToggleButton,Operate a pressed toggle button,24,setFocusOnButtonAndSetStateToPressed,"Starting at the 'Mute' button, activate the button.",stateChangeToNotPressed

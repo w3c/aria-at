@@ -249,6 +249,7 @@ export function instructionDocument(resultState, hooks) {
       },
       assertions: [
         ...assertions
+          // Ignore assertion if level 0 priority exception found for assertion's command
           .filter((each, index) => (assertionExceptions ? assertionExceptions[index] !== 0 : each))
           .map(each =>
             assertionResult(
@@ -757,6 +758,7 @@ function resultsTableDocument(state) {
             commandSettings: { assertionExceptions },
           }) =>
             [
+              // Ignore assertion if level 0 priority exception found for assertion's command
               ...assertions.filter((each, index) =>
                 assertionExceptions ? assertionExceptions[index] !== 0 : each
               ),
@@ -779,6 +781,7 @@ function resultsTableDocument(state) {
           commandSettings: { assertionExceptions },
         } = command;
         const allAssertions = [
+          // Ignore assertion if level 0 priority exception found for assertion's command
           ...command.assertions.filter((each, index) =>
             assertionExceptions ? assertionExceptions[index] !== 0 : each
           ),

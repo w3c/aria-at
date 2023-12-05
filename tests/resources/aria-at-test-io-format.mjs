@@ -801,7 +801,10 @@ class BehaviorInput {
             priority = Number(priority);
             assertionExceptions[index] = priority;
           });
-          assertionExceptions = assertionExceptions.map(each => (isNaN(each) ? -1 : each));
+          // Preserve default priority or update with exception
+          assertionExceptions = assertionExceptions.map((each, index) =>
+            isNaN(each) ? json.output_assertions[index].priority : each
+          );
 
           return { ...cs, assertionExceptions };
         }),
@@ -875,7 +878,10 @@ class BehaviorInput {
             priority = Number(priority);
             assertionExceptions[index] = priority;
           });
-          assertionExceptions = assertionExceptions.map(each => (isNaN(each) ? -1 : each));
+          // Preserve default priority or update with exception
+          assertionExceptions = assertionExceptions.map((each, index) =>
+            isNaN(each) ? assertions[index].priority : each
+          );
 
           return { ...cs, assertionExceptions };
         }),

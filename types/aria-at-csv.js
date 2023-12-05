@@ -40,24 +40,82 @@
 /**
  * @typedef AriaATCSV.Reference
  * @property {string} refId
+ * @property {string} type
  * @property {string} value
+ * @property {string} linkText
+ */
+
+/**
+ * @typedef AriaATCSV.SupportTestPlanStrings
+ * @property {string} ariaSpecsPreface
+ * @property {string} openExampleInstruction
+ * @property {string} commandListPreface
+ * @property {string} commandListSettingsPreface
+ * @property {string} settingInstructionsPreface
+ * @property {string} assertionResponseQuestion
+ */
+
+/**
+ * @typedef AriaATCSV.SupportReference
+ * @property {string} baseUrl
+ * @property {string} linkText
+ * @property {object} fragmentIds
+ */
+
+/**
+ * @typedef AriaATCSV.SupportAtSetting
+ * @property {string} screenText
+ * @property {string[]} instructions
+ */
+
+/**
+ * @typedef AriaATCSV.SupportAt
+ * @property {string} key
+ * @property {string} name
+ * @property {string} defaultConfigurationInstructionsHTML
+ * @property {Object} assertionTokens
+ * @property {string} assertionTokens.screenReader
+ * @property {string} assertionTokens.readingMode
+ * @property {string} assertionTokens.interactionMode
+ * @property {Object<string, AriaATCSV.SupportAtSetting>} settings
  */
 
 /**
  * @typedef AriaATCSV.Support
- * @property {object[]} ats
- * @property {string} ats[].key
- * @property {string} ats[].name
+ * @property {AriaATCSV.SupportAt[]} ats
  * @property {Object<string, string[]>} applies_to
- * @property {object[]} examples
- * @property {string} examples[].directory
- * @property {string} examples[].name
+ * @property {AriaATCSV.SupportTestPlanStrings} testPlanStrings
+ * @property {object} references
+ * @property {AriaATCSV.SupportReference} references.aria
+ * @property {AriaATCSV.SupportReference} references.htmlAam
+ */
+
+/**
+ * @typedef AriaATCSV.AssertionCommandInfo
+ * @property {string} testId
+ * @property {string} command
+ * @property {string} settings
+ * @property {number} priority
+ * @property {string} assertionExceptions
+ */
+
+/**
+ * @typedef AriaATCSV.Assertion
+ * @property {string} assertionId
+ * @property {number} priority
+ * @property {string} assertionStatement
+ * @property {string} assertionPhrase
+ * @property {string} refIds
+ * @property {Object<string, AriaATCSV.AssertionCommandInfo>[]} commandInfo
  */
 
 /**
  * @typedef AriaATCSV.Test
  * @property {string} testId
  * @property {string} title
+ * @property {object} target
+ * @property {object[]} target.ats
+ * @property {number} presentationNumber
  * @property {string} appliesTo
  * @property {string} mode
  * @property {string} task
@@ -65,6 +123,8 @@
  * @property {string} setupScriptDescription
  * @property {string} refs
  * @property {string} instructions
+ * @property {AriaATCSV.Assertion[]} assertions
+ * @property {Object<string, AriaATCSV.AssertionCommandInfo[]>} commandsInfo
  * @property {string} [assertion1]
  * @property {string} [assertion2]
  * @property {string} [assertion3]

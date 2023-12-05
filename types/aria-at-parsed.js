@@ -47,15 +47,17 @@
 
 /**
  * @typedef AriaATParsed.Support
- * @property {object[]} ats
- * @property {string} ats[].key
- * @property {string} ats[].name
+ * @property {AriaATCSV.SupportAt[]} ats
  * @property {object[]} atGroups
  * @property {string} atGroups[].key
  * @property {string} atGroups[].name
  * @property {object[]} atGroups[].ats
  * @property {string} atGroups[].ats[].key
  * @property {string} atGroups[].ats[].name
+ * @property {AriaATCSV.SupportTestPlanStrings} testPlanStrings
+ * @property {object} references
+ * @property {AriaATCSV.SupportReference} references.aria
+ * @property {AriaATCSV.SupportReference} references.htmlAam
  */
 
 /**

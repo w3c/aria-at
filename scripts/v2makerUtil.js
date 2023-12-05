@@ -157,7 +157,22 @@ function translateCommand(screenReader, commandSequence, substitutions) {
     commandSequence = newCommandSequence.join(' ');
     if (newCommandSettings.length > 0) commandSettings = newCommandSettings.join(' ');
   }
-  commandSequence = commandSequence.replaceAll('_', '+');
+  commandSequence = commandSequence
+    .replaceAll('_', '+')
+    .replaceAll('one', '1')
+    .replaceAll('two', '2')
+    .replaceAll('caps', 'capsLock')
+    .replaceAll('page+up', 'pageUp')
+    .replaceAll('page+down', 'pageDown')
+    .replaceAll('numpad+5', 'numpad5')
+    .replaceAll('numpad+6', 'numpad6')
+    .replaceAll('UP', 'up')
+    .replaceAll('DOWN', 'down')
+    .replaceAll('LEFT', 'left')
+    .replaceAll('RIGHT', 'right')
+    .replaceAll('+then+', ' ')
+    .replaceAll('(with smart navigation on)', '')
+    .trim();
   return { commandSequence, commandSettings };
 }
 

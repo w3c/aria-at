@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Test plan review for pattern: {{pattern}}</title>
+    <title>{{title}} Test Plan | For Pattern: {{pattern}}</title>
     <style>
       table {
         border-collapse: collapse;
@@ -112,79 +112,102 @@
     </script>
   </head>
   <body>
-
-    <h1>Test plan review for pattern: {{pattern}} ({{totalTests}} tests)</h1>
+    <h1>{{h1Heading}}</h1>
 
     <fieldset>
-      <legend>Filter tests by assistive technology</legend>
+      <legend>Filter tests by covered assistive technology</legend>
       <input type="radio" onclick="filterATs(this)" id="all" value="all" checked><label for="all">All assistive technologies</label>
-      {{#AToptions}}
+      {{#atOptions}}
       <input type="radio" onclick="filterATs(this)" id="{{key}}" value="{{key}}"><label for="{{key}}">{{name}}</label>
-      {{/AToptions}}
+      {{/atOptions}}
     </fieldset>
+
+    <h2>Supporting Documentation</h2>
+    <ul>
+      {{#supportingDocs}}
+      <li><a href="{{link}}">{{text}}</a></li>
+      {{/supportingDocs}}
+    </ul>
 
     {{#tests}}
     <h2 class="{{allRelevantATsSpaceSeparated}}">Test {{testNumber}}: {{{name}}}</h2>
     <ul class="{{allRelevantATsSpaceSeparated}}">
-      <li>Mode: {{mode}}</li>
-      <li>Applies to: {{allRelevantATsFormatted}}</li>
-      <li>Last edited: {{lastEdited}}</li>
+      <li>Last Edited: {{lastEdited}}</li>
       <li>Tests:
         <ul>
           {{#allRelevantATs}}
-            <li><a href="../tests{{{location}}}?at={{{.}}}">{{{.}}}</a></li>
+            <li><a href="../tests{{{location}}}?at={{key}}">{{name}}</a></li>
           {{/allRelevantATs}}
         </ul>
       </li>
-      <li>Relevant Specifications:
+      {{#helpLinksExist}}
+      <li>{{helpLinksTitle}}
         <ul>
           {{#helpLinks}}
-            <li><a href="{{link}}">{{text}}</a></li>
+              <li><a href="{{link}}">{{text}}</a></li>
           {{/helpLinks}}
         </ul>
       </li>
+      {{/helpLinksExist}}
     </ul>
 
     <button id="open-test-page-{{testNumber}}" class="{{allRelevantATsSpaceSeparated}}"
         onclick="openTestPage('../tests{{reference}}', {{testNumber}}, '{{setupScriptName}}');">Open Test {{testNumber}} Page</button>
 
-      {{#ATTests}}
+      {{#atTests}}
       <div class="{{atKey}}">
         <h3>{{atName}}</h3>
-        {{#setupScriptDescription}}
-        <h4>Scripted Instructions</h4>
-        The following instructions are executed by a script in the test page to initialize the widget:
+        <h4>Instructions</h4>
         <ol>
-        <li>{{.}}</li>
-        </ol>
-        {{/setupScriptDescription}}
-        <h4>Tester Instructions</h4>
-        <ol>
-          <li>{{modeInstruction}}</li>
-          <li>{{userInstruction}} using the following commands:
+          <li>{{{defaultConfigurationInstructions}}}</li>
+          <li>{{{openExampleInstructions}}}</li>
+          <li>{{userInstruction}}
             <ul>
-              {{#commands}}
+              {{#commandsValuesForInstructions}}
                 <li>{{.}}</li>
-              {{/commands}}
-              {{^commands}}
-                <li>No commands have been added for this test for {{atName}}. Add commands, or, update the "applies_to" to list only the relevant assistive technologies.</li>
-              {{/commands}}
+              {{/commandsValuesForInstructions}}
+              {{^commandsValuesForInstructions}}
+                <li>No commands have been added for this test for {{atName}}. Add commands to the relevant assistive technologies.</li>
+              {{/commandsValuesForInstructions}}
             </ul>
           </li>
         </ol>
-        <h4>Assertions</h4>
-        <table>
-          <tr><th>Priority</th><th>Assertion</th></tr>
-          {{#assertions}}
-            <tr><td>{{priority}}</td><td>{{description}}</td></tr>
-          {{/assertions}}
-          {{^assertions}}
-            <tr><td colspan="2">No assertions have been listed for {{atName}}. Add assertion or update the "applies_to" to list only the relevant assistive technologies.</td></tr>
-          {{/assertions}}
-        </table>
+        {{#modeInstructions}}
+          <p>{{screenText}}</p>
+          <ol>
+            {{#instructions}}
+              <li>{{{.}}}</li>
+            {{/instructions}}
+          </ol>
+        {{/modeInstructions}}
+        {{#assertionsForCommandsInstructions}}
+          <h4 id="{{elemId}}">{{value}}: {{mustCount}} MUST, {{shouldCount}} SHOULD, AND {{mayCount}} MAY assertions</h4>
+          <table aria-labelledby="{{elemId}}">
+            <tr>
+              <th>Priority</th>
+              {{#isV2}}
+              <th>Assertion Phrase</th>
+              {{/isV2}}
+              <th>Assertion Statement</th>
+            </tr>
+            {{#assertionsInstructions}}
+              {{#priority}}
+                <tr>
+                  <td>{{priority}}</td>
+                  {{#isV2}}
+                  <td>{{assertionPhrase}}</td>
+                  {{/isV2}}
+                  <td>{{assertionStatement}}</td>
+                </tr>
+              {{/priority}}
+            {{/assertionsInstructions}}
+            {{^assertionsInstructions}}
+            <tr><td colspan="3">No assertions have been listed for {{atName}}. Add assertion or update the relevant assistive technologies.</td></tr>
+            {{/assertionsInstructions}}
+          </table>
+        {{/assertionsForCommandsInstructions}}
       </div>
-      {{/ATTests}}
+      {{/atTests}}
     {{/tests}}
-
   </body>
 </html>

@@ -366,7 +366,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
                   let priority = assertion.priority;
 
                   // Check to see if there is any command info exceptions for current at key
-                  const foundCommandInfo = testData.commandsInfo[at.key]?.find(
+                  const foundCommandInfo = testData.commandsInfo?.[at.key]?.find(
                     c =>
                       c.assertionExceptions.includes(assertion.assertionId) &&
                       c.command === assertionForCommand.key &&

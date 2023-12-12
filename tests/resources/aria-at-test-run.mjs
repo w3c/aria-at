@@ -93,9 +93,7 @@ export function instructionDocument(resultState, hooks) {
   const modeInstructions = resultState.info.modeInstructions;
   const userInstructions = resultState.info.userInstructions;
   const lastInstruction = userInstructions[userInstructions.length - 1];
-  const setupScriptDescription = resultState.info.setupScriptDescription
-    ? ` and runs a script that ${resultState.info.setupScriptDescription}.`
-    : resultState.info.setupScriptDescription;
+  const setupScriptDescription = ` ${resultState.info.setupScriptDescription}`;
   // As a hack, special case mode instructions for VoiceOver for macOS until we
   // support modeless tests.
   const modePhrase =
@@ -138,14 +136,24 @@ export function instructionDocument(resultState, hooks) {
     return resultArray.length ? resultArray : null;
   }
 
-  const convertedModeInstructions =
-    modeInstructions !== undefined && !modeInstructions.includes('undefined')
-      ? convertModeInstructionsToKbdArray(modeInstructions)
-      : null;
+  const commandListInstructions = `${resultState.testPlanStrings.commandListPreface}${
+    commands.some(
+      (command, index) =>
+        commandSettings[index]?.description !== 'defaultMode' && commandSettings[index]?.text
+    )
+      ? ` ${resultState.testPlanStrings.commandListSettingsPreface}`
+      : ''
+  }`;
 
-  let strongInstructions = [...userInstructions];
-  if (convertedModeInstructions)
-    strongInstructions = [convertedModeInstructions, ...strongInstructions];
+  const instructionsForSettings = {};
+  commandSettings.forEach(({ description: settings, text: screenText, instructions }) => {
+    if (settings && settings !== 'defaultMode' && !instructionsForSettings[settings]) {
+      instructionsForSettings[settings] = {
+        instructions: instructions.map(el => convertModeInstructionsToKbdArray(el)),
+        screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${screenText}:`,
+      };
+    }
+  });
 
   return {
     errors: {
@@ -155,34 +163,35 @@ export function instructionDocument(resultState, hooks) {
     },
     instructions: {
       header: {
-        header: `Testing task: ${resultState.info.description}`,
+        header: `Test: ${resultState.info.description}`,
         focus: resultState.currentUserAction === UserActionMap.LOAD_PAGE,
       },
       description: `${modePhrase} how ${resultState.config.at.name} behaves when performing task "${lastInstruction}"`,
       instructions: {
-        header: 'Test instructions',
+        header: 'Instructions',
         instructions: [
           [
-            `Restore default settings for ${resultState.config.at.name}. For help, read `,
+            `Configure ${resultState.config.at.name} with default settings. For help, read `,
             {
               href: 'https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing',
               description: 'Configuring Screen Readers for Testing',
             },
             `.`,
           ],
-          `Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}`,
+          `${resultState.testPlanStrings.openExampleInstruction}${setupScriptDescription}`,
         ],
-        strongInstructions: strongInstructions.filter(el => el),
+        strongInstructions: [...userInstructions].filter(el => el),
         commands: {
-          description: `Using the following commands, ${lastInstruction}`,
+          description: `${lastInstruction} ${commandListInstructions}`,
           commands: commands.map((command, index) => {
-            const { description: settings, text: settingsText } = commandSettings[index];
+            const { description: settings, text: screenText } = commandSettings[index];
             return `${command}${
-              settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
+              screenText && settings !== 'defaultMode' ? ` (${screenText})` : ''
             }`;
           }),
         },
       },
+      settings: instructionsForSettings,
       assertions: {
         header: 'Success Criteria',
         description: `To pass this test, ${resultState.config.at.name} needs to meet all the following assertions when each  specified command is executed:`,
@@ -243,7 +252,7 @@ export function instructionDocument(resultState, hooks) {
         change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
       assertionsHeader: {
-        descriptionHeader: `${resultState.assertionResponseQuestion} ${command}${
+        descriptionHeader: `${resultState.testPlanStrings.assertionResponseQuestion} ${command}${
           settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
         }?`,
       },
@@ -1230,6 +1239,7 @@ export function userValidateState() {
  * @property {boolean} config.displaySubmitButton
  * @property {TestRunUserAction} currentUserAction
  * @property {TestRunCommand[]} commands
+ * @property {object} testPlanStrings
  * @property {object} openTest
  * @property {boolean} openTest.enabled
  */

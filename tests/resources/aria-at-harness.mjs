@@ -361,7 +361,10 @@ function renderVirtualInstructionDocument(doc) {
 
     instructCommands(doc.instructions.instructions),
 
-    instructAssertions(doc.instructions.assertions),
+    // Contains the details on "Success Criteria" which is no longer needed
+    // instructAssertions(doc.instructions.assertions),
+
+    instructSettings(doc.instructions.settings),
 
     button(
       disabled(!doc.instructions.openTestPage.enabled),
@@ -532,14 +535,14 @@ function renderVirtualInstructionDocument(doc) {
   function instructCommands({
     header,
     instructions,
-    strongInstructions: boldInstructions,
+    // strongInstructions: boldInstructions,
     commands,
   }) {
     return fragment(
       h2(rich(header)),
       ol(
         ...map(instructions, compose(li, rich)),
-        ...map(boldInstructions, compose(li, em, rich)),
+        // ...map(boldInstructions, compose(li, em, rich)),
         li(rich(commands.description), ul(...map(commands.commands, compose(li, em, rich))))
       )
     );
@@ -550,8 +553,9 @@ function renderVirtualInstructionDocument(doc) {
    */
   function instructionHeader({ header, description }) {
     return fragment(
-      h1(id('behavior-header'), tabIndex('0'), focus(header.focus), rich(header.header)),
-      p(rich(description))
+      h1(id('behavior-header'), tabIndex('0'), focus(header.focus), rich(header.header))
+      // No longer needed; contains the old `With {AT} in {atMode} mode, describe how {AT} behaves when performing task, {task}`
+      // p(rich(description))
     );
   }
 
@@ -564,6 +568,15 @@ function renderVirtualInstructionDocument(doc) {
       p(rich(description)),
       ol(...map(assertions, compose(li, em, rich)))
     );
+  }
+
+  /**
+   * @param {InstructionDocumentInstructionsSettings} settings
+   */
+  function instructSettings(settings) {
+    return Object.values(settings).map(({ screenText, instructions }) => {
+      return fragment(p(rich(screenText)), ol(...map(instructions, compose(li, rich))));
+    });
   }
 }
 

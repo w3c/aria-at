@@ -1062,6 +1062,12 @@ export function userValidateState() {
  */
 
 /**
+ * @typedef InstructionDocumentInstructionsSettings
+ * @property {string} screenText
+ * @property {string[]} instructions
+ */
+
+/**
  * @typedef InstructionDocumentResultsCommandsATOutput
  * @property {Description} description
  * @property {string} value

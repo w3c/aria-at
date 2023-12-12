@@ -571,7 +571,7 @@ function renderVirtualInstructionDocument(doc) {
   }
 
   /**
-   * @param {InstructionDocumentInstructionsSettings} settings
+   * @param {InstructionDocumentInstructionsSettings[]} settings
    */
   function instructSettings(settings) {
     return Object.values(settings).map(({ screenText, instructions }) => {
@@ -640,6 +640,7 @@ function renderVirtualResultsTable(results) {
 /** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentResultsCommand} InstructionDocumentResultsCommand */
 /** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentResultsCommandsUnexpected} InstructionDocumentResultsCommandsUnexpected */
 /** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentResultsCommandsAssertion} InstructionDocumentResultsCommandsAssertion */
+/** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentResultsCommandsSettings} InstructionDocumentResultsCommandsSettings */
 /** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentAssertionChoice} InstructionDocumentAssertionChoice */
 /** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentInstructionsInstructions} InstructionDocumentInstructionsInstructions */
 

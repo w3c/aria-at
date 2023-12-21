@@ -51,7 +51,7 @@ if (args._.length !== 1) {
   console.log(
     `Name of a test plan directory that is a subdirectory of the 'tests' directory is required.`
   );
-  process.exit();
+  process.exit(1);
 }
 
 main();
@@ -73,6 +73,7 @@ async function main() {
     await util.logMessage(`\nFinished conversion at ${new Date().toISOString()}`);
   } catch (error) {
     console.error('Error!', error);
+    process.exitCode = 1;
   }
 }
 

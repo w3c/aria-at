@@ -45,6 +45,14 @@ const PAGE_STYLES = `
    margin-left: 1em;
   }
 
+  div.problem-option-container.enabled {
+    margin-bottom: 0.5em;
+  }
+
+  div.problem-option-container:last-child {
+    margin-bottom: 0;
+  }
+
   fieldset.assertions {
     margin-bottom: 1em;
   }
@@ -278,6 +286,8 @@ const name = bind(attribute, 'name');
 const tabIndex = bind(attribute, 'tabindex');
 const textContent = bind(attribute, 'textContent');
 const type = bind(attribute, 'type');
+const ariaLabel = bind(attribute, 'aria-label');
+const ariaHidden = bind(attribute, 'aria-hidden');
 
 const value = bind(property, 'value');
 const checked = bind(property, 'checked');
@@ -438,51 +448,71 @@ function renderVirtualInstructionDocument(doc) {
         className(['problem-select']),
         id(`cmd-${commandIndex}-problem-checkboxes`),
         legend(rich(unexpected.failChoice.options.header)),
-        ...unexpected.failChoice.options.options.map(failOption =>
-          fieldset(
-            legend(rich(failOption.description)),
-            input(
-              type('checkbox'),
-              value(failOption.description),
-              id(`${failOption.description}-${commandIndex}`),
-              className([`undesirable-${commandIndex}`]),
-              tabIndex(failOption.tabbable ? '0' : '-1'),
-              disabled(!failOption.enabled),
-              checked(failOption.checked),
-              focus(failOption.focus),
-              onchange(ev =>
-                failOption.change(/** @type {HTMLInputElement} */ (ev.currentTarget).checked)
+        ...unexpected.failChoice.options.options.map(failOption => {
+          const failOptionId = failOption.description
+            .toLowerCase()
+            .replace(/[.,]/g, '')
+            .replace(/\s+/g, '-');
+
+          return div(
+            className([`problem-option-container ${failOption.checked ? 'enabled' : ''}`]),
+            // Undesirable behavior checkbox
+            div(
+              input(
+                type('checkbox'),
+                value(failOption.description),
+                id(`${failOptionId}-${commandIndex}-checkbox`),
+                className([`undesirable-${commandIndex}`]),
+                tabIndex(failOption.tabbable ? '0' : '-1'),
+                disabled(!failOption.enabled),
+                checked(failOption.checked),
+                focus(failOption.focus),
+                onchange(ev =>
+                  failOption.change(/** @type {HTMLInputElement} */ (ev.currentTarget).checked)
+                ),
+                onkeydown(ev => {
+                  if (failOption.keydown(ev.key)) {
+                    ev.stopPropagation();
+                    ev.preventDefault();
+                  }
+                })
               ),
-              onkeydown(ev => {
-                if (failOption.keydown(ev.key)) {
-                  ev.stopPropagation();
-                  ev.preventDefault();
-                }
-              })
-            ),
-            label(forInput(`${failOption.description}-${commandIndex}`), rich('Behavior occurred')),
-            br(),
-            label(forInput(`${failOption.description}-${commandIndex}-severity`), rich('Impact: ')),
-            select(
-              id(`${failOption.description}-${commandIndex}-severity`),
-              name(`${failOption.description}-${commandIndex}-severity`),
-              option(UnexpectedBehaviorSeverityMap.MODERATE),
-              option(UnexpectedBehaviorSeverityMap.HIGH),
-              disabled(!failOption.checked),
-              onchange(ev =>
-                failOption.severitychange(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
+              label(
+                id(`${failOptionId}-${commandIndex}-label`),
+                forInput(`${failOptionId}-${commandIndex}-checkbox`),
+                rich(`${failOption.description} behavior occurred`)
               )
             ),
-            br(),
+            // Severity select
             div(
+              className([!failOption.checked ? 'off-screen' : '']),
+              ariaHidden(!failOption.checked),
+              label(forInput(`${failOptionId}-${commandIndex}-severity`), rich('Impact:')),
+              select(
+                id(`${failOptionId}-${commandIndex}-severity`),
+                ariaLabel(`Impact for ${failOption.description}`),
+                option(UnexpectedBehaviorSeverityMap.MODERATE),
+                option(UnexpectedBehaviorSeverityMap.HIGH),
+                disabled(!failOption.checked),
+                onchange(ev =>
+                  failOption.severitychange(
+                    /** @type {HTMLInputElement} */ (ev.currentTarget).value
+                  )
+                )
+              )
+            ),
+            // Details text input
+            div(
+              className([!failOption.checked ? 'off-screen' : '']),
+              ariaHidden(!failOption.checked),
               label(
-                forInput(`${failOption.description}-${commandIndex}-input`),
+                forInput(`${failOptionId}-${commandIndex}-details`),
                 rich(failOption.more.description)
               ),
               input(
                 type('text'),
-                id(`${failOption.description}-${commandIndex}-input`),
-                name(`${failOption.description}-${commandIndex}-input`),
+                id(`${failOptionId}-${commandIndex}-details`),
+                ariaLabel(`Details for ${failOption.description}`),
                 className(['undesirable-other-input']),
                 disabled(!failOption.more.enabled),
                 value(failOption.more.value),
@@ -491,8 +521,8 @@ function renderVirtualInstructionDocument(doc) {
                 )
               )
             )
-          )
-        )
+          );
+        })
       )
     );
   }

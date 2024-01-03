@@ -336,7 +336,7 @@ export function instructionDocument(resultState, hooks) {
                 },
                 more: {
                   description: /** @type {Description[]} */ ([
-                    `Details: `,
+                    `Details:`,
                     {
                       required: true,
                       highlightRequired: behavior.more.highlightRequired,

@@ -361,9 +361,6 @@ function renderVirtualInstructionDocument(doc) {
 
     instructCommands(doc.instructions.instructions),
 
-    // Contains the details on "Success Criteria" which is no longer needed
-    // instructAssertions(doc.instructions.assertions),
-
     instructSettings(doc.instructions.settings),
 
     button(
@@ -532,17 +529,11 @@ function renderVirtualInstructionDocument(doc) {
    * @param {InstructionDocumentInstructionsInstructions} param0
    * @returns
    */
-  function instructCommands({
-    header,
-    instructions,
-    // strongInstructions: boldInstructions,
-    commands,
-  }) {
+  function instructCommands({ header, instructions, commands }) {
     return fragment(
       h2(rich(header)),
       ol(
         ...map(instructions, compose(li, rich)),
-        // ...map(boldInstructions, compose(li, em, rich)),
         li(rich(commands.description), ul(...map(commands.commands, compose(li, em, rich))))
       )
     );
@@ -554,8 +545,6 @@ function renderVirtualInstructionDocument(doc) {
   function instructionHeader({ header, description }) {
     return fragment(
       h1(id('behavior-header'), tabIndex('0'), focus(header.focus), rich(header.header))
-      // No longer needed; contains the old `With {AT} in {atMode} mode, describe how {AT} behaves when performing task, {task}`
-      // p(rich(description))
     );
   }
 

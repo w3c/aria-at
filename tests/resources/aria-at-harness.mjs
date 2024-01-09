@@ -126,14 +126,13 @@ export async function loadCollectedTestAsync(testRoot, testFileName) {
   const collectedTestResponse = await fetch(`${testRoot}/${testFileName}`);
   const collectedTestJson = await collectedTestResponse.json();
 
-  try {
-    // v2 commands.json
-    const commandsJsonResponse = await fetch(`../commands.json`);
+  // v2 commands.json
+  const commandsJsonResponse = await fetch('../commands.json');
+  if (commandsJsonResponse.ok) {
     const commandsJson = await commandsJsonResponse.json();
     testRunIO.setAllCommandsInputFromJSON(commandsJson);
-  } catch (e) {
-    // v2 commands.json isn't available
   }
+
   await testRunIO.setInputsFromCollectedTestAsync(collectedTestJson, testRoot);
   testRunIO.setConfigInputFromQueryParamsAndSupport([
     ['at', collectedTestJson.target.at.key],

@@ -13,7 +13,7 @@ import {
   userCloseWindow,
   userOpenWindow,
   WhitespaceStyleMap,
-  UnexpectedBehaviorSeverityMap,
+  UnexpectedBehaviorImpactMap,
 } from './aria-at-test-run.mjs';
 import { TestRunExport, TestRunInputOutput } from './aria-at-test-io-format.mjs';
 import { TestWindow } from './aria-at-test-window.mjs';
@@ -480,18 +480,18 @@ function renderVirtualInstructionDocument(doc) {
             )
           );
 
-          const severitySelect = div(
+          const impactSelect = div(
             className([!failOption.checked && 'off-screen']),
             ariaHidden(!failOption.checked),
-            label(forInput(`${failOptionId}-${commandIndex}-severity`), rich('Impact:')),
+            label(forInput(`${failOptionId}-${commandIndex}-impact`), rich('Impact:')),
             select(
-              id(`${failOptionId}-${commandIndex}-severity`),
+              id(`${failOptionId}-${commandIndex}-impact`),
               ariaLabel(`Impact for ${failOption.description}`),
-              option(UnexpectedBehaviorSeverityMap.MODERATE),
-              option(UnexpectedBehaviorSeverityMap.HIGH),
+              option(UnexpectedBehaviorImpactMap.MODERATE),
+              option(UnexpectedBehaviorImpactMap.HIGH),
               disabled(!failOption.checked),
               onchange(ev =>
-                failOption.severitychange(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
+                failOption.impactchange(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
               )
             )
           );
@@ -519,7 +519,7 @@ function renderVirtualInstructionDocument(doc) {
           return div(
             className(['problem-option-container', failOption.checked && 'enabled']),
             undesirableBehaviorCheckbox,
-            severitySelect,
+            impactSelect,
             detailsTextInput
           );
         })

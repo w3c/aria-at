@@ -19,9 +19,7 @@ export class TestRun {
       setCommandAssertion: bindDispatch(userChangeCommandAssertion),
       setCommandHasUnexpectedBehavior: bindDispatch(userChangeCommandHasUnexpectedBehavior),
       setCommandUnexpectedBehavior: bindDispatch(userChangeCommandUnexpectedBehavior),
-      setCommandUnexpectedBehaviorSeverity: bindDispatch(
-        userChangeCommandUnexpectedBehaviorSeverity
-      ),
+      setCommandUnexpectedBehaviorImpact: bindDispatch(userChangeCommandUnexpectedBehaviorImpact),
       setCommandUnexpectedBehaviorMore: bindDispatch(userChangeCommandUnexpectedBehaviorMore),
       setCommandOutput: bindDispatch(userChangeCommandOutput),
       submit: () => submitResult(this),
@@ -298,7 +296,7 @@ export function instructionDocument(resultState, hooks) {
             options: resultUnexpectedBehavior.behaviors.map((behavior, unexpectedIndex) => {
               return {
                 description: behavior.description,
-                severity: behavior.severity,
+                impact: behavior.impact,
                 enabled:
                   resultUnexpectedBehavior.hasUnexpected ===
                   HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
@@ -316,11 +314,11 @@ export function instructionDocument(resultState, hooks) {
                       focusFirstRequired(),
                 change: checked =>
                   hooks.setCommandUnexpectedBehavior({ commandIndex, unexpectedIndex, checked }),
-                severitychange: severity =>
-                  hooks.setCommandUnexpectedBehaviorSeverity({
+                impactchange: impact =>
+                  hooks.setCommandUnexpectedBehaviorImpact({
                     commandIndex,
                     unexpectedIndex,
-                    severity,
+                    impact,
                   }),
                 keydown: key => {
                   const increment = keyToFocusIncrement(key);
@@ -472,10 +470,10 @@ export const AssertionResultMap = createEnumMap({
 });
 
 /**
- * @typedef {EnumValues<typeof UnexpectedBehaviorSeverityMap>} UnexpectedBehaviorSeverity
+ * @typedef {EnumValues<typeof UnexpectedBehaviorImpactMap>} UnexpectedBehaviorImpact
  */
 
-export const UnexpectedBehaviorSeverityMap = createEnumMap({
+export const UnexpectedBehaviorImpactMap = createEnumMap({
   MODERATE: 'Moderate',
   HIGH: 'High',
 });
@@ -632,13 +630,13 @@ export function userChangeCommandUnexpectedBehavior({ commandIndex, unexpectedIn
  * @param {object} props
  * @param {number} props.commandIndex
  * @param {number} props.unexpectedIndex
- * @param {string} props.severity
+ * @param {string} props.impact
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandUnexpectedBehaviorSeverity({
+export function userChangeCommandUnexpectedBehaviorImpact({
   commandIndex,
   unexpectedIndex,
-  severity,
+  impact,
 }) {
   return function (state) {
     return {
@@ -656,7 +654,7 @@ export function userChangeCommandUnexpectedBehaviorSeverity({
                     ? unexpected
                     : /** @type {TestRunUnexpectedBehavior} */ ({
                         ...unexpected,
-                        severity: severity,
+                        impact: impact,
                       })
                 ),
               },
@@ -832,10 +830,10 @@ function resultsTableDocument(state) {
         if (command.unexpected.behaviors.some(({ checked }) => checked)) {
           unexpectedBehaviors = command.unexpected.behaviors
             .filter(({ checked }) => checked)
-            .map(({ description, more, severity }) => {
+            .map(({ description, more, impact }) => {
               let result = `${description} (`;
               if (more) result = `${result}Details: ${more.value}, `;
-              result = `${result}Impact: ${severity})`;
+              result = `${result}Impact: ${impact})`;
               return result;
             });
         }
@@ -1182,7 +1180,7 @@ export function userValidateState() {
  * @property {(options: {commandIndex: number, hasUnexpected: HasUnexpectedBehavior}) => void } setCommandHasUnexpectedBehavior
  * @property {(options: {commandIndex: number, atOutput: string}) => void} setCommandOutput
  * @property {(options: {commandIndex: number, unexpectedIndex: number, checked}) => void } setCommandUnexpectedBehavior
- * @property {(options: {commandIndex: number, unexpectedIndex: number, severity: string}) => void } setCommandUnexpectedBehaviorSeverity
+ * @property {(options: {commandIndex: number, unexpectedIndex: number, impact: string}) => void } setCommandUnexpectedBehaviorImpact
  * @property {(options: {commandIndex: number, unexpectedIndex: number, more: string}) => void } setCommandUnexpectedBehaviorMore
  * @property {() => void} submit
  */
@@ -1222,7 +1220,7 @@ export function userValidateState() {
  * @property {object} [more]
  * @property {boolean} more.highlightRequired
  * @property {string} more.value
- * @property {string} severity
+ * @property {string} impact
  */
 
 /**

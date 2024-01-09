@@ -1211,7 +1211,7 @@ export class TestRunInputOutput {
               behaviors: test.unexpectedBehaviors.map(({ description }) => ({
                 description,
                 checked: false,
-                severity: UnexpectedBehaviorSeverityMap.MODERATE,
+                impact: UnexpectedBehaviorImpactMap.MODERATE,
                 more: { highlightRequired: false, value: '' },
               })),
             },
@@ -1420,8 +1420,8 @@ export class TestRunInputOutput {
             behavior.checked
               ? {
                   text: behavior.description,
-                  severity: behavior.severity,
-                  unexpectedBehaviorText: behavior.more.value,
+                  impact: behavior.impact,
+                  details: behavior.more.value,
                 }
               : null
           )
@@ -1493,10 +1493,10 @@ export class TestRunInputOutput {
                 more: behavior.more
                   ? {
                       highlightRequired: false,
-                      severity: behaviorResult
-                        ? behavior.severity
-                        : UnexpectedBehaviorSeverityMap.MODERATE,
-                      value: behaviorResult ? behaviorResult.unexpectedBehaviorText : '',
+                      impact: behaviorResult
+                        ? behavior.impact
+                        : UnexpectedBehaviorImpactMap.MODERATE,
+                      value: behaviorResult ? behaviorResult.details : '',
                     }
                   : behavior.more,
               };
@@ -1581,7 +1581,7 @@ const AssertionFailJSONMap = createEnumMap({
   FAIL: 'Fail',
 });
 
-const UnexpectedBehaviorSeverityMap = createEnumMap({
+const UnexpectedBehaviorImpactMap = createEnumMap({
   MODERATE: 'Moderate',
   HIGH: 'High',
 });

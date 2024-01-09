@@ -34,6 +34,6 @@
  * @property {object[]} scenarioResults[].unexpectedBehaviors
  * @property {string} scenarioResults[].unexpectedBehaviors[].id
  * @property {string} scenarioResults[].unexpectedBehaviors[].text
- * @property {string} scenarioResults[].unexpectedBehaviors[].severity
- * @property {string} scenarioResults[].unexpectedBehaviors[].unexpectedBehaviorText
+ * @property {string} scenarioResults[].unexpectedBehaviors[].impact
+ * @property {string} scenarioResults[].unexpectedBehaviors[].details
  */

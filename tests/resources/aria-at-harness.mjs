@@ -454,7 +454,7 @@ function renderVirtualInstructionDocument(doc) {
             .replace(/\s+/g, '-');
 
           return div(
-            className([`problem-option-container ${failOption.checked ? 'enabled' : ''}`]),
+            className(['problem-option-container', failOption.checked && 'enabled']),
             // Undesirable behavior checkbox
             div(
               input(
@@ -484,7 +484,7 @@ function renderVirtualInstructionDocument(doc) {
             ),
             // Severity select
             div(
-              className([!failOption.checked ? 'off-screen' : '']),
+              className([!failOption.checked && 'off-screen']),
               ariaHidden(!failOption.checked),
               label(forInput(`${failOptionId}-${commandIndex}-severity`), rich('Impact:')),
               select(
@@ -502,7 +502,7 @@ function renderVirtualInstructionDocument(doc) {
             ),
             // Details text input
             div(
-              className([!failOption.checked ? 'off-screen' : '']),
+              className([!failOption.checked && 'off-screen']),
               ariaHidden(!failOption.checked),
               label(
                 forInput(`${failOptionId}-${commandIndex}-details`),

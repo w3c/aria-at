@@ -315,7 +315,6 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
                       priority: getPriorityString(a[0]),
                       assertionPhrase: 'N/A',
                       assertionStatement: a[1],
-                      commandInfo: null,
                     };
                   }
 
@@ -326,7 +325,6 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
                     assertionPhrase: a.assertionPhrase,
                     assertionStatement:
                       a.tokenizedAssertionStatements?.[at.key] || a.assertionStatement,
-                    commandInfo: a.commandInfo,
                   };
                 })
               : undefined;
@@ -368,33 +366,22 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
                   let priority = assertion.priority;
 
                   // Check to see if there is any command info exceptions for current at key
-                  if (assertion.commandInfo && assertion.commandInfo[at.key]) {
-                    assertion.commandInfo[at.key].forEach(commandInfoForAt => {
-                      // Reconfirm against the known testData.commandsInfo;
-                      // order should be maintained as presorted during build
-                      // process
-                      const testDataCommandInfoForAt =
-                        testData.commandsInfo[at.key][assertionForCommandIndex];
+                  const foundCommandInfo = testData.commandsInfo?.[at.key]?.find(
+                    c =>
+                      c.assertionExceptions.includes(assertion.assertionId) &&
+                      c.command === assertionForCommand.key &&
+                      c.settings === assertionForCommand.settings
+                  );
 
-                      if (
-                        commandInfoForAt.testId === task &&
-                        commandInfoForAt.command === assertionForCommand.key &&
-                        commandInfoForAt.assertionExceptions.includes(assertion.assertionId) &&
-                        commandInfoForAt.presentationNumber ===
-                          testDataCommandInfoForAt.presentationNumber
-                      ) {
-                        for (const exceptionPair of commandInfoForAt.assertionExceptions.split(
-                          ' '
-                        )) {
-                          let [exceptionPriority, exceptionAssertion] = exceptionPair.split(':');
-                          exceptionPriority = Number(exceptionPriority);
+                  if (foundCommandInfo) {
+                    for (const exceptionPair of foundCommandInfo.assertionExceptions.split(' ')) {
+                      let [exceptionPriority, exceptionAssertion] = exceptionPair.split(':');
+                      exceptionPriority = Number(exceptionPriority);
 
-                          if (assertion.assertionId === exceptionAssertion) {
-                            priority = getPriorityString(exceptionPriority);
-                          }
-                        }
+                      if (assertion.assertionId === exceptionAssertion) {
+                        priority = getPriorityString(exceptionPriority);
                       }
-                    });
+                    }
                   }
 
                   return {

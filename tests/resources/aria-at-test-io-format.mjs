@@ -405,6 +405,8 @@ class CommandsInput {
             commands.push(command);
             commandsAndSettings.push({
               command,
+              commandId,
+              presentationNumber: Number(presentationNumber),
               settings: _atMode,
               settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
               settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
@@ -767,6 +769,9 @@ class BehaviorInput {
 
     const { commandsAndSettings } = commandsInput.getCommands({ task: json.task }, mode);
 
+    // Use to determine assertionExceptions
+    const commandsInfo = json.commandsInfo?.[at.key];
+
     return new BehaviorInput({
       behavior: {
         description: titleInput.title(),
@@ -778,7 +783,31 @@ class BehaviorInput {
         setupScriptDescription: json.setup_script_description,
         setupTestPage: json.setupTestPage,
         assertionResponseQuestion: json.assertionResponseQuestion,
-        commands: commandsAndSettings,
+        commands: commandsAndSettings.map(cs => {
+          const foundCommandInfo = commandsInfo?.find(
+            c =>
+              cs.commandId === c.command &&
+              cs.presentationNumber === c.presentationNumber &&
+              cs.settings === c.settings
+          );
+          if (!foundCommandInfo || !foundCommandInfo.assertionExceptions) return cs;
+
+          // Only works for v2
+          let assertionExceptions = json.output_assertions.map(each => each.assertionId);
+          foundCommandInfo.assertionExceptions.split(' ').forEach(each => {
+            let [priority, assertionId] = each.split(':');
+            const index = assertionExceptions.findIndex(each => each === assertionId);
+
+            priority = Number(priority);
+            assertionExceptions[index] = priority;
+          });
+          // Preserve default priority or update with exception
+          assertionExceptions = assertionExceptions.map((each, index) =>
+            isNaN(each) ? json.output_assertions[index].priority : each
+          );
+
+          return { ...cs, assertionExceptions };
+        }),
         assertions: (json.output_assertions ? json.output_assertions : []).map(assertion => {
           // Tuple array [ priorityNumber, assertionText ]
           if (Array.isArray(assertion)) {
@@ -788,7 +817,7 @@ class BehaviorInput {
             };
           }
 
-          // { assertionId, priority, assertionStatement, assertionPhrase, refIds, commandInfo, tokenizedAssertionStatements }
+          // { assertionId, priority, assertionStatement, assertionPhrase, refIds, tokenizedAssertionStatements }
           return {
             priority: assertion.priority,
             assertion:
@@ -815,7 +844,7 @@ class BehaviorInput {
    * @param {UnexpectedInput} data.unexpectedInput
    */
   static fromCollectedTestCommandsKeysUnexpected(
-    { info, target, instructions, assertions },
+    { info, target, instructions, assertions, commands },
     { commandsInput, keysInput, unexpectedInput }
   ) {
     // v1:info.task, v2: info.testId | v1:target.mode, v2:target.at.settings
@@ -834,7 +863,28 @@ class BehaviorInput {
         specificUserInstruction: instructions.raw || instructions.instructions,
         setupScriptDescription: target.setupScript ? target.setupScript.description : '',
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
-        commands: commandsAndSettings,
+        commands: commandsAndSettings.map(cs => {
+          const foundCommandInfo = commands.find(
+            c => cs.commandId === c.id && cs.settings === c.settings
+          );
+          if (!foundCommandInfo || !foundCommandInfo.assertionExceptions) return cs;
+
+          // Only works for v2
+          let assertionExceptions = assertions.map(each => each.assertionId);
+          foundCommandInfo.assertionExceptions.forEach(each => {
+            let { priority, assertionId } = each;
+            const index = assertionExceptions.findIndex(each => each === assertionId);
+
+            priority = Number(priority);
+            assertionExceptions[index] = priority;
+          });
+          // Preserve default priority or update with exception
+          assertionExceptions = assertionExceptions.map((each, index) =>
+            isNaN(each) ? assertions[index].priority : each
+          );
+
+          return { ...cs, assertionExceptions };
+        }),
         assertions: assertions.map(
           ({ priority, expectation, assertionStatement, tokenizedAssertionStatements }) => {
             let assertion = tokenizedAssertionStatements
@@ -1187,6 +1237,7 @@ export class TestRunInputOutput {
               description: command.settings,
               text: command.settingsText,
               instructions: command.settingsInstructions,
+              assertionExceptions: command.assertionExceptions,
             },
             atOutput: {
               highlightRequired: false,

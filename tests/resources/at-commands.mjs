@@ -123,6 +123,7 @@ export class commandsAPI {
                 return {
                   value,
                   key,
+                  settings: mode,
                 };
               })
             );

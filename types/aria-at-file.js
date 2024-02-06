@@ -97,7 +97,8 @@
  * @property {string} [commands[].extraInstruction] human-readable additional instruction to follow
  * @property {object[]} assertions[]
  * @property {1 | 2} assertions[].priority
- * @property {string} assertions[].expectation
+ * @property {string} [assertions[].expectation] assertion statement string, this property only exists on v1 tests
+ * @property {string} [assertions[].assertionStatement] assertion statement string, this property only exists on v2 tests
  */
 
 /**

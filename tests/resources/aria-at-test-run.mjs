@@ -219,7 +219,7 @@ export function instructionDocument(resultState, hooks) {
     const resultUnexpectedBehavior = resultStateCommand.unexpected;
 
     const {
-      commandSettings: { description: settings, text: settingsText },
+      commandSettings: { description: settings, text: settingsText, assertionExceptions },
     } = resultStateCommand;
 
     return {
@@ -248,7 +248,16 @@ export function instructionDocument(resultState, hooks) {
         }?`,
       },
       assertions: [
-        ...assertions.map(bind(assertionResult, commandIndex)),
+        ...assertions
+          // Ignore assertion if level 0 priority exception found for assertion's command
+          .filter((each, index) => (assertionExceptions ? assertionExceptions[index] !== 0 : each))
+          .map(each =>
+            assertionResult(
+              commandIndex,
+              each,
+              assertions.findIndex(e => e === each)
+            )
+          ),
         ...additionalAssertions.map(bind(additionalAssertionResult, commandIndex)),
       ],
       unexpectedBehaviors: {
@@ -742,10 +751,20 @@ function resultsTableDocument(state) {
       header: [
         'Test result: ',
         state.commands.some(
-          ({ assertions, additionalAssertions, unexpected }) =>
-            [...assertions, ...additionalAssertions].some(
-              ({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS
-            ) || unexpected.behaviors.some(({ checked }) => checked)
+          ({
+            assertions,
+            additionalAssertions,
+            unexpected,
+            commandSettings: { assertionExceptions },
+          }) =>
+            [
+              // Ignore assertion if level 0 priority exception found for assertion's command
+              ...assertions.filter((each, index) =>
+                assertionExceptions ? assertionExceptions[index] !== 0 : each
+              ),
+              ...additionalAssertions,
+            ].some(({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS) ||
+            unexpected.behaviors.some(({ checked }) => checked)
         )
           ? 'FAIL'
           : 'PASS',
@@ -758,11 +777,20 @@ function resultsTableDocument(state) {
         details: 'Details',
       },
       commands: state.commands.map(command => {
-        const allAssertions = [...command.assertions, ...command.additionalAssertions];
+        const {
+          commandSettings: { assertionExceptions },
+        } = command;
+        const allAssertions = [
+          // Ignore assertion if level 0 priority exception found for assertion's command
+          ...command.assertions.filter((each, index) =>
+            assertionExceptions ? assertionExceptions[index] !== 0 : each
+          ),
+          ...command.additionalAssertions,
+        ];
 
         let passingAssertions = ['No passing assertions.'];
         let failingAssertions = ['No failing assertions.'];
-        let unexpectedBehaviors = ['No unexpect behaviors.'];
+        let unexpectedBehaviors = ['No unexpected behaviors.'];
 
         if (allAssertions.some(({ result }) => result === CommonResultMap.PASS)) {
           passingAssertions = allAssertions

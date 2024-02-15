@@ -34,5 +34,5 @@
  * @property {object[]} scenarioResults[].unexpectedBehaviors
  * @property {string} scenarioResults[].unexpectedBehaviors[].id
  * @property {string} scenarioResults[].unexpectedBehaviors[].text
- * @property {string | null} [scenarioResults[].unexpectedBehaviors[].otherUnexpectedBehaviorText]
+ * @property {string | null} [scenarioResults[].unexpectedBehaviorNote]
  */

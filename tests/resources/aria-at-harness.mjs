@@ -441,7 +441,7 @@ function renderVirtualInstructionDocument(doc) {
               type('checkbox'),
               value(failOption.description),
               id(`${failOption.description}-${commandIndex}`),
-              className([`undesirable-${commandIndex}`]),
+              className([`unexpected-${commandIndex}`]),
               tabIndex(failOption.tabbable ? '0' : '-1'),
               disabled(!failOption.enabled),
               checked(failOption.checked),
@@ -460,28 +460,26 @@ function renderVirtualInstructionDocument(doc) {
               forInput(`${failOption.description}-${commandIndex}`),
               rich(failOption.description)
             ),
-            br(),
-            failOption.more
-              ? div(
-                  label(
-                    forInput(`${failOption.description}-${commandIndex}-input`),
-                    rich(failOption.more.description)
-                  ),
-                  input(
-                    type('text'),
-                    id(`${failOption.description}-${commandIndex}-input`),
-                    name(`${failOption.description}-${commandIndex}-input`),
-                    className(['undesirable-other-input']),
-                    disabled(!failOption.more.enabled),
-                    value(failOption.more.value),
-                    onchange(ev =>
-                      failOption.more.change(
-                        /** @type {HTMLInputElement} */ (ev.currentTarget).value
-                      )
-                    )
-                  )
+            br()
+          )
+        ),
+        fragment(
+          // TODO: Figure out why this isn't appearing
+          div(
+            label(forInput('unexpected-behavior-note'), rich('Add an explanation')),
+            input(
+              type('text'),
+              id('unexpected-behavior-note'),
+              name('unexpected-behavior-note'),
+              className(['unexpected-behavior-note']),
+              value(unexpected.failChoice.note.value),
+              disabled(!unexpected.failChoice.note.enabled),
+              onchange(ev =>
+                unexpected.failChoice.note.change(
+                  /** @type {HTMLInputElement} */ (ev.currentTarget).value
                 )
-              : fragment()
+              )
+            )
           )
         )
       )
@@ -605,9 +603,20 @@ function renderVirtualResultsTable(results) {
    * @param {object} list
    * @param {Description} list.description
    * @param {Description[]} list.items
+   * @param {String} [list.note]
    */
-  function commandDetailsList({ description, items }) {
-    return div(description, ul(...items.map(description => li(rich(description)))));
+  function commandDetailsList({
+    description,
+    items,
+    note: { value: noteValue = '', description: noteDescription } = {},
+  }) {
+    return div(
+      description,
+      ul(
+        ...items.map(description => li(rich(description))),
+        noteValue.length ? li(rich(noteDescription), ' ', em(noteValue)) : fragment()
+      )
+    );
   }
 }
 

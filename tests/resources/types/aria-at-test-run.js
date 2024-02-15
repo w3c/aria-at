@@ -16,12 +16,12 @@
  */
 
 /**
- * @typedef {"focusUndesirable"} AriaATTestRun.UserActionObjectName
+ * @typedef {"focusUnexpected"} AriaATTestRun.UserActionObjectName
  */
 
 /**
  * @typedef AriaATTestRun.UserActionFocusUnexpected
- * @property {"focusUndesirable"} action
+ * @property {"focusUnexpected"} action
  * @property {number} commandIndex
  * @property {number} unexpectedIndex
  */

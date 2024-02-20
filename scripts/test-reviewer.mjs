@@ -296,7 +296,7 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
                 return {
                   assertionId: a.assertionId,
                   priority: getPriorityString(a.priority),
-                  assertionPhrase: a.assertionPhrase,
+                  assertionPhrase: a.tokenizedAssertionPhrases?.[at.key] || a.assertionPhrase,
                   assertionStatement:
                     a.tokenizedAssertionStatements?.[at.key] || a.assertionStatement,
                 };

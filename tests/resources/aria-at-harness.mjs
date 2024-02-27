@@ -487,7 +487,7 @@ function renderVirtualInstructionDocument(doc) {
               id(`${failOptionId}-${commandIndex}-impact`),
               ariaLabel(`Impact for ${failOption.description}`),
               option(UnexpectedBehaviorImpactMap.MODERATE),
-              option(UnexpectedBehaviorImpactMap.HIGH),
+              option(UnexpectedBehaviorImpactMap.SEVERE),
               disabled(!failOption.checked),
               onchange(ev =>
                 failOption.impactchange(/** @type {HTMLInputElement} */ (ev.currentTarget).value)

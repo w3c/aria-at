@@ -484,7 +484,7 @@ export const AssertionResultMap = createEnumMap({
 
 export const UnexpectedBehaviorImpactMap = createEnumMap({
   MODERATE: 'Moderate',
-  HIGH: 'High',
+  SEVERE: 'Severe',
 });
 
 /**
@@ -841,9 +841,9 @@ function resultsTableDocument(state) {
           ...command.additionalAssertions,
         ];
 
-        let passingAssertions = ['No passing assertions.'];
-        let failingAssertions = ['No failing assertions.'];
-        let unexpectedBehaviors = ['No unexpected behaviors.'];
+        let passingAssertions = ['No passing assertions'];
+        let failingAssertions = ['No failing assertions'];
+        let unexpectedBehaviors = ['None'];
 
         if (allAssertions.some(({ result }) => result === CommonResultMap.PASS)) {
           passingAssertions = allAssertions
@@ -900,7 +900,7 @@ function resultsTableDocument(state) {
               items: failingAssertions,
             },
             unexpectedBehaviors: {
-              description: 'Unexpected Behaviors',
+              description: 'Other behaviors that create negative impact:',
               items: unexpectedBehaviors,
             },
           },

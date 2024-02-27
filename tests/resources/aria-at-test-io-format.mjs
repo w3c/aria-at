@@ -1634,7 +1634,7 @@ const AssertionFailJSONMap = createEnumMap({
 
 const UnexpectedBehaviorImpactMap = createEnumMap({
   MODERATE: 'Moderate',
-  HIGH: 'High',
+  SEVERE: 'Severe',
 });
 
 /** @typedef {SubmitResultDetailsCommandsAssertionsPass | SubmitResultDetailsCommandsAssertionsFail} SubmitResultAssertionsJSON */

@@ -459,7 +459,6 @@ function renderVirtualInstructionDocument(doc) {
               value(failOption.description),
               id(`${failOptionId}-${commandIndex}-checkbox`),
               className([`undesirable-${commandIndex}`]),
-              tabIndex(failOption.tabbable ? '0' : '-1'),
               disabled(!failOption.enabled),
               checked(failOption.checked),
               focus(failOption.focus),

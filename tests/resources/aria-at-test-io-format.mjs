@@ -844,7 +844,7 @@ class BehaviorInput {
             };
           }
 
-          // { assertionId, priority, assertionStatement, assertionPhrase, refIds, tokenizedAssertionStatements }
+          // { assertionId, priority, assertionStatement, assertionPhrase, refIds, tokenizedAssertionStatements, tokenizedAssertionPhrases }
           return {
             priority: assertion.priority,
             assertion:

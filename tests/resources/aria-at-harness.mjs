@@ -13,6 +13,7 @@ import {
   userCloseWindow,
   userOpenWindow,
   WhitespaceStyleMap,
+  UnexpectedBehaviorImpactMap,
 } from './aria-at-test-run.mjs';
 import { TestRunExport, TestRunInputOutput } from './aria-at-test-io-format.mjs';
 import { TestWindow } from './aria-at-test-window.mjs';
@@ -42,6 +43,14 @@ const PAGE_STYLES = `
   fieldset.problem-select {
    margin-top: 1em;
    margin-left: 1em;
+  }
+
+  div.problem-option-container.enabled {
+    margin-bottom: 0.5em;
+  }
+
+  div.problem-option-container:last-child {
+    margin-bottom: 0;
   }
 
   fieldset.assertions {
@@ -117,14 +126,13 @@ export async function loadCollectedTestAsync(testRoot, testFileName) {
   const collectedTestResponse = await fetch(`${testRoot}/${testFileName}`);
   const collectedTestJson = await collectedTestResponse.json();
 
-  try {
-    // v2 commands.json
-    const commandsJsonResponse = await fetch(`../commands.json`);
+  // v2 commands.json
+  const commandsJsonResponse = await fetch('../commands.json');
+  if (commandsJsonResponse.ok) {
     const commandsJson = await commandsJsonResponse.json();
     testRunIO.setAllCommandsInputFromJSON(commandsJson);
-  } catch (e) {
-    // v2 commands.json isn't available
   }
+
   await testRunIO.setInputsFromCollectedTestAsync(collectedTestJson, testRoot);
   testRunIO.setConfigInputFromQueryParamsAndSupport([
     ['at', collectedTestJson.target.at.key],
@@ -254,6 +262,8 @@ const h3 = bind(element, 'h3');
 const hr = bind(element, 'hr');
 const input = bind(element, 'input');
 const label = bind(element, 'label');
+const select = bind(element, 'select');
+const option = bind(element, 'option');
 const legend = bind(element, 'legend');
 const li = bind(element, 'li');
 const ol = bind(element, 'ol');
@@ -275,6 +285,8 @@ const name = bind(attribute, 'name');
 const tabIndex = bind(attribute, 'tabindex');
 const textContent = bind(attribute, 'textContent');
 const type = bind(attribute, 'type');
+const ariaLabel = bind(attribute, 'aria-label');
+const ariaHidden = bind(attribute, 'aria-hidden');
 
 const value = bind(property, 'value');
 const checked = bind(property, 'checked');
@@ -435,14 +447,18 @@ function renderVirtualInstructionDocument(doc) {
         className(['problem-select']),
         id(`cmd-${commandIndex}-problem-checkboxes`),
         legend(rich(unexpected.failChoice.options.header)),
-        ...unexpected.failChoice.options.options.map(failOption =>
-          fragment(
+        ...unexpected.failChoice.options.options.map(failOption => {
+          const failOptionId = failOption.description
+            .toLowerCase()
+            .replace(/[.,]/g, '')
+            .replace(/\s+/g, '-');
+
+          const undesirableBehaviorCheckbox = div(
             input(
               type('checkbox'),
               value(failOption.description),
-              id(`${failOption.description}-${commandIndex}`),
+              id(`${failOptionId}-${commandIndex}-checkbox`),
               className([`undesirable-${commandIndex}`]),
-              tabIndex(failOption.tabbable ? '0' : '-1'),
               disabled(!failOption.enabled),
               checked(failOption.checked),
               focus(failOption.focus),
@@ -457,33 +473,55 @@ function renderVirtualInstructionDocument(doc) {
               })
             ),
             label(
-              forInput(`${failOption.description}-${commandIndex}`),
-              rich(failOption.description)
+              id(`${failOptionId}-${commandIndex}-label`),
+              forInput(`${failOptionId}-${commandIndex}-checkbox`),
+              rich(`${failOption.description} behavior occurred`)
+            )
+          );
+
+          const impactSelect = div(
+            className([!failOption.checked && 'off-screen']),
+            ariaHidden(!failOption.checked),
+            label(forInput(`${failOptionId}-${commandIndex}-impact`), rich('Impact:')),
+            select(
+              id(`${failOptionId}-${commandIndex}-impact`),
+              ariaLabel(`Impact for ${failOption.description}`),
+              option(UnexpectedBehaviorImpactMap.MODERATE),
+              option(UnexpectedBehaviorImpactMap.SEVERE),
+              disabled(!failOption.checked),
+              onchange(ev =>
+                failOption.impactchange(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
+              )
+            )
+          );
+
+          const detailsTextInput = div(
+            className([!failOption.checked && 'off-screen']),
+            ariaHidden(!failOption.checked),
+            label(
+              forInput(`${failOptionId}-${commandIndex}-details`),
+              rich(failOption.more.description)
             ),
-            br(),
-            failOption.more
-              ? div(
-                  label(
-                    forInput(`${failOption.description}-${commandIndex}-input`),
-                    rich(failOption.more.description)
-                  ),
-                  input(
-                    type('text'),
-                    id(`${failOption.description}-${commandIndex}-input`),
-                    name(`${failOption.description}-${commandIndex}-input`),
-                    className(['undesirable-other-input']),
-                    disabled(!failOption.more.enabled),
-                    value(failOption.more.value),
-                    onchange(ev =>
-                      failOption.more.change(
-                        /** @type {HTMLInputElement} */ (ev.currentTarget).value
-                      )
-                    )
-                  )
-                )
-              : fragment()
-          )
-        )
+            input(
+              type('text'),
+              id(`${failOptionId}-${commandIndex}-details`),
+              ariaLabel(`Details for ${failOption.description}`),
+              className(['undesirable-other-input']),
+              disabled(!failOption.more.enabled),
+              value(failOption.more.value),
+              onchange(ev =>
+                failOption.more.change(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
+              )
+            )
+          );
+
+          return div(
+            className(['problem-option-container', failOption.checked && 'enabled']),
+            undesirableBehaviorCheckbox,
+            impactSelect,
+            detailsTextInput
+          );
+        })
       )
     );
   }

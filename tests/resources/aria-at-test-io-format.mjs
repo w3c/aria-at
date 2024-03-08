@@ -701,8 +701,8 @@ class UnexpectedInput {
   static fromBuiltin() {
     return new UnexpectedInput({
       behaviors: [
-        ...UNEXPECTED_BEHAVIORS.map(description => ({ description, requireExplanation: false })),
-        { description: 'Other', requireExplanation: true },
+        ...UNEXPECTED_BEHAVIORS.map(description => ({ description })),
+        { description: 'Other' },
       ],
     });
   }
@@ -1259,10 +1259,11 @@ export class TestRunInputOutput {
               highlightRequired: false,
               hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
               tabbedBehavior: 0,
-              behaviors: test.unexpectedBehaviors.map(({ description, requireExplanation }) => ({
+              behaviors: test.unexpectedBehaviors.map(({ description }) => ({
                 description,
                 checked: false,
-                more: requireExplanation ? { highlightRequired: false, value: '' } : null,
+                impact: UnexpectedBehaviorImpactMap.MODERATE,
+                more: { highlightRequired: false, value: '' },
               })),
             },
           })
@@ -1470,7 +1471,8 @@ export class TestRunInputOutput {
             behavior.checked
               ? {
                   text: behavior.description,
-                  otherUnexpectedBehaviorText: behavior.more ? behavior.more.value : null,
+                  impact: behavior.impact,
+                  details: behavior.more.value,
                 }
               : null
           )
@@ -1542,7 +1544,10 @@ export class TestRunInputOutput {
                 more: behavior.more
                   ? {
                       highlightRequired: false,
-                      value: behaviorResult ? behaviorResult.otherUnexpectedBehaviorText : '',
+                      impact: behaviorResult
+                        ? behavior.impact
+                        : UnexpectedBehaviorImpactMap.MODERATE,
+                      value: behaviorResult ? behaviorResult.details : '',
                     }
                   : behavior.more,
               };
@@ -1625,6 +1630,11 @@ const AssertionFailJSONMap = createEnumMap({
   INCORRECT_OUTPUT: 'Incorrect Output',
   NO_SUPPORT: 'No Support',
   FAIL: 'Fail',
+});
+
+const UnexpectedBehaviorImpactMap = createEnumMap({
+  MODERATE: 'Moderate',
+  SEVERE: 'Severe',
 });
 
 /** @typedef {SubmitResultDetailsCommandsAssertionsPass | SubmitResultDetailsCommandsAssertionsFail} SubmitResultAssertionsJSON */
@@ -1786,7 +1796,6 @@ function invariant(test, message, ...args) {
 /**
  * @typedef BehaviorUnexpectedItem
  * @property {string} description
- * @property {boolean} requireExplanation
  */
 
 /**

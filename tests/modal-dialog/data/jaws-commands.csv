@@ -1,0 +1,27 @@
+testId,command,settings,assertionExceptions,presentationNumber
+openModalDialog,space,virtualCursor,,1.0
+openModalDialog,enter,virtualCursor,,1.1
+openModalDialog,space,pcCursor,,2.0
+openModalDialog,enter,pcCursor,,2.1
+closeModalDialog,esc,virtualCursor,,4.0
+closeModalDialog,esc esc,pcCursor,,5.0
+closeModalDialogUsingButton,space,virtualCursor,,7.0
+closeModalDialogUsingButton,enter,virtualCursor,,7.1
+closeModalDialogUsingButton,space,pcCursor,,8.0
+closeModalDialogUsingButton,enter,pcCursor,,8.1
+navToLastFocusableElementModalDialog,shift+tab,pcCursor,,10.0
+navToFirstFocusableElementModalDialog,tab,pcCursor,,12.0
+navToBeginningModalDialog,ctrl+home,virtualCursor,,14.0
+navToEndModalDialog,ctrl+end,virtualCursor,,16.0
+openNestedModalDialog,space,virtualCursor,,18.0
+openNestedModalDialog,enter,virtualCursor,,18.1
+openNestedModalDialog,space,pcCursor,,19.0
+openNestedModalDialog,enter,pcCursor,,19.1
+closeNestedModalDialog,esc,virtualCursor,,21.0
+closeNestedModalDialog,esc,pcCursor,,22.0
+closeNestedModalDialogUsingButton,space,virtualCursor,,24.0
+closeNestedModalDialogUsingButton,enter,virtualCursor,,24.1
+closeNestedModalDialogUsingButton,space,pcCursor,,25.0
+closeNestedModalDialogUsingButton,enter,pcCursor,,25.1
+openNestedModalDialogUsingLink,enter,virtualCursor,,27.0
+openNestedModalDialogUsingLink,enter,pcCursor,,28.0

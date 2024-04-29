@@ -580,20 +580,9 @@ function renderVirtualInstructionDocument(doc) {
   /**
    * @param {InstructionDocumentInstructions} param0
    */
-  function instructionHeader({ header, description }) {
+  function instructionHeader({ header }) {
     return fragment(
       h1(id('behavior-header'), tabIndex('0'), focus(header.focus), rich(header.header))
-    );
-  }
-
-  /**
-   * @param {InstructionDocumentInstructionsAssertions} param0
-   */
-  function instructAssertions({ header, description, assertions }) {
-    return fragment(
-      h2(rich(header)),
-      p(rich(description)),
-      ol(...map(assertions, compose(li, em, rich)))
     );
   }
 

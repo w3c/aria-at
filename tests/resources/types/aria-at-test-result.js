@@ -4,8 +4,9 @@
  */
 
 /**
- * @typedef {"REQUIRED"
- *   | "OPTIONAL"} AriaATTestResult.AssertionPriorityJSON
+ * @typedef {"MUST"
+ *   | "SHOULD"
+ *   | "MAY"} AriaATTestResult.AssertionPriorityJSON
  */
 
 /**

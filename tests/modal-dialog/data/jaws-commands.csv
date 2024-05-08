@@ -1,8 +1,8 @@
 testId,command,settings,assertionExceptions,presentationNumber
 openModalDialog,space,virtualCursor,,1
 openModalDialog,enter,virtualCursor,,1.1
-openModalDialog,space,pcCursor,,2
-openModalDialog,enter,pcCursor,,2.1
+openModalDialog,space,pcCursor,0:interactionModeEnabled,2
+openModalDialog,enter,pcCursor,0:interactionModeEnabled,2.1
 closeModalDialog,esc,virtualCursor,,4
 closeModalDialog,space,virtualCursor,,4.1
 closeModalDialog,enter,virtualCursor,,4.2

@@ -1,8 +1,8 @@
 testId,command,settings,assertionExceptions,presentationNumber
 openModalDialog,space,browseMode,,1
 openModalDialog,enter,browseMode,,1.1
-openModalDialog,space,focusMode,,2
-openModalDialog,enter,focusMode,,2.1
+openModalDialog,space,focusMode,0:interactionModeEnabled,2
+openModalDialog,enter,focusMode,0:interactionModeEnabled,2.1
 closeModalDialog,esc,browseMode,,4
 closeModalDialog,space,browseMode,,4.1
 closeModalDialog,enter,browseMode,,4.2

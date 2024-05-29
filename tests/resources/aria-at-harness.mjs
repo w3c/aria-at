@@ -373,7 +373,7 @@ function renderVirtualInstructionDocument(doc) {
 
     instructCommands(doc.instructions.instructions),
 
-    instructAssertions(doc.instructions.assertions),
+    instructSettings(doc.instructions.settings),
 
     button(
       disabled(!doc.instructions.openTestPage.enabled),
@@ -567,17 +567,11 @@ function renderVirtualInstructionDocument(doc) {
    * @param {InstructionDocumentInstructionsInstructions} param0
    * @returns
    */
-  function instructCommands({
-    header,
-    instructions,
-    strongInstructions: boldInstructions,
-    commands,
-  }) {
+  function instructCommands({ header, instructions, commands }) {
     return fragment(
       h2(rich(header)),
       ol(
         ...map(instructions, compose(li, rich)),
-        ...map(boldInstructions, compose(li, em, rich)),
         li(rich(commands.description), ul(...map(commands.commands, compose(li, em, rich))))
       )
     );
@@ -586,22 +580,19 @@ function renderVirtualInstructionDocument(doc) {
   /**
    * @param {InstructionDocumentInstructions} param0
    */
-  function instructionHeader({ header, description }) {
+  function instructionHeader({ header }) {
     return fragment(
-      h1(id('behavior-header'), tabIndex('0'), focus(header.focus), rich(header.header)),
-      p(rich(description))
+      h1(id('behavior-header'), tabIndex('0'), focus(header.focus), rich(header.header))
     );
   }
 
   /**
-   * @param {InstructionDocumentInstructionsAssertions} param0
+   * @param {InstructionDocumentInstructionsSettings[]} settings
    */
-  function instructAssertions({ header, description, assertions }) {
-    return fragment(
-      h2(rich(header)),
-      p(rich(description)),
-      ol(...map(assertions, compose(li, em, rich)))
-    );
+  function instructSettings(settings) {
+    return Object.values(settings).map(({ screenText, instructions }) => {
+      return fragment(p(rich(screenText)), ol(...map(instructions, compose(li, rich))));
+    });
   }
 }
 
@@ -665,6 +656,7 @@ function renderVirtualResultsTable(results) {
 /** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentResultsCommand} InstructionDocumentResultsCommand */
 /** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentResultsCommandsUnexpected} InstructionDocumentResultsCommandsUnexpected */
 /** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentResultsCommandsAssertion} InstructionDocumentResultsCommandsAssertion */
+/** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentResultsCommandsSettings} InstructionDocumentResultsCommandsSettings */
 /** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentAssertionChoice} InstructionDocumentAssertionChoice */
 /** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentInstructionsInstructions} InstructionDocumentInstructionsInstructions */
 

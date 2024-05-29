@@ -20,6 +20,19 @@ const UNEXPECTED_BEHAVIORS = [
   'Browser crashed',
 ];
 
+const normalizeString = str =>
+  str.replace(
+    /&amp;|&lt;|&gt;|&#39;|&quot;/g,
+    str =>
+      ({
+        '&amp;': '&',
+        '&lt;': '<',
+        '&gt;': '>',
+        '&#39;': "'",
+        '&quot;': '"',
+      }[str] || str)
+  );
+
 /** Depends on ConfigInput. */
 class KeysInput {
   /**
@@ -767,7 +780,15 @@ class BehaviorInput {
     const mode = Array.isArray(json.mode) ? json.mode[0] : json.mode;
     const at = configInput.at();
 
-    const { commandsAndSettings } = commandsInput.getCommands({ task: json.task }, mode);
+    let { commandsAndSettings } = commandsInput.getCommands({ task: json.task }, mode);
+    commandsAndSettings = commandsAndSettings.map(cs => {
+      return {
+        ...cs,
+        settingsInstructions: cs.settingsInstructions
+          ? cs.settingsInstructions.map(el => normalizeString(el))
+          : null,
+      };
+    });
 
     // Use to determine assertionExceptions
     const commandsInfo = json.commandsInfo?.[at.key];
@@ -782,7 +803,13 @@ class BehaviorInput {
         specificUserInstruction: json.specific_user_instruction,
         setupScriptDescription: json.setup_script_description,
         setupTestPage: json.setupTestPage,
-        assertionResponseQuestion: json.assertionResponseQuestion,
+        testPlanStrings: {
+          openExampleInstruction: normalizeString(json.testPlanStrings.openExampleInstruction),
+          commandListPreface: json.testPlanStrings.commandListPreface,
+          commandListSettingsPreface: json.testPlanStrings.commandListSettingsPreface,
+          settingInstructionsPreface: json.testPlanStrings.settingInstructionsPreface,
+          assertionResponseQuestion: json.testPlanStrings.assertionResponseQuestion,
+        },
         commands: commandsAndSettings.map(cs => {
           const foundCommandInfo = commandsInfo?.find(
             c =>
@@ -848,10 +875,18 @@ class BehaviorInput {
     { commandsInput, keysInput, unexpectedInput }
   ) {
     // v1:info.task, v2: info.testId | v1:target.mode, v2:target.at.settings
-    const { commandsAndSettings } = commandsInput.getCommands(
+    let { commandsAndSettings } = commandsInput.getCommands(
       { task: info.task || info.testId },
       target.mode || target.at.settings
     );
+    commandsAndSettings = commandsAndSettings.map(cs => {
+      return {
+        ...cs,
+        settingsInstructions: cs.settingsInstructions
+          ? cs.settingsInstructions.map(el => normalizeString(el))
+          : null,
+      };
+    });
 
     return new BehaviorInput({
       behavior: {
@@ -861,8 +896,20 @@ class BehaviorInput {
         modeInstructions: instructions.mode,
         appliesTo: [target.at.name],
         specificUserInstruction: instructions.raw || instructions.instructions,
-        setupScriptDescription: target.setupScript ? target.setupScript.description : '',
+        // TODO: Make 'setupScript.description' the only attribute
+        setupScriptDescription: target.setupScript
+          ? target.setupScript.description || target.setupScript.scriptDescription
+          : '',
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
+        testPlanStrings: {
+          openExampleInstruction:
+            'Activate the "Open test page" button, which opens the example to test in a new window and runs a script that',
+          commandListPreface: 'Do this with each of the following commands or command sequences.',
+          commandListSettingsPreface:
+            'If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.',
+          settingInstructionsPreface: 'To perform a task with',
+          assertionResponseQuestion: 'Which statements are true about the response to',
+        },
         commands: commandsAndSettings.map(cs => {
           const foundCommandInfo = commands.find(
             c => cs.commandId === c.id && cs.settings === c.settings
@@ -1227,7 +1274,7 @@ export class TestRunInputOutput {
       openTest: {
         enabled: true,
       },
-      assertionResponseQuestion: test.assertionResponseQuestion,
+      testPlanStrings: test.testPlanStrings,
       commands: test.commands.map(
         command =>
           /** @type {import("./aria-at-test-run.mjs").TestRunCommand} */ ({
@@ -1786,6 +1833,15 @@ function invariant(test, message, ...args) {
  */
 
 /**
+ * @typedef CommandInfo
+ * @property {string} assertionExceptions
+ * @property {string} command
+ * @property {Number} presentationNumber
+ * @property {string} settings
+ * @property {string} testID
+ */
+
+/**
  * @typedef BehaviorJSON
  * @property {string} setup_script_description
  * @property {string} setupTestPage
@@ -1793,6 +1849,8 @@ function invariant(test, message, ...args) {
  * @property {ATMode | ATMode[]} mode
  * @property {string} task
  * @property {string} specific_user_instruction
+ * @property {Object<string, CommandInfo[]>} commandsInfo
+ * @property {object} testPlanStrings
  * @property {[string, string][] | [OutputAssertion]} [output_assertions]
  * @property {{[atKey: string]: [number, string][]}} [additional_assertions]
  */

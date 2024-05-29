@@ -1391,6 +1391,14 @@ export class TestRunInputOutput {
             ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
           ),
         },
+        3: {
+          pass: countAssertions(
+            ({ priority, result }) => priority === 3 && result === CommonResultMap.PASS
+          ),
+          fail: countAssertions(
+            ({ priority, result }) => priority === 3 && result !== CommonResultMap.PASS
+          ),
+        },
         unexpectedCount: countUnexpectedBehaviors(({ checked }) => checked),
       },
       commands: state.commands.map(command => ({
@@ -1426,7 +1434,8 @@ export class TestRunInputOutput {
       ) || command.unexpected.behaviors.some(({ checked }) => checked)
         ? CommandSupportJSONMap.FAILING
         : allAssertions.some(
-            ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
+            ({ priority, result }) =>
+              (priority === 2 || priority === 3) && result !== CommonResultMap.PASS
           )
         ? CommandSupportJSONMap.ALL_REQUIRED
         : CommandSupportJSONMap.FULL;
@@ -1502,7 +1511,8 @@ export class TestRunInputOutput {
         output: command.atOutput.value,
         assertionResults: command.assertions.map(assertion => ({
           assertion: {
-            priority: assertion.priority === 1 ? 'REQUIRED' : 'OPTIONAL',
+            priority:
+              assertion.priority === 1 ? 'MUST' : assertion.priority === 2 ? 'SHOULD' : 'MAY',
             text: assertion.description,
           },
           passed: assertion.result === 'pass',
@@ -1687,10 +1697,10 @@ const UnexpectedBehaviorImpactMap = createEnumMap({
 /** @typedef {SubmitResultDetailsCommandsAssertionsPass | SubmitResultDetailsCommandsAssertionsFail} SubmitResultAssertionsJSON */
 
 /**
- * Command result derived from priority 1 and 2 assertions.
+ * Command result derived from priority 1, 2 and 3 assertions.
  *
  * Support is "FAILING" is priority 1 assertions fail. Support is "ALL REQUIRED"
- * if priority 2 assertions fail.
+ * if priority 2 or 3 assertions fail.
  *
  * In the submitted json object values may contain spaces and are in ALL CAPS.
  *
@@ -1888,7 +1898,7 @@ function invariant(test, message, ...args) {
  */
 
 /**
- * @typedef {{[key in "1" | "2"]: SubmitResultSummaryPriorityJSON}} SubmitResultSummaryPriorityMapJSON
+ * @typedef {{[key in "1" | "2" | "3"]: SubmitResultSummaryPriorityJSON}} SubmitResultSummaryPriorityMapJSON
  */
 
 /**

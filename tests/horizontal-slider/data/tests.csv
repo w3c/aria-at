@@ -1,6 +1,6 @@
 testId,title,presentationNumber,setupScript,instructions,assertions
-navForwardsToSlider,Navigate forwards to a slider,5,setFocusBeforeRedSlider,"Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",roleSlider nameRed value128 orientationHorizontal minimumValue0 maximumValue255
-navBackToSlider,Navigate backwards to a slider,6,setFocusAfterRedSlider,"Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",roleSlider nameRed value128 orientationHorizontal minimumValue0 maximumValue255
+navForwardsToSlider,Navigate forwards to a slider,5,setFocusBeforeRedSlider,"Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",roleSlider nameRed value128 orientationHorizontal minimumValue0 maximumValue255 interactionModeEnabled
+navBackToSlider,Navigate backwards to a slider,6,setFocusAfterRedSlider,"Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",roleSlider nameRed value128 orientationHorizontal minimumValue0 maximumValue255 interactionModeEnabled
 reqInfoAboutSlider,Request information about a slider,9,setFocusOnRedSlider,"Starting at the 'Red' slider, read information about the slider.",roleSlider nameRed value128 orientationHorizontal minimumValue0 maximumValue255
 incrementSliderByOneStep,Increment a slider by one step,11,setFocusOnRedSlider,"Starting at the 'Red' slider, set its value to 129.",value129
 decrementSliderByOneStep,Decrement a slider by one step,13,setFocusOnRedSlider,"Starting at the 'Red' slider, set its value to 127.",value127

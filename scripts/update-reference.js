@@ -137,13 +137,13 @@ async function copyExampleToRepo(exampleName) {
       }
 
       console.log(
-        'Converting example url found for ' +
+        '[warning]: Converting example url found for ' +
           exampleName +
           ', from "' +
           exampleUrl +
           '" to "' +
           updatedExampleUrl +
-          '".\nPlease update the url found in tests/' +
+          '".\n[warning]: Please update the url found in tests/' +
           exampleName +
           '/data/references.csv to the latest known location to avoid future issues when running this script.\n'
       );

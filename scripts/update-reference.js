@@ -112,7 +112,10 @@ async function copyExampleToRepo(exampleName) {
         ? 'https://www.w3.org/WAI/ARIA/apg/patterns/landmarks/examples/'
         : 'https://www.w3.org/WAI/ARIA/apg/patterns/';
 
-      updatedExampleUrl = exampleUrl.replace(oldApgBaseUrl, waiBaseUrl);
+      updatedExampleUrl = exampleUrl
+        .replace(oldApgBaseUrl, waiBaseUrl)
+        // All index.html from the older example folders are now {exampleName}.html
+        .replace('index.html', `${exampleName}.html`);
 
       if (exampleUrl.includes('/landmarks/')) {
         // Eg: https://w3c.github.io/aria-practices/examples/landmarks/banner.html to
@@ -123,11 +126,11 @@ async function copyExampleToRepo(exampleName) {
         //     https://www.w3.org/WAI/ARIA/apg/patterns/alert/examples/alert.html
         let examplePathToUpdate = updatedExampleUrl.split(waiBaseUrl)[1];
 
-        const insertIndex = updatedExampleUrl.indexOf('/');
+        const insertIndex = examplePathToUpdate.indexOf('/');
         if (insertIndex > -1)
           examplePathToUpdate =
             examplePathToUpdate.substring(0, insertIndex) +
-            'examples/' +
+            '/examples' +
             examplePathToUpdate.substring(insertIndex);
 
         updatedExampleUrl = waiBaseUrl + examplePathToUpdate;

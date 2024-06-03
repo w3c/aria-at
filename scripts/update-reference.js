@@ -121,7 +121,6 @@ async function copyExampleToRepo(exampleName) {
       } else {
         // Eg: https://w3c.github.io/aria-practices/examples/alert/alert.html to
         //     https://www.w3.org/WAI/ARIA/apg/patterns/alert/examples/alert.html
-        console.log('pre.updatedExampleUrl', updatedExampleUrl);
         let examplePathToUpdate = updatedExampleUrl.split(waiBaseUrl)[1];
 
         const insertIndex = updatedExampleUrl.indexOf('/');
@@ -189,6 +188,7 @@ async function copyExampleToRepo(exampleName) {
           htmlFileAbsolute
         )}' does not exist. Please ensure the correct example html path is in references.csv.`
       );
+      await fse.remove(apgPath);
       process.exit();
     }
 

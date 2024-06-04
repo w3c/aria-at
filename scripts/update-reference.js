@@ -9,21 +9,21 @@ let apgRepositoryBasePath = apgPath;
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
     h: 'help',
-    r: 'aria-practices-directory',
+    r: 'aria-practices-repository',
   },
 });
 
 if (args.help) {
   console.log(`
 Default use:
-  node update-reference.js exampleName [-r ariaPracticesDirectory]
+  node update-reference.js exampleName [-r ariaPracticesRepository]
     It will copy the latest example html from the aria-practices repository into this repository.
     It will clone the latest aria-practices directory or use an existing clone.
     The example html url for the example needs to be specified in the references.csv file for the example named.
     The copied reference will be placed in a dated folder to provide a form of version control for the reference files.
-    The new reference will only be used when the reference.csv file, reference value is updated to point to the new reference folder.
+    The new reference will only be used when the references.csv file's reference value is updated to point to the new reference folder.
   Arguments:
-    -r, --aria-practices-directory
+    -r, --aria-practices-repository
     -h, --help
        Show this message.
 `);
@@ -69,7 +69,7 @@ async function copyExampleToRepo(exampleName) {
       console.log(
         `The test directory '${posixPath(
           testDirectory
-        )}' does not exist. Please enure the provide path name was correct.`
+        )}' does not exist. Please ensure the provide path name was correct.`
       );
       process.exit();
     }
@@ -143,9 +143,10 @@ async function copyExampleToRepo(exampleName) {
           exampleUrl +
           '" to "' +
           updatedExampleUrl +
-          '".\n[warning]: Please update the url found in tests/' +
+          '".\n' +
+          '[warning]: Please update the url found in tests/' +
           exampleName +
-          '/data/references.csv to the latest known location to avoid future issues when running this script.\n'
+          '/data/references.csv to the latest known example url to avoid future issues when running this script.\n'
       );
 
       exampleUrl = updatedExampleUrl;

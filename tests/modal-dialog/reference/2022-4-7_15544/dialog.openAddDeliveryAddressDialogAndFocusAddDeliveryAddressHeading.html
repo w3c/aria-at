@@ -16,11 +16,11 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // openAddressAddedDialogAndFocusYourProfileLink
-      // opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'your profile' link inside the second dialog
+      // openAddDeliveryAddressDialogAndFocusAddDeliveryAddressHeading
+      // opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add Delivery Address' heading
+
       const btn = testPageDocument.querySelector('#ex1 > button');
-      testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
-      testPageDocument.defaultView.replaceDialog('dialog3', undefined, 'dialog3_profile');
+      testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_label');
 
     };
     document.addEventListener('click', function(event) {
@@ -50,7 +50,7 @@
         <button type="button" onclick="openDialog('dialog1', this)">Add Delivery Address</button>
         <div id="dialog_layer" class="dialogs">
           <div role="dialog" id="dialog1" aria-labelledby="dialog1_label" aria-modal="true" class="hidden">
-            <h2 id="dialog1_label" class="dialog_label">Add Delivery Address</h2>
+            <h2 tabindex="-1" id="dialog1_label" class="dialog_label">Add Delivery Address</h2>
             <div class="dialog_form">
               <div class="dialog_form_item">
                 <label>

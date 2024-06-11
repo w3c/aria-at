@@ -60,6 +60,35 @@ function posixPath(pathString) {
   return pathString.split(path.sep).join(path.posix.sep);
 }
 
+/**
+ * Given csv content and a string value, returns a line found in the csv that
+ * starts with the value
+ * @param {string} csv - content of a csv file
+ * @param {string} startString - substring at the start of the line to return
+ * @returns {string} - the returned line from the csv content
+ */
+function findLineStartsWith(csv, startString) {
+  return (csv || '').split(/\r?\n/).find(s => s.startsWith(startString)) || '';
+}
+
+/**
+ * Given content from an example's references.csv file, return the example url
+ * found for the line
+ * @param {string} referencesCsv - the content of the references.csv
+ * @returns {string} - example url found for the line
+ */
+function extractExampleUrl(referencesCsv) {
+  const exampleLineFromCsv = findLineStartsWith(referencesCsv, 'example,');
+
+  // TODO: Deprecate this when all tests support the v2 format
+  let exampleUrl = exampleLineFromCsv.split(',')[1];
+
+  // If v2 test format
+  if (exampleUrl === 'metadata') exampleUrl = exampleLineFromCsv.split(',')[2];
+
+  return exampleUrl;
+}
+
 async function copyExampleToRepo(exampleName) {
   try {
     const testDirectory = path.join('tests', exampleName);
@@ -84,16 +113,7 @@ async function copyExampleToRepo(exampleName) {
       process.exit();
     }
     const referencesCsv = fse.readFileSync(referencesCsvFile, 'UTF-8');
-    let exampleUrl = (
-      (referencesCsv || '').split(/\r?\n/).find(s => s.startsWith('example,')) || ''
-    ).split(',')[1];
-
-    // TODO: Deprecate this when all tests support the v2 format
-    // If v2 test format
-    if (exampleUrl === 'metadata')
-      exampleUrl = (
-        (referencesCsv || '').split(/\r?\n/).find(s => s.startsWith('example,')) || ''
-      ).split(',')[2];
+    let exampleUrl = extractExampleUrl(referencesCsv);
 
     if (!exampleUrl) {
       console.log('`example` must be defined in the references.csv file');

@@ -49,7 +49,7 @@
         <button type="button" onclick="openDialog('dialog1', this)">Add Delivery Address</button>
         <div id="dialog_layer" class="dialogs">
           <div role="dialog" id="dialog1" aria-labelledby="dialog1_label" aria-modal="true" class="hidden">
-            <h2 id="dialog1_label" class="dialog_label">Add Delivery Address</h2>
+            <h2 tabindex="-1" id="dialog1_label" class="dialog_label">Add Delivery Address</h2>
             <div class="dialog_form">
               <div class="dialog_form_item">
                 <label>
@@ -156,7 +156,7 @@
           <!--  Dialog that replaces dialog 1.  -->
           <div id="dialog3" role="dialog" aria-labelledby="dialog3_label"
                aria-describedby="dialog3_desc" aria-modal="true" class="hidden">
-            <h2 id="dialog3_label" class="dialog_label">Address Added</h2>
+            <h2 tabindex="-1" id="dialog3_label" class="dialog_label">Address Added</h2>
             <p id="dialog3_desc" class="dialog_desc">
               The address you provided has been added to your list of delivery addresses. It is ready
               for immediate use. If you wish to remove it, you can do so from

@@ -133,7 +133,6 @@ fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
         commandListPreface,
         commandListSettingsPreface,
         settingInstructionsPreface,
-        assertionResponseQuestion,
       },
     } = support;
     referencesData = referencesData.map(

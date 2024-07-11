@@ -68,6 +68,7 @@
  * @property {number} info.testId
  * @property {string} info.title
  * @property {string} info.task
+ * @property {string} [info.presentationNumber]
  * @property {object[]} info.references
  * @property {string} info.references[].refId
  * @property {string} info.references[].value
@@ -80,7 +81,7 @@
  * @property {string} target.at.key
  * @property {string} target.at.raw original test plan file assistive tech id
  * @property {string} target.at.name
- * @property {string} target.mode
+ * @property {"interaction" | "reading"} target.mode
  * @property {string} target.referencePage
  * @property {object} [target.setupScript]
  * @property {string} target.setupScript.name
@@ -95,6 +96,7 @@
  * @property {string} commands[].keypresses[].id
  * @property {string} commands[].keypresses[].keystroke single human-readable key or key chord press
  * @property {string} [commands[].extraInstruction] human-readable additional instruction to follow
+ * @property {string} [commands[].settings] this property only exists on v2 tests
  * @property {object[]} assertions[]
  * @property {1 | 2} assertions[].priority
  * @property {string} [assertions[].expectation] assertion statement string, this property only exists on v1 tests

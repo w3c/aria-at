@@ -19,6 +19,7 @@ export class TestRun {
       setCommandAssertion: bindDispatch(userChangeCommandAssertion),
       setCommandHasUnexpectedBehavior: bindDispatch(userChangeCommandHasUnexpectedBehavior),
       setCommandUnexpectedBehavior: bindDispatch(userChangeCommandUnexpectedBehavior),
+      setCommandUnexpectedBehaviorImpact: bindDispatch(userChangeCommandUnexpectedBehaviorImpact),
       setCommandUnexpectedBehaviorMore: bindDispatch(userChangeCommandUnexpectedBehaviorMore),
       setCommandOutput: bindDispatch(userChangeCommandOutput),
       submit: () => submitResult(this),
@@ -93,9 +94,7 @@ export function instructionDocument(resultState, hooks) {
   const modeInstructions = resultState.info.modeInstructions;
   const userInstructions = resultState.info.userInstructions;
   const lastInstruction = userInstructions[userInstructions.length - 1];
-  const setupScriptDescription = resultState.info.setupScriptDescription
-    ? ` and runs a script that ${resultState.info.setupScriptDescription}.`
-    : resultState.info.setupScriptDescription;
+  const setupScriptDescription = ` ${resultState.info.setupScriptDescription}`;
   // As a hack, special case mode instructions for VoiceOver for macOS until we
   // support modeless tests.
   const modePhrase =
@@ -138,14 +137,24 @@ export function instructionDocument(resultState, hooks) {
     return resultArray.length ? resultArray : null;
   }
 
-  const convertedModeInstructions =
-    modeInstructions !== undefined && !modeInstructions.includes('undefined')
-      ? convertModeInstructionsToKbdArray(modeInstructions)
-      : null;
+  const commandListInstructions = `${resultState.testPlanStrings.commandListPreface}${
+    commands.some(
+      (command, index) =>
+        commandSettings[index]?.description !== 'defaultMode' && commandSettings[index]?.text
+    )
+      ? ` ${resultState.testPlanStrings.commandListSettingsPreface}`
+      : ''
+  }`;
 
-  let strongInstructions = [...userInstructions];
-  if (convertedModeInstructions)
-    strongInstructions = [convertedModeInstructions, ...strongInstructions];
+  const instructionsForSettings = {};
+  commandSettings.forEach(({ description: settings, text: screenText, instructions }) => {
+    if (settings && settings !== 'defaultMode' && !instructionsForSettings[settings]) {
+      instructionsForSettings[settings] = {
+        instructions: instructions.map(el => convertModeInstructionsToKbdArray(el)),
+        screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${screenText}:`,
+      };
+    }
+  });
 
   return {
     errors: {
@@ -155,34 +164,35 @@ export function instructionDocument(resultState, hooks) {
     },
     instructions: {
       header: {
-        header: `Testing task: ${resultState.info.description}`,
+        header: `Test: ${resultState.info.description}`,
         focus: resultState.currentUserAction === UserActionMap.LOAD_PAGE,
       },
       description: `${modePhrase} how ${resultState.config.at.name} behaves when performing task "${lastInstruction}"`,
       instructions: {
-        header: 'Test instructions',
+        header: 'Instructions',
         instructions: [
           [
-            `Restore default settings for ${resultState.config.at.name}. For help, read `,
+            `Configure ${resultState.config.at.name} with default settings. For help, read `,
             {
               href: 'https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing',
               description: 'Configuring Screen Readers for Testing',
             },
             `.`,
           ],
-          `Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}`,
+          `${resultState.testPlanStrings.openExampleInstruction}${setupScriptDescription}`,
         ],
-        strongInstructions: strongInstructions.filter(el => el),
+        strongInstructions: [...userInstructions].filter(el => el),
         commands: {
-          description: `Using the following commands, ${lastInstruction}`,
+          description: `${lastInstruction} ${commandListInstructions}`,
           commands: commands.map((command, index) => {
-            const { description: settings, text: settingsText } = commandSettings[index];
+            const { description: settings, text: screenText } = commandSettings[index];
             return `${command}${
-              settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
+              screenText && settings !== 'defaultMode' ? ` (${screenText})` : ''
             }`;
           }),
         },
       },
+      settings: instructionsForSettings,
       assertions: {
         header: 'Success Criteria',
         description: `To pass this test, ${resultState.config.at.name} needs to meet all the following assertions when each  specified command is executed:`,
@@ -243,7 +253,7 @@ export function instructionDocument(resultState, hooks) {
         change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
       assertionsHeader: {
-        descriptionHeader: `${resultState.assertionResponseQuestion} ${command}${
+        descriptionHeader: `${resultState.testPlanStrings.assertionResponseQuestion} ${command}${
           settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
         }?`,
       },
@@ -304,6 +314,7 @@ export function instructionDocument(resultState, hooks) {
             options: resultUnexpectedBehavior.behaviors.map((behavior, unexpectedIndex) => {
               return {
                 description: behavior.description,
+                impact: behavior.impact,
                 enabled:
                   resultUnexpectedBehavior.hasUnexpected ===
                   HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
@@ -321,6 +332,12 @@ export function instructionDocument(resultState, hooks) {
                       focusFirstRequired(),
                 change: checked =>
                   hooks.setCommandUnexpectedBehavior({ commandIndex, unexpectedIndex, checked }),
+                impactchange: impact =>
+                  hooks.setCommandUnexpectedBehaviorImpact({
+                    commandIndex,
+                    unexpectedIndex,
+                    impact,
+                  }),
                 keydown: key => {
                   const increment = keyToFocusIncrement(key);
                   if (increment) {
@@ -333,30 +350,28 @@ export function instructionDocument(resultState, hooks) {
                   }
                   return false;
                 },
-                more: behavior.more
-                  ? {
-                      description: /** @type {Description[]} */ ([
-                        `If "other" selected, explain`,
-                        {
-                          required: true,
-                          highlightRequired: behavior.more.highlightRequired,
-                          description: '(required)',
-                        },
-                      ]),
-                      enabled: behavior.checked,
-                      value: behavior.more.value,
-                      focus:
-                        resultState.currentUserAction === 'validateResults' &&
-                        behavior.more.highlightRequired &&
-                        focusFirstRequired(),
-                      change: value =>
-                        hooks.setCommandUnexpectedBehaviorMore({
-                          commandIndex,
-                          unexpectedIndex,
-                          more: value,
-                        }),
-                    }
-                  : null,
+                more: {
+                  description: /** @type {Description[]} */ ([
+                    `Details:`,
+                    {
+                      required: true,
+                      highlightRequired: behavior.more.highlightRequired,
+                      description: '(required)',
+                    },
+                  ]),
+                  enabled: behavior.checked,
+                  value: behavior.more.value,
+                  focus:
+                    resultState.currentUserAction === 'validateResults' &&
+                    behavior.more.highlightRequired &&
+                    focusFirstRequired(),
+                  change: value =>
+                    hooks.setCommandUnexpectedBehaviorMore({
+                      commandIndex,
+                      unexpectedIndex,
+                      more: value,
+                    }),
+                },
               };
             }),
           },
@@ -470,6 +485,15 @@ export const AssertionResultMap = createEnumMap({
   FAIL_MISSING: 'failMissing',
   FAIL_INCORRECT: 'failIncorrect',
   FAIL: 'fail',
+});
+
+/**
+ * @typedef {EnumValues<typeof UnexpectedBehaviorImpactMap>} UnexpectedBehaviorImpact
+ */
+
+export const UnexpectedBehaviorImpactMap = createEnumMap({
+  MODERATE: 'Moderate',
+  SEVERE: 'Severe',
 });
 
 /**
@@ -615,6 +639,44 @@ export function userChangeCommandUnexpectedBehavior({ commandIndex, unexpectedIn
                 ),
               },
             }
+      ),
+    };
+  };
+}
+
+/**
+ * @param {object} props
+ * @param {number} props.commandIndex
+ * @param {number} props.unexpectedIndex
+ * @param {string} props.impact
+ * @returns {(state: TestRunState) => TestRunState}
+ */
+export function userChangeCommandUnexpectedBehaviorImpact({
+  commandIndex,
+  unexpectedIndex,
+  impact,
+}) {
+  return function (state) {
+    return {
+      ...state,
+      currentUserAction: UserActionMap.CHANGE_TEXT,
+      commands: state.commands.map((command, commandI) =>
+        commandI !== commandIndex
+          ? command
+          : /** @type {TestRunCommand} */ ({
+              ...command,
+              unexpected: {
+                ...command.unexpected,
+                behaviors: command.unexpected.behaviors.map((unexpected, unexpectedI) =>
+                  unexpectedI !== unexpectedIndex
+                    ? unexpected
+                    : /** @type {TestRunUnexpectedBehavior} */ ({
+                        ...unexpected,
+                        impact: impact,
+                      })
+                ),
+              },
+            })
       ),
     };
   };
@@ -788,9 +850,9 @@ function resultsTableDocument(state) {
           ...command.additionalAssertions,
         ];
 
-        let passingAssertions = ['No passing assertions.'];
-        let failingAssertions = ['No failing assertions.'];
-        let unexpectedBehaviors = ['No unexpected behaviors.'];
+        let passingAssertions = ['No passing assertions'];
+        let failingAssertions = ['No failing assertions'];
+        let unexpectedBehaviors = ['None'];
 
         if (allAssertions.some(({ result }) => result === CommonResultMap.PASS)) {
           passingAssertions = allAssertions
@@ -805,7 +867,12 @@ function resultsTableDocument(state) {
         if (command.unexpected.behaviors.some(({ checked }) => checked)) {
           unexpectedBehaviors = command.unexpected.behaviors
             .filter(({ checked }) => checked)
-            .map(({ description, more }) => (more ? more.value : description));
+            .map(({ description, more, impact }) => {
+              let result = `${description} (`;
+              if (more) result = `${result}Details: ${more.value}, `;
+              result = `${result}Impact: ${impact})`;
+              return result;
+            });
         }
 
         return {
@@ -822,7 +889,7 @@ function resultsTableDocument(state) {
               : 'FULL',
           details: {
             output: /** @type {Description} */ [
-              'output:',
+              'Output:',
               /** @type {DescriptionWhitespace} */ ({ whitespace: WhitespaceStyleMap.LINE_BREAK }),
               ' ',
               ...command.atOutput.value.split(/(\r\n|\r|\n)/g).map(output =>
@@ -842,7 +909,7 @@ function resultsTableDocument(state) {
               items: failingAssertions,
             },
             unexpectedBehaviors: {
-              description: 'Unexpected Behavior',
+              description: 'Other behaviors that create negative impact:',
               items: unexpectedBehaviors,
             },
           },
@@ -1053,6 +1120,12 @@ export function userValidateState() {
  */
 
 /**
+ * @typedef InstructionDocumentInstructionsSettings
+ * @property {string} screenText
+ * @property {string[]} instructions
+ */
+
+/**
  * @typedef InstructionDocumentResultsCommandsATOutput
  * @property {Description} description
  * @property {string} value
@@ -1150,6 +1223,7 @@ export function userValidateState() {
  * @property {(options: {commandIndex: number, hasUnexpected: HasUnexpectedBehavior}) => void } setCommandHasUnexpectedBehavior
  * @property {(options: {commandIndex: number, atOutput: string}) => void} setCommandOutput
  * @property {(options: {commandIndex: number, unexpectedIndex: number, checked}) => void } setCommandUnexpectedBehavior
+ * @property {(options: {commandIndex: number, unexpectedIndex: number, impact: string}) => void } setCommandUnexpectedBehaviorImpact
  * @property {(options: {commandIndex: number, unexpectedIndex: number, more: string}) => void } setCommandUnexpectedBehaviorMore
  * @property {() => void} submit
  */
@@ -1189,6 +1263,7 @@ export function userValidateState() {
  * @property {object} [more]
  * @property {boolean} more.highlightRequired
  * @property {string} more.value
+ * @property {string} impact
  */
 
 /**
@@ -1230,6 +1305,7 @@ export function userValidateState() {
  * @property {boolean} config.displaySubmitButton
  * @property {TestRunUserAction} currentUserAction
  * @property {TestRunCommand[]} commands
+ * @property {object} testPlanStrings
  * @property {object} openTest
  * @property {boolean} openTest.enabled
  */

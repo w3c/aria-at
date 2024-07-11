@@ -20,6 +20,19 @@ const UNEXPECTED_BEHAVIORS = [
   'Browser crashed',
 ];
 
+const normalizeString = str =>
+  str.replace(
+    /&amp;|&lt;|&gt;|&#39;|&quot;/g,
+    str =>
+      ({
+        '&amp;': '&',
+        '&lt;': '<',
+        '&gt;': '>',
+        '&#39;': "'",
+        '&quot;': '"',
+      }[str] || str)
+  );
+
 /** Depends on ConfigInput. */
 class KeysInput {
   /**
@@ -701,8 +714,8 @@ class UnexpectedInput {
   static fromBuiltin() {
     return new UnexpectedInput({
       behaviors: [
-        ...UNEXPECTED_BEHAVIORS.map(description => ({ description, requireExplanation: false })),
-        { description: 'Other', requireExplanation: true },
+        ...UNEXPECTED_BEHAVIORS.map(description => ({ description })),
+        { description: 'Other' },
       ],
     });
   }
@@ -767,7 +780,15 @@ class BehaviorInput {
     const mode = Array.isArray(json.mode) ? json.mode[0] : json.mode;
     const at = configInput.at();
 
-    const { commandsAndSettings } = commandsInput.getCommands({ task: json.task }, mode);
+    let { commandsAndSettings } = commandsInput.getCommands({ task: json.task }, mode);
+    commandsAndSettings = commandsAndSettings.map(cs => {
+      return {
+        ...cs,
+        settingsInstructions: cs.settingsInstructions
+          ? cs.settingsInstructions.map(el => normalizeString(el))
+          : null,
+      };
+    });
 
     // Use to determine assertionExceptions
     const commandsInfo = json.commandsInfo?.[at.key];
@@ -782,7 +803,13 @@ class BehaviorInput {
         specificUserInstruction: json.specific_user_instruction,
         setupScriptDescription: json.setup_script_description,
         setupTestPage: json.setupTestPage,
-        assertionResponseQuestion: json.assertionResponseQuestion,
+        testPlanStrings: {
+          openExampleInstruction: normalizeString(json.testPlanStrings.openExampleInstruction),
+          commandListPreface: json.testPlanStrings.commandListPreface,
+          commandListSettingsPreface: json.testPlanStrings.commandListSettingsPreface,
+          settingInstructionsPreface: json.testPlanStrings.settingInstructionsPreface,
+          assertionResponseQuestion: json.testPlanStrings.assertionResponseQuestion,
+        },
         commands: commandsAndSettings.map(cs => {
           const foundCommandInfo = commandsInfo?.find(
             c =>
@@ -848,10 +875,18 @@ class BehaviorInput {
     { commandsInput, keysInput, unexpectedInput }
   ) {
     // v1:info.task, v2: info.testId | v1:target.mode, v2:target.at.settings
-    const { commandsAndSettings } = commandsInput.getCommands(
+    let { commandsAndSettings } = commandsInput.getCommands(
       { task: info.task || info.testId },
       target.mode || target.at.settings
     );
+    commandsAndSettings = commandsAndSettings.map(cs => {
+      return {
+        ...cs,
+        settingsInstructions: cs.settingsInstructions
+          ? cs.settingsInstructions.map(el => normalizeString(el))
+          : null,
+      };
+    });
 
     return new BehaviorInput({
       behavior: {
@@ -861,8 +896,20 @@ class BehaviorInput {
         modeInstructions: instructions.mode,
         appliesTo: [target.at.name],
         specificUserInstruction: instructions.raw || instructions.instructions,
-        setupScriptDescription: target.setupScript ? target.setupScript.description : '',
+        // TODO: Make 'setupScript.description' the only attribute
+        setupScriptDescription: target.setupScript
+          ? target.setupScript.description || target.setupScript.scriptDescription
+          : '',
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
+        testPlanStrings: {
+          openExampleInstruction:
+            'Activate the "Open test page" button, which opens the example to test in a new window and runs a script that',
+          commandListPreface: 'Do this with each of the following commands or command sequences.',
+          commandListSettingsPreface:
+            'If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.',
+          settingInstructionsPreface: 'To perform a task with',
+          assertionResponseQuestion: 'Which statements are true about the response to',
+        },
         commands: commandsAndSettings.map(cs => {
           const foundCommandInfo = commands.find(
             c => cs.commandId === c.id && cs.settings === c.settings
@@ -1227,7 +1274,7 @@ export class TestRunInputOutput {
       openTest: {
         enabled: true,
       },
-      assertionResponseQuestion: test.assertionResponseQuestion,
+      testPlanStrings: test.testPlanStrings,
       commands: test.commands.map(
         command =>
           /** @type {import("./aria-at-test-run.mjs").TestRunCommand} */ ({
@@ -1259,10 +1306,11 @@ export class TestRunInputOutput {
               highlightRequired: false,
               hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
               tabbedBehavior: 0,
-              behaviors: test.unexpectedBehaviors.map(({ description, requireExplanation }) => ({
+              behaviors: test.unexpectedBehaviors.map(({ description }) => ({
                 description,
                 checked: false,
-                more: requireExplanation ? { highlightRequired: false, value: '' } : null,
+                impact: UnexpectedBehaviorImpactMap.MODERATE,
+                more: { highlightRequired: false, value: '' },
               })),
             },
           })
@@ -1343,6 +1391,14 @@ export class TestRunInputOutput {
             ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
           ),
         },
+        3: {
+          pass: countAssertions(
+            ({ priority, result }) => priority === 3 && result === CommonResultMap.PASS
+          ),
+          fail: countAssertions(
+            ({ priority, result }) => priority === 3 && result !== CommonResultMap.PASS
+          ),
+        },
         unexpectedCount: countUnexpectedBehaviors(({ checked }) => checked),
       },
       commands: state.commands.map(command => ({
@@ -1378,7 +1434,8 @@ export class TestRunInputOutput {
       ) || command.unexpected.behaviors.some(({ checked }) => checked)
         ? CommandSupportJSONMap.FAILING
         : allAssertions.some(
-            ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
+            ({ priority, result }) =>
+              (priority === 2 || priority === 3) && result !== CommonResultMap.PASS
           )
         ? CommandSupportJSONMap.ALL_REQUIRED
         : CommandSupportJSONMap.FULL;
@@ -1454,7 +1511,8 @@ export class TestRunInputOutput {
         output: command.atOutput.value,
         assertionResults: command.assertions.map(assertion => ({
           assertion: {
-            priority: assertion.priority === 1 ? 'REQUIRED' : 'OPTIONAL',
+            priority:
+              assertion.priority === 1 ? 'MUST' : assertion.priority === 2 ? 'SHOULD' : 'MAY',
             text: assertion.description,
           },
           passed: assertion.result === 'pass',
@@ -1470,7 +1528,8 @@ export class TestRunInputOutput {
             behavior.checked
               ? {
                   text: behavior.description,
-                  otherUnexpectedBehaviorText: behavior.more ? behavior.more.value : null,
+                  impact: behavior.impact,
+                  details: behavior.more.value,
                 }
               : null
           )
@@ -1542,7 +1601,10 @@ export class TestRunInputOutput {
                 more: behavior.more
                   ? {
                       highlightRequired: false,
-                      value: behaviorResult ? behaviorResult.otherUnexpectedBehaviorText : '',
+                      impact: behaviorResult
+                        ? behavior.impact
+                        : UnexpectedBehaviorImpactMap.MODERATE,
+                      value: behaviorResult ? behaviorResult.details : '',
                     }
                   : behavior.more,
               };
@@ -1627,13 +1689,18 @@ const AssertionFailJSONMap = createEnumMap({
   FAIL: 'Fail',
 });
 
+const UnexpectedBehaviorImpactMap = createEnumMap({
+  MODERATE: 'Moderate',
+  SEVERE: 'Severe',
+});
+
 /** @typedef {SubmitResultDetailsCommandsAssertionsPass | SubmitResultDetailsCommandsAssertionsFail} SubmitResultAssertionsJSON */
 
 /**
- * Command result derived from priority 1 and 2 assertions.
+ * Command result derived from priority 1, 2 and 3 assertions.
  *
  * Support is "FAILING" is priority 1 assertions fail. Support is "ALL REQUIRED"
- * if priority 2 assertions fail.
+ * if priority 2 or 3 assertions fail.
  *
  * In the submitted json object values may contain spaces and are in ALL CAPS.
  *
@@ -1766,6 +1833,15 @@ function invariant(test, message, ...args) {
  */
 
 /**
+ * @typedef CommandInfo
+ * @property {string} assertionExceptions
+ * @property {string} command
+ * @property {Number} presentationNumber
+ * @property {string} settings
+ * @property {string} testID
+ */
+
+/**
  * @typedef BehaviorJSON
  * @property {string} setup_script_description
  * @property {string} setupTestPage
@@ -1773,6 +1849,8 @@ function invariant(test, message, ...args) {
  * @property {ATMode | ATMode[]} mode
  * @property {string} task
  * @property {string} specific_user_instruction
+ * @property {Object<string, CommandInfo[]>} commandsInfo
+ * @property {object} testPlanStrings
  * @property {[string, string][] | [OutputAssertion]} [output_assertions]
  * @property {{[atKey: string]: [number, string][]}} [additional_assertions]
  */
@@ -1786,7 +1864,6 @@ function invariant(test, message, ...args) {
 /**
  * @typedef BehaviorUnexpectedItem
  * @property {string} description
- * @property {boolean} requireExplanation
  */
 
 /**
@@ -1821,7 +1898,7 @@ function invariant(test, message, ...args) {
  */
 
 /**
- * @typedef {{[key in "1" | "2"]: SubmitResultSummaryPriorityJSON}} SubmitResultSummaryPriorityMapJSON
+ * @typedef {{[key in "1" | "2" | "3"]: SubmitResultSummaryPriorityJSON}} SubmitResultSummaryPriorityMapJSON
  */
 
 /**

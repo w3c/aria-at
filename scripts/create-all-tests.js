@@ -7,7 +7,7 @@ const {
 } = require('../lib/data/process-test-directory');
 const {
   processTestDirectory: processTestDirectoryV1,
-} = require('../lib/data/process-test-directory-v1');
+} = require('../lib/data/process-test-directory/v1');
 
 const args = require('minimist')(process.argv.slice(2), {
   alias: {

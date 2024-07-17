@@ -415,7 +415,29 @@ function renderVirtualInstructionDocument(doc) {
       fieldset(
         className(['assertions']),
         legend(rich(command.assertionsHeader.descriptionHeader)),
-        ...command.assertions.map(bind(commandResultAssertion, commandIndex))
+        ...command.assertions.map((assertion, assertionIndex) =>
+          fieldset(
+            legend(rich(assertion.description)),
+            radioChoice(
+              `cmd-${commandIndex}-assertion-${assertionIndex}-yes`,
+              `cmd-${commandIndex}-assertion-${assertionIndex}`,
+              {
+                label: 'Yes',
+                checked: assertion.passed === AssertionResultMap.PASS,
+                click: () => assertion.click(AssertionResultMap.PASS),
+              }
+            ),
+            radioChoice(
+              `cmd-${commandIndex}-assertion-${assertionIndex}-no`,
+              `cmd-${commandIndex}-assertion-${assertionIndex}`,
+              {
+                label: 'No',
+                checked: assertion.passed === AssertionResultMap.FAIL,
+                click: () => assertion.click(AssertionResultMap.FAIL),
+              }
+            )
+          )
+        )
       ),
       ...[command.unexpectedBehaviors].map(bind(commandResultUnexpectedBehavior, commandIndex))
     );

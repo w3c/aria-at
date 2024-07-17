@@ -9,7 +9,6 @@ import {
   render,
 } from './vrender.mjs';
 import {
-  AssertionResultMap,
   userCloseWindow,
   userOpenWindow,
   WhitespaceStyleMap,
@@ -423,8 +422,8 @@ function renderVirtualInstructionDocument(doc) {
               `cmd-${commandIndex}-assertion-${assertionIndex}`,
               {
                 label: 'Yes',
-                checked: assertion.passed === AssertionResultMap.PASS,
-                click: () => assertion.click(AssertionResultMap.PASS),
+                checked: assertion.passed === true,
+                click: () => assertion.click(true),
               }
             ),
             radioChoice(
@@ -432,8 +431,8 @@ function renderVirtualInstructionDocument(doc) {
               `cmd-${commandIndex}-assertion-${assertionIndex}`,
               {
                 label: 'No',
-                checked: assertion.passed === AssertionResultMap.FAIL,
-                click: () => assertion.click(AssertionResultMap.FAIL),
+                checked: assertion.passed === false,
+                click: () => assertion.click(false),
               }
             )
           )

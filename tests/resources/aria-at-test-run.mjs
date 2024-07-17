@@ -389,7 +389,7 @@ export function instructionDocument(resultState, hooks) {
     const resultAssertion = resultState.commands[commandIndex].assertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
       description: [assertion],
-      passed: resultAssertion.result === AssertionResultMap.PASS,
+      passed: resultAssertion.result,
       click: newResult =>
         hooks.setCommandAssertion({
           commandIndex,
@@ -409,15 +409,12 @@ export function instructionDocument(resultState, hooks) {
       resultState.commands[commandIndex].additionalAssertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
       description: [assertion],
-      passed: resultAdditionalAssertion.result === CommonResultMap.PASS,
-      click: () =>
+      passed: resultAdditionalAssertion.result,
+      click: newResult =>
         hooks.setCommandAssertion({
           commandIndex,
           assertionIndex,
-          result:
-            resultAdditionalAssertion.result === AssertionResultMap.PASS
-              ? AssertionResultMap.FAIL
-              : AssertionResultMap.PASS,
+          result: newResult,
         }),
     });
   }
@@ -851,14 +848,14 @@ function resultsTableDocument(state) {
         let failingAssertions = ['No failing assertions'];
         let unexpectedBehaviors = ['None'];
 
-        if (allAssertions.some(({ result }) => result === CommonResultMap.PASS)) {
+        if (allAssertions.some(({ result }) => result)) {
           passingAssertions = allAssertions
-            .filter(({ result }) => result === CommonResultMap.PASS)
+            .filter(({ result }) => result)
             .map(({ description }) => description);
         }
-        if (allAssertions.some(({ result }) => result !== CommonResultMap.PASS)) {
+        if (allAssertions.some(({ result }) => !result)) {
           failingAssertions = allAssertions
-            .filter(({ result }) => result !== CommonResultMap.PASS)
+            .filter(({ result }) => !result)
             .map(({ description }) => description);
         }
         if (command.unexpected.behaviors.some(({ checked }) => checked)) {
@@ -875,13 +872,10 @@ function resultsTableDocument(state) {
         return {
           description: command.description,
           support:
-            allAssertions.some(
-              ({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS
-            ) || command.unexpected.behaviors.some(({ checked }) => checked)
+            allAssertions.some(({ priority, result }) => priority === 1 && !result) ||
+            command.unexpected.behaviors.some(({ checked }) => checked)
               ? 'FAILING'
-              : allAssertions.some(
-                  ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
-                )
+              : allAssertions.some(({ priority, result }) => priority === 2 && !result)
               ? 'ALL_REQUIRED'
               : 'FULL',
           details: {

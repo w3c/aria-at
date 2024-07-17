@@ -390,14 +390,11 @@ export function instructionDocument(resultState, hooks) {
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
       description: [assertion],
       passed: resultAssertion.result === AssertionResultMap.PASS,
-      click: () =>
+      click: newResult =>
         hooks.setCommandAssertion({
           commandIndex,
           assertionIndex,
-          result:
-            resultAssertion.result === AssertionResultMap.PASS
-              ? AssertionResultMap.FAIL
-              : AssertionResultMap.PASS,
+          result: newResult,
         }),
     });
   }

@@ -549,24 +549,6 @@ function renderVirtualInstructionDocument(doc) {
   }
 
   /**
-   * @param {number} commandIndex
-   * @param {InstructionDocumentResultsCommandsAssertion} assertion
-   * @param {number} assertionIndex
-   */
-  function commandResultAssertion(commandIndex, assertion, assertionIndex) {
-    return label(
-      className(['assertion']),
-      input(
-        type('checkbox'),
-        id(`cmd-${commandIndex}-${assertionIndex}`),
-        checked(assertion.passed === AssertionResultMap.PASS),
-        onclick(assertion.click)
-      ),
-      rich(assertion.description)
-    );
-  }
-
-  /**
    * @param {string} idKey
    * @param {string} nameKey
    * @param {InstructionDocumentAssertionChoice} choice

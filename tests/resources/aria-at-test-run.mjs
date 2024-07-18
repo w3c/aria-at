@@ -471,7 +471,7 @@ export const AdditionalAssertionResultMap = createEnumMap({
 });
 
 /**
- * @typedef {EnumValues<typeof AssertionResultMap>} AssertionResult
+ * @typedef {boolean | null} AssertionResult
  */
 
 export const AssertionResultMap = createEnumMap({

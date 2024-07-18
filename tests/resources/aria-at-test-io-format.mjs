@@ -1294,13 +1294,13 @@ export class TestRunInputOutput {
               description: assertion.assertion,
               highlightRequired: false,
               priority: assertion.priority,
-              result: CommonResultMap.NOT_SET,
+              result: null,
             })),
             additionalAssertions: test.additionalAssertions.map(assertion => ({
               description: assertion.assertion,
               highlightRequired: false,
               priority: assertion.priority,
-              result: CommonResultMap.NOT_SET,
+              result: null,
             })),
             unexpected: {
               highlightRequired: false,

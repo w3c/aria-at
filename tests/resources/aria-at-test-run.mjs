@@ -1100,7 +1100,7 @@ export function userValidateState() {
 /**
  * @typedef InstructionDocumentResultsCommandsAssertion
  * @property {Description} description
- * @property {Boolean} passed
+ * @property {Boolean | null} passed
  * @property {boolean} [focus]
  * @property {() => void} click
  */

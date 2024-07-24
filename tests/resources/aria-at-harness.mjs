@@ -9,6 +9,7 @@ import {
   render,
 } from './vrender.mjs';
 import {
+  AssertionResultMap,
   userCloseWindow,
   userOpenWindow,
   WhitespaceStyleMap,
@@ -414,29 +415,7 @@ function renderVirtualInstructionDocument(doc) {
       fieldset(
         className(['assertions']),
         legend(rich(command.assertionsHeader.descriptionHeader)),
-        ...command.assertions.map((assertion, assertionIndex) =>
-          fieldset(
-            legend(rich(assertion.description)),
-            radioChoice(
-              `cmd-${commandIndex}-assertion-${assertionIndex}-yes`,
-              `cmd-${commandIndex}-assertion-${assertionIndex}`,
-              {
-                label: 'Yes',
-                checked: assertion.passed === true,
-                click: () => assertion.click(true),
-              }
-            ),
-            radioChoice(
-              `cmd-${commandIndex}-assertion-${assertionIndex}-no`,
-              `cmd-${commandIndex}-assertion-${assertionIndex}`,
-              {
-                label: 'No',
-                checked: assertion.passed === false,
-                click: () => assertion.click(false),
-              }
-            )
-          )
-        )
+        ...command.assertions.map(bind(commandResultAssertion, commandIndex))
       ),
       ...[command.unexpectedBehaviors].map(bind(commandResultUnexpectedBehavior, commandIndex))
     );
@@ -544,6 +523,24 @@ function renderVirtualInstructionDocument(doc) {
           );
         })
       )
+    );
+  }
+
+  /**
+   * @param {number} commandIndex
+   * @param {InstructionDocumentResultsCommandsAssertion} assertion
+   * @param {number} assertionIndex
+   */
+  function commandResultAssertion(commandIndex, assertion, assertionIndex) {
+    return label(
+      className(['assertion']),
+      input(
+        type('checkbox'),
+        id(`cmd-${commandIndex}-${assertionIndex}`),
+        checked(assertion.passed === AssertionResultMap.PASS),
+        onclick(assertion.click)
+      ),
+      rich(assertion.description)
     );
   }
 

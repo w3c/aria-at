@@ -30,7 +30,7 @@
  * @property {object} scenarioResults[].assertionResults[].assertion
  * @property {AriaATTestResult.AssertionPriorityJSON} scenarioResults[].assertionResults[].assertion.priority
  * @property {string} scenarioResults[].assertionResults[].assertion.text
- * @property {boolean | null} scenarioResults[].assertionResults[].result
+ * @property {boolean} scenarioResults[].assertionResults[].passed
  * @property {AriaATTestResult.AssertionFailedReasonJSON | null} [scenarioResults[].assertionResults[].failedReason]
  * @property {object[]} scenarioResults[].unexpectedBehaviors
  * @property {string} scenarioResults[].unexpectedBehaviors[].id

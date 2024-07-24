@@ -1294,13 +1294,13 @@ export class TestRunInputOutput {
               description: assertion.assertion,
               highlightRequired: false,
               priority: assertion.priority,
-              result: null,
+              result: CommonResultMap.NOT_SET,
             })),
             additionalAssertions: test.additionalAssertions.map(assertion => ({
               description: assertion.assertion,
               highlightRequired: false,
               priority: assertion.priority,
-              result: null,
+              result: CommonResultMap.NOT_SET,
             })),
             unexpected: {
               highlightRequired: false,
@@ -1515,7 +1515,7 @@ export class TestRunInputOutput {
               assertion.priority === 1 ? 'MUST' : assertion.priority === 2 ? 'SHOULD' : 'MAY',
             text: assertion.description,
           },
-          passed: assertion.result,
+          passed: assertion.result === 'pass',
           failedReason:
             assertion.result === 'failIncorrect'
               ? 'INCORRECT_OUTPUT'
@@ -1574,7 +1574,13 @@ export class TestRunInputOutput {
             return {
               ...assertion,
               highlightRequired: false,
-              result: assertionResult.passed,
+              result: assertionResult.passed
+                ? 'pass'
+                : assertionResult.failedReason === 'INCORRECT_OUTPUT'
+                ? 'failIncorrect'
+                : assertionResult.failedReason === 'NO_OUTPUT'
+                ? 'failMissing'
+                : 'fail',
             };
           }),
           unexpected: {

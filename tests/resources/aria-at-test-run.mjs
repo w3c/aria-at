@@ -389,12 +389,15 @@ export function instructionDocument(resultState, hooks) {
     const resultAssertion = resultState.commands[commandIndex].assertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
       description: [assertion],
-      passed: resultAssertion.result,
-      click: newResult =>
+      passed: resultAssertion.result === AssertionResultMap.PASS,
+      click: () =>
         hooks.setCommandAssertion({
           commandIndex,
           assertionIndex,
-          result: newResult,
+          result:
+            resultAssertion.result === AssertionResultMap.PASS
+              ? AssertionResultMap.FAIL
+              : AssertionResultMap.PASS,
         }),
     });
   }
@@ -409,12 +412,15 @@ export function instructionDocument(resultState, hooks) {
       resultState.commands[commandIndex].additionalAssertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
       description: [assertion],
-      passed: resultAdditionalAssertion.result,
-      click: newResult =>
+      passed: resultAdditionalAssertion.result === CommonResultMap.PASS,
+      click: () =>
         hooks.setCommandAssertion({
           commandIndex,
           assertionIndex,
-          result: newResult,
+          result:
+            resultAdditionalAssertion.result === AssertionResultMap.PASS
+              ? AssertionResultMap.FAIL
+              : AssertionResultMap.PASS,
         }),
     });
   }
@@ -471,7 +477,7 @@ export const AdditionalAssertionResultMap = createEnumMap({
 });
 
 /**
- * @typedef {boolean | null} AssertionResult
+ * @typedef {EnumValues<typeof AssertionResultMap>} AssertionResult
  */
 
 export const AssertionResultMap = createEnumMap({
@@ -848,14 +854,14 @@ function resultsTableDocument(state) {
         let failingAssertions = ['No failing assertions'];
         let unexpectedBehaviors = ['None'];
 
-        if (allAssertions.some(({ result }) => result)) {
+        if (allAssertions.some(({ result }) => result === CommonResultMap.PASS)) {
           passingAssertions = allAssertions
-            .filter(({ result }) => result)
+            .filter(({ result }) => result === CommonResultMap.PASS)
             .map(({ description }) => description);
         }
-        if (allAssertions.some(({ result }) => !result)) {
+        if (allAssertions.some(({ result }) => result !== CommonResultMap.PASS)) {
           failingAssertions = allAssertions
-            .filter(({ result }) => !result)
+            .filter(({ result }) => result !== CommonResultMap.PASS)
             .map(({ description }) => description);
         }
         if (command.unexpected.behaviors.some(({ checked }) => checked)) {
@@ -872,10 +878,13 @@ function resultsTableDocument(state) {
         return {
           description: command.description,
           support:
-            allAssertions.some(({ priority, result }) => priority === 1 && !result) ||
-            command.unexpected.behaviors.some(({ checked }) => checked)
+            allAssertions.some(
+              ({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS
+            ) || command.unexpected.behaviors.some(({ checked }) => checked)
               ? 'FAILING'
-              : allAssertions.some(({ priority, result }) => priority === 2 && !result)
+              : allAssertions.some(
+                  ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
+                )
               ? 'ALL_REQUIRED'
               : 'FULL',
           details: {
@@ -1100,7 +1109,7 @@ export function userValidateState() {
 /**
  * @typedef InstructionDocumentResultsCommandsAssertion
  * @property {Description} description
- * @property {Boolean | null} passed
+ * @property {Boolean} passed
  * @property {boolean} [focus]
  * @property {() => void} click
  */

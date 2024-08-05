@@ -883,10 +883,10 @@ function resultsTableDocument(state) {
             ) || command.unexpected.behaviors.some(({ checked }) => checked)
               ? 'FAILING'
               : allAssertions.some(
-                  ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
-                )
-              ? 'ALL_REQUIRED'
-              : 'FULL',
+                    ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
+                  )
+                ? 'ALL_REQUIRED'
+                : 'FULL',
           details: {
             output: /** @type {Description} */ [
               'Output:',

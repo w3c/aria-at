@@ -88,7 +88,7 @@ const unescapeHTML = string =>
         '&gt;': '>',
         '&#39;': "'",
         '&quot;': '"',
-      }[tag] || tag)
+      })[tag] || tag
   );
 
 fse.readdirSync(testsBuildDirectory).forEach(function (directory) {

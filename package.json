@@ -11,10 +11,11 @@
     "build-v2": "npm run create-all-tests -- --version2 --verbose && npm run review-tests",
     "validate": "npm run create-all-tests -- --verbose --validate",
     "cleanup": "rimraf build",
-    "create-all-tests": "cross-var node scripts/create-all-tests.js --testplan=$npm_config_testplan",
+    "create-all-tests": "cross-var node scripts/create-all-tests --testplan=$npm_config_testplan",
     "review-tests": "cross-var node --experimental-modules scripts/test-reviewer.mjs --testplan=$npm_config_testplan",
     "update-reference": "node scripts/update-reference.js",
     "make-v2": "node scripts/v2maker.js",
+    "test": "jest",
     "prepare": "husky install"
   },
   "dependencies": {

@@ -4,10 +4,10 @@ const fse = require('fs-extra');
 
 const {
   processTestDirectory: processTestDirectoryV2,
-} = require('../lib/data/process-test-directory');
+} = require('../../lib/data/process-test-directory');
 const {
   processTestDirectory: processTestDirectoryV1,
-} = require('../lib/data/process-test-directory-v1');
+} = require('../../lib/data/process-test-directory-v1');
 
 const args = require('minimist')(process.argv.slice(2), {
   alias: {
@@ -41,9 +41,7 @@ if (args.help) {
   process.exit();
 }
 
-main();
-
-async function main() {
+async function createAllTests({ config } = {}) {
   // on some OSes, it seems the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
   const TARGET_TEST_PLAN =
     args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate test assets for
@@ -54,8 +52,10 @@ async function main() {
   const V2_CHECK = !!args.v2;
 
   const scriptsDirectory = path.dirname(__filename);
-  const rootDirectory = path.join(scriptsDirectory, '..');
-  const testsDirectory = path.join(rootDirectory, 'tests');
+  const rootDirectory = path.join(scriptsDirectory, '../..');
+  const testsDirectory = config?.testsDirectory
+    ? config.testsDirectory
+    : path.join(rootDirectory, 'tests');
 
   const filteredTestPlans = fse.readdirSync(testsDirectory).filter(f =>
     TARGET_TEST_PLAN
@@ -79,14 +79,7 @@ async function main() {
       // Check if files exist for doing v2 build by default first, then try v1
       if (!V1_CHECK && !V2_CHECK) {
         // Use existence of assertions.csv to determine if v2 format files exist for now
-        const assertionsCsvPath = path.join(
-          __dirname,
-          '../',
-          'tests',
-          directory,
-          'data',
-          'assertions.csv'
-        );
+        const assertionsCsvPath = path.join(testsDirectory, directory, 'data', 'assertions.csv');
 
         if (fse.existsSync(assertionsCsvPath)) FALLBACK_V2_CHECK = true;
         else FALLBACK_V1_CHECK = true;
@@ -164,3 +157,5 @@ stacktrace: ${error.stack}
     );
   }
 }
+
+module.exports = createAllTests;

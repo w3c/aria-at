@@ -29,7 +29,7 @@ export default [
     },
 
     plugins: {
-      eslintN
+      eslintN,
     },
 
     rules: {

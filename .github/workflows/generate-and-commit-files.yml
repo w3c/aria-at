@@ -8,15 +8,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: refs/pull/${{ github.event.pull_request.number }}/head
           fetch-depth: 0
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '20.x'
           cache: 'npm'
 
       - name: Install dependencies
@@ -25,7 +25,7 @@ jobs:
       - name: Generate test and review files
         run: npm run build
 
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - uses: stefanzweifel/git-auto-commit-action@v5
         if: ${{ github.actor != 'dependabot[bot]' }}
         with:
           commit_message: Generate .html source files with scripts automatically
@@ -34,15 +34,15 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: refs/pull/${{ github.event.pull_request.number }}/head
           fetch-depth: 0
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: '20.x'
           cache: 'npm'
 
       - name: Install dependencies

@@ -1,35 +1,9 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
 import globals from 'globals';
 
 import eslintJs from '@eslint/js';
-// import { fixupPluginRules } from '@eslint/compat';
-// import { FlatCompat } from '@eslint/eslintrc';
 
 import eslintN from 'eslint-plugin-n';
 import eslintPrettierRecommended from 'eslint-plugin-prettier/recommended';
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// const compat = new FlatCompat({
-//   baseDirectory: __dirname,
-//   recommendedConfig: eslintJs.configs.recommended
-// });
-
-// /**
-//  * @param {string} name
-//  * @param {string} alias
-//  * @returns {import("eslint").ESLint.Plugin}
-//  */
-// function legacyPlugin(name, alias = name) {
-//   const plugin = compat.plugins(name)[0]?.plugins?.[alias];
-//
-//   if (!plugin) {
-//     throw new Error(`Unable to resolve plugin ${name} and/or alias ${alias}`);
-//   }
-//
-//   return fixupPluginRules(plugin);
-// }
 
 export default [
   {
@@ -55,8 +29,7 @@ export default [
     },
 
     plugins: {
-      eslintN,
-      // import: legacyPlugin("eslint-plugin-import", "import"),
+      eslintN
     },
 
     rules: {

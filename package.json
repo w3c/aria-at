@@ -8,6 +8,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "npm run create-all-tests && npm run review-tests",
+    "build:serve": "npm run cleanup && npm run build && npx live-server build",
+    "serve": "npx live-server build",
     "build-v1": "npm run create-all-tests -- --version1 --verbose && npm run review-tests",
     "build-v2": "npm run create-all-tests -- --version2 --verbose && npm run review-tests",
     "validate": "npm run create-all-tests -- --verbose --validate",

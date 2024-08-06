@@ -13,25 +13,77 @@ describe('V1 test format version', () => {
     rimrafSync(buildDirectory);
   });
 
-  it('creates build files for v1 test (banner)', async () => {
-    const bannerBuildDirectory = path.join(buildDirectory, 'tests', 'banner');
-
+  it('runs createAllTests successfully (banner)', async () => {
+    const testplan = 'banner';
     const config = {
       testsDirectory: mockTestsDirectory,
       buildOutputDirectory: buildDirectory,
       args: {
-        testplan: 'banner',
+        testplan,
+        testMode: true,
         // validate: true,
         // verbose: true,
-        testMode: true,
       },
     };
     await createAllTests(config);
 
-    const htmlAndJsonFiles = getFiles(bannerBuildDirectory, ['.html', '.json']);
+    const testPlanBuildDirectory = path.join(buildDirectory, 'tests', testplan);
+    const htmlAndJsonFiles = getFiles(testPlanBuildDirectory, ['.html', '.json']);
 
     htmlAndJsonFiles.forEach(filePath => {
-      const file = getFileContent(path.join(bannerBuildDirectory, filePath));
+      const file = getFileContent(path.join(testPlanBuildDirectory, filePath));
+      expect(file).toMatchSnapshot();
+    });
+  });
+});
+
+describe('V2 test format version', () => {
+  beforeEach(() => {
+    rimrafSync(buildDirectory);
+  });
+
+  it('runs createAllTests successfully (alert)', async () => {
+    const testplan = 'alert';
+    const config = {
+      testsDirectory: mockTestsDirectory,
+      buildOutputDirectory: buildDirectory,
+      args: {
+        testplan,
+        testMode: true,
+        // validate: true,
+        // verbose: true,
+      },
+    };
+    await createAllTests(config);
+
+    const testPlanBuildDirectory = path.join(buildDirectory, 'tests', testplan);
+    const htmlAndJsonFiles = getFiles(testPlanBuildDirectory, ['.html', '.json']);
+
+    htmlAndJsonFiles.forEach(filePath => {
+      const file = getFileContent(path.join(testPlanBuildDirectory, filePath));
+      expect(file).toMatchSnapshot();
+    });
+  });
+
+  it('runs createAllTests successfully (command-button)', async () => {
+    const testplan = 'command-button';
+    const config = {
+      testsDirectory: mockTestsDirectory,
+      buildOutputDirectory: buildDirectory,
+      args: {
+        testplan,
+        testMode: true,
+        // validate: true,
+        // verbose: true,
+      },
+    };
+    await createAllTests(config);
+
+    const testPlanBuildDirectory = path.join(buildDirectory, 'tests', testplan);
+    const htmlAndJsonFiles = getFiles(testPlanBuildDirectory, ['.html', '.json']);
+
+    htmlAndJsonFiles.forEach(filePath => {
+      const file = getFileContent(path.join(testPlanBuildDirectory, filePath));
       expect(file).toMatchSnapshot();
     });
   });

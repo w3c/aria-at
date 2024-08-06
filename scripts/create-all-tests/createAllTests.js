@@ -1,7 +1,5 @@
 const path = require('path');
-
 const fse = require('fs-extra');
-
 const {
   processTestDirectory: processTestDirectoryV2,
 } = require('../../lib/data/process-test-directory');
@@ -9,7 +7,7 @@ const {
   processTestDirectory: processTestDirectoryV1,
 } = require('../../lib/data/process-test-directory-v1');
 
-const args = require('minimist')(process.argv.slice(2), {
+const cliArgs = require('minimist')(process.argv.slice(2), {
   alias: {
     h: 'help',
     t: 'testplan',
@@ -20,7 +18,7 @@ const args = require('minimist')(process.argv.slice(2), {
   },
 });
 
-if (args.help) {
+if (cliArgs.help) {
   console.log(`Default use:
   No arguments:
     Generate tests and view report summary.
@@ -41,7 +39,21 @@ if (args.help) {
   process.exit();
 }
 
+/**
+ *
+ * @param {object} config
+ * @param {object} config.args
+ * @param {string} config.args.testplan
+ * @param {boolean} config.args.validate
+ * @param {boolean} config.args.verbose
+ * @param {boolean} config.args.testMode
+ * @param {string} config.buildOutputDirectory
+ * @param {string} config.testsDirectory
+ * @returns {Promise<void>}
+ */
 async function createAllTests({ config } = {}) {
+  const args = config?.args ?? cliArgs;
+
   // on some OSes, it seems the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
   const TARGET_TEST_PLAN =
     args.testplan && !args.testplan.includes('npm_config_testplan') ? args.testplan : null; // individual test plan to generate test assets for
@@ -53,9 +65,7 @@ async function createAllTests({ config } = {}) {
 
   const scriptsDirectory = path.dirname(__filename);
   const rootDirectory = path.join(scriptsDirectory, '../..');
-  const testsDirectory = config?.testsDirectory
-    ? config.testsDirectory
-    : path.join(rootDirectory, 'tests');
+  const testsDirectory = config?.testsDirectory ?? path.join(rootDirectory, 'tests');
 
   const filteredTestPlans = fse.readdirSync(testsDirectory).filter(f =>
     TARGET_TEST_PLAN
@@ -88,6 +98,7 @@ async function createAllTests({ config } = {}) {
       if (FALLBACK_V2_CHECK || V2_CHECK) {
         return processTestDirectoryV2({
           directory: path.join('tests', directory),
+          buildOutputDirectory: config?.buildOutputDirectory,
           args,
         }).catch(error => {
           error.directory = directory;
@@ -96,6 +107,7 @@ async function createAllTests({ config } = {}) {
       } else if (FALLBACK_V1_CHECK || V1_CHECK) {
         return processTestDirectoryV1({
           directory: path.join('tests', directory),
+          buildOutputDirectory: config?.buildOutputDirectory,
           args,
         }).catch(error => {
           error.directory = directory;

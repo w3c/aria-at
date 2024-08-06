@@ -8,6 +8,23 @@ const __testDirectory__ = path.dirname(__filename);
 const mockTestsDirectory = path.join(__testDirectory__, '__mocks__', 'tests');
 const buildDirectory = path.join(__testDirectory__, 'build');
 
+const defaultArgs = {
+  testMode: true,
+};
+
+const defaultConfig = {
+  testsDirectory: mockTestsDirectory,
+  buildOutputDirectory: buildDirectory,
+  args: defaultArgs,
+};
+
+const getFilesFromTestPlan = (testPlan, extensions = ['.html', '.json', '.js']) => {
+  const testPlanBuildDirectory = path.join(buildDirectory, 'tests', testPlan);
+  const fileNames = getFiles(testPlanBuildDirectory, extensions);
+
+  return fileNames.map(filePath => getFileContent(path.join(testPlanBuildDirectory, filePath)));
+};
+
 describe('V1 test format version', () => {
   beforeEach(() => {
     rimrafSync(buildDirectory);
@@ -15,25 +32,11 @@ describe('V1 test format version', () => {
 
   it('runs createAllTests successfully (banner)', async () => {
     const testplan = 'banner';
-    const config = {
-      testsDirectory: mockTestsDirectory,
-      buildOutputDirectory: buildDirectory,
-      args: {
-        testplan,
-        testMode: true,
-        // validate: true,
-        // verbose: true,
-      },
-    };
+    const config = { ...defaultConfig, args: { ...defaultArgs, testplan } };
     await createAllTests(config);
 
-    const testPlanBuildDirectory = path.join(buildDirectory, 'tests', testplan);
-    const htmlAndJsonFiles = getFiles(testPlanBuildDirectory, ['.html', '.json']);
-
-    htmlAndJsonFiles.forEach(filePath => {
-      const file = getFileContent(path.join(testPlanBuildDirectory, filePath));
-      expect(file).toMatchSnapshot();
-    });
+    const files = getFilesFromTestPlan(testplan);
+    files.forEach(file => expect(file).toMatchSnapshot());
   });
 });
 
@@ -44,47 +47,37 @@ describe('V2 test format version', () => {
 
   it('runs createAllTests successfully (alert)', async () => {
     const testplan = 'alert';
-    const config = {
-      testsDirectory: mockTestsDirectory,
-      buildOutputDirectory: buildDirectory,
-      args: {
-        testplan,
-        testMode: true,
-        // validate: true,
-        // verbose: true,
-      },
-    };
+    const config = { ...defaultConfig, args: { ...defaultArgs, testplan } };
     await createAllTests(config);
 
-    const testPlanBuildDirectory = path.join(buildDirectory, 'tests', testplan);
-    const htmlAndJsonFiles = getFiles(testPlanBuildDirectory, ['.html', '.json']);
-
-    htmlAndJsonFiles.forEach(filePath => {
-      const file = getFileContent(path.join(testPlanBuildDirectory, filePath));
-      expect(file).toMatchSnapshot();
-    });
+    const files = getFilesFromTestPlan(testplan);
+    files.forEach(file => expect(file).toMatchSnapshot());
   });
 
   it('runs createAllTests successfully (command-button)', async () => {
     const testplan = 'command-button';
-    const config = {
-      testsDirectory: mockTestsDirectory,
-      buildOutputDirectory: buildDirectory,
-      args: {
-        testplan,
-        testMode: true,
-        // validate: true,
-        // verbose: true,
-      },
-    };
+    const config = { ...defaultConfig, args: { ...defaultArgs, testplan } };
     await createAllTests(config);
 
-    const testPlanBuildDirectory = path.join(buildDirectory, 'tests', testplan);
-    const htmlAndJsonFiles = getFiles(testPlanBuildDirectory, ['.html', '.json']);
+    const files = getFilesFromTestPlan(testplan);
+    files.forEach(file => expect(file).toMatchSnapshot());
+  });
+});
 
-    htmlAndJsonFiles.forEach(filePath => {
-      const file = getFileContent(path.join(testPlanBuildDirectory, filePath));
-      expect(file).toMatchSnapshot();
-    });
+describe('all test format versions', () => {
+  beforeEach(() => {
+    rimrafSync(buildDirectory);
+  });
+
+  it('runs createAllTests successfully', async () => {
+    const config = { ...defaultConfig, args: { ...defaultArgs, verbose: true } };
+    await createAllTests(config);
+
+    const files = [
+      ...getFilesFromTestPlan('alert'),
+      ...getFilesFromTestPlan('banner'),
+      ...getFilesFromTestPlan('command-button'),
+    ];
+    files.forEach(file => expect(file).toMatchSnapshot());
   });
 });

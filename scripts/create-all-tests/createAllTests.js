@@ -51,7 +51,7 @@ if (cliArgs.help) {
  * @param {string} config.testsDirectory
  * @returns {Promise<void>}
  */
-async function createAllTests({ config } = {}) {
+async function createAllTests(config = {}) {
   const args = config?.args ?? cliArgs;
 
   // on some OSes, it seems the `npm_config_testplan` environment variable will come back as the actual variable name rather than empty if it does not exist
@@ -97,18 +97,20 @@ async function createAllTests({ config } = {}) {
 
       if (FALLBACK_V2_CHECK || V2_CHECK) {
         return processTestDirectoryV2({
+          args,
+          testsDirectory,
           directory: path.join('tests', directory),
           buildOutputDirectory: config?.buildOutputDirectory,
-          args,
         }).catch(error => {
           error.directory = directory;
           throw error;
         });
       } else if (FALLBACK_V1_CHECK || V1_CHECK) {
         return processTestDirectoryV1({
+          args,
+          testsDirectory,
           directory: path.join('tests', directory),
           buildOutputDirectory: config?.buildOutputDirectory,
-          args,
         }).catch(error => {
           error.directory = directory;
           throw error;

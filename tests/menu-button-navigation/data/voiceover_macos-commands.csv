@@ -1,22 +1,24 @@
 testId,command,settings,assertionExceptions,presentationNumber
-navForwardsToMenuButton,tab,,,3.0
-navForwardsToMenuButton,ctrl+opt+right,,,3.1
-navForwardsToMenuButton,j ,quickNavOn,,3.2
+navForwardsToMenuButton,tab,,,5.0
+navForwardsToMenuButton,ctrl+opt+right,,,5.1
+navForwardsToMenuButton,j,quickNavOn,,5.2
 navBackToMenuButton,shift+tab,,,6.0
 navBackToMenuButton,ctrl+opt+left,,,6.1
-navBackToMenuButton,j ,quickNavOn,,6.2
+navBackToMenuButton,j,quickNavOn,,6.2
 reqInfoAboutMenuButton,ctrl+opt+f3,,,9.0
 reqInfoAboutMenuButton,ctrl+opt+f4,,,9.1
 openMenu,ctrl+opt+space,,,12.0
 openMenu,space,,,12.1
 openMenu,enter,,,12.2
-openMenu,DOWN,quickNavOff,,12.3
-openMenuToLastItem,UP,quickNavOff,,14.0
+openMenu,down,quickNavOff,,12.3
+openMenuToLastItem,up,quickNavOff,,14.0
 reqInfoAboutMenuItem,ctrl+opt+f3,,,16.0
 reqInfoAboutMenuItem,ctrl+opt+f4,,,16.1
 navToFirstItemMenu,home,,,18.0
-navToFirstItemMenu,DOWN,quickNavOff,,18.1
+navToFirstItemMenu,down,quickNavOff,,18.1
 navToLastItemMenu,end,,,20.0
-navToLastItemMenu,UP,quickNavOff,,20.1
+navToLastItemMenu,up,quickNavOff,,20.1
 navToItemMenuByTypingCharacter,a,,,22.0
-closeMenu,esc,,,24.0
+activateMenuItem,ctrl+opt+space,,,24.0
+activateMenuItem,enter,,,24.1
+closeMenu,esc,,,26.0

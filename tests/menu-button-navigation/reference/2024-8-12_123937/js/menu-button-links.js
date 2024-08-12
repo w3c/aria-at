@@ -2,18 +2,20 @@
  *   This content is licensed according to the W3C Software License at
  *   https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
  *
- *   File:   menu-button-links.js
+ *   File:   menu-button-actives-active-descendant.js
  *
- *   Desc:   Creates a menu button that opens a menu of links
+ *   Desc:   Creates a menu button that opens a menu of actions using aria-activedescendants
  */
 
 'use strict';
 
-class MenuButtonLinks {
-  constructor(domNode) {
+class MenuButtonActionsActiveDescendant {
+  constructor(domNode, performMenuAction) {
     this.domNode = domNode;
+    this.performMenuAction = performMenuAction;
     this.buttonNode = domNode.querySelector('button');
     this.menuNode = domNode.querySelector('[role="menu"]');
+    this.currentMenuitem = {};
     this.menuitemNodes = [];
     this.firstMenuitem = false;
     this.lastMenuitem = false;
@@ -23,7 +25,10 @@ class MenuButtonLinks {
       'keydown',
       this.onButtonKeydown.bind(this)
     );
+
     this.buttonNode.addEventListener('click', this.onButtonClick.bind(this));
+
+    this.menuNode.addEventListener('keydown', this.onMenuKeydown.bind(this));
 
     var nodes = domNode.querySelectorAll('[role="menuitem"]');
 
@@ -33,7 +38,7 @@ class MenuButtonLinks {
       menuitem.tabIndex = -1;
       this.firstChars.push(menuitem.textContent.trim()[0].toLowerCase());
 
-      menuitem.addEventListener('keydown', this.onMenuitemKeydown.bind(this));
+      menuitem.addEventListener('click', this.onMenuitemClick.bind(this));
 
       menuitem.addEventListener(
         'mouseover',
@@ -57,14 +62,16 @@ class MenuButtonLinks {
   }
 
   setFocusToMenuitem(newMenuitem) {
-    this.menuitemNodes.forEach(function (item) {
-      if (item === newMenuitem) {
-        item.tabIndex = 0;
-        newMenuitem.focus();
+    for (var i = 0; i < this.menuitemNodes.length; i++) {
+      var menuitem = this.menuitemNodes[i];
+      if (menuitem === newMenuitem) {
+        this.currentMenuitem = newMenuitem;
+        menuitem.classList.add('focus');
+        this.menuNode.setAttribute('aria-activedescendant', newMenuitem.id);
       } else {
-        item.tabIndex = -1;
+        menuitem.classList.remove('focus');
       }
-    });
+    }
   }
 
   setFocusToFirstMenuitem() {
@@ -75,13 +82,13 @@ class MenuButtonLinks {
     this.setFocusToMenuitem(this.lastMenuitem);
   }
 
-  setFocusToPreviousMenuitem(currentMenuitem) {
+  setFocusToPreviousMenuitem() {
     var newMenuitem, index;
 
-    if (currentMenuitem === this.firstMenuitem) {
+    if (this.currentMenuitem === this.firstMenuitem) {
       newMenuitem = this.lastMenuitem;
     } else {
-      index = this.menuitemNodes.indexOf(currentMenuitem);
+      index = this.menuitemNodes.indexOf(this.currentMenuitem);
       newMenuitem = this.menuitemNodes[index - 1];
     }
 
@@ -90,13 +97,13 @@ class MenuButtonLinks {
     return newMenuitem;
   }
 
-  setFocusToNextMenuitem(currentMenuitem) {
+  setFocusToNextMenuitem() {
     var newMenuitem, index;
 
-    if (currentMenuitem === this.lastMenuitem) {
+    if (this.currentMenuitem === this.lastMenuitem) {
       newMenuitem = this.firstMenuitem;
     } else {
-      index = this.menuitemNodes.indexOf(currentMenuitem);
+      index = this.menuitemNodes.indexOf(this.currentMenuitem);
       newMenuitem = this.menuitemNodes[index + 1];
     }
     this.setFocusToMenuitem(newMenuitem);
@@ -104,7 +111,7 @@ class MenuButtonLinks {
     return newMenuitem;
   }
 
-  setFocusByFirstCharacter(currentMenuitem, char) {
+  setFocusByFirstCharacter(char) {
     var start, index;
 
     if (char.length > 1) {
@@ -114,7 +121,7 @@ class MenuButtonLinks {
     char = char.toLowerCase();
 
     // Get start index for search based on position of currentItem
-    start = this.menuitemNodes.indexOf(currentMenuitem) + 1;
+    start = this.menuitemNodes.indexOf(this.currentMenuitem) + 1;
     if (start >= this.menuitemNodes.length) {
       start = 0;
     }
@@ -149,12 +156,19 @@ class MenuButtonLinks {
   openPopup() {
     this.menuNode.style.display = 'block';
     this.buttonNode.setAttribute('aria-expanded', 'true');
+    this.menuNode.focus();
+    this.setFocusToFirstMenuitem();
   }
 
   closePopup() {
     if (this.isOpen()) {
-      this.buttonNode.removeAttribute('aria-expanded');
+      this.buttonNode.setAttribute('aria-expanded', 'false');
+      this.menuNode.setAttribute('aria-activedescendant', '');
+      for (let i = 0; i < this.menuitemNodes.length; i++) {
+        this.menuitemNodes[i].classList.remove('focus');
+      }
       this.menuNode.style.display = 'none';
+      this.buttonNode.focus();
     }
   }
 
@@ -189,7 +203,6 @@ class MenuButtonLinks {
       case 'Esc':
       case 'Escape':
         this.closePopup();
-        this.buttonNode.focus();
         flag = true;
         break;
 
@@ -213,19 +226,15 @@ class MenuButtonLinks {
   onButtonClick(event) {
     if (this.isOpen()) {
       this.closePopup();
-      this.buttonNode.focus();
     } else {
       this.openPopup();
-      this.setFocusToFirstMenuitem();
     }
-
     event.stopPropagation();
     event.preventDefault();
   }
 
-  onMenuitemKeydown(event) {
-    var tgt = event.currentTarget,
-      key = event.key,
+  onMenuKeydown(event) {
+    var key = event.key,
       flag = false;
 
     function isPrintableCharacter(str) {
@@ -238,37 +247,38 @@ class MenuButtonLinks {
 
     if (event.shiftKey) {
       if (isPrintableCharacter(key)) {
-        this.setFocusByFirstCharacter(tgt, key);
+        this.setFocusByFirstCharacter(key);
         flag = true;
       }
 
       if (event.key === 'Tab') {
-        this.buttonNode.focus();
         this.closePopup();
         flag = true;
       }
     } else {
       switch (key) {
         case ' ':
-          window.location.href = tgt.href;
+        case 'Enter':
+          this.closePopup();
+          this.performMenuAction(this.currentMenuitem);
+          flag = true;
           break;
 
         case 'Esc':
         case 'Escape':
           this.closePopup();
-          this.buttonNode.focus();
           flag = true;
           break;
 
         case 'Up':
         case 'ArrowUp':
-          this.setFocusToPreviousMenuitem(tgt);
+          this.setFocusToPreviousMenuitem();
           flag = true;
           break;
 
         case 'ArrowDown':
         case 'Down':
-          this.setFocusToNextMenuitem(tgt);
+          this.setFocusToNextMenuitem();
           flag = true;
           break;
 
@@ -290,7 +300,7 @@ class MenuButtonLinks {
 
         default:
           if (isPrintableCharacter(key)) {
-            this.setFocusByFirstCharacter(tgt, key);
+            this.setFocusByFirstCharacter(key);
             flag = true;
           }
           break;
@@ -305,14 +315,19 @@ class MenuButtonLinks {
 
   onMenuitemMouseover(event) {
     var tgt = event.currentTarget;
-    tgt.focus();
+    this.setFocusToMenuitem(tgt);
+  }
+
+  onMenuitemClick(event) {
+    var tgt = event.currentTarget;
+    this.closePopup();
+    this.performMenuAction(tgt);
   }
 
   onBackgroundMousedown(event) {
     if (!this.domNode.contains(event.target)) {
       if (this.isOpen()) {
         this.closePopup();
-        this.buttonNode.focus();
       }
     }
   }
@@ -321,6 +336,12 @@ class MenuButtonLinks {
 // Initialize menu buttons
 
 window.addEventListener('load', function () {
-  var menuButton = document.querySelector('.menu-button-links');
-  document.defaultView.menuController = new MenuButtonLinks(menuButton);
+  document.getElementById('action_output').value = 'none';
+
+  function performMenuAction(node) {
+    document.getElementById('action_output').value = node.textContent.trim();
+  }
+
+  var menuButton = document.querySelector('.menu-button-actions');
+  document.defaultView.menuController = new MenuButtonActionsActiveDescendant(menuButton, performMenuAction);
 });

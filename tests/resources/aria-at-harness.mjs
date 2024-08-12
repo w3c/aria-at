@@ -8,7 +8,13 @@ import {
   focus,
   render,
 } from './vrender.mjs';
-import { userCloseWindow, userOpenWindow, WhitespaceStyleMap } from './aria-at-test-run.mjs';
+import {
+  AssertionResultMap,
+  userCloseWindow,
+  userOpenWindow,
+  WhitespaceStyleMap,
+  UnexpectedBehaviorImpactMap,
+} from './aria-at-test-run.mjs';
 import { TestRunExport, TestRunInputOutput } from './aria-at-test-io-format.mjs';
 import { TestWindow } from './aria-at-test-window.mjs';
 
@@ -37,6 +43,22 @@ const PAGE_STYLES = `
   fieldset.problem-select {
    margin-top: 1em;
    margin-left: 1em;
+  }
+
+  div.problem-option-container.enabled {
+    margin-bottom: 0.5em;
+  }
+
+  div.problem-option-container:last-child {
+    margin-bottom: 0;
+  }
+
+  fieldset.assertions {
+    margin-bottom: 1em;
+  }
+
+  label.assertion {
+    display: block;
   }
 
   .required:not(.highlight-required) {
@@ -77,9 +99,11 @@ testRunIO.setScriptsInputFromMap(typeof scripts === 'object' ? scripts : {});
 /**
  * @param {SupportJSON} newSupport
  * @param {CommandsJSON} newCommandsData
+ * @param {AllCommandsJSON} allCommands
  */
-export function initialize(newSupport, newCommandsData) {
+export function initialize(newSupport, newCommandsData, allCommands) {
   testRunIO.setSupportInputFromJSON(newSupport);
+  testRunIO.setAllCommandsInputFromJSON(allCommands);
   testRunIO.setConfigInputFromQueryParamsAndSupport(
     Array.from(new URL(document.location).searchParams)
   );
@@ -101,6 +125,14 @@ export function verifyATBehavior(atBehavior) {
 export async function loadCollectedTestAsync(testRoot, testFileName) {
   const collectedTestResponse = await fetch(`${testRoot}/${testFileName}`);
   const collectedTestJson = await collectedTestResponse.json();
+
+  // v2 commands.json
+  const commandsJsonResponse = await fetch('../commands.json');
+  if (commandsJsonResponse.ok) {
+    const commandsJson = await commandsJsonResponse.json();
+    testRunIO.setAllCommandsInputFromJSON(commandsJson);
+  }
+
   await testRunIO.setInputsFromCollectedTestAsync(collectedTestJson, testRoot);
   testRunIO.setConfigInputFromQueryParamsAndSupport([
     ['at', collectedTestJson.target.at.key],
@@ -222,6 +254,7 @@ const br = bind(element, 'br');
 const button = bind(element, 'button');
 const div = bind(element, 'div');
 const em = bind(element, 'em');
+const kbd = bind(element, 'kbd');
 const fieldset = bind(element, 'fieldset');
 const h1 = bind(element, 'h1');
 const h2 = bind(element, 'h2');
@@ -229,6 +262,8 @@ const h3 = bind(element, 'h3');
 const hr = bind(element, 'hr');
 const input = bind(element, 'input');
 const label = bind(element, 'label');
+const select = bind(element, 'select');
+const option = bind(element, 'option');
 const legend = bind(element, 'legend');
 const li = bind(element, 'li');
 const ol = bind(element, 'ol');
@@ -250,6 +285,8 @@ const name = bind(attribute, 'name');
 const tabIndex = bind(attribute, 'tabindex');
 const textContent = bind(attribute, 'textContent');
 const type = bind(attribute, 'type');
+const ariaLabel = bind(attribute, 'aria-label');
+const ariaHidden = bind(attribute, 'aria-hidden');
 
 const value = bind(property, 'value');
 const checked = bind(property, 'checked');
@@ -270,6 +307,8 @@ function rich(value) {
     return value;
   } else if (Array.isArray(value)) {
     return fragment(...value.map(rich));
+  } else if (value.kbd) {
+    return kbd.bind(value.kbd)(rich(value.kbd));
   } else {
     if ('whitespace' in value) {
       if (value.whitespace === WhitespaceStyleMap.LINE_BREAK) {
@@ -334,7 +373,7 @@ function renderVirtualInstructionDocument(doc) {
 
     instructCommands(doc.instructions.instructions),
 
-    instructAssertions(doc.instructions.assertions),
+    instructSettings(doc.instructions.settings),
 
     button(
       disabled(!doc.instructions.openTestPage.enabled),
@@ -373,12 +412,9 @@ function renderVirtualInstructionDocument(doc) {
           )
         )
       ),
-      table(
-        tr(
-          th(rich(command.assertionsHeader.descriptionHeader)),
-          th(rich(command.assertionsHeader.passHeader)),
-          th(rich(command.assertionsHeader.failHeader))
-        ),
+      fieldset(
+        className(['assertions']),
+        legend(rich(command.assertionsHeader.descriptionHeader)),
         ...command.assertions.map(bind(commandResultAssertion, commandIndex))
       ),
       ...[command.unexpectedBehaviors].map(bind(commandResultUnexpectedBehavior, commandIndex))
@@ -411,14 +447,18 @@ function renderVirtualInstructionDocument(doc) {
         className(['problem-select']),
         id(`cmd-${commandIndex}-problem-checkboxes`),
         legend(rich(unexpected.failChoice.options.header)),
-        ...unexpected.failChoice.options.options.map(failOption =>
-          fragment(
+        ...unexpected.failChoice.options.options.map(failOption => {
+          const failOptionId = failOption.description
+            .toLowerCase()
+            .replace(/[.,]/g, '')
+            .replace(/\s+/g, '-');
+
+          const undesirableBehaviorCheckbox = div(
             input(
               type('checkbox'),
               value(failOption.description),
-              id(`${failOption.description}-${commandIndex}`),
+              id(`${failOptionId}-${commandIndex}-checkbox`),
               className([`undesirable-${commandIndex}`]),
-              tabIndex(failOption.tabbable ? '0' : '-1'),
               disabled(!failOption.enabled),
               checked(failOption.checked),
               focus(failOption.focus),
@@ -433,33 +473,55 @@ function renderVirtualInstructionDocument(doc) {
               })
             ),
             label(
-              forInput(`${failOption.description}-${commandIndex}`),
-              rich(failOption.description)
+              id(`${failOptionId}-${commandIndex}-label`),
+              forInput(`${failOptionId}-${commandIndex}-checkbox`),
+              rich(`${failOption.description} behavior occurred`)
+            )
+          );
+
+          const impactSelect = div(
+            className([!failOption.checked && 'off-screen']),
+            ariaHidden(!failOption.checked),
+            label(forInput(`${failOptionId}-${commandIndex}-impact`), rich('Impact:')),
+            select(
+              id(`${failOptionId}-${commandIndex}-impact`),
+              ariaLabel(`Impact for ${failOption.description}`),
+              option(UnexpectedBehaviorImpactMap.MODERATE),
+              option(UnexpectedBehaviorImpactMap.SEVERE),
+              disabled(!failOption.checked),
+              onchange(ev =>
+                failOption.impactchange(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
+              )
+            )
+          );
+
+          const detailsTextInput = div(
+            className([!failOption.checked && 'off-screen']),
+            ariaHidden(!failOption.checked),
+            label(
+              forInput(`${failOptionId}-${commandIndex}-details`),
+              rich(failOption.more.description)
             ),
-            br(),
-            failOption.more
-              ? div(
-                  label(
-                    forInput(`${failOption.description}-${commandIndex}-input`),
-                    rich(failOption.more.description)
-                  ),
-                  input(
-                    type('text'),
-                    id(`${failOption.description}-${commandIndex}-input`),
-                    name(`${failOption.description}-${commandIndex}-input`),
-                    className(['undesirable-other-input']),
-                    disabled(!failOption.more.enabled),
-                    value(failOption.more.value),
-                    onchange(ev =>
-                      failOption.more.change(
-                        /** @type {HTMLInputElement} */ (ev.currentTarget).value
-                      )
-                    )
-                  )
-                )
-              : fragment()
-          )
-        )
+            input(
+              type('text'),
+              id(`${failOptionId}-${commandIndex}-details`),
+              ariaLabel(`Details for ${failOption.description}`),
+              className(['undesirable-other-input']),
+              disabled(!failOption.more.enabled),
+              value(failOption.more.value),
+              onchange(ev =>
+                failOption.more.change(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
+              )
+            )
+          );
+
+          return div(
+            className(['problem-option-container', failOption.checked && 'enabled']),
+            undesirableBehaviorCheckbox,
+            impactSelect,
+            detailsTextInput
+          );
+        })
       )
     );
   }
@@ -470,26 +532,15 @@ function renderVirtualInstructionDocument(doc) {
    * @param {number} assertionIndex
    */
   function commandResultAssertion(commandIndex, assertion, assertionIndex) {
-    return tr(
-      td(rich(assertion.description)),
-      td(
-        ...[assertion.passChoice].map(choice =>
-          radioChoice(
-            `pass-${commandIndex}-${assertionIndex}`,
-            `result-${commandIndex}-${assertionIndex}`,
-            choice
-          )
-        )
+    return label(
+      className(['assertion']),
+      input(
+        type('checkbox'),
+        id(`cmd-${commandIndex}-${assertionIndex}`),
+        checked(assertion.passed === AssertionResultMap.PASS),
+        onclick(assertion.click)
       ),
-      td(
-        ...assertion.failChoices.map((choice, failIndex) =>
-          radioChoice(
-            `${failIndex === 0 ? 'missing' : 'fail'}-${commandIndex}-${assertionIndex}`,
-            `result-${commandIndex}-${assertionIndex}`,
-            choice
-          )
-        )
-      )
+      rich(assertion.description)
     );
   }
 
@@ -516,17 +567,11 @@ function renderVirtualInstructionDocument(doc) {
    * @param {InstructionDocumentInstructionsInstructions} param0
    * @returns
    */
-  function instructCommands({
-    header,
-    instructions,
-    strongInstructions: boldInstructions,
-    commands,
-  }) {
+  function instructCommands({ header, instructions, commands }) {
     return fragment(
       h2(rich(header)),
       ol(
         ...map(instructions, compose(li, rich)),
-        ...map(boldInstructions, compose(li, em, rich)),
         li(rich(commands.description), ul(...map(commands.commands, compose(li, em, rich))))
       )
     );
@@ -535,22 +580,19 @@ function renderVirtualInstructionDocument(doc) {
   /**
    * @param {InstructionDocumentInstructions} param0
    */
-  function instructionHeader({ header, description }) {
+  function instructionHeader({ header }) {
     return fragment(
-      h1(id('behavior-header'), tabIndex('0'), focus(header.focus), rich(header.header)),
-      p(rich(description))
+      h1(id('behavior-header'), tabIndex('0'), focus(header.focus), rich(header.header))
     );
   }
 
   /**
-   * @param {InstructionDocumentInstructionsAssertions} param0
+   * @param {InstructionDocumentInstructionsSettings[]} settings
    */
-  function instructAssertions({ header, description, assertions }) {
-    return fragment(
-      h2(rich(header)),
-      p(rich(description)),
-      ol(...map(assertions, compose(li, em, rich)))
-    );
+  function instructSettings(settings) {
+    return Object.values(settings).map(({ screenText, instructions }) => {
+      return fragment(p(rich(screenText)), ol(...map(instructions, compose(li, rich))));
+    });
   }
 }
 
@@ -599,6 +641,7 @@ function renderVirtualResultsTable(results) {
 }
 
 /** @typedef {import('./aria-at-test-io-format.mjs').SupportJSON} SupportJSON */
+/** @typedef {import('./aria-at-test-io-format.mjs').AllCommandsJSON} AllCommandsJSON */
 /** @typedef {import('./aria-at-test-io-format.mjs').CommandsJSON} CommandsJSON */
 /** @typedef {import('./aria-at-test-io-format.mjs').BehaviorJSON} BehaviorJSON */
 
@@ -613,6 +656,7 @@ function renderVirtualResultsTable(results) {
 /** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentResultsCommand} InstructionDocumentResultsCommand */
 /** @typedef {import('./aria-at-test-run.mjs').InstructionDocumentResultsCommandsUnexpected} InstructionDocumentResultsCommandsUnexpected */
 /** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentResultsCommandsAssertion} InstructionDocumentResultsCommandsAssertion */
+/** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentResultsCommandsSettings} InstructionDocumentResultsCommandsSettings */
 /** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentAssertionChoice} InstructionDocumentAssertionChoice */
 /** @typedef {import("./aria-at-test-run.mjs").InstructionDocumentInstructionsInstructions} InstructionDocumentInstructionsInstructions */
 

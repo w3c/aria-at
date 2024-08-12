@@ -6,14 +6,15 @@
       "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
       "assertionTokens": {
         "screenReader": "JAWS",
+        "interactionMode": "PC cursor active",
         "readingMode": "virtual cursor active",
-        "interactionMode": "PC cursor active"
+        "readingCursor": "virtual cursor"
       },
       "settings": {
         "virtualCursor": {
           "screenText": "virtual cursor active",
           "instructions": [
-            "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete &lt;/kbd&gt; to determine which cursor is active.",
+            "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
             "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
           ]
         },
@@ -32,22 +33,23 @@
       "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
       "assertionTokens": {
         "screenReader": "NVDA",
+        "interactionMode": "focus mode",
         "readingMode": "browse mode",
-        "interactionMode": "focus mode"
+        "readingCursor": "browse mode caret"
       },
       "settings": {
         "browseMode": {
           "screenText": "browse mode on",
           "instructions": [
-            "Press &lt;kbd&gt;insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
-            "If NVDA made the focus mode sound , press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+            "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+            "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
           ]
         },
         "focusMode": {
           "screenText": "focus mode on",
           "instructions": [
-            "Press &lt;kbd&gt;insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
-            "If NVDA made the browse mode sound , press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+            "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+            "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
           ]
         }
       }
@@ -56,6 +58,10 @@
       "name": "VoiceOver for macOS",
       "key": "voiceover_macos",
       "defaultConfigurationInstructionsHTML": "Configure VoiceOver with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+      "assertionTokens": {
+        "screenReader": "VoiceOver",
+        "readingCursor": "VoiceOver cursor"
+      },
       "settings": {
         "quickNavOn": {
           "screenText": "quick nav on",
@@ -69,6 +75,34 @@
           "instructions": [
             "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
             "If VoiceOver said 'quick nav on', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back off."
+          ]
+        },
+        "arrowQuickKeyNavOn": {
+          "screenText": "arrow quick key nav on",
+          "instructions": [
+            "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+            "If VoiceOver said 'arrow quick key nav off', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back on."
+          ]
+        },
+        "arrowQuickKeyNavOff": {
+          "screenText": "arrow quick key nav off",
+          "instructions": [
+            "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+            "If VoiceOver said 'arrow quick key nav on', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back off."
+          ]
+        },
+        "singleQuickKeyNavOn": {
+          "screenText": "single quick key nav on",
+          "instructions": [
+            "Press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt;.",
+            "If VoiceOver said 'single quick key nav off', press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt; again to turn it back on."
+          ]
+        },
+        "singleQuickKeyNavOff": {
+          "screenText": "single quick key nav off",
+          "instructions": [
+            "Press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt;.",
+            "If VoiceOver said 'single quick key nav on', press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt; again to turn it back off."
           ]
         }
       }

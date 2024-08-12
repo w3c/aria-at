@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 let logFile = null;
 const validLogBehaviors = ['none', 'console', 'file', 'both'];
 let logBehavior = 'both';
@@ -8,8 +8,12 @@ const escapeRegExp = string => {
 };
 
 async function deleteFile(filePath) {
-  if (fs.existsSync(filePath)) {
-    await fs.unlinkSync(filePath);
+  try {
+    await fs.unlink(filePath);
+  } catch (error) {
+    if (error.code !== 'ENOENT') {
+      throw error;
+    }
   }
 }
 
@@ -33,11 +37,11 @@ async function logMessage(message) {
   if (logBehavior === 'console' || logBehavior === 'both') console.log(message);
   if (logBehavior === 'file' || logBehavior === 'both') {
     const logEntry = `${message}\n`;
-    await fs.appendFile(logFile, logEntry, err => {
-      if (err) {
-        throw new Error(`Error writing to ${logFilePath}: ${err}`);
-      }
-    });
+    try {
+      await fs.appendFile(logFile, logEntry);
+    } catch (err) {
+      throw new Error(`Error writing to ${logFile}: ${err}`);
+    }
   }
 }
 
@@ -157,7 +161,22 @@ function translateCommand(screenReader, commandSequence, substitutions) {
     commandSequence = newCommandSequence.join(' ');
     if (newCommandSettings.length > 0) commandSettings = newCommandSettings.join(' ');
   }
-  commandSequence = commandSequence.replaceAll('_', '+');
+  commandSequence = commandSequence
+    .replaceAll('_', '+')
+    .replaceAll('one', '1')
+    .replaceAll('two', '2')
+    .replaceAll('caps', 'capsLock')
+    .replaceAll('page+up', 'pageUp')
+    .replaceAll('page+down', 'pageDown')
+    .replaceAll('numpad+5', 'numpad5')
+    .replaceAll('numpad+6', 'numpad6')
+    .replaceAll('UP', 'up')
+    .replaceAll('DOWN', 'down')
+    .replaceAll('LEFT', 'left')
+    .replaceAll('RIGHT', 'right')
+    .replaceAll('+then+', ' ')
+    .replaceAll('(with smart navigation on)', '')
+    .trim();
   return { commandSequence, commandSettings };
 }
 

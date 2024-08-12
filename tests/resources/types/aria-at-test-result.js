@@ -4,8 +4,9 @@
  */
 
 /**
- * @typedef {"REQUIRED"
- *   | "OPTIONAL"} AriaATTestResult.AssertionPriorityJSON
+ * @typedef {"MUST"
+ *   | "SHOULD"
+ *   | "MAY"} AriaATTestResult.AssertionPriorityJSON
  */
 
 /**
@@ -34,5 +35,6 @@
  * @property {object[]} scenarioResults[].unexpectedBehaviors
  * @property {string} scenarioResults[].unexpectedBehaviors[].id
  * @property {string} scenarioResults[].unexpectedBehaviors[].text
- * @property {string | null} [scenarioResults[].unexpectedBehaviors[].otherUnexpectedBehaviorText]
+ * @property {string} scenarioResults[].unexpectedBehaviors[].impact
+ * @property {string} scenarioResults[].unexpectedBehaviors[].details
  */

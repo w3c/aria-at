@@ -15,7 +15,7 @@
     "review-tests": "cross-var node --experimental-modules scripts/test-reviewer/index.mjs --testplan=$npm_config_testplan",
     "update-reference": "node scripts/update-reference.js",
     "make-v2": "node scripts/v2maker.js",
-    "test": "jest",
+    "test": "jest --runInBand",
     "prepare": "husky install"
   },
   "dependencies": {

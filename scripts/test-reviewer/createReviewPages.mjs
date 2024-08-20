@@ -3,6 +3,8 @@ import fse from 'fs-extra';
 import { spawnSync } from 'child_process';
 import np from 'node-html-parser';
 import mustache from 'mustache';
+import getRenderValues from './getRenderValues.mjs';
+import getReferenceForDirectory from './getReferenceForDirectory.mjs';
 import { commandsAPI as CommandsAPI } from '../../tests/resources/at-commands.mjs';
 
 /**
@@ -71,11 +73,6 @@ export function createReviewPages(config) {
       return 'MAY';
     }
     return '';
-  };
-
-  const getReferenceForDirectory = (references, refId) => {
-    const { type, value, linkText } = references.find(el => el.refId === refId) || {};
-    return { type, value, linkText };
   };
 
   const unescapeHTML = string =>
@@ -475,68 +472,14 @@ export function createReviewPages(config) {
     }
   });
 
-  const getRenderValues = (
-    references,
-    { pattern, tests, atOptions = support.ats, setupScripts = scripts }
-  ) => {
-    const supportingDocs = [];
-
-    const { value: title } = getReferenceForDirectory(references, 'title');
-    const { value: exampleLink, linkText: exampleLinkText } = getReferenceForDirectory(
-      references,
-      'example'
-    );
-    const { value: designPatternLink, linkText: designPatternLinkText } = getReferenceForDirectory(
-      references,
-      'designPattern'
-    );
-    const { value: developmentDocumentationLink, linkText: developmentDocumentationLinkText } =
-      getReferenceForDirectory(references, 'developmentDocumentation');
-
-    // Handle special cases where text could be null
-    let defaultExampleLinkText;
-    let defaultDesignPatternLinkText;
-
-    if (exampleLink) {
-      defaultExampleLinkText = `APG example: ${exampleLink.split('examples/')[1]}`;
-    }
-    if (designPatternLink) {
-      defaultDesignPatternLinkText = `ARIA specification: ${designPatternLink.split('#')[1]}`;
-    }
-
-    if (exampleLink)
-      supportingDocs.push({ link: exampleLink, text: exampleLinkText || defaultExampleLinkText });
-    if (designPatternLink)
-      supportingDocs.push({
-        link: designPatternLink,
-        text: designPatternLinkText || defaultDesignPatternLinkText,
-      });
-    if (developmentDocumentationLink)
-      supportingDocs.push({
-        link: developmentDocumentationLink,
-        text: developmentDocumentationLinkText,
-      });
-
-    const testsLength = tests.length;
-    const h1Heading = `${title} Test Plan (${tests.length} test${testsLength === 1 ? '' : 's'})`;
-
-    return {
-      title,
-      pattern,
-      h1Heading,
-      tests,
-      atOptions,
-      setupScripts,
-      supportingDocs,
-    };
-  };
-
   if (TARGET_TEST_PLAN) {
     if (allTestsForPattern[TARGET_TEST_PLAN]) {
       const references = referencesForPattern[TARGET_TEST_PLAN];
       const renderValues = getRenderValues(references, {
         pattern: TARGET_TEST_PLAN,
         tests: allTestsForPattern[TARGET_TEST_PLAN],
+        atOptions: support.ats,
+        setupScripts: scripts,
       });
       let rendered = mustache.render(template, renderValues);
 
@@ -555,6 +498,8 @@ export function createReviewPages(config) {
       const renderValues = getRenderValues(references, {
         pattern: pattern,
         tests: allTestsForPattern[pattern],
+        atOptions: support.ats,
+        setupScripts: scripts,
       });
       let rendered = mustache.render(template, renderValues);
 

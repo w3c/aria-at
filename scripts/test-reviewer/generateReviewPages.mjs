@@ -1,8 +1,9 @@
 import path from 'path';
 import fse from 'fs-extra';
 import mustache from 'mustache';
-import getRenderValues from './getRenderValues.mjs';
 import { spawnSync } from 'child_process';
+import getRenderValues from './getRenderValues.mjs';
+import { consoleColors, consoleText } from '../../lib/util/console.js';
 
 const generatePatternPages = ({
   template,
@@ -26,7 +27,9 @@ const generatePatternPages = ({
     const summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
 
     fse.writeFileSync(summaryBuildFile, rendered);
-    console.log(`Summarized ${pattern} tests: ${summaryBuildFile}`);
+    consoleText(`Summarized ${pattern} tests: ${summaryBuildFile}`, {
+      color: consoleColors.green,
+    });
   });
 };
 
@@ -60,7 +63,9 @@ const generateIndexPage = ({ indexTemplate, allTestsForPattern, indexFileBuildOu
   });
 
   fse.writeFileSync(indexFileBuildOutputPath, renderedIndex);
-  console.log(`\nSuccessfully generated index.html: ${indexFileBuildOutputPath}`);
+  consoleText(`\nSuccessfully generated index.html: ${indexFileBuildOutputPath}`, {
+    color: consoleColors.green,
+  });
 };
 
 export { generatePatternPages, generateIndexPage };

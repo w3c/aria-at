@@ -2,6 +2,7 @@ import path from 'path';
 import fse from 'fs-extra';
 import { spawnSync } from 'child_process';
 import np from 'node-html-parser';
+import getReferencesData from './getReferencesData.mjs';
 import getReferenceForDirectory from './getReferenceForDirectory.mjs';
 import { generatePatternPages, generateIndexPage } from './generateReviewPages.mjs';
 import { commandsAPI as CommandsAPI } from '../../tests/resources/at-commands.mjs';
@@ -50,20 +51,16 @@ export function createReviewPages(config) {
   // create directories if not exists
   fse.existsSync(reviewBuildDirectory) || fse.mkdirSync(reviewBuildDirectory);
 
-  const allTestsForPattern = {};
-  const referencesForPattern = {};
   const support = JSON.parse(fse.readFileSync(supportFilePath));
   const allCommands = JSON.parse(fse.readFileSync(allCommandsFilePath));
 
+  const allTestsForPattern = {};
+  const referencesForPattern = {};
   const scripts = [];
-  const allATKeys = [];
-  support.ats.forEach(at => {
-    allATKeys.push(at.key);
-  });
+  const allATKeys = support.ats.map(at => at.key);
 
   fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
     const testPlanDirectory = path.join(testsDirectory, directory);
-    const testPlanBuildDirectory = path.join(testsBuildDirectory, directory);
     const stat = fse.statSync(testPlanDirectory);
 
     // Do nothing
@@ -74,28 +71,13 @@ export function createReviewPages(config) {
     if (TARGET_TEST_PLAN && directory !== TARGET_TEST_PLAN) return;
 
     // Initialize the commands API
+    const testPlanBuildDirectory = path.join(testsBuildDirectory, directory);
     const testPlanCommandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
     const testPlanCommands = JSON.parse(fse.readFileSync(testPlanCommandsJSONFile));
     const commandsAPI = new CommandsAPI(testPlanCommands, support, allCommands);
 
     const tests = [];
-    const collectedTestsData = [];
-
-    const referencesCsv = fse.readFileSync(
-      path.join(testPlanDirectory, 'data', 'references.csv'),
-      'UTF-8'
-    );
-    const lines = referencesCsv.trim().split(/\r?\n/);
-    const headers = lines[0].split(',');
-    const referencesCsvData = lines.slice(1).map(line => line.split(','));
-
-    let referencesData = referencesCsvData.map(row => {
-      const obj = {};
-      headers.forEach((header, index) => {
-        obj[header] = row[index];
-      });
-      return obj;
-    });
+    const collectedTests = [];
 
     const {
       references: { aria, htmlAam },
@@ -107,34 +89,16 @@ export function createReviewPages(config) {
         settingInstructionsPreface,
       },
     } = support;
-    referencesData = referencesData.map(
-      ({ refId: _refId, type: _type, value: _value, linkText: _linkText }) => {
-        let refId = _refId?.trim();
-        let type = _type?.trim();
-        let value = _value?.trim();
-        let linkText = _linkText?.trim();
 
-        if (type === 'aria') {
-          value = `${aria.baseUrl}${aria.fragmentIds[value]}`;
-          linkText = `${linkText} ${aria.linkText}`;
-        }
+    // Process test plan's references.csv
+    const referencesData = getReferencesData(testPlanDirectory, aria, htmlAam);
+    const referenceFromReferencesCSV = getReferenceForDirectory(referencesData, 'reference');
+    const titleFromReferencesCSV = getReferenceForDirectory(referencesData, 'title');
 
-        if (type === 'htmlAam') {
-          value = `${htmlAam.baseUrl}${htmlAam.fragmentIds[value]}`;
-          linkText = `${linkText} ${htmlAam.linkText}`;
-        }
-
-        return { refId, type, value, linkText };
-      }
-    );
-
-    const reference = getReferenceForDirectory(referencesData, 'reference');
-    const title = getReferenceForDirectory(referencesData, 'title');
-
-    if (!reference) {
+    if (!referenceFromReferencesCSV) {
       // force exit if file path reference not found
       console.error(
-        `ERROR: 'reference' value path defined in "tests/${directory}/data/references.csv" not found.`
+        `'reference' value path defined in "tests/${directory}/data/references.csv" not found.`
       );
       process.exit(1);
     }
@@ -198,11 +162,11 @@ export function createReviewPages(config) {
           }
         }
 
-        collectedTestsData.push({ ...testData, test, testFullName, helpLinks });
+        collectedTests.push({ ...testData, test, testFullName, helpLinks });
       }
     });
 
-    collectedTestsData.forEach(({ test, testFullName, helpLinks, ...testData }) => {
+    collectedTests.forEach(({ test, testFullName, helpLinks, ...testData }) => {
       const testNumber = tests.length + 1;
       // TODO: Using a property unique to the v2 test format to identify if v2; consider a metadata property in the
       //  future if newer versions are to be supported
@@ -412,12 +376,12 @@ export function createReviewPages(config) {
 
       tests.push({
         testNumber,
-        title: title.value,
+        title: titleFromReferencesCSV.value,
         name: testFullName,
         location: `/${directory}/${test}`,
         reference: `/${directory}/${path.posix.join(
-          path.dirname(reference.value),
-          path.basename(reference.value, '.html')
+          path.dirname(referenceFromReferencesCSV.value),
+          path.basename(referenceFromReferencesCSV.value, '.html')
         )}${testData.setupTestPage ? `.${testData.setupTestPage}` : ''}.html`,
         allRelevantATsFormatted: allRelevantATs.join(', '),
         allRelevantATsSpaceSeparated: allRelevantATs.join(' '),

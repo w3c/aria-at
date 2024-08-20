@@ -5,8 +5,10 @@ import getReferenceForDirectory from './getReferenceForDirectory.mjs';
 import getReferencesData from './getReferencesData.mjs';
 import getScriptsData from './getScriptsData.mjs';
 import getCollectedTestsData from './getCollectedTestsData.mjs';
+import processCollectedTests from './processCollectedTests.mjs';
 import { generatePatternPages, generateIndexPage } from './generateReviewPages.mjs';
 import { commandsAPI as CommandsAPI } from '../../tests/resources/at-commands.mjs';
+import { unescapeHTML } from './utils.mjs';
 
 /**
  * @param {object} config
@@ -82,16 +84,10 @@ export function createReviewPages(config) {
 
     const {
       references: { aria, htmlAam },
-      testPlanStrings: {
-        ariaSpecsPreface,
-        openExampleInstruction,
-        commandListPreface,
-        commandListSettingsPreface,
-        settingInstructionsPreface,
-      },
+      testPlanStrings: { ariaSpecsPreface, openExampleInstruction },
     } = support;
 
-    // Process test plan's references.csv
+    // Get test plan's references.csv data
     const referencesData = getReferencesData(testPlanDirectory, aria, htmlAam);
     const referenceFromReferencesCSV = getReferenceForDirectory(referencesData, 'reference');
     const titleFromReferencesCSV = getReferenceForDirectory(referencesData, 'title');
@@ -105,11 +101,11 @@ export function createReviewPages(config) {
     }
     referencesForPattern[directory] = referencesData;
 
-    // Process test plan's various data/js/*.js script files
+    // Get test plan's data/js/*.js script files data
     const scriptsData = getScriptsData(testPlanDirectory);
     scripts.push(...scriptsData);
 
-    // Process test plan build directory's `test-{xx}-{testId}.html` files
+    // Get test plan build directory's from `test-{xx}-{testId}.html` files data
     const collectedTestsData = getCollectedTestsData(testPlanBuildDirectory);
     collectedTests.push(...collectedTestsData);
 
@@ -118,199 +114,53 @@ export function createReviewPages(config) {
       // TODO: Using a property unique to the v2 test format to identify if v2; consider a metadata property in the
       //  future if newer versions are to be supported
       const isV2 = !!testData.commandsInfo;
+      const task = testData.task;
 
       const helpLinksTitle = ariaSpecsPreface;
       const helpLinksExist = !!helpLinks.length;
-
-      const openExampleInstructions =
-        unescapeHTML(openExampleInstruction) + ' ' + testData.setup_script_description + '.';
-
-      const task = testData.task;
 
       // This is temporary while transitioning from lists to strings
       const mode = typeof testData.mode === 'string' ? testData.mode : testData.mode[0];
       const atTests = [];
 
-      // TODO: These applies_to strings are not standardized yet.
-      let allRelevantATs;
-      if (
+      const openExampleInstructions =
+        unescapeHTML(openExampleInstruction) + ' ' + testData.setup_script_description + '.';
+
+      // TODO: applies_to strings are not standardized yet.
+      let allRelevantATs =
         testData.applies_to[0].toLowerCase() === 'desktop screen readers' ||
         testData.applies_to[0].toLowerCase() === 'screen readers'
-      ) {
-        allRelevantATs = allATKeys;
-      } else {
-        allRelevantATs = testData.applies_to;
-      }
+          ? allATKeys
+          : testData.applies_to;
+      // To remove potential duplicates
       allRelevantATs = [...new Set(allRelevantATs)];
 
       for (const atKey of allRelevantATs.map(a => a.toLowerCase())) {
-        let userInstruction = testData.specific_user_instruction + ' ' + commandListPreface;
-
-        let assertionsInstructions,
-          assertionsForCommandsInstructions,
+        const {
+          at,
+          userInstruction,
+          modeInstructions,
           commandsValuesForInstructions,
-          modeInstructions = undefined;
-        let at = commandsAPI.isKnownAT(atKey);
-        const defaultConfigurationInstructions = unescapeHTML(
-          commandsAPI.defaultConfigurationInstructions(atKey)
-        );
-
-        if (testData.additional_assertions && testData.additional_assertions[at.key]) {
-          assertionsInstructions = testData.additional_assertions[at.key];
-        } else {
-          assertionsInstructions = testData.output_assertions;
-        }
-
-        const defaultAssertionsInstructions =
-          assertionsInstructions && assertionsInstructions.length
-            ? assertionsInstructions.map(a => {
-                // V1 support
-                if (Array.isArray(a)) {
-                  return {
-                    assertionId: null,
-                    priority: getPriorityString(a[0]),
-                    assertionPhrase: 'N/A',
-                    assertionStatement: a[1],
-                  };
-                }
-
-                // V2 support
-                return {
-                  assertionId: a.assertionId,
-                  priority: getPriorityString(a.priority),
-                  assertionPhrase: a.tokenizedAssertionPhrases?.[at.key] || a.assertionPhrase,
-                  assertionStatement:
-                    a.tokenizedAssertionStatements?.[at.key] || a.assertionStatement,
-                };
-              })
-            : undefined;
-
-        try {
-          assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, {
-            ...at,
-            settings: {
-              ...at.settings,
-              defaultMode: {
-                // TODO: If there is a need to explicitly state that the
-                //  default mode is active for an AT
-                screenText: '',
-                // instructions: [at.defaultConfigurationInstructionsHTML],
-              },
-            },
-          });
-          if (
-            assertionsForCommandsInstructions.length &&
-            typeof assertionsForCommandsInstructions[0] === 'object'
-          ) {
-            commandsValuesForInstructions = assertionsForCommandsInstructions.map(
-              each => each.value
-            );
-          } else {
-            // V1 came in as array of strings
-            if (assertionsForCommandsInstructions.every(each => typeof each === 'string')) {
-              commandsValuesForInstructions = assertionsForCommandsInstructions;
-              assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(each => ({
-                value: each,
-              }));
-            }
-          }
-
-          // For V2 to handle assertion exceptions
-          assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(
-            (assertionForCommand, assertionForCommandIndex) => {
-              const assertionsInstructions = defaultAssertionsInstructions.map(assertion => {
-                let priority = assertion.priority;
-
-                // Check to see if there is any command info exceptions for current at key
-                const foundCommandInfo = testData.commandsInfo?.[at.key]?.find(
-                  c =>
-                    c.assertionExceptions.includes(assertion.assertionId) &&
-                    c.command === assertionForCommand.key &&
-                    c.settings === assertionForCommand.settings
-                );
-
-                if (foundCommandInfo) {
-                  for (const exceptionPair of foundCommandInfo.assertionExceptions.split(' ')) {
-                    let [exceptionPriority, exceptionAssertion] = exceptionPair.split(':');
-                    exceptionPriority = Number(exceptionPriority);
-
-                    if (assertion.assertionId === exceptionAssertion) {
-                      priority = getPriorityString(exceptionPriority);
-                    }
-                  }
-                }
-
-                return {
-                  ...assertion,
-                  priority,
-                };
-              });
-
-              return {
-                ...assertionForCommand,
-                assertionsInstructions,
-                elemId: `t${testNumber}-${at.key}-c${assertionForCommandIndex + 1}`,
-                mustCount: assertionsInstructions.reduce(
-                  (acc, curr) => acc + (curr.priority === 'MUST' ? 1 : 0),
-                  0
-                ),
-                shouldCount: assertionsInstructions.reduce(
-                  (acc, curr) => acc + (curr.priority === 'SHOULD' ? 1 : 0),
-                  0
-                ),
-                mayCount: assertionsInstructions.reduce(
-                  (acc, curr) => acc + (curr.priority === 'MAY' ? 1 : 0),
-                  0
-                ),
-              };
-            }
-          );
-
-          if (commandsValuesForInstructions && !commandsValuesForInstructions.length) {
-            // Invalid state to reflect that no commands have been added to the related .csv in the template
-            commandsValuesForInstructions = undefined;
-          }
-        } catch (error) {
-          // An error will occur if there is no data for a screen reader, ignore it
-        }
-
-        for (const atMode of mode.split('_')) {
-          // TODO: If there is ever need to explicitly show the instructions
-          //  for an AT with the default mode active
-          // const atSettingsWithDefault = {
-          //   ...at.settings,
-          //   defaultMode: {
-          //     screenText: 'default mode active',
-          //     instructions: [at.defaultConfigurationInstructionsHTML],
-          //   },
-          // };
-
-          if (at.settings[atMode]) {
-            let settings = at.settings[atMode];
-            const modifiedSettings = {
-              ...settings,
-              screenText: settingInstructionsPreface + ' ' + settings.screenText + ':',
-              instructions: settings.instructions.map(instruction => {
-                return unescapeHTML(instruction);
-              }),
-            };
-            if (!modeInstructions) modeInstructions = [modifiedSettings];
-            else modeInstructions = [...modeInstructions, modifiedSettings];
-          }
-        }
-
-        // Append commandListSettingsPreface only if 1+ command exists that specifies a setting
-        if (modeInstructions) userInstruction = userInstruction + ' ' + commandListSettingsPreface;
+          defaultConfigurationInstructions,
+          assertionsForCommandsInstructions,
+        } = processCollectedTests({
+          mode,
+          task,
+          atKey,
+          testNumber,
+          commandsAPI,
+          collectedTest: testData,
+        });
 
         atTests.push({
           atName: at.name,
           atKey: at.key,
-          commandsValuesForInstructions,
-          assertionsForCommandsInstructions,
-          defaultConfigurationInstructions,
-          openExampleInstructions,
-          modeInstructions,
           userInstruction,
+          modeInstructions,
+          openExampleInstructions,
+          commandsValuesForInstructions,
+          defaultConfigurationInstructions,
+          assertionsForCommandsInstructions,
         });
       }
 
@@ -377,28 +227,3 @@ export function createReviewPages(config) {
   // Generate build/index.html entry file
   generateIndexPage({ indexTemplate, allTestsForPattern, indexFileBuildOutputPath });
 }
-
-const getPriorityString = function (priority) {
-  priority = parseInt(priority);
-  if (priority === 1) {
-    return 'MUST';
-  } else if (priority === 2) {
-    return 'SHOULD';
-  } else if (priority === 3) {
-    return 'MAY';
-  }
-  return '';
-};
-
-const unescapeHTML = string =>
-  string.replace(
-    /&amp;|&lt;|&gt;|&#39;|&quot;/g,
-    tag =>
-      ({
-        '&amp;': '&',
-        '&lt;': '<',
-        '&gt;': '>',
-        '&#39;': "'",
-        '&quot;': '"',
-      }[tag] || tag)
-  );

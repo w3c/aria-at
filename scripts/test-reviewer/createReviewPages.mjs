@@ -2,9 +2,8 @@ import path from 'path';
 import fse from 'fs-extra';
 import { spawnSync } from 'child_process';
 import np from 'node-html-parser';
-import mustache from 'mustache';
-import getRenderValues from './getRenderValues.mjs';
 import getReferenceForDirectory from './getReferenceForDirectory.mjs';
+import { generatePatternPages, generateIndexPage } from './generateReviewPages.mjs';
 import { commandsAPI as CommandsAPI } from '../../tests/resources/at-commands.mjs';
 
 /**
@@ -56,37 +55,11 @@ export function createReviewPages(config) {
   const support = JSON.parse(fse.readFileSync(supportFilePath));
   const allCommands = JSON.parse(fse.readFileSync(allCommandsFilePath));
 
-  let allATKeys = [];
+  const scripts = [];
+  const allATKeys = [];
   support.ats.forEach(at => {
     allATKeys.push(at.key);
   });
-
-  const scripts = [];
-
-  const getPriorityString = function (priority) {
-    priority = parseInt(priority);
-    if (priority === 1) {
-      return 'MUST';
-    } else if (priority === 2) {
-      return 'SHOULD';
-    } else if (priority === 3) {
-      return 'MAY';
-    }
-    return '';
-  };
-
-  const unescapeHTML = string =>
-    string.replace(
-      /&amp;|&lt;|&gt;|&#39;|&quot;/g,
-      tag =>
-        ({
-          '&amp;': '&',
-          '&lt;': '<',
-          '&gt;': '>',
-          '&#39;': "'",
-          '&quot;': '"',
-        }[tag] || tag)
-    );
 
   fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
     const testPlanDirectory = path.join(testsDirectory, directory);
@@ -480,52 +453,41 @@ export function createReviewPages(config) {
     process.exit(1);
   }
 
-  patterns.forEach(pattern => {
-    const references = referencesForPattern[pattern];
-    const renderValues = getRenderValues(references, {
-      pattern,
-      tests: allTestsForPattern[pattern],
-      atOptions: support.ats,
-      setupScripts: scripts,
-    });
-    const rendered = mustache.render(template, renderValues);
-    const summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
-
-    fse.writeFileSync(summaryBuildFile, rendered);
-    console.log(`Summarized ${pattern} tests: ${summaryBuildFile}`);
+  generatePatternPages({
+    template,
+    patterns,
+    allTestsForPattern,
+    referencesForPattern,
+    reviewBuildDirectory,
+    atOptions: support.ats,
+    setupScripts: scripts,
   });
 
-  // Generate build/index.html entry
-  const renderedIndex = mustache.render(indexTemplate, {
-    patterns: Object.keys(allTestsForPattern)
-      .map(pattern => {
-        // TODO: useful for determining smart-diffs; this has to continue generating for all patterns until smart-diffs come into play
-        const lastCommit = spawnSync('git', [
-          'log',
-          '-n1',
-          '--oneline',
-          path.join('.', 'tests', pattern),
-        ]).stdout.toString();
-        return {
-          patternName: pattern,
-          title: allTestsForPattern[pattern][0].title,
-          numberOfTests: allTestsForPattern[pattern].length,
-          commit: lastCommit.split(' ')[0],
-          commitDescription: lastCommit,
-        };
-      })
-      .sort((a, b) => {
-        const titleA = a.title.toUpperCase();
-        const titleB = b.title.toUpperCase();
-
-        if (titleA < titleB) return -1;
-        if (titleA > titleB) return 1;
-        return 0;
-      }),
-  });
-
-  fse.writeFileSync(indexFileBuildOutputPath, renderedIndex);
-
-  console.log(`\nSuccessfully generated index.html: ${indexFileBuildOutputPath}`);
-  console.log('Done.');
+  // Generate build/index.html entry file
+  generateIndexPage({ indexTemplate, allTestsForPattern, indexFileBuildOutputPath });
 }
+
+const getPriorityString = function (priority) {
+  priority = parseInt(priority);
+  if (priority === 1) {
+    return 'MUST';
+  } else if (priority === 2) {
+    return 'SHOULD';
+  } else if (priority === 3) {
+    return 'MAY';
+  }
+  return '';
+};
+
+const unescapeHTML = string =>
+  string.replace(
+    /&amp;|&lt;|&gt;|&#39;|&quot;/g,
+    tag =>
+      ({
+        '&amp;': '&',
+        '&lt;': '<',
+        '&gt;': '>',
+        '&#39;': "'",
+        '&quot;': '"',
+      }[tag] || tag)
+  );

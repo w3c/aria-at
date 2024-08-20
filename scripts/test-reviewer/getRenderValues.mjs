@@ -1,14 +1,14 @@
 import getReferenceForDirectory from './getReferenceForDirectory.mjs';
 
 /**
- * @param {AriaATCSV.Reference[]} references
  * @param {string} pattern
  * @param {ReviewRender.Test[]} tests
+ * @param {AriaATCSV.Reference[]} references
  * @param {ReviewRender.AtOption[]} atOptions
  * @param {string[]} setupScripts
  * @returns {{title: string, pattern: string, h1Heading: string, tests: ReviewRender.Test[], atOptions: ReviewRender.AtOption[], setupScripts: string[], supportingDocs: Object<link: string, text: string>[]}}
  */
-const getRenderValues = (references, { pattern, tests, atOptions, setupScripts }) => {
+const getRenderValues = ({ pattern, tests, references, atOptions, setupScripts }) => {
   const supportingDocs = [];
 
   const { value: title } = getReferenceForDirectory(references, 'title');

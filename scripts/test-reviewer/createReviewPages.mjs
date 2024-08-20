@@ -1,10 +1,10 @@
 import path from 'path';
 import fse from 'fs-extra';
 import { spawnSync } from 'child_process';
-import np from 'node-html-parser';
-import getReferencesData from './getReferencesData.mjs';
 import getReferenceForDirectory from './getReferenceForDirectory.mjs';
+import getReferencesData from './getReferencesData.mjs';
 import getScriptsData from './getScriptsData.mjs';
+import getCollectedTestsData from './getCollectedTestsData.mjs';
 import { generatePatternPages, generateIndexPage } from './generateReviewPages.mjs';
 import { commandsAPI as CommandsAPI } from '../../tests/resources/at-commands.mjs';
 
@@ -109,51 +109,9 @@ export function createReviewPages(config) {
     const scriptsData = getScriptsData(testPlanDirectory);
     scripts.push(...scriptsData);
 
-    fse.readdirSync(testPlanBuildDirectory).forEach(function (test) {
-      if (
-        path.extname(test) === '.html' &&
-        !/\.collected\.html$/.test(test) &&
-        path.basename(test) !== 'index.html'
-      ) {
-        const testFile = path.join(testsBuildDirectory, directory, test);
-        const root = np.parse(fse.readFileSync(testFile, 'utf8'), { script: true });
-
-        // Get testData from test-review-{presentationNumber}-{testId}-{modes}.json
-        const testData = JSON.parse(
-          fse.readFileSync(
-            path.join(testPlanBuildDirectory, path.parse(test).name + '.json'),
-            'utf8'
-          )
-        );
-
-        // Get metadata help links
-        const testFullName = root.querySelector('title').innerHTML;
-        const helpLinks = [];
-        for (let link of root.querySelectorAll('link')) {
-          if (link.attributes.rel === 'help') {
-            let href = link.attributes.href;
-            // V2
-            let text = link.attributes.title;
-
-            // V1
-            if (!text) {
-              if (href.indexOf('#') >= 0) {
-                text = `ARIA specification: ${href.split('#')[1]}`;
-              } else {
-                text = `APG example: ${href.split('examples/')[1]}`;
-              }
-            }
-
-            helpLinks.push({
-              link: href,
-              text: text,
-            });
-          }
-        }
-
-        collectedTests.push({ ...testData, test, testFullName, helpLinks });
-      }
-    });
+    // Process test plan build directory's `test-{xx}-{testId}.html` files
+    const collectedTestsData = getCollectedTestsData(testPlanBuildDirectory);
+    collectedTests.push(...collectedTestsData);
 
     collectedTests.forEach(({ test, testFullName, helpLinks, ...testData }) => {
       const testNumber = tests.length + 1;

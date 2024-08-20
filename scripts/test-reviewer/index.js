@@ -33,5 +33,5 @@ loadCreateReviewPages(config)
     // Do nothing, successfully ran
   })
   .catch(error => {
-    console.error(`createReviewPages failed to successfully run: ${error.message}`);
+    console.error(`createReviewPages failed to successfully run: ${error.stack}`);
   });

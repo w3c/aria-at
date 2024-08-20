@@ -472,44 +472,30 @@ export function createReviewPages(config) {
     }
   });
 
-  if (TARGET_TEST_PLAN) {
-    if (allTestsForPattern[TARGET_TEST_PLAN]) {
-      const references = referencesForPattern[TARGET_TEST_PLAN];
-      const renderValues = getRenderValues(references, {
-        pattern: TARGET_TEST_PLAN,
-        tests: allTestsForPattern[TARGET_TEST_PLAN],
-        atOptions: support.ats,
-        setupScripts: scripts,
-      });
-      let rendered = mustache.render(template, renderValues);
+  // Generate individual patterns' review pages
+  const patterns = TARGET_TEST_PLAN ? [TARGET_TEST_PLAN] : Object.keys(allTestsForPattern);
 
-      let summaryBuildFile = path.resolve(reviewBuildDirectory, `${TARGET_TEST_PLAN}.html`);
-      fse.writeFileSync(summaryBuildFile, rendered);
-
-      console.log(`Summarized ${TARGET_TEST_PLAN} tests: ${summaryBuildFile}`);
-    } else {
-      // most likely to happen if incorrect directory specified
-      console.error('ERROR: Unable to find valid test plan(s).');
-      process.exit();
-    }
-  } else {
-    for (let pattern in allTestsForPattern) {
-      const references = referencesForPattern[pattern];
-      const renderValues = getRenderValues(references, {
-        pattern: pattern,
-        tests: allTestsForPattern[pattern],
-        atOptions: support.ats,
-        setupScripts: scripts,
-      });
-      let rendered = mustache.render(template, renderValues);
-
-      let summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
-      fse.writeFileSync(summaryBuildFile, rendered);
-
-      console.log(`Summarized ${pattern} tests: ${summaryBuildFile}`);
-    }
+  if (patterns.length === 0) {
+    console.error(`Unable to find valid test plan(s): ${TARGET_TEST_PLAN}`);
+    process.exit(1);
   }
 
+  patterns.forEach(pattern => {
+    const references = referencesForPattern[pattern];
+    const renderValues = getRenderValues(references, {
+      pattern,
+      tests: allTestsForPattern[pattern],
+      atOptions: support.ats,
+      setupScripts: scripts,
+    });
+    const rendered = mustache.render(template, renderValues);
+    const summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
+
+    fse.writeFileSync(summaryBuildFile, rendered);
+    console.log(`Summarized ${pattern} tests: ${summaryBuildFile}`);
+  });
+
+  // Generate build/index.html entry
   const renderedIndex = mustache.render(indexTemplate, {
     patterns: Object.keys(allTestsForPattern)
       .map(pattern => {
@@ -540,6 +526,6 @@ export function createReviewPages(config) {
 
   fse.writeFileSync(indexFileBuildOutputPath, renderedIndex);
 
-  console.log(`\nGenerated index.html: ${indexFileBuildOutputPath}`);
-  console.log('\nDone.');
+  console.log(`\nSuccessfully generated index.html: ${indexFileBuildOutputPath}`);
+  console.log('Done.');
 }

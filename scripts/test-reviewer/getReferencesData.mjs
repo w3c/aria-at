@@ -1,6 +1,12 @@
 import path from 'path';
 import fse from 'fs-extra';
 
+/**
+ * @param {string} testPlanDirectory
+ * @param aria
+ * @param htmlAam
+ * @returns {{linkText: *, refId: *, type: *, value: *}[]}
+ */
 const getReferencesData = (testPlanDirectory, aria, htmlAam) => {
   const referencesCsv = fse.readFileSync(
     path.join(testPlanDirectory, 'data', 'references.csv'),

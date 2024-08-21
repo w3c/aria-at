@@ -4,7 +4,6 @@ about: Use this template to give feedback about tests.
 title: 'Feedback on test:'
 labels: ''
 assignees: ''
-
 ---
 
 <!--

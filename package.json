@@ -4,8 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint . --fix && prettier --write .",
     "build": "npm run create-all-tests && npm run review-tests",
     "build-v1": "npm run create-all-tests -- --version1 --verbose && npm run review-tests",
     "build-v2": "npm run create-all-tests -- --version2 --verbose && npm run review-tests",

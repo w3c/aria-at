@@ -3,34 +3,34 @@ name: Lint JS
 on:
   push:
     paths:
-      - "**/*.js"
-      - "package*.json"
-      - ".eslintrc.json"
-      - ".github/workflows/js-lint.yml"
+      - '**/*.js'
+      - 'package*.json'
+      - '.eslintrc.json'
+      - '.github/workflows/js-lint.yml'
     branches-ignore:
-      - "dependabot/**"
+      - 'dependabot/**'
   pull_request:
     paths:
-      - "**/*.js"
-      - "package*.json"
-      - ".eslintrc.json"
-      - ".github/workflows/js-lint.yml"
+      - '**/*.js'
+      - 'package*.json'
+      - '.eslintrc.json'
+      - '.github/workflows/js-lint.yml'
 
 jobs:
   lint:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Use Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20.x'
-        cache: 'npm'
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
 
-    - name: Install dependencies
-      run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-    - name: Run linter
-      run: npm run lint
+      - name: Run linter
+        run: npm run lint

@@ -817,7 +817,9 @@ class BehaviorInput {
               cs.presentationNumber === c.presentationNumber &&
               cs.settings === c.settings
           );
-          if (!foundCommandInfo || !foundCommandInfo.assertionExceptions) return cs;
+          if (!foundCommandInfo || typeof foundCommandInfo.assertionExceptions !== 'string') {
+            return cs;
+          }
 
           // Only works for v2
           let assertionExceptions = json.output_assertions.map(each => each.assertionId);
@@ -914,7 +916,7 @@ class BehaviorInput {
           const foundCommandInfo = commands.find(
             c => cs.commandId === c.id && cs.settings === c.settings
           );
-          if (!foundCommandInfo || !foundCommandInfo.assertionExceptions) return cs;
+          if (!foundCommandInfo || !Array.isArray(foundCommandInfo.assertionExceptions)) return cs;
 
           // Only works for v2
           let assertionExceptions = assertions.map(each => each.assertionId);

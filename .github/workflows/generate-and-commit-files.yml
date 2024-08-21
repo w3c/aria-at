@@ -5,7 +5,12 @@ on:
 
 jobs:
   generate-and-commit-files:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
 
     steps:
       - uses: actions/checkout@v4
@@ -26,27 +31,6 @@ jobs:
         run: npm run build
 
       - uses: stefanzweifel/git-auto-commit-action@v5
-        if: ${{ github.actor != 'dependabot[bot]' }}
+        if: ${{ matrix.os == 'ubuntu-latest' && github.actor != 'dependabot[bot]' }}
         with:
           commit_message: Generate .html source files with scripts automatically
-
-  generate-files-windows:
-    runs-on: windows-latest
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: refs/pull/${{ github.event.pull_request.number }}/head
-          fetch-depth: 0
-
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Generate test and review files
-        run: npm run build

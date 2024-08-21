@@ -6,6 +6,7 @@ const {
 const {
   processTestDirectory: processTestDirectoryV1,
 } = require('../../lib/data/process-test-directory/v1');
+const { consoleText, consoleColors } = require('../../lib/util/console');
 
 const cliArgs = require('minimist')(process.argv.slice(2), {
   alias: {
@@ -156,18 +157,37 @@ stacktrace: ${error.stack}
 
   // last test plan has been run
   if (VALIDATE_CHECK) {
-    console.log(
-      `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed without any validation errors.\n`
+    consoleText(
+      `\n(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed without any validation errors.\n`,
+      {
+        color:
+          successRunsCount === 0
+            ? consoleColors.red
+            : successRunsCount !== totalRunsCount
+            ? consoleColors.yellow
+            : consoleColors.green,
+      }
     );
   } else {
-    console.log(
-      `(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`
+    consoleText(
+      `\n(${successRunsCount}) out of (${totalRunsCount}) test plan(s) successfully processed and generated without any validation errors.\n`,
+      {
+        color:
+          successRunsCount === 0
+            ? consoleColors.red
+            : successRunsCount !== totalRunsCount
+            ? consoleColors.yellow
+            : consoleColors.green,
+      }
     );
   }
 
   if (!VERBOSE_CHECK) {
-    console.log(
-      `NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`
+    consoleText(
+      `NOTE: ${suppressedMessageCount} messages suppressed. Run 'npm run create-all-tests -- --help' or 'node ./scripts/create-all-tests.js --help' to learn more.`,
+      {
+        color: suppressedMessageCount === 0 ? consoleColors.reset : consoleColors.yellow,
+      }
     );
   }
 }

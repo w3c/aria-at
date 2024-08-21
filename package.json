@@ -15,7 +15,7 @@
     "review-tests": "cross-var node scripts/test-reviewer --testplan=$npm_config_testplan",
     "update-reference": "node scripts/update-reference.js",
     "make-v2": "node scripts/v2maker.js",
-    "test": "jest --runInBand",
+    "test": "rimraf __test__/build && jest --runInBand",
     "prepare": "husky install"
   },
   "dependencies": {

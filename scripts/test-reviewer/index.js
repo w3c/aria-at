@@ -29,9 +29,7 @@ async function loadCreateReviewPages(config) {
 }
 
 loadCreateReviewPages(config)
-  .then(() => {
-    // Do nothing, successfully ran
-  })
+  .then(() => console.log('Done.'))
   .catch(error => {
-    console.error(`createReviewPages failed to successfully run: ${error.message}`);
+    console.error(`createReviewPages failed to successfully run: ${error.stack}`);
   });

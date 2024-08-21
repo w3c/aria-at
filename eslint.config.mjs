@@ -15,7 +15,7 @@ export default [
 
       // Automated tests related resources
       '__test__/__mocks__/tests/**/reference/**/*',
-      '__test__/__mocks__/tests/**/*',
+      '__test__/build/tests/**/*',
     ],
   },
   eslintJs.configs.recommended,

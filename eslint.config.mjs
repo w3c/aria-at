@@ -12,6 +12,10 @@ export default [
       'build/tests/**/*',
       // keys are manually parsed in process-test-directory.js and depend on format
       'tests/resources/keys.mjs',
+
+      // Automated tests related resources
+      '__test__/__mocks__/tests/**/reference/**/*',
+      '__test__/__mocks__/tests/**/*',
     ],
   },
   eslintJs.configs.recommended,

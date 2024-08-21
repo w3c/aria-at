@@ -29,6 +29,10 @@ beforeEach(() => {
   rimrafSync(buildDirectory);
 });
 
+afterAll(() => {
+  rimrafSync(buildDirectory);
+});
+
 describe('V1 test format version', () => {
   it('runs createAllTests successfully (banner)', async () => {
     const testplan = 'banner';
@@ -58,6 +62,15 @@ describe('V2 test format version', () => {
     const files = getBuildFiles(testplan);
     files.forEach(file => expect(file).toMatchSnapshot());
   });
+
+  it('runs createAllTests successfully (horizontal-slider)', async () => {
+    const testplan = 'horizontal-slider';
+    const config = { ...defaultConfig, args: { ...defaultArgs, testplan } };
+    await createAllTests(config);
+
+    const files = getBuildFiles(testplan);
+    files.forEach(file => expect(file).toMatchSnapshot());
+  });
 });
 
 describe('all test format versions', () => {
@@ -69,6 +82,7 @@ describe('all test format versions', () => {
       ...getBuildFiles('alert'),
       ...getBuildFiles('banner'),
       ...getBuildFiles('command-button'),
+      ...getBuildFiles('horizontal-slider'),
     ];
     files.forEach(file => expect(file).toMatchSnapshot());
   });

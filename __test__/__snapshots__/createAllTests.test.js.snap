@@ -759,7 +759,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 9`] = 
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -1211,7 +1211,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 15`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -1516,7 +1516,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 19`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -2016,7 +2016,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 25`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -2466,7 +2466,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 31`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -2769,7 +2769,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 35`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -3247,7 +3247,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 41`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnBottomLink: function(testPageDocument){
 			// sets focus on the 'Bottom' link
 			testPageDocument.getElementById('bottom').focus();
@@ -3688,7 +3688,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 47`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnBottomLink: function(testPageDocument){
 			// sets focus on the 'Bottom' link
 			testPageDocument.getElementById('bottom').focus();
@@ -3982,7 +3982,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 51`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnBottomLink: function(testPageDocument){
 			// sets focus on the 'Bottom' link
 			testPageDocument.getElementById('bottom').focus();
@@ -4451,7 +4451,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 57`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnTopLink: function(testPageDocument){
 			// sets focus on the 'Top' link
 			testPageDocument.getElementById('top').focus();
@@ -4896,7 +4896,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 63`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnTopLink: function(testPageDocument){
 			// sets focus on the 'Top' link
 			testPageDocument.getElementById('top').focus();
@@ -5194,7 +5194,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 67`] =
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnTopLink: function(testPageDocument){
 			// sets focus on the 'Top' link
 			testPageDocument.getElementById('top').focus();
@@ -5715,7 +5715,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 73`] =
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBannerAndHideTopLink: function(testPageDocument){
 			// sets focus on a link before the banner landmark, and hides the first link inside the landmark region
 			testPageDocument.getElementById('top').setAttribute('hidden', '');
@@ -6220,7 +6220,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 79`] =
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBannerAndHideTopLink: function(testPageDocument){
 			// sets focus on a link before the banner landmark, and hides the first link inside the landmark region
 			testPageDocument.getElementById('top').setAttribute('hidden', '');
@@ -6570,7 +6570,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 83`] =
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBannerAndHideTopLink: function(testPageDocument){
 			// sets focus on a link before the banner landmark, and hides the first link inside the landmark region
 			testPageDocument.getElementById('top').setAttribute('hidden', '');
@@ -7094,7 +7094,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 89`] =
 <link rel="help" href="https://w3c.github.io/aria/#aria-describedby">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBannerAndHideBottomLink: function(testPageDocument){
 			// sets focus on a link after the banner landmark, and hides the last link inside the landmark region
 			testPageDocument.getElementById('bottom').setAttribute('hidden', '');
@@ -7572,7 +7572,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 95`] =
 <link rel="help" href="https://w3c.github.io/aria/#aria-describedby">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBannerAndHideBottomLink: function(testPageDocument){
 			// sets focus on a link after the banner landmark, and hides the last link inside the landmark region
 			testPageDocument.getElementById('bottom').setAttribute('hidden', '');
@@ -7904,7 +7904,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 99`] =
 <link rel="help" href="https://w3c.github.io/aria/#aria-describedby">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBannerAndHideBottomLink: function(testPageDocument){
 			// sets focus on a link after the banner landmark, and hides the last link inside the landmark region
 			testPageDocument.getElementById('bottom').setAttribute('hidden', '');
@@ -8361,7 +8361,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 105`] 
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -8634,7 +8634,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 109`] 
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -9066,7 +9066,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 115`] 
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -9339,7 +9339,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 119`] 
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -9799,7 +9799,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 125`] 
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -10084,7 +10084,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 129`] 
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -10552,7 +10552,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 135`] 
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -10843,7 +10843,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 139`] 
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -28227,7 +28227,7 @@ exports[`all test format versions runs createAllTests successfully 21`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -28679,7 +28679,7 @@ exports[`all test format versions runs createAllTests successfully 27`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -28984,7 +28984,7 @@ exports[`all test format versions runs createAllTests successfully 31`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -29484,7 +29484,7 @@ exports[`all test format versions runs createAllTests successfully 37`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -29934,7 +29934,7 @@ exports[`all test format versions runs createAllTests successfully 43`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -30237,7 +30237,7 @@ exports[`all test format versions runs createAllTests successfully 47`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -30715,7 +30715,7 @@ exports[`all test format versions runs createAllTests successfully 53`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnBottomLink: function(testPageDocument){
 			// sets focus on the 'Bottom' link
 			testPageDocument.getElementById('bottom').focus();
@@ -31156,7 +31156,7 @@ exports[`all test format versions runs createAllTests successfully 59`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnBottomLink: function(testPageDocument){
 			// sets focus on the 'Bottom' link
 			testPageDocument.getElementById('bottom').focus();
@@ -31450,7 +31450,7 @@ exports[`all test format versions runs createAllTests successfully 63`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnBottomLink: function(testPageDocument){
 			// sets focus on the 'Bottom' link
 			testPageDocument.getElementById('bottom').focus();
@@ -31919,7 +31919,7 @@ exports[`all test format versions runs createAllTests successfully 69`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnTopLink: function(testPageDocument){
 			// sets focus on the 'Top' link
 			testPageDocument.getElementById('top').focus();
@@ -32364,7 +32364,7 @@ exports[`all test format versions runs createAllTests successfully 75`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnTopLink: function(testPageDocument){
 			// sets focus on the 'Top' link
 			testPageDocument.getElementById('top').focus();
@@ -32662,7 +32662,7 @@ exports[`all test format versions runs createAllTests successfully 79`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusOnTopLink: function(testPageDocument){
 			// sets focus on the 'Top' link
 			testPageDocument.getElementById('top').focus();
@@ -33183,7 +33183,7 @@ exports[`all test format versions runs createAllTests successfully 85`] = `
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBannerAndHideTopLink: function(testPageDocument){
 			// sets focus on a link before the banner landmark, and hides the first link inside the landmark region
 			testPageDocument.getElementById('top').setAttribute('hidden', '');
@@ -33688,7 +33688,7 @@ exports[`all test format versions runs createAllTests successfully 91`] = `
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBannerAndHideTopLink: function(testPageDocument){
 			// sets focus on a link before the banner landmark, and hides the first link inside the landmark region
 			testPageDocument.getElementById('top').setAttribute('hidden', '');
@@ -34038,7 +34038,7 @@ exports[`all test format versions runs createAllTests successfully 95`] = `
 <link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBannerAndHideTopLink: function(testPageDocument){
 			// sets focus on a link before the banner landmark, and hides the first link inside the landmark region
 			testPageDocument.getElementById('top').setAttribute('hidden', '');
@@ -34562,7 +34562,7 @@ exports[`all test format versions runs createAllTests successfully 101`] = `
 <link rel="help" href="https://w3c.github.io/aria/#aria-describedby">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBannerAndHideBottomLink: function(testPageDocument){
 			// sets focus on a link after the banner landmark, and hides the last link inside the landmark region
 			testPageDocument.getElementById('bottom').setAttribute('hidden', '');
@@ -35040,7 +35040,7 @@ exports[`all test format versions runs createAllTests successfully 107`] = `
 <link rel="help" href="https://w3c.github.io/aria/#aria-describedby">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBannerAndHideBottomLink: function(testPageDocument){
 			// sets focus on a link after the banner landmark, and hides the last link inside the landmark region
 			testPageDocument.getElementById('bottom').setAttribute('hidden', '');
@@ -35372,7 +35372,7 @@ exports[`all test format versions runs createAllTests successfully 111`] = `
 <link rel="help" href="https://w3c.github.io/aria/#aria-describedby">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBannerAndHideBottomLink: function(testPageDocument){
 			// sets focus on a link after the banner landmark, and hides the last link inside the landmark region
 			testPageDocument.getElementById('bottom').setAttribute('hidden', '');
@@ -35829,7 +35829,7 @@ exports[`all test format versions runs createAllTests successfully 117`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -36102,7 +36102,7 @@ exports[`all test format versions runs createAllTests successfully 121`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -36534,7 +36534,7 @@ exports[`all test format versions runs createAllTests successfully 127`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -36807,7 +36807,7 @@ exports[`all test format versions runs createAllTests successfully 131`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -37267,7 +37267,7 @@ exports[`all test format versions runs createAllTests successfully 137`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -37552,7 +37552,7 @@ exports[`all test format versions runs createAllTests successfully 141`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusBeforeBanner: function(testPageDocument){
 			// sets focus on a link before the banner landmark
 			testPageDocument.getElementById('beforelink').focus();
@@ -38020,7 +38020,7 @@ exports[`all test format versions runs createAllTests successfully 147`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();
@@ -38311,7 +38311,7 @@ exports[`all test format versions runs createAllTests successfully 151`] = `
 <link rel="help" href="https://w3c.github.io/aria/#banner">
 
 <script>
-  var scripts = {
+  let scripts = {
 		setFocusAfterBanner: function(testPageDocument){
 			// sets focus on a link after the banner landmark
 			testPageDocument.getElementById('afterlink').focus();

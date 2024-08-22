@@ -34,6 +34,10 @@ beforeEach(() => {
   rimrafSync(buildDirectory);
 });
 
+afterAll(() => {
+  rimrafSync(buildDirectory);
+});
+
 describe('review pages creation', () => {
   it('runs createReviewPages successfully for v1 tests (banner)', async () => {
     const testplan = 'banner';
@@ -65,6 +69,16 @@ describe('review pages creation', () => {
     files.forEach(file => expect(file).toMatchSnapshot());
   });
 
+  it('runs createReviewPages successfully for v2 tests (horizontal-slider)', async () => {
+    const testplan = 'horizontal-slider';
+    const config = { ...defaultConfig, args: { ...defaultArgs, testplan } };
+    await createAllTests(config);
+    createReviewPages(config);
+
+    const files = getReviewFiles(testplan);
+    files.forEach(file => expect(file).toMatchSnapshot());
+  });
+
   it('runs createReviewPages successfully for all test format versions', async () => {
     const config = { ...defaultConfig, args: { ...defaultArgs } };
     await createAllTests(config);
@@ -74,6 +88,7 @@ describe('review pages creation', () => {
       ...getReviewFiles('alert'),
       ...getReviewFiles('banner'),
       ...getReviewFiles('command-button'),
+      ...getReviewFiles('horizontal-slider'),
     ];
     files.forEach(file => expect(file).toMatchSnapshot());
   });

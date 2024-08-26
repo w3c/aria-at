@@ -164,8 +164,8 @@ stacktrace: ${error.stack}
           successRunsCount === 0
             ? consoleColors.red
             : successRunsCount !== totalRunsCount
-            ? consoleColors.yellow
-            : consoleColors.green,
+              ? consoleColors.yellow
+              : consoleColors.green,
       }
     );
   } else {
@@ -176,8 +176,8 @@ stacktrace: ${error.stack}
           successRunsCount === 0
             ? consoleColors.red
             : successRunsCount !== totalRunsCount
-            ? consoleColors.yellow
-            : consoleColors.green,
+              ? consoleColors.yellow
+              : consoleColors.green,
       }
     );
   }

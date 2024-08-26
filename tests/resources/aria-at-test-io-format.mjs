@@ -30,7 +30,7 @@ const normalizeString = str =>
         '&gt;': '>',
         '&#39;': "'",
         '&quot;': '"',
-      }[str] || str)
+      })[str] || str
   );
 
 /** Depends on ConfigInput. */
@@ -1436,11 +1436,11 @@ export class TestRunInputOutput {
       ) || command.unexpected.behaviors.some(({ checked }) => checked)
         ? CommandSupportJSONMap.FAILING
         : allAssertions.some(
-            ({ priority, result }) =>
-              (priority === 2 || priority === 3) && result !== CommonResultMap.PASS
-          )
-        ? CommandSupportJSONMap.ALL_REQUIRED
-        : CommandSupportJSONMap.FULL;
+              ({ priority, result }) =>
+                (priority === 2 || priority === 3) && result !== CommonResultMap.PASS
+            )
+          ? CommandSupportJSONMap.ALL_REQUIRED
+          : CommandSupportJSONMap.FULL;
     }
 
     /**
@@ -1484,8 +1484,8 @@ export class TestRunInputOutput {
               assertion.result === AssertionResultMap.FAIL_MISSING
                 ? AssertionFailJSONMap.NO_OUTPUT
                 : assertion.result === AssertionResultMap.FAIL_INCORRECT
-                ? AssertionFailJSONMap.INCORRECT_OUTPUT
-                : AssertionFailJSONMap.NO_SUPPORT,
+                  ? AssertionFailJSONMap.INCORRECT_OUTPUT
+                  : AssertionFailJSONMap.NO_SUPPORT,
           };
     }
   }
@@ -1522,8 +1522,8 @@ export class TestRunInputOutput {
             assertion.result === 'failIncorrect'
               ? 'INCORRECT_OUTPUT'
               : assertion.result === 'failMissing'
-              ? 'NO_OUTPUT'
-              : null,
+                ? 'NO_OUTPUT'
+                : null,
         })),
         unexpectedBehaviors: command.unexpected.behaviors
           .map(behavior =>
@@ -1579,10 +1579,10 @@ export class TestRunInputOutput {
               result: assertionResult.passed
                 ? 'pass'
                 : assertionResult.failedReason === 'INCORRECT_OUTPUT'
-                ? 'failIncorrect'
-                : assertionResult.failedReason === 'NO_OUTPUT'
-                ? 'failMissing'
-                : 'fail',
+                  ? 'failIncorrect'
+                  : assertionResult.failedReason === 'NO_OUTPUT'
+                    ? 'failMissing'
+                    : 'fail',
             };
           }),
           unexpected: {

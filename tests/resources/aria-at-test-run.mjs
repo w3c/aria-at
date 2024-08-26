@@ -876,8 +876,8 @@ function resultsTableDocument(state) {
             command.unexpected.behaviors.some(({ checked }) => checked)
               ? 'FAILING'
               : allAssertions.some(({ priority, result }) => priority === 2 && !result)
-              ? 'ALL_REQUIRED'
-              : 'FULL',
+                ? 'ALL_REQUIRED'
+                : 'FULL',
           details: {
             output: /** @type {Description} */ [
               'Output:',

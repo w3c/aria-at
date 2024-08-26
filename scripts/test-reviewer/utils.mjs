@@ -8,7 +8,7 @@ const unescapeHTML = string =>
         '&gt;': '>',
         '&#39;': "'",
         '&quot;': '"',
-      }[tag] || tag)
+      })[tag] || tag
   );
 
 export { unescapeHTML };

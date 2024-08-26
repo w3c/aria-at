@@ -1,6 +1,6 @@
 # ARIA and Assistive Technologies (ARIA-AT)
 
-This repository maintains a test suite and harness for assessing assistive technology (AT)  support of ARIA. This project is managed by the [ARIA-AT Community Group](https://www.w3.org/groups/cg/aria-at) in coordination with the [Authoring Practices Task Force](https://www.w3.org/WAI/ARIA/task-forces/practices/) of the [ARIA Working Group](http://www.w3.org/WAI/ARIA/). The W3C staff contact is Daniel Montalvo.
+This repository maintains a test suite and harness for assessing assistive technology (AT) support of ARIA. This project is managed by the [ARIA-AT Community Group](https://www.w3.org/groups/cg/aria-at) in coordination with the [Authoring Practices Task Force](https://www.w3.org/WAI/ARIA/task-forces/practices/) of the [ARIA Working Group](http://www.w3.org/WAI/ARIA/). The W3C staff contact is Daniel Montalvo.
 
 ## Scope and Method
 

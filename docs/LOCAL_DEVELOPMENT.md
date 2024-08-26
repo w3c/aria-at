@@ -34,7 +34,7 @@ Creates or updates the `/build` folder. Runs `npm run create-all-tests` and `npm
 
 #### Options
 
-* `--testplan=<test_plan>` - Creates or updates the `/build` folder for a specific test plan.
+- `--testplan=<test_plan>` - Creates or updates the `/build` folder for a specific test plan.
   Runs `npm run create-all-tests -- --testplan=<test_plan>` and `npm run review-tests -- --testplan=<test_plan>` for a
   specific test plan.
 
@@ -44,7 +44,7 @@ Run to confirm that the test plans currently drafted within the project have no 
 
 #### Options
 
-* `--testplan=<test_plan>` - Run to confirm that a specific test plan currently drafted within the project has no
+- `--testplan=<test_plan>` - Run to confirm that a specific test plan currently drafted within the project has no
   validation errors.
 
 ### `npm run cleanup`
@@ -60,18 +60,18 @@ running `npm run build` covers this operation.**
 
 #### Options
 
-* `-- --help` - To display script usage text.
+- `-- --help` - To display script usage text.
 
-* `-- --outputdir=<output_directory>` - Specify folder location that the generated files should be written to. Default
+- `-- --outputdir=<output_directory>` - Specify folder location that the generated files should be written to. Default
   location is `/build`.
 
-* `-- --testplan=<test_plan>` - Specify test plan that the script must only attempt to generate tests html and json
+- `-- --testplan=<test_plan>` - Specify test plan that the script must only attempt to generate tests html and json
   files for.
 
-* `-- --verbose` - The script output is more detailed (logs all files that are referenced, tests that are processed,
+- `-- --verbose` - The script output is more detailed (logs all files that are referenced, tests that are processed,
   absolute paths, etc).
 
-* `-- --validate` - Use to determine whether or not the test plans have any validation errors.
+- `-- --validate` - Use to determine whether or not the test plans have any validation errors.
 
 ### `npm run review-tests`
 
@@ -81,12 +81,12 @@ to run this except for special cases as running `npm run build` covers this oper
 
 #### Options
 
-* `-- --help` - To display script usage text.
+- `-- --help` - To display script usage text.
 
-* `-- --outputdir=<output_directory>` - Specify folder location that the generated review pages should be written to.
+- `-- --outputdir=<output_directory>` - Specify folder location that the generated review pages should be written to.
   Default location is `/build`.
 
-* `-- --testplan=<test_plan>` - Specify test plan that the script must only attempt to generate review pages for.
+- `-- --testplan=<test_plan>` - Specify test plan that the script must only attempt to generate review pages for.
 
 ### `npm run update-reference`
 

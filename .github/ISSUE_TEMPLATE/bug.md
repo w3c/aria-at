@@ -4,7 +4,4 @@ about: Use this template for bugs.
 title: ''
 labels: bug
 assignees: ''
-
 ---
-
-

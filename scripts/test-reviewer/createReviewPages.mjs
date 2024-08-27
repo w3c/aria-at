@@ -7,7 +7,7 @@ import getScriptsData from './getScriptsData.mjs';
 import getCollectedTestsData from './getCollectedTestsData.mjs';
 import processCollectedTests from './processCollectedTests.mjs';
 import { generatePatternPages, generateIndexPage } from './generateReviewPages.mjs';
-import { commandsAPI as CommandsAPI } from '../../tests/resources/at-commands.mjs';
+import { commandsAPI as CommandsAPI } from '../../resources/at-commands.mjs';
 import { unescapeHTML } from './utils.mjs';
 
 /**
@@ -63,12 +63,13 @@ export function createReviewPages(config) {
   const allATKeys = support.ats.map(at => at.key);
 
   fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
+    if (directory === 'resources') return;
+
     const testPlanDirectory = path.join(testsDirectory, directory);
     const stat = fse.statSync(testPlanDirectory);
 
     // Do nothing
     if (!stat.isDirectory()) return;
-    if (directory === 'resources') return;
 
     // Will continue if TARGET_TEST_PLAN is not set
     if (TARGET_TEST_PLAN && directory !== TARGET_TEST_PLAN) return;

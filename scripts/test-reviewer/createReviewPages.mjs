@@ -63,8 +63,6 @@ export function createReviewPages(config) {
   const allATKeys = support.ats.map(at => at.key);
 
   fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
-    if (directory === 'resources') return;
-
     const testPlanDirectory = path.join(testsDirectory, directory);
     const stat = fse.statSync(testPlanDirectory);
 

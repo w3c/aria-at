@@ -10,6 +10,8 @@ export default [
     ignores: [
       'tests/**/reference/**/*',
       'build/tests/**/*',
+      'build/resources/*',
+
       // keys are manually parsed in process-test-directory.js and depend on format
       'resources/keys.mjs',
 

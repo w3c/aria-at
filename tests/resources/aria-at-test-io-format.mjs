@@ -334,7 +334,7 @@ class CommandsInput {
         commandsAndSettings: v1Commands.map(command => ({ command })),
       };
     } else {
-      return this.getCommandsV2({ task }, mode);
+      return this.getCommandsV2(task, mode);
     }
   }
 
@@ -375,7 +375,7 @@ class CommandsInput {
     return commands;
   }
 
-  getCommandsV2({ task }, mode) {
+  getCommandsV2(task, mode) {
     const assistiveTech = this._value.at;
     let commandsAndSettings = [];
     let commands = [];
@@ -383,50 +383,50 @@ class CommandsInput {
     // Mode could be in the format of mode1_mode2
     // If they are from the same AT, this needs to return the function in the format of [ [[commands], settings], [[commands], settings], ... ]
     for (const _atMode of mode.split('_')) {
-      if (assistiveTech.settings[_atMode] || _atMode === 'defaultMode') {
-        const [atMode] = deriveModeWithTextAndInstructions(_atMode, assistiveTech);
+      if (!assistiveTech.settings[_atMode] && _atMode !== 'defaultMode') continue;
 
-        if (!this._value.commands[task]) {
-          throw new Error(
-            `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
-          );
-        } else if (!this._value.commands[task][atMode]) {
-          throw new Error(
-            `Mode "${atMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
-          );
-        }
+      const [atMode] = deriveModeWithTextAndInstructions(_atMode, assistiveTech);
 
-        let commandsData = this._value.commands[task][atMode][assistiveTech.key] || [];
-        for (let commandSequence of commandsData) {
-          for (const commandWithPresentationNumber of commandSequence) {
-            const [commandId, presentationNumber] = commandWithPresentationNumber.split('|');
+      if (!this._value.commands[task]) {
+        throw new Error(
+          `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
+        );
+      } else if (!this._value.commands[task][atMode]) {
+        throw new Error(
+          `Mode "${atMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
+        );
+      }
 
-            let command;
-            const foundCommandKV = this._allCommandsInput.findValuesByKeys([commandId]);
-            if (!foundCommandKV.length) command = undefined;
-            else {
-              const { value } = this._allCommandsInput.findValuesByKeys([commandId])[0];
-              command = value;
-            }
+      let commandsData = this._value.commands[task][atMode][assistiveTech.key] || [];
+      for (let commandSequence of commandsData) {
+        for (const commandWithPresentationNumber of commandSequence) {
+          const [commandId, presentationNumber] = commandWithPresentationNumber.split('|');
 
-            if (typeof command === 'undefined') {
-              throw new Error(
-                `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
-              );
-            }
-
-            commands.push(command);
-            commandsAndSettings.push({
-              command,
-              commandId,
-              presentationNumber: Number(presentationNumber),
-              settings: _atMode,
-              settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
-              settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
-                assistiveTech.defaultConfigurationInstructionsHTML,
-              ],
-            });
+          let command;
+          const foundCommandKV = this._allCommandsInput.findValuesByKeys([commandId]);
+          if (!foundCommandKV.length) command = undefined;
+          else {
+            const { value } = this._allCommandsInput.findValuesByKeys([commandId])[0];
+            command = value;
           }
+
+          if (typeof command === 'undefined') {
+            throw new Error(
+              `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+            );
+          }
+
+          commands.push(command);
+          commandsAndSettings.push({
+            command,
+            commandId,
+            presentationNumber: Number(presentationNumber),
+            settings: _atMode,
+            settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
+            settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
+              assistiveTech.defaultConfigurationInstructionsHTML,
+            ],
+          });
         }
       }
     }
@@ -835,7 +835,24 @@ class BehaviorInput {
             isNaN(each) ? json.output_assertions[index].priority : each
           );
 
-          return { ...cs, assertionExceptions };
+          const secondarySettingsExpanded = [];
+          for (const secondarySetting of foundCommandInfo.secondarySettings) {
+            const expandedSettings = {
+              settings: secondarySetting,
+              settingsText: at.settings[secondarySetting].screenText,
+              settingsInstructions: at.settings[secondarySetting].instructions.map(el =>
+                normalizeString(el)
+              ),
+            };
+            secondarySettingsExpanded.push(expandedSettings);
+          }
+
+          return {
+            ...cs,
+            assertionExceptions,
+            secondarySettings: foundCommandInfo.secondarySettings,
+            secondarySettingsExpanded: secondarySettingsExpanded,
+          };
         }),
         assertions: (json.output_assertions ? json.output_assertions : []).map(assertion => {
           // Tuple array [ priorityNumber, assertionText ]
@@ -932,7 +949,24 @@ class BehaviorInput {
             isNaN(each) ? assertions[index].priority : each
           );
 
-          return { ...cs, assertionExceptions };
+          const secondarySettingsExpanded = [];
+          for (const secondarySetting of foundCommandInfo.secondarySettings) {
+            const expandedSettings = {
+              settings: secondarySetting,
+              settingsText: target.at.raw.settings[secondarySetting].screenText,
+              settingsInstructions: target.at.raw.settings[secondarySetting].instructions.map(el =>
+                normalizeString(el)
+              ),
+            };
+            secondarySettingsExpanded.push(expandedSettings);
+          }
+
+          return {
+            ...cs,
+            assertionExceptions,
+            secondarySettings: foundCommandInfo.secondarySettings,
+            secondarySettingsExpanded: secondarySettingsExpanded,
+          };
         }),
         assertions: assertions.map(
           ({ priority, expectation, assertionStatement, tokenizedAssertionStatements }) => {
@@ -1287,6 +1321,7 @@ export class TestRunInputOutput {
               text: command.settingsText,
               instructions: command.settingsInstructions,
               assertionExceptions: command.assertionExceptions,
+              secondarySettingsExpanded: command.secondarySettingsExpanded,
             },
             atOutput: {
               highlightRequired: false,

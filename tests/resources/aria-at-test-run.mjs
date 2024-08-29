@@ -147,14 +147,25 @@ export function instructionDocument(resultState, hooks) {
   }`;
 
   const instructionsForSettings = {};
-  commandSettings.forEach(({ description: settings, text: screenText, instructions }) => {
-    if (settings && settings !== 'defaultMode' && !instructionsForSettings[settings]) {
-      instructionsForSettings[settings] = {
-        instructions: instructions.map(el => convertModeInstructionsToKbdArray(el)),
-        screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${screenText}:`,
-      };
+  commandSettings.forEach(
+    ({ description: settings, text: screenText, instructions, secondarySettingsExpanded = [] }) => {
+      if (settings && settings !== 'defaultMode' && !instructionsForSettings[settings]) {
+        instructionsForSettings[settings] = {
+          instructions: instructions.map(el => convertModeInstructionsToKbdArray(el)),
+          screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${screenText}:`,
+        };
+      }
+
+      secondarySettingsExpanded.forEach(({ settings, settingsText, settingsInstructions }) => {
+        if (!instructionsForSettings[settings]) {
+          instructionsForSettings[settings] = {
+            instructions: settingsInstructions.map(el => convertModeInstructionsToKbdArray(el)),
+            screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${settingsText}:`,
+          };
+        }
+      });
     }
-  });
+  );
 
   return {
     errors: {
@@ -185,10 +196,24 @@ export function instructionDocument(resultState, hooks) {
         commands: {
           description: `${lastInstruction} ${commandListInstructions}`,
           commands: commands.map((command, index) => {
-            const { description: settings, text: screenText } = commandSettings[index];
-            return `${command}${
-              screenText && settings !== 'defaultMode' ? ` (${screenText})` : ''
-            }`;
+            const {
+              description: settings,
+              text: screenText,
+              secondarySettingsExpanded = [],
+            } = commandSettings[index];
+
+            const hasScreenText = screenText && settings !== 'defaultMode';
+            const hasSecondarySettings = hasScreenText && secondarySettingsExpanded.length > 0;
+
+            let screenTextRender = hasScreenText ? ` (${screenText}` : '';
+            if (hasSecondarySettings) {
+              secondarySettingsExpanded.forEach(({ settingsText }) => {
+                screenTextRender = `${screenTextRender} and ${settingsText}`;
+              });
+            }
+            screenTextRender = `${screenTextRender})`;
+
+            return `${command}${screenTextRender}`;
           }),
         },
       },
@@ -229,13 +254,27 @@ export function instructionDocument(resultState, hooks) {
     const resultUnexpectedBehavior = resultStateCommand.unexpected;
 
     const {
-      commandSettings: { description: settings, text: settingsText, assertionExceptions },
+      commandSettings: {
+        description: settings,
+        text: settingsText,
+        assertionExceptions,
+        secondarySettingsExpanded = [],
+      },
     } = resultStateCommand;
 
+    const hasScreenText = settingsText && settings !== 'defaultMode';
+    const hasSecondarySettings = hasScreenText && secondarySettingsExpanded.length > 0;
+
+    let screenTextRender = hasScreenText ? ` (${settingsText}` : '';
+    if (hasSecondarySettings) {
+      secondarySettingsExpanded.forEach(({ settingsText }) => {
+        screenTextRender = `${screenTextRender} and ${settingsText}`;
+      });
+    }
+    screenTextRender = `${screenTextRender})`;
+
     return {
-      header: `After '${command}'${
-        settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
-      }`,
+      header: `After '${command}'${screenTextRender}`,
       atOutput: {
         description: [
           `${resultState.config.at.name} output after ${command}`,

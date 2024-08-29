@@ -1,191 +1,255 @@
 <html>
-<meta charset="utf-8">
+  <meta charset="utf-8" />
   <title>Checkbox role, name and state are communicated when navigating to a checkbox.</title>
   <style>
     table {
       border-collapse: collapse;
       margin-bottom: 1em;
     }
-    table, td, th {
+    table,
+    td,
+    th {
       border: 1px solid black;
     }
     td {
-      padding: .5em;
+      padding: 0.5em;
     }
   </style>
-<body>
-<h1>Checkbox role, name and state are communicated when navigating to a checkbox.</h1>
-<h2 id="overallstatus">Test result: FAIL</h2>
-<h3>After user performs task "read the first checkbox" in reading mode, the following behavior was observed:</h3>
+  <body>
+    <h1>Checkbox role, name and state are communicated when navigating to a checkbox.</h1>
+    <h2 id="overallstatus">Test result: FAIL</h2>
+    <h3>
+      After user performs task "read the first checkbox" in reading mode, the following behavior was
+      observed:
+    </h3>
 
-<table>
-   <tbody>
-      <tr>
-         <td>PASS</td>
-         <td>The role 'checkbox' is spoken</td>
-         <td>
+    <table>
+      <tbody>
+        <tr>
+          <td>PASS</td>
+          <td>The role 'checkbox' is spoken</td>
+          <td>
             <ul>
-               <li>Passed for commands: X / Shift+X, Tab / Shift+Tab, Control+Insert+X to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
-               <li>Incomplete or no information supplied for commands: Up Arrow / Down Arrow, Left Arrow / Right Arrow (with Smart Navigation on).</li>
+              <li>
+                Passed for commands: X / Shift+X, Tab / Shift+Tab, Control+Insert+X to see a list of
+                checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to
+                navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).
+              </li>
+              <li>
+                Incomplete or no information supplied for commands: Up Arrow / Down Arrow, Left
+                Arrow / Right Arrow (with Smart Navigation on).
+              </li>
             </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>PASS</td>
-         <td>The name 'Lettuce' is spoken</td>
-         <td>
+          </td>
+        </tr>
+        <tr>
+          <td>PASS</td>
+          <td>The name 'Lettuce' is spoken</td>
+          <td>
             <ul>
-               <li>Passed for commands: X / Shift+X, Tab / Shift+Tab, Up Arrow / Down Arrow, Left Arrow / Right Arrow (with Smart Navigation on), Control+Insert+X to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Passed for commands: X / Shift+X, Tab / Shift+Tab, Up Arrow / Down Arrow, Left Arrow
+                / Right Arrow (with Smart Navigation on), Control+Insert+X to see a list of
+                checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to
+                navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>PASS</td>
-         <td>The state of the checkbox (not checked) is conveyed</td>
-         <td>
+          </td>
+        </tr>
+        <tr>
+          <td>PASS</td>
+          <td>The state of the checkbox (not checked) is conveyed</td>
+          <td>
             <ul>
-               <li>Passed for commands: X / Shift+X, Tab / Shift+Tab, Up Arrow / Down Arrow, Left Arrow / Right Arrow (with Smart Navigation on), Control+Insert+X to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Passed for commands: X / Shift+X, Tab / Shift+Tab, Up Arrow / Down Arrow, Left Arrow
+                / Right Arrow (with Smart Navigation on), Control+Insert+X to see a list of
+                checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to
+                navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>FAIL</td>
-         <td>After command, JAWS is in Forms Mode</td>
-         <td>
+          </td>
+        </tr>
+        <tr>
+          <td>FAIL</td>
+          <td>After command, JAWS is in Forms Mode</td>
+          <td>
             <ul>
-               <li>Incorrect information supplied after commands: Tab / Shift+Tab.</li>
+              <li>Incorrect information supplied after commands: Tab / Shift+Tab.</li>
             </ul>
-         </td>
-      </tr>
-   </tbody>
-</table>
-<p>The following unwanted behaviors were observed:</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The following unwanted behaviors were observed:</p>
 
-<table>
-   <tbody>
-      <tr>
-         <td>Assistive technology produced irrelevent and distracting output.</td>
-         <td>This behavior occured after the following commands: Insert+Up (or CapsLock+I)</td>
-      </tr>
-   </tbody>
-</table>
-<h3>After user performs task "read the first checkbox" in interaction mode, the following behavior was observed:</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Assistive technology produced irrelevent and distracting output.</td>
+          <td>This behavior occured after the following commands: Insert+Up (or CapsLock+I)</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>
+      After user performs task "read the first checkbox" in interaction mode, the following behavior
+      was observed:
+    </h3>
 
-<table>
-   <tbody>
-      <tr>
-         <td>FAIL</td>
-         <td>The role 'checkbox' is spoken</td>
-         <td>
+    <table>
+      <tbody>
+        <tr>
+          <td>FAIL</td>
+          <td>The role 'checkbox' is spoken</td>
+          <td>
             <ul>
-               <li>Incorrect information supplied after commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Incorrect information supplied after commands: Tab / Shift+Tab, Insert+Tab (or
+                CapsLock+Tab), Insert+Up (or CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>PASS</td>
-         <td>The name 'Lettuce' is spoken</td>
-         <td>
+          </td>
+        </tr>
+        <tr>
+          <td>PASS</td>
+          <td>The name 'Lettuce' is spoken</td>
+          <td>
             <ul>
-               <li>Passed for commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Passed for commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or
+                CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>PASS</td>
-         <td>The state of the checkbox (not checked) is conveyed</td>
-         <td>
+          </td>
+        </tr>
+        <tr>
+          <td>PASS</td>
+          <td>The state of the checkbox (not checked) is conveyed</td>
+          <td>
             <ul>
-               <li>Passed for commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Passed for commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or
+                CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-   </tbody>
-</table>
-<p>The following unwanted behaviors were observed:</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>The following unwanted behaviors were observed:</p>
 
-<table>
-   <tbody>
-      <tr>
-         <td>Assistive technology produced irrelevent and distracting output.</td>
-         <td>This behavior occured after the following commands: Insert+Up (or CapsLock+I)</td>
-      </tr>
-   </tbody>
-</table>
-<h3>After user performs task "navigate to the first checkbox (which is now checked)" in reading mode, the following behavior was observed:</h3>
+    <table>
+      <tbody>
+        <tr>
+          <td>Assistive technology produced irrelevent and distracting output.</td>
+          <td>This behavior occured after the following commands: Insert+Up (or CapsLock+I)</td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>
+      After user performs task "navigate to the first checkbox (which is now checked)" in reading
+      mode, the following behavior was observed:
+    </h3>
 
-<table>
-   <tbody>
-      <tr>
-         <td>PASS</td>
-         <td>The role 'checkbox' is spoken</td>
-         <td>
+    <table>
+      <tbody>
+        <tr>
+          <td>PASS</td>
+          <td>The role 'checkbox' is spoken</td>
+          <td>
             <ul>
-               <li>Passed for commands: X / Shift+X, Tab / Shift+Tab, Up Arrow / Down Arrow, Left Arrow / Right Arrow (with Smart Navigation on), Control+Insert+X to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Passed for commands: X / Shift+X, Tab / Shift+Tab, Up Arrow / Down Arrow, Left Arrow
+                / Right Arrow (with Smart Navigation on), Control+Insert+X to see a list of
+                checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to
+                navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>PASS</td>
-         <td>The name 'Lettuce' is spoken</td>
-         <td>
+          </td>
+        </tr>
+        <tr>
+          <td>PASS</td>
+          <td>The name 'Lettuce' is spoken</td>
+          <td>
             <ul>
-               <li>Passed for commands: X / Shift+X, Tab / Shift+Tab, Up Arrow / Down Arrow, Left Arrow / Right Arrow (with Smart Navigation on), Control+Insert+X to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Passed for commands: X / Shift+X, Tab / Shift+Tab, Up Arrow / Down Arrow, Left Arrow
+                / Right Arrow (with Smart Navigation on), Control+Insert+X to see a list of
+                checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to
+                navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>PASS</td>
-         <td>The state of the checkbox (checked) is conveyed</td>
-         <td>
+          </td>
+        </tr>
+        <tr>
+          <td>PASS</td>
+          <td>The state of the checkbox (checked) is conveyed</td>
+          <td>
             <ul>
-               <li>Passed for commands: X / Shift+X, Tab / Shift+Tab, Up Arrow / Down Arrow, Left Arrow / Right Arrow (with Smart Navigation on), Control+Insert+X to see a list of checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Passed for commands: X / Shift+X, Tab / Shift+Tab, Up Arrow / Down Arrow, Left Arrow
+                / Right Arrow (with Smart Navigation on), Control+Insert+X to see a list of
+                checkboxes; then use the Up/Down arrows to select a checkbox; then press Enter to
+                navigate to that checkbox, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>FAIL</td>
-         <td>After command, JAWS is in Forms Mode</td>
-         <td>
+          </td>
+        </tr>
+        <tr>
+          <td>FAIL</td>
+          <td>After command, JAWS is in Forms Mode</td>
+          <td>
             <ul>
-               <li>Incorrect information supplied after commands: Tab / Shift+Tab.</li>
+              <li>Incorrect information supplied after commands: Tab / Shift+Tab.</li>
             </ul>
-         </td>
-      </tr>
-   </tbody>
-</table>
-<h3>After user performs task "navigate to the first checkbox (which is now checked)" in interaction mode, the following behavior was observed:</h3>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h3>
+      After user performs task "navigate to the first checkbox (which is now checked)" in
+      interaction mode, the following behavior was observed:
+    </h3>
 
-<table>
-   <tbody>
-      <tr>
-         <td>PASS</td>
-         <td>The role 'checkbox' is spoken</td>
-         <td>
+    <table>
+      <tbody>
+        <tr>
+          <td>PASS</td>
+          <td>The role 'checkbox' is spoken</td>
+          <td>
             <ul>
-               <li>Passed for commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Passed for commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or
+                CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>PASS</td>
-         <td>The name 'Lettuce' is spoken</td>
-         <td>
+          </td>
+        </tr>
+        <tr>
+          <td>PASS</td>
+          <td>The name 'Lettuce' is spoken</td>
+          <td>
             <ul>
-               <li>Passed for commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Passed for commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or
+                CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-      <tr>
-         <td>PASS</td>
-         <td>The state of the checkbox (checked) is conveyed</td>
-         <td>
+          </td>
+        </tr>
+        <tr>
+          <td>PASS</td>
+          <td>The state of the checkbox (checked) is conveyed</td>
+          <td>
             <ul>
-               <li>Passed for commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or CapsLock+I).</li>
+              <li>
+                Passed for commands: Tab / Shift+Tab, Insert+Tab (or CapsLock+Tab), Insert+Up (or
+                CapsLock+I).
+              </li>
             </ul>
-         </td>
-      </tr>
-   </tbody>
-</table>
-</body>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>

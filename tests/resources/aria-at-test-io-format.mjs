@@ -30,7 +30,7 @@ const normalizeString = str =>
         '&gt;': '>',
         '&#39;': "'",
         '&quot;': '"',
-      }[str] || str)
+      })[str] || str
   );
 
 /** Depends on ConfigInput. */
@@ -817,7 +817,9 @@ class BehaviorInput {
               cs.presentationNumber === c.presentationNumber &&
               cs.settings === c.settings
           );
-          if (!foundCommandInfo || !foundCommandInfo.assertionExceptions) return cs;
+          if (!foundCommandInfo || typeof foundCommandInfo.assertionExceptions !== 'string') {
+            return cs;
+          }
 
           // Only works for v2
           let assertionExceptions = json.output_assertions.map(each => each.assertionId);
@@ -914,7 +916,7 @@ class BehaviorInput {
           const foundCommandInfo = commands.find(
             c => cs.commandId === c.id && cs.settings === c.settings
           );
-          if (!foundCommandInfo || !foundCommandInfo.assertionExceptions) return cs;
+          if (!foundCommandInfo || !Array.isArray(foundCommandInfo.assertionExceptions)) return cs;
 
           // Only works for v2
           let assertionExceptions = assertions.map(each => each.assertionId);
@@ -1294,13 +1296,13 @@ export class TestRunInputOutput {
               description: assertion.assertion,
               highlightRequired: false,
               priority: assertion.priority,
-              result: CommonResultMap.NOT_SET,
+              result: null,
             })),
             additionalAssertions: test.additionalAssertions.map(assertion => ({
               description: assertion.assertion,
               highlightRequired: false,
               priority: assertion.priority,
-              result: CommonResultMap.NOT_SET,
+              result: null,
             })),
             unexpected: {
               highlightRequired: false,
@@ -1434,11 +1436,11 @@ export class TestRunInputOutput {
       ) || command.unexpected.behaviors.some(({ checked }) => checked)
         ? CommandSupportJSONMap.FAILING
         : allAssertions.some(
-            ({ priority, result }) =>
-              (priority === 2 || priority === 3) && result !== CommonResultMap.PASS
-          )
-        ? CommandSupportJSONMap.ALL_REQUIRED
-        : CommandSupportJSONMap.FULL;
+              ({ priority, result }) =>
+                (priority === 2 || priority === 3) && result !== CommonResultMap.PASS
+            )
+          ? CommandSupportJSONMap.ALL_REQUIRED
+          : CommandSupportJSONMap.FULL;
     }
 
     /**
@@ -1482,8 +1484,8 @@ export class TestRunInputOutput {
               assertion.result === AssertionResultMap.FAIL_MISSING
                 ? AssertionFailJSONMap.NO_OUTPUT
                 : assertion.result === AssertionResultMap.FAIL_INCORRECT
-                ? AssertionFailJSONMap.INCORRECT_OUTPUT
-                : AssertionFailJSONMap.NO_SUPPORT,
+                  ? AssertionFailJSONMap.INCORRECT_OUTPUT
+                  : AssertionFailJSONMap.NO_SUPPORT,
           };
     }
   }
@@ -1515,13 +1517,13 @@ export class TestRunInputOutput {
               assertion.priority === 1 ? 'MUST' : assertion.priority === 2 ? 'SHOULD' : 'MAY',
             text: assertion.description,
           },
-          passed: assertion.result === 'pass',
+          passed: assertion.result,
           failedReason:
             assertion.result === 'failIncorrect'
               ? 'INCORRECT_OUTPUT'
               : assertion.result === 'failMissing'
-              ? 'NO_OUTPUT'
-              : null,
+                ? 'NO_OUTPUT'
+                : null,
         })),
         unexpectedBehaviors: command.unexpected.behaviors
           .map(behavior =>
@@ -1574,13 +1576,7 @@ export class TestRunInputOutput {
             return {
               ...assertion,
               highlightRequired: false,
-              result: assertionResult.passed
-                ? 'pass'
-                : assertionResult.failedReason === 'INCORRECT_OUTPUT'
-                ? 'failIncorrect'
-                : assertionResult.failedReason === 'NO_OUTPUT'
-                ? 'failMissing'
-                : 'fail',
+              result: assertionResult.passed,
             };
           }),
           unexpected: {

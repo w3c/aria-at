@@ -4,40 +4,47 @@
   "description": "",
   "private": true,
   "scripts": {
-    "count": "node ./scripts/count-assertions.js",
-    "lint": "eslint .",
+    "lint": "eslint . && prettier --check .",
+    "lint:fix": "eslint . --fix && prettier --write .",
     "build": "npm run create-all-tests && npm run review-tests",
     "build-v1": "npm run create-all-tests -- --version1 --verbose && npm run review-tests",
     "build-v2": "npm run create-all-tests -- --version2 --verbose && npm run review-tests",
+    "serve": "npx live-server build",
+    "build:serve": "npm run cleanup && npm run build && npm run serve",
     "validate": "npm run create-all-tests -- --verbose --validate",
     "cleanup": "rimraf build",
-    "create-all-tests": "cross-var node scripts/create-all-tests.js --testplan=$npm_config_testplan",
-    "review-tests": "cross-var node --experimental-modules scripts/test-reviewer.mjs --testplan=$npm_config_testplan",
+    "create-all-tests": "cross-var node scripts/create-all-tests --testplan=$npm_config_testplan",
+    "review-tests": "cross-var node scripts/test-reviewer --testplan=$npm_config_testplan",
     "update-reference": "node scripts/update-reference.js",
+    "count": "node ./scripts/count-assertions.js",
     "make-v2": "node scripts/v2maker.js",
-    "prepare": "husky install"
+    "test": "rimraf __test__/build && jest --runInBand",
+    "prepare": "husky"
   },
   "dependencies": {
     "cross-var": "github:radozebra/cross-var#1.1.1",
     "csv-parser": "^3.0.0",
     "csv-writer": "^1.6.0",
-    "fs-extra": "^11.1.0",
+    "fs-extra": "^11.2.0",
     "json-beautify": "^1.1.1",
     "minimist": "^1.2.8",
     "mustache": "^4.2.0",
-    "node-html-parser": "^6.1.5",
-    "rimraf": "^4.3.1",
-    "simple-git": "^3.17.0"
+    "node-html-parser": "^6.1.13",
+    "rimraf": "^6.0.1",
+    "simple-git": "^3.25.0"
   },
   "devDependencies": {
-    "eslint": "^8.35.0",
-    "eslint-config-prettier": "^8.7.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.6.1",
-    "eslint-plugin-prettier": "^4.2.1",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.1.2",
-    "prettier": "^2.8.4"
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "babel-jest": "^29.7.0",
+    "eslint": "^9.9.1",
+    "eslint-plugin-n": "^17.10.2",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.9.0",
+    "husky": "^9.1.5",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.9",
+    "prettier": "^3.3.3"
   },
   "repository": {
     "type": "git",
@@ -53,6 +60,6 @@
     "*.js": "eslint --cache --fix"
   },
   "engines": {
-    "node": ">=14.14.0"
+    "node": ">=20.x"
   }
 }

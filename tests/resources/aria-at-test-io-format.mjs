@@ -898,9 +898,10 @@ class BehaviorInput {
       { task: info.task || info.testId },
       target.mode || target.at.settings
     );
-    commandsAndSettings = commandsAndSettings.map(cs => {
+    commandsAndSettings = commandsAndSettings.map((cs, index) => {
       return {
         ...cs,
+        presentationNumber: Number(commands[index].presentationNumber),
         settingsInstructions: cs.settingsInstructions
           ? cs.settingsInstructions.map(el => normalizeString(el))
           : null,
@@ -931,7 +932,10 @@ class BehaviorInput {
         },
         commands: commandsAndSettings.map(cs => {
           const foundCommandInfo = commands.find(
-            c => cs.commandId === c.id && cs.settings === c.settings
+            c =>
+              cs.commandId === c.id &&
+              cs.presentationNumber === c.presentationNumber &&
+              cs.settings === c.settings
           );
           if (!foundCommandInfo || !Array.isArray(foundCommandInfo.assertionExceptions)) return cs;
 

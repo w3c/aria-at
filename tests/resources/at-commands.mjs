@@ -124,6 +124,7 @@ export class commandsAPI {
                   value,
                   key,
                   settings: mode,
+                  presentationNumber: Number(presentationNumber),
                 };
               })
             );

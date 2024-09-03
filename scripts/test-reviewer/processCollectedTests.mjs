@@ -15,6 +15,9 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
     commandsValuesForInstructions,
     modeInstructions = undefined;
 
+  // TODO: Standardize naming on settings instead of outdated 'mode'
+  let secondarySettings = [];
+
   /** @type {CollectedTestAT} */
   const at = commandsAPI.isKnownAT(atKey);
   const defaultConfigurationInstructions = unescapeHTML(
@@ -50,6 +53,15 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
         })
       : undefined;
 
+  function findCommandInfo(assertionForCommand) {
+    return collectedTest.commandsInfo?.[at.key]?.find(
+      c =>
+        c.command === assertionForCommand.key &&
+        c.settings === assertionForCommand.settings &&
+        c.presentationNumber === assertionForCommand.presentationNumber
+    );
+  }
+
   /**
    * Check default assertion priorities to verify if there is a priority exception and return the
    * updated list of assertions
@@ -64,9 +76,10 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
       // Check to see if there is any command info exceptions for current at key
       const foundCommandInfo = collectedTest.commandsInfo?.[at.key]?.find(
         c =>
-          c.assertionExceptions.includes(assertion.assertionId) &&
           c.command === assertionForCommand.key &&
-          c.settings === assertionForCommand.settings
+          c.settings === assertionForCommand.settings &&
+          c.presentationNumber === assertionForCommand.presentationNumber &&
+          c.assertionExceptions.includes(assertion.assertionId)
       );
 
       if (foundCommandInfo) {
@@ -105,6 +118,36 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
       assertionsForCommandsInstructions.length &&
       typeof assertionsForCommandsInstructions[0] === 'object'
     ) {
+      // Check for secondary settings
+      const foundCommandInfos = assertionsForCommandsInstructions.map(findCommandInfo);
+      assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(
+        (assertionForCommand, index) => {
+          const foundCommandInfo = foundCommandInfos[index];
+
+          const secondarySettingsExpanded = [];
+          for (const secondarySetting of foundCommandInfo.secondarySettings) {
+            if (!secondarySettings.includes(secondarySetting))
+              secondarySettings.push(secondarySetting);
+
+            const expandedSettings = {
+              settings: secondarySetting,
+              settingsText: at.settings[secondarySetting].screenText,
+            };
+
+            // Update value text if secondary settings exist
+            assertionForCommand.value =
+              assertionForCommand.value.slice(0, -1) + ` and ${expandedSettings.settingsText})`;
+
+            secondarySettingsExpanded.push(expandedSettings);
+          }
+
+          return {
+            ...assertionForCommand,
+            secondarySettingsExpanded,
+            secondarySettings: foundCommandInfo.secondarySettings,
+          };
+        }
+      );
       commandsValuesForInstructions = assertionsForCommandsInstructions.map(each => each.value);
     } else {
       // V1 came in as array of strings
@@ -149,7 +192,9 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
     // An error will occur if there is no data for an AT, ignore it
   }
 
-  for (const atMode of mode.split('_')) {
+  // Create unique set
+  const foundAtModes = [...new Set([...mode.split('_'), ...secondarySettings])];
+  for (const atMode of foundAtModes) {
     // TODO: If there is ever need to explicitly show the instructions
     //  for an AT with the default mode active
     // const atSettingsWithDefault = {

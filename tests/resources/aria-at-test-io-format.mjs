@@ -850,8 +850,8 @@ class BehaviorInput {
           return {
             ...cs,
             assertionExceptions,
+            secondarySettingsExpanded,
             secondarySettings: foundCommandInfo.secondarySettings,
-            secondarySettingsExpanded: secondarySettingsExpanded,
           };
         }),
         assertions: (json.output_assertions ? json.output_assertions : []).map(assertion => {
@@ -968,8 +968,8 @@ class BehaviorInput {
           return {
             ...cs,
             assertionExceptions,
+            secondarySettingsExpanded,
             secondarySettings: foundCommandInfo.secondarySettings,
-            secondarySettingsExpanded: secondarySettingsExpanded,
           };
         }),
         assertions: assertions.map(

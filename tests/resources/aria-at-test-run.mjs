@@ -94,9 +94,7 @@ export function instructionDocument(resultState, hooks) {
   const modeInstructions = resultState.info.modeInstructions;
   const userInstructions = resultState.info.userInstructions;
   const lastInstruction = userInstructions[userInstructions.length - 1];
-  const setupScriptDescription = resultState.info.setupScriptDescription
-    ? ` and runs a script that ${resultState.info.setupScriptDescription}.`
-    : resultState.info.setupScriptDescription;
+  const setupScriptDescription = ` ${resultState.info.setupScriptDescription}`;
   // As a hack, special case mode instructions for VoiceOver for macOS until we
   // support modeless tests.
   const modePhrase =
@@ -139,14 +137,24 @@ export function instructionDocument(resultState, hooks) {
     return resultArray.length ? resultArray : null;
   }
 
-  const convertedModeInstructions =
-    modeInstructions !== undefined && !modeInstructions.includes('undefined')
-      ? convertModeInstructionsToKbdArray(modeInstructions)
-      : null;
+  const commandListInstructions = `${resultState.testPlanStrings.commandListPreface}${
+    commands.some(
+      (command, index) =>
+        commandSettings[index]?.description !== 'defaultMode' && commandSettings[index]?.text
+    )
+      ? ` ${resultState.testPlanStrings.commandListSettingsPreface}`
+      : ''
+  }`;
 
-  let strongInstructions = [...userInstructions];
-  if (convertedModeInstructions)
-    strongInstructions = [convertedModeInstructions, ...strongInstructions];
+  const instructionsForSettings = {};
+  commandSettings.forEach(({ description: settings, text: screenText, instructions }) => {
+    if (settings && settings !== 'defaultMode' && !instructionsForSettings[settings]) {
+      instructionsForSettings[settings] = {
+        instructions: instructions.map(el => convertModeInstructionsToKbdArray(el)),
+        screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${screenText}:`,
+      };
+    }
+  });
 
   return {
     errors: {
@@ -156,34 +164,35 @@ export function instructionDocument(resultState, hooks) {
     },
     instructions: {
       header: {
-        header: `Testing task: ${resultState.info.description}`,
+        header: `Test: ${resultState.info.description}`,
         focus: resultState.currentUserAction === UserActionMap.LOAD_PAGE,
       },
       description: `${modePhrase} how ${resultState.config.at.name} behaves when performing task "${lastInstruction}"`,
       instructions: {
-        header: 'Test instructions',
+        header: 'Instructions',
         instructions: [
           [
-            `Restore default settings for ${resultState.config.at.name}. For help, read `,
+            `Configure ${resultState.config.at.name} with default settings. For help, read `,
             {
               href: 'https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing',
               description: 'Configuring Screen Readers for Testing',
             },
             `.`,
           ],
-          `Activate the "Open test page" button below, which opens the example to test in a new window${setupScriptDescription}`,
+          `${resultState.testPlanStrings.openExampleInstruction}${setupScriptDescription}`,
         ],
-        strongInstructions: strongInstructions.filter(el => el),
+        strongInstructions: [...userInstructions].filter(el => el),
         commands: {
-          description: `Using the following commands, ${lastInstruction}`,
+          description: `${lastInstruction} ${commandListInstructions}`,
           commands: commands.map((command, index) => {
-            const { description: settings, text: settingsText } = commandSettings[index];
+            const { description: settings, text: screenText } = commandSettings[index];
             return `${command}${
-              settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
+              screenText && settings !== 'defaultMode' ? ` (${screenText})` : ''
             }`;
           }),
         },
       },
+      settings: instructionsForSettings,
       assertions: {
         header: 'Success Criteria',
         description: `To pass this test, ${resultState.config.at.name} needs to meet all the following assertions when each  specified command is executed:`,
@@ -244,7 +253,7 @@ export function instructionDocument(resultState, hooks) {
         change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
       assertionsHeader: {
-        descriptionHeader: `${resultState.assertionResponseQuestion} ${command}${
+        descriptionHeader: `${resultState.testPlanStrings.assertionResponseQuestion} ${command}${
           settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
         }?`,
       },
@@ -380,15 +389,12 @@ export function instructionDocument(resultState, hooks) {
     const resultAssertion = resultState.commands[commandIndex].assertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
       description: [assertion],
-      passed: resultAssertion.result === AssertionResultMap.PASS,
-      click: () =>
+      passed: resultAssertion.result,
+      click: newResult =>
         hooks.setCommandAssertion({
           commandIndex,
           assertionIndex,
-          result:
-            resultAssertion.result === AssertionResultMap.PASS
-              ? AssertionResultMap.FAIL
-              : AssertionResultMap.PASS,
+          result: newResult,
         }),
     });
   }
@@ -403,15 +409,12 @@ export function instructionDocument(resultState, hooks) {
       resultState.commands[commandIndex].additionalAssertions[assertionIndex];
     return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
       description: [assertion],
-      passed: resultAdditionalAssertion.result === CommonResultMap.PASS,
-      click: () =>
+      passed: resultAdditionalAssertion.result,
+      click: newResult =>
         hooks.setCommandAssertion({
           commandIndex,
           assertionIndex,
-          result:
-            resultAdditionalAssertion.result === AssertionResultMap.PASS
-              ? AssertionResultMap.FAIL
-              : AssertionResultMap.PASS,
+          result: newResult,
         }),
     });
   }
@@ -468,7 +471,7 @@ export const AdditionalAssertionResultMap = createEnumMap({
 });
 
 /**
- * @typedef {EnumValues<typeof AssertionResultMap>} AssertionResult
+ * @typedef {boolean | null} AssertionResult
  */
 
 export const AssertionResultMap = createEnumMap({
@@ -845,14 +848,14 @@ function resultsTableDocument(state) {
         let failingAssertions = ['No failing assertions'];
         let unexpectedBehaviors = ['None'];
 
-        if (allAssertions.some(({ result }) => result === CommonResultMap.PASS)) {
+        if (allAssertions.some(({ result }) => result)) {
           passingAssertions = allAssertions
-            .filter(({ result }) => result === CommonResultMap.PASS)
+            .filter(({ result }) => result)
             .map(({ description }) => description);
         }
-        if (allAssertions.some(({ result }) => result !== CommonResultMap.PASS)) {
+        if (allAssertions.some(({ result }) => !result)) {
           failingAssertions = allAssertions
-            .filter(({ result }) => result !== CommonResultMap.PASS)
+            .filter(({ result }) => !result)
             .map(({ description }) => description);
         }
         if (command.unexpected.behaviors.some(({ checked }) => checked)) {
@@ -869,15 +872,12 @@ function resultsTableDocument(state) {
         return {
           description: command.description,
           support:
-            allAssertions.some(
-              ({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS
-            ) || command.unexpected.behaviors.some(({ checked }) => checked)
+            allAssertions.some(({ priority, result }) => priority === 1 && !result) ||
+            command.unexpected.behaviors.some(({ checked }) => checked)
               ? 'FAILING'
-              : allAssertions.some(
-                  ({ priority, result }) => priority === 2 && result !== CommonResultMap.PASS
-                )
-              ? 'ALL_REQUIRED'
-              : 'FULL',
+              : allAssertions.some(({ priority, result }) => priority === 2 && !result)
+                ? 'ALL_REQUIRED'
+                : 'FULL',
           details: {
             output: /** @type {Description} */ [
               'Output:',
@@ -1100,7 +1100,7 @@ export function userValidateState() {
 /**
  * @typedef InstructionDocumentResultsCommandsAssertion
  * @property {Description} description
- * @property {Boolean} passed
+ * @property {Boolean | null} passed
  * @property {boolean} [focus]
  * @property {() => void} click
  */
@@ -1108,6 +1108,12 @@ export function userValidateState() {
 /**
  * @typedef InstructionDocumentResultsCommandsAssertionsHeader
  * @property {Description} descriptionHeader
+ */
+
+/**
+ * @typedef InstructionDocumentInstructionsSettings
+ * @property {string} screenText
+ * @property {string[]} instructions
  */
 
 /**
@@ -1290,6 +1296,7 @@ export function userValidateState() {
  * @property {boolean} config.displaySubmitButton
  * @property {TestRunUserAction} currentUserAction
  * @property {TestRunCommand[]} commands
+ * @property {object} testPlanStrings
  * @property {object} openTest
  * @property {boolean} openTest.enabled
  */

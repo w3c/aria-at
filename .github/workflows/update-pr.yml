@@ -1,4 +1,4 @@
-name: "Update Pull Request with Preview Link"
+name: 'Update Pull Request with Preview Link'
 
 on: pull_request_target
 
@@ -6,11 +6,11 @@ jobs:
   update_pr:
     runs-on: ubuntu-latest
     steps:
-    - uses: tzkhan/pr-update-action@v2
-      with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        head-branch-regex: '.*'
-        title-template: ''
-        body-template: '[Preview Tests](https://deploy-preview-${{ github.event.pull_request.number }}--aria-at.netlify.app)'
-        body-update-action: prefix
-        body-uppercase-head-match: false
+      - uses: tzkhan/pr-update-action@v2
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          head-branch-regex: '.*'
+          title-template: ''
+          body-template: '[Preview Tests](https://deploy-preview-${{ github.event.pull_request.number }}--aria-at.netlify.app)'
+          body-update-action: prefix
+          body-uppercase-head-match: false

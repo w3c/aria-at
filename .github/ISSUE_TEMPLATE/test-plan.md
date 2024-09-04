@@ -5,7 +5,6 @@ about: Use this template when converting a card to an issue from the Test Plan W
 title: 'Create tests for APG design pattern: [TEST PLAN]'
 labels: tests
 assignees: ''
-
 ---
 
 <!--
@@ -26,10 +25,10 @@ and move the card from Backlog to Research and documentation.
 
 - [ ] Test committed:
 - Test reviewed:
-   - [ ] Review of test description
-   - [ ] JAWS commands
-   - [ ] NVDA commands
-   - [ ] VoiceOver commands
+  - [ ] Review of test description
+  - [ ] JAWS commands
+  - [ ] NVDA commands
+  - [ ] VoiceOver commands
 - [Test results](https://w3c.github.io/aria-at/results/)
   - [ ] JAWS/Chrome
   - [ ] JAWS/Firefox

@@ -6,8 +6,9 @@
       "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
       "assertionTokens": {
         "screenReader": "JAWS",
+        "interactionMode": "PC cursor active",
         "readingMode": "virtual cursor active",
-        "interactionMode": "PC cursor active"
+        "readingCursor": "virtual cursor"
       },
       "settings": {
         "virtualCursor": {
@@ -32,8 +33,9 @@
       "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
       "assertionTokens": {
         "screenReader": "NVDA",
+        "interactionMode": "focus mode",
         "readingMode": "browse mode",
-        "interactionMode": "focus mode"
+        "readingCursor": "browse mode caret"
       },
       "settings": {
         "browseMode": {
@@ -56,6 +58,10 @@
       "name": "VoiceOver for macOS",
       "key": "voiceover_macos",
       "defaultConfigurationInstructionsHTML": "Configure VoiceOver with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+      "assertionTokens": {
+        "screenReader": "VoiceOver",
+        "readingCursor": "VoiceOver cursor"
+      },
       "settings": {
         "quickNavOn": {
           "screenText": "quick nav on",
@@ -103,16 +109,8 @@
     }
   ],
   "applies_to": {
-    "Desktop Screen Readers": [
-      "VoiceOver for macOS",
-      "NVDA",
-      "JAWS"
-    ],
-    "Screen Readers": [
-      "VoiceOver for macOS",
-      "NVDA",
-      "JAWS"
-    ]
+    "Desktop Screen Readers": ["VoiceOver for macOS", "NVDA", "JAWS"],
+    "Screen Readers": ["VoiceOver for macOS", "NVDA", "JAWS"]
   },
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",

@@ -835,23 +835,23 @@ class BehaviorInput {
             isNaN(each) ? json.output_assertions[index].priority : each
           );
 
-          const secondarySettingsExpanded = [];
-          for (const secondarySetting of foundCommandInfo.secondarySettings) {
+          const additionalSettingsExpanded = [];
+          for (const additionalSetting of foundCommandInfo.additionalSettings) {
             const expandedSettings = {
-              settings: secondarySetting,
-              settingsText: at.settings[secondarySetting].screenText,
-              settingsInstructions: at.settings[secondarySetting].instructions.map(el =>
+              settings: additionalSetting,
+              settingsText: at.settings[additionalSetting].screenText,
+              settingsInstructions: at.settings[additionalSetting].instructions.map(el =>
                 normalizeString(el)
               ),
             };
-            secondarySettingsExpanded.push(expandedSettings);
+            additionalSettingsExpanded.push(expandedSettings);
           }
 
           return {
             ...cs,
             assertionExceptions,
-            secondarySettingsExpanded,
-            secondarySettings: foundCommandInfo.secondarySettings,
+            additionalSettingsExpanded,
+            additionalSettings: foundCommandInfo.additionalSettings,
           };
         }),
         assertions: (json.output_assertions ? json.output_assertions : []).map(assertion => {
@@ -953,23 +953,23 @@ class BehaviorInput {
             isNaN(each) ? assertions[index].priority : each
           );
 
-          const secondarySettingsExpanded = [];
-          for (const secondarySetting of foundCommandInfo.secondarySettings) {
+          const additionalSettingsExpanded = [];
+          for (const additionalSetting of foundCommandInfo.additionalSettings) {
             const expandedSettings = {
-              settings: secondarySetting,
-              settingsText: target.at.raw.settings[secondarySetting].screenText,
-              settingsInstructions: target.at.raw.settings[secondarySetting].instructions.map(el =>
+              settings: additionalSetting,
+              settingsText: target.at.raw.settings[additionalSetting].screenText,
+              settingsInstructions: target.at.raw.settings[additionalSetting].instructions.map(el =>
                 normalizeString(el)
               ),
             };
-            secondarySettingsExpanded.push(expandedSettings);
+            additionalSettingsExpanded.push(expandedSettings);
           }
 
           return {
             ...cs,
             assertionExceptions,
-            secondarySettingsExpanded,
-            secondarySettings: foundCommandInfo.secondarySettings,
+            additionalSettingsExpanded,
+            additionalSettings: foundCommandInfo.additionalSettings,
           };
         }),
         assertions: assertions.map(
@@ -1325,7 +1325,7 @@ export class TestRunInputOutput {
               text: command.settingsText,
               instructions: command.settingsInstructions,
               assertionExceptions: command.assertionExceptions,
-              secondarySettingsExpanded: command.secondarySettingsExpanded,
+              additionalSettingsExpanded: command.additionalSettingsExpanded,
             },
             atOutput: {
               highlightRequired: false,

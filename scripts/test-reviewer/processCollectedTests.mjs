@@ -16,7 +16,7 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
     modeInstructions = undefined;
 
   // TODO: Standardize naming on settings instead of outdated 'mode'
-  let secondarySettings = [];
+  let additionalSettings = [];
 
   /** @type {CollectedTestAT} */
   const at = commandsAPI.isKnownAT(atKey);
@@ -118,33 +118,33 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
       assertionsForCommandsInstructions.length &&
       typeof assertionsForCommandsInstructions[0] === 'object'
     ) {
-      // Check for secondary settings
+      // Check for additional settings
       const foundCommandInfos = assertionsForCommandsInstructions.map(findCommandInfo);
       assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(
         (assertionForCommand, index) => {
           const foundCommandInfo = foundCommandInfos[index];
 
-          const secondarySettingsExpanded = [];
-          for (const secondarySetting of foundCommandInfo.secondarySettings) {
-            if (!secondarySettings.includes(secondarySetting))
-              secondarySettings.push(secondarySetting);
+          const additionalSettingsExpanded = [];
+          for (const additionalSetting of foundCommandInfo.additionalSettings) {
+            if (!additionalSettings.includes(additionalSetting))
+              additionalSettings.push(additionalSetting);
 
             const expandedSettings = {
-              settings: secondarySetting,
-              settingsText: at.settings[secondarySetting].screenText,
+              settings: additionalSetting,
+              settingsText: at.settings[additionalSetting].screenText,
             };
 
-            // Update value text if secondary settings exist
+            // Update value text if additional settings exist
             assertionForCommand.value =
               assertionForCommand.value.slice(0, -1) + ` and ${expandedSettings.settingsText})`;
 
-            secondarySettingsExpanded.push(expandedSettings);
+            additionalSettingsExpanded.push(expandedSettings);
           }
 
           return {
             ...assertionForCommand,
-            secondarySettingsExpanded,
-            secondarySettings: foundCommandInfo.secondarySettings,
+            additionalSettingsExpanded,
+            additionalSettings: foundCommandInfo.additionalSettings,
           };
         }
       );
@@ -193,7 +193,7 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
   }
 
   // Create unique set
-  const foundAtModes = [...new Set([...mode.split('_'), ...secondarySettings])];
+  const foundAtModes = [...new Set([...mode.split('_'), ...additionalSettings])];
   for (const atMode of foundAtModes) {
     // TODO: If there is ever need to explicitly show the instructions
     //  for an AT with the default mode active

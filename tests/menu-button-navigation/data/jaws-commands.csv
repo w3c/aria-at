@@ -1,0 +1,32 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToMenuButton,b,virtualCursor,,1
+navForwardsToMenuButton,f,virtualCursor,,1.1
+navForwardsToMenuButton,tab,virtualCursor,2:interactionModeEnabled,1.2
+navForwardsToMenuButton,down,virtualCursor,,1.3
+navBackToMenuButton,shift+b,virtualCursor,,2
+navBackToMenuButton,shift+f,virtualCursor,,2.1
+navBackToMenuButton,shift+tab,virtualCursor,2:interactionModeEnabled,2.2
+navBackToMenuButton,up,virtualCursor,,2.3
+navForwardsToMenuButton,tab,pcCursor,,3
+navBackToMenuButton,shift+tab,pcCursor,,4
+reqInfoAboutMenuButton,ins+tab,virtualCursor,,7
+reqInfoAboutMenuButton,ins+up,virtualCursor,,7.1
+reqInfoAboutMenuButton,ins+tab,pcCursor,,8
+reqInfoAboutMenuButton,ins+up,pcCursor,,8.1
+openMenu,space,virtualCursor,2:interactionModeEnabled,10
+openMenu,enter,virtualCursor,2:interactionModeEnabled,10.1
+openMenu,space,pcCursor,,11
+openMenu,enter,pcCursor,,11.1
+openMenu,down,pcCursor,,11.2
+openMenuToLastItem,up,pcCursor,,13
+reqInfoAboutMenuItem,ins+tab,virtualCursor,,15
+reqInfoAboutMenuItem,ins+up,virtualCursor,3:positionFocusedItemMenu1 3:numberItemsMenu6 0:nameMenuActions 0:roleMenu,15.1
+reqInfoAboutMenuItem,ins+tab,pcCursor,,15.2
+reqInfoAboutMenuItem,ins+up,pcCursor,3:positionFocusedItemMenu1 3:numberItemsMenu6 0:nameMenuActions 0:roleMenu,15.3
+navToFirstItemMenu,home,pcCursor,,17
+navToFirstItemMenu,down,pcCursor,,17.1
+navToLastItemMenu,end,pcCursor,,19
+navToLastItemMenu,up,pcCursor,,19.1
+navToItemMenuByTypingCharacter,w,pcCursor,,21
+activateMenuItem,enter,pcCursor,,23
+closeMenu,esc,pcCursor,,25

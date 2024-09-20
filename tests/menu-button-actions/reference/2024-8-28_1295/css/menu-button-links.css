@@ -1,9 +1,9 @@
-.menu-button-actions {
+.menu-button-links {
   margin: 0;
-  padding: 0;
+  font-size: 110%;
 }
 
-.menu-button-actions button {
+.menu-button-links button {
   margin: 0;
   padding: 6px;
   display: inline-block;
@@ -15,49 +15,51 @@
   border-radius: 5px;
 }
 
-.menu-button-actions [role="menu"] {
-  display: none;
-  position: absolute;
+.menu-button-links [role="menu"] {
   margin: 0;
   padding: 7px 4px;
+  list-style: none;
+  display: none;
+  position: absolute;
   border: 2px solid #034575;
   border-radius: 5px;
   background-color: #eee;
 }
 
-.menu-button-actions [role="menuitem"],
-.menu-button-actions [role="separator"] {
+.menu-button-links [role="menuitem"],
+.menu-button-links [role="separator"] {
   margin: 0;
   padding: 6px;
   display: block;
-  width: 4em;
+  width: 24em;
   background-color: #eee;
+  border: none;
   color: black;
   border-radius: 5px;
 }
 
-.menu-button-actions [role="separator"] {
+.menu-button-links [role="separator"] {
   padding-top: 3px;
   background-image: url("../images/separator.svg");
   background-position: center;
   background-repeat: repeat-x;
 }
 
-.menu-button-actions button svg.down {
+.menu-button-links button svg.down {
   padding-left: 0.125em;
-  fill: currentColor;
-  stroke: currentColor;
+  fill: currentcolor;
+  stroke: currentcolor;
 }
 
-.menu-button-actions button[aria-expanded="true"] svg.down {
+.menu-button-links button[aria-expanded="true"] svg.down {
   transform: rotate(180deg);
 }
 
 /* focus styling */
 
-.menu-button-actions button:hover,
-.menu-button-actions button:focus,
-.menu-button-actions button[aria-expanded="true"] {
+.menu-button-links button:hover,
+.menu-button-links button:focus,
+.menu-button-links button[aria-expanded="true"] {
   padding: 4px;
   border: 3px solid #034575;
   background: #eee;
@@ -66,17 +68,11 @@
   margin: 0;
 }
 
-.menu-button-actions [role="menuitem"].focus,
-.menu-button-actions [role="menuitem"]:focus {
+.menu-button-links [role="menuitem"]:focus {
   padding: 4px;
   border: 2px solid #034575;
   background: #034575;
   color: #fff;
   outline: none;
   margin: 0;
-}
-
-input.action:focus {
-  outline: 2px solid #034575;
-  background: #def;
 }

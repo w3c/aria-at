@@ -1,6 +1,6 @@
 testId,title,presentationNumber,setupScript,instructions,assertions
-navForwardsToMenuButton,Navigate forwards to a menu button,5,setFocusBeforeMenuButton,"Starting at the 'Navigate forwards from here' link,, navigate to the menu button.",nameActions roleMenuButton stateCollapsed 0:interactionModeEnabled
-navBackToMenuButton,Navigate backwards to a menu button,6,setFocusAfterMenuButton,"Starting at the 'Navigate backwards from here' link,, navigate to the menu button.",nameActions roleMenuButton stateCollapsed 0:interactionModeEnabled
+navForwardsToMenuButton,Navigate forwards to a menu button,5,setFocusBeforeMenuButton,"Starting at the 'Navigate forwards from here' link, navigate to the menu button.",nameActions roleMenuButton stateCollapsed 0:interactionModeEnabled
+navBackToMenuButton,Navigate backwards to a menu button,6,setFocusAfterMenuButton,"Starting at the 'Navigate backwards from here' link, navigate to the menu button.",nameActions roleMenuButton stateCollapsed 0:interactionModeEnabled
 reqInfoAboutMenuButton,Request information about a menu button,9,setFocusOnMenuButton,"Starting at the 'Actions' menu button, read information about the menu button.",nameActions roleMenuButton stateCollapsed
 openMenu,Open a menu,12,setFocusOnMenuButton,"Starting at the 'Actions' menu button, open the menu.",nameFocusedItemAction1 3:roleFocusedItemMenuItem positionFocusedItemMenu1 numberItemsMenu4 nameMenuActions roleMenu 0:interactionModeEnabled
 openMenuToLastItem,Open a menu to the last item,14,setFocusOnMenuButton,"Starting at the 'Actions' menu button, open the menu.",nameFocusedItemAction4 3:roleFocusedItemMenuItem positionFocusedItemMenu4 numberItemsMenu4 nameMenuActions roleMenu

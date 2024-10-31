@@ -5,7 +5,7 @@ const {
 } = require('../../lib/data/process-test-directory');
 const {
   processTestDirectory: processTestDirectoryV1,
-} = require('../../lib/data/process-test-directory-v1');
+} = require('../../lib/data/process-test-directory/v1');
 const { consoleText, consoleColors } = require('../../lib/util/console');
 
 const cliArgs = require('minimist')(process.argv.slice(2), {

@@ -1,9 +1,9 @@
 testId,command,settings,assertionExceptions,presentationNumber
 navForwardsToSlider,down down,browseMode,,1.0
-navForwardsToSlider,tab,browseMode,,1.1
-navBackToSlider,up up,browseMode,,2.0
-navBackToSlider,shift+tab,browseMode,,2.1
+navForwardsToSlider,tab,browseMode,2:interactionModeEnabled,1.1
 navForwardsToSlider,tab,focusMode,,3.0
+navBackToSlider,up up,browseMode,,2.0
+navBackToSlider,shift+tab,browseMode,2:interactionModeEnabled,2.1
 navBackToSlider,shift+tab,focusMode,,4.0
 reqInfoAboutSlider,ins+tab,browseMode,,7.0
 reqInfoAboutSlider,ins+up,browseMode,,7.1

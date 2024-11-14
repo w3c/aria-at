@@ -1,9 +1,9 @@
 testId,command,settings,assertionExceptions,presentationNumber
 navForwardsToSlider,down down down,virtualCursor,,1.0
-navForwardsToSlider,tab,virtualCursor,,1.1
-navBackToSlider,up up,virtualCursor,,2.0
-navBackToSlider,shift+tab,virtualCursor,,2.1
+navForwardsToSlider,tab,virtualCursor,2:interactionModeEnabled,1.1
 navForwardsToSlider,tab,pcCursor,,3.0
+navBackToSlider,up up,virtualCursor,,2.0
+navBackToSlider,shift+tab,virtualCursor,2:interactionModeEnabled,2.1
 navBackToSlider,shift+tab,pcCursor,,4.0
 reqInfoAboutSlider,ins+tab,virtualCursor,,7.0
 reqInfoAboutSlider,ins+up,virtualCursor,,7.1

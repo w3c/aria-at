@@ -196,7 +196,7 @@ export function createReviewPages(config) {
         helpLinks,
         helpLinksTitle,
         helpLinksExist,
-        lastEdited,
+        lastEdited: args.testMode ? null : lastEdited,
         isV2,
       });
     });

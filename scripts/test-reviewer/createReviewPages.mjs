@@ -225,5 +225,10 @@ export function createReviewPages(config) {
   });
 
   // Generate build/index.html entry file
-  generateIndexPage({ indexTemplate, allTestsForPattern, indexFileBuildOutputPath });
+  generateIndexPage({
+    indexTemplate,
+    allTestsForPattern,
+    indexFileBuildOutputPath,
+    testMode: args.testMode,
+  });
 }

@@ -196,7 +196,7 @@ export function createReviewPages(config) {
         helpLinks,
         helpLinksTitle,
         helpLinksExist,
-        lastEdited,
+        lastEdited: args.testMode ? null : lastEdited,
         isV2,
       });
     });
@@ -225,5 +225,10 @@ export function createReviewPages(config) {
   });
 
   // Generate build/index.html entry file
-  generateIndexPage({ indexTemplate, allTestsForPattern, indexFileBuildOutputPath });
+  generateIndexPage({
+    indexTemplate,
+    allTestsForPattern,
+    indexFileBuildOutputPath,
+    testMode: args.testMode,
+  });
 }

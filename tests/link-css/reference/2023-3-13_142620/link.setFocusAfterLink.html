@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Link Example 3 (CSS :before content property on a span element)</title>
 
-    <!-- Core JS and CSS shared by all examples -->
     <link rel="stylesheet" href="https://www.w3.org/StyleSheets/TR/2016/base.css">
     <link rel="stylesheet" href="../../../shared/css/core.css">
     <script src="../../../shared/js/examples.js"></script>
@@ -13,7 +12,6 @@
     <script src="../../../shared/js/app.js"></script>
     <script src="../../../shared/js/skipto.js"></script>
 
-    <!-- JS and CSS for this example -->
     <link href="css/link.css" rel="stylesheet">
     <script src="js/link.js"></script>
 
@@ -35,6 +33,7 @@
     })();
   </script>
   <!-- End of generated output --></head>
+
   <body>
     <main>
       <h1>Link Example 3 (CSS :before content property on a span element)</h1>
@@ -43,16 +42,22 @@
         <h2>About This Example</h2>
         <p>
           The example below demonstrates one variation of the <a href="https://www.w3.org/WAI/ARIA/apg/patterns/link/">Link Pattern</a>.
-          The link pattern is used when it is necessary for elements other than the HTML <code>a</code> element to have link behaviors.
-        </p>
+The link pattern is used when it is necessary for elements other than the HTML <code>a</code> element to have link behaviors.
+</p>
       </section>
 
       <section>
         <h2 id="ex_label">Example</h2>
         <div role="separator" id="ex_start_sep" aria-labelledby="ex_start_sep ex_label" aria-label="Start of"></div>
+        <div>
               <a id="beforelink" href="#beforelink">Navigate forwards from here</a>
+        </div>
+        <div>
                 <span tabindex="0" role="link" id="link" class="link3" onclick="goToLink(event, 'https://www.w3.org/TR/wai-aria-practices/')" onkeydown="goToLink(event, 'https://www.w3.org/TR/wai-aria-practices/')" aria-label="W3C website"></span>
-                                      <a id="afterlink" href="#afterlink">Navigate backwards from here</a>
+        </div>
+        <div>
+                   <a id="afterlink" href="#afterlink">Navigate backwards from here</a>
+        </div>
         <div role="separator" id="ex_end_sep" aria-labelledby="ex_end_sep ex_label" aria-label="End of"></div>
       </section>
 

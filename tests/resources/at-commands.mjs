@@ -117,9 +117,18 @@ export class commandsAPI {
 
             commands.push(
               ...commandKVs.map(({ value, key }) => {
-                value = assistiveTech.settings[mode].screenText
-                  ? `${value} (${assistiveTech.settings[mode].screenText})`
-                  : value;
+                // Account for multiple settings
+                const settingsArray = mode.split(' ');
+                settingsArray.forEach((setting, index) => {
+                  if (!assistiveTech.settings[setting].screenText) return value;
+                  if (index === 0) {
+                    value = `${value} (${assistiveTech.settings[setting].screenText}`;
+                  } else {
+                    value = `${value} and ${assistiveTech.settings[setting].screenText}`;
+                  }
+                });
+                value = `${value})`;
+
                 return {
                   value,
                   key,

@@ -4,7 +4,7 @@ import { unescapeHTML } from './utils.mjs';
  * @param {CollectedTest} collectedTest
  * @param {commandsAPI} commandsAPI
  * @param {string} atKey
- * @param {string} mode
+ * @param {string} mode // TODO: Standardize naming on settings instead of outdated 'mode'
  * @param {string} task
  * @param {number} testNumber
  * @returns {{defaultConfigurationInstructions, assertionsForCommandsInstructions, at, modeInstructions, userInstruction, commandsValuesForInstructions}}
@@ -14,9 +14,6 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
     assertionsForCommandsInstructions,
     commandsValuesForInstructions,
     modeInstructions = undefined;
-
-  // TODO: Standardize naming on settings instead of outdated 'mode'
-  let additionalSettings = [];
 
   /** @type {CollectedTestAT} */
   const at = commandsAPI.isKnownAT(atKey);
@@ -52,15 +49,6 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
           };
         })
       : undefined;
-
-  function findCommandInfo(assertionForCommand) {
-    return collectedTest.commandsInfo?.[at.key]?.find(
-      c =>
-        c.command === assertionForCommand.key &&
-        c.settings === assertionForCommand.settings &&
-        c.presentationNumber === assertionForCommand.presentationNumber
-    );
-  }
 
   /**
    * Check default assertion priorities to verify if there is a priority exception and return the
@@ -101,13 +89,12 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
   }
 
   try {
-    assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, {
+    assertionsForCommandsInstructions = commandsAPI.getATCommands(mode.replace(/,/g, ' '), task, {
       ...at,
       settings: {
         ...at.settings,
         defaultMode: {
-          // TODO: If there is a need to explicitly state that the
-          //  default mode is active for an AT
+          // TODO: If there is a need to explicitly state that the default mode is active for an AT
           screenText: '',
           // instructions: [at.defaultConfigurationInstructionsHTML],
         },
@@ -118,36 +105,6 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
       assertionsForCommandsInstructions.length &&
       typeof assertionsForCommandsInstructions[0] === 'object'
     ) {
-      // Check for additional settings
-      const foundCommandInfos = assertionsForCommandsInstructions.map(findCommandInfo);
-      assertionsForCommandsInstructions = assertionsForCommandsInstructions.map(
-        (assertionForCommand, index) => {
-          const foundCommandInfo = foundCommandInfos[index];
-
-          const additionalSettingsExpanded = [];
-          for (const additionalSetting of foundCommandInfo.additionalSettings) {
-            if (!additionalSettings.includes(additionalSetting))
-              additionalSettings.push(additionalSetting);
-
-            const expandedSettings = {
-              settings: additionalSetting,
-              settingsText: at.settings[additionalSetting].screenText,
-            };
-
-            // Update value text if additional settings exist
-            assertionForCommand.value =
-              assertionForCommand.value.slice(0, -1) + ` and ${expandedSettings.settingsText})`;
-
-            additionalSettingsExpanded.push(expandedSettings);
-          }
-
-          return {
-            ...assertionForCommand,
-            additionalSettingsExpanded,
-            additionalSettings: foundCommandInfo.additionalSettings,
-          };
-        }
-      );
       commandsValuesForInstructions = assertionsForCommandsInstructions.map(each => each.value);
     } else {
       // V1 came in as array of strings
@@ -193,7 +150,7 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
   }
 
   // Create unique set
-  const foundAtModes = [...new Set([...mode.split('_'), ...additionalSettings])];
+  const foundAtModes = [...new Set([...mode.replace(/,/g, '_').split('_')])];
   for (const atMode of foundAtModes) {
     // TODO: If there is ever need to explicitly show the instructions
     //  for an AT with the default mode active

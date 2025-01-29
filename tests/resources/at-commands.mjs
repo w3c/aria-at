@@ -126,8 +126,8 @@ export class commandsAPI {
                   } else {
                     value = `${value} and ${assistiveTech.settings[setting].screenText}`;
                   }
+                  if (index === settingsArray.length - 1) value = `${value})`;
                 });
-                value = `${value})`;
 
                 return {
                   value,

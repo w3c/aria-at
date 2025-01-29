@@ -13,6 +13,7 @@ const generatePatternPages = ({
   allTestsForPattern,
   referencesForPattern,
   reviewBuildDirectory,
+  testMode = false,
 }) => {
   patterns.forEach(pattern => {
     const references = referencesForPattern[pattern];
@@ -33,7 +34,12 @@ const generatePatternPages = ({
   });
 };
 
-const generateIndexPage = ({ indexTemplate, allTestsForPattern, indexFileBuildOutputPath }) => {
+const generateIndexPage = ({
+  indexTemplate,
+  allTestsForPattern,
+  indexFileBuildOutputPath,
+  testMode = false,
+}) => {
   const renderedIndex = mustache.render(indexTemplate, {
     patterns: Object.keys(allTestsForPattern)
       .map(pattern => {
@@ -48,8 +54,8 @@ const generateIndexPage = ({ indexTemplate, allTestsForPattern, indexFileBuildOu
           patternName: pattern,
           title: allTestsForPattern[pattern][0].title,
           numberOfTests: allTestsForPattern[pattern].length,
-          commit: lastCommit.split(' ')[0],
-          commitDescription: lastCommit,
+          commit: testMode ? null : lastCommit.split(' ')[0],
+          commitDescription: testMode ? null : lastCommit,
         };
       })
       .sort((a, b) => {

@@ -380,24 +380,30 @@ class CommandsInput {
     let commandsAndSettings = [];
     let commands = [];
 
-    // Mode could be in the format of mode1_mode2
+    // Mode could be in the format of setting1_setting2_settings three -- 'settings three' is intentional to show that multiple settings could be included as one, represented as space separated strings
     // If they are from the same AT, this needs to return the function in the format of [ [[commands], settings], [[commands], settings], ... ]
-    for (const _atMode of mode.split('_')) {
-      if (!assistiveTech.settings[_atMode] && _atMode !== 'defaultMode') continue;
-
-      const [atMode] = deriveModeWithTextAndInstructions(_atMode, assistiveTech);
+    const foundAtModes = [...new Set([...mode.replace(/,/g, ' ').split('_')])];
+    for (const foundAtMode of foundAtModes) {
+      const everySettingExists = foundAtMode
+        .split(' ')
+        .every(atMode => !!assistiveTech.settings[atMode]);
+      if (
+        !(assistiveTech.settings[foundAtMode] || everySettingExists) &&
+        foundAtMode !== 'defaultMode'
+      ) {
+        continue;
+      }
 
       if (!this._value.commands[task]) {
         throw new Error(
           `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
         );
-      } else if (!this._value.commands[task][atMode]) {
+      } else if (!this._value.commands[task][foundAtMode]) {
         throw new Error(
-          `Mode "${atMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
+          `Mode "${foundAtMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
         );
       }
-
-      let commandsData = this._value.commands[task][atMode][assistiveTech.key] || [];
+      let commandsData = this._value.commands[task][foundAtMode][assistiveTech.key] || [];
       for (let commandSequence of commandsData) {
         for (const commandWithPresentationNumber of commandSequence) {
           const [commandId, presentationNumber] = commandWithPresentationNumber.split('|');
@@ -412,18 +418,30 @@ class CommandsInput {
 
           if (typeof command === 'undefined') {
             throw new Error(
-              `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+              `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${foundAtMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
             );
           }
+
+          let settingsText = '';
+          const settingsArray = foundAtMode.split(' ');
+          settingsArray.forEach((setting, index) => {
+            if (!assistiveTech.settings?.[setting]?.screenText) return settingsText;
+            if (index === 0) {
+              settingsText = `${assistiveTech.settings[setting].screenText}`;
+            } else {
+              settingsText = `${settingsText} and ${assistiveTech.settings[setting].screenText}`;
+            }
+          });
 
           commands.push(command);
           commandsAndSettings.push({
             command,
             commandId,
             presentationNumber: Number(presentationNumber),
-            settings: _atMode,
-            settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
-            settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
+            settings: foundAtMode,
+            settingsText: settingsText || 'default mode active',
+            // TODO: Merge instructions if there are multiple settings
+            settingsInstructions: assistiveTech.settings?.[foundAtMode]?.instructions || [
               assistiveTech.defaultConfigurationInstructionsHTML,
             ],
           });
@@ -835,24 +853,7 @@ class BehaviorInput {
             isNaN(each) ? json.output_assertions[index].priority : each
           );
 
-          const additionalSettingsExpanded = [];
-          for (const additionalSetting of foundCommandInfo.additionalSettings) {
-            const expandedSettings = {
-              settings: additionalSetting,
-              settingsText: at.settings[additionalSetting].screenText,
-              settingsInstructions: at.settings[additionalSetting].instructions.map(el =>
-                normalizeString(el)
-              ),
-            };
-            additionalSettingsExpanded.push(expandedSettings);
-          }
-
-          return {
-            ...cs,
-            assertionExceptions,
-            additionalSettingsExpanded,
-            additionalSettings: foundCommandInfo.additionalSettings,
-          };
+          return { ...cs, assertionExceptions };
         }),
         assertions: (json.output_assertions ? json.output_assertions : []).map(assertion => {
           // Tuple array [ priorityNumber, assertionText ]
@@ -953,24 +954,7 @@ class BehaviorInput {
             isNaN(each) ? assertions[index].priority : each
           );
 
-          const additionalSettingsExpanded = [];
-          for (const additionalSetting of foundCommandInfo.additionalSettings) {
-            const expandedSettings = {
-              settings: additionalSetting,
-              settingsText: target.at.raw.settings[additionalSetting].screenText,
-              settingsInstructions: target.at.raw.settings[additionalSetting].instructions.map(el =>
-                normalizeString(el)
-              ),
-            };
-            additionalSettingsExpanded.push(expandedSettings);
-          }
-
-          return {
-            ...cs,
-            assertionExceptions,
-            additionalSettingsExpanded,
-            additionalSettings: foundCommandInfo.additionalSettings,
-          };
+          return { ...cs, assertionExceptions };
         }),
         assertions: assertions.map(
           ({ priority, expectation, assertionStatement, tokenizedAssertionStatements }) => {
@@ -1282,26 +1266,24 @@ export class TestRunInputOutput {
     const test = this.behaviorInput.behavior();
     const config = this.configInput;
 
-    function unescapeHTML(input) {
-      const textarea = document.createElement('textarea');
-      textarea.innerHTML = input;
-      return textarea.value;
+    const normalizedInstructions = {};
+    for (const setting in config.at().settings) {
+      normalizedInstructions[setting] = {
+        screenText: config.at().settings[setting].screenText,
+        instructions: config.at().settings[setting].instructions.map(el => normalizeString(el)),
+      };
     }
-
-    const [atMode, screenText, instructions] = deriveModeWithTextAndInstructions(
-      test.mode,
-      config.at()
-    );
 
     let state = {
       errors,
       info: {
         description: test.description,
         task: test.task,
-        mode: screenText || atMode,
-        modeInstructions: Array.isArray(instructions)
-          ? unescapeHTML(`${instructions[0]} ${instructions[1]}`)
-          : test.modeInstructions,
+        // mode: screenText || atMode,
+        modeInstructions:
+          !!test.modeInstructions && typeof test.modeInstructions === 'string'
+            ? test.modeInstructions // v1 text instructions
+            : normalizedInstructions,
         userInstructions: test.specificUserInstruction.split('|'),
         setupScriptDescription: test.setupScriptDescription,
       },
@@ -1325,7 +1307,6 @@ export class TestRunInputOutput {
               text: command.settingsText,
               instructions: command.settingsInstructions,
               assertionExceptions: command.assertionExceptions,
-              additionalSettingsExpanded: command.additionalSettingsExpanded,
             },
             atOutput: {
               highlightRequired: false,
@@ -1760,36 +1741,6 @@ const StatusJSONMap = createEnumMap({
   PASS: 'PASS',
   FAIL: 'FAIL',
 });
-
-/**
- *
- * @param {ATMode} mode
- * @param {ATJSON} at
- * @returns {[ATMode, string, [string]]}
- */
-function deriveModeWithTextAndInstructions(mode, at) {
-  let atMode = mode;
-  let screenText = '';
-  let instructions = [];
-
-  if (mode.includes('_')) {
-    const atModes = mode.split('_');
-    for (const _atMode of atModes) {
-      if (at.settings[_atMode]) {
-        atMode = _atMode;
-        screenText = at.settings[_atMode].screenText;
-        instructions = at.settings[_atMode].instructions;
-      }
-    }
-  } else {
-    if (at.settings && at.settings[atMode]) {
-      screenText = at.settings[atMode]?.screenText;
-      instructions = at.settings[atMode]?.instructions;
-    }
-  }
-
-  return [atMode, screenText, instructions];
-}
 
 /**
  * @param {boolean} test

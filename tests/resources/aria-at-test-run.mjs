@@ -146,7 +146,7 @@ export function instructionDocument(resultState, hooks) {
   ) {
     for (const setting in modeInstructions) {
       instructionsForSettings[setting] = {
-        screenText: modeInstructions[setting].screenText,
+        screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${modeInstructions[setting].screenText}:`,
         instructions: modeInstructions[setting].instructions.map(el =>
           convertModeInstructionsToKbdArray(el)
         ),

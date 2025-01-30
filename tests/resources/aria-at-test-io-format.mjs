@@ -1279,7 +1279,6 @@ export class TestRunInputOutput {
       info: {
         description: test.description,
         task: test.task,
-        // mode: screenText || atMode,
         modeInstructions:
           !!test.modeInstructions && typeof test.modeInstructions === 'string'
             ? test.modeInstructions // v1 text instructions

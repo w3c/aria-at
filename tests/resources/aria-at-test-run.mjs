@@ -145,12 +145,18 @@ export function instructionDocument(resultState, hooks) {
     modeInstructions !== null
   ) {
     for (const setting in modeInstructions) {
-      instructionsForSettings[setting] = {
-        screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${modeInstructions[setting].screenText}:`,
-        instructions: modeInstructions[setting].instructions.map(el =>
-          convertModeInstructionsToKbdArray(el)
-        ),
-      };
+      const shouldDisplayInstructionsForSetting = commandSettings.some(({ description }) =>
+        description.includes(setting)
+      );
+
+      if (shouldDisplayInstructionsForSetting) {
+        instructionsForSettings[setting] = {
+          screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${modeInstructions[setting].screenText}:`,
+          instructions: modeInstructions[setting].instructions.map(el =>
+            convertModeInstructionsToKbdArray(el)
+          ),
+        };
+      }
     }
   }
 

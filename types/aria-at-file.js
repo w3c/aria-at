@@ -16,8 +16,8 @@
  * @property {object[]} ats
  * @property {string} ats[].name
  * @property {string} ats[].key
- * @property {object} applies_to
- * @property {string[]} applies_to.system
+ * @property {object} appliesTo
+ * @property {string[]} appliesTo.system
  * @property {object[]} examples
  * @property {string} examples[].directory
  * @property {string} examples[].name
@@ -49,15 +49,14 @@
 
 /**
  * @typedef AriaATFile.Behavior
- * @property {string} setup_script_description
+ * @property {string} setupScriptDescription
  * @property {string} setupTestPage
  * @property {string} assertionResponseQuestion
- * @property {string[]} applies_to
+ * @property {string[]} appliesTo
  * @property {AriaATFile.ATMode | AriaATFile.ATMode[]} mode
  * @property {string} task
- * @property {string} specific_user_instruction
- * @property {string[][]} [output_assertions]
- * @property {Object<string, AriaATFile.StringNumber[][]>} [additional_assertions]
+ * @property {string} specificUserInstruction
+ * @property {string[][]} [outputAssertions]
  * @property {Object<string, AriaATCSV.AssertionCommandInfo[]>} commandsInfo
  */
 
@@ -68,20 +67,21 @@
  * @property {number} info.testId
  * @property {string} info.title
  * @property {string} info.task
- * @property {string} [info.presentationNumber]
+ * @property {number} info.presentationNumber
  * @property {object[]} info.references
  * @property {string} info.references[].refId
  * @property {string} info.references[].value
  * @property {object} instructions
- * @property {string[]} instructions.user
- * @property {string} [instructions.mode]
- * @property {string} instructions.raw
+ * @property {string[] | string} instructions.instructions
+ * @property {string[] | string} instructions.user
+ * @property {string[] | string} instructions.mode
+ * @property {string[] | string} instructions.raw
  * @property {object} target
  * @property {object} target.at
  * @property {string} target.at.key
- * @property {string} target.at.raw original test plan file assistive tech id
+ * @property {string | object} target.at.raw
  * @property {string} target.at.name
- * @property {"interaction" | "reading"} target.mode
+ * @property {string} target.mode
  * @property {string} target.referencePage
  * @property {object} [target.setupScript]
  * @property {string} target.setupScript.name

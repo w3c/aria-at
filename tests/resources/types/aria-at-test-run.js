@@ -40,12 +40,6 @@
 
 /**
  * @typedef {"notSet"
- *   | "pass"
- *   | "failSupport"} AriaATTestRun.AdditionalAssertionResult
- */
-
-/**
- * @typedef {"notSet"
  *   | "hasUnexpected"
  *   | "doesNotHaveUnexpected"} AriaATTestRun.HasUnexpectedBehavior
  */
@@ -80,11 +74,6 @@
  * @property {boolean} commands[].assertions[].highlightRequired
  * @property {number} commands[].assertions[].priority
  * @property {AriaATTestRun.AssertionResult} commands[].assertions[].result
- * @property {object[]} commands[].additionalAssertions
- * @property {string} commands[].additionalAssertions[].description
- * @property {boolean} commands[].additionalAssertions[].highlightRequired
- * @property {number} commands[].additionalAssertions[].priority
- * @property {AriaATTestRun.AdditionalAssertionResult} commands[].additionalAssertions[].result
  * @property {object} commands[].unexpected
  * @property {boolean} commands[].unexpected.highlightRequired
  * @property {AriaATTestRun.HasUnexpectedBehavior} commands[].unexpected.hasUnexpected

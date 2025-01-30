@@ -21,11 +21,7 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
     commandsAPI.defaultConfigurationInstructions(atKey)
   );
 
-  if (collectedTest.additional_assertions && collectedTest.additional_assertions[at.key]) {
-    assertionsInstructions = collectedTest.additional_assertions[at.key];
-  } else {
-    assertionsInstructions = collectedTest.output_assertions;
-  }
+  assertionsInstructions = collectedTest.outputAssertions;
 
   const defaultAssertionsInstructions =
     assertionsInstructions && assertionsInstructions.length
@@ -182,9 +178,7 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
 
   // Append commandListSettingsPreface only if 1+ command exists that specifies a setting
   let userInstruction =
-    collectedTest.specific_user_instruction +
-    ' ' +
-    collectedTest.testPlanStrings.commandListPreface;
+    collectedTest.specificUserInstruction + ' ' + collectedTest.testPlanStrings.commandListPreface;
 
   if (modeInstructions)
     userInstruction =
@@ -236,9 +230,9 @@ export default processCollectedTests;
 
 /**
  * @typedef CollectedTest
- * @property {string} setup_script_description
+ * @property {string} setupScriptDescription
  * @property {string} setupTestPage
- * @property {string[]} applies_to
+ * @property {string[]} appliesTo
  * @property {string} mode
  * @property {string} task
  * @property {Object<key, CommandInfo[]>} commandsInfo
@@ -249,9 +243,8 @@ export default processCollectedTests;
  * @property {string} testPlanStrings.commandListSettingsPreface
  * @property {string} testPlanStrings.settingInstructionsPreface
  * @property {string} testPlanStrings.assertionResponseQuestion
- * @property {string} specific_user_instruction
- * @property {[string, string][] | OutputAssertionsV2[]} output_assertions
- * @property {Object<string, AriaATFile.StringNumber[][]>} additional_assertions
+ * @property {string} specificUserInstruction
+ * @property {[string, string][] | OutputAssertionsV2[]} outputAssertions
  */
 
 /**

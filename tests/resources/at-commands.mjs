@@ -37,20 +37,6 @@ export class commandsAPI {
     }
 
     this.AT_COMMAND_MAP = commands;
-
-    this.MODE_INSTRUCTIONS = {
-      reading: {
-        jaws: `Verify the Virtual Cursor is active by pressing ${keys.ALT_DELETE}. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing ${keys.ESC}.`,
-        nvda: `Ensure NVDA is in browse mode by pressing ${keys.ESC}. Note: This command has no effect if NVDA is already in browse mode.`,
-        voiceover_macos: `Toggle Quick Nav ON by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`,
-      },
-      interaction: {
-        jaws: `Verify the PC Cursor is active by pressing ${keys.ALT_DELETE}. If it is not, turn off the Virtual Cursor by pressing ${keys.INS_Z}.`,
-        nvda: `If NVDA did not make the focus mode sound when the test page loaded, press ${keys.INS_SPACE} to turn focus mode on.`,
-        voiceover_macos: `Toggle Quick Nav OFF by pressing the ${keys.LEFT} and ${keys.RIGHT} keys at the same time.`,
-      },
-    };
-
     this.supportJson = supportJson;
     this.commandsJson = this.flattenObject(commandsJson);
   }
@@ -146,21 +132,8 @@ export class commandsAPI {
   }
 
   /**
-   * Get AT-specific mode switching instructions
-   * @param {string} mode - The mode of the screen reader, "reading" or "interaction"
-   * @param {string} assistiveTech - The assistive technology.
-   * @return {string} - Instructions for switching into the correct mode.
-   */
-  getModeInstructions(mode, assistiveTech) {
-    if (this.MODE_INSTRUCTIONS[mode] && this.MODE_INSTRUCTIONS[mode][assistiveTech.key]) {
-      return this.MODE_INSTRUCTIONS[mode][assistiveTech.key];
-    }
-    return '';
-  }
-
-  /**
    * Get AT-specific instruction
-   * @param {string} at - an assitve technology with any capitalization
+   * @param {string} at - an assistive technology with any capitalization
    * @return {string} - if this API knows instructions for `at`, it will return the `at` with proper capitalization
    */
   isKnownAT(at) {

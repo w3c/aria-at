@@ -27,6 +27,7 @@
  * @property {string} task
  * @property {string} title
  * @property {object} target
+ * @property {number} presentationNumber
  * @property {object[]} target.at
  * @property {string} target.at[].key
  * @property {string} target.at[].name

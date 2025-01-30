@@ -1452,8 +1452,7 @@ export class TestRunInputOutput {
      */
     function countAssertions(filter) {
       return state.commands.reduce(
-        (carry, command) =>
-          carry + command.assertions.filter(filter).length,
+        (carry, command) => carry + command.assertions.filter(filter).length,
         0
       );
     }

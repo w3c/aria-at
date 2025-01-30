@@ -739,11 +739,7 @@ function resultsTableDocument(state) {
       header: [
         'Test result: ',
         state.commands.some(
-          ({
-            assertions,
-            unexpected,
-            commandSettings: { assertionExceptions },
-          }) =>
+          ({ assertions, unexpected, commandSettings: { assertionExceptions } }) =>
             [
               // Ignore assertion if level 0 priority exception found for assertion's command
               ...assertions.filter((each, index) =>

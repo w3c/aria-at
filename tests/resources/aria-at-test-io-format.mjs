@@ -163,7 +163,7 @@ class SupportInput {
           ? collectedTest.target.at.raw
           : { key: collectedTest.target.at.key, name: collectedTest.target.at.name },
       ],
-      applies_to: {},
+      appliesTo: {},
       examples: [],
     });
   }
@@ -817,9 +817,9 @@ class BehaviorInput {
         task: json.task,
         mode,
         modeInstructions: keysInput.modeInstructions(mode),
-        appliesTo: json.applies_to,
-        specificUserInstruction: json.specific_user_instruction,
-        setupScriptDescription: json.setup_script_description,
+        appliesTo: json.appliesTo,
+        specificUserInstruction: json.specificUserInstruction,
+        setupScriptDescription: json.setupScriptDescription,
         setupTestPage: json.setupTestPage,
         testPlanStrings: {
           openExampleInstruction: normalizeString(json.testPlanStrings.openExampleInstruction),
@@ -840,7 +840,7 @@ class BehaviorInput {
           }
 
           // Only works for v2
-          let assertionExceptions = json.output_assertions.map(each => each.assertionId);
+          let assertionExceptions = json.outputAssertions.map(each => each.assertionId);
           foundCommandInfo.assertionExceptions.split(' ').forEach(each => {
             let [priority, assertionId] = each.split(':');
             const index = assertionExceptions.findIndex(each => each === assertionId);
@@ -850,12 +850,12 @@ class BehaviorInput {
           });
           // Preserve default priority or update with exception
           assertionExceptions = assertionExceptions.map((each, index) =>
-            isNaN(each) ? json.output_assertions[index].priority : each
+            isNaN(each) ? json.outputAssertions[index].priority : each
           );
 
           return { ...cs, assertionExceptions };
         }),
-        assertions: (json.output_assertions ? json.output_assertions : []).map(assertion => {
+        assertions: (json.outputAssertions ? json.outputAssertions : []).map(assertion => {
           // Tuple array [ priorityNumber, assertionText ]
           if (Array.isArray(assertion)) {
             return {
@@ -871,13 +871,6 @@ class BehaviorInput {
               assertion.tokenizedAssertionStatements?.[at.key] || assertion.assertionStatement,
           };
         }),
-        additionalAssertions: (json.additional_assertions
-          ? json.additional_assertions[at.key] || []
-          : []
-        ).map(assertionTuple => ({
-          priority: Number(assertionTuple[0]),
-          assertion: assertionTuple[1],
-        })),
         unexpectedBehaviors: unexpectedInput.behaviors(),
       },
     });
@@ -969,7 +962,6 @@ class BehaviorInput {
             };
           }
         ),
-        additionalAssertions: [],
         unexpectedBehaviors: unexpectedInput.behaviors(),
       },
     });
@@ -1317,12 +1309,6 @@ export class TestRunInputOutput {
               priority: assertion.priority,
               result: null,
             })),
-            additionalAssertions: test.additionalAssertions.map(assertion => ({
-              description: assertion.assertion,
-              highlightRequired: false,
-              priority: assertion.priority,
-              result: null,
-            })),
             unexpected: {
               highlightRequired: false,
               hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
@@ -1394,7 +1380,7 @@ export class TestRunInputOutput {
     const details = {
       name: state.info.description,
       task: state.info.task,
-      specific_user_instruction: behavior.specificUserInstruction,
+      specificUserInstruction: behavior.specificUserInstruction,
       summary: {
         1: {
           pass: countAssertions(
@@ -1426,9 +1412,7 @@ export class TestRunInputOutput {
         command: command.description,
         output: command.atOutput.value,
         support: commandSupport(command),
-        assertions: [...command.assertions, ...command.additionalAssertions].map(
-          assertionToAssertion
-        ),
+        assertions: command.assertions.map(assertionToAssertion),
         unexpected_behaviors: command.unexpected.behaviors
           .filter(({ checked }) => checked)
           .map(({ description, more }) => (more ? more.value : description)),
@@ -1449,7 +1433,7 @@ export class TestRunInputOutput {
     };
 
     function commandSupport(command) {
-      const allAssertions = [...command.assertions, ...command.additionalAssertions];
+      const allAssertions = command.assertions;
       return allAssertions.some(
         ({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS
       ) || command.unexpected.behaviors.some(({ checked }) => checked)
@@ -1463,13 +1447,13 @@ export class TestRunInputOutput {
     }
 
     /**
-     * @param {(assertion: TestRunAssertion | TestRunAdditionalAssertion) => boolean} filter
+     * @param {(assertion: TestRunAssertion) => boolean} filter
      * @returns {number}
      */
     function countAssertions(filter) {
       return state.commands.reduce(
         (carry, command) =>
-          carry + [...command.assertions, ...command.additionalAssertions].filter(filter).length,
+          carry + command.assertions.filter(filter).length,
         0
       );
     }
@@ -1486,7 +1470,7 @@ export class TestRunInputOutput {
     }
 
     /**
-     * @param {TestRunAssertion | TestRunAdditionalAssertion} assertion
+     * @param {TestRunAssertion} assertion
      * @returns {SubmitResultAssertionsJSON}
      */
     function assertionToAssertion(assertion) {
@@ -1771,7 +1755,7 @@ function invariant(test, message, ...args) {
 /**
  * @typedef SupportJSON
  * @property {ATJSON[]} ats
- * @property {object} applies_to
+ * @property {object} appliesTo
  * @property {object[]} examples
  * @property {string} examples[].directory
  * @property {string} examples[].name
@@ -1828,16 +1812,15 @@ function invariant(test, message, ...args) {
 
 /**
  * @typedef BehaviorJSON
- * @property {string} setup_script_description
+ * @property {string} setupScriptDescription
  * @property {string} setupTestPage
- * @property {string[]} applies_to
+ * @property {string[]} appliesTo
  * @property {ATMode | ATMode[]} mode
  * @property {string} task
- * @property {string} specific_user_instruction
+ * @property {string} specificUserInstruction
  * @property {Object<string, CommandInfo[]>} commandsInfo
  * @property {object} testPlanStrings
- * @property {[string, string][] | [OutputAssertion]} [output_assertions]
- * @property {{[atKey: string]: [number, string][]}} [additional_assertions]
+ * @property {[string, string][] | [OutputAssertion]} [outputAssertions]
  */
 
 /**
@@ -1863,7 +1846,6 @@ function invariant(test, message, ...args) {
  * @property {string} setupTestPage
  * @property {string[]} commands
  * @property {BehaviorAssertion[]} assertions
- * @property {BehaviorAssertion[]} additionalAssertions
  * @property {BehaviorUnexpectedItem[]} unexpectedBehaviors
  */
 
@@ -1898,7 +1880,7 @@ function invariant(test, message, ...args) {
 /**
  * @typedef SubmitResultDetailsJSON
  * @property {string} name
- * @property {string} specific_user_instruction
+ * @property {string} specificUserInstruction
  * @property {string} task
  * @property {object[]} commands
  * @property {string} commands[].command
@@ -1924,7 +1906,6 @@ function invariant(test, message, ...args) {
  */
 
 /** @typedef {import('./aria-at-test-run.mjs').TestRunAssertion} TestRunAssertion */
-/** @typedef {import('./aria-at-test-run.mjs').TestRunAdditionalAssertion} TestRunAdditionalAssertion */
 /** @typedef {import('./aria-at-test-run.mjs').TestRunCommand} TestRunCommand */
 /** @typedef {import("./aria-at-test-run.mjs").TestRunUnexpectedBehavior} TestRunUnexpected */
 

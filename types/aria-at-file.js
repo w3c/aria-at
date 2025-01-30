@@ -16,8 +16,8 @@
  * @property {object[]} ats
  * @property {string} ats[].name
  * @property {string} ats[].key
- * @property {object} applies_to
- * @property {string[]} applies_to.system
+ * @property {object} appliesTo
+ * @property {string[]} appliesTo.system
  * @property {object[]} examples
  * @property {string} examples[].directory
  * @property {string} examples[].name
@@ -49,15 +49,14 @@
 
 /**
  * @typedef AriaATFile.Behavior
- * @property {string} setup_script_description
+ * @property {string} setupScriptDescription
  * @property {string} setupTestPage
  * @property {string} assertionResponseQuestion
- * @property {string[]} applies_to
+ * @property {string[]} appliesTo
  * @property {AriaATFile.ATMode | AriaATFile.ATMode[]} mode
  * @property {string} task
- * @property {string} specific_user_instruction
- * @property {string[][]} [output_assertions]
- * @property {Object<string, AriaATFile.StringNumber[][]>} [additional_assertions]
+ * @property {string} specificUserInstruction
+ * @property {string[][]} [outputAssertions]
  * @property {Object<string, AriaATCSV.AssertionCommandInfo[]>} commandsInfo
  */
 

@@ -67,20 +67,21 @@
  * @property {number} info.testId
  * @property {string} info.title
  * @property {string} info.task
- * @property {string} [info.presentationNumber]
+ * @property {number} info.presentationNumber
  * @property {object[]} info.references
  * @property {string} info.references[].refId
  * @property {string} info.references[].value
  * @property {object} instructions
- * @property {string[]} instructions.user
- * @property {string} [instructions.mode]
- * @property {string} instructions.raw
+ * @property {string[] | string} instructions.instructions
+ * @property {string[] | string} instructions.user
+ * @property {string[] | string} instructions.mode
+ * @property {string[] | string} instructions.raw
  * @property {object} target
  * @property {object} target.at
  * @property {string} target.at.key
- * @property {string} target.at.raw original test plan file assistive tech id
+ * @property {string | object} target.at.raw
  * @property {string} target.at.name
- * @property {"interaction" | "reading"} target.mode
+ * @property {string} target.mode
  * @property {string} target.referencePage
  * @property {object} [target.setupScript]
  * @property {string} target.setupScript.name

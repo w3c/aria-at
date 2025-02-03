@@ -1,21 +1,21 @@
 assertionId,priority,assertionStatement,assertionPhrase,refIds
-maximumValue300IsNotConveyed,1,Maximum value '300' is not conveyed,maximum value '300' is not conveyed,
-minimumValue0IsNotConveyed,1,Minimum value '0' is not conveyed,minimum value '0' is not conveyed,
-nameSeek,1,Name 'Seek' is conveyed,convey name 'Seek',
-numericValue0IsNotConveyed,1,Numeric value '0' is not conveyed,numeric value '0' is not conveyed,
-numericValue105IsNotConveyed,1,Numeric value '105' is not conveyed,numeric value '105' is not conveyed,
-numericValue300IsNotConveyed,1,Numeric value '300' is not conveyed,numeric value '300' is not conveyed,
-numericValue75IsNotConveyed,1,Numeric value '75' is not conveyed,numeric value '75' is not conveyed,
-numericValue89IsNotConveyed,1,Numeric value '89' is not conveyed,numeric value '89' is not conveyed,
-numericValue90IsNotConveyed,1,Numeric value '90' is not conveyed,numeric value '90' is not conveyed,
-numericValue91IsNotConveyed,1,Numeric value '91' is not conveyed,numeric value '91' is not conveyed,
-orientationHorizontal,1,Orientation 'horizontal' is conveyed,convey orientation 'horizontal',
-roleSlider,1,Role 'slider' is conveyed,convey role 'slider',
-textualValue0Seconds,1,Textual value '0 Seconds' is conveyed,convey textual value '0 Seconds',
-textualValue1Minute15Seconds,1,Textual value '1 Minute 15 Seconds' is conveyed,convey textual value '1 Minute 15 Seconds',
-textualValue1Minute29Seconds,1,Textual value '1 Minute 29 Seconds' is conveyed,convey textual value '1 Minute 29 Seconds',
-textualValue1Minute30Seconds5Minutes,1,Textual value '1 Minute 30 Seconds of 5 Minutes' is conveyed,convey textual value '1 Minute 30 Seconds of 5 Minutes',
-textualValue1Minute31Seconds,1,Textual value '1 Minute 31 Seconds' is conveyed,convey textual value '1 Minute 31 Seconds',
-textualValue1Minute45Seconds,1,Textual value '1 Minute 45 Seconds' is conveyed,convey textual value '1 Minute 45 Seconds',
-textualValue5Minutes,1,Textual value '5 Minutes' is conveyed,convey textual value '5 Minutes',
-interactionModeEnabled,,,,
+interactionModeEnabled,2,Screen reader switched from reading mode to interaction mode|{screenReader} switched from {readingMode} to {interactionMode},switch from reading mode to interaction mode|switch from {readingMode} to {interactionMode},slider
+maximumValue300IsNotConveyed,1,Maximum value '300' is not conveyed,maximum value '300' is not conveyed,aria-valuemax
+minimumValue0IsNotConveyed,1,Minimum value '0' is not conveyed,minimum value '0' is not conveyed,aria-valuemin
+nameSeek,1,Name 'Seek' is conveyed,convey name 'Seek',aria-labelledby
+numericValue0IsNotConveyed,1,Numeric value '0' is not conveyed,numeric value '0' is not conveyed,aria-valuenow
+numericValue105IsNotConveyed,1,Numeric value '105' is not conveyed,numeric value '105' is not conveyed,aria-valuenow
+numericValue300IsNotConveyed,1,Numeric value '300' is not conveyed,numeric value '300' is not conveyed,aria-valuenow
+numericValue75IsNotConveyed,1,Numeric value '75' is not conveyed,numeric value '75' is not conveyed,aria-valuenow
+numericValue89IsNotConveyed,1,Numeric value '89' is not conveyed,numeric value '89' is not conveyed,aria-valuenow
+numericValue90IsNotConveyed,1,Numeric value '90' is not conveyed,numeric value '90' is not conveyed,aria-valuenow
+numericValue91IsNotConveyed,1,Numeric value '91' is not conveyed,numeric value '91' is not conveyed,aria-valuenow
+orientationHorizontal,1,Orientation 'horizontal' is conveyed,convey orientation 'horizontal',aria-orientation
+roleSlider,1,Role 'slider' is conveyed,convey role 'slider',slider
+textualValue0Seconds,1,Textual value '0 Seconds' is conveyed,convey textual value '0 Seconds',aria-valuetext
+textualValue1Minute15Seconds,1,Textual value '1 Minute 15 Seconds' is conveyed,convey textual value '1 Minute 15 Seconds',aria-valuetext
+textualValue1Minute29Seconds,1,Textual value '1 Minute 29 Seconds' is conveyed,convey textual value '1 Minute 29 Seconds',aria-valuetext
+textualValue1Minute30Seconds5Minutes,1,Textual value '1 Minute 30 Seconds of 5 Minutes' is conveyed,convey textual value '1 Minute 30 Seconds of 5 Minutes',aria-valuetext
+textualValue1Minute31Seconds,1,Textual value '1 Minute 31 Seconds' is conveyed,convey textual value '1 Minute 31 Seconds',aria-valuetext
+textualValue1Minute45Seconds,1,Textual value '1 Minute 45 Seconds' is conveyed,convey textual value '1 Minute 45 Seconds',aria-valuetext
+textualValue5Minutes,1,Textual value '5 Minutes' is conveyed,convey textual value '5 Minutes',aria-valuetext

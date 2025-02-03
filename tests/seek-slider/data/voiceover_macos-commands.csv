@@ -1,21 +1,17 @@
 testId,command,settings,assertionExceptions,presentationNumber
-navForwardsToSlider,ctrl+opt+right ctrl+opt+right,,,5
-navForwardsToSlider,j,singleQuickKeyNavOn,,5.1
-navForwardsToSlider,tab,,,5.2
-navBackToSlider,ctrl+opt+left ctrl+opt+left,,,6
-navBackToSlider,shift+j,singleQuickKeyNavOn,,6.1
-navBackToSlider,shift+tab,,,6.2
-reqInfoAboutSlider,ctrl+opt+f3,,,9
+navForwardsToSlider,ctrl+opt+right ctrl+opt+right,,,5.0
+navForwardsToSlider,tab,,,5.1
+navForwardsToSlider,j,singleQuickKeyNavOn,,5.3
+navBackToSlider,ctrl+opt+left ctrl+opt+left,,,6.0
+navBackToSlider,shift+tab,,,6.1
+navBackToSlider,shift+j,singleQuickKeyNavOn,,6.3
+reqInfoAboutSlider,ctrl+opt+f3,,,9.0
 reqInfoAboutSlider,ctrl+opt+f4,,,9.1
-incrementSliderByOneStep,right,quickNavOff,,11
+incrementSliderByOneStep,right,quickNavOff,,11.0
 incrementSliderByOneStep,up,quickNavOff,,11.1
-incrementSliderByOneStep,ctrl+opt+shift+down ctrl+opt+up,,,11.2
-incrementSliderByOneStep,ctrl+opt+shift+down ctrl+opt+right,,,11.3
-decrementSliderByOneStep,left,quickNavOff,,13
+decrementSliderByOneStep,left,quickNavOff,,13.0
 decrementSliderByOneStep,down,quickNavOff,,13.1
-decrementSliderByOneStep,ctrl+opt+shift+down ctrl+opt+down,,,13.2
-decrementSliderByOneStep,ctrl+opt+shift+down ctrl+opt+left,,,13.3
-incrementSliderByTenSteps,pageUp,,,15
-decrementSliderByTenSteps,pageDown,,,17
-decrementSliderToMinimumValue,home,,,19
-incrementSliderToMaximumValue,end,,,21
+incrementSliderByFifteenSteps,pageUp,,,15.0
+decrementSliderByFifteenSteps,pageDown,,,17.0
+decrementSliderToMinimumValue,home,,,19.0
+incrementSliderToMaximumValue,end,,,21.0

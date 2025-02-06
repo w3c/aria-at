@@ -7,5 +7,4 @@ radios.forEach(r => {
 });
 radios[0].classList.add('focus');
 radios[0].setAttribute('tabindex', '0');
-testPageDocument.querySelector('#group_label_1').style.display = 'none';
 radios[0].focus();

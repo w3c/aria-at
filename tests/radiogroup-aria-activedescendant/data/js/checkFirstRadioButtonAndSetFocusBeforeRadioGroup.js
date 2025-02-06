@@ -8,3 +8,4 @@ radios.forEach(r => {
 radios[0].classList.add('focus');
 radios[0].setAttribute('aria-checked', 'true');
 radioGroup.setAttribute('aria-activedescendant', radios[0].id);
+testPageDocument.querySelector('#beforelink').focus();

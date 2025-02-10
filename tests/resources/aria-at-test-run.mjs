@@ -129,6 +129,16 @@ export function instructionDocument(resultState, hooks) {
     return resultArray.length ? resultArray : null;
   }
 
+  /**
+   * @param {string} settings
+   * @param {string} screenText
+   * @returns {string|''}
+   */
+  function settingsScreenTextRender(settings, screenText) {
+    const hasScreenText = screenText && settings !== 'defaultMode';
+    return hasScreenText ? `(${screenText})` : '';
+  }
+
   const commandListInstructions = `${resultState.testPlanStrings.commandListPreface}${
     commands.some(
       (command, index) =>
@@ -189,8 +199,8 @@ export function instructionDocument(resultState, hooks) {
           description: `${lastInstruction} ${commandListInstructions}`,
           commands: commands.map((command, index) => {
             const { description: settings, text: screenText } = commandSettings[index];
-            const hasScreenText = screenText && settings !== 'defaultMode';
-            return `${command} ${hasScreenText ? `(${screenText})` : ''}`;
+            const screenTextRender = settingsScreenTextRender(settings, screenText);
+            return `${command} ${screenTextRender}`.trim();
           }),
         },
       },
@@ -230,14 +240,12 @@ export function instructionDocument(resultState, hooks) {
     const resultStateCommand = resultState.commands[commandIndex];
     const resultUnexpectedBehavior = resultStateCommand.unexpected;
     const {
-      commandSettings: { description: settings, text: settingsText, assertionExceptions },
+      commandSettings: { description: settings, text: screenText, assertionExceptions },
     } = resultStateCommand;
-
-    const hasScreenText = settingsText && settings !== 'defaultMode';
-    const screenTextRender = hasScreenText ? ` (${settingsText})` : '';
+    const screenTextRender = settingsScreenTextRender(settings, screenText);
 
     return {
-      header: `After '${command}'${screenTextRender}`,
+      header: `After '${command}' ${screenTextRender}`.trim(),
       atOutput: {
         description: [
           `${resultState.config.at.name} output after ${command}`,
@@ -255,9 +263,9 @@ export function instructionDocument(resultState, hooks) {
         change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
       assertionsHeader: {
-        descriptionHeader: `${resultState.testPlanStrings.assertionResponseQuestion} ${command}${
-          settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
-        }?`,
+        descriptionHeader:
+          `${resultState.testPlanStrings.assertionResponseQuestion} ${command} ${screenTextRender}`.trim() +
+          '?',
       },
       assertions: [
         ...assertions

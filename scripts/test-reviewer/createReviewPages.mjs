@@ -124,14 +124,14 @@ export function createReviewPages(config) {
       const atTests = [];
 
       const openExampleInstructions =
-        unescapeHTML(openExampleInstruction) + ' ' + testData.setup_script_description + '.';
+        unescapeHTML(openExampleInstruction) + ' ' + testData.setupScriptDescription + '.';
 
-      // TODO: applies_to strings are not standardized yet.
+      // TODO: appliesTo strings are not standardized yet.
       let allRelevantATs =
-        testData.applies_to[0].toLowerCase() === 'desktop screen readers' ||
-        testData.applies_to[0].toLowerCase() === 'screen readers'
+        testData.appliesTo[0].toLowerCase() === 'desktop screen readers' ||
+        testData.appliesTo[0].toLowerCase() === 'screen readers'
           ? allATKeys
-          : testData.applies_to;
+          : testData.appliesTo;
       // To remove potential duplicates
       allRelevantATs = [...new Set(allRelevantATs)];
 

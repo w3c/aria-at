@@ -15,7 +15,6 @@ export class TestRun {
       focusCommandUnexpectedBehavior: bindDispatch(userFocusCommandUnexpectedBehavior),
       openTestPage: bindDispatch(userOpenWindow),
       postResults: () => {},
-      setCommandAdditionalAssertion: bindDispatch(userChangeCommandAdditionalAssertion),
       setCommandAssertion: bindDispatch(userChangeCommandAssertion),
       setCommandHasUnexpectedBehavior: bindDispatch(userChangeCommandHasUnexpectedBehavior),
       setCommandUnexpectedBehavior: bindDispatch(userChangeCommandUnexpectedBehavior),
@@ -98,9 +97,6 @@ export function instructionDocument(resultState, hooks) {
   const commands = resultState.commands.map(({ description }) => description);
   const commandSettings = resultState.commands.map(({ commandSettings }) => commandSettings);
   const assertions = resultState.commands[0].assertions.map(({ description }) => description);
-  const additionalAssertions = resultState.commands[0].additionalAssertions.map(
-    ({ description }) => description
-  );
 
   let firstRequired = true;
   function focusFirstRequired() {
@@ -278,7 +274,6 @@ export function instructionDocument(resultState, hooks) {
               assertions.findIndex(e => e === each)
             )
           ),
-        ...additionalAssertions.map(bind(additionalAssertionResult, commandIndex)),
       ],
       unexpectedBehaviors: {
         description: [
@@ -408,26 +403,6 @@ export function instructionDocument(resultState, hooks) {
         }),
     });
   }
-
-  /**
-   * @param {number} commandIndex
-   * @param {string} assertion
-   * @param {number} assertionIndex
-   */
-  function additionalAssertionResult(commandIndex, assertion, assertionIndex) {
-    const resultAdditionalAssertion =
-      resultState.commands[commandIndex].additionalAssertions[assertionIndex];
-    return /** @type {InstructionDocumentResultsCommandsAssertion} */ ({
-      description: [assertion],
-      passed: resultAdditionalAssertion.result,
-      click: newResult =>
-        hooks.setCommandAssertion({
-          commandIndex,
-          assertionIndex,
-          result: newResult,
-        }),
-    });
-  }
 }
 
 /**
@@ -469,15 +444,6 @@ export const HasUnexpectedBehaviorMap = createEnumMap({
 export const CommonResultMap = createEnumMap({
   NOT_SET: 'notSet',
   PASS: 'pass',
-});
-
-/**
- * @typedef {EnumValues<typeof AdditionalAssertionResultMap>} AdditionalAssertionResult
- */
-
-export const AdditionalAssertionResultMap = createEnumMap({
-  ...CommonResultMap,
-  FAIL_SUPPORT: 'failSupport',
 });
 
 /**
@@ -545,36 +511,6 @@ export function userChangeCommandAssertion({ commandIndex, assertionIndex, resul
               ...command,
               assertions: command.assertions.map((assertion, assertionI) =>
                 assertionI !== assertionIndex ? assertion : { ...assertion, result }
-              ),
-            }
-      ),
-    };
-  };
-}
-
-/**
- * @param {object} props
- * @param {number} props.commandIndex
- * @param {number} props.additionalAssertionIndex
- * @param {AdditionalAssertionResult} props.result
- * @returns {(state: TestRunState) => TestRunState}
- */
-export function userChangeCommandAdditionalAssertion({
-  commandIndex,
-  additionalAssertionIndex,
-  result,
-}) {
-  return function (state) {
-    return {
-      ...state,
-      currentUserAction: UserActionMap.CHANGE_SELECTION,
-      commands: state.commands.map((command, commandI) =>
-        commandI !== commandIndex
-          ? command
-          : {
-              ...command,
-              additionalAssertions: command.additionalAssertions.map((assertion, assertionI) =>
-                assertionI !== additionalAssertionIndex ? assertion : { ...assertion, result }
               ),
             }
       ),
@@ -817,18 +753,12 @@ function resultsTableDocument(state) {
       header: [
         'Test result: ',
         state.commands.some(
-          ({
-            assertions,
-            additionalAssertions,
-            unexpected,
-            commandSettings: { assertionExceptions },
-          }) =>
+          ({ assertions, unexpected, commandSettings: { assertionExceptions } }) =>
             [
               // Ignore assertion if level 0 priority exception found for assertion's command
               ...assertions.filter((each, index) =>
                 assertionExceptions ? assertionExceptions[index] !== 0 : each
               ),
-              ...additionalAssertions,
             ].some(({ priority, result }) => priority === 1 && result !== CommonResultMap.PASS) ||
             unexpected.behaviors.some(({ checked }) => checked)
         )
@@ -851,7 +781,6 @@ function resultsTableDocument(state) {
           ...command.assertions.filter((each, index) =>
             assertionExceptions ? assertionExceptions[index] !== 0 : each
           ),
-          ...command.additionalAssertions,
         ];
 
         let passingAssertions = ['No passing assertions'];
@@ -1035,7 +964,6 @@ export function userValidateState() {
  * @property {string} setupTestPage
  * @property {string[]} commands
  * @property {[string, string][]} outputAssertions
- * @property {[number, string][]} additionalAssertions
  */
 
 /**
@@ -1219,7 +1147,6 @@ export function userValidateState() {
  * @property {(options: {commandIndex: number, unexpectedIndex: number, increment: TestRunFocusIncrement}) => void} focusCommandUnexpectedBehavior
  * @property {() => void} openTestPage
  * @property {() => void} postResults
- * @property {(options: {commandIndex: number, additionalAssertionIndex: number, result: AdditionalAssertionResult}) => void} setCommandAdditionalAssertion
  * @property {(options: {commandIndex: number, assertionIndex: number, result: AssertionResult}) => void} setCommandAssertion
  * @property {(options: {commandIndex: number, hasUnexpected: HasUnexpectedBehavior}) => void } setCommandHasUnexpectedBehavior
  * @property {(options: {commandIndex: number, atOutput: string}) => void} setCommandOutput
@@ -1250,14 +1177,6 @@ export function userValidateState() {
  */
 
 /**
- * @typedef TestRunAdditionalAssertion
- * @property {string} description
- * @property {boolean} highlightRequired
- * @property {number} priority
- * @property {AdditionalAssertionResult} result
- */
-
-/**
  * @typedef TestRunUnexpectedBehavior
  * @property {string} description
  * @property {boolean} checked
@@ -1282,7 +1201,6 @@ export function userValidateState() {
  * @property {boolean} atOutput.highlightRequired
  * @property {string} atOutput.value
  * @property {TestRunAssertion[]} assertions
- * @property {TestRunAdditionalAssertion[]} additionalAssertions
  * @property {TestRunUnexpectedGroup} unexpected
  */
 

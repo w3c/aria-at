@@ -4,7 +4,7 @@ import { unescapeHTML } from './utils.mjs';
  * @param {CollectedTest} collectedTest
  * @param {commandsAPI} commandsAPI
  * @param {string} atKey
- * @param {string} mode
+ * @param {string} mode // TODO: Standardize naming on settings instead of outdated 'mode'
  * @param {string} task
  * @param {number} testNumber
  * @returns {{defaultConfigurationInstructions, assertionsForCommandsInstructions, at, modeInstructions, userInstruction, commandsValuesForInstructions}}
@@ -64,9 +64,10 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
       // Check to see if there is any command info exceptions for current at key
       const foundCommandInfo = collectedTest.commandsInfo?.[at.key]?.find(
         c =>
-          c.assertionExceptions.includes(assertion.assertionId) &&
           c.command === assertionForCommand.key &&
-          c.settings === assertionForCommand.settings
+          c.settings === assertionForCommand.settings &&
+          c.presentationNumber === assertionForCommand.presentationNumber &&
+          c.assertionExceptions.includes(assertion.assertionId)
       );
 
       if (foundCommandInfo) {
@@ -88,13 +89,12 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
   }
 
   try {
-    assertionsForCommandsInstructions = commandsAPI.getATCommands(mode, task, {
+    assertionsForCommandsInstructions = commandsAPI.getATCommands(mode.replace(/,/g, ' '), task, {
       ...at,
       settings: {
         ...at.settings,
         defaultMode: {
-          // TODO: If there is a need to explicitly state that the
-          //  default mode is active for an AT
+          // TODO: If there is a need to explicitly state that the default mode is active for an AT
           screenText: '',
           // instructions: [at.defaultConfigurationInstructionsHTML],
         },
@@ -149,7 +149,9 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
     // An error will occur if there is no data for an AT, ignore it
   }
 
-  for (const atMode of mode.split('_')) {
+  // Create unique set
+  const foundAtModes = [...new Set([...mode.replace(/,/g, '_').split('_')])];
+  for (const atMode of foundAtModes) {
     // TODO: If there is ever need to explicitly show the instructions
     //  for an AT with the default mode active
     // const atSettingsWithDefault = {

@@ -181,116 +181,7 @@ class AllCommandsInput {
     this._value = value;
 
     /** @private */
-    this._flattened = this.flattenObject(this._value);
-  }
-
-  flattenObject(obj, parentKey) {
-    const flattened = {};
-
-    for (const key in obj) {
-      if (typeof obj[key] === 'object') {
-        const subObject = this.flattenObject(obj[key], parentKey + key + '.');
-        Object.assign(flattened, subObject);
-      } else {
-        flattened[parentKey + key] = obj[key];
-      }
-    }
-
-    return flattened;
-  }
-
-  findValueByKey(keyToFind) {
-    const keys = Object.keys(this._flattened);
-
-    // Need to specially handle VO modifier key combination
-    if (keyToFind === 'vo')
-      return this.findValuesByKeys([this._flattened['modifierAliases.vo']])[0];
-
-    if (keyToFind.includes('modifiers.') || keyToFind.includes('keys.')) {
-      const parts = keyToFind.split('.');
-      const keyToCheck = parts[parts.length - 1]; // value after the '.'
-
-      if (this._flattened[keyToFind])
-        return {
-          value: this._flattened[keyToFind],
-          key: keyToCheck,
-        };
-
-      return null;
-    }
-
-    for (const key of keys) {
-      const parts = key.split('.');
-      const parentKey = parts[0];
-      const keyToCheck = parts[parts.length - 1]; // value after the '.'
-
-      if (keyToCheck === keyToFind) {
-        if (parentKey === 'modifierAliases') {
-          return this.findValueByKey(`modifiers.${this._flattened[key]}`);
-        } else if (parentKey === 'keyAliases') {
-          return this.findValueByKey(`keys.${this._flattened[key]}`);
-        }
-
-        return {
-          value: this._flattened[key],
-          key: keyToCheck,
-        };
-      }
-    }
-
-    // Return null if the key is not found
-    return null;
-  }
-
-  findValuesByKeys(keysToFind = []) {
-    const result = [];
-
-    const patternSepWithReplacement = (keyToFind, pattern, replacement) => {
-      if (keyToFind.includes(pattern)) {
-        let value = '';
-        let validKeys = true;
-        const keys = keyToFind.split(pattern);
-
-        for (const key of keys) {
-          const keyResult = this.findValueByKey(key);
-          if (keyResult)
-            value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
-          else validKeys = false;
-        }
-        if (validKeys) return { value, key: keyToFind };
-      }
-
-      return null;
-    };
-
-    const patternSepHandler = keyToFind => {
-      let value = '';
-
-      if (keyToFind.includes(' ') && keyToFind.includes('+')) {
-        const keys = keyToFind.split(' ');
-        for (let [index, key] of keys.entries()) {
-          const keyToFindResult = this.findValueByKey(key);
-          if (keyToFindResult) keys[index] = keyToFindResult.value;
-          if (key.includes('+')) keys[index] = patternSepWithReplacement(key, '+', '+').value;
-        }
-        value = keys.join(' then ');
-
-        return { value, key: keyToFind };
-      } else if (keyToFind.includes(' '))
-        return patternSepWithReplacement(keyToFind, ' ', ' then ');
-      else if (keyToFind.includes('+')) return patternSepWithReplacement(keyToFind, '+', '+');
-    };
-
-    for (const keyToFind of keysToFind) {
-      if (keyToFind.includes(' ') || keyToFind.includes('+')) {
-        result.push(patternSepHandler(keyToFind));
-      } else {
-        const keyToFindResult = this.findValueByKey(keyToFind);
-        if (keyToFindResult) result.push(keyToFindResult);
-      }
-    }
-
-    return result;
+    this._flattened = flattenObject(this._value);
   }
 
   static fromJSON(json) {
@@ -402,10 +293,10 @@ class CommandsInput {
             const [commandId, presentationNumber] = commandWithPresentationNumber.split('|');
 
             let command;
-            const foundCommandKV = this._allCommandsInput.findValuesByKeys([commandId]);
+            const foundCommandKV = findValuesByKeys(this._allCommandsInput._flattened, [commandId]);
             if (!foundCommandKV.length) command = undefined;
             else {
-              const { value } = this._allCommandsInput.findValuesByKeys([commandId])[0];
+              const { value } = findValuesByKeys(this._allCommandsInput._flattened, [commandId])[0];
               command = value;
             }
 
@@ -1763,6 +1654,128 @@ function invariant(test, message, ...args) {
     let index = 0;
     throw new Error(message.replace(/%%|%\w/g, match => (match[0] !== '%%' ? args[index++] : '%')));
   }
+}
+
+/**
+ * @param {object} obj
+ * @param {string} parentKey
+ * @returns {object}
+ */
+export function flattenObject(obj, parentKey = '') {
+  const flattened = {};
+
+  for (const key in obj) {
+    if (typeof obj[key] === 'object') {
+      const subObject = flattenObject(obj[key], parentKey + key + '.');
+      Object.assign(flattened, subObject);
+    } else {
+      flattened[parentKey + key] = obj[key];
+    }
+  }
+
+  return flattened;
+}
+
+/**
+ * @param {object} keysMapping
+ * @param {string[]} keysToFind
+ * @returns {Object<value: string, key: string>}[]}
+ */
+export function findValuesByKeys(keysMapping, keysToFind = []) {
+  const result = [];
+
+  const patternSepWithReplacement = (keyToFind, pattern, replacement) => {
+    if (keyToFind.includes(pattern)) {
+      let value = '';
+      let validKeys = true;
+      const keys = keyToFind.split(pattern);
+
+      for (const key of keys) {
+        const keyResult = findValueByKey(keysMapping, key);
+        if (keyResult) value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
+        else validKeys = false;
+      }
+      if (validKeys) return { value, key: keyToFind };
+    }
+
+    return null;
+  };
+
+  const patternSepHandler = keyToFind => {
+    let value = '';
+
+    if (keyToFind.includes(' ') && keyToFind.includes('+')) {
+      const keys = keyToFind.split(' ');
+      for (let [index, key] of keys.entries()) {
+        const keyToFindResult = findValueByKey(keysMapping, key);
+        if (keyToFindResult) keys[index] = keyToFindResult.value;
+        if (key.includes('+')) keys[index] = patternSepWithReplacement(key, '+', '+').value;
+      }
+      value = keys.join(' then ');
+
+      return { value, key: keyToFind };
+    } else if (keyToFind.includes(' ')) return patternSepWithReplacement(keyToFind, ' ', ' then ');
+    else if (keyToFind.includes('+')) return patternSepWithReplacement(keyToFind, '+', '+');
+  };
+
+  for (const keyToFind of keysToFind) {
+    if (keyToFind.includes(' ') || keyToFind.includes('+')) {
+      result.push(patternSepHandler(keyToFind));
+    } else {
+      const keyToFindResult = findValueByKey(keysMapping, keyToFind);
+      if (keyToFindResult) result.push(keyToFindResult);
+    }
+  }
+
+  return result;
+}
+
+/**
+ * @param {object} keysMapping
+ * @param {string} keyToFind
+ * @returns {Object<value: string, key: string>} | null}
+ */
+function findValueByKey(keysMapping, keyToFind) {
+  const keys = Object.keys(keysMapping);
+
+  // Need to specially handle VO modifier key combination
+  if (keyToFind === 'vo')
+    return findValuesByKeys(keysMapping, [keysMapping['modifierAliases.vo']])[0];
+
+  if (keyToFind.includes('modifiers.') || keyToFind.includes('keys.')) {
+    const parts = keyToFind.split('.');
+    const keyToCheck = parts[parts.length - 1]; // value after the '.'
+
+    if (keysMapping[keyToFind])
+      return {
+        value: keysMapping[keyToFind],
+        key: keyToCheck,
+      };
+
+    return null;
+  }
+
+  for (const key of keys) {
+    const parts = key.split('.');
+    const parentKey = parts[0];
+    const keyToCheck = parts[parts.length - 1]; // value after the '.'
+
+    if (keyToCheck === keyToFind) {
+      if (parentKey === 'modifierAliases') {
+        return findValueByKey(keysMapping, `modifiers.${keysMapping[key]}`);
+      } else if (parentKey === 'keyAliases') {
+        return findValueByKey(keysMapping, `keys.${keysMapping[key]}`);
+      }
+
+      return {
+        value: keysMapping[key],
+        key: keyToCheck,
+      };
+    }
+  }
+
+  // Return null if the key is not found
+  return null;
 }
 
 /** @typedef {ConstructorParameters<typeof TestRun>[0]} TestRunOptions */

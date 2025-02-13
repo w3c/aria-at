@@ -1,6 +1,7 @@
 /** @deprecated See aria-at-test-io-format.mjs */
 
 import * as keys from './keys.mjs';
+import * as testIOFormat from './aria-at-test-io-format.mjs';
 
 /**
  * Class for getting AT-specific instructions for a test against a design pattern.
@@ -52,7 +53,7 @@ export class commandsAPI {
     };
 
     this.supportJson = supportJson;
-    this.commandsJson = this.flattenObject(commandsJson);
+    this.commandsJson = testIOFormat.flattenObject(commandsJson);
   }
 
   /**
@@ -108,7 +109,7 @@ export class commandsAPI {
             const commandWithPresentationNumber = c[0];
             const [commandId, presentationNumber] = commandWithPresentationNumber.split('|');
 
-            const commandKVs = this.findValuesByKeys([commandId]);
+            const commandKVs = testIOFormat.findValuesByKeys(this.commandsJson, [commandId]);
             if (!commandKVs.length) {
               throw new Error(
                 `Key instruction identifier "${commandId}" for AT "${assistiveTech.name}", mode "${mode}", task "${task}" is not an available identifier. Update your commands.json file to the correct identifier or add your identifier to tests/commands.json.`
@@ -150,7 +151,7 @@ export class commandsAPI {
 
   /**
    * Get AT-specific instruction
-   * @param {string} at - an assitve technology with any capitalization
+   * @param {string} at - an assistive technology with any capitalization
    * @return {string} - if this API knows instructions for `at`, it will return the `at` with proper capitalization
    */
   isKnownAT(at) {
@@ -160,114 +161,5 @@ export class commandsAPI {
   defaultConfigurationInstructions(at) {
     return this.supportJson.ats.find(o => o.key === at.toLowerCase())
       .defaultConfigurationInstructionsHTML;
-  }
-
-  flattenObject(obj, parentKey) {
-    const flattened = {};
-
-    for (const key in obj) {
-      if (typeof obj[key] === 'object') {
-        const subObject = this.flattenObject(obj[key], parentKey + key + '.');
-        Object.assign(flattened, subObject);
-      } else {
-        flattened[parentKey + key] = obj[key];
-      }
-    }
-
-    return flattened;
-  }
-
-  findValueByKey(keyToFind) {
-    const keys = Object.keys(this.commandsJson);
-
-    // Need to specially handle VO modifier key combination
-    if (keyToFind === 'vo')
-      return this.findValuesByKeys([this.commandsJson['modifierAliases.vo']])[0];
-
-    if (keyToFind.includes('modifiers.') || keyToFind.includes('keys.')) {
-      const parts = keyToFind.split('.');
-      const keyToCheck = parts[parts.length - 1]; // value after the '.'
-
-      if (this.commandsJson[keyToFind])
-        return {
-          value: this.commandsJson[keyToFind],
-          key: keyToCheck,
-        };
-
-      return null;
-    }
-
-    for (const key of keys) {
-      const parts = key.split('.');
-      const parentKey = parts[0];
-      const keyToCheck = parts[parts.length - 1]; // value after the '.'
-
-      if (keyToCheck === keyToFind) {
-        if (parentKey === 'modifierAliases') {
-          return this.findValueByKey(`modifiers.${this.commandsJson[key]}`);
-        } else if (parentKey === 'keyAliases') {
-          return this.findValueByKey(`keys.${this.commandsJson[key]}`);
-        }
-
-        return {
-          value: this.commandsJson[key],
-          key: keyToCheck,
-        };
-      }
-    }
-
-    // Return null if the key is not found
-    return null;
-  }
-
-  findValuesByKeys(keysToFind = []) {
-    const result = [];
-
-    const patternSepWithReplacement = (keyToFind, pattern, replacement) => {
-      if (keyToFind.includes(pattern)) {
-        let value = '';
-        let validKeys = true;
-        const keys = keyToFind.split(pattern);
-
-        for (const key of keys) {
-          const keyResult = this.findValueByKey(key);
-          if (keyResult)
-            value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
-          else validKeys = false;
-        }
-        if (validKeys) return { value, key: keyToFind };
-      }
-
-      return null;
-    };
-
-    const patternSepHandler = keyToFind => {
-      let value = '';
-
-      if (keyToFind.includes(' ') && keyToFind.includes('+')) {
-        const keys = keyToFind.split(' ');
-        for (let [index, key] of keys.entries()) {
-          const keyToFindResult = this.findValueByKey(key);
-          if (keyToFindResult) keys[index] = keyToFindResult.value;
-          if (key.includes('+')) keys[index] = patternSepWithReplacement(key, '+', '+').value;
-        }
-        value = keys.join(' then ');
-
-        return { value, key: keyToFind };
-      } else if (keyToFind.includes(' '))
-        return patternSepWithReplacement(keyToFind, ' ', ' then ');
-      else if (keyToFind.includes('+')) return patternSepWithReplacement(keyToFind, '+', '+');
-    };
-
-    for (const keyToFind of keysToFind) {
-      if (keyToFind.includes(' ') || keyToFind.includes('+')) {
-        result.push(patternSepHandler(keyToFind));
-      } else {
-        const keyToFindResult = this.findValueByKey(keyToFind);
-        if (keyToFindResult) result.push(keyToFindResult);
-      }
-    }
-
-    return result;
   }
 }

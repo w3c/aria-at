@@ -7,5 +7,4 @@ radios.forEach(r => {
 });
 radios[0].classList.add('focus');
 radioGroup.setAttribute('aria-activedescendant', radios[0].id);
-testPageDocument.querySelector('#group_label_1').style.display = 'none';
 radioGroup.focus();

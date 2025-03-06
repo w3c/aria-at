@@ -1,7 +1,7 @@
 testId,command,settings,assertionExceptions,presentationNumber
 navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,f,virtualCursor,,1
 navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,a,virtualCursor,,1.1
-navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,down down,virtualCursor,,1.2
+navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,down down down,virtualCursor,,1.2
 navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,tab,virtualCursor,2:interactionModeEnabled,1.3
 navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,tab,pcCursor,,1.4
 navBackInToRadioGroupWhereNoRadioButtonsAreChecked,shift+f,virtualCursor,,3
@@ -11,7 +11,7 @@ navBackInToRadioGroupWhereNoRadioButtonsAreChecked,shift+tab,virtualCursor,0:nam
 navBackInToRadioGroupWhereNoRadioButtonsAreChecked,shift+tab,pcCursor,0:nameThinCrust 1:nameRegularCrust 0:positionRadio3 2:positionRadio1,3.4
 navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,f,virtualCursor,,5
 navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,a,virtualCursor,,5.1
-navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,down down,virtualCursor,,5.2
+navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,down down down,virtualCursor,,5.2
 navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,tab,virtualCursor,2:interactionModeEnabled,5.3
 navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,tab,pcCursor,,5.4
 NavBackIntoRadioGroupWhereLastRadioChecked,shift+f,virtualCursor,,7
@@ -20,7 +20,7 @@ NavBackIntoRadioGroupWhereLastRadioChecked,up up,virtualCursor,,7.2
 NavBackIntoRadioGroupWhereLastRadioChecked,shift+tab,virtualCursor,2:interactionModeEnabled,7.3
 NavBackIntoRadioGroupWhereLastRadioChecked,shift+tab,pcCursor,,7.4
 navOutStartRadioGroup,shift+u,virtualCursor,3:groupBoundary ,10
-navOutStartRadioGroup,up up,virtualCursor,,10.1
+navOutStartRadioGroup,up up up,virtualCursor,,10.1
 navOutStartRadioGroup,shift+tab,virtualCursor,3:groupBoundary ,10.2
 navOutStartRadioGroup,shift+tab,pcCursor,3:groupBoundary ,10.3
 navOutEndRadioGroup,u,virtualCursor,3:groupBoundary ,12

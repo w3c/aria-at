@@ -1,0 +1,104 @@
+{
+  "task": "incrementSliderByOneStep",
+  "mode": "pcCursor_focusMode_arrowQuickKeyNavOff_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the slider",
+  "specific_user_instruction": "With focus on the 'Seek' slider, set its value to 1 Minute 31 Seconds.",
+  "setupTestPage": "setFocusOnSlider",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "textualValue1Minute31Seconds",
+      "priority": 1,
+      "assertionStatement": "Text value, '1 Minute 31 Seconds', is conveyed",
+      "assertionPhrase": "convey text value, '1 Minute 31 Seconds'",
+      "refIds": "aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numericValue91IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Numeric value, '91', is not conveyed",
+      "assertionPhrase": "not convey numeric value, '91'",
+      "refIds": "aria-valuenow",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "incrementSliderByOneStep",
+        "command": "right",
+        "settings": "pcCursor",
+        "presentationNumber": 10,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "incrementSliderByOneStep",
+        "command": "up",
+        "settings": "pcCursor",
+        "presentationNumber": 10.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "incrementSliderByOneStep",
+        "command": "right",
+        "settings": "focusMode",
+        "presentationNumber": 10,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "incrementSliderByOneStep",
+        "command": "up",
+        "settings": "focusMode",
+        "presentationNumber": 10.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "incrementSliderByOneStep",
+        "command": "right",
+        "settings": "arrowQuickKeyNavOff",
+        "presentationNumber": 11,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "incrementSliderByOneStep",
+        "command": "up",
+        "settings": "arrowQuickKeyNavOff",
+        "presentationNumber": 11.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "incrementSliderByOneStep",
+        "command": "ctrl+opt+shift+down ctrl+opt+right",
+        "settings": "defaultMode",
+        "presentationNumber": 11.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "incrementSliderByOneStep",
+        "command": "ctrl+opt+shift+down ctrl+opt+up",
+        "settings": "defaultMode",
+        "presentationNumber": 11.3,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

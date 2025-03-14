@@ -1,0 +1,254 @@
+{
+  "info": {
+    "testId": "reqInfoAboutSlider",
+    "title": "Request information about a slider",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/slider/examples/slider-seek/",
+        "linkText": "APG Example: Media Seek Slider"
+      },
+      {
+        "refId": "slider",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#slider",
+        "linkText": "slider ARIA Specification"
+      },
+      {
+        "refId": "aria-labelledby",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+        "linkText": "aria-labelledby ARIA Specification"
+      },
+      {
+        "refId": "aria-valuetext",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuetext",
+        "linkText": "aria-valuetext ARIA Specification"
+      },
+      {
+        "refId": "aria-valuenow",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuenow",
+        "linkText": "aria-valuenow ARIA Specification"
+      },
+      {
+        "refId": "aria-orientation",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-orientation",
+        "linkText": "aria-orientation ARIA Specification"
+      },
+      {
+        "refId": "aria-valuemin",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuemin",
+        "linkText": "aria-valuemin ARIA Specification"
+      },
+      {
+        "refId": "aria-valuemax",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuemax",
+        "linkText": "aria-valuemax ARIA Specification"
+      }
+    ],
+    "presentationNumber": 9
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "voiceover_macos",
+      "settings": "defaultMode",
+      "name": "VoiceOver for macOS",
+      "raw": {
+        "name": "VoiceOver for macOS",
+        "key": "voiceover_macos",
+        "defaultConfigurationInstructionsHTML": "Configure VoiceOver with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "VoiceOver",
+          "readingCursor": "VoiceOver cursor"
+        },
+        "settings": {
+          "quickNavOn": {
+            "screenText": "quick nav on",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'quick nav off', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back on."
+            ]
+          },
+          "quickNavOff": {
+            "screenText": "quick nav off",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'quick nav on', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back off."
+            ]
+          },
+          "arrowQuickKeyNavOn": {
+            "screenText": "arrow quick key nav on",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'arrow quick key nav off', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back on."
+            ]
+          },
+          "arrowQuickKeyNavOff": {
+            "screenText": "arrow quick key nav off",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'arrow quick key nav on', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back off."
+            ]
+          },
+          "singleQuickKeyNavOn": {
+            "screenText": "single quick key nav on",
+            "instructions": [
+              "Press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt;.",
+              "If VoiceOver said 'single quick key nav off', press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt; again to turn it back on."
+            ]
+          },
+          "singleQuickKeyNavOff": {
+            "screenText": "single quick key nav off",
+            "instructions": [
+              "Press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt;.",
+              "If VoiceOver said 'single quick key nav on', press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt; again to turn it back off."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2021-9-21_14461\\slider-seek.setFocusOnSlider.html",
+    "setupScript": {
+      "script": "setFocusOnSlider",
+      "scriptDescription": "sets focus on the slider",
+      "name": "setFocusOnSlider",
+      "source": "// sets focus on the slider\ntestPageDocument.querySelector('[role=\"slider\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "With focus on the 'Seek' slider, read information about the slider.",
+    "mode": {
+      "defaultMode": [
+        "Configure VoiceOver with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "ctrl+opt+f3",
+      "keypresses": [
+        {
+          "id": "ctrl+opt+f3",
+          "keystroke": "Control+Option+F3"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Control+Option+F3",
+      "presentationNumber": 9,
+      "settings": "defaultMode"
+    },
+    {
+      "id": "ctrl+opt+f4",
+      "keypresses": [
+        {
+          "id": "ctrl+opt+f4",
+          "keystroke": "Control+Option+F4"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Control+Option+F4",
+      "presentationNumber": 9.1,
+      "settings": "defaultMode"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleSlider",
+      "priority": 1,
+      "assertionStatement": "Role 'slider' is conveyed",
+      "assertionPhrase": "convey role 'slider'",
+      "refIds": "slider",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameSeek",
+      "priority": 1,
+      "assertionStatement": "Name 'Seek' is conveyed",
+      "assertionPhrase": "convey name 'Seek'",
+      "refIds": "aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "textualValue1Minute30Seconds5Minutes",
+      "priority": 1,
+      "assertionStatement": "Text value, '1 Minute 30 Seconds of 5 Minutes', is conveyed",
+      "assertionPhrase": "convey text value, '1 Minute 30 Seconds of 5 Minutes'",
+      "refIds": "aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numericValue90IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Numeric value, '90', is not conveyed",
+      "assertionPhrase": "not convey numeric value, '90'",
+      "refIds": "aria-valuenow",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "orientationHorizontal",
+      "priority": 2,
+      "assertionStatement": "Orientation 'horizontal' is conveyed",
+      "assertionPhrase": "convey orientation 'horizontal'",
+      "refIds": "aria-orientation",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "minimumValue0IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Minimum value, '0', is not conveyed",
+      "assertionPhrase": "not convey minimum value, '0'",
+      "refIds": "aria-valuemin",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "maximumValue300IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Maximum value, '300', is not conveyed",
+      "assertionPhrase": "not convey maximum value, '300'",
+      "refIds": "aria-valuemax",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

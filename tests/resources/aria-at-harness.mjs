@@ -122,10 +122,12 @@ export function verifyATBehavior(atBehavior) {
 }
 
 export async function loadCollectedTestAsync(testRoot, testFileName) {
+  // eslint-disable-next-line n/no-unsupported-features/node-builtins -- fetch is experimental till Node.js 21
   const collectedTestResponse = await fetch(`${testRoot}/${testFileName}`);
   const collectedTestJson = await collectedTestResponse.json();
 
   // v2 commands.json
+  // eslint-disable-next-line n/no-unsupported-features/node-builtins -- fetch is experimental till Node.js 21
   const commandsJsonResponse = await fetch('../commands.json');
   if (commandsJsonResponse.ok) {
     const commandsJson = await commandsJsonResponse.json();

@@ -1,0 +1,21 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToSlider,ctrl+opt+right ctrl+opt+right,,,5
+navForwardsToSlider,tab,,,5.1
+navForwardsToSlider,j,singleQuickKeyNavOn,,5.2
+navBackToSlider,ctrl+opt+left,,,6
+navBackToSlider,shift+tab,,,6.1
+navBackToSlider,shift+j,singleQuickKeyNavOn,,6.2
+reqInfoAboutSlider,ctrl+opt+f3,,,9
+reqInfoAboutSlider,ctrl+opt+f4,,,9.1
+incrementSliderByOneStep,right,quickNavOff,,11
+incrementSliderByOneStep,up,quickNavOff,,11.1
+incrementSliderByOneStep,vo+shift+down vo+right,,,11.2
+incrementSliderByOneStep,vo+shift+down vo+up,,,11.3
+decrementSliderByOneStep,left,quickNavOff,,13
+decrementSliderByOneStep,down,quickNavOff,,13.1
+decrementSliderByOneStep,vo+shift+down vo+left,,,13.2
+decrementSliderByOneStep,vo+shift+down vo+down,,,13.3
+incrementSliderByTwentySteps,pageUp,,,15
+decrementSliderByTwentySteps,pageDown,,,17
+decrementSliderToMinimumValue,home,,,19
+incrementSliderToMaximumValue,end,,,21

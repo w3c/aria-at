@@ -119,7 +119,7 @@
         }
       }
     },
-    "referencePage": "reference\\2021-9-21_142211\\slider-temperature.setFocusBeforeSlider.html",
+    "referencePage": "reference/2021-9-21_142211/slider-temperature.setFocusBeforeSlider.html",
     "setupScript": {
       "script": "setFocusBeforeSlider",
       "scriptDescription": "sets focus on a link before the slider",
@@ -146,8 +146,12 @@
   },
   "commands": [
     {
-      "id": "down down",
+      "id": "down down down",
       "keypresses": [
+        {
+          "id": "down",
+          "keystroke": "Down Arrow"
+        },
         {
           "id": "down",
           "keystroke": "Down Arrow"
@@ -158,7 +162,7 @@
         }
       ],
       "assertionExceptions": [],
-      "keystroke": "Down Arrow then Down Arrow",
+      "keystroke": "Down Arrow then Down Arrow then Down Arrow",
       "presentationNumber": 1,
       "settings": "browseMode"
     },

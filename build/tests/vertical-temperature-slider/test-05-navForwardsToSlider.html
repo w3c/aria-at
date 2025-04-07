@@ -164,7 +164,7 @@
     "nvda": [
       {
         "testId": "navForwardsToSlider",
-        "command": "down down",
+        "command": "down down down",
         "settings": "browseMode",
         "presentationNumber": 1,
         "assertionExceptions": ""
@@ -228,7 +228,7 @@
     "pcCursor": { "jaws": [ [ "tab|1.3" ] ] },
     "browseMode": {
       "nvda": [
-        [ "down down|1" ],
+        [ "down down down|1" ],
         [ "f|1.1" ],
         [ "tab|1.2" ]
       ]
@@ -249,7 +249,7 @@
 };
     initialize(supportJson, commandJson, allCommandsJson);
     verifyATBehavior(testJson);
-    displayTestPageAndInstructions("reference\\2021-9-21_142211\\slider-temperature.setFocusBeforeSlider.html");
+    displayTestPageAndInstructions("reference/2021-9-21_142211/slider-temperature.setFocusBeforeSlider.html");
   });
 </script>
   

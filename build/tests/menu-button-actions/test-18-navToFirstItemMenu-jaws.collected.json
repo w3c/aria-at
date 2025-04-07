@@ -85,12 +85,12 @@
         }
       }
     },
-    "referencePage": "reference\\2024-8-28_1295\\menu-button-actions.openMenuAndSetFocusToLastItem.html",
+    "referencePage": "reference/2024-8-28_1295/menu-button-actions.openMenuAndSetFocusToLastItem.html",
     "setupScript": {
       "script": "openMenuAndSetFocusToLastItem",
       "scriptDescription": "opens the menu, and sets focus on 'Action 4'",
       "name": "openMenuAndSetFocusToLastItem",
-      "source": "// opens the menu, and sets focus on 'Action 4'\r\ntestPageDocument.defaultView.menuController.openPopup();\r\ntestPageDocument.defaultView.menuController.setFocusToLastMenuitem();\r\n",
+      "source": "// opens the menu, and sets focus on 'Action 4'\ntestPageDocument.defaultView.menuController.openPopup();\ntestPageDocument.defaultView.menuController.setFocusToLastMenuitem();\n",
       "modulePath": "scripts/openMenuAndSetFocusToLastItem.module.js",
       "jsonpPath": "scripts/openMenuAndSetFocusToLastItem.jsonp.js"
     }

@@ -85,12 +85,12 @@
         }
       }
     },
-    "referencePage": "reference\\2024-8-28_1295\\menu-button-actions.openMenuAndSetFocusToFirstItem.html",
+    "referencePage": "reference/2024-8-28_1295/menu-button-actions.openMenuAndSetFocusToFirstItem.html",
     "setupScript": {
       "script": "openMenuAndSetFocusToFirstItem",
       "scriptDescription": "opens the menu, and sets focus on 'Action 1'",
       "name": "openMenuAndSetFocusToFirstItem",
-      "source": "// opens the menu, and sets focus on 'Action 1'\r\ntestPageDocument.defaultView.menuController.openPopup();\r\ntestPageDocument.defaultView.menuController.setFocusToFirstMenuitem();\r\n",
+      "source": "// opens the menu, and sets focus on 'Action 1'\ntestPageDocument.defaultView.menuController.openPopup();\ntestPageDocument.defaultView.menuController.setFocusToFirstMenuitem();\n",
       "modulePath": "scripts/openMenuAndSetFocusToFirstItem.module.js",
       "jsonpPath": "scripts/openMenuAndSetFocusToFirstItem.jsonp.js"
     }

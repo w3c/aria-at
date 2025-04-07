@@ -164,7 +164,7 @@
     "nvda": [
       {
         "testId": "navBackToSlider",
-        "command": "up up",
+        "command": "up",
         "settings": "browseMode",
         "presentationNumber": 4,
         "assertionExceptions": ""
@@ -230,7 +230,7 @@
     },
     "browseMode": {
       "nvda": [
-        [ "up up|4" ],
+        [ "up|4" ],
         [ "shift+f|4.1" ],
         [ "shift+tab|4.2" ]
       ]
@@ -251,7 +251,7 @@
 };
     initialize(supportJson, commandJson, allCommandsJson);
     verifyATBehavior(testJson);
-    displayTestPageAndInstructions("reference\\2021-9-21_142211\\slider-temperature.setFocusAfterSlider.html");
+    displayTestPageAndInstructions("reference/2021-9-21_142211/slider-temperature.setFocusAfterSlider.html");
   });
 </script>
   

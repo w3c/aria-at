@@ -208,16 +208,16 @@
 	testPageDocument.defaultView.comboboxController.open();
 	testPageDocument.defaultView.comboboxController.comboboxNode.select();
 	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected: function(testPageDocument){
+	// sets focus on and expands the combobox, sets the combobox value to 'a', and de-selects all text in the input
+	testPageDocument.defaultView.comboboxController.setValue('a');
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
 },	moveFocusToAndExpandComboboxAndSetValueToAlabama: function(testPageDocument){
 	// sets focus on and expands the combobox, and sets the combobox value to 'Alabama'
 	testPageDocument.defaultView.comboboxController.setValue('Alabama');
 	testPageDocument.defaultView.comboboxController.open();
 	testPageDocument.defaultView.comboboxController.comboboxNode.select();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected: function(testPageDocument){
-	// sets focus on and expands the combobox, sets the combobox value to 'a', and de-selects all text in the input
-	testPageDocument.defaultView.comboboxController.setValue('a');
-	testPageDocument.defaultView.comboboxController.open();
 	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
 },	moveFocusToCombobox: function(testPageDocument){
 	// sets focus on the combobox
@@ -1029,7 +1029,7 @@
 
     <h2 class="jaws nvda voiceover_macos">Test 1: Navigate forwards to a slider</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Mon Apr 7 10:29:32 2025 -0600</li>
+      <li>Last Edited: Mon Apr 7 10:55:37 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-05-navForwardsToSlider.html?at=jaws">JAWS</a></li>
@@ -1264,7 +1264,7 @@
           <li>Activate the "Open test page" button, which opens the example to test in a new window and runs a script that sets focus on a link before the slider.</li>
           <li>Starting at the &#39;Navigate forwards from here&#39; link, navigate to the &#39;Temperature&#39; slider. Do this with each of the following commands or command sequences. If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.
             <ul>
-                <li>Down Arrow then Down Arrow (browse mode on)</li>
+                <li>Down Arrow then Down Arrow then Down Arrow (browse mode on)</li>
                 <li>f (browse mode on)</li>
                 <li>Tab (browse mode on)</li>
                 <li>Tab (focus mode on)</li>
@@ -1281,7 +1281,7 @@
               <li>Press <kbd>Insert</kbd>+<kbd>Space</kbd>.</li>
               <li>If NVDA made the browse mode sound, press <kbd>Insert</kbd>+<kbd>Space</kbd> again to turn focus mode back on.</li>
           </ol>
-          <h4 id="t1-nvda-c1">Down Arrow then Down Arrow (browse mode on): 3 MUST, 4 SHOULD, AND 0 MAY assertions</h4>
+          <h4 id="t1-nvda-c1">Down Arrow then Down Arrow then Down Arrow (browse mode on): 3 MUST, 4 SHOULD, AND 0 MAY assertions</h4>
           <table aria-labelledby="t1-nvda-c1">
             <tr>
               <th>Priority</th>
@@ -1610,7 +1610,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 2: Navigate backwards to a slider</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Mon Apr 7 10:29:32 2025 -0600</li>
+      <li>Last Edited: Mon Apr 7 10:55:37 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-06-navBackToSlider.html?at=jaws">JAWS</a></li>
@@ -1845,7 +1845,7 @@
           <li>Activate the "Open test page" button, which opens the example to test in a new window and runs a script that sets focus on a link after the slider.</li>
           <li>Starting at the &#39;Navigate backwards from here&#39; link, navigate to the &#39;Temperature&#39; slider. Do this with each of the following commands or command sequences. If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.
             <ul>
-                <li>Up Arrow then Up Arrow (browse mode on)</li>
+                <li>Up Arrow (browse mode on)</li>
                 <li>Shift+f (browse mode on)</li>
                 <li>Shift+Tab (browse mode on)</li>
                 <li>Shift+Tab (focus mode on)</li>
@@ -1862,7 +1862,7 @@
               <li>Press <kbd>Insert</kbd>+<kbd>Space</kbd>.</li>
               <li>If NVDA made the browse mode sound, press <kbd>Insert</kbd>+<kbd>Space</kbd> again to turn focus mode back on.</li>
           </ol>
-          <h4 id="t2-nvda-c1">Up Arrow then Up Arrow (browse mode on): 3 MUST, 4 SHOULD, AND 0 MAY assertions</h4>
+          <h4 id="t2-nvda-c1">Up Arrow (browse mode on): 3 MUST, 4 SHOULD, AND 0 MAY assertions</h4>
           <table aria-labelledby="t2-nvda-c1">
             <tr>
               <th>Priority</th>
@@ -2191,7 +2191,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 3: Request information about a slider</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Mon Apr 7 10:29:32 2025 -0600</li>
+      <li>Last Edited: Mon Apr 7 10:55:37 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-09-reqInfoAboutSlider.html?at=jaws">JAWS</a></li>
@@ -2713,7 +2713,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 4: Increment a slider by one step</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Mon Apr 7 10:29:32 2025 -0600</li>
+      <li>Last Edited: Mon Apr 7 10:55:37 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-11-incrementSliderByOneStep.html?at=jaws">JAWS</a></li>
@@ -2937,7 +2937,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 5: Decrement a slider by one step</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Mon Apr 7 10:29:32 2025 -0600</li>
+      <li>Last Edited: Mon Apr 7 10:55:37 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-13-decrementSliderByOneStep.html?at=jaws">JAWS</a></li>
@@ -3161,7 +3161,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 6: Increment a slider by twenty steps</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Mon Apr 7 10:29:32 2025 -0600</li>
+      <li>Last Edited: Mon Apr 7 10:55:37 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-15-incrementSliderByTwentySteps.html?at=jaws">JAWS</a></li>
@@ -3285,7 +3285,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 7: Decrement a slider by twenty steps</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Mon Apr 7 10:29:32 2025 -0600</li>
+      <li>Last Edited: Mon Apr 7 10:55:37 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-17-decrementSliderByTwentySteps.html?at=jaws">JAWS</a></li>
@@ -3409,7 +3409,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 8: Decrement a slider to the minimum value</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Mon Apr 7 10:29:32 2025 -0600</li>
+      <li>Last Edited: Mon Apr 7 10:55:37 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-19-decrementSliderToMinimumValue.html?at=jaws">JAWS</a></li>
@@ -3533,7 +3533,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 9: Increment a slider to the maximum value</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Mon Apr 7 10:29:32 2025 -0600</li>
+      <li>Last Edited: Mon Apr 7 10:55:37 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-21-incrementSliderToMaximumValue.html?at=jaws">JAWS</a></li>

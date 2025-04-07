@@ -208,16 +208,16 @@
 	testPageDocument.defaultView.comboboxController.open();
 	testPageDocument.defaultView.comboboxController.comboboxNode.select();
 	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+},	moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected: function(testPageDocument){
+	// sets focus on and expands the combobox, sets the combobox value to 'a', and de-selects all text in the input
+	testPageDocument.defaultView.comboboxController.setValue('a');
+	testPageDocument.defaultView.comboboxController.open();
+	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
 },	moveFocusToAndExpandComboboxAndSetValueToAlabama: function(testPageDocument){
 	// sets focus on and expands the combobox, and sets the combobox value to 'Alabama'
 	testPageDocument.defaultView.comboboxController.setValue('Alabama');
 	testPageDocument.defaultView.comboboxController.open();
 	testPageDocument.defaultView.comboboxController.comboboxNode.select();
-	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
-},	moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected: function(testPageDocument){
-	// sets focus on and expands the combobox, sets the combobox value to 'a', and de-selects all text in the input
-	testPageDocument.defaultView.comboboxController.setValue('a');
-	testPageDocument.defaultView.comboboxController.open();
 	testPageDocument.defaultView.comboboxController.comboboxNode.focus();
 },	moveFocusToCombobox: function(testPageDocument){
 	// sets focus on the combobox

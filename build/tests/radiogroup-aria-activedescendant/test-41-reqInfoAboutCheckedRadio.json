@@ -1,0 +1,163 @@
+{
+  "task": "reqInfoAboutCheckedRadio",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the first radio button, and sets its state to checked",
+  "specific_user_instruction": "Starting at the 'Regular crust' radio button, read information about the radio button.",
+  "setupTestPage": "setFocusOnAndCheckFirstRadioButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleRadio",
+      "priority": 1,
+      "assertionStatement": "Role 'radio button' is conveyed",
+      "assertionPhrase": "convey role 'radio button'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameRegularCrust",
+      "priority": 1,
+      "assertionStatement": "Name of the radio button, 'Regular crust', is conveyed",
+      "assertionPhrase": "convey name of the radio button, 'Regular crust'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateRadioChecked",
+      "priority": 1,
+      "assertionStatement": "State of the radio button, 'checked', is conveyed",
+      "assertionPhrase": "convey state of the radio button, 'checked'",
+      "refIds": "aria-checked",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionRadio1",
+      "priority": 2,
+      "assertionStatement": "Position of the radio button, 1, is conveyed",
+      "assertionPhrase": "convey position of the radio button, 1",
+      "refIds": "aria-activedescendant aria-posinset radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberRadioButtonsGroup3",
+      "priority": 2,
+      "assertionStatement": "Number of radio buttons in the group, 3, is conveyed",
+      "assertionPhrase": "convey number of radio buttons in the group, 3",
+      "refIds": "aria-activedescendant aria-setsize radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleGroup",
+      "priority": 2,
+      "assertionStatement": "Role 'group' is conveyed",
+      "assertionPhrase": "convey role 'group'",
+      "refIds": "radiogroup",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameGroupPizzaCrust",
+      "priority": 2,
+      "assertionStatement": "Name of the group, 'Pizza Crust', is conveyed",
+      "assertionPhrase": "convey name of the group, 'Pizza Crust'",
+      "refIds": "aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "reqInfoAboutCheckedRadio",
+        "command": "ins+tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 55,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutCheckedRadio",
+        "command": "ins+up",
+        "settings": "virtualCursor",
+        "presentationNumber": 55.1,
+        "assertionExceptions": "0:positionRadio1 0:numberRadioButtonsGroup3 0:roleGroup 0:nameGroupPizzaCrust"
+      },
+      {
+        "testId": "reqInfoAboutCheckedRadio",
+        "command": "ins+tab",
+        "settings": "pcCursor",
+        "presentationNumber": 55.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutCheckedRadio",
+        "command": "ins+up",
+        "settings": "pcCursor",
+        "presentationNumber": 55.3,
+        "assertionExceptions": "0:positionRadio1 0:numberRadioButtonsGroup3 0:roleGroup 0:nameGroupPizzaCrust"
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "reqInfoAboutCheckedRadio",
+        "command": "ins+tab",
+        "settings": "browseMode",
+        "presentationNumber": 55,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutCheckedRadio",
+        "command": "ins+up",
+        "settings": "browseMode",
+        "presentationNumber": 55.1,
+        "assertionExceptions": "0:positionRadio1 0:numberRadioButtonsGroup3 0:roleGroup 0:nameGroupPizzaCrust"
+      },
+      {
+        "testId": "reqInfoAboutCheckedRadio",
+        "command": "ins+tab",
+        "settings": "focusMode",
+        "presentationNumber": 55.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutCheckedRadio",
+        "command": "ins+up",
+        "settings": "focusMode",
+        "presentationNumber": 55.3,
+        "assertionExceptions": "0:positionRadio1 0:numberRadioButtonsGroup3 0:roleGroup 0:nameGroupPizzaCrust"
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "reqInfoAboutCheckedRadio",
+        "command": "ctrl+opt+f3",
+        "settings": "defaultMode",
+        "presentationNumber": 55,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutCheckedRadio",
+        "command": "ctrl+opt+f4",
+        "settings": "defaultMode",
+        "presentationNumber": 55.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Decrement a slider thumb by one step</title>
+<link rel="help" href="https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/examples/slider-multithumb/">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+
+<script>
+  let scripts = {
+		setFocusOnSlider: function(testPageDocument){
+			// sets focus on the slider
+			testPageDocument.querySelector('[role="slider"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "decrement a slider thumb by one step",
+  "mode": "interaction",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the first slider thumb",
+  "specific_user_instruction": "With focus on the 'Hotel Minimum Price in US dollars' slider thumb, set its value to 99.",
+  "setupTestPage": "setFocusOnSlider",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Value '99' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "decrement a slider thumb by one step": {
+    "interaction": {
+      "jaws": [ [ "LEFT" ], [ "DOWN" ] ],
+      "nvda": [ [ "LEFT" ], [ "DOWN" ] ],
+      "voiceover_macos": [ [ "LEFT" ], [ "DOWN" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2023-3-20_134749\\slider-multithumb.setFocusOnSlider.html");
+  });
+</script>
+  

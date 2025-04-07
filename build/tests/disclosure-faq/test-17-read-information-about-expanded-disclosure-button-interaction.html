@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read information about an expanded disclosure button in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/disclosure/disclosure-faq.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script>
+  let scripts = {
+		moveFocusToAndExpandFirstDisclosure: function(testPageDocument){
+			// sets focus on the first disclosure button, and sets its state to expanded
+			const btn = testPageDocument.querySelector('button[aria-controls="faq1_desc"]');
+			const answer = testPageDocument.querySelector('#faq1_desc');
+			btn.setAttribute('aria-expanded', 'true');
+			answer.style.display = 'block';
+			// Hide the link after the button so it doesn't get in the way
+			testPageDocument.querySelector('#afterlink').style.display = 'none';
+			btn.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "read information about expanded disclosure button",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on the first disclosure button, and sets its state to expanded",
+  "specific_user_instruction": "With focus on the first disclosure button in the list of frequently asked questions, read information about the button.",
+  "setupTestPage": "moveFocusToAndExpandFirstDisclosure",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name, 'What do I do if I have a permit for an assigned lot, but can't find a space there?', is conveyed"
+    ],
+    [
+      "1",
+      "State of the button (expanded) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about expanded disclosure button": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2020-12-3_11559\\disclosure-faq.moveFocusToAndExpandFirstDisclosure.html");
+  });
+</script>
+  

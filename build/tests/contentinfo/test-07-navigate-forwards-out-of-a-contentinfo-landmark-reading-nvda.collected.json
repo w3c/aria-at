@@ -1,0 +1,96 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "navigate forwards out of a contentinfo landmark",
+    "title": "Navigate forwards out of a contentinfo landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/contentinfo.html"
+      },
+      {
+        "refId": "contentinfo",
+        "value": "https://w3c.github.io/aria/#contentinfo"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2021-10-24_151010\\contentinfo.setFocusOnBottomLink.html",
+    "setupScript": {
+      "name": "setFocusOnBottomLink",
+      "description": "sets focus on the 'Bottom' link",
+      "source": "// sets focus on the 'Bottom' link\ntestPageDocument.getElementById('bottom').focus();\n",
+      "modulePath": "scripts/setFocusOnBottomLink.module.js",
+      "jsonpPath": "scripts/setFocusOnBottomLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link."
+    ],
+    "raw": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+    "mode": "Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
+    {
+      "id": "U",
+      "keystroke": "U",
+      "keypresses": [
+        {
+          "id": "U",
+          "keystroke": "U"
+        }
+      ]
+    },
+    {
+      "id": "K",
+      "keystroke": "K",
+      "keypresses": [
+        {
+          "id": "K",
+          "keystroke": "K"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "contentinfo landmark boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Navigate backwards from here' is conveyed"
+    }
+  ]
+}

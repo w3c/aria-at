@@ -1,0 +1,40 @@
+{
+  "task": "navigate forwards to spin button",
+  "mode": "interaction",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets the date picker to March 19, 2021, hides the previous/next arrow buttons and sets focus on a link before the 'Day' spin button",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Day' spin button.",
+  "setupTestPage": "setFocusBeforeSpinButtonAndSetPredefinedDate",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the group is conveyed as: 'Choose a Date current value is Friday, March nineteenth, 2021'"
+    ],
+    [
+      "1",
+      "Role 'spin button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Day' is conveyed"
+    ],
+    [
+      "1",
+      "Value 'nineteenth' is conveyed"
+    ]
+  ]
+}

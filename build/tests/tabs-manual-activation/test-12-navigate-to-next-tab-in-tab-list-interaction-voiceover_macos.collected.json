@@ -1,0 +1,74 @@
+{
+  "info": {
+    "testId": 12,
+    "task": "navigate to next tab in tab list",
+    "title": "Navigate to the next tab in a tab list",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/tabs/tabs-2/tabs.html"
+      },
+      {
+        "refId": "tab",
+        "value": "https://w3c.github.io/aria/#tab"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2021-2-15_124757\\tabs.setFocusOnFirstTab.html",
+    "setupScript": {
+      "name": "setFocusOnFirstTab",
+      "description": "sets focus on the first tab",
+      "source": "// sets focus on the first tab\ntestPageDocument.querySelector('#nils').focus();\n",
+      "modulePath": "scripts/setFocusOnFirstTab.module.js",
+      "jsonpPath": "scripts/setFocusOnFirstTab.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Nils Frahm' tab, navigate to the next tab."
+    ],
+    "raw": "With focus on the 'Nils Frahm' tab, navigate to the next tab.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_RIGHT",
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'tab' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Agnes Obel' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Position of tab in the tab list, 2, is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Number of tabs in the tab list, 3, is conveyed"
+    }
+  ]
+}

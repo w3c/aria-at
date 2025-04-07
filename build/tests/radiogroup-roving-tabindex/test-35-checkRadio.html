@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Check a radio button</title>
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-checked" title="aria-checked ARIA Specification">
+
+<script>
+  let scripts = {
+		setFocusOnFirstRadioButton: function(testPageDocument){
+			// sets focus on the first radio button
+			let radios = testPageDocument.querySelectorAll('[role="radio"]');
+			radios.forEach(r => {
+			r.setAttribute('tabindex', '-1');
+			r.setAttribute('aria-checked', 'false');
+			r.classList.remove('focus');
+			});
+			radios[0].classList.add('focus');
+			radios[0].setAttribute('tabindex', '0');
+			radios[0].focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "checkRadio",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the first radio button",
+  "specific_user_instruction": "Starting at the 'Regular crust' radio button, check the radio button.",
+  "setupTestPage": "setFocusOnFirstRadioButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "stateChangeToChecked",
+      "priority": 1,
+      "assertionStatement": "Change in state of the radio button to 'checked' is conveyed",
+      "assertionPhrase": "convey change in state of the radio button to 'checked'",
+      "refIds": "aria-checked",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 0,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "checkRadio",
+        "command": "space",
+        "settings": "virtualCursor",
+        "presentationNumber": 45,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "checkRadio",
+        "command": "enter",
+        "settings": "virtualCursor",
+        "presentationNumber": 45.1,
+        "assertionExceptions": "2:interactionModeEnabled"
+      },
+      {
+        "testId": "checkRadio",
+        "command": "space",
+        "settings": "pcCursor",
+        "presentationNumber": 45.2,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "checkRadio",
+        "command": "space",
+        "settings": "browseMode",
+        "presentationNumber": 45,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "checkRadio",
+        "command": "enter",
+        "settings": "browseMode",
+        "presentationNumber": 45.1,
+        "assertionExceptions": "2:interactionModeEnabled"
+      },
+      {
+        "testId": "checkRadio",
+        "command": "space",
+        "settings": "focusMode",
+        "presentationNumber": 45.2,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "checkRadio",
+        "command": "space",
+        "settings": "defaultMode",
+        "presentationNumber": 45,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "checkRadio",
+        "command": "ctrl+opt+space",
+        "settings": "defaultMode",
+        "presentationNumber": 45.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "checkRadio": {
+    "virtualCursor": {
+      "jaws": [
+        [ "space|45" ],
+        [ "enter|45.1" ]
+      ]
+    },
+    "pcCursor": { "jaws": [ [ "space|45.2" ] ] },
+    "browseMode": {
+      "nvda": [
+        [ "space|45" ],
+        [ "enter|45.1" ]
+      ]
+    },
+    "focusMode": { "nvda": [ [ "space|45.2" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "space|45" ],
+        [ "ctrl+opt+space|45.1" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2021-3-15_144141\\radio.setFocusOnFirstRadioButton.html");
+  });
+</script>
+  

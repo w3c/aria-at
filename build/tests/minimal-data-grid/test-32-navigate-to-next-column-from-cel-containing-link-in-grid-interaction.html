@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the next column from a cell containing a link in a grid</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/grid/dataGrids.html">
+
+<script>
+  let scripts = {
+		setFocusOnFirstLinkedCell: function(testPageDocument){
+			// sets focus on the third cell of the second row in the grid
+			testPageDocument.defaultView.ex1Grid.setFocusPointer(0, 2);
+			testPageDocument.defaultView.ex1Grid.focusCell(0, 2);
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate to next column from cel containing link in grid",
+  "mode": "interaction",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the third cell of the second row in the grid",
+  "specific_user_instruction": "From a cell containing a link, navigate to the next column in the grid.",
+  "setupTestPage": "setFocusOnFirstLinkedCell",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Text of the column header ('Amount') is conveyed"
+    ],
+    [
+      "1",
+      "Text of the cell ('$1,000,000.00') is conveyed"
+    ],
+    [
+      "1",
+      "coordinates of the cell (column 4, row 2) are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to next column from cel containing link in grid": {
+    "reading": {
+      "jaws": [ [ "CTRL_ALT_RIGHT" ] ],
+      "nvda": [ [ "CTRL_ALT_RIGHT" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [ [ "RIGHT" ] ],
+      "voiceover_macos": [
+        [ "RIGHT" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_CMD_Y" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2021-3-8_151542\\dataGrids.setFocusOnFirstLinkedCell.html");
+  });
+</script>
+  

@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forward from the last focusable element to the first focusable element in a modal dialog</title>
+
+<script>
+  let scripts = {
+		openAddDeliveryAddressDialogAndFocusCancelButton: function(testPageDocument){
+			// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button
+			const btn = testPageDocument.querySelector('#ex1 > button');
+			testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_cancel');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "navToFirstFocusableElementModalDialog",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button",
+  "specific_user_instruction": "Starting at the last focusable element in the dialog, the 'Cancel' button, navigate forward to the first focusable element, the  'Street' input.",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusCancelButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "nameStreet",
+      "priority": 1,
+      "assertionStatement": "Name 'Street' is conveyed",
+      "assertionPhrase": "convey name 'Street'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "theAbilityToEnterOrEditText",
+      "priority": 1,
+      "assertionStatement": "The ability to enter or edit text is conveyed",
+      "assertionPhrase": "convey the ability to enter or edit text",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 2,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navToFirstFocusableElementModalDialog",
+        "command": "tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 10,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToFirstFocusableElementModalDialog",
+        "command": "tab",
+        "settings": "pcCursor",
+        "presentationNumber": 10.1,
+        "assertionExceptions": "0:interactionModeEnabled"
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navToFirstFocusableElementModalDialog",
+        "command": "tab",
+        "settings": "browseMode",
+        "presentationNumber": 10,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToFirstFocusableElementModalDialog",
+        "command": "tab",
+        "settings": "focusMode",
+        "presentationNumber": 10.1,
+        "assertionExceptions": "0:interactionModeEnabled"
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navToFirstFocusableElementModalDialog",
+        "command": "tab",
+        "settings": "defaultMode",
+        "presentationNumber": 11,
+        "assertionExceptions": "0:interactionModeEnabled"
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "navToFirstFocusableElementModalDialog": {
+    "virtualCursor": { "jaws": [ [ "tab|10" ] ] },
+    "pcCursor": { "jaws": [ [ "tab|10.1" ] ] },
+    "browseMode": { "nvda": [ [ "tab|10" ] ] },
+    "focusMode": { "nvda": [ [ "tab|10.1" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [ [ "tab|11" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2022-4-7_15544\\dialog.openAddDeliveryAddressDialogAndFocusCancelButton.html");
+  });
+</script>
+  

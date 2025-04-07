@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Request information about a menu button</title>
+<link rel="help" href="https://www.w3.org/TR/html-aam-1.0/#el-button" title="button Accessibility API Mapping">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-haspopup" title="aria-haspopup ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-expanded" title="aria-expanded ARIA Specification">
+
+<script>
+  let scripts = {
+		setFocusOnMenuButton: function(testPageDocument){
+			// sets focus on the menu button
+			testPageDocument.querySelector('#menubutton').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "reqInfoAboutMenuButton",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the menu button",
+  "specific_user_instruction": "Starting at the 'WAI-ARIA Quick Links' menu button, read information about the menu button.",
+  "setupTestPage": "setFocusOnMenuButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "nameLinks",
+      "priority": 1,
+      "assertionStatement": "Name of the menu button, 'WAI-ARIA Quick Links', is conveyed",
+      "assertionPhrase": "convey name of the menu button, 'WAI-ARIA Quick Links'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleMenuButton",
+      "priority": 1,
+      "assertionStatement": "Role 'menu button' is conveyed",
+      "assertionPhrase": "convey role 'menu button'",
+      "refIds": "button aria-haspopup",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateCollapsed",
+      "priority": 2,
+      "assertionStatement": "State 'collapsed' is conveyed",
+      "assertionPhrase": "convey state 'collapsed'",
+      "refIds": "aria-expanded",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "reqInfoAboutMenuButton",
+        "command": "ins+tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 7,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuButton",
+        "command": "ins+up",
+        "settings": "virtualCursor",
+        "presentationNumber": 7.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuButton",
+        "command": "ins+tab",
+        "settings": "pcCursor",
+        "presentationNumber": 8,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuButton",
+        "command": "ins+up",
+        "settings": "pcCursor",
+        "presentationNumber": 8.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "reqInfoAboutMenuButton",
+        "command": "ins+tab",
+        "settings": "browseMode",
+        "presentationNumber": 7,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuButton",
+        "command": "ins+up",
+        "settings": "browseMode",
+        "presentationNumber": 7.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuButton",
+        "command": "ins+tab",
+        "settings": "focusMode",
+        "presentationNumber": 8,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuButton",
+        "command": "ins+up",
+        "settings": "focusMode",
+        "presentationNumber": 8.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "reqInfoAboutMenuButton",
+        "command": "ctrl+opt+f3",
+        "settings": "defaultMode",
+        "presentationNumber": 9,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuButton",
+        "command": "ctrl+opt+f4",
+        "settings": "defaultMode",
+        "presentationNumber": 9.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "reqInfoAboutMenuButton": {
+    "virtualCursor": {
+      "jaws": [
+        [ "ins+tab|7" ],
+        [ "ins+up|7.1" ]
+      ]
+    },
+    "pcCursor": {
+      "jaws": [
+        [ "ins+tab|8" ],
+        [ "ins+up|8.1" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [
+        [ "ins+tab|7" ],
+        [ "ins+up|7.1" ]
+      ]
+    },
+    "focusMode": {
+      "nvda": [
+        [ "ins+tab|8" ],
+        [ "ins+up|8.1" ]
+      ]
+    },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "ctrl+opt+f3|9" ],
+        [ "ctrl+opt+f4|9.1" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2024-8-12_123937\\menu-button-links.setFocusOnMenuButton.html");
+  });
+</script>
+  

@@ -1,0 +1,86 @@
+{
+  "info": {
+    "testId": 4,
+    "task": "navigate into end of grid",
+    "title": "Navigate into the end of a grid in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      },
+      {
+        "refId": "grid",
+        "value": "https://w3c.github.io/aria/#grid"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2021-3-8_151542\\dataGrids.setFocusAfterGrid.html",
+    "setupScript": {
+      "name": "setFocusAfterGrid",
+      "description": "sets focus on a link after the grid",
+      "source": "// sets focus on a link after the grid\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterGrid.module.js",
+      "jsonpPath": "scripts/setFocusAfterGrid.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the last cell in the grid."
+    ],
+    "raw": "Navigate to the last cell in the grid.",
+    "mode": "Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'grid' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Grid boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Transactions January 1 through January 6' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Number of columns (5) is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Number of rows (7) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the last column header ('Balance') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text of the last cell ('$995,532.00') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Coordinates of the last cell (column 5, row 7) are conveyed"
+    }
+  ]
+}

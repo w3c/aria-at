@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 25,
+    "task": "navigate backwards to a heading inside a banner landmark",
+    "title": "Navigate backwards to a heading inside a banner landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/banner.html"
+      },
+      {
+        "refId": "banner",
+        "value": "https://w3c.github.io/aria/#banner"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2021-10-24_135455\\banner.setFocusAfterBanner.html",
+    "setupScript": {
+      "name": "setFocusAfterBanner",
+      "description": "sets focus on a link after the banner landmark",
+      "source": "// sets focus on a link after the banner landmark\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterBanner.module.js",
+      "jsonpPath": "scripts/setFocusAfterBanner.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading."
+    ],
+    "raw": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_H",
+      "keystroke": "Shift+H",
+      "keypresses": [
+        {
+          "id": "SHIFT_H",
+          "keystroke": "Shift+H"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_ONE",
+      "keystroke": "Shift+1",
+      "keypresses": [
+        {
+          "id": "SHIFT_ONE",
+          "keystroke": "Shift+1"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'banner' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'heading' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Heading level '1' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'ARIA Landmarks Example' is conveyed"
+    }
+  ]
+}

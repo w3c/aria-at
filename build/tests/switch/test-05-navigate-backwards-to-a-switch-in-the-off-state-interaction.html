@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a switch in the off state in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/switch/switch.html">
+<link rel="help" href="https://w3c.github.io/aria/#switch">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+<link rel="help" href="https://w3c.github.io/aria/#aria-hidden">
+
+<script>
+  let scripts = {
+		setFocusAfterSwitch: function(testPageDocument){
+			// sets focus on a link after the switch
+			testPageDocument.getElementById('afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate backwards to a switch in the off state",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on a link after the switch",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Notifications' switch.",
+  "setupTestPage": "setFocusAfterSwitch",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'switch' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Notifications' is conveyed"
+    ],
+    [
+      "1",
+      "State 'off' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to a switch in the off state": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_X" ],
+        [ "UP" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "nvda": [
+        [ "SHIFT_B" ],
+        [ "SHIFT_X" ],
+        [ "UP" ],
+        [ "SHIFT_TAB" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2022-8-1_103716\\switch.setFocusAfterSwitch.html");
+  });
+</script>
+  

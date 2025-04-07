@@ -1,0 +1,101 @@
+{
+  "info": {
+    "testId": 26,
+    "task": "read unchecked menuitemradio in a group in a submenu",
+    "title": "Read unchecked menu item radio in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html"
+      },
+      {
+        "refId": "group",
+        "value": "https://w3c.github.io/aria/#group"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "menuitemradio",
+        "value": "https://w3c.github.io/aria/#menuitemradio"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "jaws",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2020-11-23_175528\\menubar-editor.focusonfirstlink.html",
+    "setupScript": {
+      "name": "focusonfirstlink",
+      "description": "sets focus on a link just before the menubar",
+      "source": "// Move focus to the link just before the meunbar\ntestPageDocument.querySelector('a').focus();\n",
+      "modulePath": "scripts/focusonfirstlink.module.js",
+      "jsonpPath": "scripts/focusonfirstlink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Tab to 'Text Formatting' menubar.",
+      "Navigate to 'Style/Color' menu item with right arrow.",
+      "Open 'Style/Color' menu with down arrow.",
+      "Navigate to 'Blue' menu item radio with down arrow.",
+      "Activate the screen reader reading cursor.",
+      "Read the  'Blue' menu item radio"
+    ],
+    "raw": "Tab to 'Text Formatting' menubar. | Navigate to 'Style/Color' menu item with right arrow. | Open 'Style/Color' menu with down arrow. | Navigate to 'Blue' menu item radio with down arrow. | Activate the screen reader reading cursor. | Read the  'Blue' menu item radio",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
+    },
+    {
+      "id": "INS_UP",
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "The name 'Blue' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The role 'menu item radio' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The unchecked state is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The position of the item and number of items in the 'Text Color' group are conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The name and role of the 'Text Color' group are conveyed"
+    }
+  ]
+}

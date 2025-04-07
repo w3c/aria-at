@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a checked radio button within a radio group</title>
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#radio" title="radio ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-checked" title="aria-checked ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-activedescendant" title="aria-activedescendant ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-posinset" title="aria-posinset ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-setsize" title="aria-setsize ARIA Specification">
+
+<script>
+  let scripts = {
+		setFocusOnSecondRadioButtonAndCheckFirstRadioButton: function(testPageDocument){
+			// sets focus on the second radio button, and checks the first radio button
+			let radioGroup = testPageDocument.querySelector('[role="radiogroup"]');
+			let radios = testPageDocument.querySelectorAll('[role="radio"]');
+			radios.forEach(r => {
+			r.setAttribute('aria-checked', 'false');
+			r.classList.remove('focus');
+			});
+			radios[1].classList.add('focus');
+			radios[0].setAttribute('aria-checked', 'true');
+			radioGroup.setAttribute('aria-activedescendant', radios[1].id);
+			radioGroup.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "navToPrevCheckedRadio",
+  "mode": "virtualCursor_browseMode_defaultMode_singleQuickKeyNavOn",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the second radio button, and checks the first radio button",
+  "specific_user_instruction": "Starting at the 'Deep dish' radio button, navigate to the 'Regular crust' radio button.",
+  "setupTestPage": "setFocusOnSecondRadioButtonAndCheckFirstRadioButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleRadio",
+      "priority": 1,
+      "assertionStatement": "Role 'radio button' is conveyed",
+      "assertionPhrase": "convey role 'radio button'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameRegularCrust",
+      "priority": 1,
+      "assertionStatement": "Name of the radio button, 'Regular crust', is conveyed",
+      "assertionPhrase": "convey name of the radio button, 'Regular crust'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateRadioChecked",
+      "priority": 1,
+      "assertionStatement": "State of the radio button, 'checked', is conveyed",
+      "assertionPhrase": "convey state of the radio button, 'checked'",
+      "refIds": "aria-checked",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionRadio1",
+      "priority": 2,
+      "assertionStatement": "Position of the radio button, 1, is conveyed",
+      "assertionPhrase": "convey position of the radio button, 1",
+      "refIds": "aria-activedescendant aria-posinset radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberRadioButtonsGroup3",
+      "priority": 2,
+      "assertionStatement": "Number of radio buttons in the group, 3, is conveyed",
+      "assertionPhrase": "convey number of radio buttons in the group, 3",
+      "refIds": "aria-activedescendant aria-setsize radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navToPrevCheckedRadio",
+        "command": "shift+f",
+        "settings": "virtualCursor",
+        "presentationNumber": 26,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToPrevCheckedRadio",
+        "command": "shift+a",
+        "settings": "virtualCursor",
+        "presentationNumber": 26.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToPrevCheckedRadio",
+        "command": "up",
+        "settings": "virtualCursor",
+        "presentationNumber": 26.2,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navToPrevCheckedRadio",
+        "command": "shift+f",
+        "settings": "browseMode",
+        "presentationNumber": 26,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToPrevCheckedRadio",
+        "command": "shift+r",
+        "settings": "browseMode",
+        "presentationNumber": 26.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navToPrevCheckedRadio",
+        "command": "ctrl+opt+left",
+        "settings": "defaultMode",
+        "presentationNumber": 26,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToPrevCheckedRadio",
+        "command": "shift+j",
+        "settings": "singleQuickKeyNavOn",
+        "presentationNumber": 26.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "navToPrevCheckedRadio": {
+    "virtualCursor": {
+      "jaws": [
+        [ "shift+f|26" ],
+        [ "shift+a|26.1" ],
+        [ "up|26.2" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [
+        [ "shift+f|26" ],
+        [ "shift+r|26.1" ]
+      ]
+    },
+    "defaultMode": {
+      "voiceover_macos": [ [ "ctrl+opt+left|26" ] ]
+    },
+    "singleQuickKeyNavOn": {
+      "voiceover_macos": [ [ "shift+j|26.1" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2022-4-7_113015\\radio-activedescendant.setFocusOnSecondRadioButtonAndCheckFirstRadioButton.html");
+  });
+</script>
+  

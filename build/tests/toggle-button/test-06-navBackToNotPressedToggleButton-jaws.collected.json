@@ -1,0 +1,213 @@
+{
+  "info": {
+    "testId": "navBackToNotPressedToggleButton",
+    "title": "Navigate backwards to a not pressed toggle button",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/button/examples/button/",
+        "linkText": "APG Example: Button"
+      },
+      {
+        "refId": "aria-pressed",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-pressed",
+        "linkText": "aria-pressed ARIA Specification"
+      },
+      {
+        "refId": "button",
+        "type": "htmlAam",
+        "value": "https://www.w3.org/TR/html-aam-1.0/#el-button",
+        "linkText": "button Accessibility API Mapping"
+      }
+    ],
+    "presentationNumber": 6
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "singleQuickKeyNavOn",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "virtualCursor_pcCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2022-4-8_135651\\button.setFocusAfterButton.html",
+    "setupScript": {
+      "script": "setFocusAfterButton",
+      "scriptDescription": "sets focus on a link after the button",
+      "name": "setFocusAfterButton",
+      "source": "// sets focus on a link after the button\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterButton.module.js",
+      "jsonpPath": "scripts/setFocusAfterButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Navigate backwards from here' link, navigate to the 'Mute' button.",
+    "mode": {
+      "virtualCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+      ],
+      "pcCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "up",
+      "keypresses": [
+        {
+          "id": "up",
+          "keystroke": "Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Up Arrow",
+      "presentationNumber": 2,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "shift+b",
+      "keypresses": [
+        {
+          "id": "shift+b",
+          "keystroke": "Shift+b"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+b",
+      "presentationNumber": 2.1,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "shift+f",
+      "keypresses": [
+        {
+          "id": "shift+f",
+          "keystroke": "Shift+f"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+f",
+      "presentationNumber": 2.2,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 2.3,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 4,
+      "settings": "pcCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleToggleButton",
+      "priority": 1,
+      "assertionStatement": "Role 'toggle button' is conveyed",
+      "assertionPhrase": "convey role 'toggle button'",
+      "refIds": "aria-pressed",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameMute",
+      "priority": 1,
+      "assertionStatement": "Name 'Mute' is conveyed",
+      "assertionPhrase": "convey name 'Mute'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateNotPressed",
+      "priority": 3,
+      "assertionStatement": "State 'not pressed' is conveyed",
+      "assertionPhrase": "convey state 'not pressed'",
+      "refIds": "aria-pressed",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

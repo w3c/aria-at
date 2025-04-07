@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate sequentially through a checkbox group in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#group">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  let scripts = {
+
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate sequentially through checkbox group",
+  "mode": "reading",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "",
+  "specific_user_instruction": "Navigate both forward and backward into and out of  the checkbox group.",
+  "setupTestPage": "",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ],
+    [
+      "1",
+      "Group boundaries at start and end of group are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate sequentially through checkbox group": {
+    "reading": {
+      "jaws": [ [ "UP" ], [ "DOWN" ] ],
+      "nvda": [ [ "UP" ], [ "DOWN" ] ]
+    },
+    "interaction": {
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_LEFT" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2020-11-23_175030\\checkbox-1\\checkbox-1.html");
+  });
+</script>
+  

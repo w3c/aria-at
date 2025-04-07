@@ -1,0 +1,283 @@
+{
+  "info": {
+    "testId": "openMenu",
+    "title": "Open a menu",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/examples/menu-button-actions-active-descendant/",
+        "linkText": "APG Example: Actions Menu Button  Using element.focus()"
+      },
+      {
+        "refId": "menuitem",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#menuitem",
+        "linkText": "menuitem ARIA Specification"
+      },
+      {
+        "refId": "aria-posinset",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-posinset",
+        "linkText": "aria-posinset ARIA Specification"
+      },
+      {
+        "refId": "aria-setsize",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-setsize",
+        "linkText": "aria-setsize ARIA Specification"
+      },
+      {
+        "refId": "menu",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#menu",
+        "linkText": "menu ARIA Specification"
+      },
+      {
+        "refId": "aria-labelledby",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+        "linkText": "aria-labelledby ARIA Specification"
+      }
+    ],
+    "presentationNumber": 12
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "quickNavOff",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "nvda",
+      "settings": "browseMode_focusMode",
+      "name": "NVDA",
+      "raw": {
+        "name": "NVDA",
+        "key": "nvda",
+        "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "NVDA",
+          "interactionMode": "focus mode",
+          "readingMode": "browse mode",
+          "readingCursor": "browse mode caret"
+        },
+        "settings": {
+          "browseMode": {
+            "screenText": "browse mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+            ]
+          },
+          "focusMode": {
+            "screenText": "focus mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2024-8-28_1295\\menu-button-actions.setFocusOnMenuButton.html",
+    "setupScript": {
+      "script": "setFocusOnMenuButton",
+      "scriptDescription": "sets focus on the menu button",
+      "name": "setFocusOnMenuButton",
+      "source": "// sets focus on the menu button\r\ntestPageDocument.querySelector('#menubutton1').focus();\r\n",
+      "modulePath": "scripts/setFocusOnMenuButton.module.js",
+      "jsonpPath": "scripts/setFocusOnMenuButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Actions' menu button, open the menu.",
+    "mode": {
+      "browseMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+      ],
+      "focusMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "space",
+      "keypresses": [
+        {
+          "id": "space",
+          "keystroke": "Space"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 2,
+          "assertionId": "interactionModeEnabled"
+        }
+      ],
+      "keystroke": "Space",
+      "presentationNumber": 10,
+      "settings": "browseMode"
+    },
+    {
+      "id": "enter",
+      "keypresses": [
+        {
+          "id": "enter",
+          "keystroke": "Enter"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 2,
+          "assertionId": "interactionModeEnabled"
+        }
+      ],
+      "keystroke": "Enter",
+      "presentationNumber": 10.1,
+      "settings": "browseMode"
+    },
+    {
+      "id": "space",
+      "keypresses": [
+        {
+          "id": "space",
+          "keystroke": "Space"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Space",
+      "presentationNumber": 11,
+      "settings": "focusMode"
+    },
+    {
+      "id": "enter",
+      "keypresses": [
+        {
+          "id": "enter",
+          "keystroke": "Enter"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Enter",
+      "presentationNumber": 11.1,
+      "settings": "focusMode"
+    },
+    {
+      "id": "down",
+      "keypresses": [
+        {
+          "id": "down",
+          "keystroke": "Down Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Down Arrow",
+      "presentationNumber": 11.2,
+      "settings": "focusMode"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "nameFocusedItemAction1",
+      "priority": 1,
+      "assertionStatement": "Name of the focused item, 'Action 1', is conveyed",
+      "assertionPhrase": "convey name of the focused item, 'Action 1'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleFocusedItemMenuItem",
+      "priority": 3,
+      "assertionStatement": "Role of the focused item, 'menu item', is conveyed",
+      "assertionPhrase": "convey role of the focused item, 'menu item'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionFocusedItemMenu1",
+      "priority": 2,
+      "assertionStatement": "Position of the focused item in the menu, '1', is conveyed",
+      "assertionPhrase": "convey position of the focused item in the menu, '1'",
+      "refIds": "aria-posinset ",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberItemsMenu4",
+      "priority": 2,
+      "assertionStatement": "Number of items in the menu,'(4', is conveyed",
+      "assertionPhrase": "convey number of items in the menu, '4'",
+      "refIds": "aria-setsize",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameMenuActions",
+      "priority": 3,
+      "assertionStatement": "Name of the menu, 'Actions', is conveyed",
+      "assertionPhrase": "convey name of the menu, 'Actions'",
+      "refIds": "menu aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleMenu",
+      "priority": 3,
+      "assertionStatement": "Role 'menu' is conveyed",
+      "assertionPhrase": "convey role 'menu'",
+      "refIds": "menu",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 0,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ]
+}

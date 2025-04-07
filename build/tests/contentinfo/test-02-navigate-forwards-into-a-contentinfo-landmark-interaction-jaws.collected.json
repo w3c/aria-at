@@ -1,0 +1,66 @@
+{
+  "info": {
+    "testId": 2,
+    "task": "navigate forwards into a contentinfo landmark",
+    "title": "Navigate forwards into a contentinfo landmark in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/contentinfo.html"
+      },
+      {
+        "refId": "contentinfo",
+        "value": "https://w3c.github.io/aria/#contentinfo"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2021-10-24_151010\\contentinfo.setFocusBeforeContentinfo.html",
+    "setupScript": {
+      "name": "setFocusBeforeContentinfo",
+      "description": "sets focus on a link before the contentinfo landmark",
+      "source": "// sets focus on a link before the contentinfo landmark\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeContentinfo.module.js",
+      "jsonpPath": "scripts/setFocusBeforeContentinfo.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link."
+    ],
+    "raw": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'contentinfo' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Top' is conveyed"
+    }
+  ]
+}

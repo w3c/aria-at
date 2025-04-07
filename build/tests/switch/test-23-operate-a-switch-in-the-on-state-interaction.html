@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Operate a switch in the on state in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/switch/switch.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  let scripts = {
+		setFocusOnAndTurnOnSwitch: function(testPageDocument){
+			// sets focus on the 'Notifications' switch, and sets its state to 'on'
+			testPageDocument.querySelector('[role="switch"]').setAttribute('aria-checked', 'true');
+			testPageDocument.querySelector('[role="switch"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "operate a switch in the on state",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on the 'Notifications' switch, and sets its state to 'on'",
+  "specific_user_instruction": "With focus on the 'Notifications' switch, change its state to 'off'.",
+  "setupTestPage": "setFocusOnAndTurnOnSwitch",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Change in state, to 'off', is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "operate a switch in the on state": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2022-8-1_103716\\switch.setFocusOnAndTurnOnSwitch.html");
+  });
+</script>
+  

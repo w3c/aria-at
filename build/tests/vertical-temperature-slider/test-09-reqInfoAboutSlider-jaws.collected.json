@@ -1,0 +1,261 @@
+{
+  "info": {
+    "testId": "reqInfoAboutSlider",
+    "title": "Request information about a slider",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/slider/examples/slider-temperature/",
+        "linkText": "APG Example: Vertical Temperature Slider"
+      },
+      {
+        "refId": "slider",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#slider",
+        "linkText": "slider ARIA Specification"
+      },
+      {
+        "refId": "aria-labelledby",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+        "linkText": "aria-labelledby ARIA Specification"
+      },
+      {
+        "refId": "aria-valuetext",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuetext",
+        "linkText": "aria-valuetext ARIA Specification"
+      },
+      {
+        "refId": "aria-valuenow",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuenow",
+        "linkText": "aria-valuenow ARIA Specification"
+      },
+      {
+        "refId": "aria-orientation",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-orientation",
+        "linkText": "aria-orientation ARIA Specification"
+      },
+      {
+        "refId": "aria-valuemin",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuemin",
+        "linkText": "aria-valuemin ARIA Specification"
+      },
+      {
+        "refId": "aria-valuemax",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuemax",
+        "linkText": "aria-valuemax ARIA Specification"
+      }
+    ],
+    "presentationNumber": 9
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "virtualCursor_pcCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2021-9-21_142211\\slider-temperature.setFocusOnSlider.html",
+    "setupScript": {
+      "script": "setFocusOnSlider",
+      "scriptDescription": "sets focus on the slider",
+      "name": "setFocusOnSlider",
+      "source": "// sets focus on the slider\ntestPageDocument.querySelector('[role=\"slider\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Temperature' slider, read information about the slider.",
+    "mode": {
+      "virtualCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+      ],
+      "pcCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "ins+tab",
+      "keypresses": [
+        {
+          "id": "ins+tab",
+          "keystroke": "Insert+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Tab",
+      "presentationNumber": 7,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "ins+up",
+      "keypresses": [
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Up Arrow",
+      "presentationNumber": 7.1,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "ins+tab",
+      "keypresses": [
+        {
+          "id": "ins+tab",
+          "keystroke": "Insert+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Tab",
+      "presentationNumber": 8,
+      "settings": "pcCursor"
+    },
+    {
+      "id": "ins+up",
+      "keypresses": [
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Up Arrow",
+      "presentationNumber": 8.1,
+      "settings": "pcCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleSlider",
+      "priority": 1,
+      "assertionStatement": "Role, 'slider', is conveyed",
+      "assertionPhrase": "convey role, 'slider'",
+      "refIds": "slider",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameTemperature",
+      "priority": 1,
+      "assertionStatement": "Name, 'Temperature', is conveyed",
+      "assertionPhrase": "convey name, 'Temperature'",
+      "refIds": "aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "textualValue250DegreesCelsius",
+      "priority": 1,
+      "assertionStatement": "Text value, '25.0 degrees Celsius', is conveyed",
+      "assertionPhrase": "convey text value, '25.0 degrees Celsius'",
+      "refIds": "aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numericValue250IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Numeric value, '25.0', is not conveyed",
+      "assertionPhrase": "not convey numeric value, '25.0'",
+      "refIds": "aria-valuenow aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "orientationVertical",
+      "priority": 2,
+      "assertionStatement": "Orientation, 'vertical', is conveyed",
+      "assertionPhrase": "convey orientation, 'vertical'",
+      "refIds": "aria-orientation",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "minimumValue100IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Minimum value, '10.0', is not conveyed",
+      "assertionPhrase": "not convey minimum value, '10.0'",
+      "refIds": "aria-valuemin aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "maximumValue380IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Maximum value, '38.0', is not conveyed",
+      "assertionPhrase": "not convey maximum value, '38.0'",
+      "refIds": "aria-valuemax aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

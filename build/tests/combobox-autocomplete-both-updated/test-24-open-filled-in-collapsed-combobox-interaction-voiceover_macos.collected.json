@@ -1,0 +1,68 @@
+{
+  "info": {
+    "testId": 24,
+    "task": "open filled in collapsed combobox",
+    "title": "Open a filled in, collapsed combobox",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2020-12-11_16649\\combobox-autocomplete-both.moveFocusToComboboxAndSetValueToAlabama.html",
+    "setupScript": {
+      "name": "moveFocusToComboboxAndSetValueToAlabama",
+      "description": "sets focus on the combobox, and sets the combobox value to 'Alabama'",
+      "source": "// sets focus on the combobox, and sets the combobox value to 'Alabama'\ntestPageDocument.defaultView.comboboxController.setValue('Alabama');\ntestPageDocument.defaultView.comboboxController.comboboxNode.select();\ntestPageDocument.defaultView.comboboxController.comboboxNode.focus();\n",
+      "modulePath": "scripts/moveFocusToComboboxAndSetValueToAlabama.module.js",
+      "jsonpPath": "scripts/moveFocusToComboboxAndSetValueToAlabama.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the combobox, open the combobox without moving into the listbox popup."
+    ],
+    "raw": "With focus on the combobox, open the combobox without moving into the listbox popup.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "OPT_DOWN",
+      "keystroke": "Option+Down",
+      "keypresses": [
+        {
+          "id": "OPT_DOWN",
+          "keystroke": "Option+Down"
+        }
+      ]
+    },
+    {
+      "id": "OPT_UP",
+      "keystroke": "Option+Up",
+      "keypresses": [
+        {
+          "id": "OPT_UP",
+          "keystroke": "Option+Up"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change in state (to expanded) is conveyed"
+    }
+  ]
+}

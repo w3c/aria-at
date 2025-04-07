@@ -1,0 +1,239 @@
+{
+  "info": {
+    "testId": "navForwardsToMenuButton",
+    "title": "Navigate forwards to a menu button",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/examples/menu-button-links/",
+        "linkText": "APG Example: Actions Menu Button  Using"
+      },
+      {
+        "refId": "button",
+        "type": "htmlAam",
+        "value": "https://www.w3.org/TR/html-aam-1.0/#el-button",
+        "linkText": "button Accessibility API Mapping"
+      },
+      {
+        "refId": "aria-haspopup",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-haspopup",
+        "linkText": "aria-haspopup ARIA Specification"
+      },
+      {
+        "refId": "aria-expanded",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-expanded",
+        "linkText": "aria-expanded ARIA Specification"
+      }
+    ],
+    "presentationNumber": 5
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "quickNavOn",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "virtualCursor_pcCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2024-8-12_123937\\menu-button-links.setFocusBeforeMenuButton.html",
+    "setupScript": {
+      "script": "setFocusBeforeMenuButton",
+      "scriptDescription": "sets focus on a link before the menu button",
+      "name": "setFocusBeforeMenuButton",
+      "source": "// sets focus on a link before the menu button\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeMenuButton.module.js",
+      "jsonpPath": "scripts/setFocusBeforeMenuButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Navigate forwards from here' link,, navigate to the menu button.",
+    "mode": {
+      "virtualCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+      ],
+      "pcCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "b",
+      "keypresses": [
+        {
+          "id": "b",
+          "keystroke": "b"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "b",
+      "presentationNumber": 1,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "f",
+      "keypresses": [
+        {
+          "id": "f",
+          "keystroke": "f"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "f",
+      "presentationNumber": 1.1,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "tab",
+      "keypresses": [
+        {
+          "id": "tab",
+          "keystroke": "Tab"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 2,
+          "assertionId": "interactionModeEnabled"
+        }
+      ],
+      "keystroke": "Tab",
+      "presentationNumber": 1.2,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "down",
+      "keypresses": [
+        {
+          "id": "down",
+          "keystroke": "Down Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Down Arrow",
+      "presentationNumber": 1.3,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "tab",
+      "keypresses": [
+        {
+          "id": "tab",
+          "keystroke": "Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Tab",
+      "presentationNumber": 3,
+      "settings": "pcCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "nameLinks",
+      "priority": 1,
+      "assertionStatement": "Name of the menu button, 'WAI-ARIA Quick Links', is conveyed",
+      "assertionPhrase": "convey name of the menu button, 'WAI-ARIA Quick Links'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleMenuButton",
+      "priority": 1,
+      "assertionStatement": "Role 'menu button' is conveyed",
+      "assertionPhrase": "convey role 'menu button'",
+      "refIds": "button aria-haspopup",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateCollapsed",
+      "priority": 2,
+      "assertionStatement": "State 'collapsed' is conveyed",
+      "assertionPhrase": "convey state 'collapsed'",
+      "refIds": "aria-expanded",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 0,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ]
+}

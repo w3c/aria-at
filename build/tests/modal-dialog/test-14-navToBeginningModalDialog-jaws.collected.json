@@ -1,0 +1,129 @@
+{
+  "info": {
+    "testId": "navToBeginningModalDialog",
+    "title": "Navigate to the top of a modal dialog",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/",
+        "linkText": "APG Example: Modal Dialog"
+      }
+    ],
+    "presentationNumber": 14
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "virtualCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2022-4-7_15544\\dialog.openAddDeliveryAddressDialogAndFocusAddButton.html",
+    "setupScript": {
+      "script": "openAddDeliveryAddressDialogAndFocusAddButton",
+      "scriptDescription": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button",
+      "name": "openAddDeliveryAddressDialogAndFocusAddButton",
+      "source": "// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button\nconst btn = testPageDocument.querySelector('#ex1 > button');\ntestPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');\n",
+      "modulePath": "scripts/openAddDeliveryAddressDialogAndFocusAddButton.module.js",
+      "jsonpPath": "scripts/openAddDeliveryAddressDialogAndFocusAddButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Add' button inside the dialog, navigate to the top of the dialog.",
+    "mode": {
+      "virtualCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "ctrl+home",
+      "keypresses": [
+        {
+          "id": "ctrl+home",
+          "keystroke": "Control+Home"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Control+Home",
+      "presentationNumber": 12,
+      "settings": "virtualCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleHeading",
+      "priority": 1,
+      "assertionStatement": "Role 'heading' is conveyed",
+      "assertionPhrase": "convey role 'heading'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "headingLevel2",
+      "priority": 1,
+      "assertionStatement": "Heading level 2 is conveyed",
+      "assertionPhrase": "convey heading level 2",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameAddDeliveryAddress",
+      "priority": 1,
+      "assertionStatement": "Name 'Add Delivery Address' is conveyed",
+      "assertionPhrase": "convey name 'Add Delivery Address'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read information about an empty, expanded combobox in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+<link rel="help" href="https://w3c.github.io/aria/#combobox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+<link rel="help" href="https://w3c.github.io/aria/#aria-autocomplete">
+
+<script>
+  let scripts = {
+		moveFocusToAndExpandCombobox: function(testPageDocument){
+			// sets focus on and expands the combobox
+			testPageDocument.defaultView.comboboxController.open();
+			testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "read information about empty expanded combobox",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on and expands the Combobox",
+  "specific_user_instruction": "With focus on the combobox, read information about the combobox.",
+  "setupTestPage": "moveFocusToAndExpandCombobox",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'combobox' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the combobox ('State') is conveyed"
+    ],
+    [
+      "1",
+      "State of the combobox (expanded) is conveyed"
+    ],
+    [
+      "1",
+      "The ability to enter or edit text is conveyed"
+    ],
+    [
+      "1",
+      "The presence of autocomplete behavior is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read information about empty expanded combobox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2020-12-11_16649\\combobox-autocomplete-both.moveFocusToAndExpandCombobox.html");
+  });
+</script>
+  

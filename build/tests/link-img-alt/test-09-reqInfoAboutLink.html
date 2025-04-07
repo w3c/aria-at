@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Request information about a link</title>
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#link" title="link ARIA Specification">
+
+<script>
+  let scripts = {
+		setFocusOnLink: function(testPageDocument){
+			// sets focus on the 'W3C website' link
+			testPageDocument.getElementById('link').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "reqInfoAboutLink",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the 'W3C website' link",
+  "specific_user_instruction": "With focus on the 'W3C website' link, read information about the link.",
+  "setupTestPage": "setFocusOnLink",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleLink",
+      "priority": 1,
+      "assertionStatement": "Role 'link' is conveyed",
+      "assertionPhrase": "convey role 'link'",
+      "refIds": "link",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameW3cWebsite",
+      "priority": 1,
+      "assertionStatement": "Name 'W3C website' is conveyed.",
+      "assertionPhrase": "convey name 'W3C website'.",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "reqInfoAboutLink",
+        "command": "ins+tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 7,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutLink",
+        "command": "ins+up",
+        "settings": "virtualCursor",
+        "presentationNumber": 7.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutLink",
+        "command": "ins+tab",
+        "settings": "pcCursor",
+        "presentationNumber": 8,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutLink",
+        "command": "ins+up",
+        "settings": "pcCursor",
+        "presentationNumber": 8.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "reqInfoAboutLink",
+        "command": "ins+tab",
+        "settings": "browseMode",
+        "presentationNumber": 7,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutLink",
+        "command": "ins+up",
+        "settings": "browseMode",
+        "presentationNumber": 7.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutLink",
+        "command": "ins+tab",
+        "settings": "focusMode",
+        "presentationNumber": 8,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutLink",
+        "command": "ins+up",
+        "settings": "focusMode",
+        "presentationNumber": 8.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "reqInfoAboutLink",
+        "command": "ctrl+opt+f3",
+        "settings": "defaultMode",
+        "presentationNumber": 9,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutLink",
+        "command": "ctrl+opt+f4",
+        "settings": "defaultMode",
+        "presentationNumber": 9.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "reqInfoAboutLink": {
+    "virtualCursor": {
+      "jaws": [
+        [ "ins+tab|7" ],
+        [ "ins+up|7.1" ]
+      ]
+    },
+    "pcCursor": {
+      "jaws": [
+        [ "ins+tab|8" ],
+        [ "ins+up|8.1" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [
+        [ "ins+tab|7" ],
+        [ "ins+up|7.1" ]
+      ]
+    },
+    "focusMode": {
+      "nvda": [
+        [ "ins+tab|8" ],
+        [ "ins+up|8.1" ]
+      ]
+    },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "ctrl+opt+f3|9" ],
+        [ "ctrl+opt+f4|9.1" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2023-3-13_11377\\link-img-alt.setFocusOnLink.html");
+  });
+</script>
+  

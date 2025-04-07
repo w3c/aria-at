@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Close a menu</title>
+<link rel="help" href="https://www.w3.org/TR/html-aam-1.0/#el-button" title="button Accessibility API Mapping">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-haspopup" title="aria-haspopup ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-expanded" title="aria-expanded ARIA Specification">
+
+<script>
+  let scripts = {
+		openMenuAndSetFocusToFirstItem: function(testPageDocument){
+			// opens the menu, and sets focus on 'Action 1'
+			testPageDocument.defaultView.menuController.openPopup();
+			testPageDocument.defaultView.menuController.setFocusToFirstMenuitem();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "closeMenu",
+  "mode": "pcCursor_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "opens the menu, and sets focus on 'Action 1'",
+  "specific_user_instruction": "Starting at the 'Action 1' menu item, close the menu.",
+  "setupTestPage": "openMenuAndSetFocusToFirstItem",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "nameActions",
+      "priority": 1,
+      "assertionStatement": "Name of the menu button, 'Actions', is conveyed",
+      "assertionPhrase": "convey name of the menu button, 'Actions'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleMenuButton",
+      "priority": 1,
+      "assertionStatement": "Role 'menu button' is conveyed",
+      "assertionPhrase": "convey role 'menu button'",
+      "refIds": "button aria-haspopup",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateCollapsed",
+      "priority": 2,
+      "assertionStatement": "State 'collapsed' is conveyed",
+      "assertionPhrase": "convey state 'collapsed'",
+      "refIds": "aria-expanded",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "closeMenu",
+        "command": "esc",
+        "settings": "pcCursor",
+        "presentationNumber": 25,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "closeMenu",
+        "command": "esc",
+        "settings": "focusMode",
+        "presentationNumber": 25,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "closeMenu",
+        "command": "esc",
+        "settings": "defaultMode",
+        "presentationNumber": 26,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "closeMenu": {
+    "pcCursor": { "jaws": [ [ "esc|25" ] ] },
+    "focusMode": { "nvda": [ [ "esc|25" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [ [ "esc|26" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2024-7-21_174946\\menu-button-actions-active-descendant.openMenuAndSetFocusToFirstItem.html");
+  });
+</script>
+  

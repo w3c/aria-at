@@ -1,0 +1,116 @@
+{
+  "info": {
+    "testId": 2,
+    "task": "navigate backwards to slider",
+    "title": "Navigate backwards to a slider in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/slider/slider-rating.html"
+      },
+      {
+        "refId": "slider",
+        "value": "https://w3c.github.io/aria/#slider"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuetext",
+        "value": "https://w3c.github.io/aria/#aria-valuetext"
+      },
+      {
+        "refId": "aria-valuemin",
+        "value": "https://w3c.github.io/aria/#aria-valuemin"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2021-9-21_13436\\slider-rating.setFocusAfterSlider.html",
+    "setupScript": {
+      "name": "setFocusAfterSlider",
+      "description": "sets focus on a link after the slider",
+      "source": "// sets focus on a link after the slider\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterSlider.module.js",
+      "jsonpPath": "scripts/setFocusAfterSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Rating' slider."
+    ],
+    "raw": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Rating' slider.",
+    "mode": "Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "UP,UP",
+      "keystroke": "Up Arrow, then Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        },
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'slider' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Rating' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Textual value 'zero of five stars' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Numeric value '0' is not conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Orientation 'horizontal' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Minimum value '0' is not conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Maximum value '5' is not conveyed"
+    }
+  ]
+}

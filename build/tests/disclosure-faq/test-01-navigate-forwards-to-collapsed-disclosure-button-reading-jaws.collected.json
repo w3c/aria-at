@@ -1,0 +1,96 @@
+{
+  "info": {
+    "testId": 1,
+    "task": "navigate forwards to collapsed disclosure button",
+    "title": "Navigate forwards to a collapsed disclosure button in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-faq.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2020-12-3_11559\\disclosure-faq.moveFocusBeforeFirstDisclosure.html",
+    "setupScript": {
+      "name": "moveFocusBeforeFirstDisclosure",
+      "description": "sets focus on a link before the first disclosure button",
+      "source": "// sets focus on a link before the first disclosure button\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/moveFocusBeforeFirstDisclosure.module.js",
+      "jsonpPath": "scripts/moveFocusBeforeFirstDisclosure.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Navigate to the first disclosure button in the list of frequently asked questions. Note: it should be in the collapsed state."
+    ],
+    "raw": "Navigate to the first disclosure button in the list of frequently asked questions. Note: it should be in the collapsed state.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."
+  },
+  "commands": [
+    {
+      "id": "B",
+      "keystroke": "B",
+      "keypresses": [
+        {
+          "id": "B",
+          "keystroke": "B"
+        }
+      ]
+    },
+    {
+      "id": "F",
+      "keystroke": "F",
+      "keypresses": [
+        {
+          "id": "F",
+          "keystroke": "F"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name, 'What do I do if I have a permit for an assigned lot, but can't find a space there?', is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the button (collapsed) is conveyed"
+    }
+  ]
+}

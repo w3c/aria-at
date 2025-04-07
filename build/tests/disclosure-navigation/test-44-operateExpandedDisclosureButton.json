@@ -1,0 +1,116 @@
+{
+  "task": "operateExpandedDisclosureButton",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the first disclosure button, and sets its state to expanded",
+  "specific_user_instruction": "With focus on the 'About' disclosure button, change its state to 'collapsed'.",
+  "setupTestPage": "moveFocusToAndExpandFirstDisclosure",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "stateChangeToCollapsed",
+      "priority": 1,
+      "assertionStatement": "Change in state, to 'collapsed', is conveyed",
+      "assertionPhrase": "convey change in state, to 'collapsed'",
+      "refIds": "aria-expanded",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "space",
+        "settings": "virtualCursor",
+        "presentationNumber": 42,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "enter",
+        "settings": "virtualCursor",
+        "presentationNumber": 42.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "space",
+        "settings": "pcCursor",
+        "presentationNumber": 43,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "enter",
+        "settings": "pcCursor",
+        "presentationNumber": 43.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "space",
+        "settings": "browseMode",
+        "presentationNumber": 42,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "enter",
+        "settings": "browseMode",
+        "presentationNumber": 42.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "space",
+        "settings": "focusMode",
+        "presentationNumber": 43,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "enter",
+        "settings": "focusMode",
+        "presentationNumber": 43.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "ctrl+opt+space",
+        "settings": "defaultMode",
+        "presentationNumber": 44,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "space",
+        "settings": "defaultMode",
+        "presentationNumber": 44.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operateExpandedDisclosureButton",
+        "command": "enter",
+        "settings": "defaultMode",
+        "presentationNumber": 44.2,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

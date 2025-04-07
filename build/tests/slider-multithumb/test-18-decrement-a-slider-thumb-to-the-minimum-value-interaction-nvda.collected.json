@@ -1,0 +1,62 @@
+{
+  "info": {
+    "testId": 18,
+    "task": "decrement a slider thumb to the minimum value",
+    "title": "Decrement a slider thumb to the minimum value in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/examples/slider-multithumb/"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuemin",
+        "value": "https://w3c.github.io/aria/#aria-valuemin"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2023-3-20_134749\\slider-multithumb.setFocusOnSlider.html",
+    "setupScript": {
+      "name": "setFocusOnSlider",
+      "description": "sets focus on the first slider thumb",
+      "source": "// sets focus on the slider\ntestPageDocument.querySelector('[role=\"slider\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Hotel Minimum Price in US dollars' slider thumb, set its value to 0."
+    ],
+    "raw": "With focus on the 'Hotel Minimum Price in US dollars' slider thumb, set its value to 0.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "HOME",
+      "keystroke": "Home",
+      "keypresses": [
+        {
+          "id": "HOME",
+          "keystroke": "Home"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Value '0' is conveyed"
+    }
+  ]
+}

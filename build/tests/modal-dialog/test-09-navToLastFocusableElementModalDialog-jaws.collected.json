@@ -1,0 +1,148 @@
+{
+  "info": {
+    "testId": "navToLastFocusableElementModalDialog",
+    "title": "Navigate backward from the first focusable element to the last focusable element in a modal dialog",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/",
+        "linkText": "APG Example: Modal Dialog"
+      }
+    ],
+    "presentationNumber": 9
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "virtualCursor_pcCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2022-4-7_15544\\dialog.openAddDeliveryAddressDialogAndFocusFirstInput.html",
+    "setupScript": {
+      "script": "openAddDeliveryAddressDialogAndFocusFirstInput",
+      "scriptDescription": "opens the 'Add Delivery Address' modal dialog, and sets focus on the first input",
+      "name": "openAddDeliveryAddressDialogAndFocusFirstInput",
+      "source": "// opens the 'Add Delivery Address' modal dialog, and sets focus on the first input\nconst btn = testPageDocument.querySelector('#ex1 > button');\ntestPageDocument.defaultView.openDialog('dialog1', btn);\n",
+      "modulePath": "scripts/openAddDeliveryAddressDialogAndFocusFirstInput.module.js",
+      "jsonpPath": "scripts/openAddDeliveryAddressDialogAndFocusFirstInput.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the first focusable element in the dialog,the  'Street' input, navigate backward to the last focusable element, the 'Cancel' button.",
+    "mode": {
+      "virtualCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+      ],
+      "pcCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 8,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 8.1,
+      "settings": "pcCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleButton",
+      "priority": 1,
+      "assertionStatement": "Role 'button' is conveyed",
+      "assertionPhrase": "convey role 'button'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameCancel",
+      "priority": 1,
+      "assertionStatement": "Name 'Cancel' is conveyed",
+      "assertionPhrase": "convey name 'Cancel'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

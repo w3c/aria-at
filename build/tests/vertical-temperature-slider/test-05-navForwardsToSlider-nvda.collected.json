@@ -1,0 +1,290 @@
+{
+  "info": {
+    "testId": "navForwardsToSlider",
+    "title": "Navigate forwards to a slider",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/slider/examples/slider-temperature/",
+        "linkText": "APG Example: Vertical Temperature Slider"
+      },
+      {
+        "refId": "slider",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#slider",
+        "linkText": "slider ARIA Specification"
+      },
+      {
+        "refId": "aria-labelledby",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+        "linkText": "aria-labelledby ARIA Specification"
+      },
+      {
+        "refId": "aria-valuetext",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuetext",
+        "linkText": "aria-valuetext ARIA Specification"
+      },
+      {
+        "refId": "aria-valuenow",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuenow",
+        "linkText": "aria-valuenow ARIA Specification"
+      },
+      {
+        "refId": "aria-orientation",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-orientation",
+        "linkText": "aria-orientation ARIA Specification"
+      },
+      {
+        "refId": "aria-valuemin",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuemin",
+        "linkText": "aria-valuemin ARIA Specification"
+      },
+      {
+        "refId": "aria-valuemax",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuemax",
+        "linkText": "aria-valuemax ARIA Specification"
+      }
+    ],
+    "presentationNumber": 5
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "singleQuickKeyNavOn",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "nvda",
+      "settings": "browseMode_focusMode",
+      "name": "NVDA",
+      "raw": {
+        "name": "NVDA",
+        "key": "nvda",
+        "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "NVDA",
+          "interactionMode": "focus mode",
+          "readingMode": "browse mode",
+          "readingCursor": "browse mode caret"
+        },
+        "settings": {
+          "browseMode": {
+            "screenText": "browse mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+            ]
+          },
+          "focusMode": {
+            "screenText": "focus mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2021-9-21_142211\\slider-temperature.setFocusBeforeSlider.html",
+    "setupScript": {
+      "script": "setFocusBeforeSlider",
+      "scriptDescription": "sets focus on a link before the slider",
+      "name": "setFocusBeforeSlider",
+      "source": "// sets focus on a link before the slider\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeSlider.module.js",
+      "jsonpPath": "scripts/setFocusBeforeSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Navigate forwards from here' link, navigate to the 'Temperature' slider.",
+    "mode": {
+      "browseMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+      ],
+      "focusMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "down down",
+      "keypresses": [
+        {
+          "id": "down",
+          "keystroke": "Down Arrow"
+        },
+        {
+          "id": "down",
+          "keystroke": "Down Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Down Arrow then Down Arrow",
+      "presentationNumber": 1,
+      "settings": "browseMode"
+    },
+    {
+      "id": "f",
+      "keypresses": [
+        {
+          "id": "f",
+          "keystroke": "f"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "f",
+      "presentationNumber": 1.1,
+      "settings": "browseMode"
+    },
+    {
+      "id": "tab",
+      "keypresses": [
+        {
+          "id": "tab",
+          "keystroke": "Tab"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 2,
+          "assertionId": "interactionModeEnabled"
+        }
+      ],
+      "keystroke": "Tab",
+      "presentationNumber": 1.2,
+      "settings": "browseMode"
+    },
+    {
+      "id": "tab",
+      "keypresses": [
+        {
+          "id": "tab",
+          "keystroke": "Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Tab",
+      "presentationNumber": 1.3,
+      "settings": "focusMode"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleSlider",
+      "priority": 1,
+      "assertionStatement": "Role, 'slider', is conveyed",
+      "assertionPhrase": "convey role, 'slider'",
+      "refIds": "slider",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameTemperature",
+      "priority": 1,
+      "assertionStatement": "Name, 'Temperature', is conveyed",
+      "assertionPhrase": "convey name, 'Temperature'",
+      "refIds": "aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "textualValue250DegreesCelsius",
+      "priority": 1,
+      "assertionStatement": "Text value, '25.0 degrees Celsius', is conveyed",
+      "assertionPhrase": "convey text value, '25.0 degrees Celsius'",
+      "refIds": "aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numericValue250IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Numeric value, '25.0', is not conveyed",
+      "assertionPhrase": "not convey numeric value, '25.0'",
+      "refIds": "aria-valuenow aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "orientationVertical",
+      "priority": 2,
+      "assertionStatement": "Orientation, 'vertical', is conveyed",
+      "assertionPhrase": "convey orientation, 'vertical'",
+      "refIds": "aria-orientation",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "minimumValue100IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Minimum value, '10.0', is not conveyed",
+      "assertionPhrase": "not convey minimum value, '10.0'",
+      "refIds": "aria-valuemin aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "maximumValue380IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Maximum value, '38.0', is not conveyed",
+      "assertionPhrase": "not convey maximum value, '38.0'",
+      "refIds": "aria-valuemax aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 0,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "slider",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ]
+}

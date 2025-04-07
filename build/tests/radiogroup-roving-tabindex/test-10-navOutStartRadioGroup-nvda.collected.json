@@ -1,0 +1,219 @@
+{
+  "info": {
+    "testId": "navOutStartRadioGroup",
+    "title": "Navigate out of the start of a radio group",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/radio/examples/radio/",
+        "linkText": "APG Example: Radio Group  Using Roving tabindex"
+      },
+      {
+        "refId": "htmlLink",
+        "type": "htmlAam",
+        "value": "https://www.w3.org/TR/html-aam-1.0/#el-a",
+        "linkText": "HTML hyperlink Accessibility API Mapping"
+      },
+      {
+        "refId": "radiogroup",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#radiogroup",
+        "linkText": "radiogroup ARIA Specification"
+      }
+    ],
+    "presentationNumber": 10
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "singleQuickKeyNavOn",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "nvda",
+      "settings": "browseMode_focusMode",
+      "name": "NVDA",
+      "raw": {
+        "name": "NVDA",
+        "key": "nvda",
+        "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "NVDA",
+          "interactionMode": "focus mode",
+          "readingMode": "browse mode",
+          "readingCursor": "browse mode caret"
+        },
+        "settings": {
+          "browseMode": {
+            "screenText": "browse mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+            ]
+          },
+          "focusMode": {
+            "screenText": "focus mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2021-3-15_144141\\radio.setFocusOnFirstRadioButton.html",
+    "setupScript": {
+      "script": "setFocusOnFirstRadioButton",
+      "scriptDescription": "sets focus on the first radio button",
+      "name": "setFocusOnFirstRadioButton",
+      "source": "// sets focus on the first radio button\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('tabindex', '-1');\n  r.setAttribute('aria-checked', 'false');\n  r.classList.remove('focus');\n});\nradios[0].classList.add('focus');\nradios[0].setAttribute('tabindex', '0');\nradios[0].focus();\n",
+      "modulePath": "scripts/setFocusOnFirstRadioButton.module.js",
+      "jsonpPath": "scripts/setFocusOnFirstRadioButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Regular crust' radio button, navigate to the 'Navigate forwards from here' link.",
+    "mode": {
+      "browseMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+      ],
+      "focusMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "shift+k",
+      "keypresses": [
+        {
+          "id": "shift+k",
+          "keystroke": "Shift+k"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 3,
+          "assertionId": "groupBoundary"
+        }
+      ],
+      "keystroke": "Shift+k",
+      "presentationNumber": 10,
+      "settings": "browseMode"
+    },
+    {
+      "id": "up up",
+      "keypresses": [
+        {
+          "id": "up",
+          "keystroke": "Up Arrow"
+        },
+        {
+          "id": "up",
+          "keystroke": "Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Up Arrow then Up Arrow",
+      "presentationNumber": 10.1,
+      "settings": "browseMode"
+    },
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 3,
+          "assertionId": "groupBoundary"
+        }
+      ],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 10.2,
+      "settings": "browseMode"
+    },
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 3,
+          "assertionId": "groupBoundary"
+        }
+      ],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 10.3,
+      "settings": "focusMode"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleLink",
+      "priority": 1,
+      "assertionStatement": "Role 'link' is conveyed",
+      "assertionPhrase": "convey role 'link'",
+      "refIds": "htmlLink",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameNavigateForwardsFromHere",
+      "priority": 1,
+      "assertionStatement": "Name of the link, 'Navigate forwards from here', is conveyed",
+      "assertionPhrase": "convey name of the link, 'Navigate forwards from here'",
+      "refIds": "htmlLink",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "groupBoundary",
+      "priority": 2,
+      "assertionStatement": "Group boundary is conveyed",
+      "assertionPhrase": "convey group boundary",
+      "refIds": "radiogroup",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

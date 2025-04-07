@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a slider in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/slider/slider-rating.html">
+<link rel="help" href="https://w3c.github.io/aria/#slider">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemin">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemax">
+
+<script>
+  let scripts = {
+		setFocusAfterSlider: function(testPageDocument){
+			// sets focus on a link after the slider
+			testPageDocument.querySelector('#afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate backwards to slider",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on a link after the slider",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Rating' slider.",
+  "setupTestPage": "setFocusAfterSlider",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'slider' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Rating' is conveyed"
+    ],
+    [
+      "1",
+      "Textual value 'zero of five stars' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '0' is not conveyed"
+    ],
+    [
+      "1",
+      "Orientation 'horizontal' is conveyed"
+    ],
+    [
+      "1",
+      "Minimum value '0' is not conveyed"
+    ],
+    [
+      "1",
+      "Maximum value '5' is not conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to slider": {
+    "reading": {
+      "jaws": [ [ "UP,UP" ], [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "UP,UP" ], [ "SHIFT_TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+        ],
+        [ "SHIFT_TAB" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2021-9-21_13436\\slider-rating.setFocusAfterSlider.html");
+  });
+</script>
+  

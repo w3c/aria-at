@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "read information about a breadcrumb link",
+    "title": "Read information about a breadcrumb link in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/breadcrumb/index.html"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "aria-current",
+        "value": "https://w3c.github.io/aria/#aria-current"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2022-8-2_132648\\index.setFocusOnLastBreadcrumbLink.html",
+    "setupScript": {
+      "name": "setFocusOnLastBreadcrumbLink",
+      "description": "sets focus on the 'Breadcrumb Example' link",
+      "source": "// sets focus on the 'Breadcrumb Example' link\ntestPageDocument.querySelector('[aria-current=\"page\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnLastBreadcrumbLink.module.js",
+      "jsonpPath": "scripts/setFocusOnLastBreadcrumbLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Breadcrumb Example' link, read information about the link."
+    ],
+    "raw": "With the reading cursor on the 'Breadcrumb Example' link, read information about the link.",
+    "mode": "Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
+    },
+    {
+      "id": "INS_UP",
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Breadcrumb Example' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'current page' is conveyed"
+    }
+  ]
+}

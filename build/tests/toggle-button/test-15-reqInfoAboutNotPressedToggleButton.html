@@ -1,0 +1,195 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Request information about a not pressed toggle button</title>
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-pressed" title="aria-pressed ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/html-aam-1.0/#el-button" title="button Accessibility API Mapping">
+
+<script>
+  let scripts = {
+		setFocusOnButton: function(testPageDocument){
+			// sets focus on the button
+			testPageDocument.querySelector('#toggle').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "reqInfoAboutNotPressedToggleButton",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the button",
+  "specific_user_instruction": "Starting at the 'Mute' button, read information about the button.",
+  "setupTestPage": "setFocusOnButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleToggleButton",
+      "priority": 1,
+      "assertionStatement": "Role 'toggle button' is conveyed",
+      "assertionPhrase": "convey role 'toggle button'",
+      "refIds": "aria-pressed",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameMute",
+      "priority": 1,
+      "assertionStatement": "Name 'Mute' is conveyed",
+      "assertionPhrase": "convey name 'Mute'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateNotPressed",
+      "priority": 3,
+      "assertionStatement": "State 'not pressed' is conveyed",
+      "assertionPhrase": "convey state 'not pressed'",
+      "refIds": "aria-pressed",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "reqInfoAboutNotPressedToggleButton",
+        "command": "ins+tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 13,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutNotPressedToggleButton",
+        "command": "ins+up",
+        "settings": "virtualCursor",
+        "presentationNumber": 13.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutNotPressedToggleButton",
+        "command": "ins+tab",
+        "settings": "pcCursor",
+        "presentationNumber": 14,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutNotPressedToggleButton",
+        "command": "ins+up",
+        "settings": "pcCursor",
+        "presentationNumber": 14.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "reqInfoAboutNotPressedToggleButton",
+        "command": "ins+tab",
+        "settings": "browseMode",
+        "presentationNumber": 13,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutNotPressedToggleButton",
+        "command": "ins+up",
+        "settings": "browseMode",
+        "presentationNumber": 13.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutNotPressedToggleButton",
+        "command": "ins+tab",
+        "settings": "focusMode",
+        "presentationNumber": 14,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutNotPressedToggleButton",
+        "command": "ins+up",
+        "settings": "focusMode",
+        "presentationNumber": 14.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "reqInfoAboutNotPressedToggleButton",
+        "command": "ctrl+opt+f3",
+        "settings": "defaultMode",
+        "presentationNumber": 15,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutNotPressedToggleButton",
+        "command": "ctrl+opt+f4",
+        "settings": "defaultMode",
+        "presentationNumber": 15.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "reqInfoAboutNotPressedToggleButton": {
+    "virtualCursor": {
+      "jaws": [
+        [ "ins+tab|13" ],
+        [ "ins+up|13.1" ]
+      ]
+    },
+    "pcCursor": {
+      "jaws": [
+        [ "ins+tab|14" ],
+        [ "ins+up|14.1" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [
+        [ "ins+tab|13" ],
+        [ "ins+up|13.1" ]
+      ]
+    },
+    "focusMode": {
+      "nvda": [
+        [ "ins+tab|14" ],
+        [ "ins+up|14.1" ]
+      ]
+    },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "ctrl+opt+f3|15" ],
+        [ "ctrl+opt+f4|15.1" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2022-4-8_135651\\button.setFocusOnButton.html");
+  });
+</script>
+  

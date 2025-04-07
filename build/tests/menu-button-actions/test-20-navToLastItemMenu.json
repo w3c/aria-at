@@ -1,0 +1,108 @@
+{
+  "task": "navToLastItemMenu",
+  "mode": "pcCursor_focusMode_defaultMode_quickNavOff",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "opens the menu, and sets focus on 'Action 1'",
+  "specific_user_instruction": "Starting at the 'Action 1' menu item, navigate to the last menu item.",
+  "setupTestPage": "openMenuAndSetFocusToFirstItem",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "nameFocusedItemAction4",
+      "priority": 1,
+      "assertionStatement": "Name of the focused item, 'Action 4', is conveyed",
+      "assertionPhrase": "convey name of the focused item, 'Action 4'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleFocusedItemMenuItem",
+      "priority": 3,
+      "assertionStatement": "Role of the focused item, 'menu item', is conveyed",
+      "assertionPhrase": "convey role of the focused item, 'menu item'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionFocusedItemMenu4",
+      "priority": 2,
+      "assertionStatement": "Position of the focused item in the menu, '4', is conveyed",
+      "assertionPhrase": "convey position of the focused item in the menu, '4'",
+      "refIds": "aria-posinset ",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberItemsMenu4",
+      "priority": 2,
+      "assertionStatement": "Number of items in the menu,'(4', is conveyed",
+      "assertionPhrase": "convey number of items in the menu, '4'",
+      "refIds": "aria-setsize",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navToLastItemMenu",
+        "command": "end",
+        "settings": "pcCursor",
+        "presentationNumber": 19,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToLastItemMenu",
+        "command": "up",
+        "settings": "pcCursor",
+        "presentationNumber": 19.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navToLastItemMenu",
+        "command": "end",
+        "settings": "focusMode",
+        "presentationNumber": 19,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToLastItemMenu",
+        "command": "up",
+        "settings": "focusMode",
+        "presentationNumber": 19.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navToLastItemMenu",
+        "command": "end",
+        "settings": "defaultMode",
+        "presentationNumber": 20,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToLastItemMenu",
+        "command": "up",
+        "settings": "quickNavOff",
+        "presentationNumber": 20.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

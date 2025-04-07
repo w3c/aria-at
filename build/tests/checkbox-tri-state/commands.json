@@ -1,0 +1,150 @@
+{
+  "navigate forwards to a mixed checkbox": {
+    "reading": {
+      "jaws": [
+        [ "X" ],
+        [ "F" ],
+        [ "TAB" ],
+        [ "DOWN,DOWN" ]
+      ],
+      "nvda": [
+        [ "X" ],
+        [ "F" ],
+        [ "TAB" ],
+        [ "DOWN,DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT,CTRL_OPT_RIGHT"
+        ],
+        [ "TAB" ],
+        [
+          "CTRL_OPT_CMD_J,CTRL_OPT_CMD_J"
+        ]
+      ]
+    }
+  },
+  "navigate backwards to a mixed checkbox": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_X" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP,UP" ]
+      ],
+      "nvda": [
+        [ "SHIFT_X" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP,UP" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_LEFT,CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+        ],
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  },
+  "read information about a mixed checkbox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  },
+  "operate a mixed checkbox": {
+    "reading": {
+      "jaws": [ [ "SPACE" ] ],
+      "nvda": [ [ "SPACE" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ] ],
+      "nvda": [ [ "SPACE" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ]
+      ]
+    }
+  },
+  "operate an unchecked checkbox": {
+    "reading": {
+      "jaws": [ [ "SPACE" ] ],
+      "nvda": [ [ "SPACE" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ] ],
+      "nvda": [ [ "SPACE" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ]
+      ]
+    }
+  },
+  "navigate forwards out of a checkbox group": {
+    "reading": {
+      "jaws": [
+        [ "DOWN,DOWN" ],
+        [ "U" ],
+        [ "TAB" ]
+      ],
+      "nvda": [
+        [ "DOWN" ],
+        [ "U" ],
+        [ "K" ],
+        [ "TAB" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT"
+        ],
+        [ "CTRL_OPT_CMD_L" ]
+      ]
+    }
+  },
+  "navigate backwards out of a checkbox group": {
+    "reading": {
+      "jaws": [
+        [ "UP,UP" ],
+        [ "SHIFT_U" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "nvda": [
+        [ "UP,UP" ],
+        [ "SHIFT_K" ],
+        [ "SHIFT_U" ],
+        [ "SHIFT_TAB" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_LEFT,CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+        ],
+        [ "SHIFT_CTRL_OPT_CMD_L" ]
+      ]
+    }
+  }
+}

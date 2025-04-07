@@ -1,0 +1,77 @@
+{
+  "info": {
+    "testId": 19,
+    "task": "navigate sequentially through checkbox group",
+    "title": "Navigate sequentially through a checkbox group in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html"
+      },
+      {
+        "refId": "checkbox",
+        "value": "https://w3c.github.io/aria/#checkbox"
+      },
+      {
+        "refId": "group",
+        "value": "https://w3c.github.io/aria/#group"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2020-11-23_175030\\checkbox-1\\checkbox-1.html"
+  },
+  "instructions": {
+    "user": [
+      "Navigate both forward and backward into and out of  the checkbox group."
+    ],
+    "raw": "Navigate both forward and backward into and out of  the checkbox group.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."
+  },
+  "commands": [
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Group name 'Sandwich Condiments' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Group boundaries at start and end of group are conveyed"
+    }
+  ]
+}

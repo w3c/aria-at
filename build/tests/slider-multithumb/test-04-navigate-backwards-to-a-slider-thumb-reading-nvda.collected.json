@@ -1,0 +1,104 @@
+{
+  "info": {
+    "testId": 4,
+    "task": "navigate backwards to a slider thumb",
+    "title": "Navigate backwards to a slider thumb in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/examples/slider-multithumb/"
+      },
+      {
+        "refId": "slider",
+        "value": "https://w3c.github.io/aria/#slider"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuemin",
+        "value": "https://w3c.github.io/aria/#aria-valuemin"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2023-3-20_134749\\slider-multithumb.setFocusAfterSlider.html",
+    "setupScript": {
+      "name": "setFocusAfterSlider",
+      "description": "sets focus on a link after the second slider thumb",
+      "source": "// sets focus on a link after the slider\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterSlider.module.js",
+      "jsonpPath": "scripts/setFocusAfterSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Hotel Maximum Price in US dollars' slider thumb."
+    ],
+    "raw": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Hotel Maximum Price in US dollars' slider thumb.",
+    "mode": "Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "UP",
+      "keystroke": "Up Arrow",
+      "keypresses": [
+        {
+          "id": "UP",
+          "keystroke": "Up Arrow"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'slider' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Hotel Maximum Price in US dollars' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Value '250' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Orientation 'horizontal' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Minimum value '100' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Maximum value '400' is conveyed"
+    }
+  ]
+}

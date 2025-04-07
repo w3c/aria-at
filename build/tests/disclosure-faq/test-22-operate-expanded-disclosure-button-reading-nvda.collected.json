@@ -1,0 +1,68 @@
+{
+  "info": {
+    "testId": 22,
+    "task": "operate expanded disclosure button",
+    "title": "Operate an expanded disclosure button in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-faq.html"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2020-12-3_11559\\disclosure-faq.moveFocusToAndExpandFirstDisclosure.html",
+    "setupScript": {
+      "name": "moveFocusToAndExpandFirstDisclosure",
+      "description": "sets focus on the first disclosure button, and sets its state to expanded",
+      "source": "// sets focus on the first disclosure button, and sets its state to expanded\nconst btn = testPageDocument.querySelector('button[aria-controls=\"faq1_desc\"]');\nconst answer = testPageDocument.querySelector('#faq1_desc');\nbtn.setAttribute('aria-expanded', 'true');\nanswer.style.display = 'block';\n// Hide the link after the button so it doesn't get in the way\ntestPageDocument.querySelector('#afterlink').style.display = 'none';\nbtn.focus();\n",
+      "modulePath": "scripts/moveFocusToAndExpandFirstDisclosure.module.js",
+      "jsonpPath": "scripts/moveFocusToAndExpandFirstDisclosure.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the first disclosure button in the list of frequently asked questions, set the state of the button to collapsed."
+    ],
+    "raw": "With the reading cursor on the first disclosure button in the list of frequently asked questions, set the state of the button to collapsed.",
+    "mode": "Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "SPACE",
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change in state (to collapsed) is conveyed"
+    }
+  ]
+}

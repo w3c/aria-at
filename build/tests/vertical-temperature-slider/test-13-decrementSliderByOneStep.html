@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Decrement a slider by one step</title>
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-valuetext" title="aria-valuetext ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-valuenow" title="aria-valuenow ARIA Specification">
+
+<script>
+  let scripts = {
+		setFocusOnSlider: function(testPageDocument){
+			// sets focus on the slider
+			testPageDocument.querySelector('[role="slider"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "decrementSliderByOneStep",
+  "mode": "pcCursor_focusMode_quickNavOff_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the slider",
+  "specific_user_instruction": "Starting at the 'Temperature' slider, set its value to 24.9 degrees Celsius.",
+  "setupTestPage": "setFocusOnSlider",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "textualValue249DegreesCelsius",
+      "priority": 1,
+      "assertionStatement": "Text value, '24.9 degrees Celsius', is conveyed",
+      "assertionPhrase": "convey text value, '24.9 degrees Celsius'",
+      "refIds": "aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numericValue249IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Numeric value, '24.9', is not conveyed",
+      "assertionPhrase": "not convey numeric value, '24.9'",
+      "refIds": "aria-valuenow aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "decrementSliderByOneStep",
+        "command": "left",
+        "settings": "pcCursor",
+        "presentationNumber": 12,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "decrementSliderByOneStep",
+        "command": "down",
+        "settings": "pcCursor",
+        "presentationNumber": 12.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "decrementSliderByOneStep",
+        "command": "left",
+        "settings": "focusMode",
+        "presentationNumber": 12,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "decrementSliderByOneStep",
+        "command": "down",
+        "settings": "focusMode",
+        "presentationNumber": 12.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "decrementSliderByOneStep",
+        "command": "left",
+        "settings": "quickNavOff",
+        "presentationNumber": 13,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "decrementSliderByOneStep",
+        "command": "down",
+        "settings": "quickNavOff",
+        "presentationNumber": 13.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "decrementSliderByOneStep",
+        "command": "vo+shift+down vo+left",
+        "settings": "defaultMode",
+        "presentationNumber": 13.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "decrementSliderByOneStep",
+        "command": "vo+shift+down vo+down",
+        "settings": "defaultMode",
+        "presentationNumber": 13.3,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "decrementSliderByOneStep": {
+    "pcCursor": {
+      "jaws": [
+        [ "left|12" ],
+        [ "down|12.1" ]
+      ]
+    },
+    "focusMode": {
+      "nvda": [
+        [ "left|12" ],
+        [ "down|12.1" ]
+      ]
+    },
+    "quickNavOff": {
+      "voiceover_macos": [
+        [ "left|13" ],
+        [ "down|13.1" ]
+      ]
+    },
+    "defaultMode": {
+      "voiceover_macos": [
+        [
+          "vo+shift+down vo+left|13.2"
+        ],
+        [
+          "vo+shift+down vo+down|13.3"
+        ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2021-9-21_142211\\slider-temperature.setFocusOnSlider.html");
+  });
+</script>
+  

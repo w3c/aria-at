@@ -1,0 +1,75 @@
+{
+  "info": {
+    "testId": 14,
+    "task": "close submenu of menubar",
+    "title": "Close submenu",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html"
+      },
+      {
+        "refId": "menuitem",
+        "value": "https://w3c.github.io/aria/#menuitem"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2020-11-23_175528\\menubar-editor.focusontextalign.html",
+    "setupScript": {
+      "name": "focusontextalign",
+      "description": "sets focus on the 'Text Align' menu item",
+      "source": "// Move focus to the \"Text Align\" menu item\ntestPageDocument.querySelectorAll('[role=menuitem]')[2].focus();\n",
+      "modulePath": "scripts/focusontextalign.module.js",
+      "jsonpPath": "scripts/focusontextalign.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Open 'Text Align' submenu.",
+      "Close the menu"
+    ],
+    "raw": "Open 'Text Align' submenu. | Close the menu",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "ESC",
+      "keystroke": "Escape",
+      "keypresses": [
+        {
+          "id": "ESC",
+          "keystroke": "Escape"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "The name 'Text Align' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Availability of a submenu is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Closed state of the submenu is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The position of the item and number of items in the menubar  are conveyed"
+    }
+  ]
+}

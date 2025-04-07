@@ -1,0 +1,69 @@
+{
+  "info": {
+    "testId": 18,
+    "task": "read checkbox group",
+    "title": "Read grouping information of a grouped checkbox",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html"
+      },
+      {
+        "refId": "group",
+        "value": "https://w3c.github.io/aria/#group"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2020-11-23_175030\\checkbox-1\\checkbox-1.html"
+  },
+  "instructions": {
+    "user": [
+      "When focus is on a checkbox, read its grouping information"
+    ],
+    "raw": "When focus is on a checkbox, read its grouping information",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_F3",
+      "keystroke": "Control+Option+F3",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F3",
+          "keystroke": "Control+Option+F3"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_OPT_F4",
+      "keystroke": "Control+Option+F4",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_F4",
+          "keystroke": "Control+Option+F4"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 2,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Group name 'Sandwich Condiments' is conveyed"
+    }
+  ]
+}

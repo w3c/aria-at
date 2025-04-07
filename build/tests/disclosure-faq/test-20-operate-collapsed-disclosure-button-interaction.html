@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Operate a collapsed disclosure button in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/disclosure/disclosure-faq.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script>
+  let scripts = {
+		moveFocusToFirstDisclosure: function(testPageDocument){
+			// sets focus on the first disclosure button
+			testPageDocument.querySelector('button[aria-controls="faq1_desc"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "operate collapsed disclosure button",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on the first disclosure button",
+  "specific_user_instruction": "With focus on the first disclosure button in the list of frequently asked questions, set the state of the button to expanded.",
+  "setupTestPage": "moveFocusToFirstDisclosure",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Change in state (to expanded) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "operate collapsed disclosure button": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2020-12-3_11559\\disclosure-faq.moveFocusToFirstDisclosure.html");
+  });
+</script>
+  

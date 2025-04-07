@@ -1,0 +1,68 @@
+{
+  "task": "bumpBottomEdge",
+  "mode": "virtualCursor_browseMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Cancel' button",
+  "specific_user_instruction": "Starting at the 'Cancel' button inside the dialog, make multiple attempts to navigate past the bottom edge",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusCancelButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "cursorAtCancelButton",
+      "priority": 1,
+      "assertionStatement": "Screen reader cursor is positioned at 'Cancel' button",
+      "assertionPhrase": "position screen reader cursor at 'Cancel' button",
+      "refIds": "aria-modal",
+      "tokenizedAssertionStatements": {
+        "jaws": "The virtual cursor is positioned at 'Cancel' button",
+        "nvda": "The browse mode caret is positioned at 'Cancel' button",
+        "voiceover_macos": "The VoiceOver cursor is positioned at 'Cancel' button"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "position the virtual cursor at 'Cancel' button",
+        "nvda": "position the browse mode caret at 'Cancel' button",
+        "voiceover_macos": "position the VoiceOver cursor at 'Cancel' button"
+      }
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "bumpBottomEdge",
+        "command": "down down ins+up",
+        "settings": "virtualCursor",
+        "presentationNumber": 15.5,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "bumpBottomEdge",
+        "command": "down down ins+up",
+        "settings": "browseMode",
+        "presentationNumber": 15.5,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "bumpBottomEdge",
+        "command": "ctrl+opt+right ctrl+opt+right ctrl+opt+f3",
+        "settings": "defaultMode",
+        "presentationNumber": 15.5,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

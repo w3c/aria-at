@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Index of Assistive Technology Test Files</title>
+  <style>
+    table {
+      display: table;
+      border-collapse: collapse;
+      border-spacing: 2px;
+      border-color: rgb(128,128,128);
+    }
+
+    thead {
+      display: table-row-group;
+      vertical-align: middle;
+      border-bottom: black solid 2px;
+    }
+
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: rgb(128,128,128);
+    }
+
+    tr:nth-child(even) {background: #DDD}
+    tr:nth-child(odd) {background: #FFF}
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: rgb(128,128,128);
+    }
+
+    td {
+      padding: 3px;
+      display: table-cell;
+    }
+
+    td.test {
+      text-align: center;
+    }
+
+    td.none {
+      color: #333;
+    }
+
+    th {
+      padding: 3px;
+      font-weight: bold;
+      display: table-cell;
+    }
+  </style>
+</head>
+<body>
+ <main>
+  <h1>Index of Assistive Technology Test Files</h1>
+  <p>This is useful for viewing the local files on a local web server.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Sequence</th>
+        <th>Task ID</th>
+        <th>Testing Task</th>
+        <th>JAWS</th>
+<th>NVDA</th>
+<th>VoiceOver for macOS</th>
+
+        <th>Setup Script Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td>1</td><td>openModalDialog</td><td scope="row">Open a modal dialog</td><td class="test"><a href="test-03-openModalDialog.html?at=jaws" aria-label="JAWS test for task openModalDialog">JAWS</a></td><td class="test"><a href="test-03-openModalDialog.html?at=nvda" aria-label="NVDA test for task openModalDialog">NVDA</a></td><td class="test"><a href="test-03-openModalDialog.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task openModalDialog">VoiceOver for macOS</a></td><td>moveFocusToAddDeliveryAddressButton</td></tr>
+<tr><td>2</td><td>closeModalDialog</td><td scope="row">Close a modal dialog</td><td class="test"><a href="test-06-closeModalDialog.html?at=jaws" aria-label="JAWS test for task closeModalDialog">JAWS</a></td><td class="test"><a href="test-06-closeModalDialog.html?at=nvda" aria-label="NVDA test for task closeModalDialog">NVDA</a></td><td class="test"><a href="test-06-closeModalDialog.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task closeModalDialog">VoiceOver for macOS</a></td><td>openAddDeliveryAddressDialogAndFocusCancelButton</td></tr>
+<tr><td>3</td><td>navToLastFocusableElementModalDialog</td><td scope="row">Navigate backward from the first focusable element to the last focusable element in a modal dialog</td><td class="test"><a href="test-09-navToLastFocusableElementModalDialog.html?at=jaws" aria-label="JAWS test for task navToLastFocusableElementModalDialog">JAWS</a></td><td class="test"><a href="test-09-navToLastFocusableElementModalDialog.html?at=nvda" aria-label="NVDA test for task navToLastFocusableElementModalDialog">NVDA</a></td><td class="test"><a href="test-09-navToLastFocusableElementModalDialog.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navToLastFocusableElementModalDialog">VoiceOver for macOS</a></td><td>openAddDeliveryAddressDialogAndFocusFirstInput</td></tr>
+<tr><td>4</td><td>navToFirstFocusableElementModalDialog</td><td scope="row">Navigate forward from the last focusable element to the first focusable element in a modal dialog</td><td class="test"><a href="test-11-navToFirstFocusableElementModalDialog.html?at=jaws" aria-label="JAWS test for task navToFirstFocusableElementModalDialog">JAWS</a></td><td class="test"><a href="test-11-navToFirstFocusableElementModalDialog.html?at=nvda" aria-label="NVDA test for task navToFirstFocusableElementModalDialog">NVDA</a></td><td class="test"><a href="test-11-navToFirstFocusableElementModalDialog.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navToFirstFocusableElementModalDialog">VoiceOver for macOS</a></td><td>openAddDeliveryAddressDialogAndFocusCancelButton</td></tr>
+<tr><td>5</td><td>navToBeginningModalDialog</td><td scope="row">Navigate to the top of a modal dialog</td><td class="test"><a href="test-14-navToBeginningModalDialog.html?at=jaws" aria-label="JAWS test for task navToBeginningModalDialog">JAWS</a></td><td class="test"><a href="test-14-navToBeginningModalDialog.html?at=nvda" aria-label="NVDA test for task navToBeginningModalDialog">NVDA</a></td><td class="test"><a href="test-14-navToBeginningModalDialog.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navToBeginningModalDialog">VoiceOver for macOS</a></td><td>openAddDeliveryAddressDialogAndFocusAddButton</td></tr>
+<tr><td>6</td><td>navToEndModalDialog</td><td scope="row">Navigate to the bottom of a modal dialog</td><td class="test"><a href="test-14.1-navToEndModalDialog.html?at=jaws" aria-label="JAWS test for task navToEndModalDialog">JAWS</a></td><td class="test"><a href="test-14.1-navToEndModalDialog.html?at=nvda" aria-label="NVDA test for task navToEndModalDialog">NVDA</a></td><td class="test"><a href="test-14.1-navToEndModalDialog.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navToEndModalDialog">VoiceOver for macOS</a></td><td>openAddDeliveryAddressDialogAndFocusAddButton</td></tr>
+<tr><td>7</td><td>bumpTopEdge</td><td scope="row">Bump into the top edge of a modal dialog</td><td class="test"><a href="test-16-bumpTopEdge.html?at=jaws" aria-label="JAWS test for task bumpTopEdge">JAWS</a></td><td class="test"><a href="test-16-bumpTopEdge.html?at=nvda" aria-label="NVDA test for task bumpTopEdge">NVDA</a></td><td class="test"><a href="test-16-bumpTopEdge.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task bumpTopEdge">VoiceOver for macOS</a></td><td>openAddDeliveryAddressDialogAndFocusAddDeliveryAddressHeading</td></tr>
+<tr><td>8</td><td>bumpBottomEdge</td><td scope="row">Bump into the bottom edge of a modal dialog</td><td class="test"><a href="test-16.1-bumpBottomEdge.html?at=jaws" aria-label="JAWS test for task bumpBottomEdge">JAWS</a></td><td class="test"><a href="test-16.1-bumpBottomEdge.html?at=nvda" aria-label="NVDA test for task bumpBottomEdge">NVDA</a></td><td class="test"><a href="test-16.1-bumpBottomEdge.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task bumpBottomEdge">VoiceOver for macOS</a></td><td>openAddDeliveryAddressDialogAndFocusCancelButton</td></tr>
+<tr><td>9</td><td>openNestedModalDialog</td><td scope="row">Open a nested modal dialog </td><td class="test"><a href="test-20-openNestedModalDialog.html?at=jaws" aria-label="JAWS test for task openNestedModalDialog">JAWS</a></td><td class="test"><a href="test-20-openNestedModalDialog.html?at=nvda" aria-label="NVDA test for task openNestedModalDialog">NVDA</a></td><td class="test"><a href="test-20-openNestedModalDialog.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task openNestedModalDialog">VoiceOver for macOS</a></td><td>openAddDeliveryAddressDialogAndFocusAddButton</td></tr>
+<tr><td>10</td><td>closeNestedModalDialog</td><td scope="row">Close a nested modal dialog</td><td class="test"><a href="test-30-closeNestedModalDialog.html?at=jaws" aria-label="JAWS test for task closeNestedModalDialog">JAWS</a></td><td class="test"><a href="test-30-closeNestedModalDialog.html?at=nvda" aria-label="NVDA test for task closeNestedModalDialog">NVDA</a></td><td class="test"><a href="test-30-closeNestedModalDialog.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task closeNestedModalDialog">VoiceOver for macOS</a></td><td>openVerificationResultDialogAndFocusCloseButton</td></tr>
+<tr><td>11</td><td>bumpTopEdgeOfNestedModal</td><td scope="row">Bump into the top edge of a Nested modal dialog</td><td class="test"><a href="test-40-bumpTopEdgeOfNestedModal.html?at=jaws" aria-label="JAWS test for task bumpTopEdgeOfNestedModal">JAWS</a></td><td class="test"><a href="test-40-bumpTopEdgeOfNestedModal.html?at=nvda" aria-label="NVDA test for task bumpTopEdgeOfNestedModal">NVDA</a></td><td class="test"><a href="test-40-bumpTopEdgeOfNestedModal.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task bumpTopEdgeOfNestedModal">VoiceOver for macOS</a></td><td>openAddressAddedDialogAndFocusAddressAddedHeading</td></tr>
+<tr><td>12</td><td>bumpBottomEdgeOfNestedModal</td><td scope="row">Bump into the bottom edge of a Nested modal dialog</td><td class="test"><a href="test-40.1-bumpBottomEdgeOfNestedModal.html?at=jaws" aria-label="JAWS test for task bumpBottomEdgeOfNestedModal">JAWS</a></td><td class="test"><a href="test-40.1-bumpBottomEdgeOfNestedModal.html?at=nvda" aria-label="NVDA test for task bumpBottomEdgeOfNestedModal">NVDA</a></td><td class="test"><a href="test-40.1-bumpBottomEdgeOfNestedModal.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task bumpBottomEdgeOfNestedModal">VoiceOver for macOS</a></td><td>openAddressAddedDialogAndFocusOKButton</td></tr>
+
+    </tbody>
+  </table>
+  </main>
+</body>

@@ -1,0 +1,77 @@
+{
+  "info": {
+    "testId": 20,
+    "task": "navigate sequentially through checkbox group",
+    "title": "Navigate sequentially through a checkbox group",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html"
+      },
+      {
+        "refId": "checkbox",
+        "value": "https://w3c.github.io/aria/#checkbox"
+      },
+      {
+        "refId": "group",
+        "value": "https://w3c.github.io/aria/#group"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2020-11-23_175030\\checkbox-1\\checkbox-1.html"
+  },
+  "instructions": {
+    "user": [
+      "Navigate both forward and backward into and out of  the checkbox group."
+    ],
+    "raw": "Navigate both forward and backward into and out of  the checkbox group.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_RIGHT",
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
+    },
+    {
+      "id": "CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Group name 'Sandwich Condiments' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Group boundaries at start and end of group are conveyed"
+    }
+  ]
+}

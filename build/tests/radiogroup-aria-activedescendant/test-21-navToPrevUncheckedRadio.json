@@ -1,0 +1,124 @@
+{
+  "task": "navToPrevUncheckedRadio",
+  "mode": "virtualCursor_browseMode_defaultMode_singleQuickKeyNavOn",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the second radio button",
+  "specific_user_instruction": "Starting at the 'Deep dish' radio button, navigate to the 'Regular crust' radio button.",
+  "setupTestPage": "setFocusOnSecondRadioButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleRadio",
+      "priority": 1,
+      "assertionStatement": "Role 'radio button' is conveyed",
+      "assertionPhrase": "convey role 'radio button'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameRegularCrust",
+      "priority": 1,
+      "assertionStatement": "Name of the radio button, 'Regular crust', is conveyed",
+      "assertionPhrase": "convey name of the radio button, 'Regular crust'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateRadioUnchecked",
+      "priority": 3,
+      "assertionStatement": "State of the radio button, 'unchecked', is conveyed",
+      "assertionPhrase": "convey state of the radio button, 'unchecked'",
+      "refIds": "aria-checked",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionRadio1",
+      "priority": 2,
+      "assertionStatement": "Position of the radio button, 1, is conveyed",
+      "assertionPhrase": "convey position of the radio button, 1",
+      "refIds": "aria-activedescendant aria-posinset radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberRadioButtonsGroup3",
+      "priority": 2,
+      "assertionStatement": "Number of radio buttons in the group, 3, is conveyed",
+      "assertionPhrase": "convey number of radio buttons in the group, 3",
+      "refIds": "aria-activedescendant aria-setsize radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navToPrevUncheckedRadio",
+        "command": "shift+f",
+        "settings": "virtualCursor",
+        "presentationNumber": 22,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToPrevUncheckedRadio",
+        "command": "shift+a",
+        "settings": "virtualCursor",
+        "presentationNumber": 22.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToPrevUncheckedRadio",
+        "command": "up",
+        "settings": "virtualCursor",
+        "presentationNumber": 22.2,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navToPrevUncheckedRadio",
+        "command": "shift+f",
+        "settings": "browseMode",
+        "presentationNumber": 22,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToPrevUncheckedRadio",
+        "command": "shift+r",
+        "settings": "browseMode",
+        "presentationNumber": 22.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navToPrevUncheckedRadio",
+        "command": "ctrl+opt+left",
+        "settings": "defaultMode",
+        "presentationNumber": 22,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToPrevUncheckedRadio",
+        "command": "shift+j",
+        "settings": "singleQuickKeyNavOn",
+        "presentationNumber": 22.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

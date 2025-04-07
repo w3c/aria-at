@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards to a slider in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/slider/slider-rating.html">
+<link rel="help" href="https://w3c.github.io/aria/#slider">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemin">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemax">
+
+<script>
+  let scripts = {
+		setFocusBeforeSlider: function(testPageDocument){
+			// sets focus on a link before the slider
+			testPageDocument.querySelector('#beforelink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate forwards to slider",
+  "mode": "reading",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on a link before the slider",
+  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Rating' slider.",
+  "setupTestPage": "setFocusBeforeSlider",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'slider' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Rating' is conveyed"
+    ],
+    [
+      "1",
+      "Textual value 'zero of five stars' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '0' is not conveyed"
+    ],
+    [
+      "1",
+      "Orientation 'horizontal' is conveyed"
+    ],
+    [
+      "1",
+      "Minimum value '0' is not conveyed"
+    ],
+    [
+      "1",
+      "Maximum value '5' is not conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate forwards to slider": {
+    "reading": {
+      "jaws": [
+        [ "DOWN,DOWN,DOWN" ],
+        [ "TAB" ]
+      ],
+      "nvda": [ [ "DOWN,DOWN" ], [ "TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT"
+        ],
+        [ "TAB" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2021-9-21_13436\\slider-rating.setFocusBeforeSlider.html");
+  });
+</script>
+  

@@ -1,0 +1,84 @@
+{
+  "info": {
+    "testId": 12,
+    "task": "navigate backwards out of a complementary landmark",
+    "title": "Navigate backwards out of a complementary landmark",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/complementary.html"
+      },
+      {
+        "refId": "complementary",
+        "value": "https://w3c.github.io/aria/#complementary"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "VOICEOVER_MACOS",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2021-10-24_142522\\complementary.setFocusOnTopLink.html",
+    "setupScript": {
+      "name": "setFocusOnTopLink",
+      "description": "sets focus on the 'Top' link",
+      "source": "// sets focus on the 'Top' link\ntestPageDocument.getElementById('top').focus();\n",
+      "modulePath": "scripts/setFocusOnTopLink.module.js",
+      "jsonpPath": "scripts/setFocusOnTopLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link."
+    ],
+    "raw": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_LEFT,CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left, then Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        },
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_CTRL_OPT_CMD_L",
+      "keystroke": "Shift+Control+Option+Command+L",
+      "keypresses": [
+        {
+          "id": "SHIFT_CTRL_OPT_CMD_L",
+          "keystroke": "Shift+Control+Option+Command+L"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "complementary landmark boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Landmarks' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Navigate forwards from here' is conveyed"
+    }
+  ]
+}

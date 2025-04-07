@@ -1,0 +1,98 @@
+{
+  "info": {
+    "testId": 18,
+    "task": "navigate backwards to a button inside a banner landmark",
+    "title": "Navigate backwards to a button inside a banner landmark",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/banner.html"
+      },
+      {
+        "refId": "banner",
+        "value": "https://w3c.github.io/aria/#banner"
+      },
+      {
+        "refId": "aria-describedby",
+        "value": "https://w3c.github.io/aria/#aria-describedby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "VOICEOVER_MACOS",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2021-10-24_135455\\banner.setFocusAfterBannerAndHideBottomLink.html",
+    "setupScript": {
+      "name": "setFocusAfterBannerAndHideBottomLink",
+      "description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+      "source": "// sets focus on a link after the banner landmark, and hides the last link inside the landmark region\ntestPageDocument.getElementById('bottom').setAttribute('hidden', '');\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterBannerAndHideBottomLink.module.js",
+      "jsonpPath": "scripts/setFocusAfterBannerAndHideBottomLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button."
+    ],
+    "raw": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_LEFT,CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left, then Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        },
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_CTRL_OPT_CMD_J",
+      "keystroke": "Shift+Control+Option+Command+J",
+      "keypresses": [
+        {
+          "id": "SHIFT_CTRL_OPT_CMD_J",
+          "keystroke": "Shift+Control+Option+Command+J"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'banner' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Show Headings' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Button description is conveyed as: 'Visually outline the landmarks and/or headings on the page'"
+    }
+  ]
+}

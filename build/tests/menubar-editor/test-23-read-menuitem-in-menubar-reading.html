@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read menu item in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html">
+<link rel="help" href="https://w3c.github.io/aria/#menubar">
+<link rel="help" href="https://w3c.github.io/aria/#menuitem">
+<link rel="help" href="https://w3c.github.io/aria/#aria-haspopup">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script>
+  let scripts = {
+
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "read menuitem in menubar",
+  "mode": "reading",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "",
+  "specific_user_instruction": "Navigate to the 'Text Formatting' menubar. | Navigate to the size menu item in the menubar. | Read 'Size' menu item",
+  "setupTestPage": "",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Size' is conveyed"
+    ],
+    [
+      "1",
+      "Availability of a submenu is conveyed"
+    ],
+    [
+      "2",
+      " Closed state of the submenu is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the menubar are conveyed"
+    ],
+    [
+      "2",
+      " The role 'menu item' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read menuitem in menubar": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2020-11-23_175528\\menubar-editor.html");
+  });
+</script>
+  

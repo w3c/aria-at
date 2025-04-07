@@ -1,0 +1,94 @@
+{
+  "info": {
+    "testId": 2,
+    "task": "navigate forwards to a slider thumb",
+    "title": "Navigate forwards to a slider thumb in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/examples/slider-multithumb/"
+      },
+      {
+        "refId": "slider",
+        "value": "https://w3c.github.io/aria/#slider"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuemin",
+        "value": "https://w3c.github.io/aria/#aria-valuemin"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2023-3-20_134749\\slider-multithumb.setFocusBeforeSlider.html",
+    "setupScript": {
+      "name": "setFocusBeforeSlider",
+      "description": "sets focus on a link before the first slider thumb",
+      "source": "// sets focus on a link before the slider\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeSlider.module.js",
+      "jsonpPath": "scripts/setFocusBeforeSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate forwards from here' link, navigate to the 'Hotel Minimum Price in US dollars' slider thumb."
+    ],
+    "raw": "With focus on the 'Navigate forwards from here' link, navigate to the 'Hotel Minimum Price in US dollars' slider thumb.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'slider' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Hotel Minimum Price in US dollars' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Value '100' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Orientation 'horizontal' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Minimum value '0' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Maximum value '250' is conveyed"
+    }
+  ]
+}

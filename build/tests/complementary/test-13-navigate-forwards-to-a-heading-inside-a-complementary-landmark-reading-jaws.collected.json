@@ -1,0 +1,84 @@
+{
+  "info": {
+    "testId": 13,
+    "task": "navigate forwards to a heading inside a complementary landmark",
+    "title": "Navigate forwards to a heading inside a complementary landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/complementary.html"
+      },
+      {
+        "refId": "complementary",
+        "value": "https://w3c.github.io/aria/#complementary"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2021-10-24_142522\\complementary.setFocusBeforeComplementary.html",
+    "setupScript": {
+      "name": "setFocusBeforeComplementary",
+      "description": "sets focus on a link before the complementary landmark",
+      "source": "// sets focus on a link before the complementary landmark\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeComplementary.module.js",
+      "jsonpPath": "scripts/setFocusBeforeComplementary.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Landmarks' heading."
+    ],
+    "raw": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Landmarks' heading.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."
+  },
+  "commands": [
+    {
+      "id": "H",
+      "keystroke": "H",
+      "keypresses": [
+        {
+          "id": "H",
+          "keystroke": "H"
+        }
+      ]
+    },
+    {
+      "id": "TWO",
+      "keystroke": "2",
+      "keypresses": [
+        {
+          "id": "TWO",
+          "keystroke": "2"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'complementary' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Landmarks' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'heading' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Heading level '2' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the heading, 'Landmarks', is conveyed"
+    }
+  ]
+}

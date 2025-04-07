@@ -1,0 +1,62 @@
+{
+  "info": {
+    "testId": 20,
+    "task": "increment a slider thumb to the maximum value",
+    "title": "Increment a slider thumb to the maximum value in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/examples/slider-multithumb/"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuemax",
+        "value": "https://w3c.github.io/aria/#aria-valuemax"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2023-3-20_134749\\slider-multithumb.setFocusOnSlider.html",
+    "setupScript": {
+      "name": "setFocusOnSlider",
+      "description": "sets focus on the first slider thumb",
+      "source": "// sets focus on the slider\ntestPageDocument.querySelector('[role=\"slider\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Hotel Minimum Price in US dollars' slider thumb, set its value to 250."
+    ],
+    "raw": "With focus on the 'Hotel Minimum Price in US dollars' slider thumb, set its value to 250.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "END",
+      "keystroke": "End",
+      "keypresses": [
+        {
+          "id": "END",
+          "keystroke": "End"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Value '250' is conveyed"
+    }
+  ]
+}

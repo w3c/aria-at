@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a slider thumb</title>
+<link rel="help" href="https://www.w3.org/WAI/ARIA/apg/patterns/slider-multithumb/examples/slider-multithumb/">
+<link rel="help" href="https://w3c.github.io/aria/#slider">
+<link rel="help" href="https://w3c.github.io/aria/#aria-label">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemin">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuemax">
+
+<script>
+  let scripts = {
+		setFocusAfterSlider: function(testPageDocument){
+			// sets focus on a link after the slider
+			testPageDocument.querySelector('#afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate backwards to a slider thumb",
+  "mode": "interaction",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on a link after the second slider thumb",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Hotel Maximum Price in US dollars' slider thumb.",
+  "setupTestPage": "setFocusAfterSlider",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'slider' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Hotel Maximum Price in US dollars' is conveyed"
+    ],
+    [
+      "1",
+      "Value '250' is conveyed"
+    ],
+    [
+      "1",
+      "Orientation 'horizontal' is conveyed"
+    ],
+    [
+      "2",
+      "Minimum value '100' is conveyed"
+    ],
+    [
+      "2",
+      "Maximum value '400' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to a slider thumb": {
+    "reading": {
+      "jaws": [ [ "UP" ], [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "UP" ], [ "SHIFT_TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_TAB" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference\\2023-3-20_134749\\slider-multithumb.setFocusAfterSlider.html");
+  });
+</script>
+  

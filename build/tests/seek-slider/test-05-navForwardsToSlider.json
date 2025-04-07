@@ -1,0 +1,185 @@
+{
+  "task": "navForwardsToSlider",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on a link before the slider",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Seek' slider.",
+  "setupTestPage": "setFocusBeforeSlider",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleSlider",
+      "priority": 1,
+      "assertionStatement": "Role 'slider' is conveyed",
+      "assertionPhrase": "convey role 'slider'",
+      "refIds": "slider",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameSeek",
+      "priority": 1,
+      "assertionStatement": "Name 'Seek' is conveyed",
+      "assertionPhrase": "convey name 'Seek'",
+      "refIds": "aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "textualValue1Minute30Seconds5Minutes",
+      "priority": 1,
+      "assertionStatement": "Text value, '1 Minute 30 Seconds of 5 Minutes', is conveyed",
+      "assertionPhrase": "convey text value, '1 Minute 30 Seconds of 5 Minutes'",
+      "refIds": "aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numericValue90IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Numeric value, '90', is not conveyed",
+      "assertionPhrase": "not convey numeric value, '90'",
+      "refIds": "aria-valuenow",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "orientationHorizontal",
+      "priority": 2,
+      "assertionStatement": "Orientation 'horizontal' is conveyed",
+      "assertionPhrase": "convey orientation 'horizontal'",
+      "refIds": "aria-orientation",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "minimumValue0IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Minimum value, '0', is not conveyed",
+      "assertionPhrase": "not convey minimum value, '0'",
+      "refIds": "aria-valuemin",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "maximumValue300IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Maximum value, '300', is not conveyed",
+      "assertionPhrase": "not convey maximum value, '300'",
+      "refIds": "aria-valuemax",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 0,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "slider",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navForwardsToSlider",
+        "command": "down down",
+        "settings": "virtualCursor",
+        "presentationNumber": 1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToSlider",
+        "command": "tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 1.1,
+        "assertionExceptions": "2:interactionModeEnabled"
+      },
+      {
+        "testId": "navForwardsToSlider",
+        "command": "f",
+        "settings": "virtualCursor",
+        "presentationNumber": 1.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToSlider",
+        "command": "tab",
+        "settings": "pcCursor",
+        "presentationNumber": 3,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navForwardsToSlider",
+        "command": "down down",
+        "settings": "browseMode",
+        "presentationNumber": 1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToSlider",
+        "command": "f",
+        "settings": "browseMode",
+        "presentationNumber": 1.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToSlider",
+        "command": "tab",
+        "settings": "browseMode",
+        "presentationNumber": 1.2,
+        "assertionExceptions": "2:interactionModeEnabled"
+      },
+      {
+        "testId": "navForwardsToSlider",
+        "command": "tab",
+        "settings": "focusMode",
+        "presentationNumber": 3,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navForwardsToSlider",
+        "command": "ctrl+opt+right ctrl+opt+right",
+        "settings": "defaultMode",
+        "presentationNumber": 5,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToSlider",
+        "command": "tab",
+        "settings": "defaultMode",
+        "presentationNumber": 5.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToSlider",
+        "command": "j",
+        "settings": "singleQuickKeyNavOn",
+        "presentationNumber": 5.3,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,274 @@
+{
+  "info": {
+    "testId": "reqInfoAboutMenuItem",
+    "title": "Request information about a menu item",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/examples/menu-button-actions-active-descendant/",
+        "linkText": "APG Example: Actions Menu Button  Using element.focus()"
+      },
+      {
+        "refId": "menuitem",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#menuitem",
+        "linkText": "menuitem ARIA Specification"
+      },
+      {
+        "refId": "aria-posinset",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-posinset",
+        "linkText": "aria-posinset ARIA Specification"
+      },
+      {
+        "refId": "aria-setsize",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-setsize",
+        "linkText": "aria-setsize ARIA Specification"
+      },
+      {
+        "refId": "menu",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#menu",
+        "linkText": "menu ARIA Specification"
+      },
+      {
+        "refId": "aria-labelledby",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+        "linkText": "aria-labelledby ARIA Specification"
+      }
+    ],
+    "presentationNumber": 16
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "virtualCursor_pcCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2024-8-28_1295\\menu-button-actions.openMenuAndSetFocusToFirstItem.html",
+    "setupScript": {
+      "script": "openMenuAndSetFocusToFirstItem",
+      "scriptDescription": "opens the menu, and sets focus on 'Action 1'",
+      "name": "openMenuAndSetFocusToFirstItem",
+      "source": "// opens the menu, and sets focus on 'Action 1'\r\ntestPageDocument.defaultView.menuController.openPopup();\r\ntestPageDocument.defaultView.menuController.setFocusToFirstMenuitem();\r\n",
+      "modulePath": "scripts/openMenuAndSetFocusToFirstItem.module.js",
+      "jsonpPath": "scripts/openMenuAndSetFocusToFirstItem.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Action 1' menu item, read information about the menu item.",
+    "mode": {
+      "virtualCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+      ],
+      "pcCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "ins+tab",
+      "keypresses": [
+        {
+          "id": "ins+tab",
+          "keystroke": "Insert+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Tab",
+      "presentationNumber": 15,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "ins+up",
+      "keypresses": [
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 0,
+          "assertionId": "positionFocusedItemMenu1"
+        },
+        {
+          "priority": 0,
+          "assertionId": "numberItemsMenu4"
+        },
+        {
+          "priority": 0,
+          "assertionId": "nameMenuActions"
+        },
+        {
+          "priority": 0,
+          "assertionId": "roleMenu"
+        }
+      ],
+      "keystroke": "Insert+Up Arrow",
+      "presentationNumber": 15.1,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "ins+tab",
+      "keypresses": [
+        {
+          "id": "ins+tab",
+          "keystroke": "Insert+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Tab",
+      "presentationNumber": 15.2,
+      "settings": "pcCursor"
+    },
+    {
+      "id": "ins+up",
+      "keypresses": [
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 0,
+          "assertionId": "positionFocusedItemMenu1"
+        },
+        {
+          "priority": 0,
+          "assertionId": "numberItemsMenu4"
+        },
+        {
+          "priority": 0,
+          "assertionId": "nameMenuActions"
+        },
+        {
+          "priority": 0,
+          "assertionId": "roleMenu"
+        }
+      ],
+      "keystroke": "Insert+Up Arrow",
+      "presentationNumber": 15.3,
+      "settings": "pcCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "nameFocusedItemAction1",
+      "priority": 1,
+      "assertionStatement": "Name of the focused item, 'Action 1', is conveyed",
+      "assertionPhrase": "convey name of the focused item, 'Action 1'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleFocusedItemMenuItem",
+      "priority": 2,
+      "assertionStatement": "Role of the focused item, 'menu item', is conveyed",
+      "assertionPhrase": "convey role of the focused item, 'menu item'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionFocusedItemMenu1",
+      "priority": 2,
+      "assertionStatement": "Position of the focused item in the menu, '1', is conveyed",
+      "assertionPhrase": "convey position of the focused item in the menu, '1'",
+      "refIds": "aria-posinset ",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberItemsMenu4",
+      "priority": 2,
+      "assertionStatement": "Number of items in the menu,'(4', is conveyed",
+      "assertionPhrase": "convey number of items in the menu, '4'",
+      "refIds": "aria-setsize",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameMenuActions",
+      "priority": 3,
+      "assertionStatement": "Name of the menu, 'Actions', is conveyed",
+      "assertionPhrase": "convey name of the menu, 'Actions'",
+      "refIds": "menu aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleMenu",
+      "priority": 3,
+      "assertionStatement": "Role 'menu' is conveyed",
+      "assertionPhrase": "convey role 'menu'",
+      "refIds": "menu",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

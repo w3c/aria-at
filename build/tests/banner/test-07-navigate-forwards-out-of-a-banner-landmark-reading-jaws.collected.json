@@ -1,0 +1,76 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "navigate forwards out of a banner landmark",
+    "title": "Navigate forwards out of a banner landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/banner.html"
+      },
+      {
+        "refId": "banner",
+        "value": "https://w3c.github.io/aria/#banner"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2021-10-24_135455\\banner.setFocusOnBottomLink.html",
+    "setupScript": {
+      "name": "setFocusOnBottomLink",
+      "description": "sets focus on the 'Bottom' link",
+      "source": "// sets focus on the 'Bottom' link\ntestPageDocument.getElementById('bottom').focus();\n",
+      "modulePath": "scripts/setFocusOnBottomLink.module.js",
+      "jsonpPath": "scripts/setFocusOnBottomLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link."
+    ],
+    "raw": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."
+  },
+  "commands": [
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
+    {
+      "id": "U",
+      "keystroke": "U",
+      "keypresses": [
+        {
+          "id": "U",
+          "keystroke": "U"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Banner landmark boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Navigate backwards from here' is conveyed"
+    }
+  ]
+}

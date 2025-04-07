@@ -1,0 +1,60 @@
+{
+  "task": "incrementSliderByTenSteps",
+  "mode": "pcCursor_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the 'Red' slider",
+  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 138.",
+  "setupTestPage": "setFocusOnRedSlider",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "value138",
+      "priority": 1,
+      "assertionStatement": "Value '138' is conveyed",
+      "assertionPhrase": "convey value '138'",
+      "refIds": "aria-valuenow",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "incrementSliderByTenSteps",
+        "command": "pageUp",
+        "settings": "pcCursor",
+        "presentationNumber": 14,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "incrementSliderByTenSteps",
+        "command": "pageUp",
+        "settings": "focusMode",
+        "presentationNumber": 14,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "incrementSliderByTenSteps",
+        "command": "pageUp",
+        "settings": "defaultMode",
+        "presentationNumber": 15,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

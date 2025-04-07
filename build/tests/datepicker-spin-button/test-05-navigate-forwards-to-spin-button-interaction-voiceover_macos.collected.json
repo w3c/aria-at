@@ -1,0 +1,104 @@
+{
+  "info": {
+    "testId": 5,
+    "task": "navigate forwards to spin button",
+    "title": "Navigate forwards to a spin button",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/spinbutton/datepicker-spinbuttons.html"
+      },
+      {
+        "refId": "group",
+        "value": "https://w3c.github.io/aria/#group"
+      },
+      {
+        "refId": "spinbutton",
+        "value": "https://w3c.github.io/aria/#spinbutton"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuetext",
+        "value": "https://w3c.github.io/aria/#aria-valuetext"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2021-10-15_93728\\datepicker-spinbuttons.setFocusBeforeSpinButtonAndSetPredefinedDate.html",
+    "setupScript": {
+      "name": "setFocusBeforeSpinButtonAndSetPredefinedDate",
+      "description": "sets the date picker to March 19, 2021, hides the previous/next arrow buttons and sets focus on a link before the 'Day' spin button",
+      "source": "// sets the date picker to March 19, 2021, and sets focus on a link before the 'Day' spin button\ntestPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);\ntestPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);\ntestPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);\ntestPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));\ntestPageDocument.querySelector('#beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeSpinButtonAndSetPredefinedDate.module.js",
+      "jsonpPath": "scripts/setFocusBeforeSpinButtonAndSetPredefinedDate.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate forwards from here' link, navigate to the 'Day' spin button."
+    ],
+    "raw": "With focus on the 'Navigate forwards from here' link, navigate to the 'Day' spin button.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_RIGHT",
+      "keystroke": "Control+Option+Right",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_RIGHT",
+          "keystroke": "Control+Option+Right"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the group is conveyed as: 'Choose a Date current value is Friday, March nineteenth, 2021'"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'spin button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Day' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Value 'nineteenth' is conveyed"
+    }
+  ]
+}

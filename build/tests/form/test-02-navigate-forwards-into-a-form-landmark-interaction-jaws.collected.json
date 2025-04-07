@@ -1,0 +1,74 @@
+{
+  "info": {
+    "testId": 2,
+    "task": "navigate forwards into a form landmark",
+    "title": "Navigate forwards into a form landmark in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/form.html"
+      },
+      {
+        "refId": "form",
+        "value": "https://w3c.github.io/aria/#form"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2021-10-24_152221\\form.setFocusBeforeForm.html",
+    "setupScript": {
+      "name": "setFocusBeforeForm",
+      "description": "setFocusBeforeForm",
+      "source": "// sets focus on a link before the form landmark\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeForm.module.js",
+      "jsonpPath": "scripts/setFocusBeforeForm.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link."
+    ],
+    "raw": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'form' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Add Contact' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Top' is conveyed"
+    }
+  ]
+}

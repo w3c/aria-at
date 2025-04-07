@@ -1,0 +1,106 @@
+{
+  "info": {
+    "testId": 6,
+    "task": "navigate backwards to empty collapsed combobox",
+    "title": "Navigate backwards to an empty, collapsed combobox",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html"
+      },
+      {
+        "refId": "combobox",
+        "value": "https://w3c.github.io/aria/#combobox"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      },
+      {
+        "refId": "aria-autocomplete",
+        "value": "https://w3c.github.io/aria/#aria-autocomplete"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "voiceover_macos",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2020-12-11_16649\\combobox-autocomplete-both.moveFocusAfterCombobox.html",
+    "setupScript": {
+      "name": "moveFocusAfterCombobox",
+      "description": "sets focus on a link after the Combobox",
+      "source": "// sets focus on a link after the Combobox\ntestPageDocument.querySelector('#cb1-button').style.display = 'none';\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/moveFocusAfterCombobox.module.js",
+      "jsonpPath": "scripts/moveFocusAfterCombobox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate backwards from here' link, navigate to the 'State' Combobox."
+    ],
+    "raw": "With focus on the 'Navigate backwards from here' link, navigate to the 'State' Combobox.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_LEFT,CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left, then Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        },
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_CTRL_OPT_CMD_J",
+      "keystroke": "Shift+Control+Option+Command+J",
+      "keypresses": [
+        {
+          "id": "SHIFT_CTRL_OPT_CMD_J",
+          "keystroke": "Shift+Control+Option+Command+J"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'combobox' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name of the combobox ('State') is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State of the combobox (collapsed) is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The ability to enter or edit text is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The presence of autocomplete behavior is conveyed"
+    }
+  ]
+}

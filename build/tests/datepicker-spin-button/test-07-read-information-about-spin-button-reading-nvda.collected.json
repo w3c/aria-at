@@ -1,0 +1,92 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "read information about spin button",
+    "title": "Read information about a spin button in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/spinbutton/datepicker-spinbuttons.html"
+      },
+      {
+        "refId": "spinbutton",
+        "value": "https://w3c.github.io/aria/#spinbutton"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      },
+      {
+        "refId": "aria-label",
+        "value": "https://w3c.github.io/aria/#aria-label"
+      },
+      {
+        "refId": "aria-valuenow",
+        "value": "https://w3c.github.io/aria/#aria-valuenow"
+      },
+      {
+        "refId": "aria-valuetext",
+        "value": "https://w3c.github.io/aria/#aria-valuetext"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2021-10-15_93728\\datepicker-spinbuttons.setFocusOnSpinButtonAndSetPredefinedDate.html",
+    "setupScript": {
+      "name": "setFocusOnSpinButtonAndSetPredefinedDate",
+      "description": "sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button",
+      "source": "// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button\ntestPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);\ntestPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);\ntestPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);\ntestPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));\ntestPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();\n",
+      "modulePath": "scripts/setFocusOnSpinButtonAndSetPredefinedDate.module.js",
+      "jsonpPath": "scripts/setFocusOnSpinButtonAndSetPredefinedDate.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Day' spin button, read information about the button."
+    ],
+    "raw": "With the reading cursor on the 'Day' spin button, read information about the button.",
+    "mode": "Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
+    },
+    {
+      "id": "INS_UP",
+      "keystroke": "Insert+Up",
+      "keypresses": [
+        {
+          "id": "INS_UP",
+          "keystroke": "Insert+Up"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'spin button' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Day' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Value 'nineteenth' is conveyed"
+    }
+  ]
+}

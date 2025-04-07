@@ -1,0 +1,174 @@
+{
+  "info": {
+    "testId": "triggerAlert",
+    "title": "Trigger an alert",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/alert/examples/alert/",
+        "linkText": "APG Example: Alert"
+      }
+    ],
+    "presentationNumber": 3
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "nvda",
+      "settings": "browseMode_focusMode",
+      "name": "NVDA",
+      "raw": {
+        "name": "NVDA",
+        "key": "nvda",
+        "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "NVDA",
+          "interactionMode": "focus mode",
+          "readingMode": "browse mode",
+          "readingCursor": "browse mode caret"
+        },
+        "settings": {
+          "browseMode": {
+            "screenText": "browse mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+            ]
+          },
+          "focusMode": {
+            "screenText": "focus mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference\\2022-4-8_144013\\alert.setFocusOnButton.html",
+    "setupScript": {
+      "script": "setFocusOnButton",
+      "scriptDescription": "sets focus on the 'Trigger Alert' button",
+      "name": "setFocusOnButton",
+      "source": "// sets focus on the 'Trigger Alert' button\ntestPageDocument.querySelector('#alert-trigger').focus();\n",
+      "modulePath": "scripts/setFocusOnButton.module.js",
+      "jsonpPath": "scripts/setFocusOnButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",
+    "mode": {
+      "browseMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+      ],
+      "focusMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "space",
+      "keypresses": [
+        {
+          "id": "space",
+          "keystroke": "Space"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Space",
+      "presentationNumber": 1,
+      "settings": "browseMode"
+    },
+    {
+      "id": "enter",
+      "keypresses": [
+        {
+          "id": "enter",
+          "keystroke": "Enter"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Enter",
+      "presentationNumber": 1.1,
+      "settings": "browseMode"
+    },
+    {
+      "id": "space",
+      "keypresses": [
+        {
+          "id": "space",
+          "keystroke": "Space"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Space",
+      "presentationNumber": 2,
+      "settings": "focusMode"
+    },
+    {
+      "id": "enter",
+      "keypresses": [
+        {
+          "id": "enter",
+          "keystroke": "Enter"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Enter",
+      "presentationNumber": 2.1,
+      "settings": "focusMode"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleAlert",
+      "priority": 3,
+      "assertionStatement": "Role 'alert' is conveyed",
+      "assertionPhrase": "convey role 'alert'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "textHello",
+      "priority": 1,
+      "assertionStatement": "Text 'Hello' is conveyed",
+      "assertionPhrase": "convey text 'Hello'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

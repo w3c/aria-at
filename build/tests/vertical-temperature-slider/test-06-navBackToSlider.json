@@ -1,0 +1,185 @@
+{
+  "task": "navBackToSlider",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on a link after the slider",
+  "specific_user_instruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Temperature' slider.",
+  "setupTestPage": "setFocusAfterSlider",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleSlider",
+      "priority": 1,
+      "assertionStatement": "Role, 'slider', is conveyed",
+      "assertionPhrase": "convey role, 'slider'",
+      "refIds": "slider",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameTemperature",
+      "priority": 1,
+      "assertionStatement": "Name, 'Temperature', is conveyed",
+      "assertionPhrase": "convey name, 'Temperature'",
+      "refIds": "aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "textualValue250DegreesCelsius",
+      "priority": 1,
+      "assertionStatement": "Text value, '25.0 degrees Celsius', is conveyed",
+      "assertionPhrase": "convey text value, '25.0 degrees Celsius'",
+      "refIds": "aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numericValue250IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Numeric value, '25.0', is not conveyed",
+      "assertionPhrase": "not convey numeric value, '25.0'",
+      "refIds": "aria-valuenow aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "orientationVertical",
+      "priority": 2,
+      "assertionStatement": "Orientation, 'vertical', is conveyed",
+      "assertionPhrase": "convey orientation, 'vertical'",
+      "refIds": "aria-orientation",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "minimumValue100IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Minimum value, '10.0', is not conveyed",
+      "assertionPhrase": "not convey minimum value, '10.0'",
+      "refIds": "aria-valuemin aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "maximumValue380IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Maximum value, '38.0', is not conveyed",
+      "assertionPhrase": "not convey maximum value, '38.0'",
+      "refIds": "aria-valuemax aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 0,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "slider",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navBackToSlider",
+        "command": "up",
+        "settings": "virtualCursor",
+        "presentationNumber": 4,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToSlider",
+        "command": "shift+f",
+        "settings": "virtualCursor",
+        "presentationNumber": 4.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToSlider",
+        "command": "shift+tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 4.2,
+        "assertionExceptions": "2:interactionModeEnabled"
+      },
+      {
+        "testId": "navBackToSlider",
+        "command": "shift+tab",
+        "settings": "pcCursor",
+        "presentationNumber": 4.3,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navBackToSlider",
+        "command": "up up",
+        "settings": "browseMode",
+        "presentationNumber": 4,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToSlider",
+        "command": "shift+f",
+        "settings": "browseMode",
+        "presentationNumber": 4.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToSlider",
+        "command": "shift+tab",
+        "settings": "browseMode",
+        "presentationNumber": 4.2,
+        "assertionExceptions": "2:interactionModeEnabled"
+      },
+      {
+        "testId": "navBackToSlider",
+        "command": "shift+tab",
+        "settings": "focusMode",
+        "presentationNumber": 4.3,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navBackToSlider",
+        "command": "ctrl+opt+left",
+        "settings": "defaultMode",
+        "presentationNumber": 6,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToSlider",
+        "command": "shift+tab",
+        "settings": "defaultMode",
+        "presentationNumber": 6.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToSlider",
+        "command": "shift+j",
+        "settings": "singleQuickKeyNavOn",
+        "presentationNumber": 6.2,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

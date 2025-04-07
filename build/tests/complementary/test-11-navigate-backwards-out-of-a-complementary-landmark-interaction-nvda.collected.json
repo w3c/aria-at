@@ -1,0 +1,70 @@
+{
+  "info": {
+    "testId": 11,
+    "task": "navigate backwards out of a complementary landmark",
+    "title": "Navigate backwards out of a complementary landmark in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/complementary.html"
+      },
+      {
+        "refId": "complementary",
+        "value": "https://w3c.github.io/aria/#complementary"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference\\2021-10-24_142522\\complementary.setFocusOnTopLink.html",
+    "setupScript": {
+      "name": "setFocusOnTopLink",
+      "description": "sets focus on the 'Top' link",
+      "source": "// sets focus on the 'Top' link\ntestPageDocument.getElementById('top').focus();\n",
+      "modulePath": "scripts/setFocusOnTopLink.module.js",
+      "jsonpPath": "scripts/setFocusOnTopLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link."
+    ],
+    "raw": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_TAB",
+      "keystroke": "Shift+Tab",
+      "keypresses": [
+        {
+          "id": "SHIFT_TAB",
+          "keystroke": "Shift+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "complementary landmark boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Landmarks' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Navigate forwards from here' is conveyed"
+    }
+  ]
+}

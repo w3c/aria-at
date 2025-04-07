@@ -1,0 +1,64 @@
+{
+  "info": {
+    "testId": 25,
+    "task": "navigate from expanded disclosure button to text of question answer",
+    "title": "Navigate from an expanded disclosure button to the text of a question answer in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/disclosure/disclosure-faq.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference\\2020-12-3_11559\\disclosure-faq.moveFocusToAndExpandFirstDisclosure.html",
+    "setupScript": {
+      "name": "moveFocusToAndExpandFirstDisclosure",
+      "description": "sets focus on the first disclosure button, and sets its state to expanded",
+      "source": "// sets focus on the first disclosure button, and sets its state to expanded\nconst btn = testPageDocument.querySelector('button[aria-controls=\"faq1_desc\"]');\nconst answer = testPageDocument.querySelector('#faq1_desc');\nbtn.setAttribute('aria-expanded', 'true');\nanswer.style.display = 'block';\n// Hide the link after the button so it doesn't get in the way\ntestPageDocument.querySelector('#afterlink').style.display = 'none';\nbtn.focus();\n",
+      "modulePath": "scripts/moveFocusToAndExpandFirstDisclosure.module.js",
+      "jsonpPath": "scripts/moveFocusToAndExpandFirstDisclosure.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the first disclosure button in the list of frequently asked questions, move into the text of the associated question answer. Note: you may need to press Down Arrow multiple times to hear the answer text in its entirety."
+    ],
+    "raw": "With the reading cursor on the first disclosure button in the list of frequently asked questions, move into the text of the associated question answer. Note: you may need to press Down Arrow multiple times to hear the answer text in its entirety.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."
+  },
+  "commands": [
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
+    {
+      "id": "P",
+      "keystroke": "P",
+      "keypresses": [
+        {
+          "id": "P",
+          "keystroke": "P"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Text of the answer is conveyed as 'Park at the nearest available parking meter without paying the meter and call 999-999-9999 to report the problem. We will note and approve your alternate location and will investigate the cause of the shortage in your assigned facility.'"
+    }
+  ]
+}

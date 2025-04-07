@@ -1,0 +1,33 @@
+{
+  "task": "navigate forwards out of a contentinfo landmark",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on the 'Bottom' link",
+  "specific_user_instruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupTestPage": "setFocusOnBottomLink",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "contentinfo landmark boundary is conveyed"
+    ],
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Navigate backwards from here' is conveyed"
+    ]
+  ]
+}

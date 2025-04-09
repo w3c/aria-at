@@ -170,8 +170,12 @@
   },
   "commands": [
     {
-      "id": "ctrl+opt+right ctrl+opt+right",
+      "id": "ctrl+opt+right ctrl+opt+right ctrl+opt+right",
       "keypresses": [
+        {
+          "id": "ctrl+opt+right",
+          "keystroke": "Control+Option+Right Arrow"
+        },
         {
           "id": "ctrl+opt+right",
           "keystroke": "Control+Option+Right Arrow"
@@ -182,7 +186,7 @@
         }
       ],
       "assertionExceptions": [],
-      "keystroke": "Control+Option+Right Arrow then Control+Option+Right Arrow",
+      "keystroke": "Control+Option+Right Arrow then Control+Option+Right Arrow then Control+Option+Right Arrow",
       "presentationNumber": 5,
       "settings": "defaultMode"
     },

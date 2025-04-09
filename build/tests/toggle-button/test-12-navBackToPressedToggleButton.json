@@ -1,0 +1,155 @@
+{
+  "task": "navBackToPressedToggleButton",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on a link after the button, and sets the state of the button to 'pressed'",
+  "specific_user_instruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Mute' button.",
+  "setupTestPage": "setFocusAfterButtonAndSetStateToPressed",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleToggleButton",
+      "priority": 1,
+      "assertionStatement": "Role 'toggle button' is conveyed",
+      "assertionPhrase": "convey role 'toggle button'",
+      "refIds": "aria-pressed",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameMute",
+      "priority": 1,
+      "assertionStatement": "Name 'Mute' is conveyed",
+      "assertionPhrase": "convey name 'Mute'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "statePressed",
+      "priority": 1,
+      "assertionStatement": "State 'pressed' is conveyed",
+      "assertionPhrase": "convey state 'pressed'",
+      "refIds": "aria-pressed",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "up",
+        "settings": "virtualCursor",
+        "presentationNumber": 8,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+b",
+        "settings": "virtualCursor",
+        "presentationNumber": 8.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+f",
+        "settings": "virtualCursor",
+        "presentationNumber": 8.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 8.3,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+tab",
+        "settings": "pcCursor",
+        "presentationNumber": 10,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "up",
+        "settings": "browseMode",
+        "presentationNumber": 8,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+b",
+        "settings": "browseMode",
+        "presentationNumber": 8.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+f",
+        "settings": "browseMode",
+        "presentationNumber": 8.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+tab",
+        "settings": "browseMode",
+        "presentationNumber": 8.3,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+tab",
+        "settings": "focusMode",
+        "presentationNumber": 10,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "ctrl+opt+left",
+        "settings": "defaultMode",
+        "presentationNumber": 12,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+tab",
+        "settings": "defaultMode",
+        "presentationNumber": 12.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+j ",
+        "settings": "singleQuickKeyNavOn",
+        "presentationNumber": 12.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navBackToPressedToggleButton",
+        "command": "shift+b",
+        "settings": "singleQuickKeyNavOn",
+        "presentationNumber": 12.3,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

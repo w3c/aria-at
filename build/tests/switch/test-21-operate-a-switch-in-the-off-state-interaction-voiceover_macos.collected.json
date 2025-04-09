@@ -1,0 +1,78 @@
+{
+  "info": {
+    "testId": 21,
+    "task": "operate a switch in the off state",
+    "title": "Operate a switch in the off state",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/switch/switch.html"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "VOICEOVER_MACOS",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2022-8-1_103716/switch.setFocusOnSwitch.html",
+    "setupScript": {
+      "name": "setFocusOnSwitch",
+      "description": "sets focus on the 'Notifications' switch",
+      "source": "// sets focus on the 'Notifications' switch\ntestPageDocument.querySelector('[role=\"switch\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnSwitch.module.js",
+      "jsonpPath": "scripts/setFocusOnSwitch.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Notifications' switch, change its state to 'on'."
+    ],
+    "raw": "With focus on the 'Notifications' switch, change its state to 'on'.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_SPACE",
+      "keystroke": "Control+Option+Space",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_SPACE",
+          "keystroke": "Control+Option+Space"
+        }
+      ]
+    },
+    {
+      "id": "SPACE",
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
+    },
+    {
+      "id": "ENTER",
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Change in state, to 'on', is conveyed"
+    }
+  ]
+}

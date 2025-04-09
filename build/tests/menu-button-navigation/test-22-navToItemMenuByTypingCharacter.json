@@ -1,0 +1,87 @@
+{
+  "task": "navToItemMenuByTypingCharacter",
+  "mode": "pcCursor_focusMode_quickNavOff",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "opens the menu, and sets focus on 'W3C Home Page'",
+  "specific_user_instruction": "Starting at the 'W3C Home Page' menu item, type a character to navigate to a different menu item.",
+  "setupTestPage": "openMenuAndSetFocusToFirstItem",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "nameFocusedItemIniciative",
+      "priority": 1,
+      "assertionStatement": "Name of the focused item, 'W3C Web Accessibility Initiative', is conveyed",
+      "assertionPhrase": "convey name of the focused item, 'W3C Web Accessibility Initiative'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleFocusedItemMenuItem",
+      "priority": 3,
+      "assertionStatement": "Role of the focused item, 'menu item', is conveyed",
+      "assertionPhrase": "convey role of the focused item, 'menu item'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionFocusedItemMenu2",
+      "priority": 2,
+      "assertionStatement": "Position of the focused item in the menu, '2', is conveyed",
+      "assertionPhrase": "convey position of the focused item in the menu, '2'",
+      "refIds": "aria-posinset ",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberItemsMenu6",
+      "priority": 2,
+      "assertionStatement": "Number of items in the menu,'(6', is conveyed",
+      "assertionPhrase": "convey number of items in the menu, '4'",
+      "refIds": "aria-setsize",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navToItemMenuByTypingCharacter",
+        "command": "w",
+        "settings": "pcCursor",
+        "presentationNumber": 21,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navToItemMenuByTypingCharacter",
+        "command": "w",
+        "settings": "focusMode",
+        "presentationNumber": 21,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navToItemMenuByTypingCharacter",
+        "command": "w",
+        "settings": "quickNavOff",
+        "presentationNumber": 22,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

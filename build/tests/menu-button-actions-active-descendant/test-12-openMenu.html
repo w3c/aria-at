@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Open a menu</title>
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-activedescendant" title="aria-activedescendant ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#menuitem" title="menuitem ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-posinset" title="aria-posinset ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-setsize" title="aria-setsize ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#menu" title="menu ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-labelledby" title="aria-labelledby ARIA Specification">
+
+<script>
+  let scripts = {
+		setFocusOnMenuButton: function(testPageDocument){
+			// sets focus on the menu button
+			testPageDocument.querySelector('#menubutton1').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "openMenu",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_quickNavOff",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the menu button",
+  "specific_user_instruction": "Starting at the 'Actions' menu button, open the menu.",
+  "setupTestPage": "setFocusOnMenuButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "nameFocusedItemAction1",
+      "priority": 1,
+      "assertionStatement": "Name of the focused item, 'Action 1', is conveyed",
+      "assertionPhrase": "convey name of the focused item, 'Action 1'",
+      "refIds": "aria-activedescendant",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleFocusedItemMenuItem",
+      "priority": 3,
+      "assertionStatement": "Role of the focused item, 'menu item', is conveyed",
+      "assertionPhrase": "convey role of the focused item, 'menu item'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionFocusedItemMenu1",
+      "priority": 2,
+      "assertionStatement": "Position of the focused item in the menu, '1', is conveyed",
+      "assertionPhrase": "convey position of the focused item in the menu, '1'",
+      "refIds": "aria-posinset aria-activedescendant",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberItemsMenu4",
+      "priority": 2,
+      "assertionStatement": "Number of items in the menu,'(4', is conveyed",
+      "assertionPhrase": "convey number of items in the menu, '4'",
+      "refIds": "aria-setsize",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameMenuActions",
+      "priority": 3,
+      "assertionStatement": "Name of the menu, 'Actions', is conveyed",
+      "assertionPhrase": "convey name of the menu, 'Actions'",
+      "refIds": "menu aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleMenu",
+      "priority": 3,
+      "assertionStatement": "Role 'menu' is conveyed",
+      "assertionPhrase": "convey role 'menu'",
+      "refIds": "menu",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 0,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "openMenu",
+        "command": "space",
+        "settings": "virtualCursor",
+        "presentationNumber": 10,
+        "assertionExceptions": "2:interactionModeEnabled"
+      },
+      {
+        "testId": "openMenu",
+        "command": "enter",
+        "settings": "virtualCursor",
+        "presentationNumber": 10.1,
+        "assertionExceptions": "2:interactionModeEnabled"
+      },
+      {
+        "testId": "openMenu",
+        "command": "space",
+        "settings": "pcCursor",
+        "presentationNumber": 11,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openMenu",
+        "command": "enter",
+        "settings": "pcCursor",
+        "presentationNumber": 11.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openMenu",
+        "command": "down",
+        "settings": "pcCursor",
+        "presentationNumber": 11.2,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "openMenu",
+        "command": "space",
+        "settings": "browseMode",
+        "presentationNumber": 10,
+        "assertionExceptions": "2:interactionModeEnabled"
+      },
+      {
+        "testId": "openMenu",
+        "command": "enter",
+        "settings": "browseMode",
+        "presentationNumber": 10.1,
+        "assertionExceptions": "2:interactionModeEnabled"
+      },
+      {
+        "testId": "openMenu",
+        "command": "space",
+        "settings": "focusMode",
+        "presentationNumber": 11,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openMenu",
+        "command": "enter",
+        "settings": "focusMode",
+        "presentationNumber": 11.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openMenu",
+        "command": "down",
+        "settings": "focusMode",
+        "presentationNumber": 11.2,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "openMenu",
+        "command": "ctrl+opt+space",
+        "settings": "defaultMode",
+        "presentationNumber": 12,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openMenu",
+        "command": "space",
+        "settings": "defaultMode",
+        "presentationNumber": 12.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openMenu",
+        "command": "enter",
+        "settings": "defaultMode",
+        "presentationNumber": 12.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openMenu",
+        "command": "down",
+        "settings": "quickNavOff",
+        "presentationNumber": 12.3,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "openMenu": {
+    "virtualCursor": {
+      "jaws": [
+        [ "space|10" ],
+        [ "enter|10.1" ]
+      ]
+    },
+    "pcCursor": {
+      "jaws": [
+        [ "space|11" ],
+        [ "enter|11.1" ],
+        [ "down|11.2" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [
+        [ "space|10" ],
+        [ "enter|10.1" ]
+      ]
+    },
+    "focusMode": {
+      "nvda": [
+        [ "space|11" ],
+        [ "enter|11.1" ],
+        [ "down|11.2" ]
+      ]
+    },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "ctrl+opt+space|12" ],
+        [ "space|12.1" ],
+        [ "enter|12.2" ]
+      ]
+    },
+    "quickNavOff": {
+      "voiceover_macos": [ [ "down|12.3" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2024-7-21_174946/menu-button-actions-active-descendant.setFocusOnMenuButton.html");
+  });
+</script>
+  

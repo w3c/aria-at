@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a collapsed disclosure button in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/disclosure/disclosure-faq.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+
+<script>
+  let scripts = {
+		moveFocusAfterFirstDisclosure: function(testPageDocument){
+			// sets focus on a link after the first disclosure button
+			testPageDocument.querySelector('#afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate backwards to collapsed disclosure button",
+  "mode": "reading",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on a link after the first disclosure button",
+  "specific_user_instruction": "Navigate to the first disclosure button in the list of frequently asked questions. Note: it should be in the collapsed state.",
+  "setupTestPage": "moveFocusAfterFirstDisclosure",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'button' is conveyed"
+    ],
+    [
+      "1",
+      "Name, 'What do I do if I have a permit for an assigned lot, but can't find a space there?', is conveyed"
+    ],
+    [
+      "1",
+      "State of the button (collapsed) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to collapsed disclosure button": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_B" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ]
+      ],
+      "nvda": [
+        [ "SHIFT_B" ],
+        [ "SHIFT_F" ],
+        [ "SHIFT_TAB" ],
+        [ "UP" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-3_11559/disclosure-faq.moveFocusAfterFirstDisclosure.html");
+  });
+</script>
+  

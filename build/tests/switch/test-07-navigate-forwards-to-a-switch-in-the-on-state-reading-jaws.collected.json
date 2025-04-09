@@ -1,0 +1,94 @@
+{
+  "info": {
+    "testId": 7,
+    "task": "navigate forwards to a switch in the on state",
+    "title": "Navigate forwards to a switch in the on state in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/switch/switch.html"
+      },
+      {
+        "refId": "switch",
+        "value": "https://w3c.github.io/aria/#switch"
+      },
+      {
+        "refId": "aria-checked",
+        "value": "https://w3c.github.io/aria/#aria-checked"
+      },
+      {
+        "refId": "aria-hidden",
+        "value": "https://w3c.github.io/aria/#aria-hidden"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2022-8-1_103716/switch.setFocusBeforeAndTurnOnSwitch.html",
+    "setupScript": {
+      "name": "setFocusBeforeAndTurnOnSwitch",
+      "description": "sets focus on a link before the switch, and sets the state of the switch to 'on'",
+      "source": "// sets focus on a link before the switch, and sets the state of the switch to 'on'\ntestPageDocument.querySelector('[role=\"switch\"]').setAttribute('aria-checked', 'true');\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeAndTurnOnSwitch.module.js",
+      "jsonpPath": "scripts/setFocusBeforeAndTurnOnSwitch.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Notifications' switch."
+    ],
+    "raw": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Notifications' switch.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."
+  },
+  "commands": [
+    {
+      "id": "X",
+      "keystroke": "X",
+      "keypresses": [
+        {
+          "id": "X",
+          "keystroke": "X"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'switch' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Notifications' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "State 'on' is conveyed"
+    }
+  ]
+}

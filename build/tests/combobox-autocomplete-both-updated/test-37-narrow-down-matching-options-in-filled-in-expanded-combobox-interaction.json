@@ -1,0 +1,29 @@
+{
+  "task": "narrow down matching options in filled in expanded combobox",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on and expands the combobox, sets the combobox value to 'a', and de-selects all text in the input",
+  "specific_user_instruction": "With focus on the combobox, type a character to narrow down the number of matching options in the listbox popup.",
+  "setupTestPage": "moveFocusToAndExpandComboboxAndSetValueToAWithInputTextDeselected",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Text of the automatically completed option ('Alabama') is conveyed"
+    ],
+    [
+      "1",
+      "State of the text in the input (selected) is conveyed"
+    ]
+  ]
+}

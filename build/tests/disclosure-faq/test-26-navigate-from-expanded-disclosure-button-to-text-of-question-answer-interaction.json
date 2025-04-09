@@ -1,0 +1,24 @@
+{
+  "task": "navigate from expanded disclosure button to text of question answer",
+  "mode": "interaction",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the first disclosure button, and sets its state to expanded",
+  "specific_user_instruction": "With focus on the first disclosure button in the list of frequently asked questions, move into the text of the associated question answer. Note: you may need to press Control+Option+Right multiple times to hear the answer text in its entirety.",
+  "setupTestPage": "moveFocusToAndExpandFirstDisclosure",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Text of the answer is conveyed as 'Park at the nearest available parking meter without paying the meter and call 999-999-9999 to report the problem. We will note and approve your alternate location and will investigate the cause of the shortage in your assigned facility.'"
+    ]
+  ]
+}

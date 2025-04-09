@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Decrement a slider to the minimum value</title>
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-valuetext" title="aria-valuetext ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-valuenow" title="aria-valuenow ARIA Specification">
+
+<script>
+  let scripts = {
+		setFocusOnSlider: function(testPageDocument){
+			// sets focus on the slider
+			testPageDocument.querySelector('[role="slider"]').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "decrementSliderToMinimumValue",
+  "mode": "pcCursor_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the slider",
+  "specific_user_instruction": "With focus on the 'Seek' slider, set its value to 0 Seconds.",
+  "setupTestPage": "setFocusOnSlider",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "textualValue0Seconds",
+      "priority": 1,
+      "assertionStatement": "Text value, '0 Seconds', is conveyed",
+      "assertionPhrase": "convey text value, '0 Seconds'",
+      "refIds": "aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numericValue0IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Numeric value, '0', is not conveyed",
+      "assertionPhrase": "not convey numeric value, '0'",
+      "refIds": "aria-valuenow",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "decrementSliderToMinimumValue",
+        "command": "home",
+        "settings": "pcCursor",
+        "presentationNumber": 18,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "decrementSliderToMinimumValue",
+        "command": "home",
+        "settings": "focusMode",
+        "presentationNumber": 18,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "decrementSliderToMinimumValue",
+        "command": "home",
+        "settings": "defaultMode",
+        "presentationNumber": 19,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "decrementSliderToMinimumValue": {
+    "pcCursor": { "jaws": [ [ "home|18" ] ] },
+    "focusMode": { "nvda": [ [ "home|18" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [ [ "home|19" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-9-21_14462/slider-seek.setFocusOnSlider.html");
+  });
+</script>
+  

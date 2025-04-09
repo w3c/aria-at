@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Request information about a menu item</title>
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#menuitem" title="menuitem ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-posinset" title="aria-posinset ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-setsize" title="aria-setsize ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#menu" title="menu ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-labelledby" title="aria-labelledby ARIA Specification">
+
+<script>
+  let scripts = {
+		openMenuAndSetFocusToFirstItem: function(testPageDocument){
+			// opens the menu, and sets focus on 'Action 1'
+			testPageDocument.defaultView.menuController.openPopup();
+			testPageDocument.defaultView.menuController.setFocusToFirstMenuitem();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "reqInfoAboutMenuItem",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "opens the menu, and sets focus on 'Action 1'",
+  "specific_user_instruction": "Starting at the 'Action 1' menu item, read information about the menu item.",
+  "setupTestPage": "openMenuAndSetFocusToFirstItem",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "nameFocusedItemAction1",
+      "priority": 1,
+      "assertionStatement": "Name of the focused item, 'Action 1', is conveyed",
+      "assertionPhrase": "convey name of the focused item, 'Action 1'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleFocusedItemMenuItem",
+      "priority": 2,
+      "assertionStatement": "Role of the focused item, 'menu item', is conveyed",
+      "assertionPhrase": "convey role of the focused item, 'menu item'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionFocusedItemMenu1",
+      "priority": 2,
+      "assertionStatement": "Position of the focused item in the menu, '1', is conveyed",
+      "assertionPhrase": "convey position of the focused item in the menu, '1'",
+      "refIds": "aria-posinset ",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberItemsMenu4",
+      "priority": 2,
+      "assertionStatement": "Number of items in the menu,'(4', is conveyed",
+      "assertionPhrase": "convey number of items in the menu, '4'",
+      "refIds": "aria-setsize",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameMenuActions",
+      "priority": 3,
+      "assertionStatement": "Name of the menu, 'Actions', is conveyed",
+      "assertionPhrase": "convey name of the menu, 'Actions'",
+      "refIds": "menu aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleMenu",
+      "priority": 3,
+      "assertionStatement": "Role 'menu' is conveyed",
+      "assertionPhrase": "convey role 'menu'",
+      "refIds": "menu",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "reqInfoAboutMenuItem",
+        "command": "ins+tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 15,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuItem",
+        "command": "ins+up",
+        "settings": "virtualCursor",
+        "presentationNumber": 15.1,
+        "assertionExceptions": "0:positionFocusedItemMenu1 0:numberItemsMenu4 0:nameMenuActions 0:roleMenu"
+      },
+      {
+        "testId": "reqInfoAboutMenuItem",
+        "command": "ins+tab",
+        "settings": "pcCursor",
+        "presentationNumber": 15.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuItem",
+        "command": "ins+up",
+        "settings": "pcCursor",
+        "presentationNumber": 15.3,
+        "assertionExceptions": "0:positionFocusedItemMenu1 0:numberItemsMenu4 0:nameMenuActions 0:roleMenu"
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "reqInfoAboutMenuItem",
+        "command": "ins+tab",
+        "settings": "browseMode",
+        "presentationNumber": 15,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuItem",
+        "command": "ins+up",
+        "settings": "browseMode",
+        "presentationNumber": 15.1,
+        "assertionExceptions": "0:positionFocusedItemMenu1 0:numberItemsMenu4 0:nameMenuActions 0:roleMenu"
+      },
+      {
+        "testId": "reqInfoAboutMenuItem",
+        "command": "ins+tab",
+        "settings": "focusMode",
+        "presentationNumber": 15.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuItem",
+        "command": "ins+up",
+        "settings": "focusMode",
+        "presentationNumber": 15.3,
+        "assertionExceptions": "0:positionFocusedItemMenu1 0:numberItemsMenu4 0:nameMenuActions 0:roleMenu"
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "reqInfoAboutMenuItem",
+        "command": "ctrl+opt+f3",
+        "settings": "defaultMode",
+        "presentationNumber": 16,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "reqInfoAboutMenuItem",
+        "command": "ctrl+opt+f4",
+        "settings": "defaultMode",
+        "presentationNumber": 16.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "reqInfoAboutMenuItem": {
+    "virtualCursor": {
+      "jaws": [
+        [ "ins+tab|15" ],
+        [ "ins+up|15.1" ]
+      ]
+    },
+    "pcCursor": {
+      "jaws": [
+        [ "ins+tab|15.2" ],
+        [ "ins+up|15.3" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [
+        [ "ins+tab|15" ],
+        [ "ins+up|15.1" ]
+      ]
+    },
+    "focusMode": {
+      "nvda": [
+        [ "ins+tab|15.2" ],
+        [ "ins+up|15.3" ]
+      ]
+    },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "ctrl+opt+f3|16" ],
+        [ "ctrl+opt+f4|16.1" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2024-8-28_1295/menu-button-actions.openMenuAndSetFocusToFirstItem.html");
+  });
+</script>
+  

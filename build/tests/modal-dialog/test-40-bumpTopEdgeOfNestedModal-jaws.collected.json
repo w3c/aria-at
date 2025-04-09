@@ -1,0 +1,133 @@
+{
+  "info": {
+    "testId": "bumpTopEdgeOfNestedModal",
+    "title": "Bump into the top edge of a Nested modal dialog",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/",
+        "linkText": "APG Example: Modal Dialog"
+      },
+      {
+        "refId": "aria-modal",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-modal",
+        "linkText": "aria-modal ARIA Specification"
+      }
+    ],
+    "presentationNumber": 40
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "virtualCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2022-4-7_15544/dialog.openAddressAddedDialogAndFocusAddressAddedHeading.html",
+    "setupScript": {
+      "script": "openAddressAddedDialogAndFocusAddressAddedHeading",
+      "scriptDescription": "opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'Address added' heading inside the second dialog",
+      "name": "openAddressAddedDialogAndFocusAddressAddedHeading",
+      "source": "// opens the 'Add Delivery Address' dialog followed by the 'Address Added' dialog, and sets focus on the 'Address added' heading inside the second dialog\nconst btn = testPageDocument.querySelector('#ex1 > button');\ntestPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');\ntestPageDocument.defaultView.replaceDialog('dialog3', undefined, 'dialog3_label');\n",
+      "modulePath": "scripts/openAddressAddedDialogAndFocusAddressAddedHeading.module.js",
+      "jsonpPath": "scripts/openAddressAddedDialogAndFocusAddressAddedHeading.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Address Added' heading inside the nested dialog, make multiple attempts to navigate past the top edge",
+    "mode": {
+      "virtualCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "up up ins+up",
+      "keypresses": [
+        {
+          "id": "up",
+          "keystroke": "Up Arrow"
+        },
+        {
+          "id": "up",
+          "keystroke": "Up Arrow"
+        },
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Up Arrow then Up Arrow then Insert+Up Arrow",
+      "presentationNumber": 30,
+      "settings": "virtualCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "cursorAtAddressAddedHeading",
+      "priority": 1,
+      "assertionStatement": "Screen reader cursor is positioned at heading 'Address Added'",
+      "assertionPhrase": "position screen reader cursor at heading 'Address Added'",
+      "refIds": "aria-modal",
+      "tokenizedAssertionStatements": {
+        "jaws": "The virtual cursor is positioned at heading 'Address Added'",
+        "nvda": "The browse mode caret is positioned at heading 'Address Added'",
+        "voiceover_macos": "The VoiceOver cursor is positioned at heading 'Address Added'"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "position the virtual cursor at heading 'Address Added'",
+        "nvda": "position the browse mode caret at heading 'Address Added'",
+        "voiceover_macos": "position the VoiceOver cursor at heading 'Address Added'"
+      }
+    }
+  ]
+}

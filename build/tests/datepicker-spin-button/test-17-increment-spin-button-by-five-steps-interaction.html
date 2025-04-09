@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Increment a spin button by five steps</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/spinbutton/datepicker-spinbuttons.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+
+<script>
+  let scripts = {
+		setFocusOnSpinButtonAndSetPredefinedDate: function(testPageDocument){
+			// sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button
+			testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+			testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+			testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+			testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+			testPageDocument.defaultView.datepicker.spinbuttonDay.spinbuttonNode.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "increment spin button by five steps",
+  "mode": "interaction",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets the date picker to March 19, 2021, and sets focus on the 'Day' spin button",
+  "specific_user_instruction": "With focus on the 'Day' spin button, set its value to 'twenty fourth'.",
+  "setupTestPage": "setFocusOnSpinButtonAndSetPredefinedDate",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Value 'twenty fourth' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "increment spin button by five steps": {
+    "interaction": {
+      "jaws": [ [ "PAGE_UP" ] ],
+      "nvda": [ [ "PAGE_UP" ] ],
+      "voiceover_macos": [ [ "PAGE_UP" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-15_93728/datepicker-spinbuttons.setFocusOnSpinButtonAndSetPredefinedDate.html");
+  });
+</script>
+  

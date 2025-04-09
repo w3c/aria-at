@@ -1,0 +1,289 @@
+{
+  "info": {
+    "testId": "reqInfoAboutCheckedRadio",
+    "title": "Request information about a checked radio button",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/radio/examples/radio/",
+        "linkText": "APG Example: Radio Group  Using Roving tabindex"
+      },
+      {
+        "refId": "radio",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#radio",
+        "linkText": "radio ARIA Specification"
+      },
+      {
+        "refId": "aria-checked",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-checked",
+        "linkText": "aria-checked ARIA Specification"
+      },
+      {
+        "refId": "aria-posinset",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-posinset",
+        "linkText": "aria-posinset ARIA Specification"
+      },
+      {
+        "refId": "aria-setsize",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-setsize",
+        "linkText": "aria-setsize ARIA Specification"
+      },
+      {
+        "refId": "radiogroup",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#radiogroup",
+        "linkText": "radiogroup ARIA Specification"
+      },
+      {
+        "refId": "aria-labelledby",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+        "linkText": "aria-labelledby ARIA Specification"
+      }
+    ],
+    "presentationNumber": 41
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "nvda",
+      "settings": "browseMode_focusMode",
+      "name": "NVDA",
+      "raw": {
+        "name": "NVDA",
+        "key": "nvda",
+        "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "NVDA",
+          "interactionMode": "focus mode",
+          "readingMode": "browse mode",
+          "readingCursor": "browse mode caret"
+        },
+        "settings": {
+          "browseMode": {
+            "screenText": "browse mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+            ]
+          },
+          "focusMode": {
+            "screenText": "focus mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2021-3-15_144141/radio.setFocusOnAndCheckFirstRadioButton.html",
+    "setupScript": {
+      "script": "setFocusOnAndCheckFirstRadioButton",
+      "scriptDescription": "sets focus on the first radio button, and sets its state to checked",
+      "name": "setFocusOnAndCheckFirstRadioButton",
+      "source": "// sets focus on the first radio button, and sets its state to checked\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('tabindex', '-1');\n  r.setAttribute('aria-checked', 'false');\n  r.classList.remove('focus');\n});\nradios[0].classList.add('focus');\nradios[0].setAttribute('tabindex', '0');\nradios[0].setAttribute('aria-checked', 'true');\nradios[0].focus();\n",
+      "modulePath": "scripts/setFocusOnAndCheckFirstRadioButton.module.js",
+      "jsonpPath": "scripts/setFocusOnAndCheckFirstRadioButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Regular crust' radio button, read information about the radio button.",
+    "mode": {
+      "browseMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+      ],
+      "focusMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "ins+tab",
+      "keypresses": [
+        {
+          "id": "ins+tab",
+          "keystroke": "Insert+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Tab",
+      "presentationNumber": 55,
+      "settings": "browseMode"
+    },
+    {
+      "id": "ins+up",
+      "keypresses": [
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 0,
+          "assertionId": "positionRadio1"
+        },
+        {
+          "priority": 0,
+          "assertionId": "numberRadioButtonsGroup3"
+        },
+        {
+          "priority": 0,
+          "assertionId": "roleGroup"
+        },
+        {
+          "priority": 0,
+          "assertionId": "nameGroupPizzaCrust"
+        }
+      ],
+      "keystroke": "Insert+Up Arrow",
+      "presentationNumber": 55.1,
+      "settings": "browseMode"
+    },
+    {
+      "id": "ins+tab",
+      "keypresses": [
+        {
+          "id": "ins+tab",
+          "keystroke": "Insert+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Tab",
+      "presentationNumber": 55.2,
+      "settings": "focusMode"
+    },
+    {
+      "id": "ins+up",
+      "keypresses": [
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 0,
+          "assertionId": "positionRadio1"
+        },
+        {
+          "priority": 0,
+          "assertionId": "numberRadioButtonsGroup3"
+        },
+        {
+          "priority": 0,
+          "assertionId": "roleGroup"
+        },
+        {
+          "priority": 0,
+          "assertionId": "nameGroupPizzaCrust"
+        }
+      ],
+      "keystroke": "Insert+Up Arrow",
+      "presentationNumber": 55.3,
+      "settings": "focusMode"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleRadio",
+      "priority": 1,
+      "assertionStatement": "Role 'radio button' is conveyed",
+      "assertionPhrase": "convey role 'radio button'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameRegularCrust",
+      "priority": 1,
+      "assertionStatement": "Name of the radio button, 'Regular crust', is conveyed",
+      "assertionPhrase": "convey name of the radio button, 'Regular crust'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateRadioChecked",
+      "priority": 1,
+      "assertionStatement": "State of the radio button, 'checked', is conveyed",
+      "assertionPhrase": "convey state of the radio button, 'checked'",
+      "refIds": "aria-checked",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionRadio1",
+      "priority": 2,
+      "assertionStatement": "Position of the radio button, 1, is conveyed",
+      "assertionPhrase": "convey position of the radio button, 1",
+      "refIds": "aria-posinset radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberRadioButtonsGroup3",
+      "priority": 2,
+      "assertionStatement": "Number of radio buttons in the group, 3, is conveyed",
+      "assertionPhrase": "convey number of radio buttons in the group, 3",
+      "refIds": "aria-setsize radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleGroup",
+      "priority": 2,
+      "assertionStatement": "Role 'group' is conveyed",
+      "assertionPhrase": "convey role 'group'",
+      "refIds": "radiogroup",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameGroupPizzaCrust",
+      "priority": 2,
+      "assertionStatement": "Name of the group, 'Pizza Crust', is conveyed",
+      "assertionPhrase": "convey name of the group, 'Pizza Crust'",
+      "refIds": "aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

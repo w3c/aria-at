@@ -1,0 +1,92 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Index of Assistive Technology Test Files</title>
+  <style>
+    table {
+      display: table;
+      border-collapse: collapse;
+      border-spacing: 2px;
+      border-color: rgb(128,128,128);
+    }
+
+    thead {
+      display: table-row-group;
+      vertical-align: middle;
+      border-bottom: black solid 2px;
+    }
+
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: rgb(128,128,128);
+    }
+
+    tr:nth-child(even) {background: #DDD}
+    tr:nth-child(odd) {background: #FFF}
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: rgb(128,128,128);
+    }
+
+    td {
+      padding: 3px;
+      display: table-cell;
+    }
+
+    td.test {
+      text-align: center;
+    }
+
+    td.none {
+      color: #333;
+    }
+
+    th {
+      padding: 3px;
+      font-weight: bold;
+      display: table-cell;
+    }
+  </style>
+</head>
+<body>
+ <main>
+  <h1>Index of Assistive Technology Test Files</h1>
+  <p>This is useful for viewing the local files on a local web server.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Sequence</th>
+        <th>Task ID</th>
+        <th>Testing Task</th>
+        <th>JAWS</th>
+<th>NVDA</th>
+<th>VoiceOver for macOS</th>
+
+        <th>Setup Script Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td>1</td><td>navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked</td><td scope="row">Navigate forwards into a radio group where no radio buttons are checked</td><td class="test"><a href="test-01-navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked.html?at=jaws" aria-label="JAWS test for task navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked">JAWS</a></td><td class="test"><a href="test-01-navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked.html?at=nvda" aria-label="NVDA test for task navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked">NVDA</a></td><td class="test"><a href="test-01-navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked">VoiceOver for macOS</a></td><td>setFocusBeforeRadioGroup</td></tr>
+<tr><td>2</td><td>navBackInToRadioGroupWhereNoRadioButtonsAreChecked</td><td scope="row">Navigate backwards into a radio group where no radio buttons are checked</td><td class="test"><a href="test-02-navBackInToRadioGroupWhereNoRadioButtonsAreChecked.html?at=jaws" aria-label="JAWS test for task navBackInToRadioGroupWhereNoRadioButtonsAreChecked">JAWS</a></td><td class="test"><a href="test-02-navBackInToRadioGroupWhereNoRadioButtonsAreChecked.html?at=nvda" aria-label="NVDA test for task navBackInToRadioGroupWhereNoRadioButtonsAreChecked">NVDA</a></td><td class="test"><a href="test-02-navBackInToRadioGroupWhereNoRadioButtonsAreChecked.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navBackInToRadioGroupWhereNoRadioButtonsAreChecked">VoiceOver for macOS</a></td><td>setFocusAfterRadioGroup</td></tr>
+<tr><td>3</td><td>navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked</td><td scope="row">Navigate forwards into a radio group where the first radio button is checked</td><td class="test"><a href="test-05-navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked.html?at=jaws" aria-label="JAWS test for task navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked">JAWS</a></td><td class="test"><a href="test-05-navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked.html?at=nvda" aria-label="NVDA test for task navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked">NVDA</a></td><td class="test"><a href="test-05-navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked">VoiceOver for macOS</a></td><td>checkFirstRadioButtonAndSetFocusBeforeRadioGroup</td></tr>
+<tr><td>4</td><td>NavBackIntoRadioGroupWhereLastRadioChecked</td><td scope="row">Navigate backwards into a radio group where the last radio button is checked</td><td class="test"><a href="test-06-NavBackIntoRadioGroupWhereLastRadioChecked.html?at=jaws" aria-label="JAWS test for task NavBackIntoRadioGroupWhereLastRadioChecked">JAWS</a></td><td class="test"><a href="test-06-NavBackIntoRadioGroupWhereLastRadioChecked.html?at=nvda" aria-label="NVDA test for task NavBackIntoRadioGroupWhereLastRadioChecked">NVDA</a></td><td class="test"><a href="test-06-NavBackIntoRadioGroupWhereLastRadioChecked.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task NavBackIntoRadioGroupWhereLastRadioChecked">VoiceOver for macOS</a></td><td>checkThirdRadioButtonAndSetFocusAfterRadioGroup</td></tr>
+<tr><td>5</td><td>navOutStartRadioGroup</td><td scope="row">Navigate out of the start of a radio group</td><td class="test"><a href="test-10-navOutStartRadioGroup.html?at=jaws" aria-label="JAWS test for task navOutStartRadioGroup">JAWS</a></td><td class="test"><a href="test-10-navOutStartRadioGroup.html?at=nvda" aria-label="NVDA test for task navOutStartRadioGroup">NVDA</a></td><td class="test"><a href="test-10-navOutStartRadioGroup.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navOutStartRadioGroup">VoiceOver for macOS</a></td><td>setFocusOnFirstRadioButton</td></tr>
+<tr><td>6</td><td>navOutEndRadioGroup</td><td scope="row">Navigate out of the end of a radio group</td><td class="test"><a href="test-11-navOutEndRadioGroup.html?at=jaws" aria-label="JAWS test for task navOutEndRadioGroup">JAWS</a></td><td class="test"><a href="test-11-navOutEndRadioGroup.html?at=nvda" aria-label="NVDA test for task navOutEndRadioGroup">NVDA</a></td><td class="test"><a href="test-11-navOutEndRadioGroup.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navOutEndRadioGroup">VoiceOver for macOS</a></td><td>setFocusOnThirdRadioButton</td></tr>
+<tr><td>7</td><td>navToNextUncheckedRadio</td><td scope="row">Navigate forwards to an unchecked radio button within a radio group </td><td class="test"><a href="test-20-navToNextUncheckedRadio.html?at=jaws" aria-label="JAWS test for task navToNextUncheckedRadio">JAWS</a></td><td class="test"><a href="test-20-navToNextUncheckedRadio.html?at=nvda" aria-label="NVDA test for task navToNextUncheckedRadio">NVDA</a></td><td class="test"><a href="test-20-navToNextUncheckedRadio.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navToNextUncheckedRadio">VoiceOver for macOS</a></td><td>setFocusOnFirstRadioButton</td></tr>
+<tr><td>8</td><td>navToPrevUncheckedRadio</td><td scope="row">Navigate backwards to an unchecked radio button within a radio group</td><td class="test"><a href="test-21-navToPrevUncheckedRadio.html?at=jaws" aria-label="JAWS test for task navToPrevUncheckedRadio">JAWS</a></td><td class="test"><a href="test-21-navToPrevUncheckedRadio.html?at=nvda" aria-label="NVDA test for task navToPrevUncheckedRadio">NVDA</a></td><td class="test"><a href="test-21-navToPrevUncheckedRadio.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navToPrevUncheckedRadio">VoiceOver for macOS</a></td><td>setFocusOnSecondRadioButton</td></tr>
+<tr><td>9</td><td>navToNextCheckedRadio</td><td scope="row">Navigate forwards to a checked radio button within a radio group</td><td class="test"><a href="test-22-navToNextCheckedRadio.html?at=jaws" aria-label="JAWS test for task navToNextCheckedRadio">JAWS</a></td><td class="test"><a href="test-22-navToNextCheckedRadio.html?at=nvda" aria-label="NVDA test for task navToNextCheckedRadio">NVDA</a></td><td class="test"><a href="test-22-navToNextCheckedRadio.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navToNextCheckedRadio">VoiceOver for macOS</a></td><td>setFocusOnFirstRadioButtonAndCheckSecondRadioButton</td></tr>
+<tr><td>10</td><td>navToPrevCheckedRadio</td><td scope="row">Navigate backwards to a checked radio button within a radio group</td><td class="test"><a href="test-23-navToPrevCheckedRadio.html?at=jaws" aria-label="JAWS test for task navToPrevCheckedRadio">JAWS</a></td><td class="test"><a href="test-23-navToPrevCheckedRadio.html?at=nvda" aria-label="NVDA test for task navToPrevCheckedRadio">NVDA</a></td><td class="test"><a href="test-23-navToPrevCheckedRadio.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navToPrevCheckedRadio">VoiceOver for macOS</a></td><td>setFocusOnSecondRadioButtonAndCheckFirstRadioButton</td></tr>
+<tr><td>11</td><td>checkRadio</td><td scope="row">Check a radio button</td><td class="test"><a href="test-35-checkRadio.html?at=jaws" aria-label="JAWS test for task checkRadio">JAWS</a></td><td class="test"><a href="test-35-checkRadio.html?at=nvda" aria-label="NVDA test for task checkRadio">NVDA</a></td><td class="test"><a href="test-35-checkRadio.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task checkRadio">VoiceOver for macOS</a></td><td>setFocusOnFirstRadioButton</td></tr>
+<tr><td>12</td><td>navToFirstRadio</td><td scope="row">Check the next radio button in a radio group by navigating to it</td><td class="test"><a href="test-36-navToFirstRadio.html?at=jaws" aria-label="JAWS test for task navToFirstRadio">JAWS</a></td><td class="test"><a href="test-36-navToFirstRadio.html?at=nvda" aria-label="NVDA test for task navToFirstRadio">NVDA</a></td><td class="test"><a href="test-36-navToFirstRadio.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navToFirstRadio">VoiceOver for macOS</a></td><td>setFocusOnThirdRadioButton</td></tr>
+<tr><td>13</td><td>navToLastRadio</td><td scope="row">Check the previous radio button in a radio group by navigating to it</td><td class="test"><a href="test-37-navToLastRadio.html?at=jaws" aria-label="JAWS test for task navToLastRadio">JAWS</a></td><td class="test"><a href="test-37-navToLastRadio.html?at=nvda" aria-label="NVDA test for task navToLastRadio">NVDA</a></td><td class="test"><a href="test-37-navToLastRadio.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task navToLastRadio">VoiceOver for macOS</a></td><td>setFocusOnFirstRadioButton</td></tr>
+<tr><td>14</td><td>reqInfoAboutUncheckedRadio</td><td scope="row">Request information about an unchecked radio button</td><td class="test"><a href="test-40-reqInfoAboutUncheckedRadio.html?at=jaws" aria-label="JAWS test for task reqInfoAboutUncheckedRadio">JAWS</a></td><td class="test"><a href="test-40-reqInfoAboutUncheckedRadio.html?at=nvda" aria-label="NVDA test for task reqInfoAboutUncheckedRadio">NVDA</a></td><td class="test"><a href="test-40-reqInfoAboutUncheckedRadio.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task reqInfoAboutUncheckedRadio">VoiceOver for macOS</a></td><td>setFocusOnFirstRadioButton</td></tr>
+<tr><td>15</td><td>reqInfoAboutCheckedRadio</td><td scope="row">Request information about a checked radio button</td><td class="test"><a href="test-41-reqInfoAboutCheckedRadio.html?at=jaws" aria-label="JAWS test for task reqInfoAboutCheckedRadio">JAWS</a></td><td class="test"><a href="test-41-reqInfoAboutCheckedRadio.html?at=nvda" aria-label="NVDA test for task reqInfoAboutCheckedRadio">NVDA</a></td><td class="test"><a href="test-41-reqInfoAboutCheckedRadio.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task reqInfoAboutCheckedRadio">VoiceOver for macOS</a></td><td>setFocusOnAndCheckFirstRadioButton</td></tr>
+
+    </tbody>
+  </table>
+  </main>
+</body>

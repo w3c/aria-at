@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a spin button in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/spinbutton/datepicker-spinbuttons.html">
+<link rel="help" href="https://w3c.github.io/aria/#group">
+<link rel="help" href="https://w3c.github.io/aria/#spinbutton">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-label">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuenow">
+<link rel="help" href="https://w3c.github.io/aria/#aria-valuetext">
+
+<script>
+  let scripts = {
+		setFocusAfterSpinButtonAndSetPredefinedDate: function(testPageDocument){
+			// sets the date picker to March 19, 2021, and sets focus on a link after the 'Year' spin button
+			testPageDocument.defaultView.datepicker.spinbuttonYear.setValue(2021);
+			testPageDocument.defaultView.datepicker.spinbuttonMonth.setValue(2);
+			testPageDocument.defaultView.datepicker.spinbuttonDay.setValue(19);
+			testPageDocument.querySelectorAll('button').forEach(btn => (btn.style.display = 'none'));
+			testPageDocument.querySelector('#afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate backwards to spin button",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets the date picker to March 19, 2021, hides the previous/next arrow buttons and sets focus on a link after the 'Year' spin button",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Year' spin button.",
+  "setupTestPage": "setFocusAfterSpinButtonAndSetPredefinedDate",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the group is conveyed as: 'Choose a Date current value is Friday, March nineteenth, 2021'"
+    ],
+    [
+      "1",
+      "Role 'spin button' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Year' is conveyed"
+    ],
+    [
+      "1",
+      "Value '2021' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to spin button": {
+    "reading": {
+      "jaws": [ [ "UP" ], [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "UP" ], [ "SHIFT_TAB" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_TAB" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-15_93728/datepicker-spinbuttons.setFocusAfterSpinButtonAndSetPredefinedDate.html");
+  });
+</script>
+  

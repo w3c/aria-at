@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the first tab in a tab list in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/tabs/tabs-2/tabs.html">
+<link rel="help" href="https://w3c.github.io/aria/#tab">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-selected">
+
+<script>
+  let scripts = {
+		setFocusOnThirdTab: function(testPageDocument){
+			// sets focus on the third tab
+			testPageDocument.querySelector('#complex').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate to first tab in tab list",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on the third tab",
+  "specific_user_instruction": "With focus on the 'Joke' tab, navigate to the first tab.",
+  "setupTestPage": "setFocusOnThirdTab",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'tab' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Nils Frahm' is conveyed"
+    ],
+    [
+      "1",
+      "State of the tab, 'selected', is conveyed"
+    ],
+    [
+      "1",
+      "Position of tab in the tab list, 1, is conveyed"
+    ],
+    [
+      "1",
+      "Number of tabs in the tab list, 3, is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to first tab in tab list": {
+    "interaction": {
+      "jaws": [ [ "HOME" ] ],
+      "nvda": [ [ "HOME" ] ],
+      "voiceover_macos": [ [ "HOME" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-2-15_124757/tabs.setFocusOnThirdTab.html");
+  });
+</script>
+  

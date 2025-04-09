@@ -1,0 +1,134 @@
+{
+  "task": "navOutEndRadioGroup",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the third radio button",
+  "specific_user_instruction": "Starting at the 'Thin crust' radio button, navigate to the 'Navigate backwards from here' link.",
+  "setupTestPage": "setFocusOnThirdRadioButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleLink",
+      "priority": 1,
+      "assertionStatement": "Role 'link' is conveyed",
+      "assertionPhrase": "convey role 'link'",
+      "refIds": "htmlLink",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameNavigateBackFromHere",
+      "priority": 1,
+      "assertionStatement": "Name of the link, 'Navigate backwards from here', is conveyed",
+      "assertionPhrase": "convey name of the link, 'Navigate backwards from here'",
+      "refIds": "htmlLink",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "groupBoundary",
+      "priority": 2,
+      "assertionStatement": "Group boundary is conveyed",
+      "assertionPhrase": "convey group boundary",
+      "refIds": "radiogroup",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "u",
+        "settings": "virtualCursor",
+        "presentationNumber": 12,
+        "assertionExceptions": "3:groupBoundary "
+      },
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "down down",
+        "settings": "virtualCursor",
+        "presentationNumber": 12.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 12.2,
+        "assertionExceptions": "3:groupBoundary "
+      },
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "tab",
+        "settings": "pcCursor",
+        "presentationNumber": 12.3,
+        "assertionExceptions": "3:groupBoundary "
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "k",
+        "settings": "browseMode",
+        "presentationNumber": 12,
+        "assertionExceptions": "3:groupBoundary "
+      },
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "down",
+        "settings": "browseMode",
+        "presentationNumber": 12.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "tab",
+        "settings": "browseMode",
+        "presentationNumber": 12.2,
+        "assertionExceptions": "3:groupBoundary "
+      },
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "tab",
+        "settings": "focusMode",
+        "presentationNumber": 12.3,
+        "assertionExceptions": "3:groupBoundary "
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "ctrl+opt+right ctrl+opt+right",
+        "settings": "defaultMode",
+        "presentationNumber": 12,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "tab",
+        "settings": "defaultMode",
+        "presentationNumber": 12.1,
+        "assertionExceptions": "3:groupBoundary "
+      },
+      {
+        "testId": "navOutEndRadioGroup",
+        "command": "l",
+        "settings": "singleQuickKeyNavOn",
+        "presentationNumber": 12.2,
+        "assertionExceptions": "3:groupBoundary "
+      }
+    ]
+  }
+}

@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Activate a link in a dropdown</title>
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#region" title="region ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-label" title="aria-label ARIA Specification">
+
+<script>
+  let scripts = {
+		expandFirstDisclosureAndMoveFocusToOverviewLink: function(testPageDocument){
+			// expands the first disclosure and sets focus on the 'Overview' link
+			testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+			testPageDocument.querySelector('#id_about_menu a').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "activateLinkDropdown",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "expands the first disclosure and sets focus on the 'Overview' link",
+  "specific_user_instruction": "With focus on the 'Overview' link, activate the link.",
+  "setupTestPage": "expandFirstDisclosureAndMoveFocusToOverviewLink",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleRegion",
+      "priority": 1,
+      "assertionStatement": "Role 'Region' is conveyed",
+      "assertionPhrase": "convey role 'Region'",
+      "refIds": "region",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameMythicalUniversitySamplePageContent",
+      "priority": 1,
+      "assertionStatement": "Name of the region, 'Mythical University sample page content', is conveyed",
+      "assertionPhrase": "convey name of the region, 'Mythical University sample page content'",
+      "refIds": "aria-label",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "activateLinkDropdown",
+        "command": "space",
+        "settings": "virtualCursor",
+        "presentationNumber": 63,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "activateLinkDropdown",
+        "command": "enter",
+        "settings": "virtualCursor",
+        "presentationNumber": 63.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "activateLinkDropdown",
+        "command": "enter",
+        "settings": "pcCursor",
+        "presentationNumber": 64,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "activateLinkDropdown",
+        "command": "space",
+        "settings": "browseMode",
+        "presentationNumber": 63,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "activateLinkDropdown",
+        "command": "enter",
+        "settings": "browseMode",
+        "presentationNumber": 63.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "activateLinkDropdown",
+        "command": "enter",
+        "settings": "focusMode",
+        "presentationNumber": 64,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "activateLinkDropdown",
+        "command": "ctrl+opt+space",
+        "settings": "defaultMode",
+        "presentationNumber": 65,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "activateLinkDropdown",
+        "command": "enter",
+        "settings": "defaultMode",
+        "presentationNumber": 65.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "activateLinkDropdown": {
+    "virtualCursor": {
+      "jaws": [
+        [ "space|63" ],
+        [ "enter|63.1" ]
+      ]
+    },
+    "pcCursor": { "jaws": [ [ "enter|64" ] ] },
+    "browseMode": {
+      "nvda": [
+        [ "space|63" ],
+        [ "enter|63.1" ]
+      ]
+    },
+    "focusMode": { "nvda": [ [ "enter|64" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "ctrl+opt+space|65" ],
+        [ "enter|65.1" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2022-9-9_13844/disclosure-navigation.expandFirstDisclosureAndMoveFocusToOverviewLink.html");
+  });
+</script>
+  

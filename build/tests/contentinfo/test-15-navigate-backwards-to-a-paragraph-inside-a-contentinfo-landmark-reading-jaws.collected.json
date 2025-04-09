@@ -1,0 +1,62 @@
+{
+  "info": {
+    "testId": 15,
+    "task": "navigate backwards to a paragraph inside a contentinfo landmark",
+    "title": "Navigate backwards to a paragraph inside a contentinfo landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/contentinfo.html"
+      },
+      {
+        "refId": "contentinfo",
+        "value": "https://w3c.github.io/aria/#contentinfo"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_151010/contentinfo.setFocusAfterContentinfo.html",
+    "setupScript": {
+      "name": "setFocusAfterContentinfo",
+      "description": "sets focus on a link after the contentinfo landmark",
+      "source": "// sets focus on a link after the contentinfo landmark\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterContentinfo.module.js",
+      "jsonpPath": "scripts/setFocusAfterContentinfo.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate backwards from here' link, navigate to the paragraph inside the contentinfo landmark."
+    ],
+    "raw": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the paragraph inside the contentinfo landmark.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_P",
+      "keystroke": "Shift+P",
+      "keypresses": [
+        {
+          "id": "SHIFT_P",
+          "keystroke": "Shift+P"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'contentinfo' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text 'W3C ARIA Authoring Practices Task Force' is conveyed"
+    }
+  ]
+}

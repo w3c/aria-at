@@ -496,7 +496,7 @@ function renderVirtualInstructionDocument(doc) {
             label(
               id(`${failOptionId}-${commandIndex}-label`),
               forInput(`${failOptionId}-${commandIndex}-checkbox`),
-              rich(`${failOption.description} behavior occurred`)
+              rich(failOption.description)
             )
           );
 

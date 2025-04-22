@@ -837,6 +837,50 @@
 	radios[2].classList.add('focus');
 	radios[2].setAttribute('tabindex', '0');
 	radios[2].focus();
+},	checkFifthRadioButtonAndSetFocusAfterRadioGroup: function(testPageDocument){
+	// sets the state of the fifth radio button to checked, and sets focus on a link after the radio group
+	let radio = document.querySelector('[data-rating="5"]');
+	document.defaultView.radioController.setChecked(radio);
+	document.querySelector('#afterlink').focus();
+},	checkFirstRadioButtonAndSetFocusBeforeRadioGroup: function(testPageDocument){
+	// sets the state of the first radio button to checked, and sets focus on a link before the radio group
+	let radio = document.querySelector('[data-rating="1"]');
+	document.defaultView.radioController.setChecked(radio);
+	document.querySelector('#beforelink').focus();
+},	setFocusAfterRadioGroup: function(testPageDocument){
+	// sets focus on a link after the radio group
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRadioGroup: function(testPageDocument){
+	// sets focus on a link before the radio group
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnAndCheckFirstRadioButton: function(testPageDocument){
+	// sets focus on the first radio button, and sets its state to checked
+	let radio = document.querySelector('[data-rating="1"]');
+	document.defaultView.radioController.setChecked(radio);
+},	setFocusOnFifthRadioButton: function(testPageDocument){
+	// sets focus on the fifth radio button
+	let radio = document.querySelector('[data-rating="5"]');
+	radio.focus();
+},	setFocusOnFirstRadioButton: function(testPageDocument){
+	// sets focus on the first radio button
+	let radio = document.querySelector('[data-rating="1"]');
+	radio.focus();
+},	setFocusOnFirstRadioButtonAndCheckSecondRadioButton: function(testPageDocument){
+	// sets focus on the first radio button, and checks the  second radio button
+	let firstRadio = document.querySelector('[data-rating="1"]');
+	let secondRadio = document.querySelector('[data-rating="2"]');
+	document.defaultView.radioController.setChecked(secondRadio);
+	firstRadio.focus();
+},	setFocusOnSecondRadioButton: function(testPageDocument){
+	// sets focus on the second radio button
+	let radio = document.querySelector('[data-rating="2"]');
+	radio.focus();
+},	setFocusOnSecondRadioButtonAndCheckFirstRadioButton: function(testPageDocument){
+	// sets focus on the second radio button, and checks the first radio button
+	let firstRadio = document.querySelector('[data-rating="1"]');
+	let secondRadio = document.querySelector('[data-rating="2"]');
+	document.defaultView.radioController.setChecked(firstRadio);
+	secondRadio.focus();
 },	setFocusAfterSlider: function(testPageDocument){
 	// sets focus on a link after the slider
 	testPageDocument.querySelector('#afterlink').focus();
@@ -1029,7 +1073,7 @@
 
     <h2 class="jaws nvda voiceover_macos">Test 1: Navigate forwards to a slider</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Wed Apr 9 12:09:07 2025 -0600</li>
+      <li>Last Edited: Wed Apr 9 12:39:00 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-05-navForwardsToSlider.html?at=jaws">JAWS</a></li>
@@ -1610,7 +1654,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 2: Navigate backwards to a slider</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Wed Apr 9 12:09:07 2025 -0600</li>
+      <li>Last Edited: Wed Apr 9 12:39:00 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-06-navBackToSlider.html?at=jaws">JAWS</a></li>
@@ -2191,7 +2235,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 3: Request information about a slider</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Wed Apr 9 12:09:07 2025 -0600</li>
+      <li>Last Edited: Wed Apr 9 12:39:00 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-09-reqInfoAboutSlider.html?at=jaws">JAWS</a></li>
@@ -2713,7 +2757,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 4: Increment a slider by one step</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Wed Apr 9 12:09:07 2025 -0600</li>
+      <li>Last Edited: Wed Apr 9 12:39:00 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-11-incrementSliderByOneStep.html?at=jaws">JAWS</a></li>
@@ -2937,7 +2981,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 5: Decrement a slider by one step</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Wed Apr 9 12:09:07 2025 -0600</li>
+      <li>Last Edited: Wed Apr 9 12:39:00 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-13-decrementSliderByOneStep.html?at=jaws">JAWS</a></li>
@@ -3161,7 +3205,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 6: Increment a slider by twenty steps</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Wed Apr 9 12:09:07 2025 -0600</li>
+      <li>Last Edited: Wed Apr 9 12:39:00 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-15-incrementSliderByTwentySteps.html?at=jaws">JAWS</a></li>
@@ -3285,7 +3329,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 7: Decrement a slider by twenty steps</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Wed Apr 9 12:09:07 2025 -0600</li>
+      <li>Last Edited: Wed Apr 9 12:39:00 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-17-decrementSliderByTwentySteps.html?at=jaws">JAWS</a></li>
@@ -3409,7 +3453,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 8: Decrement a slider to the minimum value</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Wed Apr 9 12:09:07 2025 -0600</li>
+      <li>Last Edited: Wed Apr 9 12:39:00 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-19-decrementSliderToMinimumValue.html?at=jaws">JAWS</a></li>
@@ -3533,7 +3577,7 @@
       </div>
     <h2 class="jaws nvda voiceover_macos">Test 9: Increment a slider to the maximum value</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Wed Apr 9 12:09:07 2025 -0600</li>
+      <li>Last Edited: Wed Apr 9 12:39:00 2025 -0600</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/vertical-temperature-slider/test-21-incrementSliderToMaximumValue.html?at=jaws">JAWS</a></li>

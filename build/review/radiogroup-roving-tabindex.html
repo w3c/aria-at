@@ -837,6 +837,50 @@
 	radios[2].classList.add('focus');
 	radios[2].setAttribute('tabindex', '0');
 	radios[2].focus();
+},	checkFifthRadioButtonAndSetFocusAfterRadioGroup: function(testPageDocument){
+	// sets the state of the fifth radio button to checked, and sets focus on a link after the radio group
+	let radio = document.querySelector('[data-rating="5"]');
+	document.defaultView.radioController.setChecked(radio);
+	document.querySelector('#afterlink').focus();
+},	checkFirstRadioButtonAndSetFocusBeforeRadioGroup: function(testPageDocument){
+	// sets the state of the first radio button to checked, and sets focus on a link before the radio group
+	let radio = document.querySelector('[data-rating="1"]');
+	document.defaultView.radioController.setChecked(radio);
+	document.querySelector('#beforelink').focus();
+},	setFocusAfterRadioGroup: function(testPageDocument){
+	// sets focus on a link after the radio group
+	testPageDocument.querySelector('#afterlink').focus();
+},	setFocusBeforeRadioGroup: function(testPageDocument){
+	// sets focus on a link before the radio group
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnAndCheckFirstRadioButton: function(testPageDocument){
+	// sets focus on the first radio button, and sets its state to checked
+	let radio = document.querySelector('[data-rating="1"]');
+	document.defaultView.radioController.setChecked(radio);
+},	setFocusOnFifthRadioButton: function(testPageDocument){
+	// sets focus on the fifth radio button
+	let radio = document.querySelector('[data-rating="5"]');
+	radio.focus();
+},	setFocusOnFirstRadioButton: function(testPageDocument){
+	// sets focus on the first radio button
+	let radio = document.querySelector('[data-rating="1"]');
+	radio.focus();
+},	setFocusOnFirstRadioButtonAndCheckSecondRadioButton: function(testPageDocument){
+	// sets focus on the first radio button, and checks the  second radio button
+	let firstRadio = document.querySelector('[data-rating="1"]');
+	let secondRadio = document.querySelector('[data-rating="2"]');
+	document.defaultView.radioController.setChecked(secondRadio);
+	firstRadio.focus();
+},	setFocusOnSecondRadioButton: function(testPageDocument){
+	// sets focus on the second radio button
+	let radio = document.querySelector('[data-rating="2"]');
+	radio.focus();
+},	setFocusOnSecondRadioButtonAndCheckFirstRadioButton: function(testPageDocument){
+	// sets focus on the second radio button, and checks the first radio button
+	let firstRadio = document.querySelector('[data-rating="1"]');
+	let secondRadio = document.querySelector('[data-rating="2"]');
+	document.defaultView.radioController.setChecked(firstRadio);
+	secondRadio.focus();
 },	setFocusAfterSlider: function(testPageDocument){
 	// sets focus on a link after the slider
 	testPageDocument.querySelector('#afterlink').focus();

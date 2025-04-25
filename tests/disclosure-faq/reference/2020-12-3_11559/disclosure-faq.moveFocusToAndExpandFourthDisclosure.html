@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <title>Example Disclosure (Show/Hide) for Answers to Frequently Asked Questions | WAI-ARIA Authoring Practices 1.2</title>
 
-  <!--  js and css for the disclosure example. -->
   <link href="css/disclosure-faq.css" rel="stylesheet">
   <script src="js/disclosureButton.js" type="text/javascript"></script>
 
@@ -12,9 +11,15 @@
 <script>
   (function() {
     function setupScript(testPageDocument) {
-      // moveFocusAfterFirstDisclosure
-      // sets focus on a link after the first disclosure button
-      testPageDocument.querySelector('#afterlink').focus();
+      // moveFocusToAndExpandFourthDisclosure
+      // sets focus on the fourth disclosure button, and sets its state to expanded
+      const btn = testPageDocument.querySelector('button[aria-controls="faq4_desc"]');
+      const answer = testPageDocument.querySelector('#faq1_desc');
+      btn.setAttribute('aria-expanded', 'true');
+      answer.style.display = 'block';
+      // Hide the link after the button so it doesn't get in the way
+      testPageDocument.querySelector('#afterlink').style.display = 'none';
+      btn.focus();
 
     };
     document.addEventListener('click', function(event) {
@@ -31,18 +36,16 @@
   <h1>Example Disclosure (Show/Hide) for Answers to Frequently Asked Questions</h1>
   <p>
     The following example demonstrates using the
-    <a href="https://w3c.github.io/aria-practices/#disclosure">disclosure design pattern</a>
+    <a href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/">disclosure design pattern</a>
     to create a set of frequently asked questions where the answers may be independently shown or hidden.
   </p>
   <section>
     <h2 id="ex_label">Example</h2>
     <div role="separator" id="ex_start_sep" aria-labelledby="ex_start_sep ex_label" aria-label="Start of" ></div>
     <div id="ex1">
-      <dl class="faq">
+      <div><a id="beforelink" href="#beforelink">Navigate forwards from here</a></div> <dl class="faq">
         <dt>
-          <a id="beforelink" href="#beforelink">Navigate forwards from here</a>
           <button type="button" aria-expanded="false" aria-controls="faq1_desc">What do I do if I have a permit for an assigned lot, but can't find a space there?</button>
-          <a id="afterlink" href="#afterlink">Navigate backwards from here</a>
         </dt>
         <dd>
           <p id="faq1_desc" class="desc">
@@ -82,7 +85,7 @@
           </p>
         </dd>
       </dl>
-    </div>
+      <div><a id="afterlink" href="#afterlink">Navigate backwards from here</a></div> </div>
     <div role="separator" id="ex_end_sep" aria-labelledby="ex_end_sep ex_label" aria-label="End of"></div>
   </section>
 

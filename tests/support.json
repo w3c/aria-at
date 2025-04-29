@@ -106,11 +106,55 @@
           ]
         }
       }
+    },
+    {
+      "name": "TalkBack for Android",
+      "key": "talkback_android",
+      "defaultConfigurationInstructionsHTML": "Configure TalkBack with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+      "assertionTokens": {
+        "screenReader": "TalkBack",
+        "readingCursor": "TalkBack cursor"
+      },
+      "settings": {
+        "exploreByTouchOn": {
+          "screenText": "explore by touch on",
+          "instructions": [
+            "Press &lt;kbd&gt;Volume Up&lt;/kbd&gt; + &lt;kbd&gt;Volume Down&lt;/kbd&gt; to open TalkBack menu.",
+            "Navigate to Settings &gt; Explore by touch.",
+            "If explore by touch is off, turn it on."
+          ]
+        },
+        "exploreByTouchOff": {
+          "screenText": "explore by touch off",
+          "instructions": [
+            "Press &lt;kbd&gt;Volume Up&lt;/kbd&gt; + &lt;kbd&gt;Volume Down&lt;/kbd&gt; to open TalkBack menu.",
+            "Navigate to Settings &gt; Explore by touch.",
+            "If explore by touch is on, turn it off."
+          ]
+        },
+        "exploreBySwipingOn": {
+          "screenText": "explore by swiping on",
+          "instructions": [
+            "Press &lt;kbd&gt;Volume Up&lt;/kbd&gt; + &lt;kbd&gt;Volume Down&lt;/kbd&gt; to open TalkBack menu.",
+            "Navigate to Settings &gt; Explore by touch.",
+            "If explore by touch is on, turn it off to enable explore by swiping."
+          ]
+        },
+        "exploreBySwipingOff": {
+          "screenText": "explore by swiping off",
+          "instructions": [
+            "Press &lt;kbd&gt;Volume Up&lt;/kbd&gt; + &lt;kbd&gt;Volume Down&lt;/kbd&gt; to open TalkBack menu.",
+            "Navigate to Settings &gt; Explore by touch.",
+            "If explore by touch is off, turn it on to disable explore by swiping."
+          ]
+        }
+      }
     }
   ],
   "applies_to": {
     "Desktop Screen Readers": ["VoiceOver for macOS", "NVDA", "JAWS"],
-    "Screen Readers": ["VoiceOver for macOS", "NVDA", "JAWS"]
+    "Mobile Screen Readers": ["TalkBack for Android"],
+    "Screen Readers": ["VoiceOver for macOS", "NVDA", "JAWS", "TalkBack for Android"]
   },
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",

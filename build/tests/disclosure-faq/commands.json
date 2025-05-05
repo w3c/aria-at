@@ -1,172 +1,248 @@
 {
-  "navigate forwards to collapsed disclosure button": {
-    "reading": {
+  "navForwardsToCollapsedDisclosureButton": {
+    "virtualCursor": {
       "jaws": [
-        [ "B" ],
-        [ "F" ],
-        [ "TAB" ],
-        [ "DOWN" ]
-      ],
-      "nvda": [
-        [ "B" ],
-        [ "F" ],
-        [ "TAB" ],
-        [ "DOWN" ]
+        [ "b|1" ],
+        [ "f|1.1" ],
+        [ "tab|1.2" ],
+        [ "down down|1.3" ]
       ]
     },
-    "interaction": {
-      "jaws": [ [ "TAB" ] ],
-      "nvda": [ [ "TAB" ] ],
-      "voiceover_macos": [
-        [ "TAB" ],
-        [ "CTRL_OPT_RIGHT" ],
-        [ "CTRL_OPT_CMD_J" ]
+    "pcCursor": { "jaws": [ [ "tab|3" ] ] },
+    "browseMode": {
+      "nvda": [
+        [ "b|1" ],
+        [ "f|1.1" ],
+        [ "tab|1.2" ],
+        [ "down|1.3" ]
       ]
+    },
+    "focusMode": { "nvda": [ [ "tab|3" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "tab|5" ],
+        [
+          "ctrl+opt+right ctrl+opt+right|5.1"
+        ]
+      ]
+    },
+    "quickNavOn": {
+      "voiceover_macos": [ [ "j|5.2" ] ]
     }
   },
-  "navigate backwards to collapsed disclosure button": {
-    "reading": {
+  "navBackToCollapsedDisclosureButton": {
+    "virtualCursor": {
       "jaws": [
-        [ "SHIFT_B" ],
-        [ "SHIFT_F" ],
-        [ "SHIFT_TAB" ],
-        [ "UP" ]
-      ],
-      "nvda": [
-        [ "SHIFT_B" ],
-        [ "SHIFT_F" ],
-        [ "SHIFT_TAB" ],
-        [ "UP" ]
+        [ "shift+b|2" ],
+        [ "shift+f|2.1" ],
+        [ "shift+tab|2.2" ],
+        [ "up up|2.3" ]
       ]
     },
-    "interaction": {
-      "jaws": [ [ "SHIFT_TAB" ] ],
-      "nvda": [ [ "SHIFT_TAB" ] ],
-      "voiceover_macos": [
-        [ "SHIFT_TAB" ],
-        [ "CTRL_OPT_LEFT" ],
-        [ "SHIFT_CTRL_OPT_CMD_J" ]
+    "pcCursor": { "jaws": [ [ "shift+tab|4" ] ] },
+    "browseMode": {
+      "nvda": [
+        [ "shift+b|2" ],
+        [ "shift+f|2.1" ],
+        [ "shift+tab|2.2" ],
+        [ "up|2.3" ]
       ]
+    },
+    "focusMode": { "nvda": [ [ "shift+tab|4" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "shift+tab|6" ],
+        [
+          "ctrl+opt+left ctrl+opt+left|6.1"
+        ]
+      ]
+    },
+    "quickNavOn": {
+      "voiceover_macos": [ [ "shift+j|6.2" ] ]
     }
   },
-  "navigate forwards to expanded disclosure button": {
-    "reading": {
+  "navForwardsToExpandedDisclosureButton": {
+    "virtualCursor": {
       "jaws": [
-        [ "B" ],
-        [ "F" ],
-        [ "TAB" ],
-        [ "DOWN" ]
-      ],
-      "nvda": [
-        [ "B" ],
-        [ "F" ],
-        [ "TAB" ],
-        [ "DOWN" ]
+        [ "b|7" ],
+        [ "f|7.1" ],
+        [ "tab|7.2" ],
+        [ "down down|7.3" ]
       ]
     },
-    "interaction": {
-      "jaws": [ [ "TAB" ] ],
-      "nvda": [ [ "TAB" ] ],
-      "voiceover_macos": [
-        [ "TAB" ],
-        [ "CTRL_OPT_RIGHT" ],
-        [ "CTRL_OPT_CMD_J" ]
+    "pcCursor": { "jaws": [ [ "tab|9" ] ] },
+    "browseMode": {
+      "nvda": [
+        [ "b|7" ],
+        [ "f|7.1" ],
+        [ "tab|7.2" ],
+        [ "down|7.3" ]
       ]
+    },
+    "focusMode": { "nvda": [ [ "tab|9" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "tab|11" ],
+        [
+          "ctrl+opt+right ctrl+opt+right|11.1"
+        ]
+      ]
+    },
+    "quickNavOn": {
+      "voiceover_macos": [ [ "j|11.2" ] ]
     }
   },
-  "navigate backwards to expanded disclosure button": {
-    "reading": {
+  "navBackToExpandedDisclosureButton": {
+    "virtualCursor": {
       "jaws": [
-        [ "SHIFT_B" ],
-        [ "SHIFT_F" ],
-        [ "SHIFT_TAB" ],
-        [ "UP" ]
-      ],
+        [ "shift+b|8" ],
+        [ "shift+f|8.1" ],
+        [ "shift+tab|8.2" ],
+        [ "up up up|8.3" ]
+      ]
+    },
+    "pcCursor": { "jaws": [ [ "shift+tab|10" ] ] },
+    "browseMode": {
       "nvda": [
-        [ "SHIFT_B" ],
-        [ "SHIFT_F" ],
-        [ "SHIFT_TAB" ],
-        [ "UP" ]
+        [ "shift+b|8" ],
+        [ "shift+f|8.1" ],
+        [ "shift+tab|8.2" ],
+        [ "up up|8.3" ]
       ]
     },
-    "interaction": {
-      "jaws": [ [ "SHIFT_TAB" ] ],
-      "nvda": [ [ "SHIFT_TAB" ] ],
+    "focusMode": { "nvda": [ [ "shift+tab|10" ] ] },
+    "defaultMode": {
       "voiceover_macos": [
-        [ "SHIFT_TAB" ],
-        [ "CTRL_OPT_LEFT" ],
-        [ "SHIFT_CTRL_OPT_CMD_J" ]
+        [ "shift+tab|12" ],
+        [
+          "ctrl+opt+left ctrl+opt+left ctrl+opt+left|12.1"
+        ]
+      ]
+    },
+    "quickNavOn": {
+      "voiceover_macos": [ [ "shift+j|12.2" ] ]
+    }
+  },
+  "reqInfoAboutCollapsedDisclosureButton": {
+    "virtualCursor": {
+      "jaws": [
+        [ "ins+tab|13" ],
+        [ "ins+up|13.1" ]
+      ]
+    },
+    "pcCursor": { "jaws": [ [ "ins+tab|14" ] ] },
+    "browseMode": {
+      "nvda": [
+        [ "ins+tab|13" ],
+        [ "ins+up|13.1" ]
+      ]
+    },
+    "focusMode": { "nvda": [ [ "ins+tab|14" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "ctrl+opt+f3|15" ],
+        [ "ctrl+opt+f4|15.1" ]
       ]
     }
   },
-  "read information about collapsed disclosure button": {
-    "reading": {
-      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
-      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+  "reqInfoAboutExpandedDisclosureButton": {
+    "virtualCursor": {
+      "jaws": [
+        [ "ins+tab|16" ],
+        [ "ins+up|16.1" ]
+      ]
     },
-    "interaction": {
-      "jaws": [ [ "INS_TAB" ] ],
-      "nvda": [ [ "INS_TAB" ] ],
+    "pcCursor": { "jaws": [ [ "ins+tab|17" ] ] },
+    "browseMode": {
+      "nvda": [
+        [ "ins+tab|16" ],
+        [ "ins+up|16.1" ]
+      ]
+    },
+    "focusMode": { "nvda": [ [ "ins+tab|17" ] ] },
+    "defaultMode": {
       "voiceover_macos": [
-        [ "CTRL_OPT_F3" ],
-        [ "CTRL_OPT_F4" ]
+        [ "ctrl+opt+f3|18" ],
+        [ "ctrl+opt+f4|18.1" ]
       ]
     }
   },
-  "read information about expanded disclosure button": {
-    "reading": {
-      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
-      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+  "operateCollapsedDisclosureButton": {
+    "virtualCursor": {
+      "jaws": [
+        [ "space|19" ],
+        [ "enter|19.1" ]
+      ]
     },
-    "interaction": {
-      "jaws": [ [ "INS_TAB" ] ],
-      "nvda": [ [ "INS_TAB" ] ],
+    "pcCursor": {
+      "jaws": [
+        [ "space|20" ],
+        [ "enter|20.1" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [
+        [ "space|19" ],
+        [ "enter|19.1" ]
+      ]
+    },
+    "focusMode": {
+      "nvda": [
+        [ "space|20" ],
+        [ "enter|20.1" ]
+      ]
+    },
+    "defaultMode": {
       "voiceover_macos": [
-        [ "CTRL_OPT_F3" ],
-        [ "CTRL_OPT_F4" ]
+        [ "ctrl+opt+space|21" ],
+        [ "space|21.1" ],
+        [ "enter|21.2" ]
       ]
     }
   },
-  "operate collapsed disclosure button": {
-    "reading": {
-      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
-      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+  "operateExpandedDisclosureButton": {
+    "virtualCursor": {
+      "jaws": [
+        [ "space|22" ],
+        [ "enter|22.1" ]
+      ]
     },
-    "interaction": {
-      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
-      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
+    "pcCursor": {
+      "jaws": [
+        [ "space|23" ],
+        [ "enter|23.1" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [
+        [ "space|22" ],
+        [ "enter|22.1" ]
+      ]
+    },
+    "focusMode": {
+      "nvda": [
+        [ "space|23" ],
+        [ "enter|23.1" ]
+      ]
+    },
+    "defaultMode": {
       "voiceover_macos": [
-        [ "CTRL_OPT_SPACE" ],
-        [ "SPACE" ],
-        [ "ENTER" ]
+        [ "ctrl+opt+space|24" ],
+        [ "space|24.1" ],
+        [ "enter|24.2" ]
       ]
     }
   },
-  "operate expanded disclosure button": {
-    "reading": {
-      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
-      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+  "navFromExpandedDisclosureButtonToTextQuestionAnswer": {
+    "virtualCursor": {
+      "jaws": [ [ "down|25" ], [ "p|25.1" ] ]
     },
-    "interaction": {
-      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
-      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
-      "voiceover_macos": [
-        [ "CTRL_OPT_SPACE" ],
-        [ "SPACE" ],
-        [ "ENTER" ]
-      ]
-    }
-  },
-  "navigate from expanded disclosure button to text of question answer": {
-    "reading": {
-      "jaws": [ [ "DOWN" ], [ "P" ] ],
-      "nvda": [ [ "DOWN" ] ]
+    "browseMode": { "nvda": [ [ "down|25" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [ [ "ctrl+opt+right|26" ] ]
     },
-    "interaction": {
-      "voiceover_macos": [
-        [ "CTRL_OPT_RIGHT" ],
-        [ "CTRL_OPT_CMD_P" ]
-      ]
+    "quickNavOn": {
+      "voiceover_macos": [ [ "p|26.1" ] ]
     }
   }
 }

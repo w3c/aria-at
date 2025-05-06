@@ -16,7 +16,17 @@
     "ats": [
       {
         "key": "jaws",
+        "settings": "virtualCursor speechRateIncrease commentAnnouncementOn",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
         "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "virtualCursor commentAnnouncementOn",
         "name": "JAWS"
       },
       {
@@ -42,7 +52,7 @@
     ],
     "at": {
       "key": "jaws",
-      "settings": "virtualCursor_pcCursor",
+      "settings": "virtualCursor speechRateIncrease commentAnnouncementOn_virtualCursor_virtualCursor commentAnnouncementOn_pcCursor",
       "name": "JAWS",
       "raw": {
         "name": "JAWS",
@@ -68,6 +78,24 @@
               "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
               "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
             ]
+          },
+          "speechRateIncrease": {
+            "screenText": "Speech Rate Increase",
+            "instructions": [
+              "Ensure you are in JAWS mode. Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;j&lt;/kbd&gt; if you are unsure.",
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Page Up&lt;/kbd&gt; to increase the speech rate."
+            ]
+          },
+          "commentAnnouncementOn": {
+            "screenText": "Comment Announcement On",
+            "instructions": [
+              "Ensure you are in JAWS mode. Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;j&lt;/kbd&gt; if you are unsure.",
+              "Use the arrow keys to select 'Speech & Sounds' from the categories list.",
+              "Find and choose the option related to comment announcements. This might be listed under 'Speech Settings' or a similar category.",
+              "Look for a checkbox or toggle to enable comment announcements and check or activate it.",
+              "Click 'Apply' to save your changes.",
+              "Press &lt;kbd&gt;Enter&lt;/kbd&gt; to confirm and exit the Settings Center."
+            ]
           }
         }
       }
@@ -90,6 +118,20 @@
         "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
         "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
       ],
+      "speechRateIncrease": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Ensure you are in JAWS mode. Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;j&lt;/kbd&gt; if you are unsure.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Ctrl&lt;/kbd&gt;+&lt;kbd&gt;Page Up&lt;/kbd&gt; to increase the speech rate."
+      ],
+      "commentAnnouncementOn": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Ensure you are in JAWS mode. Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;j&lt;/kbd&gt; if you are unsure.",
+        "Use the arrow keys to select 'Speech & Sounds' from the categories list.",
+        "Find and choose the option related to comment announcements. This might be listed under 'Speech Settings' or a similar category.",
+        "Look for a checkbox or toggle to enable comment announcements and check or activate it.",
+        "Click 'Apply' to save your changes.",
+        "Press &lt;kbd&gt;Enter&lt;/kbd&gt; to confirm and exit the Settings Center."
+      ],
       "pcCursor": [
         "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
         "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
@@ -109,7 +151,7 @@
       "assertionExceptions": [],
       "keystroke": "Space",
       "presentationNumber": 1,
-      "settings": "virtualCursor"
+      "settings": "virtualCursor speechRateIncrease commentAnnouncementOn"
     },
     {
       "id": "enter",
@@ -123,6 +165,19 @@
       "keystroke": "Enter",
       "presentationNumber": 1.1,
       "settings": "virtualCursor"
+    },
+    {
+      "id": "enter",
+      "keypresses": [
+        {
+          "id": "enter",
+          "keystroke": "Enter"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Enter",
+      "presentationNumber": 1.2,
+      "settings": "virtualCursor commentAnnouncementOn"
     },
     {
       "id": "space",

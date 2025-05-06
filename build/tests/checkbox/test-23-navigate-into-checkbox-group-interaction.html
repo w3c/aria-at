@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate into a checkbox group</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#group">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  let scripts = {
+
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate into checkbox group",
+  "mode": "interaction",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "setup_script_description": "",
+  "specific_user_instruction": "Navigate from outside the checkbox group to a checkbox inside the group. Test both navigating forward into the start and backward into the end.",
+  "setupTestPage": "",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "2",
+      "Role 'group' is conveyed"
+    ],
+    [
+      "1",
+      "Group name 'Sandwich Condiments' is conveyed"
+    ],
+    [
+      "2",
+      "The group boundary is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate into checkbox group": {
+    "reading": {
+      "jaws": [
+        [ "X" ],
+        [ "SHIFT_X" ],
+        [ "F" ],
+        [ "SHIFT_F" ],
+        [ "TAB" ],
+        [ "SHIFT_TAB" ]
+      ],
+      "nvda": [
+        [ "X" ],
+        [ "SHIFT_X" ],
+        [ "F" ],
+        [ "SHIFT_F" ],
+        [ "TAB" ],
+        [ "SHIFT_TAB" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB" ], [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB" ],
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_RIGHT" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "CTRL_OPT_CMD_J" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175030/checkbox-1/checkbox-1.html");
+  });
+</script>
+  

@@ -1,0 +1,164 @@
+{
+  "task": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_quickNavOn",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "expands the first disclosure and sets focus on the 'Campus Tours' link",
+  "specific_user_instruction": "With focus on the 'Campus Tours' link, navigate to the 'Admissions' disclosure button.",
+  "setupTestPage": "expandFirstDisclosureAndMoveFocusToCampusToursLink",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "listBoundary",
+      "priority": 0,
+      "assertionStatement": "List boundary is conveyed",
+      "assertionPhrase": "convey list boundary",
+      "refIds": "list",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleButton",
+      "priority": 1,
+      "assertionStatement": "Role 'button' is conveyed",
+      "assertionPhrase": "convey role 'button'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameAdmissions",
+      "priority": 1,
+      "assertionStatement": "Name of the button, 'Admissions', is conveyed",
+      "assertionPhrase": "convey name of the button, 'Admissions'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateCollapsed",
+      "priority": 1,
+      "assertionStatement": "State of the button, 'collapsed', is conveyed",
+      "assertionPhrase": "convey state of the button, 'collapsed'",
+      "refIds": "aria-expanded",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "b",
+        "settings": "virtualCursor",
+        "presentationNumber": 57,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "f",
+        "settings": "virtualCursor",
+        "presentationNumber": 57.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 57.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "down down",
+        "settings": "virtualCursor",
+        "presentationNumber": 57.3,
+        "assertionExceptions": "1:listBoundary"
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "tab",
+        "settings": "pcCursor",
+        "presentationNumber": 58,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "b",
+        "settings": "browseMode",
+        "presentationNumber": 57,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "f",
+        "settings": "browseMode",
+        "presentationNumber": 57.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "tab",
+        "settings": "browseMode",
+        "presentationNumber": 57.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "down",
+        "settings": "browseMode",
+        "presentationNumber": 57.3,
+        "assertionExceptions": "1:listBoundary"
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "tab",
+        "settings": "focusMode",
+        "presentationNumber": 58,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "ctrl+opt+right ctrl+opt+right",
+        "settings": "defaultMode",
+        "presentationNumber": 59,
+        "assertionExceptions": "1:listBoundary"
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "j",
+        "settings": "quickNavOn",
+        "presentationNumber": 59.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "tab",
+        "settings": "defaultMode",
+        "presentationNumber": 59.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToCollapsedDisclosureButtonFromLastLinkDropdown",
+        "command": "b",
+        "settings": "quickNavOn",
+        "presentationNumber": 59.3,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

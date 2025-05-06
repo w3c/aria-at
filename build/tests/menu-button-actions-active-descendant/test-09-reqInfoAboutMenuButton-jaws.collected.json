@@ -1,0 +1,201 @@
+{
+  "info": {
+    "testId": "reqInfoAboutMenuButton",
+    "title": "Request information about a menu button",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/examples/menu-button-actions-active-descendant/",
+        "linkText": "APG Example: Actions Menu Button  Using aria-activedescendant"
+      },
+      {
+        "refId": "button",
+        "type": "htmlAam",
+        "value": "https://www.w3.org/TR/html-aam-1.0/#el-button",
+        "linkText": "button Accessibility API Mapping"
+      },
+      {
+        "refId": "aria-haspopup",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-haspopup",
+        "linkText": "aria-haspopup ARIA Specification"
+      },
+      {
+        "refId": "aria-expanded",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-expanded",
+        "linkText": "aria-expanded ARIA Specification"
+      }
+    ],
+    "presentationNumber": 9
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "virtualCursor_pcCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2024-7-21_174946/menu-button-actions-active-descendant.setFocusOnMenuButton.html",
+    "setupScript": {
+      "script": "setFocusOnMenuButton",
+      "scriptDescription": "sets focus on the menu button",
+      "name": "setFocusOnMenuButton",
+      "source": "// sets focus on the menu button\ntestPageDocument.querySelector('#menubutton1').focus();\n",
+      "modulePath": "scripts/setFocusOnMenuButton.module.js",
+      "jsonpPath": "scripts/setFocusOnMenuButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Actions' menu button, read information about the menu button.",
+    "mode": {
+      "virtualCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+      ],
+      "pcCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "ins+tab",
+      "keypresses": [
+        {
+          "id": "ins+tab",
+          "keystroke": "Insert+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Tab",
+      "presentationNumber": 7,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "ins+up",
+      "keypresses": [
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Up Arrow",
+      "presentationNumber": 7.1,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "ins+tab",
+      "keypresses": [
+        {
+          "id": "ins+tab",
+          "keystroke": "Insert+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Tab",
+      "presentationNumber": 8,
+      "settings": "pcCursor"
+    },
+    {
+      "id": "ins+up",
+      "keypresses": [
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Up Arrow",
+      "presentationNumber": 8.1,
+      "settings": "pcCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "nameActions",
+      "priority": 1,
+      "assertionStatement": "Name of the menu button, 'Actions', is conveyed",
+      "assertionPhrase": "convey name of the menu button, 'Actions'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleMenuButton",
+      "priority": 1,
+      "assertionStatement": "Role 'menu button' is conveyed",
+      "assertionPhrase": "convey role 'menu button'",
+      "refIds": "button aria-haspopup",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateCollapsed",
+      "priority": 2,
+      "assertionStatement": "State 'collapsed' is conveyed",
+      "assertionPhrase": "convey state 'collapsed'",
+      "refIds": "aria-expanded",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

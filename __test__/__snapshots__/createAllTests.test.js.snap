@@ -10970,7 +10970,9 @@ exports[`V2 test format version runs createAllTests successfully (alert) 1`] = `
     "pcCursor": {
       "jaws": [
         [ "space|2" ],
-        [ "enter|2.1" ]
+        [
+          "jaws nvda vo del delete esc escape jaws+space nvda+space vo+space|2.1"
+        ]
       ]
     },
     "browseMode": {
@@ -11346,15 +11348,51 @@ exports[`V2 test format version runs createAllTests successfully (alert) 6`] = `
       "settings": "pcCursor"
     },
     {
-      "id": "enter",
+      "id": "jaws nvda vo del delete esc escape jaws+space nvda+space vo+space",
       "keypresses": [
         {
-          "id": "enter",
-          "keystroke": "Enter"
+          "id": "jaws",
+          "keystroke": "Insert"
+        },
+        {
+          "id": "nvda",
+          "keystroke": "Insert"
+        },
+        {
+          "id": "vo",
+          "keystroke": "Control+Option"
+        },
+        {
+          "id": "del",
+          "keystroke": "Delete"
+        },
+        {
+          "id": "delete",
+          "keystroke": "Delete"
+        },
+        {
+          "id": "esc",
+          "keystroke": "Escape"
+        },
+        {
+          "id": "escape",
+          "keystroke": "Escape"
+        },
+        {
+          "id": "jaws+space",
+          "keystroke": "Insert+Space"
+        },
+        {
+          "id": "nvda+space",
+          "keystroke": "Insert+Space"
+        },
+        {
+          "id": "vo+space",
+          "keystroke": "Control+Option+Space"
         }
       ],
       "assertionExceptions": [],
-      "keystroke": "Enter",
+      "keystroke": "Insert then Insert then Control+Option then Delete then Delete then Escape then Escape then Insert+Space then Insert+Space then Control+Option+Space",
       "presentationNumber": 2.1,
       "settings": "pcCursor"
     }
@@ -12015,7 +12053,7 @@ exports[`V2 test format version runs createAllTests successfully (alert) 11`] = 
       },
       {
         "testId": "triggerAlert",
-        "command": "enter",
+        "command": "jaws nvda vo del delete esc escape jaws+space nvda+space vo+space",
         "settings": "pcCursor",
         "presentationNumber": 2.1,
         "assertionExceptions": ""
@@ -12087,7 +12125,9 @@ exports[`V2 test format version runs createAllTests successfully (alert) 11`] = 
     "pcCursor": {
       "jaws": [
         [ "space|2" ],
-        [ "enter|2.1" ]
+        [
+          "jaws nvda vo del delete esc escape jaws+space nvda+space vo+space|2.1"
+        ]
       ]
     },
     "browseMode": {
@@ -12184,7 +12224,7 @@ exports[`V2 test format version runs createAllTests successfully (alert) 12`] = 
       },
       {
         "testId": "triggerAlert",
-        "command": "enter",
+        "command": "jaws nvda vo del delete esc escape jaws+space nvda+space vo+space",
         "settings": "pcCursor",
         "presentationNumber": 2.1,
         "assertionExceptions": ""
@@ -26443,7 +26483,9 @@ exports[`all test format versions runs createAllTests successfully 1`] = `
     "pcCursor": {
       "jaws": [
         [ "space|2" ],
-        [ "enter|2.1" ]
+        [
+          "jaws nvda vo del delete esc escape jaws+space nvda+space vo+space|2.1"
+        ]
       ]
     },
     "browseMode": {
@@ -26819,15 +26861,51 @@ exports[`all test format versions runs createAllTests successfully 6`] = `
       "settings": "pcCursor"
     },
     {
-      "id": "enter",
+      "id": "jaws nvda vo del delete esc escape jaws+space nvda+space vo+space",
       "keypresses": [
         {
-          "id": "enter",
-          "keystroke": "Enter"
+          "id": "jaws",
+          "keystroke": "Insert"
+        },
+        {
+          "id": "nvda",
+          "keystroke": "Insert"
+        },
+        {
+          "id": "vo",
+          "keystroke": "Control+Option"
+        },
+        {
+          "id": "del",
+          "keystroke": "Delete"
+        },
+        {
+          "id": "delete",
+          "keystroke": "Delete"
+        },
+        {
+          "id": "esc",
+          "keystroke": "Escape"
+        },
+        {
+          "id": "escape",
+          "keystroke": "Escape"
+        },
+        {
+          "id": "jaws+space",
+          "keystroke": "Insert+Space"
+        },
+        {
+          "id": "nvda+space",
+          "keystroke": "Insert+Space"
+        },
+        {
+          "id": "vo+space",
+          "keystroke": "Control+Option+Space"
         }
       ],
       "assertionExceptions": [],
-      "keystroke": "Enter",
+      "keystroke": "Insert then Insert then Control+Option then Delete then Delete then Escape then Escape then Insert+Space then Insert+Space then Control+Option+Space",
       "presentationNumber": 2.1,
       "settings": "pcCursor"
     }
@@ -27488,7 +27566,7 @@ exports[`all test format versions runs createAllTests successfully 11`] = `
       },
       {
         "testId": "triggerAlert",
-        "command": "enter",
+        "command": "jaws nvda vo del delete esc escape jaws+space nvda+space vo+space",
         "settings": "pcCursor",
         "presentationNumber": 2.1,
         "assertionExceptions": ""
@@ -27560,7 +27638,9 @@ exports[`all test format versions runs createAllTests successfully 11`] = `
     "pcCursor": {
       "jaws": [
         [ "space|2" ],
-        [ "enter|2.1" ]
+        [
+          "jaws nvda vo del delete esc escape jaws+space nvda+space vo+space|2.1"
+        ]
       ]
     },
     "browseMode": {
@@ -27657,7 +27737,7 @@ exports[`all test format versions runs createAllTests successfully 12`] = `
       },
       {
         "testId": "triggerAlert",
-        "command": "enter",
+        "command": "jaws nvda vo del delete esc escape jaws+space nvda+space vo+space",
         "settings": "pcCursor",
         "presentationNumber": 2.1,
         "assertionExceptions": ""

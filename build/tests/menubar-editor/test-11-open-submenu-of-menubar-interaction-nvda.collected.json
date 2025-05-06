@@ -1,0 +1,88 @@
+{
+  "info": {
+    "testId": 11,
+    "task": "open submenu of menubar",
+    "title": "Open submenu in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html"
+      },
+      {
+        "refId": "menuitem",
+        "value": "https://w3c.github.io/aria/#menuitem"
+      },
+      {
+        "refId": "aria-expanded",
+        "value": "https://w3c.github.io/aria/#aria-expanded"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "nvda",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.focusontextalign.html",
+    "setupScript": {
+      "name": "focusontextalign",
+      "description": "sets focus on the 'Text Align' menu item",
+      "source": "// Move focus to the \"Text Align\" menu item\ntestPageDocument.querySelectorAll('[role=menuitem]')[2].focus();\n",
+      "modulePath": "scripts/focusontextalign.module.js",
+      "jsonpPath": "scripts/focusontextalign.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [ "Open 'Text Align' submenu" ],
+    "raw": "Open 'Text Align' submenu",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "ENTER",
+      "keystroke": "Enter",
+      "keypresses": [
+        {
+          "id": "ENTER",
+          "keystroke": "Enter"
+        }
+      ]
+    },
+    {
+      "id": "SPACE",
+      "keystroke": "Space",
+      "keypresses": [
+        {
+          "id": "SPACE",
+          "keystroke": "Space"
+        }
+      ]
+    },
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "The name 'Left' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "The role 'menu item radio' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The position of the item and number of items in the menu are conveyed"
+    }
+  ]
+}

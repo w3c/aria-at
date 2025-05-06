@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Index of Assistive Technology Test Files</title>
+  <style>
+    table {
+      display: table;
+      border-collapse: collapse;
+      border-spacing: 2px;
+      border-color: rgb(128,128,128);
+    }
+
+    thead {
+      display: table-row-group;
+      vertical-align: middle;
+      border-bottom: black solid 2px;
+    }
+
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: rgb(128,128,128);
+    }
+
+    tr:nth-child(even) {background: #DDD}
+    tr:nth-child(odd) {background: #FFF}
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: rgb(128,128,128);
+    }
+
+    td {
+      padding: 3px;
+      display: table-cell;
+    }
+
+    td.test {
+      text-align: center;
+    }
+
+    td.none {
+      color: #333;
+    }
+
+    th {
+      padding: 3px;
+      font-weight: bold;
+      display: table-cell;
+    }
+  </style>
+</head>
+<body>
+ <main>
+  <h1>Index of Assistive Technology Test Files</h1>
+  <p>This is useful for viewing the local files on a local web server.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Task ID</th>
+        <th>Testing Task</th>
+        <th>JAWS</th>
+<th>NVDA</th>
+<th>VoiceOver for macOS</th>
+
+        <th>Setup Script Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td>1</td><td scope="row">Navigate forwards to a spin button in reading mode</td><td class="test"><a href="test-01-navigate-forwards-to-spin-button-reading.html?at=jaws" aria-label="JAWS test for task 1">JAWS</a></td><td class="test"><a href="test-01-navigate-forwards-to-spin-button-reading.html?at=nvda" aria-label="NVDA test for task 1">NVDA</a></td><td class="test none">not included</td><td>setFocusBeforeSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>2</td><td scope="row">Navigate backwards to a spin button in reading mode</td><td class="test"><a href="test-02-navigate-backwards-to-spin-button-reading.html?at=jaws" aria-label="JAWS test for task 2">JAWS</a></td><td class="test"><a href="test-02-navigate-backwards-to-spin-button-reading.html?at=nvda" aria-label="NVDA test for task 2">NVDA</a></td><td class="test none">not included</td><td>setFocusAfterSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>3</td><td scope="row">Navigate forwards to a spin button in interaction mode</td><td class="test"><a href="test-03-navigate-forwards-to-spin-button-interaction.html?at=jaws" aria-label="JAWS test for task 3">JAWS</a></td><td class="test"><a href="test-03-navigate-forwards-to-spin-button-interaction.html?at=nvda" aria-label="NVDA test for task 3">NVDA</a></td><td class="test none">not included</td><td>setFocusBeforeSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>4</td><td scope="row">Navigate backwards to a spin button in interaction mode</td><td class="test"><a href="test-04-navigate-backwards-to-spin-button-interaction.html?at=jaws" aria-label="JAWS test for task 4">JAWS</a></td><td class="test"><a href="test-04-navigate-backwards-to-spin-button-interaction.html?at=nvda" aria-label="NVDA test for task 4">NVDA</a></td><td class="test none">not included</td><td>setFocusAfterSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>5</td><td scope="row">Navigate forwards to a spin button</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-05-navigate-forwards-to-spin-button-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 5">VoiceOver for macOS</a></td><td>setFocusBeforeSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>6</td><td scope="row">Navigate backwards to a spin button</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-06-navigate-backwards-to-spin-button-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 6">VoiceOver for macOS</a></td><td>setFocusAfterSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>7</td><td scope="row">Read information about a spin button in reading mode</td><td class="test"><a href="test-07-read-information-about-spin-button-reading.html?at=jaws" aria-label="JAWS test for task 7">JAWS</a></td><td class="test"><a href="test-07-read-information-about-spin-button-reading.html?at=nvda" aria-label="NVDA test for task 7">NVDA</a></td><td class="test none">not included</td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>8</td><td scope="row">Read information about a spin button in interaction mode</td><td class="test"><a href="test-08-read-information-about-spin-button-interaction.html?at=jaws" aria-label="JAWS test for task 8">JAWS</a></td><td class="test"><a href="test-08-read-information-about-spin-button-interaction.html?at=nvda" aria-label="NVDA test for task 8">NVDA</a></td><td class="test none">not included</td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>9</td><td scope="row">Read information about a spin button</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-09-read-information-about-spin-button-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 9">VoiceOver for macOS</a></td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>10</td><td scope="row">Decrement a spin button by one step in interaction mode</td><td class="test"><a href="test-10-decrement-spin-button-by-one-step-interaction.html?at=jaws" aria-label="JAWS test for task 10">JAWS</a></td><td class="test"><a href="test-10-decrement-spin-button-by-one-step-interaction.html?at=nvda" aria-label="NVDA test for task 10">NVDA</a></td><td class="test none">not included</td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>11</td><td scope="row">Decrement a spin button by one step</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-11-decrement-spin-button-by-one-step-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 11">VoiceOver for macOS</a></td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>12</td><td scope="row">Increment a spin button by one step in interaction mode</td><td class="test"><a href="test-12-increment-spin-button-by-one-step-interaction.html?at=jaws" aria-label="JAWS test for task 12">JAWS</a></td><td class="test"><a href="test-12-increment-spin-button-by-one-step-interaction.html?at=nvda" aria-label="NVDA test for task 12">NVDA</a></td><td class="test none">not included</td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>13</td><td scope="row">Increment a spin button by one step</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-13-increment-spin-button-by-one-step-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 13">VoiceOver for macOS</a></td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>14</td><td scope="row">Decrement a spin button by five steps in interaction mode</td><td class="test"><a href="test-14-decrement-spin-button-by-five-steps-interaction.html?at=jaws" aria-label="JAWS test for task 14">JAWS</a></td><td class="test"><a href="test-14-decrement-spin-button-by-five-steps-interaction.html?at=nvda" aria-label="NVDA test for task 14">NVDA</a></td><td class="test none">not included</td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>15</td><td scope="row">Decrement a spin button by five steps</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-15-decrement-spin-button-by-five-steps-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 15">VoiceOver for macOS</a></td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>16</td><td scope="row">Increment a spin button by five steps in interaction mode</td><td class="test"><a href="test-16-increment-spin-button-by-five-steps-interaction.html?at=jaws" aria-label="JAWS test for task 16">JAWS</a></td><td class="test"><a href="test-16-increment-spin-button-by-five-steps-interaction.html?at=nvda" aria-label="NVDA test for task 16">NVDA</a></td><td class="test none">not included</td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>17</td><td scope="row">Increment a spin button by five steps</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-17-increment-spin-button-by-five-steps-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 17">VoiceOver for macOS</a></td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>18</td><td scope="row">Decrement a spin button to the minimum value in interaction mode</td><td class="test"><a href="test-18-decrement-spin-button-to-minimum-value-interaction.html?at=jaws" aria-label="JAWS test for task 18">JAWS</a></td><td class="test"><a href="test-18-decrement-spin-button-to-minimum-value-interaction.html?at=nvda" aria-label="NVDA test for task 18">NVDA</a></td><td class="test none">not included</td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>19</td><td scope="row">Decrement a spin button to the minimum value</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-19-decrement-spin-button-to-minimum-value-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 19">VoiceOver for macOS</a></td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>20</td><td scope="row">Increment a spin button to the maximum value in interaction mode</td><td class="test"><a href="test-20-increment-spin-button-to-maximum-value-interaction.html?at=jaws" aria-label="JAWS test for task 20">JAWS</a></td><td class="test"><a href="test-20-increment-spin-button-to-maximum-value-interaction.html?at=nvda" aria-label="NVDA test for task 20">NVDA</a></td><td class="test none">not included</td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+<tr><td>21</td><td scope="row">Increment a spin button to the maximum value</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-21-increment-spin-button-to-maximum-value-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 21">VoiceOver for macOS</a></td><td>setFocusOnSpinButtonAndSetPredefinedDate</td></tr>
+
+    </tbody>
+  </table>
+  </main>
+</body>

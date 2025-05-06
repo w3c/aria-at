@@ -1,0 +1,164 @@
+{
+  "task": "closeNestedModalDialog",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "opens the 'Add Delivery Address' dialog followed by the 'Verification Result' dialog, and sets focus on the 'Close' button inside the second dialog",
+  "specific_user_instruction": "Starting at the 'Close' button inside the nested dialog, close the dialog.",
+  "setupTestPage": "openVerificationResultDialogAndFocusCloseButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleDialog",
+      "priority": 1,
+      "assertionStatement": "Role 'dialog' is conveyed",
+      "assertionPhrase": "convey role 'dialog'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameAddDeliveryAddress",
+      "priority": 1,
+      "assertionStatement": "Name 'Add Delivery Address' is conveyed",
+      "assertionPhrase": "convey name 'Add Delivery Address'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleButton",
+      "priority": 1,
+      "assertionStatement": "Role 'button' is conveyed",
+      "assertionPhrase": "convey role 'button'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameVerifyAddress",
+      "priority": 1,
+      "assertionStatement": "Name 'Verify Address' is conveyed",
+      "assertionPhrase": "convey name 'Verify Address'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "esc",
+        "settings": "virtualCursor",
+        "presentationNumber": 24,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "space",
+        "settings": "virtualCursor",
+        "presentationNumber": 24.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "enter",
+        "settings": "virtualCursor",
+        "presentationNumber": 24.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "space",
+        "settings": "pcCursor",
+        "presentationNumber": 24.3,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "enter",
+        "settings": "pcCursor",
+        "presentationNumber": 24.4,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "esc",
+        "settings": "browseMode",
+        "presentationNumber": 24,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "space",
+        "settings": "browseMode",
+        "presentationNumber": 24.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "enter",
+        "settings": "browseMode",
+        "presentationNumber": 24.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "space",
+        "settings": "focusMode",
+        "presentationNumber": 24.3,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "enter",
+        "settings": "focusMode",
+        "presentationNumber": 24.4,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "esc",
+        "settings": "defaultMode",
+        "presentationNumber": 23,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "ctrl+opt+space",
+        "settings": "defaultMode",
+        "presentationNumber": 23.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "space",
+        "settings": "defaultMode",
+        "presentationNumber": 23.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "closeNestedModalDialog",
+        "command": "enter",
+        "settings": "defaultMode",
+        "presentationNumber": 23.3,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to the next option in a listbox popup in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/combobox/combobox-autocomplete-both.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-expanded">
+<link rel="help" href="https://w3c.github.io/aria/#listbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-label">
+<link rel="help" href="https://w3c.github.io/aria/#aria-selected">
+<link rel="help" href="https://w3c.github.io/aria/#aria-activedescendant">
+
+<script>
+  let scripts = {
+		moveFocusToAlabamaInListbox: function(testPageDocument){
+			// expands the Combobox and places focus on 'Alabama' in the listbox popup
+			testPageDocument.defaultView.comboboxController.open();
+			testPageDocument.defaultView.comboboxController.comboboxNode.focus();
+			testPageDocument.defaultView.comboboxController.setVisualFocusListbox();
+			let opt = testPageDocument.querySelector('#lb1-al');
+			testPageDocument.defaultView.comboboxController.setOption(opt, true);
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate to next option in listbox popup",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "expands the combobox, sets the combobox value to 'Alabama' and places focus on that option in the listbox popup",
+  "specific_user_instruction": "With focus on an option in the listbox popup, navigate forwards to the next option.",
+  "setupTestPage": "moveFocusToAlabamaInListbox",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "State of the combobox (expanded) is conveyed"
+    ],
+    [
+      "1",
+      "Role of the popup ('listbox') is conveyed"
+    ],
+    [
+      "1",
+      "Name of the popup ('States') is conveyed"
+    ],
+    [
+      "1",
+      "Text of the focused option in the popup ('Alaska') is conveyed"
+    ],
+    [
+      "2",
+      "State of the focused option in the popup (selected) is conveyed"
+    ],
+    [
+      "1",
+      "Position of the focused option in the popup (2) is conveyed"
+    ],
+    [
+      "1",
+      "Number of options in the popup (56) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to next option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "DOWN" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-12-11_16649/combobox-autocomplete-both.moveFocusToAlabamaInListbox.html");
+  });
+</script>
+  

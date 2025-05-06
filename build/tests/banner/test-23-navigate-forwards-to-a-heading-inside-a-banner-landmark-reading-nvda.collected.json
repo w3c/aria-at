@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 23,
+    "task": "navigate forwards to a heading inside a banner landmark",
+    "title": "Navigate forwards to a heading inside a banner landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/banner.html"
+      },
+      {
+        "refId": "banner",
+        "value": "https://w3c.github.io/aria/#banner"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2021-10-24_135455/banner.setFocusBeforeBanner.html",
+    "setupScript": {
+      "name": "setFocusBeforeBanner",
+      "description": "sets focus on a link before the banner landmark",
+      "source": "// sets focus on a link before the banner landmark\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeBanner.module.js",
+      "jsonpPath": "scripts/setFocusBeforeBanner.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading."
+    ],
+    "raw": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+    "mode": "Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "H",
+      "keystroke": "H",
+      "keypresses": [
+        {
+          "id": "H",
+          "keystroke": "H"
+        }
+      ]
+    },
+    {
+      "id": "ONE",
+      "keystroke": "1",
+      "keypresses": [
+        {
+          "id": "ONE",
+          "keystroke": "1"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'banner' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'heading' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Heading level '1' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'ARIA Landmarks Example' is conveyed"
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "info": {
+    "testId": "openModalDialog",
+    "title": "Open a modal dialog",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/",
+        "linkText": "APG Example: Modal Dialog"
+      }
+    ],
+    "presentationNumber": 3
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "voiceover_macos",
+      "settings": "defaultMode",
+      "name": "VoiceOver for macOS",
+      "raw": {
+        "name": "VoiceOver for macOS",
+        "key": "voiceover_macos",
+        "defaultConfigurationInstructionsHTML": "Configure VoiceOver with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "VoiceOver",
+          "readingCursor": "VoiceOver cursor"
+        },
+        "settings": {
+          "quickNavOn": {
+            "screenText": "quick nav on",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'quick nav off', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back on."
+            ]
+          },
+          "quickNavOff": {
+            "screenText": "quick nav off",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'quick nav on', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back off."
+            ]
+          },
+          "arrowQuickKeyNavOn": {
+            "screenText": "arrow quick key nav on",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'arrow quick key nav off', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back on."
+            ]
+          },
+          "arrowQuickKeyNavOff": {
+            "screenText": "arrow quick key nav off",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'arrow quick key nav on', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back off."
+            ]
+          },
+          "singleQuickKeyNavOn": {
+            "screenText": "single quick key nav on",
+            "instructions": [
+              "Press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt;.",
+              "If VoiceOver said 'single quick key nav off', press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt; again to turn it back on."
+            ]
+          },
+          "singleQuickKeyNavOff": {
+            "screenText": "single quick key nav off",
+            "instructions": [
+              "Press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt;.",
+              "If VoiceOver said 'single quick key nav on', press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt; again to turn it back off."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2022-4-7_15544/dialog.moveFocusToAddDeliveryAddressButton.html",
+    "setupScript": {
+      "script": "moveFocusToAddDeliveryAddressButton",
+      "scriptDescription": "sets focus on the 'Add Delivery Address' button",
+      "name": "moveFocusToAddDeliveryAddressButton",
+      "source": "// sets focus on the 'Add Delivery Address' button\ntestPageDocument.querySelector('#ex1 > button').focus();\n",
+      "modulePath": "scripts/moveFocusToAddDeliveryAddressButton.module.js",
+      "jsonpPath": "scripts/moveFocusToAddDeliveryAddressButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Add Delivery Address' button, activate it to open the dialog.",
+    "mode": {
+      "defaultMode": [
+        "Configure VoiceOver with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "ctrl+opt+space",
+      "keypresses": [
+        {
+          "id": "ctrl+opt+space",
+          "keystroke": "Control+Option+Space"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 0,
+          "assertionId": "interactionModeEnabled"
+        }
+      ],
+      "keystroke": "Control+Option+Space",
+      "presentationNumber": 3,
+      "settings": "defaultMode"
+    },
+    {
+      "id": "space",
+      "keypresses": [
+        {
+          "id": "space",
+          "keystroke": "Space"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 0,
+          "assertionId": "interactionModeEnabled"
+        }
+      ],
+      "keystroke": "Space",
+      "presentationNumber": 3.1,
+      "settings": "defaultMode"
+    },
+    {
+      "id": "enter",
+      "keypresses": [
+        {
+          "id": "enter",
+          "keystroke": "Enter"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 0,
+          "assertionId": "interactionModeEnabled"
+        }
+      ],
+      "keystroke": "Enter",
+      "presentationNumber": 3.2,
+      "settings": "defaultMode"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleDialog",
+      "priority": 1,
+      "assertionStatement": "Role 'dialog' is conveyed",
+      "assertionPhrase": "convey role 'dialog'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameAddDeliveryAddress",
+      "priority": 1,
+      "assertionStatement": "Name 'Add Delivery Address' is conveyed",
+      "assertionPhrase": "convey name 'Add Delivery Address'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameInputStreet",
+      "priority": 1,
+      "assertionStatement": "Name of input ('Street') is conveyed",
+      "assertionPhrase": "convey name of input ('Street')",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "theAbilityToEnterOrEditText",
+      "priority": 1,
+      "assertionStatement": "The ability to enter or edit text is conveyed",
+      "assertionPhrase": "convey the ability to enter or edit text",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 2,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ]
+}

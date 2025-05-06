@@ -1,0 +1,188 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate forwards to an unchecked radio button within a radio group </title>
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#radio" title="radio ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-checked" title="aria-checked ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-posinset" title="aria-posinset ARIA Specification">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-setsize" title="aria-setsize ARIA Specification">
+
+<script>
+  let scripts = {
+		setFocusOnFirstRadioButton: function(testPageDocument){
+			// sets focus on the first radio button
+			let radios = testPageDocument.querySelectorAll('[role="radio"]');
+			radios.forEach(r => {
+			r.setAttribute('tabindex', '-1');
+			r.setAttribute('aria-checked', 'false');
+			r.classList.remove('focus');
+			});
+			radios[0].classList.add('focus');
+			radios[0].setAttribute('tabindex', '0');
+			radios[0].focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "navToNextUncheckedRadio",
+  "mode": "virtualCursor_browseMode_defaultMode_singleQuickKeyNavOn",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the first radio button",
+  "specific_user_instruction": "Starting at the 'Regular crust' radio button, navigate to the 'Deep dish' radio button.",
+  "setupTestPage": "setFocusOnFirstRadioButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleRadio",
+      "priority": 1,
+      "assertionStatement": "Role 'radio button' is conveyed",
+      "assertionPhrase": "convey role 'radio button'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameDeepDish",
+      "priority": 1,
+      "assertionStatement": "Name of the radio button, 'Deep dish', is conveyed",
+      "assertionPhrase": "convey name of the radio button, 'Deep dish'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateRadioUnchecked",
+      "priority": 3,
+      "assertionStatement": "State of the radio button, 'unchecked', is conveyed",
+      "assertionPhrase": "convey state of the radio button, 'unchecked'",
+      "refIds": "aria-checked",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionRadio2",
+      "priority": 2,
+      "assertionStatement": "Position of the radio button, 2, is conveyed",
+      "assertionPhrase": "convey position of the radio button, 2",
+      "refIds": "aria-posinset radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberRadioButtonsGroup3",
+      "priority": 2,
+      "assertionStatement": "Number of radio buttons in the group, 3, is conveyed",
+      "assertionPhrase": "convey number of radio buttons in the group, 3",
+      "refIds": "aria-setsize radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navToNextUncheckedRadio",
+        "command": "f",
+        "settings": "virtualCursor",
+        "presentationNumber": 20,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToNextUncheckedRadio",
+        "command": "a",
+        "settings": "virtualCursor",
+        "presentationNumber": 20.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToNextUncheckedRadio",
+        "command": "down",
+        "settings": "virtualCursor",
+        "presentationNumber": 20.2,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navToNextUncheckedRadio",
+        "command": "f",
+        "settings": "browseMode",
+        "presentationNumber": 20,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToNextUncheckedRadio",
+        "command": "r",
+        "settings": "browseMode",
+        "presentationNumber": 20.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navToNextUncheckedRadio",
+        "command": "ctrl+opt+right",
+        "settings": "defaultMode",
+        "presentationNumber": 20,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navToNextUncheckedRadio",
+        "command": "j",
+        "settings": "singleQuickKeyNavOn",
+        "presentationNumber": 20.1,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "navToNextUncheckedRadio": {
+    "virtualCursor": {
+      "jaws": [
+        [ "f|20" ],
+        [ "a|20.1" ],
+        [ "down|20.2" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [ [ "f|20" ], [ "r|20.1" ] ]
+    },
+    "defaultMode": {
+      "voiceover_macos": [ [ "ctrl+opt+right|20" ] ]
+    },
+    "singleQuickKeyNavOn": {
+      "voiceover_macos": [ [ "j|20.1" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-3-15_144141/radio.setFocusOnFirstRadioButton.html");
+  });
+</script>
+  

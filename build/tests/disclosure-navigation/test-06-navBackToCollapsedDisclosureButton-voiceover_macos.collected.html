@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Navigate backwards to a collapsed disclosure button</title>
+    <link rel="help" href="https://www.w3.org/WAI/ARIA/apg/patterns/disclosure/examples/disclosure-navigation/">
+    <link rel="help" href="https://www.w3.org/TR/html-aam-1.0/#el-nav">
+    <link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-label">
+    <link rel="help" href="https://www.w3.org/TR/html-aam-1.0/undefined">
+    <link rel="help" href="https://www.w3.org/TR/html-aam-1.0/#el-button">
+    <link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-expanded">
+    <link rel="preload" href="test-06-navBackToCollapsedDisclosureButton-voiceover_macos.collected.json" as="fetch">
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 1em;
+      }
+
+      table, td, th {
+        border: 1px solid black;
+      }
+
+      td {
+        padding: .5em;
+      }
+
+      table.record-results tr:first-child {
+        font-weight: bold;
+      }
+
+      textarea {
+        width: 100%
+      }
+
+      fieldset.problem-select {
+        margin-top: 1em;
+        margin-left: 1em;
+      }
+
+      div.problem-option-container.enabled {
+        margin-bottom: 0.5em;
+      }
+
+      div.problem-option-container:last-child {
+        margin-bottom: 0;
+      }
+
+      fieldset.assertions {
+        margin-bottom: 1em;
+      }
+
+      label.assertion {
+        display: block;
+      }
+
+      .required:not(.highlight-required) {
+        display: none;
+      }
+
+      .required-other:not(.highlight-required) {
+        display: none;
+      }
+
+      .required.highlight-required {
+        color: red;
+      }
+
+      fieldset.highlight-required {
+        border-color: red;
+      }
+
+      fieldset .highlight-required {
+        color: red;
+      }
+
+      .off-screen {
+        position: absolute !important;
+        height: 1px;
+        width: 1px;
+        overflow: hidden;
+        clip: rect(1px, 1px, 1px, 1px);
+        white-space: nowrap;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module">
+      import {loadCollectedTestAsync} from "../resources/aria-at-harness.mjs";
+      loadCollectedTestAsync(new URL(location + "/..").pathname, "test-06-navBackToCollapsedDisclosureButton-voiceover_macos.collected.json");
+    </script>
+  </body>
+</html>

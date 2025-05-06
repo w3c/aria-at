@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read checked menu item checkbox in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html">
+<link rel="help" href="https://w3c.github.io/aria/#group">
+<link rel="help" href="https://w3c.github.io/aria/#aria-label">
+<link rel="help" href="https://w3c.github.io/aria/#menuitemcheckbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  let scripts = {
+		focusonstylecolor: function(testPageDocument){
+			// Move focus to the "Style/Color" menu item
+			testPageDocument.querySelectorAll('[role=menuitem]')[1].focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "read checked menuitemcheckbox in a group in a submenu",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on the 'Style/Color' menu item",
+  "specific_user_instruction": "Open 'Style/Color' menu with down arrow. | Navigate to 'Italic' menu item and check it by pressing enter. (the menu will close.) | Re-open 'Style/Color' menu with down arrow. | Navigate to 'Italic' menu item. | Read the 'Italic' menu item checkbox",
+  "setupTestPage": "focusonstylecolor",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "The name 'Italic' is conveyed"
+    ],
+    [
+      "1",
+      "The role 'menu item checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "The unchecked state is conveyed"
+    ],
+    [
+      "2",
+      " The position of the item and number of items in the 'Font Style ' group are conveyed"
+    ],
+    [
+      "1",
+      "The name and role of the 'Font Style' group are conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read checked menuitemcheckbox in a group in a submenu": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [
+        [ "INS_TAB" ],
+        [ "INS_NUMPAD_5" ]
+      ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175528/menubar-editor.focusonstylecolor.html");
+  });
+</script>
+  

@@ -1,0 +1,37 @@
+{
+  "task": "navigate to previous colum containing link in grid",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on the fourth cell of the second row in the grid",
+  "specific_user_instruction": "Navigate to the previous column containing a link in the grid.",
+  "setupTestPage": "setFocusOnFourthDataCell",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Text of the column header ('Description') is conveyed"
+    ],
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Cash Deposit' is conveyed"
+    ],
+    [
+      "1",
+      "coordinates of the cell (column 3, row 2) are conveyed"
+    ]
+  ]
+}

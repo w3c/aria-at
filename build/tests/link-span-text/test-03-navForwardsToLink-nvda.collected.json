@@ -1,0 +1,192 @@
+{
+  "info": {
+    "testId": "navForwardsToLink",
+    "title": "Navigate forwards to a link",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/link/examples/link/",
+        "linkText": "APG Example: Link"
+      }
+    ],
+    "presentationNumber": 3
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "singleQuickKeyNavOn",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "nvda",
+      "settings": "browseMode_focusMode",
+      "name": "NVDA",
+      "raw": {
+        "name": "NVDA",
+        "key": "nvda",
+        "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "NVDA",
+          "interactionMode": "focus mode",
+          "readingMode": "browse mode",
+          "readingCursor": "browse mode caret"
+        },
+        "settings": {
+          "browseMode": {
+            "screenText": "browse mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+            ]
+          },
+          "focusMode": {
+            "screenText": "focus mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2022-4-6_14258/link.setFocusBeforeLink.html",
+    "setupScript": {
+      "script": "setFocusBeforeLink",
+      "scriptDescription": "sets focus on a link before the 'W3C website' link",
+      "name": "setFocusBeforeLink",
+      "source": "// sets focus on a link before the 'W3C website' link\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeLink.module.js",
+      "jsonpPath": "scripts/setFocusBeforeLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Navigate forwards from here' link, navigate to the 'W3C website' link.",
+    "mode": {
+      "browseMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+      ],
+      "focusMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "u",
+      "keypresses": [
+        {
+          "id": "u",
+          "keystroke": "u"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "u",
+      "presentationNumber": 1,
+      "settings": "browseMode"
+    },
+    {
+      "id": "k",
+      "keypresses": [
+        {
+          "id": "k",
+          "keystroke": "k"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "k",
+      "presentationNumber": 1.1,
+      "settings": "browseMode"
+    },
+    {
+      "id": "tab",
+      "keypresses": [
+        {
+          "id": "tab",
+          "keystroke": "Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Tab",
+      "presentationNumber": 1.2,
+      "settings": "browseMode"
+    },
+    {
+      "id": "down",
+      "keypresses": [
+        {
+          "id": "down",
+          "keystroke": "Down Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Down Arrow",
+      "presentationNumber": 1.3,
+      "settings": "browseMode"
+    },
+    {
+      "id": "tab",
+      "keypresses": [
+        {
+          "id": "tab",
+          "keystroke": "Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Tab",
+      "presentationNumber": 2,
+      "settings": "focusMode"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleLink",
+      "priority": 1,
+      "assertionStatement": "Role 'link' is conveyed",
+      "assertionPhrase": "convey role 'link'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameW3cWebsite",
+      "priority": 1,
+      "assertionStatement": "Name 'W3C website' is conveyed",
+      "assertionPhrase": "convey name 'W3C website'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

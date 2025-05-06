@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 6,
+    "task": "navigate backwards into a main landmark",
+    "title": "Navigate backwards into a main landmark",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/main.html"
+      },
+      {
+        "refId": "main",
+        "value": "https://w3c.github.io/aria/#main"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "VOICEOVER_MACOS",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2022-4-28_91451/main.setFocusAfterMain.html",
+    "setupScript": {
+      "name": "setFocusAfterMain",
+      "description": "sets focus on a link after the main landmark",
+      "source": "// sets focus on a link after the main landmark\ntestPageDocument.querySelector('.button-run-test-setup').parentElement.style.display = 'none';\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterMain.module.js",
+      "jsonpPath": "scripts/setFocusAfterMain.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link."
+    ],
+    "raw": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_LEFT,CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left, then Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        },
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_CTRL_OPT_CMD_L",
+      "keystroke": "Shift+Control+Option+Command+L",
+      "keypresses": [
+        {
+          "id": "SHIFT_CTRL_OPT_CMD_L",
+          "keystroke": "Shift+Control+Option+Command+L"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'main' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Bottom' is conveyed"
+    }
+  ]
+}

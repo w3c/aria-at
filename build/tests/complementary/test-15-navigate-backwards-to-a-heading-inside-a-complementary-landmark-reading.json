@@ -1,0 +1,41 @@
+{
+  "task": "navigate backwards to a heading inside a complementary landmark",
+  "mode": "reading",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on a link after the complementary landmark",
+  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Landmarks' heading.",
+  "setupTestPage": "setFocusAfterComplementary",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'complementary' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Landmarks' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'heading' is conveyed"
+    ],
+    [
+      "1",
+      "Heading level '2' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the heading, 'Landmarks', is conveyed"
+    ]
+  ]
+}

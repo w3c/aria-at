@@ -1,0 +1,80 @@
+{
+  "info": {
+    "testId": 21,
+    "task": "navigate backwards out of a checkbox group",
+    "title": "Navigate backwards out of a checkbox group",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-mixed.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "VOICEOVER_MACOS",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2022-9-9_104148/checkbox-mixed.moveFocusToFirstCheckbox.html",
+    "setupScript": {
+      "name": "moveFocusToFirstCheckbox",
+      "description": "sets focus on the checkbox",
+      "source": "// sets focus on the first checkbox\ntestPageDocument.querySelector('[role=\"checkbox\"]').focus();\n",
+      "modulePath": "scripts/moveFocusToFirstCheckbox.module.js",
+      "jsonpPath": "scripts/moveFocusToFirstCheckbox.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'All condiments' checkbox, navigate to the 'Navigate forwards from here' link."
+    ],
+    "raw": "With focus on the 'All condiments' checkbox, navigate to the 'Navigate forwards from here' link.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "CTRL_OPT_LEFT,CTRL_OPT_LEFT,CTRL_OPT_LEFT",
+      "keystroke": "Ctrl+Option+Left, then Ctrl+Option+Left, then Ctrl+Option+Left",
+      "keypresses": [
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        },
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        },
+        {
+          "id": "CTRL_OPT_LEFT",
+          "keystroke": "Ctrl+Option+Left"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_CTRL_OPT_CMD_L",
+      "keystroke": "Shift+Control+Option+Command+L",
+      "keypresses": [
+        {
+          "id": "SHIFT_CTRL_OPT_CMD_L",
+          "keystroke": "Shift+Control+Option+Command+L"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Group boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Navigate forwards from here' is conveyed"
+    }
+  ]
+}

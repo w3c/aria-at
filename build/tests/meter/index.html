@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+  <title>Index of Assistive Technology Test Files</title>
+  <style>
+    table {
+      display: table;
+      border-collapse: collapse;
+      border-spacing: 2px;
+      border-color: rgb(128,128,128);
+    }
+
+    thead {
+      display: table-row-group;
+      vertical-align: middle;
+      border-bottom: black solid 2px;
+    }
+
+    tbody {
+      display: table-row-group;
+      vertical-align: middle;
+      border-color: rgb(128,128,128);
+    }
+
+    tr:nth-child(even) {background: #DDD}
+    tr:nth-child(odd) {background: #FFF}
+
+    tr {
+      display: table-row;
+      vertical-align: inherit;
+      border-color: rgb(128,128,128);
+    }
+
+    td {
+      padding: 3px;
+      display: table-cell;
+    }
+
+    td.test {
+      text-align: center;
+    }
+
+    td.none {
+      color: #333;
+    }
+
+    th {
+      padding: 3px;
+      font-weight: bold;
+      display: table-cell;
+    }
+  </style>
+</head>
+<body>
+ <main>
+  <h1>Index of Assistive Technology Test Files</h1>
+  <p>This is useful for viewing the local files on a local web server.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Task ID</th>
+        <th>Testing Task</th>
+        <th>JAWS</th>
+<th>NVDA</th>
+<th>VoiceOver for macOS</th>
+
+        <th>Setup Script Reference</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr><td>1</td><td scope="row">Navigate forwards to a meter in reading mode</td><td class="test"><a href="test-01-navigate-forwards-to-a-meter-reading.html?at=jaws" aria-label="JAWS test for task 1">JAWS</a></td><td class="test"><a href="test-01-navigate-forwards-to-a-meter-reading.html?at=nvda" aria-label="NVDA test for task 1">NVDA</a></td><td class="test none">not included</td><td>setFocusBeforeMeter</td></tr>
+<tr><td>2</td><td scope="row">Navigate forwards to a meter</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-02-navigate-forwards-to-a-meter-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 2">VoiceOver for macOS</a></td><td>setFocusBeforeMeter</td></tr>
+<tr><td>3</td><td scope="row">Navigate backwards to a meter in reading mode</td><td class="test"><a href="test-03-navigate-backwards-to-a-meter-reading.html?at=jaws" aria-label="JAWS test for task 3">JAWS</a></td><td class="test"><a href="test-03-navigate-backwards-to-a-meter-reading.html?at=nvda" aria-label="NVDA test for task 3">NVDA</a></td><td class="test none">not included</td><td>setFocusAfterMeter</td></tr>
+<tr><td>4</td><td scope="row">Navigate backwards to a meter</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-04-navigate-backwards-to-a-meter-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 4">VoiceOver for macOS</a></td><td>setFocusAfterMeter</td></tr>
+<tr><td>5</td><td scope="row">Read information about a meter in reading mode</td><td class="test"><a href="test-05-read-information-about-a-meter-reading.html?at=jaws" aria-label="JAWS test for task 5">JAWS</a></td><td class="test"><a href="test-05-read-information-about-a-meter-reading.html?at=nvda" aria-label="NVDA test for task 5">NVDA</a></td><td class="test none">not included</td><td>setFocusOnMeter</td></tr>
+<tr><td>6</td><td scope="row">Read information about a meter</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-06-read-information-about-a-meter-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 6">VoiceOver for macOS</a></td><td>setFocusOnMeter</td></tr>
+<tr><td>7</td><td scope="row">Trigger a meter update in reading mode</td><td class="test"><a href="test-07-trigger-a-meter-update-reading.html?at=jaws" aria-label="JAWS test for task 7">JAWS</a></td><td class="test"><a href="test-07-trigger-a-meter-update-reading.html?at=nvda" aria-label="NVDA test for task 7">NVDA</a></td><td class="test none">not included</td><td>setFocusOnButton</td></tr>
+<tr><td>8</td><td scope="row">Trigger a meter update in interaction mode</td><td class="test"><a href="test-08-trigger-a-meter-update-interaction.html?at=jaws" aria-label="JAWS test for task 8">JAWS</a></td><td class="test"><a href="test-08-trigger-a-meter-update-interaction.html?at=nvda" aria-label="NVDA test for task 8">NVDA</a></td><td class="test none">not included</td><td>setFocusOnButton</td></tr>
+<tr><td>9</td><td scope="row">Trigger a meter update</td><td class="test none">not included</td><td class="test none">not included</td><td class="test"><a href="test-09-trigger-a-meter-update-interaction.html?at=voiceover_macos" aria-label="VoiceOver for macOS test for task 9">VoiceOver for macOS</a></td><td>setFocusOnButton</td></tr>
+
+    </tbody>
+  </table>
+  </main>
+</body>

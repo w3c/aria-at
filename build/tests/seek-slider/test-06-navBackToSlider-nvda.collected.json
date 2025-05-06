@@ -1,0 +1,286 @@
+{
+  "info": {
+    "testId": "navBackToSlider",
+    "title": "Navigate backwards to a slider",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/slider/examples/slider-seek/",
+        "linkText": "APG Example: Media Seek Slider"
+      },
+      {
+        "refId": "slider",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#slider",
+        "linkText": "slider ARIA Specification"
+      },
+      {
+        "refId": "aria-labelledby",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+        "linkText": "aria-labelledby ARIA Specification"
+      },
+      {
+        "refId": "aria-valuetext",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuetext",
+        "linkText": "aria-valuetext ARIA Specification"
+      },
+      {
+        "refId": "aria-valuenow",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuenow",
+        "linkText": "aria-valuenow ARIA Specification"
+      },
+      {
+        "refId": "aria-orientation",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-orientation",
+        "linkText": "aria-orientation ARIA Specification"
+      },
+      {
+        "refId": "aria-valuemin",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuemin",
+        "linkText": "aria-valuemin ARIA Specification"
+      },
+      {
+        "refId": "aria-valuemax",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuemax",
+        "linkText": "aria-valuemax ARIA Specification"
+      }
+    ],
+    "presentationNumber": 6
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "singleQuickKeyNavOn",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "nvda",
+      "settings": "browseMode_focusMode",
+      "name": "NVDA",
+      "raw": {
+        "name": "NVDA",
+        "key": "nvda",
+        "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "NVDA",
+          "interactionMode": "focus mode",
+          "readingMode": "browse mode",
+          "readingCursor": "browse mode caret"
+        },
+        "settings": {
+          "browseMode": {
+            "screenText": "browse mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+            ]
+          },
+          "focusMode": {
+            "screenText": "focus mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2021-9-21_14462/slider-seek.setFocusAfterSlider.html",
+    "setupScript": {
+      "script": "setFocusAfterSlider",
+      "scriptDescription": "sets focus on a link after the slider",
+      "name": "setFocusAfterSlider",
+      "source": "// sets focus on a link after the slider\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterSlider.module.js",
+      "jsonpPath": "scripts/setFocusAfterSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "With focus on the 'Navigate backwards from here' link, navigate to the 'Seek' slider.",
+    "mode": {
+      "browseMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+      ],
+      "focusMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "up",
+      "keypresses": [
+        {
+          "id": "up",
+          "keystroke": "Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Up Arrow",
+      "presentationNumber": 2,
+      "settings": "browseMode"
+    },
+    {
+      "id": "shift+f",
+      "keypresses": [
+        {
+          "id": "shift+f",
+          "keystroke": "Shift+f"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+f",
+      "presentationNumber": 2.1,
+      "settings": "browseMode"
+    },
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 2,
+          "assertionId": "interactionModeEnabled"
+        }
+      ],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 2.2,
+      "settings": "browseMode"
+    },
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 4,
+      "settings": "focusMode"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleSlider",
+      "priority": 1,
+      "assertionStatement": "Role 'slider' is conveyed",
+      "assertionPhrase": "convey role 'slider'",
+      "refIds": "slider",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameSeek",
+      "priority": 1,
+      "assertionStatement": "Name 'Seek' is conveyed",
+      "assertionPhrase": "convey name 'Seek'",
+      "refIds": "aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "textualValue1Minute30Seconds5Minutes",
+      "priority": 1,
+      "assertionStatement": "Text value, '1 Minute 30 Seconds of 5 Minutes', is conveyed",
+      "assertionPhrase": "convey text value, '1 Minute 30 Seconds of 5 Minutes'",
+      "refIds": "aria-valuetext",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numericValue90IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Numeric value, '90', is not conveyed",
+      "assertionPhrase": "not convey numeric value, '90'",
+      "refIds": "aria-valuenow",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "orientationHorizontal",
+      "priority": 2,
+      "assertionStatement": "Orientation 'horizontal' is conveyed",
+      "assertionPhrase": "convey orientation 'horizontal'",
+      "refIds": "aria-orientation",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "minimumValue0IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Minimum value, '0', is not conveyed",
+      "assertionPhrase": "not convey minimum value, '0'",
+      "refIds": "aria-valuemin",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "maximumValue300IsNotConveyed",
+      "priority": 2,
+      "assertionStatement": "Maximum value, '300', is not conveyed",
+      "assertionPhrase": "not convey maximum value, '300'",
+      "refIds": "aria-valuemax",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 0,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "slider",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ]
+}

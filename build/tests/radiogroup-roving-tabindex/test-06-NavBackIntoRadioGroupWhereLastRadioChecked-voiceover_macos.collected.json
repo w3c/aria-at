@@ -1,0 +1,290 @@
+{
+  "info": {
+    "testId": "NavBackIntoRadioGroupWhereLastRadioChecked",
+    "title": "Navigate backwards into a radio group where the last radio button is checked",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/radio/examples/radio/",
+        "linkText": "APG Example: Radio Group  Using Roving tabindex"
+      },
+      {
+        "refId": "radiogroup",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#radiogroup",
+        "linkText": "radiogroup ARIA Specification"
+      },
+      {
+        "refId": "aria-labelledby",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+        "linkText": "aria-labelledby ARIA Specification"
+      },
+      {
+        "refId": "radio",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#radio",
+        "linkText": "radio ARIA Specification"
+      },
+      {
+        "refId": "aria-checked",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-checked",
+        "linkText": "aria-checked ARIA Specification"
+      },
+      {
+        "refId": "aria-posinset",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-posinset",
+        "linkText": "aria-posinset ARIA Specification"
+      },
+      {
+        "refId": "aria-setsize",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-setsize",
+        "linkText": "aria-setsize ARIA Specification"
+      }
+    ],
+    "presentationNumber": 6
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "singleQuickKeyNavOn",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "voiceover_macos",
+      "settings": "defaultMode_singleQuickKeyNavOn",
+      "name": "VoiceOver for macOS",
+      "raw": {
+        "name": "VoiceOver for macOS",
+        "key": "voiceover_macos",
+        "defaultConfigurationInstructionsHTML": "Configure VoiceOver with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "VoiceOver",
+          "readingCursor": "VoiceOver cursor"
+        },
+        "settings": {
+          "quickNavOn": {
+            "screenText": "quick nav on",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'quick nav off', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back on."
+            ]
+          },
+          "quickNavOff": {
+            "screenText": "quick nav off",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'quick nav on', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back off."
+            ]
+          },
+          "arrowQuickKeyNavOn": {
+            "screenText": "arrow quick key nav on",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'arrow quick key nav off', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back on."
+            ]
+          },
+          "arrowQuickKeyNavOff": {
+            "screenText": "arrow quick key nav off",
+            "instructions": [
+              "Simultaneously press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt;.",
+              "If VoiceOver said 'arrow quick key nav on', press &lt;kbd&gt;Left Arrow&lt;/kbd&gt; and &lt;kbd&gt;Right Arrow&lt;/kbd&gt; again to turn it back off."
+            ]
+          },
+          "singleQuickKeyNavOn": {
+            "screenText": "single quick key nav on",
+            "instructions": [
+              "Press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt;.",
+              "If VoiceOver said 'single quick key nav off', press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt; again to turn it back on."
+            ]
+          },
+          "singleQuickKeyNavOff": {
+            "screenText": "single quick key nav off",
+            "instructions": [
+              "Press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt;.",
+              "If VoiceOver said 'single quick key nav on', press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt; again to turn it back off."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2021-3-15_144141/radio.checkThirdRadioButtonAndSetFocusAfterRadioGroup.html",
+    "setupScript": {
+      "script": "checkThirdRadioButtonAndSetFocusAfterRadioGroup",
+      "scriptDescription": "sets the state of the third radio button to checked, and sets focus on a link after the radio group",
+      "name": "checkThirdRadioButtonAndSetFocusAfterRadioGroup",
+      "source": "// sets the state of the third radio button to checked, and sets focus on a link after the radio group\nlet radios = testPageDocument.querySelectorAll('[role=\"radio\"]');\nradios.forEach(r => {\n  r.setAttribute('tabindex', '-1');\n  r.setAttribute('aria-checked', 'false');\n  r.classList.remove('focus');\n});\nradios[2].setAttribute('tabindex', '0');\nradios[2].setAttribute('aria-checked', 'true');\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/checkThirdRadioButtonAndSetFocusAfterRadioGroup.module.js",
+      "jsonpPath": "scripts/checkThirdRadioButtonAndSetFocusAfterRadioGroup.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Navigate backwards from here' link, navigate backwards into the 'Pizza crust' radio group.",
+    "mode": {
+      "defaultMode": [
+        "Configure VoiceOver with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;."
+      ],
+      "singleQuickKeyNavOn": [
+        "Configure VoiceOver with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt;.",
+        "If VoiceOver said 'single quick key nav off', press &lt;kbd&gt;Control&lt;/kbd&gt;+&lt;kbd&gt;Option&lt;/kbd&gt;+&lt;kbd&gt;q&lt;/kbd&gt; again to turn it back on."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "ctrl+opt+left ctrl+opt+left",
+      "keypresses": [
+        {
+          "id": "ctrl+opt+left",
+          "keystroke": "Control+Option+Left Arrow"
+        },
+        {
+          "id": "ctrl+opt+left",
+          "keystroke": "Control+Option+Left Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Control+Option+Left Arrow then Control+Option+Left Arrow",
+      "presentationNumber": 8,
+      "settings": "defaultMode"
+    },
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 8.2,
+      "settings": "defaultMode"
+    },
+    {
+      "id": "shift+j",
+      "keypresses": [
+        {
+          "id": "shift+j",
+          "keystroke": "Shift+j"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+j",
+      "presentationNumber": 8.1,
+      "settings": "singleQuickKeyNavOn"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleGroup",
+      "priority": 2,
+      "assertionStatement": "Role 'group' is conveyed",
+      "assertionPhrase": "convey role 'group'",
+      "refIds": "radiogroup",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameGroupPizzaCrust",
+      "priority": 1,
+      "assertionStatement": "Name of the group, 'Pizza Crust', is conveyed",
+      "assertionPhrase": "convey name of the group, 'Pizza Crust'",
+      "refIds": "aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleRadio",
+      "priority": 1,
+      "assertionStatement": "Role 'radio button' is conveyed",
+      "assertionPhrase": "convey role 'radio button'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameThinCrust",
+      "priority": 1,
+      "assertionStatement": "Name of the radio button, 'Thin crust', is conveyed",
+      "assertionPhrase": "convey name of the radio button, 'Thin crust'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateRadioChecked",
+      "priority": 1,
+      "assertionStatement": "State of the radio button, 'checked', is conveyed",
+      "assertionPhrase": "convey state of the radio button, 'checked'",
+      "refIds": "aria-checked",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionRadio3",
+      "priority": 2,
+      "assertionStatement": "Position of the radio button, 3, is conveyed",
+      "assertionPhrase": "convey position of the radio button, 3",
+      "refIds": "aria-posinset radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberRadioButtonsGroup3",
+      "priority": 2,
+      "assertionStatement": "Number of radio buttons in the group, 3, is conveyed",
+      "assertionPhrase": "convey number of radio buttons in the group, 3",
+      "refIds": "aria-setsize radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 0,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ]
+}

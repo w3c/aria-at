@@ -5,6 +5,14 @@ updates:
     directory: '/'
     schedule:
       interval: 'monthly'
+    groups:
+      dependencies:
+        applies-to: version-updates
+        patterns:
+          - '*'
+        update-types:
+          - 'minor'
+          - 'patch'
   - package-ecosystem: 'github-actions'
     open-pull-requests-limit: 99
     directory: '/'

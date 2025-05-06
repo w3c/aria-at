@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a tab list in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/tabs/tabs-2/tabs.html">
+<link rel="help" href="https://w3c.github.io/aria/#tablist">
+<link rel="help" href="https://w3c.github.io/aria/#aria-label">
+<link rel="help" href="https://w3c.github.io/aria/#tab">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+<link rel="help" href="https://w3c.github.io/aria/#aria-selected">
+
+<script>
+  let scripts = {
+		activateThirdTabAndSetFocusOnTabpanel: function(testPageDocument){
+			// activates the third tab in the tab list, and sets focus on the tab panel
+			testPageDocument.querySelectorAll('[role="tab"]').forEach(t => {
+			t.setAttribute('tabindex', '-1');
+			t.setAttribute('aria-selected', 'false');
+			});
+			testPageDocument.querySelectorAll('[role="tabpanel"]').forEach(p => {
+			p.classList.add('is-hidden');
+			});
+			let thirdTab = testPageDocument.querySelector('#complex');
+			let thirdPanel = testPageDocument.querySelector('#complex-complex');
+			thirdTab.removeAttribute('tabindex');
+			thirdTab.setAttribute('aria-selected', 'true');
+			thirdPanel.classList.remove('is-hidden');
+			thirdPanel.focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate backwards to tab list",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "activates the third tab in the tab list, and sets focus on the tab panel",
+  "specific_user_instruction": "Navigate to the tab list.",
+  "setupTestPage": "activateThirdTabAndSetFocusOnTabpanel",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'tab list' is conveyed"
+    ],
+    [
+      "1",
+      "Name of the tab list, 'Entertainment', is conveyed"
+    ],
+    [
+      "1",
+      "Role of the selected item, 'tab', is conveyed"
+    ],
+    [
+      "1",
+      "Name of the focused tab, 'Joke', is conveyed"
+    ],
+    [
+      "1",
+      "State of the focused tab, 'selected', is conveyed"
+    ],
+    [
+      "1",
+      "Position of the focused tab in the tab list, 3, is conveyed"
+    ],
+    [
+      "1",
+      "Number of tabs in the tab list, 3, is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to tab list": {
+    "reading": {
+      "jaws": [ [ "SHIFT_TAB" ], [ "UP" ] ],
+      "nvda": [ [ "SHIFT_TAB" ], [ "UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "SHIFT_TAB" ],
+        [ "CTRL_OPT_LEFT" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-2-15_124757/tabs.activateThirdTabAndSetFocusOnTabpanel.html");
+  });
+</script>
+  

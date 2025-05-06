@@ -1,0 +1,62 @@
+{
+  "info": {
+    "testId": 43,
+    "task": "navigate to cell containing link on next row in grid",
+    "title": "Navigate to a cell containing a link on the next row in a grid in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/grid/dataGrids.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-3-8_151542/dataGrids.setFocusOnFirstLinkedCell.html",
+    "setupScript": {
+      "name": "setFocusOnFirstLinkedCell",
+      "description": "sets focus on the third cell of the second row in the grid",
+      "source": "// sets focus on the third cell of the second row in the grid\ntestPageDocument.defaultView.ex1Grid.setFocusPointer(0, 2);\ntestPageDocument.defaultView.ex1Grid.focusCell(0, 2);\n",
+      "modulePath": "scripts/setFocusOnFirstLinkedCell.module.js",
+      "jsonpPath": "scripts/setFocusOnFirstLinkedCell.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "From a cell containing a link, navigate to the next row in the grid."
+    ],
+    "raw": "From a cell containing a link, navigate to the next row in the grid.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "DOWN",
+      "keystroke": "Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Down Town Grocery' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "coordinates of the cell (column 3, row 3) are conveyed"
+    }
+  ]
+}

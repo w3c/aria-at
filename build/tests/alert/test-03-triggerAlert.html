@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Trigger an alert</title>
+
+<script>
+  let scripts = {
+		setFocusOnButton: function(testPageDocument){
+			// sets focus on the 'Trigger Alert' button
+			testPageDocument.querySelector('#alert-trigger').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "triggerAlert",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the 'Trigger Alert' button",
+  "specific_user_instruction": "Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",
+  "setupTestPage": "setFocusOnButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleAlert",
+      "priority": 3,
+      "assertionStatement": "Role 'alert' is conveyed",
+      "assertionPhrase": "convey role 'alert'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "textHello",
+      "priority": 1,
+      "assertionStatement": "Text 'Hello' is conveyed",
+      "assertionPhrase": "convey text 'Hello'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "triggerAlert",
+        "command": "space",
+        "settings": "virtualCursor",
+        "presentationNumber": 1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "triggerAlert",
+        "command": "enter",
+        "settings": "virtualCursor",
+        "presentationNumber": 1.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "triggerAlert",
+        "command": "space",
+        "settings": "pcCursor",
+        "presentationNumber": 2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "triggerAlert",
+        "command": "enter",
+        "settings": "pcCursor",
+        "presentationNumber": 2.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "triggerAlert",
+        "command": "space",
+        "settings": "browseMode",
+        "presentationNumber": 1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "triggerAlert",
+        "command": "enter",
+        "settings": "browseMode",
+        "presentationNumber": 1.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "triggerAlert",
+        "command": "space",
+        "settings": "focusMode",
+        "presentationNumber": 2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "triggerAlert",
+        "command": "enter",
+        "settings": "focusMode",
+        "presentationNumber": 2.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "triggerAlert",
+        "command": "ctrl+opt+space",
+        "settings": "defaultMode",
+        "presentationNumber": 3,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "triggerAlert",
+        "command": "space",
+        "settings": "defaultMode",
+        "presentationNumber": 3.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "triggerAlert",
+        "command": "enter",
+        "settings": "defaultMode",
+        "presentationNumber": 3.2,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "triggerAlert": {
+    "virtualCursor": {
+      "jaws": [
+        [ "space|1" ],
+        [ "enter|1.1" ]
+      ]
+    },
+    "pcCursor": {
+      "jaws": [
+        [ "space|2" ],
+        [ "enter|2.1" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [
+        [ "space|1" ],
+        [ "enter|1.1" ]
+      ]
+    },
+    "focusMode": {
+      "nvda": [
+        [ "space|2" ],
+        [ "enter|2.1" ]
+      ]
+    },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "ctrl+opt+space|3" ],
+        [ "space|3.1" ],
+        [ "enter|3.2" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2022-4-8_144013/alert.setFocusOnButton.html");
+  });
+</script>
+  

@@ -1,0 +1,174 @@
+{
+  "info": {
+    "testId": "reqInfoAboutButton",
+    "title": "Request information about a button",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/button/examples/button/",
+        "linkText": "APG Example: Button"
+      }
+    ],
+    "presentationNumber": 9
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "virtualCursor_pcCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2022-4-8_124112/button.setFocusOnButton.html",
+    "setupScript": {
+      "script": "setFocusOnButton",
+      "scriptDescription": "sets focus on the button",
+      "name": "setFocusOnButton",
+      "source": "// sets focus on the button\ntestPageDocument.querySelector('#action').focus();\n",
+      "modulePath": "scripts/setFocusOnButton.module.js",
+      "jsonpPath": "scripts/setFocusOnButton.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Print Page' button, read information about the button.",
+    "mode": {
+      "virtualCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+      ],
+      "pcCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "ins+tab",
+      "keypresses": [
+        {
+          "id": "ins+tab",
+          "keystroke": "Insert+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Tab",
+      "presentationNumber": 7,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "ins+up",
+      "keypresses": [
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Up Arrow",
+      "presentationNumber": 7.1,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "ins+tab",
+      "keypresses": [
+        {
+          "id": "ins+tab",
+          "keystroke": "Insert+Tab"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Tab",
+      "presentationNumber": 8,
+      "settings": "pcCursor"
+    },
+    {
+      "id": "ins+up",
+      "keypresses": [
+        {
+          "id": "ins+up",
+          "keystroke": "Insert+Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Insert+Up Arrow",
+      "presentationNumber": 8.1,
+      "settings": "pcCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleButton",
+      "priority": 1,
+      "assertionStatement": "Role 'button' is conveyed",
+      "assertionPhrase": "convey role 'button'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "namePrintPage",
+      "priority": 1,
+      "assertionStatement": "Name 'Print Page' is conveyed",
+      "assertionPhrase": "convey name 'Print Page'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

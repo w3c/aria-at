@@ -1,0 +1,75 @@
+{
+  "info": {
+    "testId": 9,
+    "task": "navigate to open menuitem in menubar",
+    "title": "Navigate to open menu item in menubar in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/menubar/menubar-editor.html"
+      },
+      {
+        "refId": "menuitem",
+        "value": "https://w3c.github.io/aria/#menuitem"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "jaws",
+      "name": "JAWS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2020-11-23_175528/menubar-editor.focusonfont.html",
+    "setupScript": {
+      "name": "focusonfont",
+      "description": "sets focus on the 'Font' menu item",
+      "source": "// Move focus to the \"Font\" menu item\ntestPageDocument.querySelectorAll('[role=menuitem]')[0].focus();\n",
+      "modulePath": "scripts/focusonfont.module.js",
+      "jsonpPath": "scripts/focusonfont.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "Open 'Font' menu with down arrow.",
+      "Navigate to 'Style/Color' menu"
+    ],
+    "raw": "Open 'Font' menu with down arrow. | Navigate to 'Style/Color' menu",
+    "mode": "Verify the PC Cursor is active by pressing Alt+Delete. If it is not, turn off the Virtual Cursor by pressing Insert+Z."
+  },
+  "commands": [
+    {
+      "id": "RIGHT",
+      "keystroke": "Right Arrow",
+      "keypresses": [
+        {
+          "id": "RIGHT",
+          "keystroke": "Right Arrow"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "The name 'Style/Color' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Availability of a submenu is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The position of the item and number of items in the menubar are conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "The role 'menuitem' is conveyed"
+    },
+    {
+      "priority": 2,
+      "expectation": "Open state of the submenu is conveyed"
+    }
+  ]
+}

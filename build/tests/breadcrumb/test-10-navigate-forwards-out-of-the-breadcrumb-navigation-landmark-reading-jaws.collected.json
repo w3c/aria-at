@@ -1,0 +1,112 @@
+{
+  "info": {
+    "testId": 10,
+    "task": "navigate forwards out of the breadcrumb navigation landmark",
+    "title": "Navigate forwards out of the Breadcrumb navigation landmark in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/breadcrumb/index.html"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "jaws",
+      "raw": "JAWS",
+      "name": "JAWS"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2022-8-2_132648/index.setFocusOnLastBreadcrumbLink.html",
+    "setupScript": {
+      "name": "setFocusOnLastBreadcrumbLink",
+      "description": "sets focus on the 'Breadcrumb Example' link",
+      "source": "// sets focus on the 'Breadcrumb Example' link\ntestPageDocument.querySelector('[aria-current=\"page\"]').focus();\n",
+      "modulePath": "scripts/setFocusOnLastBreadcrumbLink.module.js",
+      "jsonpPath": "scripts/setFocusOnLastBreadcrumbLink.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With the reading cursor on the 'Breadcrumb Example' link, navigate to the 'Navigate backwards from here' link."
+    ],
+    "raw": "With the reading cursor on the 'Breadcrumb Example' link, navigate to the 'Navigate backwards from here' link.",
+    "mode": "Verify the Virtual Cursor is active by pressing Alt+Delete. If it is not, exit Forms Mode to activate the Virtual Cursor by pressing Escape."
+  },
+  "commands": [
+    {
+      "id": "DOWN,DOWN,DOWN",
+      "keystroke": "Down Arrow, then Down Arrow, then Down Arrow",
+      "keypresses": [
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        },
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        },
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
+    {
+      "id": "U",
+      "keystroke": "U",
+      "keypresses": [
+        {
+          "id": "U",
+          "keystroke": "U"
+        }
+      ]
+    },
+    {
+      "id": "SHIFT_PERIOD,DOWN,DOWN",
+      "keystroke": "Shift+Period, then Down Arrow, then Down Arrow",
+      "keypresses": [
+        {
+          "id": "SHIFT_PERIOD",
+          "keystroke": "Shift+Period"
+        },
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        },
+        {
+          "id": "DOWN",
+          "keystroke": "Down Arrow"
+        }
+      ]
+    },
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Navigation landmark boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "List boundary is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Navigate backwards from here' is conveyed"
+    }
+  ]
+}

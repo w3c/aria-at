@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards to a paragraph inside a contentinfo landmark in reading mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/landmarks/contentinfo.html">
+<link rel="help" href="https://w3c.github.io/aria/#contentinfo">
+
+<script>
+  let scripts = {
+		setFocusAfterContentinfo: function(testPageDocument){
+			// sets focus on a link after the contentinfo landmark
+			testPageDocument.getElementById('afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate backwards to a paragraph inside a contentinfo landmark",
+  "mode": "reading",
+  "applies_to": [
+    "jaws"
+  ],
+  "setup_script_description": "sets focus on a link after the contentinfo landmark",
+  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the paragraph inside the contentinfo landmark.",
+  "setupTestPage": "setFocusAfterContentinfo",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'contentinfo' is conveyed"
+    ],
+    [
+      "1",
+      "Text 'W3C ARIA Authoring Practices Task Force' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards to a paragraph inside a contentinfo landmark": {
+    "reading": { "jaws": [ [ "SHIFT_P" ] ] },
+    "interaction": {
+      "voiceover_macos": [ [ "SHIFT_CTRL_OPT_CMD_P" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-24_151010/contentinfo.setFocusAfterContentinfo.html");
+  });
+</script>
+  

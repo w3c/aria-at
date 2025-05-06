@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Test Patterns for Review</title>
+    <style>
+      table {
+        border-collapse: collapse;
+        margin-bottom: 1em;
+      }
+
+      table, td, th {
+        border: 1px solid black;
+      }
+
+      th {
+        padding: 1em;
+      }
+
+      td {
+        padding: .5em;
+      }
+
+      td > p {
+        margin: 0;
+      }
+
+      tr:not(:first-of-type) th {
+        padding: .5em;
+        text-align: left;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <h1>Test Patterns for Review</h1>
+
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Pattern</th>
+        <th>Index Page</th>
+        <th>Review Page</th>
+        <th>Number of Tests</th>
+        <th>Commit of Last Change</th>
+      </tr>
+          <tr>
+            <th>Action Menu Button Example Using aria-activedescendant</th>
+            <td>menu-button-actions-active-descendant</td>
+            <td><a href="./tests/menu-button-actions-active-descendant/index.html" aria-label="Index: menu-button-actions-active-descendant">Index</a></td>
+            <td><a href="./review/menu-button-actions-active-descendant.html" aria-label="Review: menu-button-actions-active-descendant">Review</a></td>
+            <td><p aria-label="Number of Tests: 11">11</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/bac64bf2" target="_blank">bac64bf2 Menu button test plans: Change priority of assertion stateCollapsed from 1 to 2 (pull #1196)
+</a></td>
+          </tr>
+          <tr>
+            <th>Action Menu Button Example Using element.focus()</th>
+            <td>menu-button-actions</td>
+            <td><a href="./tests/menu-button-actions/index.html" aria-label="Index: menu-button-actions">Index</a></td>
+            <td><a href="./review/menu-button-actions.html" aria-label="Review: menu-button-actions">Review</a></td>
+            <td><p aria-label="Number of Tests: 11">11</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/bac64bf2" target="_blank">bac64bf2 Menu button test plans: Change priority of assertion stateCollapsed from 1 to 2 (pull #1196)
+</a></td>
+          </tr>
+          <tr>
+            <th>Alert Example</th>
+            <td>alert</td>
+            <td><a href="./tests/alert/index.html" aria-label="Index: alert">Index</a></td>
+            <td><a href="./review/alert.html" aria-label="Review: alert">Review</a></td>
+            <td><p aria-label="Number of Tests: 1">1</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/ca4c80fd" target="_blank">ca4c80fd Change priority of role assertion to 3 (#1054)
+</a></td>
+          </tr>
+          <tr>
+            <th>Banner Landmark</th>
+            <td>banner</td>
+            <td><a href="./tests/banner/index.html" aria-label="Index: banner">Index</a></td>
+            <td><a href="./review/banner.html" aria-label="Review: banner">Review</a></td>
+            <td><p aria-label="Number of Tests: 26">26</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Breadcrumb Example</th>
+            <td>breadcrumb</td>
+            <td><a href="./tests/breadcrumb/index.html" aria-label="Index: breadcrumb">Index</a></td>
+            <td><a href="./review/breadcrumb.html" aria-label="Review: breadcrumb">Review</a></td>
+            <td><p aria-label="Number of Tests: 15">15</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Checkbox Example (Mixed-State)</th>
+            <td>checkbox-tri-state</td>
+            <td><a href="./tests/checkbox-tri-state/index.html" aria-label="Index: checkbox-tri-state">Index</a></td>
+            <td><a href="./review/checkbox-tri-state.html" aria-label="Review: checkbox-tri-state">Review</a></td>
+            <td><p aria-label="Number of Tests: 21">21</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Checkbox Example (Two State)</th>
+            <td>checkbox</td>
+            <td><a href="./tests/checkbox/index.html" aria-label="Index: checkbox">Index</a></td>
+            <td><a href="./review/checkbox.html" aria-label="Review: checkbox">Review</a></td>
+            <td><p aria-label="Number of Tests: 26">26</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Color Viewer Slider</th>
+            <td>horizontal-slider</td>
+            <td><a href="./tests/horizontal-slider/index.html" aria-label="Index: horizontal-slider">Index</a></td>
+            <td><a href="./review/horizontal-slider.html" aria-label="Review: horizontal-slider">Review</a></td>
+            <td><p aria-label="Number of Tests: 9">9</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/ed744e7b" target="_blank">ed744e7b Remove min and max value for say line from JAWS and NVDA commands (#1165)
+</a></td>
+          </tr>
+          <tr>
+            <th>Combobox with Both List and Inline Autocomplete Example</th>
+            <td>combobox-autocomplete-both-updated</td>
+            <td><a href="./tests/combobox-autocomplete-both-updated/index.html" aria-label="Index: combobox-autocomplete-both-updated">Index</a></td>
+            <td><a href="./review/combobox-autocomplete-both-updated.html" aria-label="Review: combobox-autocomplete-both-updated">Review</a></td>
+            <td><p aria-label="Number of Tests: 76">76</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Command Button Example</th>
+            <td>command-button</td>
+            <td><a href="./tests/command-button/index.html" aria-label="Index: command-button">Index</a></td>
+            <td><a href="./review/command-button.html" aria-label="Review: command-button">Review</a></td>
+            <td><p aria-label="Number of Tests: 3">3</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/5d5ba084" target="_blank">5d5ba084 Update VoiceOver navigation commands for Command and Toggle Button (#1048)
+</a></td>
+          </tr>
+          <tr>
+            <th>Complementary Landmark</th>
+            <td>complementary</td>
+            <td><a href="./tests/complementary/index.html" aria-label="Index: complementary">Index</a></td>
+            <td><a href="./review/complementary.html" aria-label="Review: complementary">Review</a></td>
+            <td><p aria-label="Number of Tests: 20">20</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Contentinfo Landmark</th>
+            <td>contentinfo</td>
+            <td><a href="./tests/contentinfo/index.html" aria-label="Index: contentinfo">Index</a></td>
+            <td><a href="./review/contentinfo.html" aria-label="Review: contentinfo">Review</a></td>
+            <td><p aria-label="Number of Tests: 16">16</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Data Grid Example 1: Minimal Data Grid</th>
+            <td>minimal-data-grid</td>
+            <td><a href="./tests/minimal-data-grid/index.html" aria-label="Index: minimal-data-grid">Index</a></td>
+            <td><a href="./review/minimal-data-grid.html" aria-label="Review: minimal-data-grid">Review</a></td>
+            <td><p aria-label="Number of Tests: 55">55</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Date Picker Spin Button Example</th>
+            <td>datepicker-spin-button</td>
+            <td><a href="./tests/datepicker-spin-button/index.html" aria-label="Index: datepicker-spin-button">Index</a></td>
+            <td><a href="./review/datepicker-spin-button.html" aria-label="Review: datepicker-spin-button">Review</a></td>
+            <td><p aria-label="Number of Tests: 21">21</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Disclosure Navigation Menu Example</th>
+            <td>disclosure-navigation</td>
+            <td><a href="./tests/disclosure-navigation/index.html" aria-label="Index: disclosure-navigation">Index</a></td>
+            <td><a href="./review/disclosure-navigation.html" aria-label="Review: disclosure-navigation">Review</a></td>
+            <td><p aria-label="Number of Tests: 14">14</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/8f8e3f87" target="_blank">8f8e3f87 Redefine assertions for Activate a link in a &#x60;dropdown&#x60; (#1204)
+</a></td>
+          </tr>
+          <tr>
+            <th>Disclosure of Answers to Frequently Asked Questions Example</th>
+            <td>disclosure-faq</td>
+            <td><a href="./tests/disclosure-faq/index.html" aria-label="Index: disclosure-faq">Index</a></td>
+            <td><a href="./review/disclosure-faq.html" aria-label="Review: disclosure-faq">Review</a></td>
+            <td><p aria-label="Number of Tests: 26">26</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Editor Menubar Example</th>
+            <td>menubar-editor</td>
+            <td><a href="./tests/menubar-editor/index.html" aria-label="Index: menubar-editor">Index</a></td>
+            <td><a href="./review/menubar-editor.html" aria-label="Review: menubar-editor">Review</a></td>
+            <td><p aria-label="Number of Tests: 40">40</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Form Landmark</th>
+            <td>form</td>
+            <td><a href="./tests/form/index.html" aria-label="Index: form">Index</a></td>
+            <td><a href="./review/form.html" aria-label="Review: form">Review</a></td>
+            <td><p aria-label="Number of Tests: 20">20</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Horizontal Multi-Thumb Slider</th>
+            <td>slider-multithumb</td>
+            <td><a href="./tests/slider-multithumb/index.html" aria-label="Index: slider-multithumb">Index</a></td>
+            <td><a href="./review/slider-multithumb.html" aria-label="Review: slider-multithumb">Review</a></td>
+            <td><p aria-label="Number of Tests: 23">23</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Link Example 1 (span element with text content)</th>
+            <td>link-span-text</td>
+            <td><a href="./tests/link-span-text/index.html" aria-label="Index: link-span-text">Index</a></td>
+            <td><a href="./review/link-span-text.html" aria-label="Review: link-span-text">Review</a></td>
+            <td><p aria-label="Number of Tests: 3">3</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/f42d8f69" target="_blank">f42d8f69 Specify new VO quick nav setting for j and shift+j (#1023)
+</a></td>
+          </tr>
+          <tr>
+            <th>Link Example 2 (img element with alt attribute)</th>
+            <td>link-img-alt</td>
+            <td><a href="./tests/link-img-alt/index.html" aria-label="Index: link-img-alt">Index</a></td>
+            <td><a href="./review/link-img-alt.html" aria-label="Review: link-img-alt">Review</a></td>
+            <td><p aria-label="Number of Tests: 3">3</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/e1f64782" target="_blank">e1f64782 Update link example 2 and example 3 reference filenames to trigger version change in app (#1178)
+</a></td>
+          </tr>
+          <tr>
+            <th>Link Example 3 (CSS :before content property on a span element)</th>
+            <td>link-css</td>
+            <td><a href="./tests/link-css/index.html" aria-label="Index: link-css">Index</a></td>
+            <td><a href="./review/link-css.html" aria-label="Review: link-css">Review</a></td>
+            <td><p aria-label="Number of Tests: 3">3</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/e1f64782" target="_blank">e1f64782 Update link example 2 and example 3 reference filenames to trigger version change in app (#1178)
+</a></td>
+          </tr>
+          <tr>
+            <th>Main Landmark</th>
+            <td>main</td>
+            <td><a href="./tests/main/index.html" aria-label="Index: main">Index</a></td>
+            <td><a href="./review/main.html" aria-label="Review: main">Review</a></td>
+            <td><p aria-label="Number of Tests: 16">16</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Media Seek Slider</th>
+            <td>seek-slider</td>
+            <td><a href="./tests/seek-slider/index.html" aria-label="Index: seek-slider">Index</a></td>
+            <td><a href="./review/seek-slider.html" aria-label="Review: seek-slider">Review</a></td>
+            <td><p aria-label="Number of Tests: 9">9</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/7c9659b2" target="_blank">7c9659b2 Rebuild Media Seek Slider Test Plan (#1208)
+</a></td>
+          </tr>
+          <tr>
+            <th>Meter</th>
+            <td>meter</td>
+            <td><a href="./tests/meter/index.html" aria-label="Index: meter">Index</a></td>
+            <td><a href="./review/meter.html" aria-label="Review: meter">Review</a></td>
+            <td><p aria-label="Number of Tests: 9">9</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Modal Dialog Example</th>
+            <td>modal-dialog</td>
+            <td><a href="./tests/modal-dialog/index.html" aria-label="Index: modal-dialog">Index</a></td>
+            <td><a href="./review/modal-dialog.html" aria-label="Review: modal-dialog">Review</a></td>
+            <td><p aria-label="Number of Tests: 12">12</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/c1a3b08d" target="_blank">c1a3b08d Implementing changes for Bump into the top edge of a modal dialog Test (#1080)
+</a></td>
+          </tr>
+          <tr>
+            <th>Navigation Menu Button</th>
+            <td>menu-button-navigation</td>
+            <td><a href="./tests/menu-button-navigation/index.html" aria-label="Index: menu-button-navigation">Index</a></td>
+            <td><a href="./review/menu-button-navigation.html" aria-label="Review: menu-button-navigation">Review</a></td>
+            <td><p aria-label="Number of Tests: 10">10</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/bac64bf2" target="_blank">bac64bf2 Menu button test plans: Change priority of assertion stateCollapsed from 1 to 2 (pull #1196)
+</a></td>
+          </tr>
+          <tr>
+            <th>Radio Group Example Using aria-activedescendant</th>
+            <td>radiogroup-aria-activedescendant</td>
+            <td><a href="./tests/radiogroup-aria-activedescendant/index.html" aria-label="Index: radiogroup-aria-activedescendant">Index</a></td>
+            <td><a href="./review/radiogroup-aria-activedescendant.html" aria-label="Review: radiogroup-aria-activedescendant">Review</a></td>
+            <td><p aria-label="Number of Tests: 15">15</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/6c36ce45" target="_blank">6c36ce45 Radio Group Test Plans Update (#1179)
+</a></td>
+          </tr>
+          <tr>
+            <th>Radio Group Example Using Roving tabindex</th>
+            <td>radiogroup-roving-tabindex</td>
+            <td><a href="./tests/radiogroup-roving-tabindex/index.html" aria-label="Index: radiogroup-roving-tabindex">Index</a></td>
+            <td><a href="./review/radiogroup-roving-tabindex.html" aria-label="Review: radiogroup-roving-tabindex">Review</a></td>
+            <td><p aria-label="Number of Tests: 15">15</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/6c36ce45" target="_blank">6c36ce45 Radio Group Test Plans Update (#1179)
+</a></td>
+          </tr>
+          <tr>
+            <th>Rating Radio Group</th>
+            <td>rating-radio-group</td>
+            <td><a href="./tests/rating-radio-group/index.html" aria-label="Index: rating-radio-group">Index</a></td>
+            <td><a href="./review/rating-radio-group.html" aria-label="Review: rating-radio-group">Review</a></td>
+            <td><p aria-label="Number of Tests: 15">15</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/7e59fec7" target="_blank">7e59fec7 Correct position assertion for the Check the previous radio button in a radio group test
+</a></td>
+          </tr>
+          <tr>
+            <th>Rating Slider</th>
+            <td>rating-slider</td>
+            <td><a href="./tests/rating-slider/index.html" aria-label="Index: rating-slider">Index</a></td>
+            <td><a href="./review/rating-slider.html" aria-label="Review: rating-slider">Review</a></td>
+            <td><p aria-label="Number of Tests: 21">21</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Select Only Combobox Example</th>
+            <td>combobox-select-only</td>
+            <td><a href="./tests/combobox-select-only/index.html" aria-label="Index: combobox-select-only">Index</a></td>
+            <td><a href="./review/combobox-select-only.html" aria-label="Review: combobox-select-only">Review</a></td>
+            <td><p aria-label="Number of Tests: 38">38</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Switch Example</th>
+            <td>switch</td>
+            <td><a href="./tests/switch/index.html" aria-label="Index: switch">Index</a></td>
+            <td><a href="./review/switch.html" aria-label="Review: switch">Review</a></td>
+            <td><p aria-label="Number of Tests: 24">24</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Tabs with Manual Activation</th>
+            <td>tabs-manual-activation</td>
+            <td><a href="./tests/tabs-manual-activation/index.html" aria-label="Index: tabs-manual-activation">Index</a></td>
+            <td><a href="./review/tabs-manual-activation.html" aria-label="Review: tabs-manual-activation">Review</a></td>
+            <td><p aria-label="Number of Tests: 29">29</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/836fb2a9" target="_blank">836fb2a9 Validation for test csv formats (#980)
+</a></td>
+          </tr>
+          <tr>
+            <th>Toggle Button</th>
+            <td>toggle-button</td>
+            <td><a href="./tests/toggle-button/index.html" aria-label="Index: toggle-button">Index</a></td>
+            <td><a href="./review/toggle-button.html" aria-label="Review: toggle-button">Review</a></td>
+            <td><p aria-label="Number of Tests: 8">8</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/243505eb" target="_blank">243505eb Toggle Button: Change priority of not pressed state assertion to 3 from 2 (#1138)
+</a></td>
+          </tr>
+          <tr>
+            <th>Vertical Temperature Slider</th>
+            <td>vertical-temperature-slider</td>
+            <td><a href="./tests/vertical-temperature-slider/index.html" aria-label="Index: vertical-temperature-slider">Index</a></td>
+            <td><a href="./review/vertical-temperature-slider.html" aria-label="Review: vertical-temperature-slider">Review</a></td>
+            <td><p aria-label="Number of Tests: 9">9</p></td>
+            <td><a href="https://github.com/w3c/aria-at/commit/8d46a161" target="_blank">8d46a161 Fix Temperature Slider Test Plan (#1227)
+</a></td>
+          </tr>
+    </table>
+
+  </body>
+</html>

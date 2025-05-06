@@ -1,0 +1,41 @@
+{
+  "task": "navigate backwards to a meter",
+  "mode": "reading",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on a link after the meter",
+  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the meter.",
+  "setupTestPage": "setFocusAfterMeter",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'meter' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Central Processing Unit (CPU) Usage' is conveyed"
+    ],
+    [
+      "1",
+      "Numeric value '36.166519936288' is conveyed"
+    ],
+    [
+      "2",
+      "Minimum value '0' is conveyed"
+    ],
+    [
+      "2",
+      "Maximum value '100' is conveyed"
+    ]
+  ]
+}

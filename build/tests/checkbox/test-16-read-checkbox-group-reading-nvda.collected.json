@@ -1,0 +1,59 @@
+{
+  "info": {
+    "testId": 16,
+    "task": "read checkbox group",
+    "title": "Read grouping information of a grouped checkbox in reading mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html"
+      },
+      {
+        "refId": "group",
+        "value": "https://w3c.github.io/aria/#group"
+      },
+      {
+        "refId": "aria-labelledby",
+        "value": "https://w3c.github.io/aria/#aria-labelledby"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "reading",
+    "referencePage": "reference/2020-11-23_175030/checkbox-1/checkbox-1.html"
+  },
+  "instructions": {
+    "user": [
+      "When reading cursor is on a checkbox, read its grouping information"
+    ],
+    "raw": "When reading cursor is on a checkbox, read its grouping information",
+    "mode": "Ensure NVDA is in browse mode by pressing Escape. Note: This command has no effect if NVDA is already in browse mode."
+  },
+  "commands": [
+    {
+      "id": "INS_TAB",
+      "keystroke": "Insert+Tab",
+      "keypresses": [
+        {
+          "id": "INS_TAB",
+          "keystroke": "Insert+Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 2,
+      "expectation": "Role 'group' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Group name 'Sandwich Condiments' is conveyed"
+    }
+  ]
+}

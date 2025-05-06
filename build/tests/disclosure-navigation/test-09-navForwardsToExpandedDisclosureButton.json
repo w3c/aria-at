@@ -1,0 +1,182 @@
+{
+  "task": "navForwardsToExpandedDisclosureButton",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_quickNavOn",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on a link before the first disclosure button, and sets the state of the first button to 'expanded'",
+  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'About' disclosure button.",
+  "setupTestPage": "moveFocusBeforeAndExpandFirstDisclosure",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleNavigationLandmark",
+      "priority": 3,
+      "assertionStatement": "Role 'navigation landmark' is conveyed",
+      "assertionPhrase": "convey role 'navigation landmark'",
+      "refIds": "nav",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameMythicalUniversity",
+      "priority": 3,
+      "assertionStatement": "Name of the navigation region, 'Mythical University', is conveyed",
+      "assertionPhrase": "convey name of the navigation region, 'Mythical University'",
+      "refIds": "aria-label",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "listBoundary",
+      "priority": 3,
+      "assertionStatement": "List boundary is conveyed",
+      "assertionPhrase": "convey list boundary",
+      "refIds": "list",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleButton",
+      "priority": 1,
+      "assertionStatement": "Role 'button' is conveyed",
+      "assertionPhrase": "convey role 'button'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameAbout",
+      "priority": 1,
+      "assertionStatement": "Name of the button, 'About', is conveyed",
+      "assertionPhrase": "convey name of the button, 'About'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateExpanded",
+      "priority": 1,
+      "assertionStatement": "State of the button, 'expanded' is conveyed",
+      "assertionPhrase": "convey state of the button, 'expanded'",
+      "refIds": "aria-expanded",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "b",
+        "settings": "virtualCursor",
+        "presentationNumber": 7,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "f",
+        "settings": "virtualCursor",
+        "presentationNumber": 7.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 7.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "down down down",
+        "settings": "virtualCursor",
+        "presentationNumber": 7.3,
+        "assertionExceptions": "1:listBoundary 1:nameMythicalUniversity 1:roleNavigationLandmark"
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "tab",
+        "settings": "pcCursor",
+        "presentationNumber": 8,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "b",
+        "settings": "browseMode",
+        "presentationNumber": 7,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "f",
+        "settings": "browseMode",
+        "presentationNumber": 7.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "tab",
+        "settings": "browseMode",
+        "presentationNumber": 7.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "down",
+        "settings": "browseMode",
+        "presentationNumber": 7.3,
+        "assertionExceptions": "1:listBoundary 1:nameMythicalUniversity 1:roleNavigationLandmark"
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "tab",
+        "settings": "focusMode",
+        "presentationNumber": 8,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "ctrl+opt+right ctrl+opt+right ctrl+opt+right",
+        "settings": "defaultMode",
+        "presentationNumber": 9,
+        "assertionExceptions": "1:listBoundary 1:nameMythicalUniversity 1:roleNavigationLandmark"
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "j",
+        "settings": "quickNavOn",
+        "presentationNumber": 9.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "b",
+        "settings": "quickNavOn",
+        "presentationNumber": 9.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navForwardsToExpandedDisclosureButton",
+        "command": "tab",
+        "settings": "defaultMode",
+        "presentationNumber": 9.3,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,348 @@
+{
+  "info": {
+    "testId": "navBackInToRadioGroupWhereNoRadioButtonsAreChecked",
+    "title": "Navigate backwards into a radio group where no radio buttons are checked",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/radio/examples/radio/",
+        "linkText": "APG Example: Radio Group  Using Roving tabindex"
+      },
+      {
+        "refId": "radiogroup",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#radiogroup",
+        "linkText": "radiogroup ARIA Specification"
+      },
+      {
+        "refId": "aria-labelledby",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-labelledby",
+        "linkText": "aria-labelledby ARIA Specification"
+      },
+      {
+        "refId": "radio",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#radio",
+        "linkText": "radio ARIA Specification"
+      },
+      {
+        "refId": "aria-checked",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-checked",
+        "linkText": "aria-checked ARIA Specification"
+      },
+      {
+        "refId": "aria-posinset",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-posinset",
+        "linkText": "aria-posinset ARIA Specification"
+      },
+      {
+        "refId": "aria-setsize",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-setsize",
+        "linkText": "aria-setsize ARIA Specification"
+      }
+    ],
+    "presentationNumber": 2
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "virtualCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "browseMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "singleQuickKeyNavOn",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "virtualCursor_pcCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2021-3-15_144141/radio.setFocusAfterRadioGroup.html",
+    "setupScript": {
+      "script": "setFocusAfterRadioGroup",
+      "scriptDescription": "sets focus on a link after the radio group",
+      "name": "setFocusAfterRadioGroup",
+      "source": "// sets focus on a link after the radio group\ntestPageDocument.querySelector('#afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterRadioGroup.module.js",
+      "jsonpPath": "scripts/setFocusAfterRadioGroup.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Navigate backwards from here' link, navigate backwards into the 'Pizza crust' radio group.",
+    "mode": {
+      "virtualCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+      ],
+      "pcCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "shift+f",
+      "keypresses": [
+        {
+          "id": "shift+f",
+          "keystroke": "Shift+f"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+f",
+      "presentationNumber": 3,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "shift+a",
+      "keypresses": [
+        {
+          "id": "shift+a",
+          "keystroke": "Shift+a"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Shift+a",
+      "presentationNumber": 3.1,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "up up",
+      "keypresses": [
+        {
+          "id": "up",
+          "keystroke": "Up Arrow"
+        },
+        {
+          "id": "up",
+          "keystroke": "Up Arrow"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "Up Arrow then Up Arrow",
+      "presentationNumber": 3.2,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 0,
+          "assertionId": "nameThinCrust"
+        },
+        {
+          "priority": 1,
+          "assertionId": "nameRegularCrust"
+        },
+        {
+          "priority": 0,
+          "assertionId": "positionRadio3"
+        },
+        {
+          "priority": 2,
+          "assertionId": "positionRadio1"
+        },
+        {
+          "priority": 2,
+          "assertionId": "interactionModeEnabled"
+        }
+      ],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 3.3,
+      "settings": "virtualCursor"
+    },
+    {
+      "id": "shift+tab",
+      "keypresses": [
+        {
+          "id": "shift+tab",
+          "keystroke": "Shift+Tab"
+        }
+      ],
+      "assertionExceptions": [
+        {
+          "priority": 0,
+          "assertionId": "nameThinCrust"
+        },
+        {
+          "priority": 1,
+          "assertionId": "nameRegularCrust"
+        },
+        {
+          "priority": 0,
+          "assertionId": "positionRadio3"
+        },
+        {
+          "priority": 2,
+          "assertionId": "positionRadio1"
+        }
+      ],
+      "keystroke": "Shift+Tab",
+      "presentationNumber": 3.4,
+      "settings": "pcCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "roleGroup",
+      "priority": 2,
+      "assertionStatement": "Role 'group' is conveyed",
+      "assertionPhrase": "convey role 'group'",
+      "refIds": "radiogroup",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameGroupPizzaCrust",
+      "priority": 1,
+      "assertionStatement": "Name of the group, 'Pizza Crust', is conveyed",
+      "assertionPhrase": "convey name of the group, 'Pizza Crust'",
+      "refIds": "aria-labelledby",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleRadio",
+      "priority": 1,
+      "assertionStatement": "Role 'radio button' is conveyed",
+      "assertionPhrase": "convey role 'radio button'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameThinCrust",
+      "priority": 1,
+      "assertionStatement": "Name of the radio button, 'Thin crust', is conveyed",
+      "assertionPhrase": "convey name of the radio button, 'Thin crust'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameRegularCrust",
+      "priority": 0,
+      "assertionStatement": "Name of the radio button, 'Regular crust', is conveyed",
+      "assertionPhrase": "convey name of the radio button, 'Regular crust'",
+      "refIds": "radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateRadioUnchecked",
+      "priority": 3,
+      "assertionStatement": "State of the radio button, 'unchecked', is conveyed",
+      "assertionPhrase": "convey state of the radio button, 'unchecked'",
+      "refIds": "aria-checked",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionRadio3",
+      "priority": 2,
+      "assertionStatement": "Position of the radio button, 3, is conveyed",
+      "assertionPhrase": "convey position of the radio button, 3",
+      "refIds": "aria-posinset radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionRadio1",
+      "priority": 0,
+      "assertionStatement": "Position of the radio button, 1, is conveyed",
+      "assertionPhrase": "convey position of the radio button, 1",
+      "refIds": "aria-posinset radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberRadioButtonsGroup3",
+      "priority": 2,
+      "assertionStatement": "Number of radio buttons in the group, 3, is conveyed",
+      "assertionPhrase": "convey number of radio buttons in the group, 3",
+      "refIds": "aria-setsize radio",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "interactionModeEnabled",
+      "priority": 0,
+      "assertionStatement": "Screen reader switched from reading mode to interaction mode",
+      "assertionPhrase": "switch from reading mode to interaction mode",
+      "refIds": "",
+      "tokenizedAssertionStatements": {
+        "jaws": "JAWS switched from virtual cursor active to PC cursor active",
+        "nvda": "NVDA switched from browse mode to focus mode"
+      },
+      "tokenizedAssertionPhrases": {
+        "jaws": "switch from virtual cursor active to PC cursor active",
+        "nvda": "switch from browse mode to focus mode"
+      }
+    }
+  ]
+}

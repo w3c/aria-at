@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Dismiss a dropdown</title>
+<link rel="help" href="https://www.w3.org/TR/html-aam-1.0/#el-button" title="button Accessibility API Mapping">
+<link rel="help" href="https://www.w3.org/TR/wai-aria/#aria-expanded" title="aria-expanded ARIA Specification">
+
+<script>
+  let scripts = {
+		expandFirstDisclosureAndMoveFocusToOverviewLink: function(testPageDocument){
+			// expands the first disclosure and sets focus on the 'Overview' link
+			testPageDocument.defaultView.disclosureController.toggleExpand(0, true);
+			testPageDocument.querySelector('#id_about_menu a').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "dismissDropdown",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "expands the first disclosure and sets focus on the 'Overview' link",
+  "specific_user_instruction": "With focus on the 'Overview' link, close the dropdown.",
+  "setupTestPage": "expandFirstDisclosureAndMoveFocusToOverviewLink",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleButton",
+      "priority": 1,
+      "assertionStatement": "Role 'button' is conveyed",
+      "assertionPhrase": "convey role 'button'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameAbout",
+      "priority": 1,
+      "assertionStatement": "Name of the button, 'About', is conveyed",
+      "assertionPhrase": "convey name of the button, 'About'",
+      "refIds": "button",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateCollapsed",
+      "priority": 1,
+      "assertionStatement": "State of the button, 'collapsed', is conveyed",
+      "assertionPhrase": "convey state of the button, 'collapsed'",
+      "refIds": "aria-expanded",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "dismissDropdown",
+        "command": "esc",
+        "settings": "virtualCursor",
+        "presentationNumber": 60,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "dismissDropdown",
+        "command": "esc",
+        "settings": "pcCursor",
+        "presentationNumber": 61,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "dismissDropdown",
+        "command": "esc",
+        "settings": "browseMode",
+        "presentationNumber": 60,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "dismissDropdown",
+        "command": "esc",
+        "settings": "focusMode",
+        "presentationNumber": 61,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "dismissDropdown",
+        "command": "esc",
+        "settings": "defaultMode",
+        "presentationNumber": 62,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "dismissDropdown": {
+    "virtualCursor": { "jaws": [ [ "esc|60" ] ] },
+    "pcCursor": { "jaws": [ [ "esc|61" ] ] },
+    "browseMode": { "nvda": [ [ "esc|60" ] ] },
+    "focusMode": { "nvda": [ [ "esc|61" ] ] },
+    "defaultMode": {
+      "voiceover_macos": [ [ "esc|62" ] ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2022-9-9_13844/disclosure-navigation.expandFirstDisclosureAndMoveFocusToOverviewLink.html");
+  });
+</script>
+  

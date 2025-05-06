@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Activate a tab in a tab list</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/tabs/tabs-2/tabs.html">
+<link rel="help" href="https://w3c.github.io/aria/#aria-selected">
+
+<script>
+  let scripts = {
+		setFocusOnSecondTab: function(testPageDocument){
+			// sets focus on the second tab
+			testPageDocument.querySelector('#agnes').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "activate tab in tab list",
+  "mode": "interaction",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the second tab",
+  "specific_user_instruction": "With focus on the 'Agnes Obel' tab, activate the tab.",
+  "setupTestPage": "setFocusOnSecondTab",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "State of the tab, 'selected', is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "activate tab in tab list": {
+    "reading": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "SPACE" ], [ "ENTER" ] ],
+      "nvda": [ [ "SPACE" ], [ "ENTER" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "SPACE" ],
+        [ "ENTER" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-2-15_124757/tabs.setFocusOnSecondTab.html");
+  });
+</script>
+  

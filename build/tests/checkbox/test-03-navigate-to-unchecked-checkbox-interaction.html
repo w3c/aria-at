@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate to an unchecked checkbox</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  let scripts = {
+
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate to unchecked checkbox",
+  "mode": "interaction",
+  "applies_to": [
+    "voiceover_macos"
+  ],
+  "setup_script_description": "",
+  "specific_user_instruction": "Navigate to the first checkbox. Note: it should be in the unchecked state.",
+  "setupTestPage": "",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Lettuce' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (not checked) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate to unchecked checkbox": {
+    "reading": {
+      "jaws": [
+        [ "X_AND_SHIFT_X" ],
+        [ "F_AND_SHIFT_F" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ],
+        [
+          "LEFT_AND_RIGHT",
+          "(with Smart Navigation on)"
+        ]
+      ],
+      "nvda": [
+        [ "X_AND_SHIFT_X" ],
+        [ "F_AND_SHIFT_F" ],
+        [ "TAB_AND_SHIFT_TAB" ],
+        [ "UP_AND_DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "nvda": [ [ "TAB_AND_SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [ "TAB_AND_SHIFT_TAB" ],
+        [
+          "CTRL_OPT_RIGHT_AND_CTRL_OPT_LEFT"
+        ],
+        [
+          "CTRL_OPT_CMD_J_AND_SHIFT_CTRL_OPT_CMD_J"
+        ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175030/checkbox-1/checkbox-1.html");
+  });
+</script>
+  

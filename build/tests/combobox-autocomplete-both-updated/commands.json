@@ -1,0 +1,383 @@
+{
+  "navigate forwards to empty collapsed combobox": {
+    "reading": {
+      "jaws": [
+        [ "F" ],
+        [ "E" ],
+        [ "C" ],
+        [ "TAB" ],
+        [ "DOWN,DOWN" ]
+      ],
+      "nvda": [
+        [ "F" ],
+        [ "E" ],
+        [ "C" ],
+        [ "TAB" ],
+        [ "DOWN,DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT"
+        ],
+        [ "TAB" ],
+        [ "CTRL_OPT_CMD_J" ]
+      ]
+    }
+  },
+  "navigate backwards to empty collapsed combobox": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_F" ],
+        [ "SHIFT_E" ],
+        [ "SHIFT_C" ],
+        [ "SHIFT_TAB" ],
+        [ "UP,UP" ]
+      ],
+      "nvda": [
+        [ "SHIFT_F" ],
+        [ "SHIFT_E" ],
+        [ "SHIFT_C" ],
+        [ "SHIFT_TAB" ],
+        [ "UP,UP" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+        ],
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  },
+  "read information about empty collapsed combobox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  },
+  "navigate forwards to filled in collapsed combobox": {
+    "reading": {
+      "jaws": [
+        [ "F" ],
+        [ "E" ],
+        [ "C" ],
+        [ "TAB" ],
+        [ "DOWN,DOWN" ]
+      ],
+      "nvda": [
+        [ "F" ],
+        [ "E" ],
+        [ "C" ],
+        [ "TAB" ],
+        [ "DOWN,DOWN" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "TAB" ] ],
+      "nvda": [ [ "TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_RIGHT,CTRL_OPT_RIGHT"
+        ],
+        [ "TAB" ],
+        [ "CTRL_OPT_CMD_J" ]
+      ]
+    }
+  },
+  "navigate backwards to filled in collapsed combobox": {
+    "reading": {
+      "jaws": [
+        [ "SHIFT_F" ],
+        [ "SHIFT_E" ],
+        [ "SHIFT_C" ],
+        [ "SHIFT_TAB" ],
+        [ "UP,UP" ]
+      ],
+      "nvda": [
+        [ "SHIFT_F" ],
+        [ "SHIFT_E" ],
+        [ "SHIFT_C" ],
+        [ "SHIFT_TAB" ],
+        [ "UP,UP" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+        ],
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_CTRL_OPT_CMD_J" ]
+      ]
+    }
+  },
+  "read information about filled in collapsed combobox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  },
+  "open empty collapsed combobox": {
+    "reading": {
+      "jaws": [ [ "ALT_DOWN" ], [ "ALT_UP" ] ],
+      "nvda": [ [ "ALT_DOWN" ], [ "ALT_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "ALT_DOWN" ], [ "ALT_UP" ] ],
+      "nvda": [ [ "ALT_DOWN" ], [ "ALT_UP" ] ],
+      "voiceover_macos": [ [ "OPT_DOWN" ], [ "OPT_UP" ] ]
+    }
+  },
+  "open filled in collapsed combobox": {
+    "reading": {
+      "jaws": [ [ "ALT_DOWN" ], [ "ALT_UP" ] ],
+      "nvda": [ [ "ALT_DOWN" ], [ "ALT_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "ALT_DOWN" ], [ "ALT_UP" ] ],
+      "nvda": [ [ "ALT_DOWN" ], [ "ALT_UP" ] ],
+      "voiceover_macos": [ [ "OPT_DOWN" ], [ "OPT_UP" ] ]
+    }
+  },
+  "open empty collapsed combobox by typing character": {
+    "interaction": {
+      "jaws": [ [ "A" ] ],
+      "nvda": [ [ "A" ] ]
+    }
+  },
+  "open an empty collapsed combobox by typing character": {
+    "interaction": { "voiceover_macos": [ [ "A" ] ] }
+  },
+  "open a filled in collapsed combobox by typing character": {
+    "interaction": {
+      "jaws": [ [ "L" ] ],
+      "nvda": [ [ "L" ] ]
+    }
+  },
+  "open filled in collapsed combobox by typing character": {
+    "interaction": { "voiceover_macos": [ [ "L" ] ] }
+  },
+  "read information about empty expanded combobox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  },
+  "read information about filled in expanded combobox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  },
+  "narrow down matching options in empty expanded combobox": {
+    "interaction": {
+      "jaws": [ [ "A" ] ],
+      "nvda": [ [ "A" ] ],
+      "voiceover_macos": [ [ "A" ] ]
+    }
+  },
+  "narrow down matching options in filled in expanded combobox": {
+    "interaction": {
+      "jaws": [ [ "L" ] ],
+      "nvda": [ [ "L" ] ],
+      "voiceover_macos": [ [ "L" ] ]
+    }
+  },
+  "close empty combobox": {
+    "reading": {
+      "jaws": [ [ "ESC" ] ],
+      "nvda": [ [ "ESC" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "ENTER" ], [ "ESC" ] ],
+      "nvda": [ [ "ENTER" ], [ "ESC" ] ],
+      "voiceover_macos": [ [ "ENTER" ], [ "ESC" ] ]
+    }
+  },
+  "close filled in combobox": {
+    "reading": {
+      "jaws": [ [ "ESC" ] ],
+      "nvda": [ [ "ESC" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "ENTER" ], [ "ESC" ] ],
+      "nvda": [ [ "ENTER" ], [ "ESC" ] ],
+      "voiceover_macos": [ [ "ENTER" ], [ "ESC" ] ]
+    }
+  },
+  "navigate from empty collapsed combobox to first option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ],
+      "voiceover_macos": [ [ "DOWN" ] ]
+    }
+  },
+  "navigate from empty collapsed combobox to last option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ],
+      "voiceover_macos": [ [ "UP" ] ]
+    }
+  },
+  "navigate from filled in collapsed combobox to first option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ],
+      "voiceover_macos": [ [ "DOWN" ] ]
+    }
+  },
+  "navigate from filled in collapsed combobox to last option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ],
+      "voiceover_macos": [ [ "UP" ] ]
+    }
+  },
+  "navigate from empty expanded combobox to first option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ]
+    }
+  },
+  "navigate from an empty expanded combobox to first option in listbox popup": {
+    "interaction": {
+      "voiceover_macos": [ [ "DOWN" ] ]
+    }
+  },
+  "navigate from empty expanded combobox to last option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ],
+      "voiceover_macos": [ [ "UP" ] ]
+    }
+  },
+  "navigate from filled in expanded combobox to first option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ],
+      "voiceover_macos": [ [ "DOWN" ] ]
+    }
+  },
+  "navigate from filled in expanded combobox to last option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ],
+      "voiceover_macos": [ [ "UP" ] ]
+    }
+  },
+  "navigate to next option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "DOWN" ] ],
+      "nvda": [ [ "DOWN" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_RIGHT" ],
+        [ "DOWN" ]
+      ]
+    }
+  },
+  "navigate to previous option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "UP" ] ],
+      "nvda": [ [ "UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_LEFT" ],
+        [ "UP" ]
+      ]
+    }
+  },
+  "read information about listbox popup": {
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ] ],
+      "nvda": [ [ "INS_TAB" ] ]
+    }
+  },
+  "read information about a listbox popup": {
+    "interaction": {
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  },
+  "navigate out of listbox popup by moving editing cursor to right": {
+    "interaction": {
+      "jaws": [ [ "RIGHT" ] ],
+      "nvda": [ [ "RIGHT" ] ],
+      "voiceover_macos": [ [ "RIGHT" ] ]
+    }
+  },
+  "navigate out of listbox popup by moving editing cursor to left": {
+    "interaction": {
+      "jaws": [ [ "LEFT" ] ],
+      "nvda": [ [ "LEFT" ] ],
+      "voiceover_macos": [ [ "LEFT" ] ]
+    }
+  },
+  "navigate out of listbox popup by moving editing cursor to end of textbox": {
+    "interaction": {
+      "jaws": [ [ "END" ] ],
+      "nvda": [ [ "END" ] ],
+      "voiceover_macos": [ [ "END" ] ]
+    }
+  },
+  "navigate out of listbox popup by moving editing cursor to beginning of textbox": {
+    "interaction": {
+      "jaws": [ [ "HOME" ] ],
+      "nvda": [ [ "HOME" ] ],
+      "voiceover_macos": [ [ "HOME" ] ]
+    }
+  },
+  "select option in listbox popup": {
+    "interaction": {
+      "jaws": [ [ "ENTER" ], [ "ESC" ] ],
+      "nvda": [ [ "ENTER" ], [ "ESC" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_SPACE" ],
+        [ "ENTER" ],
+        [ "ESC" ]
+      ]
+    }
+  }
+}

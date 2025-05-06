@@ -1,0 +1,62 @@
+{
+  "info": {
+    "testId": 16,
+    "task": "navigate backwards to a paragraph inside a contentinfo landmark",
+    "title": "Navigate backwards to a paragraph inside a contentinfo landmark",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/contentinfo.html"
+      },
+      {
+        "refId": "contentinfo",
+        "value": "https://w3c.github.io/aria/#contentinfo"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "voiceover_macos",
+      "raw": "VOICEOVER_MACOS",
+      "name": "VoiceOver for macOS"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-10-24_151010/contentinfo.setFocusAfterContentinfo.html",
+    "setupScript": {
+      "name": "setFocusAfterContentinfo",
+      "description": "sets focus on a link after the contentinfo landmark",
+      "source": "// sets focus on a link after the contentinfo landmark\ntestPageDocument.getElementById('afterlink').focus();\n",
+      "modulePath": "scripts/setFocusAfterContentinfo.module.js",
+      "jsonpPath": "scripts/setFocusAfterContentinfo.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate backwards from here' link, navigate to the paragraph inside the contentinfo landmark."
+    ],
+    "raw": "With focus on the 'Navigate backwards from here' link, navigate to the paragraph inside the contentinfo landmark.",
+    "mode": "Toggle Quick Nav OFF by pressing the Left Arrow and Right Arrow keys at the same time."
+  },
+  "commands": [
+    {
+      "id": "SHIFT_CTRL_OPT_CMD_P",
+      "keystroke": "Shift+Control+Option+Command+P",
+      "keypresses": [
+        {
+          "id": "SHIFT_CTRL_OPT_CMD_P",
+          "keystroke": "Shift+Control+Option+Command+P"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'contentinfo' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Text 'W3C ARIA Authoring Practices Task Force' is conveyed"
+    }
+  ]
+}

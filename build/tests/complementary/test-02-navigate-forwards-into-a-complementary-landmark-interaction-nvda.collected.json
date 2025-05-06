@@ -1,0 +1,70 @@
+{
+  "info": {
+    "testId": 2,
+    "task": "navigate forwards into a complementary landmark",
+    "title": "Navigate forwards into a complementary landmark in interaction mode",
+    "references": [
+      {
+        "refId": "example",
+        "value": "https://w3c.github.io/aria-practices/examples/landmarks/complementary.html"
+      },
+      {
+        "refId": "complementary",
+        "value": "https://w3c.github.io/aria/#complementary"
+      }
+    ]
+  },
+  "target": {
+    "at": {
+      "key": "nvda",
+      "raw": "NVDA",
+      "name": "NVDA"
+    },
+    "mode": "interaction",
+    "referencePage": "reference/2021-10-24_142522/complementary.setFocusBeforeComplementary.html",
+    "setupScript": {
+      "name": "setFocusBeforeComplementary",
+      "description": "sets focus on a link before the complementary landmark",
+      "source": "// sets focus on a link before the complementary landmark\ntestPageDocument.getElementById('beforelink').focus();\n",
+      "modulePath": "scripts/setFocusBeforeComplementary.module.js",
+      "jsonpPath": "scripts/setFocusBeforeComplementary.jsonp.js"
+    }
+  },
+  "instructions": {
+    "user": [
+      "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link."
+    ],
+    "raw": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+    "mode": "If NVDA did not make the focus mode sound when the test page loaded, press Insert+Space to turn focus mode on."
+  },
+  "commands": [
+    {
+      "id": "TAB",
+      "keystroke": "Tab",
+      "keypresses": [
+        {
+          "id": "TAB",
+          "keystroke": "Tab"
+        }
+      ]
+    }
+  ],
+  "assertions": [
+    {
+      "priority": 1,
+      "expectation": "Role 'complementary' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Landmarks' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Role 'link' is conveyed"
+    },
+    {
+      "priority": 1,
+      "expectation": "Name 'Top' is conveyed"
+    }
+  ]
+}

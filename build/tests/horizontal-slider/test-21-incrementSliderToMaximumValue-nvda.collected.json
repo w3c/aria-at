@@ -1,0 +1,117 @@
+{
+  "info": {
+    "testId": "incrementSliderToMaximumValue",
+    "title": "Increment a slider to the maximum value",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/slider/examples/slider-color-viewer/",
+        "linkText": "APG Example: Color Viewer Slider"
+      },
+      {
+        "refId": "aria-valuenow",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-valuenow",
+        "linkText": "aria-valuenow ARIA Specification"
+      }
+    ],
+    "presentationNumber": 21
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "defaultMode",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "nvda",
+      "settings": "focusMode",
+      "name": "NVDA",
+      "raw": {
+        "name": "NVDA",
+        "key": "nvda",
+        "defaultConfigurationInstructionsHTML": "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "NVDA",
+          "interactionMode": "focus mode",
+          "readingMode": "browse mode",
+          "readingCursor": "browse mode caret"
+        },
+        "settings": {
+          "browseMode": {
+            "screenText": "browse mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the focus mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn browse mode back on."
+            ]
+          },
+          "focusMode": {
+            "screenText": "focus mode on",
+            "instructions": [
+              "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+              "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2022-4-11_11511/slider-color-viewer.setFocusOnRedSlider.html",
+    "setupScript": {
+      "script": "setFocusOnRedSlider",
+      "scriptDescription": "sets focus on the 'Red' slider",
+      "name": "setFocusOnRedSlider",
+      "source": "// sets focus on the 'Red' slider\ntestPageDocument.querySelector('[role=\"slider\"].red').focus();\n",
+      "modulePath": "scripts/setFocusOnRedSlider.module.js",
+      "jsonpPath": "scripts/setFocusOnRedSlider.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'Red' slider, set its value to 255.",
+    "mode": {
+      "focusMode": [
+        "Configure NVDA with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt;.",
+        "If NVDA made the browse mode sound, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;Space&lt;/kbd&gt; again to turn focus mode back on."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "end",
+      "keypresses": [
+        {
+          "id": "end",
+          "keystroke": "End"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "End",
+      "presentationNumber": 20,
+      "settings": "focusMode"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "value255",
+      "priority": 1,
+      "assertionStatement": "Value '255' is conveyed",
+      "assertionPhrase": "convey value '255'",
+      "refIds": "aria-valuenow",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

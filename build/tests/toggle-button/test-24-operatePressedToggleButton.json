@@ -1,0 +1,116 @@
+{
+  "task": "operatePressedToggleButton",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the button, and sets its state to 'pressed'",
+  "specific_user_instruction": "Starting at the 'Mute' button, activate the button.",
+  "setupTestPage": "setFocusOnButtonAndSetStateToPressed",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "stateChangeToNotPressed",
+      "priority": 1,
+      "assertionStatement": "Change in state, to 'not pressed', is conveyed",
+      "assertionPhrase": "convey change in state, to 'not pressed'",
+      "refIds": "aria-pressed",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "space",
+        "settings": "virtualCursor",
+        "presentationNumber": 22,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "enter",
+        "settings": "virtualCursor",
+        "presentationNumber": 22.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "space",
+        "settings": "pcCursor",
+        "presentationNumber": 23,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "enter",
+        "settings": "pcCursor",
+        "presentationNumber": 23.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "space",
+        "settings": "browseMode",
+        "presentationNumber": 22,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "enter",
+        "settings": "browseMode",
+        "presentationNumber": 22.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "space",
+        "settings": "focusMode",
+        "presentationNumber": 23,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "enter",
+        "settings": "focusMode",
+        "presentationNumber": 23.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "ctrl+opt+space",
+        "settings": "defaultMode",
+        "presentationNumber": 24,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "space",
+        "settings": "defaultMode",
+        "presentationNumber": 24.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "operatePressedToggleButton",
+        "command": "enter",
+        "settings": "defaultMode",
+        "presentationNumber": 24.2,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

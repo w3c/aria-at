@@ -1,0 +1,156 @@
+{
+  "info": {
+    "testId": "navToItemMenuByTypingCharacter",
+    "title": "Navigate to an item in a menu by typing a character",
+    "references": [
+      {
+        "refId": "example",
+        "type": "metadata",
+        "value": "https://www.w3.org/WAI/ARIA/apg/patterns/menu-button/examples/menu-button-links/",
+        "linkText": "APG Example: Actions Menu Button  Using"
+      },
+      {
+        "refId": "menuitem",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#menuitem",
+        "linkText": "menuitem ARIA Specification"
+      },
+      {
+        "refId": "aria-posinset",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-posinset",
+        "linkText": "aria-posinset ARIA Specification"
+      },
+      {
+        "refId": "aria-setsize",
+        "type": "aria",
+        "value": "https://www.w3.org/TR/wai-aria/#aria-setsize",
+        "linkText": "aria-setsize ARIA Specification"
+      }
+    ],
+    "presentationNumber": 22
+  },
+  "target": {
+    "ats": [
+      {
+        "key": "jaws",
+        "settings": "pcCursor",
+        "name": "JAWS"
+      },
+      {
+        "key": "nvda",
+        "settings": "focusMode",
+        "name": "NVDA"
+      },
+      {
+        "key": "voiceover_macos",
+        "settings": "quickNavOff",
+        "name": "VoiceOver for macOS"
+      }
+    ],
+    "at": {
+      "key": "jaws",
+      "settings": "pcCursor",
+      "name": "JAWS",
+      "raw": {
+        "name": "JAWS",
+        "key": "jaws",
+        "defaultConfigurationInstructionsHTML": "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "assertionTokens": {
+          "screenReader": "JAWS",
+          "interactionMode": "PC cursor active",
+          "readingMode": "virtual cursor active",
+          "readingCursor": "virtual cursor"
+        },
+        "settings": {
+          "virtualCursor": {
+            "screenText": "virtual cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the PC cursor is active, press &lt;kbd&gt;Escape&lt;/kbd&gt; to activate the virtual cursor."
+            ]
+          },
+          "pcCursor": {
+            "screenText": "PC cursor active",
+            "instructions": [
+              "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+              "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+            ]
+          }
+        }
+      }
+    },
+    "referencePage": "reference/2024-8-12_123937/menu-button-links.openMenuAndSetFocusToFirstItem.html",
+    "setupScript": {
+      "script": "openMenuAndSetFocusToFirstItem",
+      "scriptDescription": "opens the menu, and sets focus on 'W3C Home Page'",
+      "name": "openMenuAndSetFocusToFirstItem",
+      "source": "// opens the menu, and sets focus on 'W3C Home Page'\ntestPageDocument.defaultView.menuController.openPopup();\ntestPageDocument.defaultView.menuController.setFocusToFirstMenuitem();\n",
+      "modulePath": "scripts/openMenuAndSetFocusToFirstItem.module.js",
+      "jsonpPath": "scripts/openMenuAndSetFocusToFirstItem.jsonp.js"
+    }
+  },
+  "instructions": {
+    "instructions": "Starting at the 'W3C Home Page' menu item, type a character to navigate to a different menu item.",
+    "mode": {
+      "pcCursor": [
+        "Configure JAWS with default settings. For help, read &lt;a href=&quot;https://github.com/w3c/aria-at/wiki/Configuring-Screen-Readers-for-Testing&quot;&gt;Configuring Screen Readers for Testing&lt;/a&gt;.",
+        "Press &lt;kbd&gt;Alt&lt;/kbd&gt;+&lt;kbd&gt;Delete&lt;/kbd&gt; to determine which cursor is active.",
+        "If the virtual cursor is active, press &lt;kbd&gt;Insert&lt;/kbd&gt;+&lt;kbd&gt;z&lt;/kbd&gt; to disable the virtual cursor."
+      ]
+    }
+  },
+  "commands": [
+    {
+      "id": "w",
+      "keypresses": [
+        {
+          "id": "w",
+          "keystroke": "w"
+        }
+      ],
+      "assertionExceptions": [],
+      "keystroke": "w",
+      "presentationNumber": 21,
+      "settings": "pcCursor"
+    }
+  ],
+  "assertions": [
+    {
+      "assertionId": "nameFocusedItemIniciative",
+      "priority": 1,
+      "assertionStatement": "Name of the focused item, 'W3C Web Accessibility Initiative', is conveyed",
+      "assertionPhrase": "convey name of the focused item, 'W3C Web Accessibility Initiative'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleFocusedItemMenuItem",
+      "priority": 3,
+      "assertionStatement": "Role of the focused item, 'menu item', is conveyed",
+      "assertionPhrase": "convey role of the focused item, 'menu item'",
+      "refIds": "menuitem",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "positionFocusedItemMenu2",
+      "priority": 2,
+      "assertionStatement": "Position of the focused item in the menu, '2', is conveyed",
+      "assertionPhrase": "convey position of the focused item in the menu, '2'",
+      "refIds": "aria-posinset ",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "numberItemsMenu6",
+      "priority": 2,
+      "assertionStatement": "Number of items in the menu,'(6', is conveyed",
+      "assertionPhrase": "convey number of items in the menu, '4'",
+      "refIds": "aria-setsize",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Open a nested modal dialog </title>
+
+<script>
+  let scripts = {
+		openAddDeliveryAddressDialogAndFocusAddButton: function(testPageDocument){
+			// opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button
+			const btn = testPageDocument.querySelector('#ex1 > button');
+			testPageDocument.defaultView.openDialog('dialog1', btn, 'dialog1_add');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    }).then(supportJson => {
+      return fetch('../commands.json')
+        .then(response => response.json())
+        .then(allCommandsJson => ({ supportJson, allCommandsJson })
+      );
+    })
+  .then(({ supportJson, allCommandsJson }) => {
+    const testJson = {
+  "task": "openNestedModalDialog",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "opens the 'Add Delivery Address' modal dialog, and sets focus on the 'Add' button",
+  "specific_user_instruction": "Starting at the 'Add' button inside the dialog, activate it to open the nested 'Address Added' dialog.",
+  "setupTestPage": "openAddDeliveryAddressDialogAndFocusAddButton",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "roleDialog",
+      "priority": 1,
+      "assertionStatement": "Role 'dialog' is conveyed",
+      "assertionPhrase": "convey role 'dialog'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameAddressAdded",
+      "priority": 1,
+      "assertionStatement": "Name 'Address Added' is conveyed",
+      "assertionPhrase": "convey name 'Address Added'",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "dialogDescriptionAsTheAddressYouProvidedHasBeenAddedToYourListDeliveryAddressesItIsReadyForImmediateUseIfYouWishToRemoveItYouCanDoSoFromYourProfile",
+      "priority": 1,
+      "assertionStatement": "Dialog description is conveyed as: 'The address you provided has been added to your list of delivery addresses. It is ready for immediate use. If you wish to remove it, you can do so from your profile.",
+      "assertionPhrase": "convey dialog description as: 'The address you provided has been added to your list of delivery addresses. It is ready for immediate use. If you wish to remove it, you can do so from your profile.",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleFocusedElementButton",
+      "priority": 1,
+      "assertionStatement": "Role of the focused element ('button') is conveyed",
+      "assertionPhrase": "convey role of the focused element ('button')",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameFocusedElementOk",
+      "priority": 1,
+      "assertionStatement": "Name of the focused element ('OK') is conveyed",
+      "assertionPhrase": "convey name of the focused element ('OK')",
+      "refIds": "",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "openNestedModalDialog",
+        "command": "space",
+        "settings": "virtualCursor",
+        "presentationNumber": 16,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openNestedModalDialog",
+        "command": "enter",
+        "settings": "virtualCursor",
+        "presentationNumber": 16.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openNestedModalDialog",
+        "command": "space",
+        "settings": "pcCursor",
+        "presentationNumber": 18,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openNestedModalDialog",
+        "command": "enter",
+        "settings": "pcCursor",
+        "presentationNumber": 18.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "openNestedModalDialog",
+        "command": "space",
+        "settings": "browseMode",
+        "presentationNumber": 16,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openNestedModalDialog",
+        "command": "enter",
+        "settings": "browseMode",
+        "presentationNumber": 16.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openNestedModalDialog",
+        "command": "space",
+        "settings": "focusMode",
+        "presentationNumber": 18,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openNestedModalDialog",
+        "command": "enter",
+        "settings": "focusMode",
+        "presentationNumber": 18.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "openNestedModalDialog",
+        "command": "ctrl+opt+space",
+        "settings": "defaultMode",
+        "presentationNumber": 20,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openNestedModalDialog",
+        "command": "space",
+        "settings": "defaultMode",
+        "presentationNumber": 20.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "openNestedModalDialog",
+        "command": "enter",
+        "settings": "defaultMode",
+        "presentationNumber": 20.2,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+};
+    const commandJson = {
+  "openNestedModalDialog": {
+    "virtualCursor": {
+      "jaws": [
+        [ "space|16" ],
+        [ "enter|16.1" ]
+      ]
+    },
+    "pcCursor": {
+      "jaws": [
+        [ "space|18" ],
+        [ "enter|18.1" ]
+      ]
+    },
+    "browseMode": {
+      "nvda": [
+        [ "space|16" ],
+        [ "enter|16.1" ]
+      ]
+    },
+    "focusMode": {
+      "nvda": [
+        [ "space|18" ],
+        [ "enter|18.1" ]
+      ]
+    },
+    "defaultMode": {
+      "voiceover_macos": [
+        [ "ctrl+opt+space|20" ],
+        [ "space|20.1" ],
+        [ "enter|20.2" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson, allCommandsJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2022-4-7_15544/dialog.openAddDeliveryAddressDialogAndFocusAddButton.html");
+  });
+</script>
+  

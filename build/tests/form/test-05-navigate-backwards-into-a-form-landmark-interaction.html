@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Navigate backwards into a form landmark in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/landmarks/form.html">
+<link rel="help" href="https://w3c.github.io/aria/#form">
+<link rel="help" href="https://w3c.github.io/aria/#aria-labelledby">
+
+<script>
+  let scripts = {
+		setFocusAfterForm: function(testPageDocument){
+			// sets focus on a link after the form landmark
+			testPageDocument.getElementById('afterlink').focus();
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "navigate backwards into a form landmark",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on a link after the form landmark",
+  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupTestPage": "setFocusAfterForm",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'form' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Add Contact' is conveyed"
+    ],
+    [
+      "1",
+      "Role 'link' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Bottom' is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "navigate backwards into a form landmark": {
+    "reading": {
+      "jaws": [
+        [ "UP" ],
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_U" ]
+      ],
+      "nvda": [
+        [ "UP" ],
+        [ "SHIFT_TAB" ],
+        [ "SHIFT_U" ],
+        [ "SHIFT_K" ]
+      ]
+    },
+    "interaction": {
+      "jaws": [ [ "SHIFT_TAB" ] ],
+      "nvda": [ [ "SHIFT_TAB" ] ],
+      "voiceover_macos": [
+        [
+          "CTRL_OPT_LEFT,CTRL_OPT_LEFT"
+        ],
+        [ "SHIFT_CTRL_OPT_CMD_L" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2021-10-24_152221/form.setFocusAfterForm.html");
+  });
+</script>
+  

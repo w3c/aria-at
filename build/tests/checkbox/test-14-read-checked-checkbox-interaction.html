@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>Read a checked checkbox in interaction mode</title>
+<link rel="help" href="https://w3c.github.io/aria-practices/examples/checkbox/checkbox-1/checkbox-1.html">
+<link rel="help" href="https://w3c.github.io/aria/#checkbox">
+<link rel="help" href="https://w3c.github.io/aria/#aria-checked">
+
+<script>
+  let scripts = {
+		moveFocusAndCheckFirstCheckbox: function(testPageDocument){
+			// Move focus and set aria-checked on first checkbox
+			const checkbox = testPageDocument.querySelector('[role="checkbox"]');
+			checkbox.focus();
+			checkbox.setAttribute('aria-checked', 'true');
+		}
+	};
+</script>
+<script type="module">
+  import { initialize, verifyATBehavior, displayTestPageAndInstructions } from "../resources/aria-at-harness.mjs";
+
+  new Promise((resolve) => {
+    fetch('../support.json')
+      .then(response => resolve(response.json()))
+    })
+  .then(supportJson => {
+    const testJson = {
+  "task": "read checked checkbox",
+  "mode": "interaction",
+  "applies_to": [
+    "jaws",
+    "nvda"
+  ],
+  "setup_script_description": "sets focus on the first checkbox and sets its state to checked",
+  "specific_user_instruction": "When the focus is on the first checkbox, read the first checkbox.  Note: it should be in the checked state.",
+  "setupTestPage": "moveFocusAndCheckFirstCheckbox",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    [
+      "1",
+      "Role 'checkbox' is conveyed"
+    ],
+    [
+      "1",
+      "Name 'Lettuce' is conveyed"
+    ],
+    [
+      "1",
+      "State of the checkbox (checked) is conveyed"
+    ]
+  ]
+};
+    const commandJson = {
+  "read checked checkbox": {
+    "reading": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ]
+    },
+    "interaction": {
+      "jaws": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "nvda": [ [ "INS_TAB" ], [ "INS_UP" ] ],
+      "voiceover_macos": [
+        [ "CTRL_OPT_F3" ],
+        [ "CTRL_OPT_F4" ]
+      ]
+    }
+  }
+};
+    initialize(supportJson, commandJson);
+    verifyATBehavior(testJson);
+    displayTestPageAndInstructions("reference/2020-11-23_175030/checkbox-1/checkbox-1.moveFocusAndCheckFirstCheckbox.html");
+  });
+</script>
+  

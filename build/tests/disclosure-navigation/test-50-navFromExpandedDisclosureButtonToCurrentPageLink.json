@@ -1,0 +1,171 @@
+{
+  "task": "navFromExpandedDisclosureButtonToCurrentPageLink",
+  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_quickNavOn_quickNavOff",
+  "applies_to": [
+    "jaws",
+    "nvda",
+    "voiceover_macos"
+  ],
+  "setup_script_description": "sets focus on the first disclosure button, sets its state to expanded, and marks the first link in the associated dropdown as being the current page",
+  "specific_user_instruction": "With focus on the 'About' disclosure button, navigate to the 'Overview' link.",
+  "setupTestPage": "moveFocusToAndExpandFirstDisclosureAndSetCurrentPage",
+  "testPlanStrings": {
+    "ariaSpecsPreface": "Tested ARIA features:",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "commandListPreface": "Do this with each of the following commands or command sequences.",
+    "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
+    "settingInstructionsPreface": "To perform a task with",
+    "assertionResponseQuestion": "Which statements are true about the response to"
+  },
+  "output_assertions": [
+    {
+      "assertionId": "listBoundary",
+      "priority": 3,
+      "assertionStatement": "List boundary is conveyed",
+      "assertionPhrase": "convey list boundary",
+      "refIds": "list",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "roleLink",
+      "priority": 1,
+      "assertionStatement": "Role 'link' is conveyed",
+      "assertionPhrase": "convey role 'link'",
+      "refIds": "link",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "nameOverview",
+      "priority": 1,
+      "assertionStatement": "Name of the link, 'Overview', is conveyed",
+      "assertionPhrase": "convey name of the link, 'Overview'",
+      "refIds": "link",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    },
+    {
+      "assertionId": "stateCurrentPage",
+      "priority": 1,
+      "assertionStatement": "State of the link, 'current page' is conveyed",
+      "assertionPhrase": "convey state of the link, 'current page'",
+      "refIds": "aria-current",
+      "tokenizedAssertionStatements": {},
+      "tokenizedAssertionPhrases": {}
+    }
+  ],
+  "commandsInfo": {
+    "jaws": [
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "u",
+        "settings": "virtualCursor",
+        "presentationNumber": 48,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "tab",
+        "settings": "virtualCursor",
+        "presentationNumber": 48.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "down down",
+        "settings": "virtualCursor",
+        "presentationNumber": 48.2,
+        "assertionExceptions": "1:listBoundary"
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "tab",
+        "settings": "pcCursor",
+        "presentationNumber": 49,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "down",
+        "settings": "pcCursor",
+        "presentationNumber": 49.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "nvda": [
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "u",
+        "settings": "browseMode",
+        "presentationNumber": 48,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "k",
+        "settings": "browseMode",
+        "presentationNumber": 48.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "tab",
+        "settings": "browseMode",
+        "presentationNumber": 48.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "down",
+        "settings": "browseMode",
+        "presentationNumber": 48.3,
+        "assertionExceptions": "1:listBoundary"
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "tab",
+        "settings": "focusMode",
+        "presentationNumber": 49,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "down",
+        "settings": "focusMode",
+        "presentationNumber": 49.1,
+        "assertionExceptions": ""
+      }
+    ],
+    "voiceover_macos": [
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "ctrl+opt+right ctrl+opt+right",
+        "settings": "defaultMode",
+        "presentationNumber": 50,
+        "assertionExceptions": "1:listBoundary"
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "tab",
+        "settings": "defaultMode",
+        "presentationNumber": 50.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "l",
+        "settings": "quickNavOn",
+        "presentationNumber": 50.2,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "navFromExpandedDisclosureButtonToCurrentPageLink",
+        "command": "down",
+        "settings": "quickNavOff",
+        "presentationNumber": 50.3,
+        "assertionExceptions": ""
+      }
+    ]
+  }
+}

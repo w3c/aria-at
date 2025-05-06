@@ -225,7 +225,7 @@ class CommandsInput {
         commandsAndSettings: v1Commands.map(command => ({ command })),
       };
     } else {
-      return this.getCommandsV2({ task }, mode);
+      return this.getCommandsV2(task, mode);
     }
   }
 
@@ -266,58 +266,76 @@ class CommandsInput {
     return commands;
   }
 
-  getCommandsV2({ task }, mode) {
+  getCommandsV2(task, mode) {
     const assistiveTech = this._value.at;
     let commandsAndSettings = [];
     let commands = [];
 
-    // Mode could be in the format of mode1_mode2
+    // Mode could be in the format of setting1_setting2_settings three -- 'settings three' is intentional to show that multiple settings could be included as one, represented as space separated strings
     // If they are from the same AT, this needs to return the function in the format of [ [[commands], settings], [[commands], settings], ... ]
-    for (const _atMode of mode.split('_')) {
-      if (assistiveTech.settings[_atMode] || _atMode === 'defaultMode') {
-        const [atMode] = deriveModeWithTextAndInstructions(_atMode, assistiveTech);
+    const foundAtModes = [...new Set([...mode.replace(/,/g, ' ').split('_')])];
+    for (const foundAtMode of foundAtModes) {
+      const everySettingExists = foundAtMode
+        .split(' ')
+        .every(atMode => !!assistiveTech.settings[atMode]);
+      if (
+        !(assistiveTech.settings[foundAtMode] || everySettingExists) &&
+        foundAtMode !== 'defaultMode'
+      ) {
+        continue;
+      }
 
-        if (!this._value.commands[task]) {
-          throw new Error(
-            `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
-          );
-        } else if (!this._value.commands[task][atMode]) {
-          throw new Error(
-            `Mode "${atMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
-          );
-        }
+      if (!this._value.commands[task]) {
+        throw new Error(
+          `Task "${task}" does not exist, please add to at-commands or correct your spelling.`
+        );
+      } else if (!this._value.commands[task][foundAtMode]) {
+        throw new Error(
+          `Mode "${foundAtMode}" instructions for task "${task}" does not exist, please add to at-commands or correct your spelling.`
+        );
+      }
+      let commandsData = this._value.commands[task][foundAtMode][assistiveTech.key] || [];
+      for (let commandSequence of commandsData) {
+        for (const commandWithPresentationNumber of commandSequence) {
+          const [commandId, presentationNumber] = commandWithPresentationNumber.split('|');
 
-        let commandsData = this._value.commands[task][atMode][assistiveTech.key] || [];
-        for (let commandSequence of commandsData) {
-          for (const commandWithPresentationNumber of commandSequence) {
-            const [commandId, presentationNumber] = commandWithPresentationNumber.split('|');
-
-            let command;
-            const foundCommandKV = findValuesByKeys(this._allCommandsInput._flattened, [commandId]);
-            if (!foundCommandKV.length) command = undefined;
-            else {
-              const { value } = findValuesByKeys(this._allCommandsInput._flattened, [commandId])[0];
-              command = value;
-            }
-
-            if (typeof command === 'undefined') {
-              throw new Error(
-                `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${atMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
-              );
-            }
-
-            commands.push(command);
-            commandsAndSettings.push({
-              command,
-              commandId,
-              presentationNumber: Number(presentationNumber),
-              settings: _atMode,
-              settingsText: assistiveTech.settings?.[_atMode]?.screenText || 'default mode active',
-              settingsInstructions: assistiveTech.settings?.[_atMode]?.instructions || [
-                assistiveTech.defaultConfigurationInstructionsHTML,
-              ],
-            });
+          let command;
+          const foundCommandKV = findValuesByKeys(this._allCommandsInput._flattened, [commandId]);
+          if (!foundCommandKV.length) command = undefined;
+          else {
+            const { value } = findValuesByKeys(this._allCommandsInput._flattened, [commandId])[0];
+            command = value;
           }
+
+          if (typeof command === 'undefined') {
+            throw new Error(
+              `Key instruction identifier "${commandSequence}" for AT "${assistiveTech.name}", mode "${foundAtMode}", task "${task}" is not an available identified. Update your commands.json file to the correct identifier or add your identifier to resources/keys.mjs.`
+            );
+          }
+
+          let settingsText = '';
+          const settingsArray = foundAtMode.split(' ');
+          settingsArray.forEach((setting, index) => {
+            if (!assistiveTech.settings?.[setting]?.screenText) return settingsText;
+            if (index === 0) {
+              settingsText = `${assistiveTech.settings[setting].screenText}`;
+            } else {
+              settingsText = `${settingsText} and ${assistiveTech.settings[setting].screenText}`;
+            }
+          });
+
+          commands.push(command);
+          commandsAndSettings.push({
+            command,
+            commandId,
+            presentationNumber: Number(presentationNumber),
+            settings: foundAtMode,
+            settingsText: settingsText || 'default mode active',
+            // TODO: Merge instructions if there are multiple settings
+            settingsInstructions: assistiveTech.settings?.[foundAtMode]?.instructions || [
+              assistiveTech.defaultConfigurationInstructionsHTML,
+            ],
+          });
         }
       }
     }
@@ -772,9 +790,10 @@ class BehaviorInput {
       { task: info.task || info.testId },
       target.mode || target.at.settings
     );
-    commandsAndSettings = commandsAndSettings.map(cs => {
+    commandsAndSettings = commandsAndSettings.map((cs, index) => {
       return {
         ...cs,
+        presentationNumber: Number(commands[index].presentationNumber),
         settingsInstructions: cs.settingsInstructions
           ? cs.settingsInstructions.map(el => normalizeString(el))
           : null,
@@ -805,7 +824,10 @@ class BehaviorInput {
         },
         commands: commandsAndSettings.map(cs => {
           const foundCommandInfo = commands.find(
-            c => cs.commandId === c.id && cs.settings === c.settings
+            c =>
+              cs.commandId === c.id &&
+              cs.presentationNumber === c.presentationNumber &&
+              cs.settings === c.settings
           );
           if (!foundCommandInfo || !Array.isArray(foundCommandInfo.assertionExceptions)) return cs;
 
@@ -1135,26 +1157,23 @@ export class TestRunInputOutput {
     const test = this.behaviorInput.behavior();
     const config = this.configInput;
 
-    function unescapeHTML(input) {
-      const textarea = document.createElement('textarea');
-      textarea.innerHTML = input;
-      return textarea.value;
+    const normalizedInstructions = {};
+    for (const setting in config.at().settings) {
+      normalizedInstructions[setting] = {
+        screenText: config.at().settings[setting].screenText,
+        instructions: config.at().settings[setting].instructions.map(el => normalizeString(el)),
+      };
     }
-
-    const [atMode, screenText, instructions] = deriveModeWithTextAndInstructions(
-      test.mode,
-      config.at()
-    );
 
     let state = {
       errors,
       info: {
         description: test.description,
         task: test.task,
-        mode: screenText || atMode,
-        modeInstructions: Array.isArray(instructions)
-          ? unescapeHTML(`${instructions[0]} ${instructions[1]}`)
-          : test.modeInstructions,
+        modeInstructions:
+          !!test.modeInstructions && typeof test.modeInstructions === 'string'
+            ? test.modeInstructions // v1 text instructions
+            : normalizedInstructions,
         userInstructions: test.specificUserInstruction.split('|'),
         setupScriptDescription: test.setupScriptDescription,
       },
@@ -1612,36 +1631,6 @@ const StatusJSONMap = createEnumMap({
   PASS: 'PASS',
   FAIL: 'FAIL',
 });
-
-/**
- *
- * @param {ATMode} mode
- * @param {ATJSON} at
- * @returns {[ATMode, string, [string]]}
- */
-function deriveModeWithTextAndInstructions(mode, at) {
-  let atMode = mode;
-  let screenText = '';
-  let instructions = [];
-
-  if (mode.includes('_')) {
-    const atModes = mode.split('_');
-    for (const _atMode of atModes) {
-      if (at.settings[_atMode]) {
-        atMode = _atMode;
-        screenText = at.settings[_atMode].screenText;
-        instructions = at.settings[_atMode].instructions;
-      }
-    }
-  } else {
-    if (at.settings && at.settings[atMode]) {
-      screenText = at.settings[atMode]?.screenText;
-      instructions = at.settings[atMode]?.instructions;
-    }
-  }
-
-  return [atMode, screenText, instructions];
-}
 
 /**
  * @param {boolean} test

@@ -90,19 +90,11 @@ function bind(fn, ...args) {
  * @returns {InstructionDocument}
  */
 export function instructionDocument(resultState, hooks) {
-  const mode = resultState.info.mode;
   const modeInstructions = resultState.info.modeInstructions;
   const userInstructions = resultState.info.userInstructions;
   const lastInstruction = userInstructions[userInstructions.length - 1];
   const setupScriptDescription = ` ${resultState.info.setupScriptDescription}`;
-  // As a hack, special case mode instructions for VoiceOver for macOS until we
-  // support modeless tests.
-  const modePhrase =
-    resultState.config.at.name === 'VoiceOver for macOS'
-      ? 'Describe '
-      : `With ${resultState.config.at.name} in ${mode} mode, describe `;
 
-  // TODO: Wrap each command token in <kbd>
   const commands = resultState.commands.map(({ description }) => description);
   const commandSettings = resultState.commands.map(({ commandSettings }) => commandSettings);
   const assertions = resultState.commands[0].assertions.map(({ description }) => description);
@@ -137,6 +129,16 @@ export function instructionDocument(resultState, hooks) {
     return resultArray.length ? resultArray : null;
   }
 
+  /**
+   * @param {string} settings
+   * @param {string} screenText
+   * @returns {string|''}
+   */
+  function settingsScreenTextRender(settings, screenText) {
+    const hasScreenText = screenText && settings !== 'defaultMode';
+    return hasScreenText ? `(${screenText})` : '';
+  }
+
   const commandListInstructions = `${resultState.testPlanStrings.commandListPreface}${
     commands.some(
       (command, index) =>
@@ -147,14 +149,26 @@ export function instructionDocument(resultState, hooks) {
   }`;
 
   const instructionsForSettings = {};
-  commandSettings.forEach(({ description: settings, text: screenText, instructions }) => {
-    if (settings && settings !== 'defaultMode' && !instructionsForSettings[settings]) {
-      instructionsForSettings[settings] = {
-        instructions: instructions.map(el => convertModeInstructionsToKbdArray(el)),
-        screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${screenText}:`,
-      };
+  if (
+    typeof modeInstructions === 'object' &&
+    !Array.isArray(modeInstructions) &&
+    modeInstructions !== null
+  ) {
+    for (const setting in modeInstructions) {
+      const shouldDisplayInstructionsForSetting = commandSettings.some(({ description }) =>
+        description.includes(setting)
+      );
+
+      if (shouldDisplayInstructionsForSetting) {
+        instructionsForSettings[setting] = {
+          screenText: `${resultState.testPlanStrings.settingInstructionsPreface} ${modeInstructions[setting].screenText}:`,
+          instructions: modeInstructions[setting].instructions.map(el =>
+            convertModeInstructionsToKbdArray(el)
+          ),
+        };
+      }
     }
-  });
+  }
 
   return {
     errors: {
@@ -167,7 +181,6 @@ export function instructionDocument(resultState, hooks) {
         header: `Test: ${resultState.info.description}`,
         focus: resultState.currentUserAction === UserActionMap.LOAD_PAGE,
       },
-      description: `${modePhrase} how ${resultState.config.at.name} behaves when performing task "${lastInstruction}"`,
       instructions: {
         header: 'Instructions',
         instructions: [
@@ -186,9 +199,8 @@ export function instructionDocument(resultState, hooks) {
           description: `${lastInstruction} ${commandListInstructions}`,
           commands: commands.map((command, index) => {
             const { description: settings, text: screenText } = commandSettings[index];
-            return `${command}${
-              screenText && settings !== 'defaultMode' ? ` (${screenText})` : ''
-            }`;
+            const screenTextRender = settingsScreenTextRender(settings, screenText);
+            return `${command} ${screenTextRender}`.trim();
           }),
         },
       },
@@ -227,15 +239,13 @@ export function instructionDocument(resultState, hooks) {
   function commandResult(command, commandIndex) {
     const resultStateCommand = resultState.commands[commandIndex];
     const resultUnexpectedBehavior = resultStateCommand.unexpected;
-
     const {
-      commandSettings: { description: settings, text: settingsText, assertionExceptions },
+      commandSettings: { description: settings, text: screenText, assertionExceptions },
     } = resultStateCommand;
+    const screenTextRender = settingsScreenTextRender(settings, screenText);
 
     return {
-      header: `After '${command}'${
-        settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
-      }`,
+      header: `After '${command}' ${screenTextRender}`.trim(),
       atOutput: {
         description: [
           `${resultState.config.at.name} output after ${command}`,
@@ -253,9 +263,9 @@ export function instructionDocument(resultState, hooks) {
         change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
       assertionsHeader: {
-        descriptionHeader: `${resultState.testPlanStrings.assertionResponseQuestion} ${command}${
-          settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
-        }?`,
+        descriptionHeader:
+          `${resultState.testPlanStrings.assertionResponseQuestion} ${command} ${screenTextRender}`.trim() +
+          '?',
       },
       assertions: [
         ...assertions

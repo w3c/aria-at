@@ -26,7 +26,7 @@
   .then(({ supportJson, allCommandsJson }) => {
     const testJson = {
   "task": "triggerAlert",
-  "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
+  "mode": "virtualCursor,speechRateIncrease,commentAnnouncementOn_virtualCursor_virtualCursor,commentAnnouncementOn_pcCursor_browseMode_focusMode_defaultMode",
   "applies_to": [
     "jaws",
     "nvda",
@@ -68,7 +68,7 @@
       {
         "testId": "triggerAlert",
         "command": "space",
-        "settings": "virtualCursor",
+        "settings": "virtualCursor speechRateIncrease commentAnnouncementOn",
         "presentationNumber": 1,
         "assertionExceptions": ""
       },
@@ -77,6 +77,13 @@
         "command": "enter",
         "settings": "virtualCursor",
         "presentationNumber": 1.1,
+        "assertionExceptions": ""
+      },
+      {
+        "testId": "triggerAlert",
+        "command": "enter",
+        "settings": "virtualCursor commentAnnouncementOn",
+        "presentationNumber": 1.2,
         "assertionExceptions": ""
       },
       {
@@ -151,12 +158,9 @@
 };
     const commandJson = {
   "triggerAlert": {
-    "virtualCursor": {
-      "jaws": [
-        [ "space|1" ],
-        [ "enter|1.1" ]
-      ]
-    },
+    "virtualCursor speechRateIncrease commentAnnouncementOn": { "jaws": [ [ "space|1" ] ] },
+    "virtualCursor": { "jaws": [ [ "enter|1.1" ] ] },
+    "virtualCursor commentAnnouncementOn": { "jaws": [ [ "enter|1.2" ] ] },
     "pcCursor": {
       "jaws": [
         [ "space|2" ],

@@ -1073,7 +1073,7 @@
 
     <h2 class="jaws nvda voiceover_macos">Test 1: Trigger an alert</h2>
     <ul class="jaws nvda voiceover_macos">
-      <li>Last Edited: Thu Apr 25 20:00:57 2024 -0700</li>
+      <li>Last Edited: Thu Sep 5 10:21:58 2024 -0400</li>
       <li>Tests:
         <ul>
             <li><a href="../tests/alert/test-03-triggerAlert.html?at=jaws">JAWS</a></li>
@@ -1094,8 +1094,9 @@
           <li>Activate the "Open test page" button, which opens the example to test in a new window and runs a script that sets focus on the 'Trigger Alert' button.</li>
           <li>Starting at the &#39;Trigger Alert&#39; button, activate the button to trigger the alert. Do this with each of the following commands or command sequences. If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.
             <ul>
-                <li>Space (virtual cursor active)</li>
+                <li>Space (virtual cursor active and Speech Rate Increase and Comment Announcement On)</li>
                 <li>Enter (virtual cursor active)</li>
+                <li>Enter (virtual cursor active and Comment Announcement On)</li>
                 <li>Space (PC cursor active)</li>
                 <li>Enter (PC cursor active)</li>
             </ul>
@@ -1106,12 +1107,26 @@
               <li>Press <kbd>Alt</kbd>+<kbd>Delete</kbd> to determine which cursor is active.</li>
               <li>If the PC cursor is active, press <kbd>Escape</kbd> to activate the virtual cursor.</li>
           </ol>
+          <p>To perform a task with Speech Rate Increase:</p>
+          <ol>
+              <li>Ensure you are in JAWS mode. Press <kbd>Insert</kbd>+<kbd>j</kbd> if you are unsure.</li>
+              <li>Press <kbd>Insert</kbd>+<kbd>Ctrl</kbd>+<kbd>Page Up</kbd> to increase the speech rate.</li>
+          </ol>
+          <p>To perform a task with Comment Announcement On:</p>
+          <ol>
+              <li>Ensure you are in JAWS mode. Press <kbd>Insert</kbd>+<kbd>j</kbd> if you are unsure.</li>
+              <li>Use the arrow keys to select 'Speech & Sounds' from the categories list.</li>
+              <li>Find and choose the option related to comment announcements. This might be listed under 'Speech Settings' or a similar category.</li>
+              <li>Look for a checkbox or toggle to enable comment announcements and check or activate it.</li>
+              <li>Click 'Apply' to save your changes.</li>
+              <li>Press <kbd>Enter</kbd> to confirm and exit the Settings Center.</li>
+          </ol>
           <p>To perform a task with PC cursor active:</p>
           <ol>
               <li>Press <kbd>Alt</kbd>+<kbd>Delete</kbd> to determine which cursor is active.</li>
               <li>If the virtual cursor is active, press <kbd>Insert</kbd>+<kbd>z</kbd> to disable the virtual cursor.</li>
           </ol>
-          <h4 id="t1-jaws-c1">Space (virtual cursor active): 1 MUST, 0 SHOULD, AND 1 MAY assertions</h4>
+          <h4 id="t1-jaws-c1">Space (virtual cursor active and Speech Rate Increase and Comment Announcement On): 1 MUST, 0 SHOULD, AND 1 MAY assertions</h4>
           <table aria-labelledby="t1-jaws-c1">
             <tr>
               <th>Priority</th>
@@ -1147,7 +1162,7 @@
                   <td>Text &#39;Hello&#39; is conveyed</td>
                 </tr>
           </table>
-          <h4 id="t1-jaws-c3">Space (PC cursor active): 1 MUST, 0 SHOULD, AND 1 MAY assertions</h4>
+          <h4 id="t1-jaws-c3">Enter (virtual cursor active and Comment Announcement On): 1 MUST, 0 SHOULD, AND 1 MAY assertions</h4>
           <table aria-labelledby="t1-jaws-c3">
             <tr>
               <th>Priority</th>
@@ -1165,8 +1180,26 @@
                   <td>Text &#39;Hello&#39; is conveyed</td>
                 </tr>
           </table>
-          <h4 id="t1-jaws-c4">Enter (PC cursor active): 1 MUST, 0 SHOULD, AND 1 MAY assertions</h4>
+          <h4 id="t1-jaws-c4">Space (PC cursor active): 1 MUST, 0 SHOULD, AND 1 MAY assertions</h4>
           <table aria-labelledby="t1-jaws-c4">
+            <tr>
+              <th>Priority</th>
+              <th>Assertion Phrase</th>
+              <th>Assertion Statement</th>
+            </tr>
+                <tr>
+                  <td>MAY</td>
+                  <td>convey role &#39;alert&#39;</td>
+                  <td>Role &#39;alert&#39; is conveyed</td>
+                </tr>
+                <tr>
+                  <td>MUST</td>
+                  <td>convey text &#39;Hello&#39;</td>
+                  <td>Text &#39;Hello&#39; is conveyed</td>
+                </tr>
+          </table>
+          <h4 id="t1-jaws-c5">Enter (PC cursor active): 1 MUST, 0 SHOULD, AND 1 MAY assertions</h4>
+          <table aria-labelledby="t1-jaws-c5">
             <tr>
               <th>Priority</th>
               <th>Assertion Phrase</th>

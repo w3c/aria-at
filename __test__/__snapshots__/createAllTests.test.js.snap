@@ -777,12 +777,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 9`] = 
     const testJson = {
   "task": "navigate forwards into a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -792,7 +792,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 9`] = 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -848,12 +848,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 10`] =
 "{
   "task": "navigate forwards into a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -863,7 +863,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 10`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -1229,12 +1229,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 15`] =
     const testJson = {
   "task": "navigate forwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -1244,7 +1244,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 15`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -1300,12 +1300,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 16`] =
 "{
   "task": "navigate forwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -1315,7 +1315,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 16`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -1534,11 +1534,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 19`] =
     const testJson = {
   "task": "navigate forwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -1548,7 +1548,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 19`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -1604,11 +1604,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 20`] =
 "{
   "task": "navigate forwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -1618,7 +1618,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 20`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -2034,12 +2034,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 25`] =
     const testJson = {
   "task": "navigate backwards into a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -2049,7 +2049,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 25`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -2103,12 +2103,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 26`] =
 "{
   "task": "navigate backwards into a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -2118,7 +2118,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 26`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -2484,12 +2484,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 31`] =
     const testJson = {
   "task": "navigate backwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -2499,7 +2499,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 31`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -2553,12 +2553,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 32`] =
 "{
   "task": "navigate backwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -2568,7 +2568,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 32`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -2787,11 +2787,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 35`] =
     const testJson = {
   "task": "navigate backwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -2801,7 +2801,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 35`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -2855,11 +2855,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 36`] =
 "{
   "task": "navigate backwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -2869,7 +2869,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 36`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -3265,12 +3265,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 41`] =
     const testJson = {
   "task": "navigate forwards out of a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -3280,7 +3280,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 41`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -3325,12 +3325,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 42`] =
 "{
   "task": "navigate forwards out of a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -3340,7 +3340,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 42`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -3706,12 +3706,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 47`] =
     const testJson = {
   "task": "navigate forwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -3721,7 +3721,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 47`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -3766,12 +3766,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 48`] =
 "{
   "task": "navigate forwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -3781,7 +3781,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 48`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -4000,11 +4000,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 51`] =
     const testJson = {
   "task": "navigate forwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -4014,7 +4014,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 51`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -4059,11 +4059,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 52`] =
 "{
   "task": "navigate forwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -4073,7 +4073,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 52`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -4469,12 +4469,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 57`] =
     const testJson = {
   "task": "navigate backwards out of a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -4484,7 +4484,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 57`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -4533,12 +4533,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 58`] =
 "{
   "task": "navigate backwards out of a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -4548,7 +4548,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 58`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -4914,12 +4914,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 63`] =
     const testJson = {
   "task": "navigate backwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -4929,7 +4929,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 63`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -4978,12 +4978,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 64`] =
 "{
   "task": "navigate backwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -4993,7 +4993,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 64`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -5212,11 +5212,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 67`] =
     const testJson = {
   "task": "navigate backwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -5226,7 +5226,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 67`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -5275,11 +5275,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 68`] =
 "{
   "task": "navigate backwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -5289,7 +5289,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 68`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -5734,12 +5734,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 73`] =
     const testJson = {
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -5749,7 +5749,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 73`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -5811,12 +5811,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 74`] =
 "{
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -5826,7 +5826,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 74`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -6239,12 +6239,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 79`] =
     const testJson = {
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -6254,7 +6254,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 79`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -6316,12 +6316,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 80`] =
 "{
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -6331,7 +6331,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 80`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -6589,11 +6589,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 83`] =
     const testJson = {
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -6603,7 +6603,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 83`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -6665,11 +6665,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 84`] =
 "{
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -6679,7 +6679,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 84`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -7113,12 +7113,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 89`] =
     const testJson = {
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -7128,7 +7128,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 89`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -7186,12 +7186,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 90`] =
 "{
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -7201,7 +7201,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 90`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -7591,12 +7591,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 95`] =
     const testJson = {
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -7606,7 +7606,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 95`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -7664,12 +7664,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 96`] =
 "{
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -7679,7 +7679,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 96`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -7923,11 +7923,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 99`] =
     const testJson = {
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -7937,7 +7937,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 99`] =
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -7995,11 +7995,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 100`] 
 "{
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -8009,7 +8009,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 100`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -8379,12 +8379,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 105`] 
     const testJson = {
   "task": "navigate forwards to an image inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -8394,7 +8394,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 105`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -8432,12 +8432,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 106`] 
 "{
   "task": "navigate forwards to an image inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -8447,7 +8447,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 106`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -8652,11 +8652,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 109`] 
     const testJson = {
   "task": "navigate forwards to an image inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -8666,7 +8666,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 109`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -8704,11 +8704,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 110`] 
 "{
   "task": "navigate forwards to an image inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -8718,7 +8718,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 110`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -9084,12 +9084,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 115`] 
     const testJson = {
   "task": "navigate backwards to an image inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -9099,7 +9099,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 115`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -9137,12 +9137,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 116`] 
 "{
   "task": "navigate backwards to an image inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -9152,7 +9152,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 116`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -9357,11 +9357,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 119`] 
     const testJson = {
   "task": "navigate backwards to an image inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -9371,7 +9371,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 119`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -9409,11 +9409,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 120`] 
 "{
   "task": "navigate backwards to an image inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -9423,7 +9423,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 120`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -9817,12 +9817,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 125`] 
     const testJson = {
   "task": "navigate forwards to a heading inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -9832,7 +9832,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 125`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -9874,12 +9874,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 126`] 
 "{
   "task": "navigate forwards to a heading inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -9889,7 +9889,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 126`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -10102,11 +10102,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 129`] 
     const testJson = {
   "task": "navigate forwards to a heading inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -10116,7 +10116,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 129`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -10158,11 +10158,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 130`] 
 "{
   "task": "navigate forwards to a heading inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -10172,7 +10172,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 130`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -10570,12 +10570,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 135`] 
     const testJson = {
   "task": "navigate backwards to a heading inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -10585,7 +10585,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 135`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -10633,12 +10633,12 @@ exports[`V1 test format version runs createAllTests successfully (banner) 136`] 
 "{
   "task": "navigate backwards to a heading inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -10648,7 +10648,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 136`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -10861,11 +10861,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 139`] 
     const testJson = {
   "task": "navigate backwards to a heading inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -10875,7 +10875,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 139`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -10923,11 +10923,11 @@ exports[`V1 test format version runs createAllTests successfully (banner) 140`] 
 "{
   "task": "navigate backwards to a heading inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -10937,7 +10937,7 @@ exports[`V1 test format version runs createAllTests successfully (banner) 140`] 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -11974,13 +11974,13 @@ exports[`V2 test format version runs createAllTests successfully (alert) 11`] = 
     const testJson = {
   "task": "triggerAlert",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Trigger Alert' button",
-  "specific_user_instruction": "Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",
+  "setupScriptDescription": "sets focus on the 'Trigger Alert' button",
+  "specificUserInstruction": "Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",
   "setupTestPage": "setFocusOnButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -11990,7 +11990,7 @@ exports[`V2 test format version runs createAllTests successfully (alert) 11`] = 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleAlert",
       "priority": 3,
@@ -12145,13 +12145,13 @@ exports[`V2 test format version runs createAllTests successfully (alert) 12`] = 
 "{
   "task": "triggerAlert",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Trigger Alert' button",
-  "specific_user_instruction": "Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",
+  "setupScriptDescription": "sets focus on the 'Trigger Alert' button",
+  "specificUserInstruction": "Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",
   "setupTestPage": "setFocusOnButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -12161,7 +12161,7 @@ exports[`V2 test format version runs createAllTests successfully (alert) 12`] = 
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleAlert",
       "priority": 3,
@@ -13386,13 +13386,13 @@ exports[`V2 test format version runs createAllTests successfully (command-button
     const testJson = {
   "task": "navForwardsToButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the button",
-  "specific_user_instruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Print Page' button.",
+  "setupScriptDescription": "sets focus on a link before the button",
+  "specificUserInstruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Print Page' button.",
   "setupTestPage": "setFocusBeforeButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -13402,7 +13402,7 @@ exports[`V2 test format version runs createAllTests successfully (command-button
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -13572,13 +13572,13 @@ exports[`V2 test format version runs createAllTests successfully (command-button
 "{
   "task": "navForwardsToButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the button",
-  "specific_user_instruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Print Page' button.",
+  "setupScriptDescription": "sets focus on a link before the button",
+  "specificUserInstruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Print Page' button.",
   "setupTestPage": "setFocusBeforeButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -13588,7 +13588,7 @@ exports[`V2 test format version runs createAllTests successfully (command-button
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -14616,13 +14616,13 @@ exports[`V2 test format version runs createAllTests successfully (command-button
     const testJson = {
   "task": "navBackToButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the button",
-  "specific_user_instruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Print Page' button.",
+  "setupScriptDescription": "sets focus on a link after the button",
+  "specificUserInstruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Print Page' button.",
   "setupTestPage": "setFocusAfterButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -14632,7 +14632,7 @@ exports[`V2 test format version runs createAllTests successfully (command-button
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -14805,13 +14805,13 @@ exports[`V2 test format version runs createAllTests successfully (command-button
 "{
   "task": "navBackToButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the button",
-  "specific_user_instruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Print Page' button.",
+  "setupScriptDescription": "sets focus on a link after the button",
+  "specificUserInstruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Print Page' button.",
   "setupTestPage": "setFocusAfterButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -14821,7 +14821,7 @@ exports[`V2 test format version runs createAllTests successfully (command-button
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -15777,13 +15777,13 @@ exports[`V2 test format version runs createAllTests successfully (command-button
     const testJson = {
   "task": "reqInfoAboutButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the button",
-  "specific_user_instruction": "Starting at the 'Print Page' button, read information about the button.",
+  "setupScriptDescription": "sets focus on the button",
+  "specificUserInstruction": "Starting at the 'Print Page' button, read information about the button.",
   "setupTestPage": "setFocusOnButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -15793,7 +15793,7 @@ exports[`V2 test format version runs createAllTests successfully (command-button
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -15938,13 +15938,13 @@ exports[`V2 test format version runs createAllTests successfully (command-button
 "{
   "task": "reqInfoAboutButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the button",
-  "specific_user_instruction": "Starting at the 'Print Page' button, read information about the button.",
+  "setupScriptDescription": "sets focus on the button",
+  "specificUserInstruction": "Starting at the 'Print Page' button, read information about the button.",
   "setupTestPage": "setFocusOnButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -15954,7 +15954,7 @@ exports[`V2 test format version runs createAllTests successfully (command-button
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -17535,13 +17535,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     const testJson = {
   "task": "navForwardsToSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the Red slider",
-  "specific_user_instruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",
+  "setupScriptDescription": "sets focus on a link before the Red slider",
+  "specificUserInstruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",
   "setupTestPage": "setFocusBeforeRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -17551,7 +17551,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -17751,13 +17751,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
 "{
   "task": "navForwardsToSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the Red slider",
-  "specific_user_instruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",
+  "setupScriptDescription": "sets focus on a link before the Red slider",
+  "specificUserInstruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",
   "setupTestPage": "setFocusBeforeRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -17767,7 +17767,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -19085,13 +19085,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     const testJson = {
   "task": "navBackToSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the Red slider",
-  "specific_user_instruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",
+  "setupScriptDescription": "sets focus on a link after the Red slider",
+  "specificUserInstruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",
   "setupTestPage": "setFocusAfterRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -19101,7 +19101,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -19305,13 +19305,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
 "{
   "task": "navBackToSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the Red slider",
-  "specific_user_instruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",
+  "setupScriptDescription": "sets focus on a link after the Red slider",
+  "specificUserInstruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",
   "setupTestPage": "setFocusAfterRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -19321,7 +19321,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -20547,13 +20547,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     const testJson = {
   "task": "reqInfoAboutSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, read information about the slider.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, read information about the slider.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -20563,7 +20563,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -20744,13 +20744,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
 "{
   "task": "reqInfoAboutSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, read information about the slider.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, read information about the slider.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -20760,7 +20760,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -21681,13 +21681,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     const testJson = {
   "task": "incrementSliderByOneStep",
   "mode": "pcCursor_focusMode_quickNavOff_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 129.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 129.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -21697,7 +21697,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value129",
       "priority": 1,
@@ -21817,13 +21817,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
 "{
   "task": "incrementSliderByOneStep",
   "mode": "pcCursor_focusMode_quickNavOff_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 129.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 129.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -21833,7 +21833,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value129",
       "priority": 1,
@@ -22695,13 +22695,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     const testJson = {
   "task": "decrementSliderByOneStep",
   "mode": "pcCursor_focusMode_quickNavOff_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 127.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 127.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -22711,7 +22711,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value127",
       "priority": 1,
@@ -22831,13 +22831,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
 "{
   "task": "decrementSliderByOneStep",
   "mode": "pcCursor_focusMode_quickNavOff_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 127.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 127.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -22847,7 +22847,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value127",
       "priority": 1,
@@ -23616,13 +23616,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     const testJson = {
   "task": "incrementSliderByTenSteps",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 138.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 138.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -23632,7 +23632,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value138",
       "priority": 1,
@@ -23694,13 +23694,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
 "{
   "task": "incrementSliderByTenSteps",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 138.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 138.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -23710,7 +23710,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value138",
       "priority": 1,
@@ -24444,13 +24444,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     const testJson = {
   "task": "decrementSliderByTenSteps",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 118.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 118.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -24460,7 +24460,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value118",
       "priority": 1,
@@ -24522,13 +24522,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
 "{
   "task": "decrementSliderByTenSteps",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 118.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 118.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -24538,7 +24538,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value118",
       "priority": 1,
@@ -25272,13 +25272,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     const testJson = {
   "task": "decrementSliderToMinimumValue",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 0.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 0.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -25288,7 +25288,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value0",
       "priority": 1,
@@ -25350,13 +25350,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
 "{
   "task": "decrementSliderToMinimumValue",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 0.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 0.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -25366,7 +25366,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value0",
       "priority": 1,
@@ -26100,13 +26100,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     const testJson = {
   "task": "incrementSliderToMaximumValue",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 255.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 255.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -26116,7 +26116,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value255",
       "priority": 1,
@@ -26178,13 +26178,13 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
 "{
   "task": "incrementSliderToMaximumValue",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 255.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 255.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -26194,7 +26194,7 @@ exports[`V2 test format version runs createAllTests successfully (horizontal-sli
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value255",
       "priority": 1,
@@ -27253,13 +27253,13 @@ exports[`all test format versions runs createAllTests successfully 11`] = `
     const testJson = {
   "task": "triggerAlert",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Trigger Alert' button",
-  "specific_user_instruction": "Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",
+  "setupScriptDescription": "sets focus on the 'Trigger Alert' button",
+  "specificUserInstruction": "Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",
   "setupTestPage": "setFocusOnButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -27269,7 +27269,7 @@ exports[`all test format versions runs createAllTests successfully 11`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleAlert",
       "priority": 3,
@@ -27424,13 +27424,13 @@ exports[`all test format versions runs createAllTests successfully 12`] = `
 "{
   "task": "triggerAlert",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Trigger Alert' button",
-  "specific_user_instruction": "Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",
+  "setupScriptDescription": "sets focus on the 'Trigger Alert' button",
+  "specificUserInstruction": "Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",
   "setupTestPage": "setFocusOnButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -27440,7 +27440,7 @@ exports[`all test format versions runs createAllTests successfully 12`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleAlert",
       "priority": 3,
@@ -28325,12 +28325,12 @@ exports[`all test format versions runs createAllTests successfully 21`] = `
     const testJson = {
   "task": "navigate forwards into a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -28340,7 +28340,7 @@ exports[`all test format versions runs createAllTests successfully 21`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -28396,12 +28396,12 @@ exports[`all test format versions runs createAllTests successfully 22`] = `
 "{
   "task": "navigate forwards into a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -28411,7 +28411,7 @@ exports[`all test format versions runs createAllTests successfully 22`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -28777,12 +28777,12 @@ exports[`all test format versions runs createAllTests successfully 27`] = `
     const testJson = {
   "task": "navigate forwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -28792,7 +28792,7 @@ exports[`all test format versions runs createAllTests successfully 27`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -28848,12 +28848,12 @@ exports[`all test format versions runs createAllTests successfully 28`] = `
 "{
   "task": "navigate forwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -28863,7 +28863,7 @@ exports[`all test format versions runs createAllTests successfully 28`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -29082,11 +29082,11 @@ exports[`all test format versions runs createAllTests successfully 31`] = `
     const testJson = {
   "task": "navigate forwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -29096,7 +29096,7 @@ exports[`all test format versions runs createAllTests successfully 31`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -29152,11 +29152,11 @@ exports[`all test format versions runs createAllTests successfully 32`] = `
 "{
   "task": "navigate forwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Top' link.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -29166,7 +29166,7 @@ exports[`all test format versions runs createAllTests successfully 32`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -29582,12 +29582,12 @@ exports[`all test format versions runs createAllTests successfully 37`] = `
     const testJson = {
   "task": "navigate backwards into a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -29597,7 +29597,7 @@ exports[`all test format versions runs createAllTests successfully 37`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -29651,12 +29651,12 @@ exports[`all test format versions runs createAllTests successfully 38`] = `
 "{
   "task": "navigate backwards into a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -29666,7 +29666,7 @@ exports[`all test format versions runs createAllTests successfully 38`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -30032,12 +30032,12 @@ exports[`all test format versions runs createAllTests successfully 43`] = `
     const testJson = {
   "task": "navigate backwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -30047,7 +30047,7 @@ exports[`all test format versions runs createAllTests successfully 43`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -30101,12 +30101,12 @@ exports[`all test format versions runs createAllTests successfully 44`] = `
 "{
   "task": "navigate backwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -30116,7 +30116,7 @@ exports[`all test format versions runs createAllTests successfully 44`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -30335,11 +30335,11 @@ exports[`all test format versions runs createAllTests successfully 47`] = `
     const testJson = {
   "task": "navigate backwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -30349,7 +30349,7 @@ exports[`all test format versions runs createAllTests successfully 47`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -30403,11 +30403,11 @@ exports[`all test format versions runs createAllTests successfully 48`] = `
 "{
   "task": "navigate backwards into a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Bottom' link.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -30417,7 +30417,7 @@ exports[`all test format versions runs createAllTests successfully 48`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -30813,12 +30813,12 @@ exports[`all test format versions runs createAllTests successfully 53`] = `
     const testJson = {
   "task": "navigate forwards out of a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -30828,7 +30828,7 @@ exports[`all test format versions runs createAllTests successfully 53`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -30873,12 +30873,12 @@ exports[`all test format versions runs createAllTests successfully 54`] = `
 "{
   "task": "navigate forwards out of a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With the reading cursor on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -30888,7 +30888,7 @@ exports[`all test format versions runs createAllTests successfully 54`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -31254,12 +31254,12 @@ exports[`all test format versions runs createAllTests successfully 59`] = `
     const testJson = {
   "task": "navigate forwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -31269,7 +31269,7 @@ exports[`all test format versions runs createAllTests successfully 59`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -31314,12 +31314,12 @@ exports[`all test format versions runs createAllTests successfully 60`] = `
 "{
   "task": "navigate forwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -31329,7 +31329,7 @@ exports[`all test format versions runs createAllTests successfully 60`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -31548,11 +31548,11 @@ exports[`all test format versions runs createAllTests successfully 63`] = `
     const testJson = {
   "task": "navigate forwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -31562,7 +31562,7 @@ exports[`all test format versions runs createAllTests successfully 63`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -31607,11 +31607,11 @@ exports[`all test format versions runs createAllTests successfully 64`] = `
 "{
   "task": "navigate forwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Bottom' link",
-  "specific_user_instruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Bottom' link",
+  "specificUserInstruction": "With focus on the 'Bottom' link, navigate to the 'Navigate backwards from here' link.",
   "setupTestPage": "setFocusOnBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -31621,7 +31621,7 @@ exports[`all test format versions runs createAllTests successfully 64`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -32017,12 +32017,12 @@ exports[`all test format versions runs createAllTests successfully 69`] = `
     const testJson = {
   "task": "navigate backwards out of a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -32032,7 +32032,7 @@ exports[`all test format versions runs createAllTests successfully 69`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -32081,12 +32081,12 @@ exports[`all test format versions runs createAllTests successfully 70`] = `
 "{
   "task": "navigate backwards out of a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With the reading cursor on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -32096,7 +32096,7 @@ exports[`all test format versions runs createAllTests successfully 70`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -32462,12 +32462,12 @@ exports[`all test format versions runs createAllTests successfully 75`] = `
     const testJson = {
   "task": "navigate backwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -32477,7 +32477,7 @@ exports[`all test format versions runs createAllTests successfully 75`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -32526,12 +32526,12 @@ exports[`all test format versions runs createAllTests successfully 76`] = `
 "{
   "task": "navigate backwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -32541,7 +32541,7 @@ exports[`all test format versions runs createAllTests successfully 76`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -32760,11 +32760,11 @@ exports[`all test format versions runs createAllTests successfully 79`] = `
     const testJson = {
   "task": "navigate backwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -32774,7 +32774,7 @@ exports[`all test format versions runs createAllTests successfully 79`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -32823,11 +32823,11 @@ exports[`all test format versions runs createAllTests successfully 80`] = `
 "{
   "task": "navigate backwards out of a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Top' link",
-  "specific_user_instruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
+  "setupScriptDescription": "sets focus on the 'Top' link",
+  "specificUserInstruction": "With focus on the 'Top' link, navigate to the 'Navigate forwards from here' link.",
   "setupTestPage": "setFocusOnTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -32837,7 +32837,7 @@ exports[`all test format versions runs createAllTests successfully 80`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Banner landmark boundary is conveyed"
@@ -33282,12 +33282,12 @@ exports[`all test format versions runs createAllTests successfully 85`] = `
     const testJson = {
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -33297,7 +33297,7 @@ exports[`all test format versions runs createAllTests successfully 85`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -33359,12 +33359,12 @@ exports[`all test format versions runs createAllTests successfully 86`] = `
 "{
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -33374,7 +33374,7 @@ exports[`all test format versions runs createAllTests successfully 86`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -33787,12 +33787,12 @@ exports[`all test format versions runs createAllTests successfully 91`] = `
     const testJson = {
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -33802,7 +33802,7 @@ exports[`all test format versions runs createAllTests successfully 91`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -33864,12 +33864,12 @@ exports[`all test format versions runs createAllTests successfully 92`] = `
 "{
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -33879,7 +33879,7 @@ exports[`all test format versions runs createAllTests successfully 92`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -34137,11 +34137,11 @@ exports[`all test format versions runs createAllTests successfully 95`] = `
     const testJson = {
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -34151,7 +34151,7 @@ exports[`all test format versions runs createAllTests successfully 95`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -34213,11 +34213,11 @@ exports[`all test format versions runs createAllTests successfully 96`] = `
 "{
   "task": "navigate forwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark, and hides the first link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'Skip To Content' button.",
   "setupTestPage": "setFocusBeforeBannerAndHideTopLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -34227,7 +34227,7 @@ exports[`all test format versions runs createAllTests successfully 96`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -34661,12 +34661,12 @@ exports[`all test format versions runs createAllTests successfully 101`] = `
     const testJson = {
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -34676,7 +34676,7 @@ exports[`all test format versions runs createAllTests successfully 101`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -34734,12 +34734,12 @@ exports[`all test format versions runs createAllTests successfully 102`] = `
 "{
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -34749,7 +34749,7 @@ exports[`all test format versions runs createAllTests successfully 102`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -35139,12 +35139,12 @@ exports[`all test format versions runs createAllTests successfully 107`] = `
     const testJson = {
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -35154,7 +35154,7 @@ exports[`all test format versions runs createAllTests successfully 107`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -35212,12 +35212,12 @@ exports[`all test format versions runs createAllTests successfully 108`] = `
 "{
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -35227,7 +35227,7 @@ exports[`all test format versions runs createAllTests successfully 108`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -35471,11 +35471,11 @@ exports[`all test format versions runs createAllTests successfully 111`] = `
     const testJson = {
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -35485,7 +35485,7 @@ exports[`all test format versions runs createAllTests successfully 111`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -35543,11 +35543,11 @@ exports[`all test format versions runs createAllTests successfully 112`] = `
 "{
   "task": "navigate backwards to a button inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark, and hides the last link inside the landmark region",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'Show Headings' button.",
   "setupTestPage": "setFocusAfterBannerAndHideBottomLink",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -35557,7 +35557,7 @@ exports[`all test format versions runs createAllTests successfully 112`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -35927,12 +35927,12 @@ exports[`all test format versions runs createAllTests successfully 117`] = `
     const testJson = {
   "task": "navigate forwards to an image inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -35942,7 +35942,7 @@ exports[`all test format versions runs createAllTests successfully 117`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -35980,12 +35980,12 @@ exports[`all test format versions runs createAllTests successfully 118`] = `
 "{
   "task": "navigate forwards to an image inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -35995,7 +35995,7 @@ exports[`all test format versions runs createAllTests successfully 118`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -36200,11 +36200,11 @@ exports[`all test format versions runs createAllTests successfully 121`] = `
     const testJson = {
   "task": "navigate forwards to an image inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -36214,7 +36214,7 @@ exports[`all test format versions runs createAllTests successfully 121`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -36252,11 +36252,11 @@ exports[`all test format versions runs createAllTests successfully 122`] = `
 "{
   "task": "navigate forwards to an image inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -36266,7 +36266,7 @@ exports[`all test format versions runs createAllTests successfully 122`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -36632,12 +36632,12 @@ exports[`all test format versions runs createAllTests successfully 127`] = `
     const testJson = {
   "task": "navigate backwards to an image inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -36647,7 +36647,7 @@ exports[`all test format versions runs createAllTests successfully 127`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -36685,12 +36685,12 @@ exports[`all test format versions runs createAllTests successfully 128`] = `
 "{
   "task": "navigate backwards to an image inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -36700,7 +36700,7 @@ exports[`all test format versions runs createAllTests successfully 128`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -36905,11 +36905,11 @@ exports[`all test format versions runs createAllTests successfully 131`] = `
     const testJson = {
   "task": "navigate backwards to an image inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -36919,7 +36919,7 @@ exports[`all test format versions runs createAllTests successfully 131`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -36957,11 +36957,11 @@ exports[`all test format versions runs createAllTests successfully 132`] = `
 "{
   "task": "navigate backwards to an image inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'W3C Logo' image.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -36971,7 +36971,7 @@ exports[`all test format versions runs createAllTests successfully 132`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -37365,12 +37365,12 @@ exports[`all test format versions runs createAllTests successfully 137`] = `
     const testJson = {
   "task": "navigate forwards to a heading inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -37380,7 +37380,7 @@ exports[`all test format versions runs createAllTests successfully 137`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -37422,12 +37422,12 @@ exports[`all test format versions runs createAllTests successfully 138`] = `
 "{
   "task": "navigate forwards to a heading inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -37437,7 +37437,7 @@ exports[`all test format versions runs createAllTests successfully 138`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -37650,11 +37650,11 @@ exports[`all test format versions runs createAllTests successfully 141`] = `
     const testJson = {
   "task": "navigate forwards to a heading inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -37664,7 +37664,7 @@ exports[`all test format versions runs createAllTests successfully 141`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -37706,11 +37706,11 @@ exports[`all test format versions runs createAllTests successfully 142`] = `
 "{
   "task": "navigate forwards to a heading inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link before the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate forwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusBeforeBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -37720,7 +37720,7 @@ exports[`all test format versions runs createAllTests successfully 142`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -38118,12 +38118,12 @@ exports[`all test format versions runs createAllTests successfully 147`] = `
     const testJson = {
   "task": "navigate backwards to a heading inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -38133,7 +38133,7 @@ exports[`all test format versions runs createAllTests successfully 147`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -38181,12 +38181,12 @@ exports[`all test format versions runs createAllTests successfully 148`] = `
 "{
   "task": "navigate backwards to a heading inside a banner landmark",
   "mode": "reading",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With the reading cursor on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -38196,7 +38196,7 @@ exports[`all test format versions runs createAllTests successfully 148`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -38409,11 +38409,11 @@ exports[`all test format versions runs createAllTests successfully 151`] = `
     const testJson = {
   "task": "navigate backwards to a heading inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -38423,7 +38423,7 @@ exports[`all test format versions runs createAllTests successfully 151`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -38471,11 +38471,11 @@ exports[`all test format versions runs createAllTests successfully 152`] = `
 "{
   "task": "navigate backwards to a heading inside a banner landmark",
   "mode": "interaction",
-  "applies_to": [
+  "appliesTo": [
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the banner landmark",
-  "specific_user_instruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
+  "setupScriptDescription": "sets focus on a link after the banner landmark",
+  "specificUserInstruction": "With focus on the 'Navigate backwards from here' link, navigate to the 'ARIA Landmarks Example' heading.",
   "setupTestPage": "setFocusAfterBanner",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -38485,7 +38485,7 @@ exports[`all test format versions runs createAllTests successfully 152`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     [
       "1",
       "Role 'banner' is conveyed"
@@ -39623,13 +39623,13 @@ exports[`all test format versions runs createAllTests successfully 163`] = `
     const testJson = {
   "task": "navForwardsToButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the button",
-  "specific_user_instruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Print Page' button.",
+  "setupScriptDescription": "sets focus on a link before the button",
+  "specificUserInstruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Print Page' button.",
   "setupTestPage": "setFocusBeforeButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -39639,7 +39639,7 @@ exports[`all test format versions runs createAllTests successfully 163`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -39809,13 +39809,13 @@ exports[`all test format versions runs createAllTests successfully 164`] = `
 "{
   "task": "navForwardsToButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the button",
-  "specific_user_instruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Print Page' button.",
+  "setupScriptDescription": "sets focus on a link before the button",
+  "specificUserInstruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Print Page' button.",
   "setupTestPage": "setFocusBeforeButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -39825,7 +39825,7 @@ exports[`all test format versions runs createAllTests successfully 164`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -40853,13 +40853,13 @@ exports[`all test format versions runs createAllTests successfully 171`] = `
     const testJson = {
   "task": "navBackToButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the button",
-  "specific_user_instruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Print Page' button.",
+  "setupScriptDescription": "sets focus on a link after the button",
+  "specificUserInstruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Print Page' button.",
   "setupTestPage": "setFocusAfterButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -40869,7 +40869,7 @@ exports[`all test format versions runs createAllTests successfully 171`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -41042,13 +41042,13 @@ exports[`all test format versions runs createAllTests successfully 172`] = `
 "{
   "task": "navBackToButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the button",
-  "specific_user_instruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Print Page' button.",
+  "setupScriptDescription": "sets focus on a link after the button",
+  "specificUserInstruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Print Page' button.",
   "setupTestPage": "setFocusAfterButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -41058,7 +41058,7 @@ exports[`all test format versions runs createAllTests successfully 172`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -42014,13 +42014,13 @@ exports[`all test format versions runs createAllTests successfully 179`] = `
     const testJson = {
   "task": "reqInfoAboutButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the button",
-  "specific_user_instruction": "Starting at the 'Print Page' button, read information about the button.",
+  "setupScriptDescription": "sets focus on the button",
+  "specificUserInstruction": "Starting at the 'Print Page' button, read information about the button.",
   "setupTestPage": "setFocusOnButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -42030,7 +42030,7 @@ exports[`all test format versions runs createAllTests successfully 179`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -42175,13 +42175,13 @@ exports[`all test format versions runs createAllTests successfully 180`] = `
 "{
   "task": "reqInfoAboutButton",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the button",
-  "specific_user_instruction": "Starting at the 'Print Page' button, read information about the button.",
+  "setupScriptDescription": "sets focus on the button",
+  "specificUserInstruction": "Starting at the 'Print Page' button, read information about the button.",
   "setupTestPage": "setFocusOnButton",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -42191,7 +42191,7 @@ exports[`all test format versions runs createAllTests successfully 180`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleButton",
       "priority": 1,
@@ -43772,13 +43772,13 @@ exports[`all test format versions runs createAllTests successfully 191`] = `
     const testJson = {
   "task": "navForwardsToSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the Red slider",
-  "specific_user_instruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",
+  "setupScriptDescription": "sets focus on a link before the Red slider",
+  "specificUserInstruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",
   "setupTestPage": "setFocusBeforeRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -43788,7 +43788,7 @@ exports[`all test format versions runs createAllTests successfully 191`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -43988,13 +43988,13 @@ exports[`all test format versions runs createAllTests successfully 192`] = `
 "{
   "task": "navForwardsToSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link before the Red slider",
-  "specific_user_instruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",
+  "setupScriptDescription": "sets focus on a link before the Red slider",
+  "specificUserInstruction": "Starting at the 'Navigate forwards from here' link, navigate to the 'Red' slider.",
   "setupTestPage": "setFocusBeforeRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -44004,7 +44004,7 @@ exports[`all test format versions runs createAllTests successfully 192`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -45322,13 +45322,13 @@ exports[`all test format versions runs createAllTests successfully 199`] = `
     const testJson = {
   "task": "navBackToSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the Red slider",
-  "specific_user_instruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",
+  "setupScriptDescription": "sets focus on a link after the Red slider",
+  "specificUserInstruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",
   "setupTestPage": "setFocusAfterRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -45338,7 +45338,7 @@ exports[`all test format versions runs createAllTests successfully 199`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -45542,13 +45542,13 @@ exports[`all test format versions runs createAllTests successfully 200`] = `
 "{
   "task": "navBackToSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode_singleQuickKeyNavOn",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on a link after the Red slider",
-  "specific_user_instruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",
+  "setupScriptDescription": "sets focus on a link after the Red slider",
+  "specificUserInstruction": "Starting at the 'Navigate backwards from here' link, navigate to the 'Red' slider.",
   "setupTestPage": "setFocusAfterRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -45558,7 +45558,7 @@ exports[`all test format versions runs createAllTests successfully 200`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -46784,13 +46784,13 @@ exports[`all test format versions runs createAllTests successfully 207`] = `
     const testJson = {
   "task": "reqInfoAboutSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, read information about the slider.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, read information about the slider.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -46800,7 +46800,7 @@ exports[`all test format versions runs createAllTests successfully 207`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -46981,13 +46981,13 @@ exports[`all test format versions runs createAllTests successfully 208`] = `
 "{
   "task": "reqInfoAboutSlider",
   "mode": "virtualCursor_pcCursor_browseMode_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, read information about the slider.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, read information about the slider.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -46997,7 +46997,7 @@ exports[`all test format versions runs createAllTests successfully 208`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "roleSlider",
       "priority": 1,
@@ -47918,13 +47918,13 @@ exports[`all test format versions runs createAllTests successfully 215`] = `
     const testJson = {
   "task": "incrementSliderByOneStep",
   "mode": "pcCursor_focusMode_quickNavOff_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 129.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 129.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -47934,7 +47934,7 @@ exports[`all test format versions runs createAllTests successfully 215`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value129",
       "priority": 1,
@@ -48054,13 +48054,13 @@ exports[`all test format versions runs createAllTests successfully 216`] = `
 "{
   "task": "incrementSliderByOneStep",
   "mode": "pcCursor_focusMode_quickNavOff_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 129.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 129.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -48070,7 +48070,7 @@ exports[`all test format versions runs createAllTests successfully 216`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value129",
       "priority": 1,
@@ -48932,13 +48932,13 @@ exports[`all test format versions runs createAllTests successfully 223`] = `
     const testJson = {
   "task": "decrementSliderByOneStep",
   "mode": "pcCursor_focusMode_quickNavOff_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 127.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 127.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -48948,7 +48948,7 @@ exports[`all test format versions runs createAllTests successfully 223`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value127",
       "priority": 1,
@@ -49068,13 +49068,13 @@ exports[`all test format versions runs createAllTests successfully 224`] = `
 "{
   "task": "decrementSliderByOneStep",
   "mode": "pcCursor_focusMode_quickNavOff_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 127.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 127.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -49084,7 +49084,7 @@ exports[`all test format versions runs createAllTests successfully 224`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value127",
       "priority": 1,
@@ -49853,13 +49853,13 @@ exports[`all test format versions runs createAllTests successfully 231`] = `
     const testJson = {
   "task": "incrementSliderByTenSteps",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 138.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 138.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -49869,7 +49869,7 @@ exports[`all test format versions runs createAllTests successfully 231`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value138",
       "priority": 1,
@@ -49931,13 +49931,13 @@ exports[`all test format versions runs createAllTests successfully 232`] = `
 "{
   "task": "incrementSliderByTenSteps",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 138.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 138.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -49947,7 +49947,7 @@ exports[`all test format versions runs createAllTests successfully 232`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value138",
       "priority": 1,
@@ -50681,13 +50681,13 @@ exports[`all test format versions runs createAllTests successfully 239`] = `
     const testJson = {
   "task": "decrementSliderByTenSteps",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 118.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 118.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -50697,7 +50697,7 @@ exports[`all test format versions runs createAllTests successfully 239`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value118",
       "priority": 1,
@@ -50759,13 +50759,13 @@ exports[`all test format versions runs createAllTests successfully 240`] = `
 "{
   "task": "decrementSliderByTenSteps",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 118.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 118.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -50775,7 +50775,7 @@ exports[`all test format versions runs createAllTests successfully 240`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value118",
       "priority": 1,
@@ -51509,13 +51509,13 @@ exports[`all test format versions runs createAllTests successfully 247`] = `
     const testJson = {
   "task": "decrementSliderToMinimumValue",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 0.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 0.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -51525,7 +51525,7 @@ exports[`all test format versions runs createAllTests successfully 247`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value0",
       "priority": 1,
@@ -51587,13 +51587,13 @@ exports[`all test format versions runs createAllTests successfully 248`] = `
 "{
   "task": "decrementSliderToMinimumValue",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 0.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 0.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -51603,7 +51603,7 @@ exports[`all test format versions runs createAllTests successfully 248`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value0",
       "priority": 1,
@@ -52337,13 +52337,13 @@ exports[`all test format versions runs createAllTests successfully 255`] = `
     const testJson = {
   "task": "incrementSliderToMaximumValue",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 255.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 255.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -52353,7 +52353,7 @@ exports[`all test format versions runs createAllTests successfully 255`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value255",
       "priority": 1,
@@ -52415,13 +52415,13 @@ exports[`all test format versions runs createAllTests successfully 256`] = `
 "{
   "task": "incrementSliderToMaximumValue",
   "mode": "pcCursor_focusMode_defaultMode",
-  "applies_to": [
+  "appliesTo": [
     "jaws",
     "nvda",
     "voiceover_macos"
   ],
-  "setup_script_description": "sets focus on the 'Red' slider",
-  "specific_user_instruction": "Starting at the 'Red' slider, set its value to 255.",
+  "setupScriptDescription": "sets focus on the 'Red' slider",
+  "specificUserInstruction": "Starting at the 'Red' slider, set its value to 255.",
   "setupTestPage": "setFocusOnRedSlider",
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
@@ -52431,7 +52431,7 @@ exports[`all test format versions runs createAllTests successfully 256`] = `
     "settingInstructionsPreface": "To perform a task with",
     "assertionResponseQuestion": "Which statements are true about the response to"
   },
-  "output_assertions": [
+  "outputAssertions": [
     {
       "assertionId": "value255",
       "priority": 1,

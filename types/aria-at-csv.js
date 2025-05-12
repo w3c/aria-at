@@ -83,7 +83,7 @@
 /**
  * @typedef AriaATCSV.Support
  * @property {AriaATCSV.SupportAt[]} ats
- * @property {Object<string, string[]>} applies_to
+ * @property {Object<string, string[]>} appliesTo
  * @property {AriaATCSV.SupportTestPlanStrings} testPlanStrings
  * @property {object} references
  * @property {AriaATCSV.SupportReference} references.aria

@@ -26,8 +26,8 @@
           const header2Button = document.querySelector('#accordion2id');
 
           if (header1Button && panel1 && header2Button) {
-            header1Button.setAttribute('aria-expanded', 'false');
-            panel1.setAttribute('hidden', ''); // or panel1.hidden = true;
+            header1Button.setAttribute('aria-expanded', 'true');
+            panel1.removeAttribute('hidden'); // Ensure panel is visible
 
             header2Button.focus();
           } else {

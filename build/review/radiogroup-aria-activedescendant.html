@@ -88,7 +88,78 @@
       };
 
       var scripts = {
-        	setFocusOnButton: function(testPageDocument){
+        	setFocusBeforeAndCollapseFirstAccordionHeader: function(testPageDocument){
+	// collapses the 'Personal Information' accordion header, and sets focus on a link before it
+	(() => {
+	const header1Button = document.querySelector('#accordion1id');
+	const panel1 = document.querySelector('#sect1');
+	const linkBefore = document.querySelector('#beforelink');
+	if (header1Button && panel1 && linkBefore) {
+	header1Button.setAttribute('aria-expanded', 'false');
+	panel1.setAttribute('hidden', ''); // or panel1.hidden = true;
+	linkBefore.focus();
+	} else {
+	console.error(
+	'SetupScript 5 Error: Elements not found (#accordion1id, #sect1, or #beforelink)'
+	);
+	}
+	})();
+},	setFocusBeforeFirstAccordionHeader: function(testPageDocument){
+	// sets focus on a link before the 'Personal Information' accordion header
+	testPageDocument.querySelector('#beforelink').focus();
+},	setFocusOnAndCollapseFirstAccordionHeader: function(testPageDocument){
+	// collapses and sets focus on the 'Personal Information' accordion header
+	(() => {
+	const header1Button = document.querySelector('#accordion1id');
+	const panel1 = document.querySelector('#sect1');
+	if (header1Button && panel1) {
+	// Collapse the first accordion section
+	header1Button.setAttribute('aria-expanded', 'false');
+	panel1.setAttribute('hidden', ''); // or panel1.hidden = true;
+	header1Button.focus();
+	} else {
+	console.error('SetupScript 2 Error: Accordion 1 elements not found (#accordion1id or #sect1)');
+	}
+	})();
+},	setFocusOnFirstAccordionHeader: function(testPageDocument){
+	// sets focus on the 'Personal Information' accordion header
+	testPageDocument.querySelector('button[aria-controls="sect1"]').focus();
+},	setFocusOnSecondAccordionHeader: function(testPageDocument){
+	// sets focus on the 'Billing Address' accordion header
+	testPageDocument.querySelector('button[aria-controls="sect2"]').focus();
+},	setFocusOnSecondAccordionHeaderAndCollapseFirstAccordionHeader: function(testPageDocument){
+	// collapses the 'Personal Information' accordion header, and sets focus on the 'Billing Address' accordion header
+	(() => {
+	const header1Button = document.querySelector('#accordion1id');
+	const panel1 = document.querySelector('#sect1');
+	const header2Button = document.querySelector('#accordion2id');
+	if (header1Button && panel1 && header2Button) {
+	header1Button.setAttribute('aria-expanded', 'false');
+	panel1.setAttribute('hidden', ''); // or panel1.hidden = true;
+	header2Button.focus();
+	} else {
+	console.error(
+	'SetupScript 4 Error: Accordion elements not found (#accordion1id, #sect1, or #accordion2id)'
+	);
+	}
+	})();
+},	setFocusOnSecondAccordionHeaderAndHideFirstAccordionContent: function(testPageDocument){
+	// sets focus on the 'Billing Address' accordion header, and hides the content associated with the 'Personal Information' accordion header
+	(() => {
+	const header1Button = document.querySelector('#accordion1id');
+	const panel1 = document.querySelector('#sect1');
+	const header2Button = document.querySelector('#accordion2id');
+	if (header1Button && panel1 && header2Button) {
+	header1Button.setAttribute('aria-expanded', 'false');
+	panel1.setAttribute('hidden', ''); // or panel1.hidden = true;
+	header2Button.focus();
+	} else {
+	console.error(
+	'SetupScript 3 Error: Accordion elements not found (#accordion1id, #sect1, or #accordion2id)'
+	);
+	}
+	})();
+},	setFocusOnButton: function(testPageDocument){
 	// sets focus on the 'Trigger Alert' button
 	testPageDocument.querySelector('#alert-trigger').focus();
 },	setFocusAfterBanner: function(testPageDocument){

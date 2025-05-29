@@ -14,4 +14,4 @@ jobs:
           fetch-depth: 0
 
       - name: Verify that the "build" directory is absent
-        run: "[ ! -d build ]"
+        run: '[ ! -d build ]'

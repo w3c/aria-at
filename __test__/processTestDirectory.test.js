@@ -8,12 +8,12 @@ describe('processTestDirectory', () => {
       presentationNumber: '1.0',
       setupScript: 'doNothing',
       instructions: 'Starting from nowhere, go nowhere.',
-      assertions: ':-? 1234567890 stringAssertion assertion-with-characters?:',
+      assertions: ':- 1234567890 stringAssertion assertion-with-characters:',
     };
 
     const invalidRow = {
       ...validRow,
-      assertions: `~<>,./:;"'!*&^%$#@()_+={}[]| 1234567890 stringAssertion assertion-with-characters?`,
+      assertions: `?~<>,./:;"'!*&^%$#@()_+={}[]| 1234567890 stringAssertion assertion-with-characters?`,
     };
 
     it('returns row on valid assertions', () => {
@@ -29,7 +29,7 @@ describe('processTestDirectory', () => {
 
   describe('validateAssertionsKeys', () => {
     const validRow = {
-      assertionId: '-?1234567890AssertionId',
+      assertionId: '-1234567890AssertionId',
       priority: '1',
       assertionStatement: 'A thing is conveyed',
       assertionPhrase: 'convey thing',
@@ -37,7 +37,7 @@ describe('processTestDirectory', () => {
 
     const invalidRow = {
       ...validRow,
-      assertionId: `~<>,./:;"'!*&^%$#@()_+={}[]|1234567890AssertionId `,
+      assertionId: `?~<>,./:;"'!*&^%$#@()_+={}[]|1234567890AssertionId `,
     };
 
     it('returns row on valid assertionId', () => {

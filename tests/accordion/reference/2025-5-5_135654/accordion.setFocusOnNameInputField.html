@@ -18,22 +18,18 @@
   <script>
     (function() {
       function setupScript(testPageDocument) {
-        // setFocusOnSecondAccordionHeaderAndHideFirstAccordionContent
-        // sets focus on the 'Billing Address' accordion header, and hides the content associated with the 'Personal Information' accordion header
+        // setFocusOnNameInputField
+        // sets focus on the 'Name' input field in the 'Personal Information' region
+
         (() => {
-          const header1Button = document.querySelector('#accordion1id');
-          const panel1 = document.querySelector('#sect1');
-          const header2Button = document.querySelector('#accordion2id');
+          const nameInput = document.querySelector('#cufc1');
 
-          if (header1Button && panel1 && header2Button) {
-            header1Button.setAttribute('aria-expanded', 'true');
-            panel1.removeAttribute('hidden'); // Ensure panel is visible
+          if (nameInput) {
+            // Ensure the 'Personal Information' section is expanded (it is by default)
 
-            header2Button.focus();
+            nameInput.focus();
           } else {
-            console.error(
-              'SetupScript 3 Error: Accordion elements not found (#accordion1id, #sect1, or #accordion2id)'
-            );
+            console.error("SetupScript Error: 'Name' input field with ID #cufc1 not found.");
           }
         })();
 

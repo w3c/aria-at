@@ -149,6 +149,17 @@
 },	setFocusOnFirstAccordionHeader: function(testPageDocument){
 	// sets focus on the 'Personal Information' accordion header
 	testPageDocument.querySelector('button[aria-controls="sect1"]').focus();
+},	setFocusOnNameInputField: function(testPageDocument){
+	// sets focus on the 'Name' input field in the 'Personal Information' region
+	(() => {
+	const nameInput = document.querySelector('#cufc1');
+	if (nameInput) {
+	// Ensure the 'Personal Information' section is expanded (it is by default)
+	nameInput.focus();
+	} else {
+	console.error("SetupScript Error: 'Name' input field with ID #cufc1 not found.");
+	}
+	})();
 },	setFocusOnSecondAccordionHeader: function(testPageDocument){
 	// sets focus on the 'Billing Address' accordion header
 	testPageDocument.querySelector('button[aria-controls="sect2"]').focus();
@@ -165,22 +176,6 @@
 	} else {
 	console.error(
 	'SetupScript 4 Error: Accordion elements not found (#accordion1id, #sect1, or #accordion2id)'
-	);
-	}
-	})();
-},	setFocusOnSecondAccordionHeaderAndHideFirstAccordionContent: function(testPageDocument){
-	// sets focus on the 'Billing Address' accordion header, and hides the content associated with the 'Personal Information' accordion header
-	(() => {
-	const header1Button = document.querySelector('#accordion1id');
-	const panel1 = document.querySelector('#sect1');
-	const header2Button = document.querySelector('#accordion2id');
-	if (header1Button && panel1 && header2Button) {
-	header1Button.setAttribute('aria-expanded', 'true');
-	panel1.removeAttribute('hidden'); // Ensure panel is visible
-	header2Button.focus();
-	} else {
-	console.error(
-	'SetupScript 3 Error: Accordion elements not found (#accordion1id, #sect1, or #accordion2id)'
 	);
 	}
 	})();

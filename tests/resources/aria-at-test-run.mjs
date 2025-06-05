@@ -266,7 +266,7 @@ export function instructionDocument(resultState, hooks) {
           resultState.currentUserAction === 'validateResults' &&
           resultStateCommand.untestable.highlightRequired &&
           focusFirstRequired(),
-        change: isUntestable => hooks.setCommandUntestable({ commandIndex, isUntestable })
+        change: isUntestable => hooks.setCommandUntestable({ commandIndex, isUntestable }),
       },
       assertionsHeader: {
         descriptionHeader: `${resultState.testPlanStrings.assertionResponseQuestion} ${command}${
@@ -541,20 +541,22 @@ export function userChangeCommandOutput({ commandIndex, atOutput }) {
  */
 export function userChangeCommandUntestable({ commandIndex, isUntestable }) {
   return function (state) {
-
     // When the user indicates that a command is untestable, they are tacitly
     // signalling that there was at least one unexpected behavior.
     let newState = userChangeCommandHasUnexpectedBehavior({
       commandIndex,
-      hasUnexpected: isUntestable ?
-        HasUnexpectedBehaviorMap.HAS_UNEXPECTED : HasUnexpectedBehaviorMap.NOT_SET
+      hasUnexpected: isUntestable
+        ? HasUnexpectedBehaviorMap.HAS_UNEXPECTED
+        : HasUnexpectedBehaviorMap.NOT_SET,
     })(state);
 
-    const total = newState.commands[commandIndex].assertions.length
+    const total = newState.commands[commandIndex].assertions.length;
     const result = isUntestable ? false : AssertionResultMap.NOT_SET;
     for (let assertionIndex = 0; assertionIndex < total; ++assertionIndex) {
       newState = userChangeCommandAssertion({
-        commandIndex, assertionIndex, result
+        commandIndex,
+        assertionIndex,
+        result,
       })(newState);
     }
 
@@ -875,9 +877,7 @@ function needsSevereImpact(command) {
 function commandHasSevereImpact(command) {
   return (
     command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED &&
-    command.unexpected.behaviors.some(
-      behavior => behavior.checked && behavior.impact === 'SEVERE'
-    )
+    command.unexpected.behaviors.some(behavior => behavior.checked && behavior.impact === 'SEVERE')
   );
 }
 
@@ -1070,7 +1070,7 @@ export function userValidateState() {
           },
           untestable: {
             ...command.untestable,
-            highlightRequired: needsSevereImpact(command)
+            highlightRequired: needsSevereImpact(command),
           },
           unexpected: {
             ...command.unexpected,

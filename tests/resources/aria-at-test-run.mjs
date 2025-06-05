@@ -288,7 +288,7 @@ export function instructionDocument(resultState, hooks) {
       ],
       unexpectedBehaviors: {
         description: [
-          'Were there additional undesirable behaviors?',
+          'Did negative side effects occur?',
           {
             required: true,
             highlightRequired: resultStateCommand.unexpected.highlightRequired,
@@ -296,7 +296,7 @@ export function instructionDocument(resultState, hooks) {
           },
         ],
         passChoice: {
-          label: 'No, there were no additional undesirable behaviors.',
+          label: 'No, negative side effects did not occur.',
           checked:
             resultUnexpectedBehavior.hasUnexpected ===
             HasUnexpectedBehaviorMap.DOES_NOT_HAVE_UNEXPECTED,
@@ -312,7 +312,7 @@ export function instructionDocument(resultState, hooks) {
             }),
         },
         failChoice: {
-          label: 'Yes, there were additional undesirable behaviors',
+          label: 'Yes, negative side effects occured.',
           checked:
             resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
           focus:
@@ -326,7 +326,7 @@ export function instructionDocument(resultState, hooks) {
               hasUnexpected: HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
             }),
           options: {
-            header: 'Undesirable behaviors',
+            header: 'Negative side effects',
             options: resultUnexpectedBehavior.behaviors.map((behavior, unexpectedIndex) => {
               return {
                 description: behavior.description,

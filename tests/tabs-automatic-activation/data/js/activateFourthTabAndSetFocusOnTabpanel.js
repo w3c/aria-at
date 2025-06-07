@@ -1,20 +1,49 @@
 // activates the fourth tab in the tab list, and sets focus on the tab panel
 /**
  * Activates the fourth tab in the tab list and sets focus on the tab panel.
+ * This version manually manipulates the DOM attributes to avoid timing issues.
  */
 function setupScript() {
-  const fourthTab = document.getElementById('tab-4');
-  const fourthPanel = document.getElementById('tabpanel-4');
+  // Find all tabs and panels
+  const allTabs = Array.from(document.querySelectorAll('[role="tab"]'));
+  const allPanels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 
-  if (fourthTab && fourthPanel) {
-    // Programmatically click the tab to activate it.
-    // This relies on the event listeners set up in the example's main JS file.
-    fourthTab.click();
+  // The fourth tab is at index 3
+  const targetIndex = 3;
+  const targetTab = allTabs[targetIndex];
 
-    // Set focus to the now-visible panel.
-    fourthPanel.focus();
+  if (!targetTab) {
+    console.error('Could not find the target tab.');
+    return;
   }
+
+  const targetPanelId = targetTab.getAttribute('aria-controls');
+  const targetPanel = document.getElementById(targetPanelId);
+
+  if (!targetPanel) {
+    console.error('Could not find the target panel.');
+    return;
+  }
+
+  // 1. Deactivate all tabs and hide all panels
+  allTabs.forEach(tab => {
+    tab.setAttribute('aria-selected', 'false');
+    tab.setAttribute('tabindex', '-1');
+  });
+
+  allPanels.forEach(panel => {
+    // Assuming 'is-hidden' is the class used to hide panels, as in the example
+    panel.classList.add('is-hidden');
+  });
+
+  // 2. Activate the fourth tab
+  targetTab.setAttribute('aria-selected', 'true');
+  targetTab.removeAttribute('tabindex');
+
+  // 3. Show the fourth panel and set focus on it
+  targetPanel.classList.remove('is-hidden');
+  targetPanel.focus();
 }
 
-// Example of how you might call it after the page loads
+// Ensure this runs after the page is fully loaded
 window.addEventListener('load', setupScript);

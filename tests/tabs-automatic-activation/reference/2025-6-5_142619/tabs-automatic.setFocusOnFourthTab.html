@@ -21,6 +21,10 @@
       function setupScript(testPageDocument) {
         // setFocusOnFourthTab
         // sets focus on the fourth tab
+        const fourthTab = document.querySelector('#tab-4');
+        if (fourthTab) {
+          fourthTab.focus();
+        }
 
       };
       document.addEventListener('click', function(event) {

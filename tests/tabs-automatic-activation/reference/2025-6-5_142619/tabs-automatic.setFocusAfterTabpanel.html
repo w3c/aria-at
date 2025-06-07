@@ -21,6 +21,10 @@
       function setupScript(testPageDocument) {
         // setFocusAfterTabpanel
         // sets focus on a link after the tab panel
+        const linkAfter = document.querySelector('#afterlink');
+        if (linkAfter) {
+          linkAfter.focus();
+        }
 
       };
       document.addEventListener('click', function(event) {

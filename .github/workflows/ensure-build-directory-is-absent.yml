@@ -1,0 +1,17 @@
+name: Ensure that the "build" directory is absent
+
+on:
+  pull_request:
+
+jobs:
+  ensure-build-directory-is-absent:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/head
+          fetch-depth: 0
+
+      - name: Verify that the "build" directory is absent
+        run: '[ ! -d build ]'

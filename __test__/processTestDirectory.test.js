@@ -8,7 +8,7 @@ describe('processTestDirectory', () => {
       presentationNumber: '1.0',
       setupScript: 'doNothing',
       instructions: 'Starting from nowhere, go nowhere.',
-      assertions: ':- 1234567890 stringAssertion assertion-with-characters:',
+      assertions: '-0123:stringAssertion',
     };
 
     const invalidRow = {
@@ -29,7 +29,7 @@ describe('processTestDirectory', () => {
 
   describe('validateAssertionsKeys', () => {
     const validRow = {
-      assertionId: '-1234567890AssertionId',
+      assertionId: '-0123:AssertionId',
       priority: '1',
       assertionStatement: 'A thing is conveyed',
       assertionPhrase: 'convey thing',

@@ -8,12 +8,12 @@ describe('processTestDirectory', () => {
       presentationNumber: '1.0',
       setupScript: 'doNothing',
       instructions: 'Starting from nowhere, go nowhere.',
-      assertions: '-0123:stringAssertion',
+      assertions: '0:abc1234567890 abc',
     };
 
     const invalidRow = {
       ...validRow,
-      assertions: `?~<>,./:;"'!*&^%$#@()_+={}[]| 1234567890 stringAssertion assertion-with-characters?`,
+      assertions: `stringAssertion?~<>,./;"'!*&^%$#@()_+={}[]|`,
     };
 
     it('returns row on valid assertions', () => {
@@ -24,12 +24,26 @@ describe('processTestDirectory', () => {
       expect(() => validateTestsKeys(invalidRow)).toThrow();
     });
 
+    const validPriority = { ...validRow, assertions: '0:abc 1:abc 2:abc 3:abc' };
+    it('returns row on valid priority', () => {
+      expect(validateTestsKeys(validPriority)).toMatchObject(validPriority);
+    });
+
+    ['0:abc 4:abc', '3:', '4:abc', '5:abc', '6:abc', '7:abc', '8:abc', '9:abc'].forEach(
+      assertion => {
+        const invalidPriority = { ...validRow, assertions: assertion };
+        it('throws on invalid priority', () => {
+          expect(() => validateTestsKeys(invalidPriority)).toThrow();
+        });
+      }
+    );
+
     // TODO: test other validation cases in this function
   });
 
   describe('validateAssertionsKeys', () => {
     const validRow = {
-      assertionId: '-0123:AssertionId',
+      assertionId: 'Assertion-Id-0123456789',
       priority: '1',
       assertionStatement: 'A thing is conveyed',
       assertionPhrase: 'convey thing',

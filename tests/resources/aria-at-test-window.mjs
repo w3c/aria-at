@@ -16,6 +16,7 @@ export class TestWindow {
     this.hooks = {
       windowOpened: () => {},
       windowClosed: () => {},
+      windowPrepared: () => {},
       ...hooks,
     };
   }
@@ -53,6 +54,9 @@ export class TestWindow {
       return;
     }
 
+    // Call the windowPrepared hook if needed
+    this.hooks.windowPrepared();
+
     // If the window is closed, re-enable open popup button
     this.window.onunload = () => {
       window.setTimeout(() => this.prepare(), 100);
@@ -70,4 +74,5 @@ export class TestWindow {
  * @typedef TestWindowHooks
  * @property {() => void} windowOpened
  * @property {() => void} windowClosed
+ * @property {() => void} windowPrepared
  */

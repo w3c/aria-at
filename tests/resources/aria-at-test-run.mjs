@@ -377,7 +377,12 @@ export function instructionDocument(resultState, hooks) {
                   ]),
                   enabled: behavior.checked,
                   value: behavior.more.value,
-                  focus:
+                  focusImpact:
+                    resultState.currentUserAction === 'validateResults' &&
+                    needsSevereImpact(resultStateCommand) &&
+                    behavior.more.highlightRequired &&
+                    focusFirstRequired(),
+                  focusDetails:
                     resultState.currentUserAction === 'validateResults' &&
                     behavior.more.highlightRequired &&
                     focusFirstRequired(),
@@ -1070,7 +1075,7 @@ export function userValidateState() {
           },
           untestable: {
             ...command.untestable,
-            highlightRequired: needsSevereImpact(command),
+            highlightRequired: false,
           },
           unexpected: {
             ...command.unexpected,

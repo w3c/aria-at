@@ -255,7 +255,7 @@ export function instructionDocument(resultState, hooks) {
       },
       untestable: {
         description: [
-          `The response to '${command}' created conditions that made assertions untestable, e.g., focused the wrong element.`,
+          `Executing '${command}' affected behavior that made assertions untestable. If checked, then at least one severe negative side effect must be recorded below.`,
           {
             highlightRequired: resultStateCommand.untestable.highlightRequired,
             description: '(requires at least one SEVERE undesirable behavior)',

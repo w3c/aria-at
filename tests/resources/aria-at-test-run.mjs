@@ -255,7 +255,7 @@ export function instructionDocument(resultState, hooks) {
       },
       untestable: {
         description: [
-          `The response to '${command}' created conditions that made assertions untestable, e.g., focused the wrong element.`,
+          `Executing '${command}' affected behavior that made assertions untestable. If checked, then at least one severe negative side effect must be recorded below.`,
           {
             highlightRequired: resultStateCommand.untestable.highlightRequired,
             description: '(requires at least one SEVERE undesirable behavior)',
@@ -377,7 +377,12 @@ export function instructionDocument(resultState, hooks) {
                   ]),
                   enabled: behavior.checked,
                   value: behavior.more.value,
-                  focus:
+                  focusImpact:
+                    resultState.currentUserAction === 'validateResults' &&
+                    needsSevereImpact(resultStateCommand) &&
+                    behavior.more.highlightRequired &&
+                    focusFirstRequired(),
+                  focusDetails:
                     resultState.currentUserAction === 'validateResults' &&
                     behavior.more.highlightRequired &&
                     focusFirstRequired(),
@@ -1070,7 +1075,7 @@ export function userValidateState() {
           },
           untestable: {
             ...command.untestable,
-            highlightRequired: needsSevereImpact(command),
+            highlightRequired: false,
           },
           unexpected: {
             ...command.unexpected,
@@ -1137,7 +1142,8 @@ export function userValidateState() {
  * @property {Description} description
  * @property {string} value
  * @property {boolean} enabled
- * @property {boolean} [focus]
+ * @property {boolean} [focusImpact]
+ * @property {boolean} [focusDetails]
  * @property {(value: string) => void} change
  */
 

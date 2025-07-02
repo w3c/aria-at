@@ -1142,7 +1142,8 @@ export function userValidateState() {
  * @property {Description} description
  * @property {string} value
  * @property {boolean} enabled
- * @property {boolean} [focus]
+ * @property {boolean} [focusImpact]
+ * @property {boolean} [focusDetails]
  * @property {(value: string) => void} change
  */
 

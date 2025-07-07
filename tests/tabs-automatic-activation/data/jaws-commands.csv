@@ -1,9 +1,11 @@
 testId,command,settings,assertionExceptions,presentationNumber
 navForwardsToTabList,tab,virtualCursor,2:interactionModeEnabled,1
 navForwardsToTabList,down down down,virtualCursor,,1.1
+navForwardsToTabList,f,virtualCursor,,1.2
 navForwardsToTabList,tab,pcCursor,,2
 navBackToTabList,shift+tab,virtualCursor,2:interactionModeEnabled,4
 navBackToTabList,up up,virtualCursor,,4.1
+navBackToTabList,shift+f,virtualCursor,,4.2
 navBackToTabList,shift+tab,pcCursor,,5
 reqInfoAboutTabTabList,ins+tab,virtualCursor,,7
 reqInfoAboutTabTabList,ins+up,virtualCursor,,7.1

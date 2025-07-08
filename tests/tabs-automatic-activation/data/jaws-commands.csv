@@ -1,7 +1,11 @@
 testId,command,settings,assertionExceptions,presentationNumber
-navForwardsToTabList,tab,virtualCursor,2:interactionModeEnabled,1
-navForwardsToTabList,down down down,virtualCursor,,1.1
-navForwardsToTabList,f,virtualCursor,,1.2
+navForwardsToTabListWhereATabIsNotSelected,down down down,virtualCursor,,1
+navForwardsToTabListWhereATabIsNotSelected,f,virtualCursor,,1.1
+navBackwardsToTabListWhereATabIsNotSelected,up up,virtualCursor,,1.2
+navBackwardsToTabListWhereATabIsNotSelected,shift+f,virtualCursor,,1.4
+navForwardsToTabList,tab,virtualCursor,2:interactionModeEnabled,1.5
+navForwardsToTabList,down down down,virtualCursor,,1.6
+navForwardsToTabList,f,virtualCursor,,1.7
 navForwardsToTabList,tab,pcCursor,,2
 navBackToTabList,shift+tab,virtualCursor,2:interactionModeEnabled,4
 navBackToTabList,up up,virtualCursor,,4.1

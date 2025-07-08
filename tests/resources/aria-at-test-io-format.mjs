@@ -1183,6 +1183,10 @@ export class TestRunInputOutput {
               highlightRequired: false,
               value: '',
             },
+            untestable: {
+              highlightRequired: false,
+              value: false,
+            },
             assertions: test.assertions.map(assertion => ({
               description: assertion.assertion,
               highlightRequired: false,
@@ -1297,6 +1301,7 @@ export class TestRunInputOutput {
       commands: state.commands.map(command => ({
         command: command.description,
         output: command.atOutput.value,
+        untestable: command.untestable.value,
         support: commandSupport(command),
         assertions: [...command.assertions, ...command.additionalAssertions].map(
           assertionToAssertion
@@ -1402,6 +1407,7 @@ export class TestRunInputOutput {
           },
         },
         output: command.atOutput.value,
+        untestable: command.untestable.value,
         assertionResults: command.assertions.map(assertion => ({
           assertion: {
             priority:
@@ -1462,6 +1468,7 @@ export class TestRunInputOutput {
         return {
           ...command,
           atOutput: { highlightRequired: false, value: scenarioResult.output },
+          untestable: { highlightRequired: false, value: scenarioResult.untestable },
           assertions: command.assertions.map((assertion, assertionIndex) => {
             const assertionResult = scenarioResult.assertionResults[assertionIndex];
             return {

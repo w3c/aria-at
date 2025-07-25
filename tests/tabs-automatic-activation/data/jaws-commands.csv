@@ -23,8 +23,12 @@ activateNextTabTabList,down,virtualCursor,,10
 activateNextTabTabList,right,pcCursor,,11
 activatePrevTabTabList,up,virtualCursor,,13
 activatePrevTabTabList,left,pcCursor,,14
-navToFirstTabTabList,home,pcCursor,,16
-navToLastTabTabList,end,pcCursor,,18
+activateFirstTabTabList,home,pcCursor,,16
+activateLastTabTabList,end,pcCursor,,18
+navToNextTabTabList,down,virtualCursor,,18.1
+navToNextTabTabList,f,virtualCursor,,18.2
+navToPreviousTabTablist,up,virtualCursor,,18.3
+navToPreviousTabTablist,shift+f,virtualCursor,,18.4
 navForwardsToTabPanel,down down,virtualCursor,0:tabPanelText,20
 navForwardsToTabPanel,tab,virtualCursor,,20.1
 navForwardsToTabPanel,tab,pcCursor,,20.2

@@ -13,12 +13,14 @@ reqInfoAboutTabTabList,ctrl+opt+f3,,,9
 reqInfoAboutTabTabList,ctrl+opt+f4,,,9.1
 reqInfoAboutNotSelectedTabTabList,ctrl+opt+f3,,,10.4
 reqInfoAboutNotSelectedTabTabList,ctrl+opt+f4,,,10.5
-activateNextTabTabList,ctrl+opt+right,,,12
 activateNextTabTabList,right,,,12.1
-activatePrevTabTabList,ctrl+opt+left,,,15
 activatePrevTabTabList,left,,,15.1
-navToFirstTabTabList,home,,,17
-navToLastTabTabList,end,,,19
+activateFirstTabTabList,home,,,17
+activateLastTabTabList,end,,,19
+navToNextTabTabList,ctrl+opt+right,,,19.1
+navToNextTabTabList,j,quickNavOn,,19.2
+navToPreviousTabTablist,ctrl+opt+left,,,19.3
+navToPreviousTabTablist,shift+j,quickNavOn,,19.4
 navForwardsToTabPanel,ctrl+opt+right ctrl+opt+right,,0:tabPanelText,21
 navForwardsToTabPanel,tab,,,21.1
 navBackToTabPanel,ctrl+opt+left,,,23

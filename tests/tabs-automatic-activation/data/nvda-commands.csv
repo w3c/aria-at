@@ -21,8 +21,12 @@ reqInfoAboutNotSelectedTabTabList,ins+tab,focusMode,,10.2
 reqInfoAboutNotSelectedTabTabList,ins+up,focusMode,0:positionTab2 0:numberTabsTabList4,10.3
 activateNextTabTabList,right,focusMode,,11
 activatePrevTabTabList,left,focusMode,,14
-navToFirstTabTabList,home,focusMode,,16
-navToLastTabTabList,end,focusMode,,18
+activateFirstTabTabList,home,focusMode,,16
+activateLastTabTabList,end,focusMode,,18
+navToNextTabTabList,down,browseMode,,18
+navToNextTabTabList,f,browseMode,,18.2
+navToPreviousTabTablist,up,browseMode,,18.3
+navToPreviousTabTablist,shift+f,browseMode,,18.4
 navForwardsToTabPanel,down,browseMode,0:tabPanelText,20
 navForwardsToTabPanel,tab,browseMode,,20.1
 navForwardsToTabPanel,tab,focusMode,,20.2

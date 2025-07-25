@@ -21,5 +21,7 @@ navToPrevTabTabList,up,virtualCursor,,13
 navToPrevTabTabList,left,pcCursor,,14
 navToFirstTabTabList,home,pcCursor,,16
 navToLastTabTabList,end,pcCursor,,18
-navForwardsToTabPanel,tab,pcCursor,,20
+navForwardsToTabPanel,down down,virtualCursor,0:tabPanelText,20
+navForwardsToTabPanel,tab,virtualCursor,,20.1
+navForwardsToTabPanel,tab,pcCursor,,20.2
 navBackToTabPanel,up,virtualCursor,,22

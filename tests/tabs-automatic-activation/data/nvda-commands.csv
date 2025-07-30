@@ -1,14 +1,14 @@
 testId,command,settings,assertionExceptions,presentationNumber
 navForwardsToTabListWhereATabIsNotSelected,down down,browseMode,2:nameTabListDanishComposers 2:roleTabList,1
 navForwardsToTabListWhereATabIsNotSelected,f,browseMode,,1.1
-navBackwardsToTabListWhereATabIsNotSelected,up,browseMode,,1.2
+navBackwardsToTabListWhereATabIsNotSelected,up,browseMode,2:nameTabListDanishComposers 2:roleTabList,1.2
 navBackwardsToTabListWhereATabIsNotSelected,shift+f,browseMode,,1.3
 navForwardsToTabList,tab,browseMode,2:interactionModeEnabled,1.4
 navForwardsToTabList,down down,browseMode,2:nameTabListDanishComposers 2:roleTabList,1.5
 navForwardsToTabList,f,browseMode,,1.6
 navForwardsToTabList,tab,focusMode,,2
 navBackToTabList,shift+tab,browseMode,2:interactionModeEnabled,4
-navBackToTabList,up,browseMode,,4.1
+navBackToTabList,up,browseMode,2:nameTabListDanishComposers 2:roleTabList,4.1
 navBackToTabList,shift+f,browseMode,,4.2
 navBackToTabList,shift+tab,focusMode,,5
 reqInfoAboutTabTabList,ins+tab,browseMode,,7

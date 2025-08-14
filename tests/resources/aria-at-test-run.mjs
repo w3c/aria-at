@@ -659,11 +659,26 @@ export function userChangeCommandHasUnexpectedBehavior({ commandIndex, hasUnexpe
                 ...command.unexpected,
                 hasUnexpected: hasUnexpected,
                 tabbedBehavior: hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED ? 0 : -1,
-                behaviors: command.unexpected.behaviors.map(behavior => ({
-                  ...behavior,
-                  checked: false,
-                  more: behavior.more ? { ...behavior.more, value: '' } : null,
-                })),
+                behaviors: command.unexpected.behaviors.map(behavior =>
+                  // If `hasUnexpected` is being re-set to the existing value,
+                  // that indicates the user has triggered this update to
+                  // "hasUnepected" by a means other than the input element
+                  // dedicated to this state. Retain any existing "behavior"
+                  // values since they likely reflect the information that the
+                  // user wishes to submit.
+                  //
+                  // For instance, the user may first indicate that negative
+                  // side effects have occurred along with corresponding
+                  // behaviors. If they subsequently indicate that the scenario
+                  // is untestable, the behavior data should be retained.
+                  command.unexpected.hasUnexpected === hasUnexpected
+                    ? behavior
+                    : {
+                        ...behavior,
+                        checked: false,
+                        more: behavior.more ? { ...behavior.more, value: '' } : null,
+                      }
+                ),
               },
             }
       ),

@@ -314,7 +314,8 @@ export function instructionDocument(resultState, hooks) {
         failChoice: {
           label: 'Yes, negative side effects occured.',
           checked:
-            resultNegativeSideEffect.hasNegativeSideEffect === HasNegativeSideEffectMap.HAS_UNEXPECTED,
+            resultNegativeSideEffect.hasNegativeSideEffect ===
+            HasNegativeSideEffectMap.HAS_UNEXPECTED,
           focus:
             resultState.currentUserAction === 'validateResults' &&
             resultNegativeSideEffect.highlightRequired &&
@@ -658,7 +659,8 @@ export function userChangeCommandHasNegativeSideEffect({ commandIndex, hasNegati
               unexpected: {
                 ...command.unexpected,
                 hasNegativeSideEffect: hasNegativeSideEffect,
-                tabbedBehavior: hasNegativeSideEffect === HasNegativeSideEffectMap.HAS_UNEXPECTED ? 0 : -1,
+                tabbedBehavior:
+                  hasNegativeSideEffect === HasNegativeSideEffectMap.HAS_UNEXPECTED ? 0 : -1,
                 behaviors: command.unexpected.behaviors.map(behavior =>
                   // If `hasNegativeSideEffect` is being re-set to the existing value,
                   // that indicates the user has triggered this update to
@@ -1096,7 +1098,8 @@ export function userValidateState() {
             ...command.unexpected,
             highlightRequired:
               command.unexpected.hasNegativeSideEffect === HasNegativeSideEffectMap.NOT_SET ||
-              (command.unexpected.hasNegativeSideEffect === HasNegativeSideEffectMap.HAS_UNEXPECTED &&
+              (command.unexpected.hasNegativeSideEffect ===
+                HasNegativeSideEffectMap.HAS_UNEXPECTED &&
                 command.unexpected.behaviors.every(({ checked }) => !checked)),
             behaviors: command.unexpected.behaviors.map(unexpected => {
               return unexpected.more

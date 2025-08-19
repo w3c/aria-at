@@ -6,7 +6,7 @@ import {
   AssertionResultMap,
   CommonResultMap,
   createEnumMap,
-  HasUnexpectedBehaviorMap,
+  HasNegativeSideEffectMap,
   TestRun,
   UserActionMap,
 } from './aria-at-test-run.mjs';
@@ -751,7 +751,7 @@ class BehaviorInput {
           priority: Number(assertionTuple[0]),
           assertion: assertionTuple[1],
         })),
-        unexpectedBehaviors: unexpectedInput.behaviors(),
+        negativeSideEffects: unexpectedInput.behaviors(),
       },
     });
   }
@@ -839,7 +839,7 @@ class BehaviorInput {
           }
         ),
         additionalAssertions: [],
-        unexpectedBehaviors: unexpectedInput.behaviors(),
+        negativeSideEffects: unexpectedInput.behaviors(),
       },
     });
   }
@@ -1201,12 +1201,12 @@ export class TestRunInputOutput {
             })),
             unexpected: {
               highlightRequired: false,
-              hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
+              hasNegativeSideEffect: HasNegativeSideEffectMap.NOT_SET,
               tabbedBehavior: 0,
-              behaviors: test.unexpectedBehaviors.map(({ description }) => ({
+              behaviors: test.negativeSideEffects.map(({ description }) => ({
                 description,
                 checked: false,
-                impact: UnexpectedBehaviorImpactMap.MODERATE,
+                impact: NegativeSideEffectImpactMap.MODERATE,
                 more: { highlightRequired: false, value: '' },
               })),
             },
@@ -1296,7 +1296,7 @@ export class TestRunInputOutput {
             ({ priority, result }) => priority === 3 && result !== CommonResultMap.PASS
           ),
         },
-        unexpectedCount: countUnexpectedBehaviors(({ checked }) => checked),
+        unexpectedCount: countNegativeSideEffects(({ checked }) => checked),
       },
       commands: state.commands.map(command => ({
         command: command.description,
@@ -1355,7 +1355,7 @@ export class TestRunInputOutput {
      * @param {(behavior: TestRunUnexpected) => boolean} filter
      * @returns {number}
      */
-    function countUnexpectedBehaviors(filter) {
+    function countNegativeSideEffects(filter) {
       return state.commands.reduce(
         (carry, command) => carry + command.unexpected.behaviors.filter(filter).length,
         0
@@ -1422,7 +1422,7 @@ export class TestRunInputOutput {
                 ? 'NO_OUTPUT'
                 : null,
         })),
-        unexpectedBehaviors: command.unexpected.behaviors
+        negativeSideEffects: command.unexpected.behaviors
           .map(behavior =>
             behavior.checked
               ? {
@@ -1480,13 +1480,13 @@ export class TestRunInputOutput {
           unexpected: {
             ...command.unexpected,
             highlightRequired: false,
-            hasUnexpected:
-              scenarioResult.unexpectedBehaviors.length > 0
-                ? 'hasUnexpected'
-                : 'doesNotHaveUnexpected',
+            hasNegativeSideEffect:
+              scenarioResult.negativeSideEffects.length > 0
+                ? 'hasNegativeSideEffect'
+                : 'doesNotHaveNegativeSideEffect',
             tabbedBehavior: 0,
             behaviors: command.unexpected.behaviors.map(behavior => {
-              const behaviorResult = scenarioResult.unexpectedBehaviors.find(
+              const behaviorResult = scenarioResult.negativeSideEffects.find(
                 unexpectedResult => unexpectedResult.text === behavior.description
               );
               return {
@@ -1497,7 +1497,7 @@ export class TestRunInputOutput {
                       highlightRequired: false,
                       impact: behaviorResult
                         ? behavior.impact
-                        : UnexpectedBehaviorImpactMap.MODERATE,
+                        : NegativeSideEffectImpactMap.MODERATE,
                       value: behaviorResult ? behaviorResult.details : '',
                     }
                   : behavior.more,
@@ -1583,7 +1583,7 @@ const AssertionFailJSONMap = createEnumMap({
   FAIL: 'Fail',
 });
 
-const UnexpectedBehaviorImpactMap = createEnumMap({
+const NegativeSideEffectImpactMap = createEnumMap({
   MODERATE: 'Moderate',
   SEVERE: 'Severe',
 });
@@ -1896,7 +1896,7 @@ function findValueByKey(keysMapping, keyToFindText) {
  * @property {string[]} commands
  * @property {BehaviorAssertion[]} assertions
  * @property {BehaviorAssertion[]} additionalAssertions
- * @property {BehaviorUnexpectedItem[]} unexpectedBehaviors
+ * @property {BehaviorUnexpectedItem[]} negativeSideEffects
  */
 
 /** @typedef {{[key: string]: (document: Document) => void}} SetupScripts */
@@ -1958,6 +1958,6 @@ function findValueByKey(keysMapping, keyToFindText) {
 /** @typedef {import('./aria-at-test-run.mjs').TestRunAssertion} TestRunAssertion */
 /** @typedef {import('./aria-at-test-run.mjs').TestRunAdditionalAssertion} TestRunAdditionalAssertion */
 /** @typedef {import('./aria-at-test-run.mjs').TestRunCommand} TestRunCommand */
-/** @typedef {import("./aria-at-test-run.mjs").TestRunUnexpectedBehavior} TestRunUnexpected */
+/** @typedef {import("./aria-at-test-run.mjs").TestRunNegativeSideEffect} TestRunUnexpected */
 
 /** @typedef {import('./aria-at-test-run.mjs').TestPageDocument} TestPageDocument */

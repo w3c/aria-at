@@ -46,8 +46,8 @@
 
 /**
  * @typedef {"notSet"
- *   | "hasUnexpected"
- *   | "doesNotHaveUnexpected"} AriaATTestRun.HasUnexpectedBehavior
+ *   | "hasNegativeSideEffect"
+ *   | "doesNotHaveNegativeSideEffect"} AriaATTestRun.HasNegativeSideEffect
  */
 
 /**
@@ -87,7 +87,7 @@
  * @property {AriaATTestRun.AdditionalAssertionResult} commands[].additionalAssertions[].result
  * @property {object} commands[].unexpected
  * @property {boolean} commands[].unexpected.highlightRequired
- * @property {AriaATTestRun.HasUnexpectedBehavior} commands[].unexpected.hasUnexpected
+ * @property {AriaATTestRun.HasNegativeSideEffect} commands[].unexpected.hasNegativeSideEffect
  * @property {number} commands[].unexpected.tabbedBehavior
  * @property {object[]} commands[].unexpected.behaviors
  * @property {string} commands[].unexpected.behaviors[].description

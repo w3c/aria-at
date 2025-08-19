@@ -1,4 +1,4 @@
-// deactivates the first tab in the tab list, and sets focus on the first link
+// deactivates the first tab in the tab list, sets focus on the first link, and activates the second tab
 // Select all the necessary elements from the DOM
 const firstTab = document.querySelector('#tab-1');
 const firstPanel = document.querySelector('#tabpanel-1');

@@ -13,7 +13,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: refs/pull/${{ github.event.pull_request.number }}/head
           fetch-depth: 0

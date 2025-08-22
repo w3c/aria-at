@@ -1,0 +1,9 @@
+testId,title,presentationNumber,setupScript,instructions,assertions
+navForwardsToSwitchOffState,Navigate forwards to a switch that is off,3,setFocusBeforeSwitch,"Starting at the 'Navigate forwards from here' link, navigate to the 'Notifications' switch.",roleSwitch nameNotifications stateOff
+navBackToSwitchOffState,Navigate backwards to a switch that is off,6,setFocusAfterSwitch,"Starting at the 'Navigate backwards from here' link, navigate to the 'Notifications' switch.",roleSwitch nameNotifications stateOff
+navForwardsToSwitchOnState,Navigate forwards to a switch that is on,9,setFocusBeforeAndTurnOnSwitch,"Starting at the 'Navigate forwards from here' link, navigate to the 'Notifications' switch.",roleSwitch nameNotifications stateOn
+navBackToSwitchOnState,Navigate backwards to a switch that is on,12,setFocusAfterAndTurnOnSwitch,"Starting at the 'Navigate backwards from here' link, navigate to the 'Notifications' switch.",roleSwitch nameNotifications stateOn
+reqInfoAboutSwitchOffState,Request information about a switch that is off,15,setFocusOnSwitch,"Starting at the 'Notifications' switch, read information about the switch.",roleSwitch nameNotifications stateOff
+reqInfoAboutSwitchOnState,Request information about a switch that is on,18,setFocusOnAndTurnOnSwitch,"Starting at the 'Notifications' switch, read information about the switch.",roleSwitch nameNotifications stateOn
+operateSwitchOffState,Operate a switch that is off,21,setFocusOnSwitch,"Starting at the 'Notifications' switch, change its state to 'on'.",stateChangeToOn
+operateSwitchOnState,Operate a switch that is on,24,setFocusOnAndTurnOnSwitch,"Starting at the 'Notifications' switch, change its state to 'off'.",stateChangeToOff

@@ -32,9 +32,9 @@
  * @property {string} scenarioResults[].assertionResults[].assertion.text
  * @property {boolean | null} scenarioResults[].assertionResults[].result
  * @property {AriaATTestResult.AssertionFailedReasonJSON | null} [scenarioResults[].assertionResults[].failedReason]
- * @property {object[]} scenarioResults[].unexpectedBehaviors
- * @property {string} scenarioResults[].unexpectedBehaviors[].id
- * @property {string} scenarioResults[].unexpectedBehaviors[].text
- * @property {string} scenarioResults[].unexpectedBehaviors[].impact
- * @property {string} scenarioResults[].unexpectedBehaviors[].details
+ * @property {object[]} scenarioResults[].negativeSideEffects
+ * @property {string} scenarioResults[].negativeSideEffects[].id
+ * @property {string} scenarioResults[].negativeSideEffects[].text
+ * @property {string} scenarioResults[].negativeSideEffects[].impact
+ * @property {string} scenarioResults[].negativeSideEffects[].details
  */

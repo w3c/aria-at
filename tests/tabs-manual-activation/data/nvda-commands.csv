@@ -1,0 +1,35 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToTabListWhereATabIsNotSelected,down,browseMode,2:nameTabListDanishComposers 2:roleTabList,1
+navForwardsToTabListWhereATabIsNotSelected,f,browseMode,,1.1
+navBackwardsToTabListWhereATabIsNotSelected,up,browseMode,2:nameTabListDanishComposers 2:roleTabList,1.2
+navBackwardsToTabListWhereATabIsNotSelected,shift+f,browseMode,,1.3
+navForwardsToTabList,tab,browseMode,2:interactionModeEnabled,1.4
+navForwardsToTabList,down,browseMode,2:nameTabListDanishComposers 2:roleTabList,1.5
+navForwardsToTabList,f,browseMode,,1.6
+navForwardsToTabList,tab,focusMode,,2
+navBackToTabList,shift+tab,browseMode,2:interactionModeEnabled,4
+navBackToTabList,up,browseMode,2:nameTabListDanishComposers 2:roleTabList,4.1
+navBackToTabList,shift+f,browseMode,,4.2
+navBackToTabList,shift+tab,focusMode,,5
+reqInfoAboutTabTabList,ins+tab,browseMode,,7
+reqInfoAboutTabTabList,ins+up,browseMode,0:positionTab1 0:numberTabsTabList4 0:nameTabListDanishComposers 0:roleTabList,7.1
+reqInfoAboutTabTabList,ins+tab,focusMode,,8
+reqInfoAboutTabTabList,ins+up,focusMode,0:positionTab1 0:numberTabsTabList4 0:nameTabListDanishComposers 0:roleTabList,8.1
+reqInfoAboutNotSelectedTabTabList,ins+tab,browseMode,,10
+reqInfoAboutNotSelectedTabTabList,ins+up,browseMode,0:positionTab2 0:numberTabsTabList4 0:nameTabListDanishComposers 0:roleTabList,10.1
+reqInfoAboutNotSelectedTabTabList,ins+tab,focusMode,,10.2
+reqInfoAboutNotSelectedTabTabList,ins+up,focusMode,0:positionTab2 0:numberTabsTabList4 0:nameTabListDanishComposers 0:roleTabList,10.3
+activateNextTabTabList,right,focusMode,,11
+activatePrevTabTabList,left,focusMode,,14
+activateFirstTabTabList,home,focusMode,,16
+activateLastTabTabList,end,focusMode,,17
+navToNextTabTabList,f,browseMode,,18
+navToPreviousTabTablist,shift+f,browseMode,,19
+navForwardsToTabPanel,down,browseMode,0:tabPanelText,20
+navForwardsToTabPanel,tab,browseMode,3:tabListBoundary,20.1
+navForwardsToTabPanel,tab,focusMode,3:tabListBoundary,20.2
+navBackToTabPanel,up,browseMode,0:tabPanelText,22
+activateTabInTabList,space,browseMode,,25
+activateTabInTabList,enter,browseMode,,25.1
+activateTabInTabList,space,focusMode,,25.2
+activateTabInTabList,enter,focusMode,,25.3

@@ -479,7 +479,7 @@ function renderVirtualInstructionDocument(doc) {
               type('checkbox'),
               value(failOption.description),
               id(`${failOptionId}-${commandIndex}-checkbox`),
-              className([`undesirable-${commandIndex}`]),
+              className([`unexpected-behavior-${commandIndex}`]),
               disabled(!failOption.enabled),
               checked(failOption.checked),
               focus(failOption.focus),
@@ -527,7 +527,7 @@ function renderVirtualInstructionDocument(doc) {
               type('text'),
               id(`${failOptionId}-${commandIndex}-details`),
               ariaLabel(`Details for ${failOption.description}`),
-              className(['undesirable-other-input']),
+              className(['unexpected-behavior-other-input']),
               disabled(!failOption.more.enabled),
               value(failOption.more.value),
               onchange(ev =>

@@ -19,12 +19,16 @@ reqInfoAboutNotSelectedTabTabList,ins+tab,browseMode,,10
 reqInfoAboutNotSelectedTabTabList,ins+up,browseMode,0:positionTab2 0:numberTabsTabList4 0:nameTabListDanishComposers 0:roleTabList,10.1
 reqInfoAboutNotSelectedTabTabList,ins+tab,focusMode,,10.2
 reqInfoAboutNotSelectedTabTabList,ins+up,focusMode,0:positionTab2 0:numberTabsTabList4 0:nameTabListDanishComposers 0:roleTabList,10.3
-activateNextTabTabList,right,focusMode,,11
-activatePrevTabTabList,left,focusMode,,14
-activateFirstTabTabList,home,focusMode,,16
-activateLastTabTabList,end,focusMode,,17
+navigateToFirstTabTabList,home,focusMode,,16
+navigateToLastTabTabList,end,focusMode,,17
 navToNextTabTabList,f,browseMode,,18
+navToNextTabTabList,right,focusMode,,18.1
 navToPreviousTabTablist,shift+f,browseMode,,19
+navToPreviousTabTablist,left,focusMode,,19.1
+navToNextSelectedTabTabList,f,browseMode,,19.2
+navToNextSelectedTabTabList,right,focusMode,,19.3
+navToPreviousSelectedTabTablist,f,browseMode,,19.4
+navToPreviousSelectedTabTablist,left,focusMode,,19.5
 navForwardsToTabPanel,down,browseMode,0:tabPanelText,20
 navForwardsToTabPanel,tab,browseMode,3:tabListBoundary,20.1
 navForwardsToTabPanel,tab,focusMode,3:tabListBoundary,20.2

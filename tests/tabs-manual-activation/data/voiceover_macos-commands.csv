@@ -13,14 +13,20 @@ reqInfoAboutTabTabList,ctrl+opt+f3,,,9
 reqInfoAboutTabTabList,ctrl+opt+f4,,,9.1
 reqInfoAboutNotSelectedTabTabList,ctrl+opt+f3,,,10.4
 reqInfoAboutNotSelectedTabTabList,ctrl+opt+f4,,,10.5
-activateNextTabTabList,right,arrowQuickKeyNavOff,,12.1
-activatePrevTabTabList,left,arrowQuickKeyNavOff,,15.1
-activateFirstTabTabList,home,,,17
-activateLastTabTabList,end,,,19
+navigateToFirstTabTabList,home,,,17
+navigateToLastTabTabList,end,,,19
 navToNextTabTabList,ctrl+opt+right,,,19.1
 navToNextTabTabList,j,singleQuickKeyNavOn,,19.2
+navToNextTabTabList,ri,arrowQuickKeyNavOff,,19.3
 navToPreviousTabTablist,ctrl+opt+left,,,19.3
 navToPreviousTabTablist,shift+j,singleQuickKeyNavOn,,19.4
+navToPreviousTabTablist,left,arrowQuickKeyNavOff,,19.5
+navToNextSelectedTabTabList,ctrl+opt+right,,,19.6
+navToNextSelectedTabTabList,j,singleQuickKeyNavOn,,19.7
+navToNextSelectedTabTabList,ri,arrowQuickKeyNavOff,,19.8
+navToPreviousSelectedTabTablist,ctrl+opt+left,,,20
+navToPreviousSelectedTabTablist,shift+j,singleQuickKeyNavOn,,20.1
+navToPreviousSelectedTabTablist,left,arrowQuickKeyNavOff,,20.2
 navForwardsToTabPanel,ctrl+opt+right ctrl+opt+right,,0:tabPanelText,21
 navForwardsToTabPanel,tab,,3:tabListBoundary,21.1
 navBackToTabPanel,ctrl+opt+left,,0:tabPanelText,23

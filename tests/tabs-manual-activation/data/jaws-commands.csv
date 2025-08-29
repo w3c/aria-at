@@ -19,14 +19,20 @@ reqInfoAboutNotSelectedTabTabList,ins+tab,virtualCursor,,10
 reqInfoAboutNotSelectedTabTabList,ins+up,virtualCursor,0:positionTab2 0:numberTabsTabList4 0:nameTabListDanishComposers 0:roleTabList,10.1
 reqInfoAboutNotSelectedTabTabList,ins+tab,pcCursor,,10.2
 reqInfoAboutNotSelectedTabTabList,ins+up,pcCursor,0:positionTab2 0:numberTabsTabList4 0:nameTabListDanishComposers 0:roleTabList,10.3
-activateNextTabTabList,right,pcCursor,,11
-activatePrevTabTabList,left,pcCursor,,14
-activateFirstTabTabList,home,pcCursor,,16
-activateLastTabTabList,end,pcCursor,,18
+navigateToFirstTabTabList,home,pcCursor,,16
+navigateToLastTabTabList,end,pcCursor,,18
 navToNextTabTabList,down,virtualCursor,,18.1
 navToNextTabTabList,f,virtualCursor,,18.2
-navToPreviousTabTablist,up,virtualCursor,,18.3
-navToPreviousTabTablist,shift+f,virtualCursor,,18.4
+navToNextTabTabList,right,pcCursor,,18.3
+navToPreviousTabTablist,up,virtualCursor,,18.4
+navToPreviousTabTablist,shift+f,virtualCursor,,18.5
+navToPreviousTabTablist,left,pcCursor,,18.6
+navToNextSelectedTabTabList,down,virtualCursor,,19
+navToNextSelectedTabTabList,f,virtualCursor,,19.1
+navToNextSelectedTabTabList,right,pcCursor,,19.2
+navToPreviousSelectedTabTablist,up,virtualCursor,,19.3
+navToPreviousSelectedTabTablist,shift+f,virtualCursor,,19.4
+navToPreviousSelectedTabTablist,left,pcCursor,,19.5
 navForwardsToTabPanel,down down,virtualCursor,0:tabPanelText,20
 navForwardsToTabPanel,tab,virtualCursor,3:tabListBoundary,20.1
 navForwardsToTabPanel,tab,pcCursor,3:tabListBoundary,20.2

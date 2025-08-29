@@ -1,2 +1,5 @@
 // sets focus on a link after the tab panel
-testPageDocument.querySelector('#afterlink').focus();
+const linkAfter = document.querySelector('#afterlink');
+if (linkAfter) {
+  linkAfter.focus();
+}

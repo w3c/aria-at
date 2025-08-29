@@ -1,2 +1,5 @@
 // sets focus on the first tab
-testPageDocument.querySelector('#nils').focus();
+const firstTab = document.querySelector('#tab-1');
+if (firstTab) {
+  firstTab.focus();
+}

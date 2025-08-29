@@ -22,11 +22,12 @@
     (function() {
       function setupScript(testPageDocument) {
         // setFocusOnTabPanel
-        // sets focus on the tab panel
-        // Find the first tab panel by its ID, #tabpanel-1, and set focus on it.
-        const firstPanel = document.querySelector('#tabpanel-1');
-        if (firstPanel) {
-          firstPanel.focus();
+        // sets focus on the link inside the tab panel
+        // Find the first link inside the first tab panel.
+        const linkInPanel = document.querySelector('#tabpanel-1 a');
+        // Set focus on the link if it is found.
+        if (linkInPanel) {
+          linkInPanel.focus();
         }
 
       };

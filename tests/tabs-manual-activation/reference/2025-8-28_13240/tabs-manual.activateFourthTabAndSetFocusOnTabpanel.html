@@ -22,29 +22,29 @@
     (function() {
       function setupScript(testPageDocument) {
         // activateFourthTabAndSetFocusOnTabpanel
-        // activates the fourth tab in the tab list, and sets focus on the tab panel// 1. Deactivate all tabs by resetting their attributes
-        document.querySelectorAll('[role="tab"]').forEach(t => {
-          t.setAttribute('tabindex', '-1');
-          t.setAttribute('aria-selected', 'false');
-        });
-
-        // 2. Hide all tab panels
-        document.querySelectorAll('[role="tabpanel"]').forEach(p => {
-          p.classList.add('is-hidden');
-        });
-
-        // 3. Select the specific fourth tab and panel using their unique IDs
-        let fourthTab = document.querySelector('#tab-4');
-        let fourthPanel = document.querySelector('#tabpanel-4');
-
-        // 4. Activate the fourth tab and show its panel
+        // activates the fourth tab in the tab list, and sets focus on the link inside the tab panel
+        // Select the elements for the default active tab (Tab 1)
+        const firstTab = document.querySelector('#tab-1');
+        const firstPanel = document.querySelector('#tabpanel-1');
+        // Select the elements for the target tab (Tab 4) and the link inside it
+        const fourthTab = document.querySelector('#tab-4');
+        const fourthPanel = document.querySelector('#tabpanel-4');
+        const linkInPanel = document.querySelector('#tabpanel-4 a');
+        // Deactivate the first tab and hide its panel
+        if (firstTab && firstPanel) {
+          firstTab.setAttribute('aria-selected', 'false');
+          firstTab.setAttribute('tabindex', '-1');
+          firstPanel.classList.add('is-hidden');
+        }
+        // Activate the fourth tab and make its panel visible
         if (fourthTab && fourthPanel) {
-          fourthTab.removeAttribute('tabindex');
           fourthTab.setAttribute('aria-selected', 'true');
+          fourthTab.setAttribute('tabindex', '0');
           fourthPanel.classList.remove('is-hidden');
-
-          // 5. Set focus on the panel
-          fourthPanel.focus();
+        }
+        // Set focus on the link inside the fourth panel
+        if (linkInPanel) {
+          linkInPanel.focus();
         }
 
       };

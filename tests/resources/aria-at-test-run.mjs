@@ -1090,7 +1090,7 @@ export function userValidateState() {
           },
           untestable: {
             ...command.untestable,
-            highlightRequired: false,
+            highlightRequired: needsSevereImpact(command),
           },
           unexpected: {
             ...command.unexpected,

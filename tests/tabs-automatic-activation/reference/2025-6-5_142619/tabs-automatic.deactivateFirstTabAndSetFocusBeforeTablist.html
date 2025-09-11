@@ -20,22 +20,28 @@
     (function() {
       function setupScript(testPageDocument) {
         // deactivateFirstTabAndSetFocusBeforeTablist
-        // deactivates the first tab in the tab list, and sets focus on the first link
-        // Select the first tab and its corresponding panel
+        // deactivates the first tab in the tab list, sets focus on the first link, and activates the second tab
+        // Select all the necessary elements from the DOM
         const firstTab = document.querySelector('#tab-1');
         const firstPanel = document.querySelector('#tabpanel-1');
-
-        // Deactivate the tab and hide the panel if they exist
+        const secondTab = document.querySelector('#tab-2');
+        const secondPanel = document.querySelector('#tabpanel-2');
+        const firstLink = document.querySelector('#beforelink');
+        // Deactivate the first tab and hide its associated panel
         if (firstTab && firstPanel) {
           firstTab.setAttribute('aria-selected', 'false');
           firstTab.setAttribute('tabindex', '-1');
           firstPanel.classList.add('is-hidden');
         }
-
-        // Find the link before the example and set focus on it
-        const linkBefore = document.querySelector('#beforelink');
-        if (linkBefore) {
-          linkBefore.focus();
+        // Activate the second tab and make its panel visible
+        if (secondTab && secondPanel) {
+          secondTab.setAttribute('aria-selected', 'true');
+          secondTab.setAttribute('tabindex', '0');
+          secondPanel.classList.remove('is-hidden');
+        }
+        // Set focus on the first link before the tablist
+        if (firstLink) {
+          firstLink.focus();
         }
 
       };
@@ -72,10 +78,10 @@
           <h2 id="ex_label">Example</h2>
         </div>
         <div role="separator" id="ex_start_sep" aria-labelledby="ex_start_sep ex_label" aria-label="Start of"></div>
-        <p><a id="beforelink" href="#beforelink">Navigate forwards from here</a></p>
         <div id="ex1">
           <div class="tabs">
             <h3 id="tablist-1">Danish Composers</h3>
+            <p><a id="beforelink" href="#beforelink">Navigate forwards from here</a></p>
             <div role="tablist" aria-labelledby="tablist-1" class="automatic">
               <button id="tab-1" type="button" role="tab" aria-selected="true" aria-controls="tabpanel-1">
                 <span class="focus">Maria Ahlefeldt</span>

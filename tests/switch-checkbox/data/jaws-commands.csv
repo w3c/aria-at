@@ -1,0 +1,33 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToSwitchOffState,f,virtualCursor,,1.1
+navForwardsToSwitchOffState,down down,virtualCursor,,1.2
+navForwardsToSwitchOffState,tab,virtualCursor,,1.3
+navForwardsToSwitchOffState,tab,pcCursor,,2
+navBackToSwitchOffState,shift+f,virtualCursor,,4.1
+navBackToSwitchOffState,up,virtualCursor,,4.2
+navBackToSwitchOffState,shift+tab,virtualCursor,,4.3
+navBackToSwitchOffState,shift+tab,pcCursor,,5
+navForwardsToSwitchOnState,f,virtualCursor,,7.1
+navForwardsToSwitchOnState,down down,virtualCursor,,7.2
+navForwardsToSwitchOnState,tab,virtualCursor,,7.3
+navForwardsToSwitchOnState,tab,pcCursor,,8
+navBackToSwitchOnState,shift+f,virtualCursor,,10.1
+navBackToSwitchOnState,up,virtualCursor,,10.2
+navBackToSwitchOnState,shift+tab,virtualCursor,,10.3
+navBackToSwitchOnState,shift+tab,pcCursor,,11
+reqInfoAboutSwitchOffState,ins+tab,virtualCursor,,13
+reqInfoAboutSwitchOffState,ins+up,virtualCursor,,13.1
+reqInfoAboutSwitchOffState,ins+tab,pcCursor,,14
+reqInfoAboutSwitchOffState,ins+up,pcCursor,,14.1
+reqInfoAboutSwitchOnState,ins+tab,virtualCursor,,16
+reqInfoAboutSwitchOnState,ins+up,virtualCursor,,16.1
+reqInfoAboutSwitchOnState,ins+tab,pcCursor,,17
+reqInfoAboutSwitchOnState,ins+up,pcCursor,,17.1
+operateSwitchOffState,space,virtualCursor,,19
+operateSwitchOffState,enter,virtualCursor,,19.1
+operateSwitchOffState,space,pcCursor,,20
+operateSwitchOffState,enter,pcCursor,,20.1
+operateSwitchOnState,space,virtualCursor,,22
+operateSwitchOnState,enter,virtualCursor,,22.1
+operateSwitchOnState,space,pcCursor,,23
+operateSwitchOnState,enter,pcCursor,,23.1

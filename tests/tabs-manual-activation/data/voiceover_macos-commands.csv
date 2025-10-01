@@ -1,0 +1,35 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToTabListWhereATabIsNotSelected,ctrl+opt+right ctrl+opt+right,,2:nameTabListDanishComposers 2:roleTabList,1
+navForwardsToTabListWhereATabIsNotSelected,j,singleQuickKeyNavOn,,1.1
+navBackwardsToTabListWhereATabIsNotSelected,ctrl+opt+left ctrl+opt+left,,2:nameTabListDanishComposers 2:roleTabList,1.3
+navBackwardsToTabListWhereATabIsNotSelected,shift+j,singleQuickKeyNavOn,,1.4
+navForwardsToTabList,tab,,,3
+navForwardsToTabList,ctrl+opt+right ctrl+opt+right,,2:nameTabListDanishComposers 2:roleTabList,3.1
+navForwardsToTabList,j,singleQuickKeyNavOn,,3.2
+navBackToTabList,shift+tab,,,6
+navBackToTabList,ctrl+opt+left ctrl+opt+left,,2:nameTabListDanishComposers 2:roleTabList,6.1
+navBackToTabList,shift+j,singleQuickKeyNavOn,,6.2
+reqInfoAboutTabTabList,ctrl+opt+f3,,,9
+reqInfoAboutTabTabList,ctrl+opt+f4,,,9.1
+reqInfoAboutNotSelectedTabTabList,ctrl+opt+f3,,,10.4
+reqInfoAboutNotSelectedTabTabList,ctrl+opt+f4,,,10.5
+navigateToFirstTabTabList,home,,,17
+navigateToLastTabTabList,end,,,19
+navToNextTabTabList,ctrl+opt+right,,,19.1
+navToNextTabTabList,j,singleQuickKeyNavOn,,19.2
+navToNextTabTabList,ri,arrowQuickKeyNavOff,,19.3
+navToPreviousTabTablist,ctrl+opt+left,,,19.3
+navToPreviousTabTablist,shift+j,singleQuickKeyNavOn,,19.4
+navToPreviousTabTablist,left,arrowQuickKeyNavOff,,19.5
+navToNextSelectedTabTabList,ctrl+opt+right,,,19.6
+navToNextSelectedTabTabList,j,singleQuickKeyNavOn,,19.7
+navToNextSelectedTabTabList,ri,arrowQuickKeyNavOff,,19.8
+navToPreviousSelectedTabTablist,ctrl+opt+left,,,20
+navToPreviousSelectedTabTablist,shift+j,singleQuickKeyNavOn,,20.1
+navToPreviousSelectedTabTablist,left,arrowQuickKeyNavOff,,20.2
+navForwardsToTabPanel,ctrl+opt+right ctrl+opt+right,,0:tabPanelText,21
+navForwardsToTabPanel,tab,,3:tabListBoundary 3:roleTabPanel 1:roleLink 3:tabPanelNamePeterMuller 1:nameLinkPeterMuller 0:tabPanelText,21.1
+navBackToTabPanel,ctrl+opt+left,,0:tabPanelText,23
+activateTabInTabList,ctrl+opt+space,,,25.5
+activateTabInTabList,space,,,25.6
+activateTabInTabList,enter,,,25.7

@@ -1,2 +1,5 @@
 // sets focus on the second tab
-testPageDocument.querySelector('#agnes').focus();
+const secondTab = document.querySelector('#tab-2');
+if (secondTab) {
+  secondTab.focus();
+}

@@ -12,7 +12,7 @@ import {
   userCloseWindow,
   userOpenWindow,
   WhitespaceStyleMap,
-  UnexpectedBehaviorImpactMap,
+  NegativeSideEffectImpactMap,
 } from './aria-at-test-run.mjs';
 import { TestRunExport, TestRunInputOutput } from './aria-at-test-io-format.mjs';
 import { TestWindow } from './aria-at-test-window.mjs';
@@ -440,7 +440,7 @@ function renderVirtualInstructionDocument(doc) {
           )
         )
       ),
-      ...[command.unexpectedBehaviors].map(bind(commandResultUnexpectedBehavior, commandIndex))
+      ...[command.negativeSideEffects].map(bind(commandResultNegativeSideEffect, commandIndex))
     );
   }
 
@@ -448,7 +448,7 @@ function renderVirtualInstructionDocument(doc) {
    * @param {number} commandIndex
    * @param {InstructionDocumentResultsCommandsUnexpected} unexpected
    */
-  function commandResultUnexpectedBehavior(commandIndex, unexpected) {
+  function commandResultNegativeSideEffect(commandIndex, unexpected) {
     return fieldset(
       id(`cmd-${commandIndex}-problem`),
       rich(unexpected.description),
@@ -476,12 +476,12 @@ function renderVirtualInstructionDocument(doc) {
             .replace(/[.,]/g, '')
             .replace(/\s+/g, '-');
 
-          const undesirableBehaviorCheckbox = div(
+          const negativeSideEffectCheckbox = div(
             input(
               type('checkbox'),
               value(failOption.description),
               id(`${failOptionId}-${commandIndex}-checkbox`),
-              className([`undesirable-${commandIndex}`]),
+              className([`negative-side-effect-${commandIndex}`]),
               disabled(!failOption.enabled),
               checked(failOption.checked),
               focus(failOption.focus),
@@ -509,8 +509,8 @@ function renderVirtualInstructionDocument(doc) {
             select(
               id(`${failOptionId}-${commandIndex}-impact`),
               ariaLabel(`Impact for ${failOption.description}`),
-              option(UnexpectedBehaviorImpactMap.MODERATE),
-              option(UnexpectedBehaviorImpactMap.SEVERE),
+              option(NegativeSideEffectImpactMap.MODERATE),
+              option(NegativeSideEffectImpactMap.SEVERE),
               disabled(!failOption.checked),
               onchange(ev =>
                 failOption.impactchange(/** @type {HTMLInputElement} */ (ev.currentTarget).value)
@@ -529,7 +529,7 @@ function renderVirtualInstructionDocument(doc) {
               type('text'),
               id(`${failOptionId}-${commandIndex}-details`),
               ariaLabel(`Details for ${failOption.description}`),
-              className(['undesirable-other-input']),
+              className(['negative-side-effect-other-input']),
               disabled(!failOption.more.enabled),
               value(failOption.more.value),
               onchange(ev =>
@@ -540,7 +540,7 @@ function renderVirtualInstructionDocument(doc) {
 
           return div(
             className(['problem-option-container', failOption.checked && 'enabled']),
-            undesirableBehaviorCheckbox,
+            negativeSideEffectCheckbox,
             impactSelect,
             detailsTextInput
           );
@@ -617,7 +617,7 @@ function renderVirtualResultsTable(results) {
         ({
           description,
           support,
-          details: { output, passingAssertions, failingAssertions, unexpectedBehaviors },
+          details: { output, passingAssertions, failingAssertions, negativeSideEffects },
         }) =>
           fragment(
             tr(
@@ -627,7 +627,7 @@ function renderVirtualResultsTable(results) {
                 p(rich(output)),
                 commandDetailsList(passingAssertions),
                 commandDetailsList(failingAssertions),
-                commandDetailsList(unexpectedBehaviors)
+                commandDetailsList(negativeSideEffects)
               )
             )
           )

@@ -1,0 +1,52 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,f,browseMode,,1
+navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,r,browseMode,,1.1
+navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,down down,browseMode,,1.2
+navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,tab,browseMode,2:interactionModeEnabled,1.3
+navForwardsInToRadioGroupWhereNoRadioButtonsAreChecked,tab,focusMode,,1.4
+navBackInToRadioGroupWhereNoRadioButtonsAreChecked,shift+f,browseMode,,3
+navBackInToRadioGroupWhereNoRadioButtonsAreChecked,shift+r,browseMode,,3.1
+navBackInToRadioGroupWhereNoRadioButtonsAreChecked,up,browseMode,,3.2
+navBackInToRadioGroupWhereNoRadioButtonsAreChecked,shift+tab,browseMode,0:nameFiveStars 1:nameOneStar 0:positionRadio5 2:positionRadio1 2:interactionModeEnabled,3.3
+navBackInToRadioGroupWhereNoRadioButtonsAreChecked,shift+tab,focusMode,0:nameFiveStars 1:nameOneStar 0:positionRadio5 2:positionRadio1,3.4
+navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,f,browseMode,,5
+navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,r,browseMode,,5.1
+navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,down down,browseMode,,5.2
+navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,tab,browseMode,2:interactionModeEnabled,5.3
+navForwardsInToRadioGroupWhereFirstRadioButtonIsChecked,tab,focusMode,,5.4
+NavBackIntoRadioGroupWhereLastRadioChecked,shift+f,browseMode,,7
+NavBackIntoRadioGroupWhereLastRadioChecked,shift+r,browseMode,,7.1
+NavBackIntoRadioGroupWhereLastRadioChecked,up,browseMode,,7.2
+NavBackIntoRadioGroupWhereLastRadioChecked,shift+tab,browseMode,2:interactionModeEnabled,7.3
+NavBackIntoRadioGroupWhereLastRadioChecked,shift+tab,focusMode,,7.4
+navOutStartRadioGroup,shift+k,browseMode,3:groupBoundary ,10
+navOutStartRadioGroup,up up,browseMode,,10.1
+navOutStartRadioGroup,shift+tab,browseMode,3:groupBoundary ,10.2
+navOutStartRadioGroup,shift+tab,focusMode,3:groupBoundary ,10.3
+navOutEndRadioGroup,k,browseMode,3:groupBoundary ,12
+navOutEndRadioGroup,down,browseMode,,12.1
+navOutEndRadioGroup,tab,browseMode,3:groupBoundary ,12.2
+navOutEndRadioGroup,tab,focusMode,3:groupBoundary ,12.3
+navToNextUncheckedRadio,f,browseMode,,20
+navToNextUncheckedRadio,r,browseMode,,20.1
+navToPrevUncheckedRadio,shift+f,browseMode,,22
+navToPrevUncheckedRadio,shift+r,browseMode,,22.1
+navToNextCheckedRadio,f,browseMode,,24
+navToNextCheckedRadio,r,browseMode,,24.1
+navToPrevCheckedRadio,shift+f,browseMode,,26
+navToPrevCheckedRadio,shift+r,browseMode,,26.1
+navToFirstRadio,down,focusMode,,30
+navToFirstRadio,right,focusMode,,30.1
+navToLastRadio,up,focusMode,,32
+navToLastRadio,left,focusMode,,32.1
+checkRadio,space,browseMode,,45
+checkRadio,enter,browseMode,2:interactionModeEnabled,45.1
+checkRadio,space,focusMode,,45.2
+reqInfoAboutUncheckedRadio,ins+tab,browseMode,,50
+reqInfoAboutUncheckedRadio,ins+up,browseMode,0:positionRadio1 0:numberRadioButtonsGroup5 0:roleGroup 0:nameGroupRating,50.1
+reqInfoAboutUncheckedRadio,ins+tab,focusMode,,50.2
+reqInfoAboutUncheckedRadio,ins+up,focusMode,0:positionRadio1 0:numberRadioButtonsGroup5 0:roleGroup 0:nameGroupRating,50.3
+reqInfoAboutCheckedRadio,ins+tab,browseMode,,55
+reqInfoAboutCheckedRadio,ins+up,browseMode,0:positionRadio1 0:numberRadioButtonsGroup5 0:roleGroup 0:nameGroupRating,55.1
+reqInfoAboutCheckedRadio,ins+tab,focusMode,,55.2
+reqInfoAboutCheckedRadio,ins+up,focusMode,0:positionRadio1 0:numberRadioButtonsGroup5 0:roleGroup 0:nameGroupRating,55.3

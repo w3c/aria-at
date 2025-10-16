@@ -6,7 +6,7 @@ import {
   AssertionResultMap,
   CommonResultMap,
   createEnumMap,
-  HasUnexpectedBehaviorMap,
+  HasNegativeSideEffectMap,
   TestRun,
   UserActionMap,
 } from './aria-at-test-run.mjs';
@@ -181,116 +181,7 @@ class AllCommandsInput {
     this._value = value;
 
     /** @private */
-    this._flattened = this.flattenObject(this._value);
-  }
-
-  flattenObject(obj, parentKey) {
-    const flattened = {};
-
-    for (const key in obj) {
-      if (typeof obj[key] === 'object') {
-        const subObject = this.flattenObject(obj[key], parentKey + key + '.');
-        Object.assign(flattened, subObject);
-      } else {
-        flattened[parentKey + key] = obj[key];
-      }
-    }
-
-    return flattened;
-  }
-
-  findValueByKey(keyToFind) {
-    const keys = Object.keys(this._flattened);
-
-    // Need to specially handle VO modifier key combination
-    if (keyToFind === 'vo')
-      return this.findValuesByKeys([this._flattened['modifierAliases.vo']])[0];
-
-    if (keyToFind.includes('modifiers.') || keyToFind.includes('keys.')) {
-      const parts = keyToFind.split('.');
-      const keyToCheck = parts[parts.length - 1]; // value after the '.'
-
-      if (this._flattened[keyToFind])
-        return {
-          value: this._flattened[keyToFind],
-          key: keyToCheck,
-        };
-
-      return null;
-    }
-
-    for (const key of keys) {
-      const parts = key.split('.');
-      const parentKey = parts[0];
-      const keyToCheck = parts[parts.length - 1]; // value after the '.'
-
-      if (keyToCheck === keyToFind) {
-        if (parentKey === 'modifierAliases') {
-          return this.findValueByKey(`modifiers.${this._flattened[key]}`);
-        } else if (parentKey === 'keyAliases') {
-          return this.findValueByKey(`keys.${this._flattened[key]}`);
-        }
-
-        return {
-          value: this._flattened[key],
-          key: keyToCheck,
-        };
-      }
-    }
-
-    // Return null if the key is not found
-    return null;
-  }
-
-  findValuesByKeys(keysToFind = []) {
-    const result = [];
-
-    const patternSepWithReplacement = (keyToFind, pattern, replacement) => {
-      if (keyToFind.includes(pattern)) {
-        let value = '';
-        let validKeys = true;
-        const keys = keyToFind.split(pattern);
-
-        for (const key of keys) {
-          const keyResult = this.findValueByKey(key);
-          if (keyResult)
-            value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
-          else validKeys = false;
-        }
-        if (validKeys) return { value, key: keyToFind };
-      }
-
-      return null;
-    };
-
-    const patternSepHandler = keyToFind => {
-      let value = '';
-
-      if (keyToFind.includes(' ') && keyToFind.includes('+')) {
-        const keys = keyToFind.split(' ');
-        for (let [index, key] of keys.entries()) {
-          const keyToFindResult = this.findValueByKey(key);
-          if (keyToFindResult) keys[index] = keyToFindResult.value;
-          if (key.includes('+')) keys[index] = patternSepWithReplacement(key, '+', '+').value;
-        }
-        value = keys.join(' then ');
-
-        return { value, key: keyToFind };
-      } else if (keyToFind.includes(' '))
-        return patternSepWithReplacement(keyToFind, ' ', ' then ');
-      else if (keyToFind.includes('+')) return patternSepWithReplacement(keyToFind, '+', '+');
-    };
-
-    for (const keyToFind of keysToFind) {
-      if (keyToFind.includes(' ') || keyToFind.includes('+')) {
-        result.push(patternSepHandler(keyToFind));
-      } else {
-        const keyToFindResult = this.findValueByKey(keyToFind);
-        if (keyToFindResult) result.push(keyToFindResult);
-      }
-    }
-
-    return result;
+    this._flattened = flattenObject(this._value);
   }
 
   static fromJSON(json) {
@@ -402,10 +293,10 @@ class CommandsInput {
             const [commandId, presentationNumber] = commandWithPresentationNumber.split('|');
 
             let command;
-            const foundCommandKV = this._allCommandsInput.findValuesByKeys([commandId]);
+            const foundCommandKV = findValuesByKeys(this._allCommandsInput._flattened, [commandId]);
             if (!foundCommandKV.length) command = undefined;
             else {
-              const { value } = this._allCommandsInput.findValuesByKeys([commandId])[0];
+              const { value } = findValuesByKeys(this._allCommandsInput._flattened, [commandId])[0];
               command = value;
             }
 
@@ -860,7 +751,7 @@ class BehaviorInput {
           priority: Number(assertionTuple[0]),
           assertion: assertionTuple[1],
         })),
-        unexpectedBehaviors: unexpectedInput.behaviors(),
+        negativeSideEffects: unexpectedInput.behaviors(),
       },
     });
   }
@@ -948,7 +839,7 @@ class BehaviorInput {
           }
         ),
         additionalAssertions: [],
-        unexpectedBehaviors: unexpectedInput.behaviors(),
+        negativeSideEffects: unexpectedInput.behaviors(),
       },
     });
   }
@@ -1292,6 +1183,10 @@ export class TestRunInputOutput {
               highlightRequired: false,
               value: '',
             },
+            untestable: {
+              highlightRequired: false,
+              value: false,
+            },
             assertions: test.assertions.map(assertion => ({
               description: assertion.assertion,
               highlightRequired: false,
@@ -1306,12 +1201,12 @@ export class TestRunInputOutput {
             })),
             unexpected: {
               highlightRequired: false,
-              hasUnexpected: HasUnexpectedBehaviorMap.NOT_SET,
+              hasNegativeSideEffect: HasNegativeSideEffectMap.NOT_SET,
               tabbedBehavior: 0,
-              behaviors: test.unexpectedBehaviors.map(({ description }) => ({
+              behaviors: test.negativeSideEffects.map(({ description }) => ({
                 description,
                 checked: false,
-                impact: UnexpectedBehaviorImpactMap.MODERATE,
+                impact: NegativeSideEffectImpactMap.MODERATE,
                 more: { highlightRequired: false, value: '' },
               })),
             },
@@ -1401,11 +1296,12 @@ export class TestRunInputOutput {
             ({ priority, result }) => priority === 3 && result !== CommonResultMap.PASS
           ),
         },
-        unexpectedCount: countUnexpectedBehaviors(({ checked }) => checked),
+        unexpectedCount: countNegativeSideEffects(({ checked }) => checked),
       },
       commands: state.commands.map(command => ({
         command: command.description,
         output: command.atOutput.value,
+        untestable: command.untestable.value,
         support: commandSupport(command),
         assertions: [...command.assertions, ...command.additionalAssertions].map(
           assertionToAssertion
@@ -1459,7 +1355,7 @@ export class TestRunInputOutput {
      * @param {(behavior: TestRunUnexpected) => boolean} filter
      * @returns {number}
      */
-    function countUnexpectedBehaviors(filter) {
+    function countNegativeSideEffects(filter) {
       return state.commands.reduce(
         (carry, command) => carry + command.unexpected.behaviors.filter(filter).length,
         0
@@ -1511,6 +1407,7 @@ export class TestRunInputOutput {
           },
         },
         output: command.atOutput.value,
+        untestable: command.untestable.value,
         assertionResults: command.assertions.map(assertion => ({
           assertion: {
             priority:
@@ -1525,7 +1422,7 @@ export class TestRunInputOutput {
                 ? 'NO_OUTPUT'
                 : null,
         })),
-        unexpectedBehaviors: command.unexpected.behaviors
+        negativeSideEffects: command.unexpected.behaviors
           .map(behavior =>
             behavior.checked
               ? {
@@ -1571,6 +1468,7 @@ export class TestRunInputOutput {
         return {
           ...command,
           atOutput: { highlightRequired: false, value: scenarioResult.output },
+          untestable: { highlightRequired: false, value: scenarioResult.untestable },
           assertions: command.assertions.map((assertion, assertionIndex) => {
             const assertionResult = scenarioResult.assertionResults[assertionIndex];
             return {
@@ -1582,13 +1480,13 @@ export class TestRunInputOutput {
           unexpected: {
             ...command.unexpected,
             highlightRequired: false,
-            hasUnexpected:
-              scenarioResult.unexpectedBehaviors.length > 0
-                ? 'hasUnexpected'
-                : 'doesNotHaveUnexpected',
+            hasNegativeSideEffect:
+              scenarioResult.negativeSideEffects.length > 0
+                ? 'hasNegativeSideEffect'
+                : 'doesNotHaveNegativeSideEffect',
             tabbedBehavior: 0,
             behaviors: command.unexpected.behaviors.map(behavior => {
-              const behaviorResult = scenarioResult.unexpectedBehaviors.find(
+              const behaviorResult = scenarioResult.negativeSideEffects.find(
                 unexpectedResult => unexpectedResult.text === behavior.description
               );
               return {
@@ -1599,7 +1497,7 @@ export class TestRunInputOutput {
                       highlightRequired: false,
                       impact: behaviorResult
                         ? behavior.impact
-                        : UnexpectedBehaviorImpactMap.MODERATE,
+                        : NegativeSideEffectImpactMap.MODERATE,
                       value: behaviorResult ? behaviorResult.details : '',
                     }
                   : behavior.more,
@@ -1685,7 +1583,7 @@ const AssertionFailJSONMap = createEnumMap({
   FAIL: 'Fail',
 });
 
-const UnexpectedBehaviorImpactMap = createEnumMap({
+const NegativeSideEffectImpactMap = createEnumMap({
   MODERATE: 'Moderate',
   SEVERE: 'Severe',
 });
@@ -1763,6 +1661,129 @@ function invariant(test, message, ...args) {
     let index = 0;
     throw new Error(message.replace(/%%|%\w/g, match => (match[0] !== '%%' ? args[index++] : '%')));
   }
+}
+
+/**
+ * @param {object} obj
+ * @param {string} parentKey
+ * @returns {object}
+ */
+export function flattenObject(obj, parentKey = '') {
+  const flattened = {};
+
+  for (const key in obj) {
+    if (typeof obj[key] === 'object') {
+      const subObject = flattenObject(obj[key], parentKey + key + '.');
+      Object.assign(flattened, subObject);
+    } else {
+      flattened[parentKey + key] = obj[key];
+    }
+  }
+
+  return flattened;
+}
+
+/**
+ * @param {object} keysMapping
+ * @param {string[]} keysToFind
+ * @returns {Object<value: string, key: string>}[]}
+ */
+export function findValuesByKeys(keysMapping, keysToFind = []) {
+  const result = [];
+
+  const patternSepWithReplacement = (keyToFind, pattern, replacement) => {
+    if (keyToFind.includes(pattern)) {
+      let value = '';
+      let validKeys = true;
+      const keys = keyToFind.split(pattern);
+
+      for (const key of keys) {
+        const keyResult = findValueByKey(keysMapping, key);
+        if (keyResult) value = value ? `${value}${replacement}${keyResult.value}` : keyResult.value;
+        else validKeys = false;
+      }
+      if (validKeys) return { value, key: keyToFind };
+    }
+
+    return null;
+  };
+
+  const patternSepHandler = keyToFind => {
+    let value = '';
+
+    if (keyToFind.includes(' ') && keyToFind.includes('+')) {
+      const keys = keyToFind.split(' ');
+      for (let [index, key] of keys.entries()) {
+        const keyToFindResult = findValueByKey(keysMapping, key);
+        if (keyToFindResult) keys[index] = keyToFindResult.value;
+        if (key.includes('+')) keys[index] = patternSepWithReplacement(key, '+', '+').value;
+      }
+      value = keys.join(' then ');
+
+      return { value, key: keyToFind };
+    } else if (keyToFind.includes(' ')) return patternSepWithReplacement(keyToFind, ' ', ' then ');
+    else if (keyToFind.includes('+')) return patternSepWithReplacement(keyToFind, '+', '+');
+  };
+
+  for (const keyToFind of keysToFind) {
+    if (keyToFind.includes(' ') || keyToFind.includes('+')) {
+      result.push(patternSepHandler(keyToFind));
+    } else {
+      const keyToFindResult = findValueByKey(keysMapping, keyToFind);
+      if (keyToFindResult) result.push(keyToFindResult);
+    }
+  }
+
+  return result;
+}
+
+/**
+ * @param {object} keysMapping
+ * @param {string} keyToFindText
+ * @returns {Object<value: string, key: string>} | null}
+ */
+function findValueByKey(keysMapping, keyToFindText) {
+  const keyToFind = keyToFindText.replace(/\s+/g, ' ').trim();
+  const keys = Object.keys(keysMapping);
+
+  // Need to specially handle VO modifier key combination
+  if (keyToFind === 'vo')
+    return findValuesByKeys(keysMapping, [keysMapping['modifierAliases.vo']])[0];
+
+  if (keyToFind.includes('modifiers.') || keyToFind.includes('keys.')) {
+    const parts = keyToFind.split('.');
+    const keyToCheck = parts[parts.length - 1]; // value after the '.'
+
+    if (keysMapping[keyToFind])
+      return {
+        value: keysMapping[keyToFind],
+        key: keyToCheck,
+      };
+
+    return null;
+  }
+
+  for (const key of keys) {
+    const parts = key.split('.');
+    const parentKey = parts[0];
+    const keyToCheck = parts[parts.length - 1]; // value after the '.'
+
+    if (keyToCheck === keyToFind) {
+      if (parentKey === 'modifierAliases') {
+        return findValueByKey(keysMapping, `modifiers.${keysMapping[key]}`);
+      } else if (parentKey === 'keyAliases') {
+        return findValueByKey(keysMapping, `keys.${keysMapping[key]}`);
+      }
+
+      return {
+        value: keysMapping[key],
+        key: keyToCheck,
+      };
+    }
+  }
+
+  // Return null if the key is not found
+  return null;
 }
 
 /** @typedef {ConstructorParameters<typeof TestRun>[0]} TestRunOptions */
@@ -1875,7 +1896,7 @@ function invariant(test, message, ...args) {
  * @property {string[]} commands
  * @property {BehaviorAssertion[]} assertions
  * @property {BehaviorAssertion[]} additionalAssertions
- * @property {BehaviorUnexpectedItem[]} unexpectedBehaviors
+ * @property {BehaviorUnexpectedItem[]} negativeSideEffects
  */
 
 /** @typedef {{[key: string]: (document: Document) => void}} SetupScripts */
@@ -1937,6 +1958,6 @@ function invariant(test, message, ...args) {
 /** @typedef {import('./aria-at-test-run.mjs').TestRunAssertion} TestRunAssertion */
 /** @typedef {import('./aria-at-test-run.mjs').TestRunAdditionalAssertion} TestRunAdditionalAssertion */
 /** @typedef {import('./aria-at-test-run.mjs').TestRunCommand} TestRunCommand */
-/** @typedef {import("./aria-at-test-run.mjs").TestRunUnexpectedBehavior} TestRunUnexpected */
+/** @typedef {import("./aria-at-test-run.mjs").TestRunNegativeSideEffect} TestRunUnexpected */
 
 /** @typedef {import('./aria-at-test-run.mjs').TestPageDocument} TestPageDocument */

@@ -13,13 +13,13 @@ jobs:
         os: [ubuntu-latest, windows-latest]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: refs/pull/${{ github.event.pull_request.number }}/head
           fetch-depth: 0
 
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '20.x'
           cache: 'npm'
@@ -28,9 +28,11 @@ jobs:
         run: npm ci
 
       - name: Generate test and review files
-        run: npm run build
+        run: |
+          npm run create-all-tests -- --verbose
+          npm run review-tests
 
-      - uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: stefanzweifel/git-auto-commit-action@v6
         if: ${{ matrix.os == 'ubuntu-latest' && github.actor != 'dependabot[bot]' }}
         with:
           commit_message: Generate .html source files with scripts automatically

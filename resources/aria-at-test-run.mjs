@@ -12,16 +12,17 @@ export class TestRun {
     /** @type {TestRunHooks} */
     this.hooks = {
       closeTestPage: bindDispatch(userCloseWindow),
-      focusCommandUnexpectedBehavior: bindDispatch(userFocusCommandUnexpectedBehavior),
+      focusCommandNegativeSideEffect: bindDispatch(userFocusCommandNegativeSideEffect),
       openTestPage: bindDispatch(userOpenWindow),
       postResults: () => {},
       setCommandAdditionalAssertion: bindDispatch(userChangeCommandAdditionalAssertion),
       setCommandAssertion: bindDispatch(userChangeCommandAssertion),
-      setCommandHasUnexpectedBehavior: bindDispatch(userChangeCommandHasUnexpectedBehavior),
-      setCommandUnexpectedBehavior: bindDispatch(userChangeCommandUnexpectedBehavior),
-      setCommandUnexpectedBehaviorImpact: bindDispatch(userChangeCommandUnexpectedBehaviorImpact),
-      setCommandUnexpectedBehaviorMore: bindDispatch(userChangeCommandUnexpectedBehaviorMore),
+      setCommandHasNegativeSideEffect: bindDispatch(userChangeCommandHasNegativeSideEffect),
+      setCommandNegativeSideEffect: bindDispatch(userChangeCommandNegativeSideEffect),
+      setCommandNegativeSideEffectImpact: bindDispatch(userChangeCommandNegativeSideEffectImpact),
+      setCommandNegativeSideEffectMore: bindDispatch(userChangeCommandNegativeSideEffectMore),
       setCommandOutput: bindDispatch(userChangeCommandOutput),
+      setCommandUntestable: bindDispatch(userChangeCommandUntestable),
       submit: () => submitResult(this),
       ...hooks,
     };
@@ -226,7 +227,7 @@ export function instructionDocument(resultState, hooks) {
    */
   function commandResult(command, commandIndex) {
     const resultStateCommand = resultState.commands[commandIndex];
-    const resultUnexpectedBehavior = resultStateCommand.unexpected;
+    const resultNegativeSideEffect = resultStateCommand.unexpected;
 
     const {
       commandSettings: { description: settings, text: settingsText, assertionExceptions },
@@ -252,6 +253,21 @@ export function instructionDocument(resultState, hooks) {
           focusFirstRequired(),
         change: atOutput => hooks.setCommandOutput({ commandIndex, atOutput }),
       },
+      untestable: {
+        description: [
+          `Executing '${command}' affected behavior that made assertions untestable. If checked, then at least one severe negative side effect must be recorded below.`,
+          {
+            highlightRequired: resultStateCommand.untestable.highlightRequired,
+            description: '(requires at least one SEVERE negative side effect)',
+          },
+        ],
+        value: resultStateCommand.untestable.value,
+        focus:
+          resultState.currentUserAction === 'validateResults' &&
+          resultStateCommand.untestable.highlightRequired &&
+          focusFirstRequired(),
+        change: isUntestable => hooks.setCommandUntestable({ commandIndex, isUntestable }),
+      },
       assertionsHeader: {
         descriptionHeader: `${resultState.testPlanStrings.assertionResponseQuestion} ${command}${
           settingsText && settings !== 'defaultMode' ? ` (${settingsText})` : ''
@@ -270,9 +286,9 @@ export function instructionDocument(resultState, hooks) {
           ),
         ...additionalAssertions.map(bind(additionalAssertionResult, commandIndex)),
       ],
-      unexpectedBehaviors: {
+      negativeSideEffects: {
         description: [
-          'Were there additional undesirable behaviors?',
+          'Did negative side effects occur?',
           {
             required: true,
             highlightRequired: resultStateCommand.unexpected.highlightRequired,
@@ -280,60 +296,61 @@ export function instructionDocument(resultState, hooks) {
           },
         ],
         passChoice: {
-          label: 'No, there were no additional undesirable behaviors.',
+          label: 'No, negative side effects did not occur.',
           checked:
-            resultUnexpectedBehavior.hasUnexpected ===
-            HasUnexpectedBehaviorMap.DOES_NOT_HAVE_UNEXPECTED,
+            resultNegativeSideEffect.hasNegativeSideEffect ===
+            HasNegativeSideEffectMap.DOES_NOT_HAVE_UNEXPECTED,
           focus:
             resultState.currentUserAction === 'validateResults' &&
-            resultUnexpectedBehavior.highlightRequired &&
-            resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.NOT_SET &&
+            resultNegativeSideEffect.highlightRequired &&
+            resultNegativeSideEffect.hasNegativeSideEffect === HasNegativeSideEffectMap.NOT_SET &&
             focusFirstRequired(),
           click: () =>
-            hooks.setCommandHasUnexpectedBehavior({
+            hooks.setCommandHasNegativeSideEffect({
               commandIndex,
-              hasUnexpected: HasUnexpectedBehaviorMap.DOES_NOT_HAVE_UNEXPECTED,
+              hasNegativeSideEffect: HasNegativeSideEffectMap.DOES_NOT_HAVE_UNEXPECTED,
             }),
         },
         failChoice: {
-          label: 'Yes, there were additional undesirable behaviors',
+          label: 'Yes, negative side effects occured.',
           checked:
-            resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
+            resultNegativeSideEffect.hasNegativeSideEffect ===
+            HasNegativeSideEffectMap.HAS_UNEXPECTED,
           focus:
             resultState.currentUserAction === 'validateResults' &&
-            resultUnexpectedBehavior.highlightRequired &&
-            resultUnexpectedBehavior.hasUnexpected === HasUnexpectedBehaviorMap.NOT_SET &&
+            resultNegativeSideEffect.highlightRequired &&
+            resultNegativeSideEffect.hasNegativeSideEffect === HasNegativeSideEffectMap.NOT_SET &&
             focusFirstRequired(),
           click: () =>
-            hooks.setCommandHasUnexpectedBehavior({
+            hooks.setCommandHasNegativeSideEffect({
               commandIndex,
-              hasUnexpected: HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
+              hasNegativeSideEffect: HasNegativeSideEffectMap.HAS_UNEXPECTED,
             }),
           options: {
-            header: 'Undesirable behaviors',
-            options: resultUnexpectedBehavior.behaviors.map((behavior, unexpectedIndex) => {
+            header: 'Negative side effects',
+            options: resultNegativeSideEffect.behaviors.map((behavior, unexpectedIndex) => {
               return {
                 description: behavior.description,
                 impact: behavior.impact,
                 enabled:
-                  resultUnexpectedBehavior.hasUnexpected ===
-                  HasUnexpectedBehaviorMap.HAS_UNEXPECTED,
-                tabbable: resultUnexpectedBehavior.tabbedBehavior === unexpectedIndex,
+                  resultNegativeSideEffect.hasNegativeSideEffect ===
+                  HasNegativeSideEffectMap.HAS_UNEXPECTED,
+                tabbable: resultNegativeSideEffect.tabbedBehavior === unexpectedIndex,
                 checked: behavior.checked,
                 focus:
                   typeof resultState.currentUserAction === 'object' &&
                   resultState.currentUserAction.action === UserObjectActionMap.FOCUS_UNDESIRABLE
                     ? resultState.currentUserAction.commandIndex === commandIndex &&
-                      resultUnexpectedBehavior.tabbedBehavior === unexpectedIndex
+                      resultNegativeSideEffect.tabbedBehavior === unexpectedIndex
                     : resultState.currentUserAction === UserActionMap.VALIDATE_RESULTS &&
-                      resultUnexpectedBehavior.hasUnexpected ===
-                        HasUnexpectedBehaviorMap.HAS_UNEXPECTED &&
-                      resultUnexpectedBehavior.behaviors.every(({ checked }) => !checked) &&
+                      resultNegativeSideEffect.hasNegativeSideEffect ===
+                        HasNegativeSideEffectMap.HAS_UNEXPECTED &&
+                      resultNegativeSideEffect.behaviors.every(({ checked }) => !checked) &&
                       focusFirstRequired(),
                 change: checked =>
-                  hooks.setCommandUnexpectedBehavior({ commandIndex, unexpectedIndex, checked }),
+                  hooks.setCommandNegativeSideEffect({ commandIndex, unexpectedIndex, checked }),
                 impactchange: impact =>
-                  hooks.setCommandUnexpectedBehaviorImpact({
+                  hooks.setCommandNegativeSideEffectImpact({
                     commandIndex,
                     unexpectedIndex,
                     impact,
@@ -341,7 +358,7 @@ export function instructionDocument(resultState, hooks) {
                 keydown: key => {
                   const increment = keyToFocusIncrement(key);
                   if (increment) {
-                    hooks.focusCommandUnexpectedBehavior({
+                    hooks.focusCommandNegativeSideEffect({
                       commandIndex,
                       unexpectedIndex,
                       increment,
@@ -361,12 +378,17 @@ export function instructionDocument(resultState, hooks) {
                   ]),
                   enabled: behavior.checked,
                   value: behavior.more.value,
-                  focus:
+                  focusImpact:
+                    resultState.currentUserAction === 'validateResults' &&
+                    needsSevereImpact(resultStateCommand) &&
+                    behavior.more.highlightRequired &&
+                    focusFirstRequired(),
+                  focusDetails:
                     resultState.currentUserAction === 'validateResults' &&
                     behavior.more.highlightRequired &&
                     focusFirstRequired(),
                   change: value =>
-                    hooks.setCommandUnexpectedBehaviorMore({
+                    hooks.setCommandNegativeSideEffectMore({
                       commandIndex,
                       unexpectedIndex,
                       more: value,
@@ -430,6 +452,7 @@ export const UserActionMap = createEnumMap({
   CLOSE_TEST_WINDOW: 'closeTestWindow',
   VALIDATE_RESULTS: 'validateResults',
   CHANGE_TEXT: 'changeText',
+  CHANGE_UNTESTABLE: 'changeUntestable',
   CHANGE_SELECTION: 'changeSelection',
   SHOW_RESULTS: 'showResults',
 });
@@ -447,13 +470,13 @@ export const UserObjectActionMap = createEnumMap({
  */
 
 /**
- * @typedef {EnumValues<typeof HasUnexpectedBehaviorMap>} HasUnexpectedBehavior
+ * @typedef {EnumValues<typeof HasNegativeSideEffectMap>} HasNegativeSideEffect
  */
 
-export const HasUnexpectedBehaviorMap = createEnumMap({
+export const HasNegativeSideEffectMap = createEnumMap({
   NOT_SET: 'notSet',
-  HAS_UNEXPECTED: 'hasUnexpected',
-  DOES_NOT_HAVE_UNEXPECTED: 'doesNotHaveUnexpected',
+  HAS_UNEXPECTED: 'hasNegativeSideEffect',
+  DOES_NOT_HAVE_UNEXPECTED: 'doesNotHaveNegativeSideEffect',
 });
 
 export const CommonResultMap = createEnumMap({
@@ -482,10 +505,10 @@ export const AssertionResultMap = createEnumMap({
 });
 
 /**
- * @typedef {EnumValues<typeof UnexpectedBehaviorImpactMap>} UnexpectedBehaviorImpact
+ * @typedef {EnumValues<typeof NegativeSideEffectImpactMap>} NegativeSideEffectImpact
  */
 
-export const UnexpectedBehaviorImpactMap = createEnumMap({
+export const NegativeSideEffectImpactMap = createEnumMap({
   MODERATE: 'Moderate',
   SEVERE: 'Severe',
 });
@@ -509,6 +532,51 @@ export function userChangeCommandOutput({ commandIndex, atOutput }) {
               atOutput: {
                 ...commandState.atOutput,
                 value: atOutput,
+              },
+            }
+      ),
+    };
+  };
+}
+
+/**
+ * @param {object} props
+ * @param {number} props.commandIndex
+ * @param {boolean} props.isUntestable
+ * @returns {(state: TestRunState) => TestRunState}
+ */
+export function userChangeCommandUntestable({ commandIndex, isUntestable }) {
+  return function (state) {
+    // When the user indicates that a command is untestable, they are tacitly
+    // signalling that there was at least one negative side effect.
+    let newState = userChangeCommandHasNegativeSideEffect({
+      commandIndex,
+      hasNegativeSideEffect: isUntestable
+        ? HasNegativeSideEffectMap.HAS_UNEXPECTED
+        : HasNegativeSideEffectMap.NOT_SET,
+    })(state);
+
+    const total = newState.commands[commandIndex].assertions.length;
+    const result = isUntestable ? false : AssertionResultMap.NOT_SET;
+    for (let assertionIndex = 0; assertionIndex < total; ++assertionIndex) {
+      newState = userChangeCommandAssertion({
+        commandIndex,
+        assertionIndex,
+        result,
+      })(newState);
+    }
+
+    return {
+      ...newState,
+      currentUserAction: UserActionMap.CHANGE_UNTESTABLE,
+      commands: newState.commands.map((commandState, index) =>
+        index !== commandIndex
+          ? commandState
+          : {
+              ...commandState,
+              untestable: {
+                ...commandState.untestable,
+                value: isUntestable,
               },
             }
       ),
@@ -575,10 +643,10 @@ export function userChangeCommandAdditionalAssertion({
 /**
  * @param {object} props
  * @param {number} props.commandIndex
- * @param {HasUnexpectedBehavior} props.hasUnexpected
+ * @param {HasNegativeSideEffect} props.hasNegativeSideEffect
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandHasUnexpectedBehavior({ commandIndex, hasUnexpected }) {
+export function userChangeCommandHasNegativeSideEffect({ commandIndex, hasNegativeSideEffect }) {
   return function (state) {
     return {
       ...state,
@@ -590,13 +658,29 @@ export function userChangeCommandHasUnexpectedBehavior({ commandIndex, hasUnexpe
               ...command,
               unexpected: {
                 ...command.unexpected,
-                hasUnexpected: hasUnexpected,
-                tabbedBehavior: hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED ? 0 : -1,
-                behaviors: command.unexpected.behaviors.map(behavior => ({
-                  ...behavior,
-                  checked: false,
-                  more: behavior.more ? { ...behavior.more, value: '' } : null,
-                })),
+                hasNegativeSideEffect: hasNegativeSideEffect,
+                tabbedBehavior:
+                  hasNegativeSideEffect === HasNegativeSideEffectMap.HAS_UNEXPECTED ? 0 : -1,
+                behaviors: command.unexpected.behaviors.map(behavior =>
+                  // If `hasNegativeSideEffect` is being re-set to the existing value,
+                  // that indicates the user has triggered this update to
+                  // "hasUnepected" by a means other than the input element
+                  // dedicated to this state. Retain any existing "behavior"
+                  // values since they likely reflect the information that the
+                  // user wishes to submit.
+                  //
+                  // For instance, the user may first indicate that negative
+                  // side effects have occurred along with corresponding
+                  // behaviors. If they subsequently indicate that the scenario
+                  // is untestable, the behavior data should be retained.
+                  command.unexpected.hasNegativeSideEffect === hasNegativeSideEffect
+                    ? behavior
+                    : {
+                        ...behavior,
+                        checked: false,
+                        more: behavior.more ? { ...behavior.more, value: '' } : null,
+                      }
+                ),
               },
             }
       ),
@@ -611,7 +695,7 @@ export function userChangeCommandHasUnexpectedBehavior({ commandIndex, hasUnexpe
  * @param {boolean} props.checked
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandUnexpectedBehavior({ commandIndex, unexpectedIndex, checked }) {
+export function userChangeCommandNegativeSideEffect({ commandIndex, unexpectedIndex, checked }) {
   return function (state) {
     return {
       ...state,
@@ -645,7 +729,7 @@ export function userChangeCommandUnexpectedBehavior({ commandIndex, unexpectedIn
  * @param {string} props.impact
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandUnexpectedBehaviorImpact({
+export function userChangeCommandNegativeSideEffectImpact({
   commandIndex,
   unexpectedIndex,
   impact,
@@ -664,7 +748,7 @@ export function userChangeCommandUnexpectedBehaviorImpact({
                 behaviors: command.unexpected.behaviors.map((unexpected, unexpectedI) =>
                   unexpectedI !== unexpectedIndex
                     ? unexpected
-                    : /** @type {TestRunUnexpectedBehavior} */ ({
+                    : /** @type {TestRunNegativeSideEffect} */ ({
                         ...unexpected,
                         impact: impact,
                       })
@@ -683,7 +767,7 @@ export function userChangeCommandUnexpectedBehaviorImpact({
  * @param {string} props.more
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userChangeCommandUnexpectedBehaviorMore({ commandIndex, unexpectedIndex, more }) {
+export function userChangeCommandNegativeSideEffectMore({ commandIndex, unexpectedIndex, more }) {
   return function (state) {
     return {
       ...state,
@@ -698,7 +782,7 @@ export function userChangeCommandUnexpectedBehaviorMore({ commandIndex, unexpect
                 behaviors: command.unexpected.behaviors.map((unexpected, unexpectedI) =>
                   unexpectedI !== unexpectedIndex
                     ? unexpected
-                    : /** @type {TestRunUnexpectedBehavior} */ ({
+                    : /** @type {TestRunNegativeSideEffect} */ ({
                         ...unexpected,
                         more: {
                           ...unexpected.more,
@@ -761,6 +845,10 @@ function submitResult(app) {
     return;
   }
 
+  if (app.state.commands.some(needsSevereImpact)) {
+    return;
+  }
+
   app.hooks.postResults();
 
   app.hooks.closeTestPage();
@@ -787,12 +875,31 @@ function isSomeFieldRequired(state) {
   return state.commands.some(
     command =>
       command.atOutput.value.trim() === '' ||
-      command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.NOT_SET ||
-      (command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED &&
+      command.unexpected.hasNegativeSideEffect === HasNegativeSideEffectMap.NOT_SET ||
+      (command.unexpected.hasNegativeSideEffect === HasNegativeSideEffectMap.HAS_UNEXPECTED &&
         (command.unexpected.behaviors.every(({ checked }) => !checked) ||
           command.unexpected.behaviors.some(
             behavior => behavior.checked && behavior.more && behavior.more.value.trim() === ''
           )))
+  );
+}
+
+/**
+ * @param {TestRunCommand} command
+ * @returns {boolean}
+ */
+function needsSevereImpact(command) {
+  return !!command.untestable.value && !commandHasSevereImpact(command);
+}
+
+/**
+ * @param {TestRunCommand} command
+ * @returns {boolean}
+ */
+function commandHasSevereImpact(command) {
+  return (
+    command.unexpected.hasNegativeSideEffect === HasNegativeSideEffectMap.HAS_UNEXPECTED &&
+    command.unexpected.behaviors.some(behavior => behavior.checked && behavior.impact === 'SEVERE')
   );
 }
 
@@ -846,7 +953,7 @@ function resultsTableDocument(state) {
 
         let passingAssertions = ['No passing assertions'];
         let failingAssertions = ['No failing assertions'];
-        let unexpectedBehaviors = ['None'];
+        let negativeSideEffects = ['None'];
 
         if (allAssertions.some(({ result }) => result)) {
           passingAssertions = allAssertions
@@ -859,7 +966,7 @@ function resultsTableDocument(state) {
             .map(({ description }) => description);
         }
         if (command.unexpected.behaviors.some(({ checked }) => checked)) {
-          unexpectedBehaviors = command.unexpected.behaviors
+          negativeSideEffects = command.unexpected.behaviors
             .filter(({ checked }) => checked)
             .map(({ description, more, impact }) => {
               let result = `${description} (`;
@@ -899,9 +1006,9 @@ function resultsTableDocument(state) {
               description: 'Failing Assertions:',
               items: failingAssertions,
             },
-            unexpectedBehaviors: {
+            negativeSideEffects: {
               description: 'Other behaviors that create negative impact:',
-              items: unexpectedBehaviors,
+              items: negativeSideEffects,
             },
           },
         };
@@ -935,7 +1042,7 @@ export function userCloseWindow() {
  * @param {TestRunFocusIncrement} props.increment
  * @returns {(state: TestRunState) => TestRunState}
  */
-export function userFocusCommandUnexpectedBehavior({ commandIndex, unexpectedIndex, increment }) {
+export function userFocusCommandNegativeSideEffect({ commandIndex, unexpectedIndex, increment }) {
   return function (state) {
     const unexpectedLength = state.commands[commandIndex].unexpected.behaviors.length;
     const incrementValue = increment === 'next' ? 1 : -1;
@@ -983,11 +1090,16 @@ export function userValidateState() {
             ...command.atOutput,
             highlightRequired: !command.atOutput.value.trim(),
           },
+          untestable: {
+            ...command.untestable,
+            highlightRequired: needsSevereImpact(command),
+          },
           unexpected: {
             ...command.unexpected,
             highlightRequired:
-              command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.NOT_SET ||
-              (command.unexpected.hasUnexpected === HasUnexpectedBehaviorMap.HAS_UNEXPECTED &&
+              command.unexpected.hasNegativeSideEffect === HasNegativeSideEffectMap.NOT_SET ||
+              (command.unexpected.hasNegativeSideEffect ===
+                HasNegativeSideEffectMap.HAS_UNEXPECTED &&
                 command.unexpected.behaviors.every(({ checked }) => !checked)),
             behaviors: command.unexpected.behaviors.map(unexpected => {
               return unexpected.more
@@ -1048,7 +1160,8 @@ export function userValidateState() {
  * @property {Description} description
  * @property {string} value
  * @property {boolean} enabled
- * @property {boolean} [focus]
+ * @property {boolean} [focusImpact]
+ * @property {boolean} [focusDetails]
  * @property {(value: string) => void} change
  */
 
@@ -1137,7 +1250,7 @@ export function userValidateState() {
  * @property {InstructionDocumentResultsCommandsATOutput} atOutput
  * @property {InstructionDocumentResultsCommandsAssertionsHeader} assertionsHeader
  * @property {InstructionDocumentResultsCommandsAssertion[]} assertions
- * @property {InstructionDocumentResultsCommandsUnexpected} unexpectedBehaviors
+ * @property {InstructionDocumentResultsCommandsUnexpected} negativeSideEffects
  */
 
 /**
@@ -1206,16 +1319,17 @@ export function userValidateState() {
 /**
  * @typedef TestRunHooks
  * @property {() => void} closeTestPage
- * @property {(options: {commandIndex: number, unexpectedIndex: number, increment: TestRunFocusIncrement}) => void} focusCommandUnexpectedBehavior
+ * @property {(options: {commandIndex: number, unexpectedIndex: number, increment: TestRunFocusIncrement}) => void} focusCommandNegativeSideEffect
  * @property {() => void} openTestPage
  * @property {() => void} postResults
  * @property {(options: {commandIndex: number, additionalAssertionIndex: number, result: AdditionalAssertionResult}) => void} setCommandAdditionalAssertion
  * @property {(options: {commandIndex: number, assertionIndex: number, result: AssertionResult}) => void} setCommandAssertion
- * @property {(options: {commandIndex: number, hasUnexpected: HasUnexpectedBehavior}) => void } setCommandHasUnexpectedBehavior
+ * @property {(options: {commandIndex: number, hasNegativeSideEffect: HasNegativeSideEffect}) => void } setCommandHasNegativeSideEffect
  * @property {(options: {commandIndex: number, atOutput: string}) => void} setCommandOutput
- * @property {(options: {commandIndex: number, unexpectedIndex: number, checked}) => void } setCommandUnexpectedBehavior
- * @property {(options: {commandIndex: number, unexpectedIndex: number, impact: string}) => void } setCommandUnexpectedBehaviorImpact
- * @property {(options: {commandIndex: number, unexpectedIndex: number, more: string}) => void } setCommandUnexpectedBehaviorMore
+ * @property {(options: {commandIndex: number, isUntestable: boolean}) => void} setCommandUntestable
+ * @property {(options: {commandIndex: number, unexpectedIndex: number, checked}) => void } setCommandNegativeSideEffect
+ * @property {(options: {commandIndex: number, unexpectedIndex: number, impact: string}) => void } setCommandNegativeSideEffectImpact
+ * @property {(options: {commandIndex: number, unexpectedIndex: number, more: string}) => void } setCommandNegativeSideEffectMore
  * @property {() => void} submit
  */
 
@@ -1248,7 +1362,7 @@ export function userValidateState() {
  */
 
 /**
- * @typedef TestRunUnexpectedBehavior
+ * @typedef TestRunNegativeSideEffect
  * @property {string} description
  * @property {boolean} checked
  * @property {object} [more]
@@ -1260,9 +1374,9 @@ export function userValidateState() {
 /**
  * @typedef TestRunUnexpectedGroup
  * @property {boolean} highlightRequired
- * @property {HasUnexpectedBehavior} hasUnexpected
+ * @property {HasNegativeSideEffect} hasNegativeSideEffect
  * @property {number} tabbedBehavior
- * @property {TestRunUnexpectedBehavior[]} behaviors
+ * @property {TestRunNegativeSideEffect[]} behaviors
  */
 
 /**
@@ -1324,7 +1438,7 @@ export function userValidateState() {
  * @property {Description} table.commands[].details.output
  * @property {ResultsTableDetailsList} table.commands[].details.passingAssertions
  * @property {ResultsTableDetailsList} table.commands[].details.failingAssertions
- * @property {ResultsTableDetailsList} table.commands[].details.unexpectedBehaviors
+ * @property {ResultsTableDetailsList} table.commands[].details.negativeSideEffects
  */
 
 /**

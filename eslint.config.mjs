@@ -1,26 +1,25 @@
 import globals from 'globals';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
 import eslintJs from '@eslint/js';
 
 import eslintN from 'eslint-plugin-n';
 import eslintPrettierRecommended from 'eslint-plugin-prettier/recommended';
 
-export default [
-  {
-    ignores: [
-      'tests/**/reference/**/*',
-      'build/tests/**/*',
-      'build/resources/*',
+export default defineConfig([
+  globalIgnores([
+    'node_modules/**/*',
+    'tests/**/reference/**/*',
+    'build/tests/**/*',
+    'build/resources/**/*',
+    // keys are manually parsed in process-test-directory.js and depend on format
+    'tests/resources/keys.mjs',
 
-      // keys are manually parsed in process-test-directory.js and depend on format
-      'resources/keys.mjs',
+    // Automated tests related resources
+    '__test__/__mocks__/tests/**/reference/**/*',
+    '__test__/build/tests/**/*',
+  ]),
 
-      // Automated tests related resources
-      '__test__/__mocks__/tests/**/reference/**/*',
-      '__test__/build/tests/**/*',
-    ],
-  },
-  eslintJs.configs.recommended,
   {
     languageOptions: {
       globals: {
@@ -34,6 +33,12 @@ export default [
       sourceType: 'module',
     },
 
+    extends: [
+      eslintJs.configs.recommended,
+      eslintN.configs['flat/recommended'],
+      eslintPrettierRecommended,
+    ],
+
     plugins: {
       eslintN,
     },
@@ -45,6 +50,4 @@ export default [
       'n/no-process-exit': 0,
     },
   },
-  // https://github.com/prettier/eslint-plugin-prettier?tab=readme-ov-file#configuration-new-eslintconfigjs
-  eslintPrettierRecommended,
-];
+]);

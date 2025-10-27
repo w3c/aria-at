@@ -7,9 +7,18 @@ import { unescapeHTML } from './utils.mjs';
  * @param {string} mode
  * @param {string} task
  * @param {number} testNumber
+ * @param {any[]} referencesData
  * @returns {{defaultConfigurationInstructions, assertionsForCommandsInstructions, at, modeInstructions, userInstruction, commandsValuesForInstructions}}
  */
-const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, testNumber }) => {
+const processCollectedTests = ({
+  collectedTest,
+  commandsAPI,
+  atKey,
+  mode,
+  task,
+  testNumber,
+  referencesData = [],
+}) => {
   let assertionsInstructions,
     assertionsForCommandsInstructions,
     commandsValuesForInstructions,
@@ -41,11 +50,20 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
           }
 
           // V2 support
+          const expandedRefs = a.refIds
+            ? a.refIds.split(' ').map(refId => referencesData.find(ref => ref.refId === refId))
+            : [];
+          const helpLinksExist = expandedRefs.length > 0;
+          const helpLinksIsList = expandedRefs.length > 1;
           return {
             assertionId: a.assertionId,
             priority: getPriorityString(a.priority),
             assertionPhrase: a.tokenizedAssertionPhrases?.[at.key] || a.assertionPhrase,
             assertionStatement: a.tokenizedAssertionStatements?.[at.key] || a.assertionStatement,
+            refIds: a.refIds,
+            expandedRefs,
+            helpLinksExist,
+            helpLinksIsList,
           };
         })
       : undefined;

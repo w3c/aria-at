@@ -50,20 +50,20 @@ const processCollectedTests = ({
           }
 
           // V2 support
-          const expandedRefs = a.refIds
+          const ariaHtmlFeatures = a.refIds
             ? a.refIds.split(' ').map(refId => referencesData.find(ref => ref.refId === refId))
             : [];
-          const helpLinksExist = expandedRefs.length > 0;
-          const helpLinksIsList = expandedRefs.length > 1;
+          const ariaHtmlFeaturesExist = ariaHtmlFeatures.length > 0;
+          const ariaHtmlFeaturesIsList = ariaHtmlFeatures.length > 1;
           return {
             assertionId: a.assertionId,
             priority: getPriorityString(a.priority),
             assertionPhrase: a.tokenizedAssertionPhrases?.[at.key] || a.assertionPhrase,
             assertionStatement: a.tokenizedAssertionStatements?.[at.key] || a.assertionStatement,
             refIds: a.refIds,
-            expandedRefs,
-            helpLinksExist,
-            helpLinksIsList,
+            ariaHtmlFeatures,
+            ariaHtmlFeaturesExist,
+            ariaHtmlFeaturesIsList,
           };
         })
       : undefined;

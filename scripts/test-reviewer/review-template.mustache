@@ -203,23 +203,23 @@
                   <td>{{assertionStatement}}</td>
                   {{#isV2}}
                   <td>
-                  {{#helpLinksExist}}
-                    {{#helpLinksIsList}}
+                  {{#ariaHtmlFeaturesExist}}
+                    {{#ariaHtmlFeaturesIsList}}
                       <ul>
-                      {{#expandedRefs}}
+                      {{#ariaHtmlFeatures}}
                         <li><a href="{{value}}">{{linkText}}</a></li>
-                      {{/expandedRefs}}
+                      {{/ariaHtmlFeatures}}
                       </ul>
-                    {{/helpLinksIsList}}
-                    {{^helpLinksIsList}}
-                      {{#expandedRefs}}
+                    {{/ariaHtmlFeaturesIsList}}
+                    {{^ariaHtmlFeaturesIsList}}
+                      {{#ariaHtmlFeatures}}
                         <a href="{{value}}">{{linkText}}</a>
-                      {{/expandedRefs}}
-                    {{/helpLinksIsList}}
-                  {{/helpLinksExist}}
-                  {{^helpLinksExist}}
+                      {{/ariaHtmlFeatures}}
+                    {{/ariaHtmlFeaturesIsList}}
+                  {{/ariaHtmlFeaturesExist}}
+                  {{^ariaHtmlFeaturesExist}}
                     None
-                  {{/helpLinksExist}}
+                  {{/ariaHtmlFeaturesExist}}
                   </td>
                   {{/isV2}}
                 </tr>

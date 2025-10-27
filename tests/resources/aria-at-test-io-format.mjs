@@ -81,8 +81,8 @@ class KeysInput {
     const atKey = configInput.at().key;
 
     invariant(
-      ['jaws', 'nvda', 'voiceover_macos'].includes(atKey),
-      '%s is one of "jaws", "nvda", or "voiceover_macos"',
+      ['jaws', 'nvda', 'talkback_android', 'voiceover_macos'].includes(atKey),
+      '%s is not one of "jaws", "nvda", "talkback_android" or "voiceover_macos"',
       atKey
     );
 

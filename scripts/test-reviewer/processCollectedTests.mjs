@@ -7,7 +7,7 @@ import { unescapeHTML } from './utils.mjs';
  * @param {string} mode
  * @param {string} task
  * @param {number} testNumber
- * @param {any[]} referencesData
+ * @param {{linkText: string, refId: string, type: string, value: string}[]} referencesData
  * @returns {{defaultConfigurationInstructions, assertionsForCommandsInstructions, at, modeInstructions, userInstruction, commandsValuesForInstructions}}
  */
 const processCollectedTests = ({
@@ -51,7 +51,10 @@ const processCollectedTests = ({
 
           // V2 support
           const ariaHtmlFeatures = a.refIds
-            ? a.refIds.split(' ').map(refId => referencesData.find(ref => ref.refId === refId))
+            ? a.refIds
+                .trim()
+                .split(' ')
+                .map(refId => referencesData.find(ref => ref.refId === refId))
             : [];
           const ariaHtmlFeaturesExist = ariaHtmlFeatures.length > 0;
           const ariaHtmlFeaturesIsList = ariaHtmlFeatures.length > 1;

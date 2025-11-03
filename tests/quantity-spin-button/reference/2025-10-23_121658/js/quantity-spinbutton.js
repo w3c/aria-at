@@ -134,8 +134,12 @@ class SpinButton {
   }
 }
 
-window.addEventListener('load', () =>
-  document
-    .querySelectorAll('[role="spinbutton"]')
-    .forEach((el) => new SpinButton(el))
-);
+window.addEventListener('load', () => {
+  let spinButtons = document.querySelectorAll('[role="spinbutton"]')
+  spinButtons.forEach((el) => {
+    let controller = new SpinButton(el);
+    if (el.id === 'adults') {
+      document.defaultView.spinButtonController = controller;
+    }
+  });
+});

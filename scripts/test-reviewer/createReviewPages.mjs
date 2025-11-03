@@ -263,12 +263,17 @@ export function createReviewPages(config) {
       const output = spawnSync('git', ['log', '-1', '--format="%ad"', testFilePath]);
       const lastEdited = output.stdout.toString().replace(/"/gi, '').replace('\n', '');
 
+      // Build path prefix including subfolder if present
+      const testPlanPathPrefix = testPlan.subfolder
+        ? `${testPlan.subfolder}/${testPlan.name}`
+        : testPlan.name;
+
       tests.push({
         testNumber,
         title: titleFromReferencesCSV.value,
         name: testFullName,
-        location: `/${directory}/${test}`,
-        reference: `/${directory}/${path.posix.join(
+        location: `/${testPlanPathPrefix}/${test}`,
+        reference: `/${testPlanPathPrefix}/${path.posix.join(
           path.dirname(referenceFromReferencesCSV.value),
           path.basename(referenceFromReferencesCSV.value, '.html')
         )}${testData.setupTestPage ? `.${testData.setupTestPage}` : ''}.html`,
@@ -294,14 +299,29 @@ export function createReviewPages(config) {
     });
 
     if (tests.length) {
-      allTestsForPattern[testPlan.name] = tests;
+      const patternKey = testPlan.subfolder
+        ? `${testPlan.subfolder}/${testPlan.name}`
+        : testPlan.name;
+      allTestsForPattern[patternKey] = tests;
+
+      if (!allTestsForPattern.info) allTestsForPattern.info = {};
+      allTestsForPattern.info[patternKey] = {
+        subfolder: testPlan.subfolder,
+        name: testPlan.name,
+      };
     }
   });
 
   // Generate individual patterns' review pages
-  const patterns = TARGET_TEST_PLAN ? [TARGET_TEST_PLAN] : Object.keys(allTestsForPattern);
+  const patterns = TARGET_TEST_PLAN
+    ? Object.keys(allTestsForPattern).filter(key => {
+        if (key === 'info') return false;
+        const info = allTestsForPattern.info?.[key];
+        return (info?.name || key) === TARGET_TEST_PLAN;
+      })
+    : Object.keys(allTestsForPattern).filter(key => key !== 'info');
 
-  if (patterns.length === 0) {
+  if (TARGET_TEST_PLAN && patterns.length === 0) {
     console.error(`Unable to find valid test plan(s): ${TARGET_TEST_PLAN}`);
     process.exit(1);
   }
@@ -314,6 +334,7 @@ export function createReviewPages(config) {
     reviewBuildDirectory,
     atOptions: support.ats,
     setupScripts: scripts,
+    testPlansInfo: allTestsForPattern.info || {},
   });
 
   // Generate build/index.html entry file

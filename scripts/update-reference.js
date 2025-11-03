@@ -10,13 +10,14 @@ const args = require('minimist')(process.argv.slice(2), {
   alias: {
     h: 'help',
     r: 'aria-practices-repository',
+    t: 'target',
   },
 });
 
 if (args.help) {
   console.log(`
 Default use:
-  node update-reference.js exampleName [-r ariaPracticesRepository]
+  node update-reference.js exampleName [-r ariaPracticesRepository] [-t target]
     It will copy the latest example html from the aria-practices repository into this repository.
     It will clone the latest aria-practices directory or use an existing clone.
     The example html url for the example needs to be specified in the references.csv file for the example named.
@@ -24,6 +25,7 @@ Default use:
     The new reference will only be used when the references.csv file's reference value is updated to point to the new reference folder.
   Arguments:
     -r, --aria-practices-repository
+    -t, --target
     -h, --help
        Show this message.
 `);
@@ -91,7 +93,9 @@ function extractExampleUrl(referencesCsv) {
 
 async function copyExampleToRepo(exampleName) {
   try {
-    const testDirectory = path.join('tests', exampleName);
+    const testDirectory = args.target
+      ? path.join('tests', args.target, exampleName)
+      : path.join('tests', exampleName);
     try {
       fse.statSync(testDirectory);
     } catch (err) {
@@ -227,20 +231,24 @@ async function copyExampleToRepo(exampleName) {
       currentDateTime.getHours() +
       +currentDateTime.getMinutes() +
       currentDateTime.getSeconds();
-    const referenceDir = path.join(
-      apgPath,
-      '..',
-      '..',
-      'tests',
-      exampleName,
-      'reference',
-      formattedDateTime
-    );
+    const referenceDir = args.target
+      ? path.join(
+          apgPath,
+          '..',
+          '..',
+          'tests',
+          args.target,
+          exampleName,
+          'reference',
+          formattedDateTime
+        )
+      : path.join(apgPath, '..', '..', 'tests', exampleName, 'reference', formattedDateTime);
     await fse.ensureDir(referenceDir);
     const filterFunc = src => {
       return src.indexOf('.html') === -1 || src === htmlFileAbsolute;
     };
 
+    // TODO: This will have to be configurable to handle other example pattern sources
     const pathAfterPatterns = htmlFileAbsolute.split(`patterns${path.sep}`)[1];
     const pathToExamples = pathAfterPatterns.substring(0, pathAfterPatterns.lastIndexOf(path.sep));
 
@@ -257,16 +265,21 @@ async function copyExampleToRepo(exampleName) {
       'reference',
       referenceHtml.split(`reference${path.sep}`)[1]
     );
-    console.log(`Reference files created at ${posixPath(
-      `tests/${exampleName}/${referenceHtmlPath}`
-    )}.\n
+    const testPath = args.target
+      ? `tests/${args.target}/${exampleName}/${referenceHtmlPath}`
+      : `tests/${exampleName}/${referenceHtmlPath}`;
+    console.log(`Reference files created at ${posixPath(testPath)}.\n
 To switch the tests to run the updated reference:
 \t1. Update ${posixPath(
-      path.join('tests', exampleName, 'data', 'references.csv')
+      args.target
+        ? path.join('tests', args.target, exampleName, 'data', 'references.csv')
+        : path.join('tests', exampleName, 'data', 'references.csv')
     )} reference value with ${posixPath(referenceHtmlPath)}.
 \t2. Open the html file and edit it to only include the example. The title, imported assets, h1 with the example name, and the div with the actual example (Usually #ex1) need to be preserved, but everything else can be removed.
 \t3. Run npm run build --testplan=${exampleName}, to generate variations of the the new reference example with the setupScript values defined in ${posixPath(
-      path.join('tests', exampleName, 'data', 'tests.csv')
+      args.target
+        ? path.join('tests', args.target, exampleName, 'data', 'tests.csv')
+        : path.join('tests', exampleName, 'data', 'tests.csv')
     )}.
 \t4. Commit these changes.`);
   } finally {

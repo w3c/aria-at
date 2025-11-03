@@ -8,6 +8,85 @@ const {
 } = require('../../lib/data/process-test-directory/v1');
 const { consoleText, consoleColors } = require('../../lib/util/console');
 
+/**
+ * @param {string} testsDirectory - Path to the tests directory
+ * @param {string|null} targetTestPlan - Specific test plan to find, or null for all
+ * @returns {Array<{name: string, subfolder: string|null, subfolderName: string|null}>} Array of test plan info
+ */
+function getAllTestPlans(testsDirectory, targetTestPlan) {
+  const testPlans = [];
+
+  try {
+    const entries = fse.readdirSync(testsDirectory, { withFileTypes: true });
+
+    for (const entry of entries) {
+      if (entry.name === 'commands.json' || entry.name === 'support.json') {
+        continue;
+      }
+
+      const entryPath = path.join(testsDirectory, entry.name);
+
+      if (entry.isDirectory()) {
+        // Check if this is a test plan directory (has data subdirectory)
+        const dataPath = path.join(entryPath, 'data');
+        if (fse.existsSync(dataPath) && fse.statSync(dataPath).isDirectory()) {
+          // This is a test plan directly in tests directory
+          if (!targetTestPlan || entry.name === targetTestPlan) {
+            testPlans.push({
+              name: entry.name,
+              subfolder: null,
+              subfolderName: null,
+            });
+          }
+        } else {
+          // This might be a subfolder containing test plans
+          try {
+            const subfolderEntries = fse.readdirSync(entryPath, { withFileTypes: true });
+            for (const subEntry of subfolderEntries) {
+              if (subEntry.isDirectory()) {
+                const subEntryPath = path.join(entryPath, subEntry.name);
+                const subDataPath = path.join(subEntryPath, 'data');
+                if (fse.existsSync(subDataPath) && fse.statSync(subDataPath).isDirectory()) {
+                  // This is a test plan in a subfolder
+                  if (!targetTestPlan || subEntry.name === targetTestPlan) {
+                    // Try to get subfolder name from support.json
+                    let subfolderName = entry.name; // Default to folder name
+                    try {
+                      const supportJsonPath = path.join(testsDirectory, 'support.json');
+                      if (fse.existsSync(supportJsonPath)) {
+                        const supportJson = JSON.parse(fse.readFileSync(supportJsonPath, 'utf8'));
+                        if (supportJson.subfolders && supportJson.subfolders[entry.name]) {
+                          subfolderName = supportJson.subfolders[entry.name];
+                        }
+                      }
+                    } catch (error) {
+                      // If we can't read support.json, just use the folder name
+                      console.error('error.read.support.json', error);
+                    }
+
+                    testPlans.push({
+                      name: subEntry.name,
+                      subfolder: entry.name,
+                      subfolderName,
+                    });
+                  }
+                }
+              }
+            }
+          } catch (error) {
+            // If we can't read the subfolder, skip it
+            console.error('error.read.tests.subfolder.skip', error);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error('error.read.tests.directory', error);
+  }
+
+  return testPlans;
+}
+
 const cliArgs = require('minimist')(process.argv.slice(2), {
   alias: {
     h: 'help',
@@ -68,13 +147,8 @@ async function createAllTests(config = {}) {
   const rootDirectory = path.join(scriptsDirectory, '../..');
   const testsDirectory = config?.testsDirectory ?? path.join(rootDirectory, 'tests');
 
-  const filteredTestPlans = fse.readdirSync(testsDirectory).filter(f =>
-    TARGET_TEST_PLAN
-      ? f !== 'resources' &&
-        f === TARGET_TEST_PLAN &&
-        fse.statSync(path.join(testsDirectory, f)).isDirectory() // checking to see if individual test plan has been specified
-      : f !== 'resources' && fse.statSync(path.join(testsDirectory, f)).isDirectory()
-  );
+  // Get all test plans including those in subfolders
+  const filteredTestPlans = getAllTestPlans(testsDirectory, TARGET_TEST_PLAN);
 
   if (!filteredTestPlans.length) {
     // most likely to happen if incorrect testPlan specified
@@ -83,37 +157,44 @@ async function createAllTests(config = {}) {
   }
 
   const filteredTests = await Promise.all(
-    filteredTestPlans.map(directory => {
+    filteredTestPlans.map(testPlan => {
       let FALLBACK_V1_CHECK = false;
       let FALLBACK_V2_CHECK = false;
 
       // Check if files exist for doing v2 build by default first, then try v1
       if (!V1_CHECK && !V2_CHECK) {
         // Use existence of assertions.csv to determine if v2 format files exist for now
-        const assertionsCsvPath = path.join(testsDirectory, directory, 'data', 'assertions.csv');
+        const testPlanPath = testPlan.subfolder
+          ? path.join(testsDirectory, testPlan.subfolder, testPlan.name)
+          : path.join(testsDirectory, testPlan.name);
+        const assertionsCsvPath = path.join(testPlanPath, 'data', 'assertions.csv');
 
         if (fse.existsSync(assertionsCsvPath)) FALLBACK_V2_CHECK = true;
         else FALLBACK_V1_CHECK = true;
       }
 
+      const directoryPath = testPlan.subfolder
+        ? path.join('tests', testPlan.subfolder, testPlan.name)
+        : path.join('tests', testPlan.name);
+
       if (FALLBACK_V2_CHECK || V2_CHECK) {
         return processTestDirectoryV2({
           args,
           testsDirectory,
-          directory: path.join('tests', directory),
+          directory: directoryPath,
           buildOutputDirectory: config?.buildOutputDirectory,
         }).catch(error => {
-          error.directory = directory;
+          error.directory = testPlan.name;
           throw error;
         });
       } else if (FALLBACK_V1_CHECK || V1_CHECK) {
         return processTestDirectoryV1({
           args,
           testsDirectory,
-          directory: path.join('tests', directory),
+          directory: directoryPath,
           buildOutputDirectory: config?.buildOutputDirectory,
         }).catch(error => {
-          error.directory = directory;
+          error.directory = testPlan.name;
           throw error;
         });
       }

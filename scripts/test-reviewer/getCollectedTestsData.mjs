@@ -4,9 +4,12 @@ import np from 'node-html-parser';
 
 /**
  * @param {string} testPlanBuildDirectory
+ * @param {*[]} referencesData
+ * @param aria
+ * @param htmlAam
  * @returns {*[]}
  */
-function getCollectedTestsData(testPlanBuildDirectory) {
+function getCollectedTestsData(testPlanBuildDirectory, { referencesData = [], aria, htmlAam }) {
   const collectedTests = [];
 
   fse.readdirSync(testPlanBuildDirectory).forEach(function (file) {
@@ -40,6 +43,25 @@ function getCollectedTestsData(testPlanBuildDirectory) {
             text = `ARIA specification: ${href.split('#')[1]}`;
           } else {
             text = `APG example: ${href.split('examples/')[1]}`;
+          }
+        } else {
+          // Construct the links using aria and htmlAam for the v2 tests
+          const reference = referencesData.find(
+            ref =>
+              ref.refId === href.trim() ||
+              ref.refId === text.trim() ||
+              ref.value === href.trim() ||
+              ref.value === text.trim()
+          );
+
+          if (reference?.type === 'aria') {
+            href = `${aria.baseUrl}${aria.fragmentIds[href]}`;
+            text = `${text} ${aria.linkText}`;
+          }
+
+          if (reference?.type === 'htmlAam') {
+            href = `${htmlAam.baseUrl}${htmlAam.fragmentIds[href]}`;
+            text = `${text} ${htmlAam.linkText}`;
           }
         }
 

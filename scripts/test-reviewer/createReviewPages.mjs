@@ -7,8 +7,98 @@ import getScriptsData from './getScriptsData.mjs';
 import getCollectedTestsData from './getCollectedTestsData.mjs';
 import processCollectedTests from './processCollectedTests.mjs';
 import { generatePatternPages, generateIndexPage } from './generateReviewPages.mjs';
-import { commandsAPI as CommandsAPI } from '../../tests/resources/at-commands.mjs';
+import { commandsAPI as CommandsAPI } from '../../resources/at-commands.mjs';
 import { unescapeHTML } from './utils.mjs';
+
+/**
+ * @param {string} testsDirectory - Path to the tests directory
+ * @param {string} testsBuildDirectory - Path to the tests build directory
+ * @param {string|null} targetTestPlan - Specific test plan to find, or null for all
+ * @returns {Array<{name: string, subfolder: string|null, subfolderName: string|null, sourcePath: string, buildPath: string}>} Array of test plan info
+ */
+function getAllTestPlansForReview(testsDirectory, testsBuildDirectory, targetTestPlan) {
+  const testPlans = [];
+
+  try {
+    const entries = fse.readdirSync(testsDirectory, { withFileTypes: true });
+
+    for (const entry of entries) {
+      if (entry.name === 'commands.json' || entry.name === 'support.json') {
+        continue;
+      }
+
+      const entryPath = path.join(testsDirectory, entry.name);
+
+      if (entry.isDirectory()) {
+        // Check if this is a test plan directory (has data subdirectory)
+        const dataPath = path.join(entryPath, 'data');
+        if (fse.existsSync(dataPath) && fse.statSync(dataPath).isDirectory()) {
+          // This is a test plan directly in tests directory
+          if (!targetTestPlan || entry.name === targetTestPlan) {
+            const buildPath = path.join(testsBuildDirectory, entry.name);
+            if (fse.existsSync(buildPath)) {
+              testPlans.push({
+                name: entry.name,
+                subfolder: null,
+                subfolderName: null,
+                sourcePath: entryPath,
+                buildPath,
+              });
+            }
+          }
+        } else {
+          // This might be a subfolder containing test plans
+          try {
+            const subfolderEntries = fse.readdirSync(entryPath, { withFileTypes: true });
+            for (const subEntry of subfolderEntries) {
+              if (subEntry.isDirectory()) {
+                const subEntryPath = path.join(entryPath, subEntry.name);
+                const subDataPath = path.join(subEntryPath, 'data');
+                if (fse.existsSync(subDataPath) && fse.statSync(subDataPath).isDirectory()) {
+                  // This is a test plan in a subfolder
+                  if (!targetTestPlan || subEntry.name === targetTestPlan) {
+                    const buildPath = path.join(testsBuildDirectory, entry.name, subEntry.name);
+                    if (fse.existsSync(buildPath)) {
+                      // Try to get subfolder name from support.json
+                      let subfolderName = entry.name; // Default to folder name
+                      try {
+                        const supportJsonPath = path.join(testsDirectory, 'support.json');
+                        if (fse.existsSync(supportJsonPath)) {
+                          const supportJson = JSON.parse(fse.readFileSync(supportJsonPath, 'utf8'));
+                          if (supportJson.subfolders && supportJson.subfolders[entry.name]) {
+                            subfolderName = supportJson.subfolders[entry.name];
+                          }
+                        }
+                      } catch (error) {
+                        // If we can't read support.json, just use the folder name
+                        console.error('error.read.support.json', error);
+                      }
+
+                      testPlans.push({
+                        name: subEntry.name,
+                        subfolder: entry.name,
+                        subfolderName,
+                        sourcePath: subEntryPath,
+                        buildPath,
+                      });
+                    }
+                  }
+                }
+              }
+            }
+          } catch (error) {
+            // If we can't read the subfolder, skip it
+            console.error('error.read.tests.subfolder.skip', error);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    console.error('error.read.tests.directory', error);
+  }
+
+  return testPlans;
+}
 
 /**
  * @param {object} config
@@ -62,19 +152,18 @@ export function createReviewPages(config) {
   const scripts = [];
   const allATKeys = support.ats.map(at => at.key);
 
-  fse.readdirSync(testsBuildDirectory).forEach(function (directory) {
-    const testPlanDirectory = path.join(testsDirectory, directory);
-    const stat = fse.statSync(testPlanDirectory);
+  // Get all test plans including those in subfolders
+  const allTestPlans = getAllTestPlansForReview(
+    testsDirectory,
+    testsBuildDirectory,
+    TARGET_TEST_PLAN
+  );
 
-    // Do nothing
-    if (!stat.isDirectory()) return;
-    if (directory === 'resources') return;
-
-    // Will continue if TARGET_TEST_PLAN is not set
-    if (TARGET_TEST_PLAN && directory !== TARGET_TEST_PLAN) return;
+  allTestPlans.forEach(function (testPlan) {
+    const testPlanDirectory = testPlan.sourcePath;
+    const testPlanBuildDirectory = testPlan.buildPath;
 
     // Initialize the commands API
-    const testPlanBuildDirectory = path.join(testsBuildDirectory, directory);
     const testPlanCommandsJSONFile = path.join(testPlanBuildDirectory, 'commands.json');
     const testPlanCommands = JSON.parse(fse.readFileSync(testPlanCommandsJSONFile));
     const commandsAPI = new CommandsAPI(testPlanCommands, support, allCommands);
@@ -94,12 +183,15 @@ export function createReviewPages(config) {
 
     if (!referenceFromReferencesCSV) {
       // force exit if file path reference not found
+      const testPlanPath = testPlan.subfolder
+        ? `tests/${testPlan.subfolder}/${testPlan.name}`
+        : `tests/${testPlan.name}`;
       console.error(
-        `'reference' value path defined in "tests/${directory}/data/references.csv" not found.`
+        `'reference' value path defined in "${testPlanPath}/data/references.csv" not found.`
       );
       process.exit(1);
     }
-    referencesForPattern[directory] = referencesData;
+    referencesForPattern[testPlan.name] = referencesData;
 
     // Get test plan's data/js/*.js script files data
     const scriptsData = getScriptsData(testPlanDirectory);
@@ -169,18 +261,23 @@ export function createReviewPages(config) {
       }
 
       // Create the test review pages
-      const testFilePath = path.join(testsDirectory, directory);
+      const testFilePath = testPlanDirectory;
       // TODO: useful for determining smart-diffs
 
       const output = spawnSync('git', ['log', '-1', '--format="%ad"', testFilePath]);
       const lastEdited = output.stdout.toString().replace(/"/gi, '').replace('\n', '');
 
+      // Build path prefix including subfolder if present
+      const testPlanPathPrefix = testPlan.subfolder
+        ? `${testPlan.subfolder}/${testPlan.name}`
+        : testPlan.name;
+
       tests.push({
         testNumber,
         title: titleFromReferencesCSV.value,
         name: testFullName,
-        location: `/${directory}/${test}`,
-        reference: `/${directory}/${path.posix.join(
+        location: `/${testPlanPathPrefix}/${test}`,
+        reference: `/${testPlanPathPrefix}/${path.posix.join(
           path.dirname(referenceFromReferencesCSV.value),
           path.basename(referenceFromReferencesCSV.value, '.html')
         )}${testData.setupTestPage ? `.${testData.setupTestPage}` : ''}.html`,
@@ -206,14 +303,29 @@ export function createReviewPages(config) {
     });
 
     if (tests.length) {
-      allTestsForPattern[directory] = tests;
+      const patternKey = testPlan.subfolder
+        ? `${testPlan.subfolder}/${testPlan.name}`
+        : testPlan.name;
+      allTestsForPattern[patternKey] = tests;
+
+      if (!allTestsForPattern.info) allTestsForPattern.info = {};
+      allTestsForPattern.info[patternKey] = {
+        subfolder: testPlan.subfolder,
+        name: testPlan.name,
+      };
     }
   });
 
   // Generate individual patterns' review pages
-  const patterns = TARGET_TEST_PLAN ? [TARGET_TEST_PLAN] : Object.keys(allTestsForPattern);
+  const patterns = TARGET_TEST_PLAN
+    ? Object.keys(allTestsForPattern).filter(key => {
+        if (key === 'info') return false;
+        const info = allTestsForPattern.info?.[key];
+        return (info?.name || key) === TARGET_TEST_PLAN;
+      })
+    : Object.keys(allTestsForPattern).filter(key => key !== 'info');
 
-  if (patterns.length === 0) {
+  if (TARGET_TEST_PLAN && patterns.length === 0) {
     console.error(`Unable to find valid test plan(s): ${TARGET_TEST_PLAN}`);
     process.exit(1);
   }
@@ -226,6 +338,7 @@ export function createReviewPages(config) {
     reviewBuildDirectory,
     atOptions: support.ats,
     setupScripts: scripts,
+    testPlansInfo: allTestsForPattern.info || {},
   });
 
   // Generate build/index.html entry file

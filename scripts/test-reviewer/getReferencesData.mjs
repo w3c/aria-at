@@ -3,11 +3,9 @@ import fse from 'fs-extra';
 
 /**
  * @param {string} testPlanDirectory
- * @param aria
- * @param htmlAam
  * @returns {{linkText: *, refId: *, type: *, value: *}[]}
  */
-const getReferencesData = (testPlanDirectory, aria, htmlAam) => {
+const getReferencesData = testPlanDirectory => {
   const referencesCsv = fse.readFileSync(
     path.join(testPlanDirectory, 'data', 'references.csv'),
     'UTF-8'
@@ -24,26 +22,14 @@ const getReferencesData = (testPlanDirectory, aria, htmlAam) => {
     return obj;
   });
 
-  return referencesData.map(
-    ({ refId: _refId, type: _type, value: _value, linkText: _linkText }) => {
-      let refId = _refId?.trim();
-      let type = _type?.trim();
-      let value = _value?.trim();
-      let linkText = _linkText?.trim();
+  return referencesData.map(referenceData => {
+    let refId = referenceData.refId?.trim();
+    let type = referenceData.type?.trim();
+    let value = referenceData.value?.trim();
+    let linkText = referenceData.linkText?.trim();
 
-      if (type === 'aria') {
-        value = `${aria.baseUrl}${aria.fragmentIds[value]}`;
-        linkText = `${linkText} ${aria.linkText}`;
-      }
-
-      if (type === 'htmlAam') {
-        value = `${htmlAam.baseUrl}${htmlAam.fragmentIds[value]}`;
-        linkText = `${linkText} ${htmlAam.linkText}`;
-      }
-
-      return { refId, type, value, linkText };
-    }
-  );
+    return { refId, type, value, linkText };
+  });
 };
 
 export default getReferencesData;

@@ -1,2 +1,7 @@
 testId,title,presentationNumber,setupScript,instructions,assertions
-triggerAlert,Trigger an alert,3,setFocusOnButton,"Starting at the 'Trigger Alert' button, activate the button to trigger the alert.",roleAlert textHello
+navForwardsToRequiredElement,Navigate forwards to a required text input,5,setFocusBeforeRequiredElement,"Starting at the 'Navigate forwards from here' link, navigate to the 'Imaginary Word' text input.",roleButton namePrintPage
+navBackToRequiredElement,Navigate backwards to a required text input,6,setFocusAfterRequiredElement,"Starting at the 'Navigate backwards from here' link, navigate to the 'Imaginary Word' text input.",roleButton namePrintPage
+navForwardsToNotRequiredElement,Navigate forwards to a text input with required set to false,10,setFocusBeforeRequiredElement,"Starting at the 'Navigate forwards from here' link, navigate to the 'Imaginary Word' text input.",roleButton namePrintPage
+navBackToNotRequiredElement,Navigate backwards to a text input with required set to false,11,setFocusAfterRequiredElement,"Starting at the 'Navigate backwards from here' link, navigate to the 'Imaginary Word' text input.",roleButton namePrintPage
+reqInfoAboutRequiredElement,Request information about a required text input,15,setFocusOnRequiredElement,"Starting at the 'Imaginary Word' text input, read information about the text input.",roleButton namePrintPage
+reqInfoAboutNotRequiredElement,Request information about a text input with required set to false,16,setFocusOnRequiredElement,"Starting at the 'Imaginary Word' text input, read information about the text input.",roleButton namePrintPage

@@ -13,7 +13,6 @@ const generatePatternPages = ({
   allTestsForPattern,
   referencesForPattern,
   reviewBuildDirectory,
-  testMode = false,
 }) => {
   patterns.forEach(pattern => {
     const references = referencesForPattern[pattern];

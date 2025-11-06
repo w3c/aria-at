@@ -14,7 +14,6 @@ const generatePatternPages = ({
   referencesForPattern,
   reviewBuildDirectory,
   testPlansInfo = {},
-  testMode = false,
 }) => {
   patterns.forEach(pattern => {
     const info = testPlansInfo[pattern];

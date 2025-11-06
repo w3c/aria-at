@@ -177,7 +177,7 @@ export function createReviewPages(config) {
     } = support;
 
     // Get test plan's references.csv data
-    const referencesData = getReferencesData(testPlanDirectory, aria, htmlAam);
+    const referencesData = getReferencesData(testPlanDirectory);
     const referenceFromReferencesCSV = getReferenceForDirectory(referencesData, 'reference');
     const titleFromReferencesCSV = getReferenceForDirectory(referencesData, 'title');
 
@@ -198,7 +198,11 @@ export function createReviewPages(config) {
     scripts.push(...scriptsData);
 
     // Get test plan build directory's from `test-{xx}-{testId}.html` files data
-    const collectedTestsData = getCollectedTestsData(testPlanBuildDirectory);
+    const collectedTestsData = getCollectedTestsData(testPlanBuildDirectory, {
+      referencesData,
+      aria,
+      htmlAam,
+    });
     collectedTests.push(...collectedTestsData);
 
     collectedTests.forEach(({ test, testFullName, helpLinks, ...testData }) => {

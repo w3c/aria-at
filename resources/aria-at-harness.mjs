@@ -128,7 +128,7 @@ export async function loadCollectedTestAsync(testRoot, testFileName) {
 
   // v2 commands.json
   // eslint-disable-next-line n/no-unsupported-features/node-builtins -- fetch is experimental till Node.js 21
-  const commandsJsonResponse = await fetch('../commands.json');
+  const commandsJsonResponse = await fetch('../../commands.json');
   if (commandsJsonResponse.ok) {
     const commandsJson = await commandsJsonResponse.json();
     testRunIO.setAllCommandsInputFromJSON(commandsJson);

@@ -1,0 +1,21 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToSpinbutton,ctrl+opt+right,,0:nameAdults,5
+navForwardsToSpinbutton,j,singleQuickKeyNavOn,,5.1
+navForwardsToSpinbutton,tab,,,5.2
+navBackToSpinbutton,ctrl+opt+left,,0:nameAdults,6
+navBackToSpinbutton,shift+j,singleQuickKeyNavOn,,6.1
+navBackToSpinbutton,shift+tab,,,6.2
+reqInfoAboutSpinbutton,ctrl+opt+f3,,,9
+reqInfoAboutSpinbutton,ctrl+opt+f4,,,9.1
+reqInfoAboutInvalidSpinbutton,ctrl+opt+f3,,,10
+reqInfoAboutInvalidSpinbutton,ctrl+opt+f4,,,10.1
+incrementSpinbuttonByOneStep,up,quickNavOff,,12
+incrementSpinbuttonByOneStep,ctrl+opt+shift+down ctrl+opt+up,,,12.1
+incrementSpinbuttonByOneStep,ctrl+opt+shift+down ctrl+opt+right,,,12.2
+decrementSpinbuttonByOneStep,down,quickNavOff,,14
+decrementSpinbuttonByOneStep,ctrl+opt+shift+down ctrl+opt+down,,,14.1
+decrementSpinbuttonByOneStep,ctrl+opt+shift+down ctrl+opt+left,,,14.2
+decrementSpinbuttonToMinimumValue,home,,,20
+incrementSpinbuttonToMaximumValue,end,,,22
+decrementSpinbuttonToMinimumValue,home,,,20
+incrementSpinbuttonToMaximumValue,end,,,22

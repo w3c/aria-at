@@ -1,0 +1,25 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToSpinbutton,down,virtualCursor,0:nameAdults 0:minimumValue1 0:maximumValue8 ,1
+navForwardsToSpinbutton,f,virtualCursor,,1.1
+navForwardsToSpinbutton,tab,virtualCursor,2:interactionModeEnabled,1.2
+navForwardsToSpinbutton,tab,pcCursor,,1.3
+navForwardsToSpinbutton,e,virtualCursor,,1.4
+navBackToSpinbutton,up,virtualCursor,0:nameAdults,2
+navBackToSpinbutton,shift+f,virtualCursor,,2.1
+navBackToSpinbutton,shift+tab,virtualCursor,2:interactionModeEnabled,2.2
+navBackToSpinbutton,shift+tab,pcCursor,,2.3
+navBackToSpinbutton,shift+e,virtualCursor,,2.4
+reqInfoAboutSpinbutton,ins+tab,virtualCursor,,7
+reqInfoAboutSpinbutton,ins+up,virtualCursor,0:minimumValue1 0:maximumValue8,7.1
+reqInfoAboutSpinbutton,ins+tab,pcCursor,,8
+reqInfoAboutSpinbutton,ins+up,pcCursor,0:minimumValue1 0:maximumValue8,8.1
+reqInfoAboutInvalidSpinbutton,ins+tab,virtualCursor,,9
+reqInfoAboutInvalidSpinbutton,ins+up,virtualCursor,0:minimumValue1 0:maximumValue8 0:isInvalid 0:errorMessage,9.1
+reqInfoAboutInvalidSpinbutton,ins+tab,pcCursor,,9.2
+reqInfoAboutInvalidSpinbutton,ins+up,pcCursor,0:minimumValue1 0:maximumValue8 0:isInvalid 0:errorMessage,9.3
+incrementSpinbuttonByOneStep,up,pcCursor,,11
+decrementSpinbuttonByOneStep,down,pcCursor,,13
+decrementSpinbuttonToMinimumValue,home,pcCursor,,19
+incrementSpinbuttonToMaximumValue,end,pcCursor,,21
+decrementSpinbuttonToMinimumValue,home,pcCursor,,19
+incrementSpinbuttonToMaximumValue,end,pcCursor,,21

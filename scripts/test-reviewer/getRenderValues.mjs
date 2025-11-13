@@ -102,6 +102,7 @@ export default getRenderValues;
  * @property {ReviewRender.AssertionForCommandInstruction[]} assertionsForCommandsInstructions
  * @property {string} defaultConfigurationInstructions
  * @property {string} openExampleInstructions
+ * @property {string} setupScriptDescriptionWithPreface
  * @property {ReviewRender.ModeInstructions} modeInstructions
  * @property {string} userInstruction
  */

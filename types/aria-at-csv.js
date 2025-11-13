@@ -49,6 +49,7 @@
  * @typedef AriaATCSV.SupportTestPlanStrings
  * @property {string} ariaSpecsPreface
  * @property {string} openExampleInstruction
+ * @property {string} setupScriptDescriptionPreface
  * @property {string} commandListPreface
  * @property {string} commandListSettingsPreface
  * @property {string} settingInstructionsPreface

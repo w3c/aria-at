@@ -264,6 +264,7 @@ export default processCollectedTests;
  * @property {Object} testPlanStrings
  * @property {string} testPlanStrings.ariaSpecsPreface
  * @property {string} testPlanStrings.openExampleInstruction
+ * @property {string} testPlanStrings.setupScriptDescriptionPreface
  * @property {string} testPlanStrings.commandListPreface
  * @property {string} testPlanStrings.commandListSettingsPreface
  * @property {string} testPlanStrings.settingInstructionsPreface

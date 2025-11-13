@@ -13,19 +13,31 @@ const generatePatternPages = ({
   allTestsForPattern,
   referencesForPattern,
   reviewBuildDirectory,
-  testMode = false,
+  testPlansInfo = {},
 }) => {
   patterns.forEach(pattern => {
-    const references = referencesForPattern[pattern];
+    const info = testPlansInfo[pattern];
+    const patternName = info?.name || pattern;
+    const references = referencesForPattern[patternName];
+
     const renderValues = getRenderValues({
-      pattern,
+      pattern: patternName,
       references,
       atOptions,
       tests: allTestsForPattern[pattern],
       setupScripts,
     });
     const rendered = mustache.render(template, renderValues);
-    const summaryBuildFile = path.resolve(reviewBuildDirectory, `${pattern}.html`);
+
+    // Create subfolder structure if needed
+    let summaryBuildFile;
+    if (info?.subfolder) {
+      const subfolderReviewDir = path.resolve(reviewBuildDirectory, info.subfolder);
+      fse.existsSync(subfolderReviewDir) || fse.mkdirSync(subfolderReviewDir, { recursive: true });
+      summaryBuildFile = path.resolve(subfolderReviewDir, `${patternName}.html`);
+    } else {
+      summaryBuildFile = path.resolve(reviewBuildDirectory, `${patternName}.html`);
+    }
 
     fse.writeFileSync(summaryBuildFile, rendered);
     consoleText(`Summarized ${pattern} tests: ${summaryBuildFile}`, {
@@ -40,20 +52,29 @@ const generateIndexPage = ({
   indexFileBuildOutputPath,
   testMode = false,
 }) => {
+  const infoMap = allTestsForPattern.info || {};
   const renderedIndex = mustache.render(indexTemplate, {
     patterns: Object.keys(allTestsForPattern)
-      .map(pattern => {
+      .filter(key => key !== 'info')
+      .map(patternKey => {
+        const info = infoMap[patternKey];
+        const patternName = info?.name || patternKey;
+        const testPlanPath = info?.subfolder
+          ? path.join('tests', info.subfolder, patternName)
+          : path.join('tests', patternName);
+
         // TODO: useful for determining smart-diffs; this has to continue generating for all patterns until smart-diffs come into play
         const lastCommit = spawnSync('git', [
           'log',
           '-n1',
           '--oneline',
-          path.join('.', 'tests', pattern),
+          testPlanPath,
         ]).stdout.toString();
+
         return {
-          patternName: pattern,
-          title: allTestsForPattern[pattern][0].title,
-          numberOfTests: allTestsForPattern[pattern].length,
+          patternName: patternKey,
+          title: allTestsForPattern[patternKey][0].title,
+          numberOfTests: allTestsForPattern[patternKey].length,
           commit: testMode ? null : lastCommit.split(' ')[0],
           commitDescription: testMode ? null : lastCommit,
         };

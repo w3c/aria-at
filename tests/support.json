@@ -1,4 +1,7 @@
 {
+  "subfolders": {
+    "apg": "ARIA Practices Guidelines Tests"
+  },
   "ats": [
     {
       "name": "JAWS",
@@ -114,7 +117,8 @@
   },
   "testPlanStrings": {
     "ariaSpecsPreface": "Tested ARIA features:",
-    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window and runs a script that",
+    "openExampleInstruction": "Activate the &quot;Open test page&quot; button, which opens the example to test in a new window.",
+    "setupScriptDescriptionPreface": "In the window that displays the example to test, activate the &quot;Run Setup&quot; button, which",
     "commandListPreface": "Do this with each of the following commands or command sequences.",
     "commandListSettingsPreface": "If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.",
     "settingInstructionsPreface": "To perform a task with",
@@ -281,7 +285,7 @@
     },
     "htmlAam": {
       "baseUrl": "https://www.w3.org/TR/html-aam-1.0/",
-      "linkText": "Accessibility API Mapping",
+      "linkText": "HTML-AAM Specification",
       "fragmentIds": {
         "@abbr": "#att-abbr",
         "@accept": "#att-accept",

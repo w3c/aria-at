@@ -19,7 +19,7 @@ const defaultConfig = {
 };
 
 const getBuildFiles = (testPlan, extensions = ['.html', '.json', '.js']) => {
-  const testPlanBuildDirectory = path.join(buildDirectory, 'tests', testPlan);
+  const testPlanBuildDirectory = path.join(buildDirectory, 'tests', 'apg', testPlan);
   const fileNames = getFiles(testPlanBuildDirectory, extensions);
 
   return fileNames.map(filePath => getFileContent(path.join(testPlanBuildDirectory, filePath)));

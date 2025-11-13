@@ -19,7 +19,7 @@
 
     </style>
     <script type="module">
-      import {TestWindow} from '../../tests/resources/aria-at-test-window.mjs';
+      import {TestWindow} from '../../resources/aria-at-test-window.mjs';
 
       function numberTests(value) {
         let testNumber = 0;
@@ -136,7 +136,7 @@
       <li>Tests:
         <ul>
           {{#allRelevantATs}}
-            <li><a href="../tests{{{location}}}?at={{key}}">{{name}}</a></li>
+            <li><a href="../../tests{{{location}}}?at={{key}}">{{name}}</a></li>
           {{/allRelevantATs}}
         </ul>
       </li>
@@ -152,7 +152,7 @@
     </ul>
 
     <button id="open-test-page-{{testNumber}}" class="{{allRelevantATsSpaceSeparated}}"
-        onclick="openTestPage('../tests{{reference}}', {{testNumber}}, '{{setupScriptName}}');">Open Test {{testNumber}} Page</button>
+        onclick="openTestPage('../../tests{{reference}}', {{testNumber}}, '{{setupScriptName}}');">Open Test {{testNumber}} Page</button>
 
       {{#atTests}}
       <div class="{{atKey}}">
@@ -161,6 +161,7 @@
         <ol>
           <li>{{{defaultConfigurationInstructions}}}</li>
           <li>{{{openExampleInstructions}}}</li>
+          <li>{{{setupScriptDescriptionWithPreface}}}</li>
           <li>{{userInstruction}}
             <ul>
               {{#commandsValuesForInstructions}}

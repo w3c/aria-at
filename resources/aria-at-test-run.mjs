@@ -92,7 +92,6 @@ function bind(fn, ...args) {
  */
 export function instructionDocument(resultState, hooks) {
   const mode = resultState.info.mode;
-  const modeInstructions = resultState.info.modeInstructions;
   const userInstructions = resultState.info.userInstructions;
   const lastInstruction = userInstructions[userInstructions.length - 1];
   const setupScriptDescription = ` ${resultState.info.setupScriptDescription}`;
@@ -180,7 +179,8 @@ export function instructionDocument(resultState, hooks) {
             },
             `.`,
           ],
-          `${resultState.testPlanStrings.openExampleInstruction}${setupScriptDescription}`,
+          `${resultState.testPlanStrings.openExampleInstruction}`,
+          `${resultState.testPlanStrings.setupScriptDescriptionPreface}${setupScriptDescription}`,
         ],
         strongInstructions: [...userInstructions].filter(el => el),
         commands: {

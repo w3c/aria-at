@@ -696,6 +696,9 @@ class BehaviorInput {
         setupTestPage: json.setupTestPage,
         testPlanStrings: {
           openExampleInstruction: normalizeString(json.testPlanStrings.openExampleInstruction),
+          setupScriptDescriptionPreface: normalizeString(
+            json.testPlanStrings.setupScriptDescriptionPreface
+          ),
           commandListPreface: json.testPlanStrings.commandListPreface,
           commandListSettingsPreface: json.testPlanStrings.commandListSettingsPreface,
           settingInstructionsPreface: json.testPlanStrings.settingInstructionsPreface,
@@ -796,7 +799,9 @@ class BehaviorInput {
         setupTestPage: target.setupScript ? target.setupScript.name : undefined,
         testPlanStrings: {
           openExampleInstruction:
-            'Activate the "Open test page" button, which opens the example to test in a new window and runs a script that',
+            'Activate the "Open test page" button, which opens the example to test in a new window.',
+          setupScriptDescriptionPreface:
+            'In the window that displays the example to test, activate the "Run Setup" button, which',
           commandListPreface: 'Do this with each of the following commands or command sequences.',
           commandListSettingsPreface:
             'If any settings are specified in parentheses, ensure the settings are active before executing the command or command sequence.',

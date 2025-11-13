@@ -173,7 +173,7 @@ export function createReviewPages(config) {
 
     const {
       references: { aria, htmlAam },
-      testPlanStrings: { ariaSpecsPreface, openExampleInstruction },
+      testPlanStrings: { ariaSpecsPreface, openExampleInstruction, setupScriptDescriptionPreface },
     } = support;
 
     // Get test plan's references.csv data
@@ -219,8 +219,9 @@ export function createReviewPages(config) {
       const mode = typeof testData.mode === 'string' ? testData.mode : testData.mode[0];
       const atTests = [];
 
-      const openExampleInstructions =
-        unescapeHTML(openExampleInstruction) + ' ' + testData.setup_script_description + '.';
+      const openExampleInstructions = unescapeHTML(openExampleInstruction);
+      const setupScriptDescriptionWithPreface =
+        unescapeHTML(setupScriptDescriptionPreface) + ' ' + testData.setup_script_description + '.';
 
       // TODO: applies_to strings are not standardized yet.
       let allRelevantATs =
@@ -254,6 +255,7 @@ export function createReviewPages(config) {
           userInstruction,
           modeInstructions,
           openExampleInstructions,
+          setupScriptDescriptionWithPreface,
           commandsValuesForInstructions,
           defaultConfigurationInstructions,
           assertionsForCommandsInstructions,

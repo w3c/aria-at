@@ -246,6 +246,7 @@ export function createReviewPages(config) {
           atKey,
           testNumber,
           commandsAPI,
+          referencesData,
           collectedTest: testData,
         });
 

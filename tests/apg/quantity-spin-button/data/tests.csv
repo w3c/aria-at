@@ -1,0 +1,9 @@
+testId,title,presentationNumber,setupScript,instructions,assertions
+navForwardsToSpinbutton,Navigate forwards to a spin button,5,setFocusBeforeAdultsSpinbutton,"Starting at the 'Navigate forwards from here' link, navigate to the 'Adults' spinbutton.",roleSpinbutton nameAdults value1 minimumValue1 maximumValue8 0:interactionModeEnabled
+navBackToSpinbutton,Navigate backwards to a spin button,6,setFocusAfterAdultsSpinbutton,"Starting at the 'Navigate backwards from here' link, navigate to the 'Adults' spinbutton.",roleSpinbutton nameAdults value1 minimumValue1 maximumValue8 0:interactionModeEnabled
+reqInfoAboutSpinbutton,Request information about a spin button,9,setFocusOnAdultsSpinbutton,"Starting at the 'Adults' spinbutton, read information about the spinbutton.",roleSpinbutton nameAdults value1 minimumValue1 maximumValue8
+reqInfoAboutInvalidSpinbutton,Request information about an invalid value in a spin button,10,setFocusOnAdultsSpinbuttonValue9,"Starting at the 'Adults' spinbutton, read information about the spinbutton.",roleSpinbutton nameAdults value9 isInvalid minimumValue1 maximumValue8 errorMessage
+incrementSpinbuttonByOneStep,Increment a spin button by one step,12,setFocusOnAdultsSpinbutton,"Starting at the 'Adults' spin button, set its value to 2.",value2
+decrementSpinbuttonByOneStep,Decrement a spin button by one step,14,setFocusOnAdultsSpinbuttonValue2,"Starting at the 'Adults' spin button, set its value to 1.",value1
+decrementSpinbuttonToMinimumValue,Decrement a spin button to the minimum value,20,setFocusOnAdultsSpinbuttonValue2,"Starting at the 'Adults' spin button, set its value to 1.",value1
+incrementSpinbuttonToMaximumValue,Increment a spin button to the maximum value,22,setFocusOnAdultsSpinbutton,"Starting at the 'Adults' spin button , set its value to 8.",value8

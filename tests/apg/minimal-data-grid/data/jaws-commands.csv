@@ -1,11 +1,11 @@
 testId,command,settings,assertionExceptions,presentationNumber
 navForwardsToGrid,t down,virtualCursor,,1
 navForwardsToGrid,down,virtualCursor,,1.1
-navForwardsToGrid,tab,virtualCursor,2:interactionModeEnabled,2.2
-navForwardsToGrid,tab,pcCursor,,2.3
+navForwardsToGrid,tab,virtualCursor,1:coordinatesCellColumn1Row2 1:cellContent01Jan16 2:interactionModeEnabled 0:coordinatesColumnHeaderColumn1Row1,2.2
+navForwardsToGrid,tab,pcCursor,1:coordinatesCellColumn1Row2 1:cellContent01Jan16 0:coordinatesColumnHeaderColumn1Row1,2.3
 navBackToGrid,shift+t down,virtualCursor,,2
-navBackToGrid,shift+tab,virtualCursor,2:interactionModeEnabled,2.6
-navBackToGrid,shift+tab,pcCursor,,2.7
+navBackToGrid,shift+tab,virtualCursor,1:coordinatesCellColumn1Row2 1:cellContent01Jan16 2:interactionModeEnabled 0:lastCellContent99553200 0:coordinatesLastCellColumn5Row7 ,2.6
+navBackToGrid,shift+tab,pcCursor,1:coordinatesCellColumn1Row2 1:cellContent01Jan16 0:lastCellContent99553200 0:coordinatesLastCellColumn5Row7 ,2.7
 reqInfoAboutGridCell,ins+tab,virtualCursor,,12
 reqInfoAboutGridCell,ins+up,virtualCursor,,12.1
 reqInfoAboutGridCell,ins+tab,pcCursor,,13

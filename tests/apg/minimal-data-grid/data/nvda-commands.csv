@@ -1,0 +1,25 @@
+testId,command,settings,assertionExceptions,presentationNumber
+navForwardsToGrid,t,browseMode,,1
+navForwardsToGrid,down,browseMode,,1.1
+navForwardsToGrid,tab,browseMode,1:coordinatesCellColumn1Row2 1:cellContent01Jan16 2:interactionModeEnabled 0:coordinatesColumnHeaderColumn1Row1,1.2
+navForwardsToGrid,tab,focusMode,1:coordinatesCellColumn1Row2 1:cellContent01Jan16 0:coordinatesColumnHeaderColumn1Row1,1.3
+navBackToGrid,shift+t,browseMode,0:columnHeaderContentBalance 0:cellContent99553200 0:columnNumber5 0:rowNumber7 1:coordinatesColumnHeaderColumn1Row1 1:columnHeaderContentDate,2
+navBackToGrid,up,browseMode,1:gridBoundary 3:nameGrid 3:numberColumns5 3:numberRows7 2:columnHeaderContentBalance,2.1
+navBackToGrid,shift+tab,browseMode,1:coordinatesCellColumn1Row2 1:columnHeaderContentDate 1:cellContent01Jan16 2:interactionModeEnabled 0:columnHeaderContentBalance 0:cellContent99553200 0:columnNumber5 0:rowNumber7,2.2
+navBackToGrid,shift+tab,focusMode,1:coordinatesCellColumn1Row2 1:columnHeaderContentDate 1:cellContent01Jan16 0:columnHeaderContentBalance 0:cellContent99553200 0:columnNumber5 0:rowNumber7,2.3
+reqInfoAboutGridCell,ins+tab,browseMode,,12
+reqInfoAboutGridCell,ins+up,browseMode,3:columnHeaderContentDate 3:coordinatesCellColumn1Row2,12.1
+reqInfoAboutGridCell,ins+tab,focusMode,,12.2
+reqInfoAboutGridCell,ins+up,focusMode,3:columnHeaderContentDate 3:coordinatesCellColumn1Row2,12.3
+navToNextColumnGrid,ctrl+alt+right,browseMode,,18
+navToNextColumnGrid,right,focusMode,,19
+navToPrevColumnGrid,ctrl+alt+left,browseMode,,21
+navToPrevColumnGrid,left,focusMode,,22
+navToNextRowGrid,ctrl+alt+down,browseMode,,36
+navToNextRowGrid,down,focusMode,,37
+navToPrevRowGrid,ctrl+alt+up,browseMode,,39
+navToPrevRowGrid,up,focusMode,,40
+navToFirstCellRowGrid,home,focusMode,,48
+navToLastCellRowGrid,end,focusMode,,50
+navToFirstCellGrid,ctrl+home,focusMode,,52
+navToLastCellGrid,ctrl+end,focusMode,,54

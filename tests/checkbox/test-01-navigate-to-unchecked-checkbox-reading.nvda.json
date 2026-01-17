@@ -1,0 +1,253 @@
+[
+  {
+    "nav": [
+      "tests/checkbox/reference/2020-11-23_175030/checkbox-1/checkbox-1.html"
+    ]
+  },
+  {
+    "press_until_contains": [
+      "h",
+      "Sandwich Condiments"
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press": [
+      "x"
+    ]
+  },
+  {
+    "assert_role": [
+      "checkbox"
+    ]
+  },
+  {
+    "assert_state_or_property": [
+      "aria-checked",
+      "false"
+    ]
+  },
+  {
+    "assert_contains": [
+      "Lettuce",
+      1
+    ]
+  },
+  {
+    "assert_equals": [
+      "Sandwich Condiments grouping list with 4 items Lettuce check box not checked"
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press": [
+      "x"
+    ]
+  },
+  {
+    "assert_contains": [
+      "Tomato",
+      1
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press": [
+      "Shift+x"
+    ]
+  },
+  {
+    "assert_role": [
+      "checkbox"
+    ]
+  },
+  {
+    "assert_state_or_property": [
+      "aria-checked",
+      "false"
+    ]
+  },
+  {
+    "assert_contains": [
+      "Lettuce",
+      1
+    ]
+  },
+  {
+    "assert_equals": [
+      "Lettuce check box not checked"
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press_until_contains": [
+      "Shift+h",
+      "Sandwich Condiments"
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press": [
+      "f"
+    ]
+  },
+  {
+    "assert_role": [
+      "checkbox"
+    ]
+  },
+  {
+    "assert_state_or_property": [
+      "aria-checked",
+      "false"
+    ]
+  },
+  {
+    "assert_contains": [
+      "Lettuce",
+      1
+    ]
+  },
+  {
+    "assert_equals": [
+      "Sandwich Condiments grouping list with 4 items Lettuce check box not checked"
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press": [
+      "f"
+    ]
+  },
+  {
+    "assert_contains": [
+      "Tomato",
+      1
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press": [
+      "Shift+f"
+    ]
+  },
+  {
+    "assert_role": [
+      "checkbox"
+    ]
+  },
+  {
+    "assert_state_or_property": [
+      "aria-checked",
+      "false"
+    ]
+  },
+  {
+    "assert_contains": [
+      "Lettuce",
+      1
+    ]
+  },
+  {
+    "assert_equals": [
+      "Lettuce check box not checked"
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press_until_contains": [
+      "Shift+h",
+      "Sandwich Condiments"
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press": [
+      "Tab"
+    ]
+  },
+  {
+    "assert_role": [
+      "checkbox"
+    ]
+  },
+  {
+    "assert_state_or_property": [
+      "aria-checked",
+      "false"
+    ]
+  },
+  {
+    "assert_contains": [
+      "Lettuce",
+      1
+    ]
+  },
+  {
+    "assert_equals": [
+      "Sandwich Condiments grouping list with 4 items Lettuce check box not checked"
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press": [
+      "Tab"
+    ]
+  },
+  {
+    "assert_contains": [
+      "Tomato",
+      1
+    ]
+  },
+  {
+    "clear_output": []
+  },
+  {
+    "press": [
+      "Shift+Tab"
+    ]
+  },
+  {
+    "assert_role": [
+      "checkbox"
+    ]
+  },
+  {
+    "assert_state_or_property": [
+      "aria-checked",
+      "false"
+    ]
+  },
+  {
+    "assert_contains": [
+      "Lettuce",
+      1
+    ]
+  },
+  {
+    "assert_equals": [
+      "Lettuce check box not checked"
+    ]
+  }
+]

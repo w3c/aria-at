@@ -7,9 +7,18 @@ import { unescapeHTML } from './utils.mjs';
  * @param {string} mode
  * @param {string} task
  * @param {number} testNumber
+ * @param {{linkText: string, refId: string, type: string, value: string}[]} referencesData
  * @returns {{defaultConfigurationInstructions, assertionsForCommandsInstructions, at, modeInstructions, userInstruction, commandsValuesForInstructions}}
  */
-const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, testNumber }) => {
+const processCollectedTests = ({
+  collectedTest,
+  commandsAPI,
+  atKey,
+  mode,
+  task,
+  testNumber,
+  referencesData = [],
+}) => {
   let assertionsInstructions,
     assertionsForCommandsInstructions,
     commandsValuesForInstructions,
@@ -41,11 +50,23 @@ const processCollectedTests = ({ collectedTest, commandsAPI, atKey, mode, task, 
           }
 
           // V2 support
+          const ariaHtmlFeatures = a.refIds
+            ? a.refIds
+                .trim()
+                .split(' ')
+                .map(refId => referencesData.find(ref => ref.refId === refId))
+            : [];
+          const ariaHtmlFeaturesExist = ariaHtmlFeatures.length > 0;
+          const ariaHtmlFeaturesIsList = ariaHtmlFeatures.length > 1;
           return {
             assertionId: a.assertionId,
             priority: getPriorityString(a.priority),
             assertionPhrase: a.tokenizedAssertionPhrases?.[at.key] || a.assertionPhrase,
             assertionStatement: a.tokenizedAssertionStatements?.[at.key] || a.assertionStatement,
+            refIds: a.refIds,
+            ariaHtmlFeatures,
+            ariaHtmlFeaturesExist,
+            ariaHtmlFeaturesIsList,
           };
         })
       : undefined;

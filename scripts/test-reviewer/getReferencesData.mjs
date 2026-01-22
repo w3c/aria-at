@@ -3,7 +3,7 @@ import fse from 'fs-extra';
 
 /**
  * @param {string} testPlanDirectory
- * @returns {{linkText: *, refId: *, type: *, value: *}[]}
+ * @returns {{linkText: string, refId: string, type: string, value: string}[]}
  */
 const getReferencesData = testPlanDirectory => {
   const referencesCsv = fse.readFileSync(

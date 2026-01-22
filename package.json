@@ -19,6 +19,7 @@
     "count": "node ./scripts/count-assertions.js",
     "make-v2": "node scripts/v2maker.js",
     "test": "rimraf __test__/build && jest --runInBand",
+    "test:update-snapshots": "npm test -- -u",
     "prepare": "husky"
   },
   "dependencies": {

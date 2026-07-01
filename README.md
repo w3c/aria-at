@@ -8,11 +8,11 @@ The initial scope of this test suite is manual testing of a select set of deskto
 
 ## Documentation
 
-[Documentation is available in the wiki](https://github.com/w3c/aria-at/wiki).
+[Documentation is available in the wiki](https://github.com/w3c-cg/aria-at/wiki).
 
 ## Get involved
 
-Read the wiki page about [Contributing to the ARIA and Assistive Technologies Project](https://github.com/w3c/aria-at/wiki/Contributing-to-the-ARIA-and-Assistive-Technologies-Project).
+Read the wiki page about [Contributing to the ARIA and Assistive Technologies Project](https://github.com/w3c-cg/aria-at/wiki/Contributing-to-the-ARIA-and-Assistive-Technologies-Project).
 
 ## Running Locally
 

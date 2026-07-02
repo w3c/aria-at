@@ -190,6 +190,9 @@
               <th>Assertion Phrase</th>
               {{/isV2}}
               <th>Assertion Statement</th>
+              {{#isV2}}
+              <th>ARIA/HTML Feature</th>
+              {{/isV2}}
             </tr>
             {{#assertionsInstructions}}
               {{#priority}}
@@ -199,6 +202,27 @@
                   <td>{{assertionPhrase}}</td>
                   {{/isV2}}
                   <td>{{assertionStatement}}</td>
+                  {{#isV2}}
+                  <td>
+                  {{#ariaHtmlFeaturesExist}}
+                    {{#ariaHtmlFeaturesIsList}}
+                      <ul>
+                      {{#ariaHtmlFeatures}}
+                        <li><a href="{{value}}">{{linkText}}</a></li>
+                      {{/ariaHtmlFeatures}}
+                      </ul>
+                    {{/ariaHtmlFeaturesIsList}}
+                    {{^ariaHtmlFeaturesIsList}}
+                      {{#ariaHtmlFeatures}}
+                        <a href="{{value}}">{{linkText}}</a>
+                      {{/ariaHtmlFeatures}}
+                    {{/ariaHtmlFeaturesIsList}}
+                  {{/ariaHtmlFeaturesExist}}
+                  {{^ariaHtmlFeaturesExist}}
+                    None
+                  {{/ariaHtmlFeaturesExist}}
+                  </td>
+                  {{/isV2}}
                 </tr>
               {{/priority}}
             {{/assertionsInstructions}}
